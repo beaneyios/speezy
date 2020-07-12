@@ -1,0 +1,6 @@
+framework module DSWaveformImage {
+  umbrella header "DSWaveformImage-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -3,10 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00ECD81F74E696D80D8FB459 /* Pods_SpeezyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */; };
+		94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71429DDB4953F7C3622682B /* Pods_Speezy.framework */; };
+		BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4F988A2480F7CE00B1AE8B /* twitter.png */; };
+		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
+		BE50344B24BA4D5200A414D1 /* AudiowaveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */; };
+		BE50344D24BB21FD00A414D1 /* LargeSoundwaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */; };
+		BE50344F24BB25DA00A414D1 /* LargeSoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */; };
 		BE792707247EE55F0079652C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792706247EE55F0079652C /* AppDelegate.swift */; };
 		BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792708247EE55F0079652C /* SceneDelegate.swift */; };
 		BE79270B247EE55F0079652C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79270A247EE55F0079652C /* ViewController.swift */; };
@@ -14,6 +21,10 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
+		BEAACE8024B9C1B00074E4B9 /* speezy.png in Resources */ = {isa = PBXBuildFile; fileRef = BEAACE7F24B9C1B00074E4B9 /* speezy.png */; };
+		BEAACE8624BA04E30074E4B9 /* AudioEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8524BA04E30074E4B9 /* AudioEditingViewController.swift */; };
+		BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEAACE8D24BA155F0074E4B9 /* test.m4a */; };
+		BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +38,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.release.xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.release.xcconfig"; sourceTree = "<group>"; };
+		0C9D8D96E584A10ABE2B3B59 /* Pods-SpeezyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.debug.xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.release.xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.release.xcconfig"; sourceTree = "<group>"; };
+		86CD793C347B4292285E0E0E /* Pods-Speezy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.debug.xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.debug.xcconfig"; sourceTree = "<group>"; };
+		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE4F988A2480F7CE00B1AE8B /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
+		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
+		BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudiowaveRenderer.swift; sourceTree = "<group>"; };
+		BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeSoundwaveView.xib; sourceTree = "<group>"; };
+		BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeSoundwaveView.swift; sourceTree = "<group>"; };
 		BE792703247EE55F0079652C /* Speezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE792706247EE55F0079652C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE792708247EE55F0079652C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +59,11 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEAACE7F24B9C1B00074E4B9 /* speezy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speezy.png; sourceTree = "<group>"; };
+		BEAACE8524BA04E30074E4B9 /* AudioEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditingViewController.swift; sourceTree = "<group>"; };
+		BEAACE8D24BA155F0074E4B9 /* test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.m4a; sourceTree = "<group>"; };
+		BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditor.swift; sourceTree = "<group>"; };
+		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +79,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00ECD81F74E696D80D8FB459 /* Pods_SpeezyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3683BCE6F03FBB401BF78B91 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				86CD793C347B4292285E0E0E /* Pods-Speezy.debug.xcconfig */,
+				3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */,
+				0C9D8D96E584A10ABE2B3B59 /* Pods-SpeezyTests.debug.xcconfig */,
+				09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		BE7926FA247EE55F0079652C = {
 			isa = PBXGroup;
 			children = (
 				BE792705247EE55F0079652C /* Speezy */,
 				BE79271C247EE5610079652C /* SpeezyTests */,
 				BE792704247EE55F0079652C /* Products */,
+				3683BCE6F03FBB401BF78B91 /* Pods */,
+				E15487FD64A1D16053241EB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +120,10 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BEAACE8324BA031A0074E4B9 /* Recording */,
+				BE4F988A2480F7CE00B1AE8B /* twitter.png */,
+				BEAACE8D24BA155F0074E4B9 /* test.m4a */,
+				BEAACE7F24B9C1B00074E4B9 /* speezy.png */,
 				BE792706247EE55F0079652C /* AppDelegate.swift */,
 				BE792708247EE55F0079652C /* SceneDelegate.swift */,
 				BE79270A247EE55F0079652C /* ViewController.swift */,
@@ -99,6 +144,52 @@
 			path = SpeezyTests;
 			sourceTree = "<group>";
 		};
+		BEAACE8324BA031A0074E4B9 /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				BEAACE8A24BA10400074E4B9 /* Helpers */,
+				BEAACE8924BA08710074E4B9 /* Views */,
+				BEAACE8424BA04D70074E4B9 /* View Controllers */,
+			);
+			path = Recording;
+			sourceTree = "<group>";
+		};
+		BEAACE8424BA04D70074E4B9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEAACE8524BA04E30074E4B9 /* AudioEditingViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BEAACE8924BA08710074E4B9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */,
+				BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BEAACE8A24BA10400074E4B9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */,
+				BE50344824BA4D2C00A414D1 /* AudioContext.swift */,
+				BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E15487FD64A1D16053241EB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F71429DDB4953F7C3622682B /* Pods_Speezy.framework */,
+				A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +197,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE792722247EE5610079652C /* Build configuration list for PBXNativeTarget "Speezy" */;
 			buildPhases = (
+				A0B8742759FA5DB3E81A49F8 /* [CP] Check Pods Manifest.lock */,
 				BE7926FF247EE55F0079652C /* Sources */,
 				BE792700247EE55F0079652C /* Frameworks */,
 				BE792701247EE55F0079652C /* Resources */,
+				8BD7A46B0703E53F9D366220 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,6 +216,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE792725247EE5610079652C /* Build configuration list for PBXNativeTarget "SpeezyTests" */;
 			buildPhases = (
+				5F4458E6A8545A8ED09BB292 /* [CP] Check Pods Manifest.lock */,
 				BE792715247EE5610079652C /* Sources */,
 				BE792716247EE5610079652C /* Frameworks */,
 				BE792717247EE5610079652C /* Resources */,
@@ -180,8 +274,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE50344D24BB21FD00A414D1 /* LargeSoundwaveView.xib in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
+				BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */,
+				BEAACE8024B9C1B00074E4B9 /* speezy.png in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
+				BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */,
 				BE79270E247EE55F0079652C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,14 +293,83 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5F4458E6A8545A8ED09BB292 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpeezyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BD7A46B0703E53F9D366220 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0B8742759FA5DB3E81A49F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Speezy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BE7926FF247EE55F0079652C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEAACE8624BA04E30074E4B9 /* AudioEditingViewController.swift in Sources */,
+				BE50344B24BA4D5200A414D1 /* AudiowaveRenderer.swift in Sources */,
 				BE79270B247EE55F0079652C /* ViewController.swift in Sources */,
+				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
+				BE50344F24BB25DA00A414D1 /* LargeSoundwaveView.swift in Sources */,
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
+				BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +461,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -348,7 +515,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -360,9 +527,11 @@
 		};
 		BE792723247EE5610079652C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86CD793C347B4292285E0E0E /* Pods-Speezy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5P5MB2LN99;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -377,9 +546,11 @@
 		};
 		BE792724247EE5610079652C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5P5MB2LN99;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -394,6 +565,7 @@
 		};
 		BE792726247EE5610079652C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C9D8D96E584A10ABE2B3B59 /* Pods-SpeezyTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -415,6 +587,7 @@
 		};
 		BE792727247EE5610079652C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

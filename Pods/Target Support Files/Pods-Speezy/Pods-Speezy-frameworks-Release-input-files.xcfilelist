@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-frameworks.sh
+${BUILT_PRODUCTS_DIR}/DSWaveformImage/DSWaveformImage.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/SoundWave/SoundWave.framework
+${BUILT_PRODUCTS_DIR}/SwiftVideoGenerator/SwiftVideoGenerator.framework
