@@ -15,94 +15,33 @@ import SoundWave
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var waveImage: UIImageView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var share: UIButton!
-    
-    @IBOutlet weak var leftHandle: UIView!
-    @IBOutlet weak var rightHandle: UIView!
-    
-    @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
-    @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
+    @IBOutlet weak var recordButtonContainer: UIView!
+    @IBOutlet weak var recordButton: UIButton!
     
     @IBOutlet weak var waveContainer: UIView!
+    @IBOutlet weak var trimmableWaveContainer: UIView!
     
     var documentInteractionController: UIDocumentInteractionController?
     
     var currentFileURL = Bundle.main.url(forResource: "test", withExtension: "m4a")
     
-    private var lastLeftLocation: CGFloat = 16.0
-    private var lastRightLocation: CGFloat = 16.0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        spinner.isHidden = true
-        share.layer.cornerRadius = 22.5
-        share.backgroundColor = .red
-        share.setTitleColor(.white, for: .normal)
-        share.addShadow()
         setUpSoundWaves()
-        setUpHandles()
+        configureRecordButton()
     }
     
-    func setUpHandles() {
-        let panRight = UIPanGestureRecognizer(target: self, action: #selector(rightPan(sender:)))
-        rightHandle.addGestureRecognizer(panRight)
+    func configureRecordButton() {
+        view.setNeedsLayout()
+        recordButtonContainer.layer.cornerRadius = recordButtonContainer.frame.width / 2.0
+        recordButtonContainer.layer.borderWidth = 0.5
+        recordButtonContainer.layer.borderColor = UIColor.white.cgColor
         
-        let panLeft = UIPanGestureRecognizer(target: self, action: #selector(leftPan(sender:)))
-        leftHandle.addGestureRecognizer(panLeft)
+        recordButton.layer.cornerRadius = recordButton.frame.width / 2.0
     }
     
-    @objc func leftPan(sender: UIPanGestureRecognizer) {
-        view.layoutIfNeeded()
+    @IBAction func startRecording(_ sender: Any) {
         
-        let translation = sender.translation(in: waveContainer)
-        let newConstraint = lastLeftLocation + translation.x
-        
-        if sender.state == .changed {
-            if newConstraint < 0 {
-                leftHandleConstraint.constant = 0.0
-                lastLeftLocation = 0.0
-                return
-            }
-            
-            if (newConstraint + 48.0) > rightHandle.frame.minX {
-                return
-            }
-            
-            leftHandleConstraint.constant = newConstraint
-            view.layoutIfNeeded()
-        }
-        
-        if sender.state == .ended {
-            lastLeftLocation = newConstraint
-        }
-    }
-    
-    @objc func rightPan(sender: UIPanGestureRecognizer) {
-        view.layoutIfNeeded()
-        
-        let translation = sender.translation(in: waveContainer)
-        let newConstraint = lastRightLocation - translation.x
-        
-        if sender.state == .changed {
-            if newConstraint < 0 {
-                rightHandleConstraint.constant = 0.0
-                lastRightLocation = 0.0
-                return
-            }
-            
-            if (newConstraint + 48.0) > (waveContainer.frame.width - leftHandle.frame.maxX) {
-                return
-            }
-            
-            rightHandleConstraint.constant = newConstraint
-            view.layoutIfNeeded()
-        }
-        
-        if sender.state == .ended {
-            lastRightLocation = newConstraint
-        }
     }
     
     func setUpSoundWaves() {
@@ -114,6 +53,15 @@ class ViewController: UIViewController {
         }
         
         soundWaveView.configure(with: currentFileURL!)
+        
+        let trimmableSoundwaveView = TrimmableSoundwaveView.instanceFromNib()
+        trimmableWaveContainer.addSubview(trimmableSoundwaveView)
+        
+        trimmableSoundwaveView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.trimmableWaveContainer)
+        }
+        
+        trimmableSoundwaveView.configure(with: currentFileURL!)
     }
     
     @IBAction func go(_ sender: Any) {
@@ -121,9 +69,6 @@ class ViewController: UIViewController {
     }
     
     func shareage() {
-        share.setTitle("SHARING...", for: .normal)
-        spinner.isHidden = false
-        spinner.startAnimating()
         if let audioURL4 = Bundle.main.url(forResource: "test" , withExtension: "m4a"), let image = UIImage(named: "speezy") {
             
             VideoGenerator.fileName = "Speezy Audio File"
@@ -184,9 +129,6 @@ class ViewController: UIViewController {
 
 extension ViewController: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerDidDismissOpenInMenu(_ controller: UIDocumentInteractionController) {
-        share.setTitle("SHARE", for: .normal)
-        spinner.isHidden = true
-        spinner.stopAnimating()
     }
 }
 

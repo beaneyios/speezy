@@ -14,6 +14,8 @@
 		BE50344B24BA4D5200A414D1 /* AudiowaveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */; };
 		BE50344D24BB21FD00A414D1 /* LargeSoundwaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */; };
 		BE50344F24BB25DA00A414D1 /* LargeSoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */; };
+		BE50345124BB9C6C00A414D1 /* TrimmableSoundwaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50345024BB9C6C00A414D1 /* TrimmableSoundwaveView.xib */; };
+		BE50345324BB9C7600A414D1 /* TrimmableSoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50345224BB9C7600A414D1 /* TrimmableSoundwaveView.swift */; };
 		BE792707247EE55F0079652C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792706247EE55F0079652C /* AppDelegate.swift */; };
 		BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792708247EE55F0079652C /* SceneDelegate.swift */; };
 		BE79270B247EE55F0079652C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79270A247EE55F0079652C /* ViewController.swift */; };
@@ -48,6 +50,8 @@
 		BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudiowaveRenderer.swift; sourceTree = "<group>"; };
 		BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeSoundwaveView.xib; sourceTree = "<group>"; };
 		BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeSoundwaveView.swift; sourceTree = "<group>"; };
+		BE50345024BB9C6C00A414D1 /* TrimmableSoundwaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrimmableSoundwaveView.xib; sourceTree = "<group>"; };
+		BE50345224BB9C7600A414D1 /* TrimmableSoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmableSoundwaveView.swift; sourceTree = "<group>"; };
 		BE792703247EE55F0079652C /* Speezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE792706247EE55F0079652C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE792708247EE55F0079652C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 			children = (
 				BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */,
 				BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */,
+				BE50345024BB9C6C00A414D1 /* TrimmableSoundwaveView.xib */,
+				BE50345224BB9C7600A414D1 /* TrimmableSoundwaveView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
 				BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */,
 				BE79270E247EE55F0079652C /* Main.storyboard in Resources */,
+				BE50345124BB9C6C00A414D1 /* TrimmableSoundwaveView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +371,7 @@
 			files = (
 				BEAACE8624BA04E30074E4B9 /* AudioEditingViewController.swift in Sources */,
 				BE50344B24BA4D5200A414D1 /* AudiowaveRenderer.swift in Sources */,
+				BE50345324BB9C7600A414D1 /* TrimmableSoundwaveView.swift in Sources */,
 				BE79270B247EE55F0079652C /* ViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
