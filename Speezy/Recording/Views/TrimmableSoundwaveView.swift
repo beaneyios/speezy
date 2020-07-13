@@ -87,6 +87,8 @@ class TrimmableSoundwaveView: UIView {
         audioVisualizationView.meteringLevels = levels
                     
         self.audioContentView.addSubview(audioVisualizationView)
+        contentView.bringSubviewToFront(leftHandle)
+        contentView.bringSubviewToFront(rightHandle)
         self.audioVisualizationView = audioVisualizationView
     }
     

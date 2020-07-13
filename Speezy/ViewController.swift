@@ -10,15 +10,16 @@ import UIKit
 import SwiftVideoGenerator
 import AVKit
 import SnapKit
-import DSWaveformImage
 import SoundWave
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var recordButtonContainer: UIView!
-    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var btnCut: UIButton!
+    @IBOutlet weak var btnPlayback: UIButton!
+    @IBOutlet weak var btnRecord: UIButton!
+    @IBOutlet weak var btnCrop: UIButton!
     
-    @IBOutlet weak var waveContainer: UIView!
+    @IBOutlet weak var mainWaveContainer: UIView!
     @IBOutlet weak var trimmableWaveContainer: UIView!
     
     var documentInteractionController: UIDocumentInteractionController?
@@ -28,28 +29,29 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSoundWaves()
-        configureRecordButton()
     }
     
-    func configureRecordButton() {
-        view.setNeedsLayout()
-        recordButtonContainer.layer.cornerRadius = recordButtonContainer.frame.width / 2.0
-        recordButtonContainer.layer.borderWidth = 0.5
-        recordButtonContainer.layer.borderColor = UIColor.white.cgColor
-        
-        recordButton.layer.cornerRadius = recordButton.frame.width / 2.0
+    @IBAction func toggleRecording(_ sender: Any) {
+        btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
     }
     
-    @IBAction func startRecording(_ sender: Any) {
+    @IBAction func toggleCrop(_ sender: Any) {
         
+    }
+    
+    @IBAction func togglePlayback(_ sender: Any) {
+        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+    }
+    
+    @IBAction func toggleCut(_ sender: Any) {
     }
     
     func setUpSoundWaves() {
         let soundWaveView = LargeSoundwaveView.instanceFromNib()
-        waveContainer.addSubview(soundWaveView)
+        mainWaveContainer.addSubview(soundWaveView)
         
         soundWaveView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.waveContainer)
+            maker.edges.equalTo(self.mainWaveContainer)
         }
         
         soundWaveView.configure(with: currentFileURL!)

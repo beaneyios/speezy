@@ -1,28 +1,24 @@
 PODS:
-  - DSWaveformImage (6.1.1)
   - SnapKit (5.0.1)
   - SoundWave (0.1.4)
   - SwiftVideoGenerator (1.4.0)
 
 DEPENDENCIES:
-  - DSWaveformImage (~> 6.1)
   - SnapKit (~> 5.0.0)
   - SoundWave
   - SwiftVideoGenerator
 
 SPEC REPOS:
   trunk:
-    - DSWaveformImage
     - SnapKit
     - SoundWave
     - SwiftVideoGenerator
 
 SPEC CHECKSUMS:
-  DSWaveformImage: 3c718a0cf99291887ee70d1d0c18d80101d3d9ce
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SoundWave: d98ffaa863570b29d991da32a09b7ce1b4aaf2d4
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
 
-PODFILE CHECKSUM: 4b7f13df6cd0ba4e03caccce8258783b5dd361df
+PODFILE CHECKSUM: a75e5ac810b57414f6caf5d5a1ebc46eaf9e4130
 
 COCOAPODS: 1.9.1
