@@ -31,13 +31,15 @@ class ViewController: UIViewController {
     
     var documentInteractionController: UIDocumentInteractionController?
     
-    // State
-    var state: PlayerState = .fresh
-    var currentFileURL = Bundle.main.url(forResource: "test", withExtension: "m4a")
-        
+    let audioManager = AudioManager(
+        item: AudioItem(url: Bundle.main.url(forResource: "test", withExtension: "m4a")!)
+    )
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSoundWaves()
+        
+        audioManager.addObserver(self)
     }
     
     @IBAction func toggleRecording(_ sender: Any) {
@@ -49,16 +51,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
-        switch state {
-        case .fresh, .paused:
-            btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
-            mainWave?.play()
-            state = .playing
-        case .playing:
-            btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-            mainWave?.pause()
-            state = .paused
-        }
+        audioManager.togglePlayback()
     }
     
     @IBAction func toggleCut(_ sender: Any) {
@@ -77,14 +70,10 @@ class ViewController: UIViewController {
             maker.edges.equalTo(self.trimmableWaveContainer)
         }
         
-        trimmableSoundwaveView.configure(with: currentFileURL!)
+        trimmableSoundwaveView.configure(manager: audioManager)
     }
     
     func setUpMainSoundwave() {
-        guard let currentFileURL = self.currentFileURL else {
-            return
-        }
-        
         let soundWaveView = LargeSoundwaveView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
@@ -92,7 +81,7 @@ class ViewController: UIViewController {
             maker.edges.equalTo(self.mainWaveContainer)
         }
         
-        soundWaveView.configure(with: currentFileURL)
+        soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
     }
     
@@ -124,13 +113,9 @@ class ViewController: UIViewController {
     }
     
     func trimmage() {
-        guard let audioURL = currentFileURL else {
-            return
-        }
-        
         let editor = AudioEditor()
-        editor.trim(fileURL: audioURL, startTime: 1, stopTime: 4) { (outputURL) in
-            self.currentFileURL = outputURL
+        editor.trim(fileURL: audioManager.item.url, startTime: 1, stopTime: 4) { (outputURL) in
+            
             DispatchQueue.main.async {
                 self.setUpSoundWaves()
             }
@@ -156,6 +141,24 @@ class ViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
             }
         }
+    }
+}
+
+extension ViewController: AudioManagerObserver {
+    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+        // noop for now
+    }
+    
+    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
+        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+    }
+    
+    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioPlayerDidStop(_ player: AudioManager) {
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
 }
 

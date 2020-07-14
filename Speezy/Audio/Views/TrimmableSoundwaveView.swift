@@ -30,10 +30,22 @@ class TrimmableSoundwaveView: UIView {
     private var lastLeftLocation: CGFloat = 16.0
     private var lastRightLocation: CGFloat = 16.0
     
-    func configure(with url: URL) {
+    private var manager: AudioManager?
+    
+    func configure(manager: AudioManager) {
+        self.manager = manager
         setUpHandles()
-
-        AudioLevelGenerator.render(fromAudioURL: url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing)) { (levels, _) in
+        layoutIfNeeded()
+        render()
+    }
+    
+    private func render() {
+        guard let manager = self.manager else {
+            assertionFailure("Manager not available for some reason")
+            return
+        }
+        
+        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing)) { (levels, _) in
             DispatchQueue.main.async {
                 self.createAudioVisualisationView(with: levels)
             }

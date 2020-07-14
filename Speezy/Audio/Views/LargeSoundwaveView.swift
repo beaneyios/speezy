@@ -14,7 +14,6 @@ class LargeSoundwaveView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    private var timer: Timer?
     private var audioVisualizationView: AudioVisualizationView!
     
     private let barSpacing: CGFloat = 3.0
@@ -23,12 +22,14 @@ class LargeSoundwaveView: UIView {
     
     private var totalTime: TimeInterval = 0.0
     private var currentTime: TimeInterval = 0.0
-    private var state: PlayerState = .fresh
+    private var manager: AudioManager?
 
-    func configure(with url: URL) {
+    func configure(manager: AudioManager) {
+        self.manager = manager
+        manager.addObserver(self)
         scrollView.delegate = self
         AudioLevelGenerator.render(
-            fromAudioURL: url,
+            fromAudioURL: manager.item.url,
             targetSamplesPolicy: .fitToDuration,
             completion: createAudioVisualisationView(with:seconds:)
         )
@@ -126,51 +127,46 @@ extension LargeSoundwaveView {
 }
 
 // MARK: Actions
-extension LargeSoundwaveView {
-    func play() {
-        if state == .playing {
-            return
-        }
-        
-        state = .playing
-        
-        if self.currentTime > 0.0 {
-            audioVisualizationView.play(for: totalTime - currentTime)
-            self.startTimer()
-        } else {
-            audioVisualizationView.play(for: totalTime)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                self.startTimer()
-            }
+extension LargeSoundwaveView: AudioManagerObserver {
+    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+        if time > 2.0 {
+            self.advanceScrollViewWithTimer()
         }
     }
     
-    func pause() {
-        if state == .paused {
-            return
+    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
+        play()
+    }
+    
+    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+        pause()
+    }
+    
+    func audioPlayerDidStop(_ player: AudioManager) {
+        stop()
+    }
+    
+    private func play() {
+        if self.currentTime > 0.0 {
+            audioVisualizationView.play(for: totalTime - currentTime)
+        } else {
+            audioVisualizationView.play(for: totalTime)
         }
-        
-        state = .paused
-        
+    }
+    
+    private func pause() {
         guard let percentage = audioVisualizationView.currentGradientPercentage, percentage < 100, percentage > 0 else {
             return
         }
 
         currentTime = totalTime * TimeInterval(percentage)
-        timer?.invalidate()
         audioVisualizationView.pause()
     }
     
-    private func startTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-            let scrollView: UIScrollView = self.scrollView
-            if scrollView.contentOffset.x >= (scrollView.contentSize.width - self.frame.width) {
-                self.timer?.invalidate()
-                return
-            }
-            
-            self.advanceScrollViewWithTimer()
-        }
+    private func stop() {
+        currentTime = 0.0
+        audioVisualizationView.stop()
+        scrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
     }
     
     private func advanceScrollViewWithTimer() {
@@ -186,7 +182,7 @@ extension LargeSoundwaveView {
 
 extension LargeSoundwaveView: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        pause()
+        manager?.pause()
     }
 }
 
