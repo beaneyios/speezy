@@ -189,7 +189,8 @@
                         <outlet property="btnRecord" destination="tp7-Oy-Ge7" id="m84-2O-lLe"/>
                         <outlet property="lblTimer" destination="BHa-y7-Fyu" id="8YV-wv-N99"/>
                         <outlet property="mainWaveContainer" destination="aD4-iy-Eyt" id="RiN-lJ-Mwd"/>
-                        <outlet property="trimmableWaveContainer" destination="I7a-EG-tAp" id="ivC-LT-47N"/>
+                        <outlet property="trimContainer" destination="I7a-EG-tAp" id="8lb-jS-nfL"/>
+                        <outlet property="trimContainerHeight" destination="oMl-BD-Qm2" id="zpx-AT-Ubc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

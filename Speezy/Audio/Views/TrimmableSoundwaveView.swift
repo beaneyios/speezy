@@ -76,11 +76,16 @@ class TrimmableSoundwaveView: UIView {
         audioVisualizationView.audioVisualizationMode = .read
         audioVisualizationView.backgroundColor = .clear
         audioVisualizationView.meteringLevels = levels
+        audioVisualizationView.alpha = 0.0
                     
         self.audioContentView.addSubview(audioVisualizationView)
         contentView.bringSubviewToFront(leftHandle)
         contentView.bringSubviewToFront(rightHandle)
         self.audioVisualizationView = audioVisualizationView
+        
+        UIView.animate(withDuration: 0.4) {
+            audioVisualizationView.alpha = 1.0
+        }
     }
     
     func setUpHandles() {

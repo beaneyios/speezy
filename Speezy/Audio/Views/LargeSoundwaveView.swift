@@ -64,11 +64,16 @@ extension LargeSoundwaveView {
             audioVisualizationView.audioVisualizationMode = .read
             audioVisualizationView.backgroundColor = .clear
             audioVisualizationView.meteringLevels = levels
-                        
+            audioVisualizationView.alpha = 0.0
+            
             self.scrollView.contentSize = audioVisualizationViewSize
             self.contentView.addSubview(audioVisualizationView)
             
             self.audioVisualizationView = audioVisualizationView
+            
+            UIView.animate(withDuration: 0.3) {
+                audioVisualizationView.alpha = 1.0
+            }
         }
     }
     
@@ -81,6 +86,7 @@ extension LargeSoundwaveView {
             
             (1...Int(seconds)).forEach {
                 let label = UILabel()
+                label.alpha = 0.0
                 label.font = UIFont.systemFont(ofSize: 12.0)
                 label.text = "\(self.timeLabel(duration: TimeInterval($0)))"
                 label.textColor = .white
@@ -112,6 +118,10 @@ extension LargeSoundwaveView {
                     maker.width.equalTo(1.0)
                     maker.leading.equalTo(label.snp.leading)
                 }
+                
+                UIView.animate(withDuration: 0.3, delay: TimeInterval($0) / 10.0, options: [], animations: {
+                    label.alpha = 0.3
+                }, completion: nil)
             }
         }
     }

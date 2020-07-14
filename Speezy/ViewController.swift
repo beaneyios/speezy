@@ -27,9 +27,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblTimer: UILabel!
     
     @IBOutlet weak var mainWaveContainer: UIView!
-    @IBOutlet weak var trimmableWaveContainer: UIView!
+    
+    @IBOutlet weak var trimContainer: UIView!
+    @IBOutlet weak var trimContainerHeight: NSLayoutConstraint!
     
     private var mainWave: LargeSoundwaveView?
+    private var trimWave: TrimmableSoundwaveView?
     
     var documentInteractionController: UIDocumentInteractionController?
     
@@ -39,8 +42,8 @@ class ViewController: UIViewController {
             
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSoundWaves()
-        
+        setUpMainSoundWave()
+        hideTrimView(animated: false)
         audioManager.addObserver(self)
     }
     
@@ -49,7 +52,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
-        
+        toggleTrimView()
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
@@ -57,25 +60,58 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleCut(_ sender: Any) {
-    }
-    
-    func setUpSoundWaves() {
-        setUpMainSoundwave()
-        setUpTrimmableSoundwave()
-    }
-    
-    func setUpTrimmableSoundwave() {
-        let trimmableSoundwaveView = TrimmableSoundwaveView.instanceFromNib()
-        trimmableWaveContainer.addSubview(trimmableSoundwaveView)
         
-        trimmableSoundwaveView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.trimmableWaveContainer)
+    }
+    
+    func hideTrimView(animated: Bool) {
+        trimContainerHeight.constant = 0.0
+        trimContainer.alpha = 0.0
+    }
+    
+    func toggleTrimView() {
+        if let trimWave = self.trimWave {
+            hideTrimWave(trimWave)
+        } else {
+            showTrimWave()
+        }
+    }
+    
+    func hideTrimWave(_ wave: TrimmableSoundwaveView) {
+        btnCrop.setImage(UIImage(named: "crop-button"), for: .normal)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.trimContainer.alpha = 0.0
+        }) { (finished) in
+            wave.removeFromSuperview()
+            self.trimWave = nil            
+            self.trimContainerHeight.constant = 0.0
+        }
+    }
+    
+    func showTrimWave() {
+        btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
+        
+        let trimWave = TrimmableSoundwaveView.instanceFromNib()
+        trimContainer.addSubview(trimWave)
+        
+        trimWave.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.trimContainer)
         }
         
-        trimmableSoundwaveView.configure(manager: audioManager)
+        trimContainer.layoutIfNeeded()
+        
+        trimContainerHeight.constant = 64.0
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.layoutIfNeeded()
+            self.trimContainer.alpha = 1.0
+        }) { (finished) in
+            trimWave.configure(manager: self.audioManager)
+        }
+        
+        self.trimWave = trimWave
     }
     
-    func setUpMainSoundwave() {
+    func setUpMainSoundWave() {
         let soundWaveView = LargeSoundwaveView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
@@ -119,7 +155,7 @@ class ViewController: UIViewController {
         editor.trim(fileURL: audioManager.item.url, startTime: 1, stopTime: 4) { (outputURL) in
             
             DispatchQueue.main.async {
-                self.setUpSoundWaves()
+                
             }
         }
     }
@@ -137,7 +173,12 @@ class ViewController: UIViewController {
                     animated: true
                 )
             } else {
-                let alert = UIAlertController(title: "Error", message: "No WhatsApp installed on your iPhone", preferredStyle: .alert)
+                let alert = UIAlertController(
+                    title: "Error",
+                    message: "No WhatsApp installed on your iPhone",
+                    preferredStyle: .alert
+                )
+                
                 let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(ok)
                 present(alert, animated: true, completion: nil)
