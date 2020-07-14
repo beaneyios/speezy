@@ -78,12 +78,12 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="audioContentView" destination="4J9-SX-eUJ" id="0i2-oB-TUc"/>
                 <outlet property="contentView" destination="spJ-im-iW4" id="eYN-QL-Nkx"/>
                 <outlet property="leftHandle" destination="Ylu-1e-ghH" id="UrX-eL-X6e"/>
                 <outlet property="leftHandleConstraint" destination="Eca-ds-q2V" id="q9w-7u-Osn"/>
                 <outlet property="rightHandle" destination="7EE-4e-uLl" id="rrF-39-EWD"/>
                 <outlet property="rightHandleConstraint" destination="iV8-PO-yWc" id="hym-WY-QoT"/>
+                <outlet property="waveContainer" destination="4J9-SX-eUJ" id="0i2-oB-TUc"/>
             </connections>
             <point key="canvasLocation" x="-46.376811594202906" y="290.625"/>
         </view>

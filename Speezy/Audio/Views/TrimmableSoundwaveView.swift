@@ -13,7 +13,7 @@ import SoundWave
 class TrimmableSoundwaveView: UIView {
     
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var audioContentView: UIView!
+    @IBOutlet weak var waveContainer: UIView!
     
     @IBOutlet weak var leftHandle: UIView!
     @IBOutlet weak var rightHandle: UIView!
@@ -21,7 +21,7 @@ class TrimmableSoundwaveView: UIView {
     @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
     
-    private var audioVisualizationView: AudioVisualizationView!
+    private var trimWave: AudioVisualizationView!
     
     private let barSpacing: CGFloat = 1.0
     private let barWidth: CGFloat = 1.0
@@ -55,11 +55,11 @@ class TrimmableSoundwaveView: UIView {
     private func createAudioVisualisationView(with levels: [Float]) {
         
         let audioVisualizationViewSize = CGSize(
-            width: audioContentView.frame.width,
-            height: audioContentView.frame.height
+            width: waveContainer.frame.width,
+            height: waveContainer.frame.height
         )
                     
-        let audioVisualizationView = AudioVisualizationView(
+        let trimWave = AudioVisualizationView(
             frame: CGRect(
                 x: 0,
                 y: 0.0,
@@ -68,23 +68,24 @@ class TrimmableSoundwaveView: UIView {
             )
         )
         
-        audioVisualizationView.gradientEndColor = .red
-        audioVisualizationView.gradientStartColor = .white
-        audioVisualizationView.meteringLevelBarInterItem = self.barSpacing
-        audioVisualizationView.meteringLevelBarWidth = self.barWidth
-        audioVisualizationView.tintColor = .white
-        audioVisualizationView.audioVisualizationMode = .read
-        audioVisualizationView.backgroundColor = .clear
-        audioVisualizationView.meteringLevels = levels
-        audioVisualizationView.alpha = 0.0
+        trimWave.gradientEndColor = .red
+        trimWave.gradientStartColor = .white
+        trimWave.meteringLevelBarInterItem = barSpacing
+        trimWave.meteringLevelBarWidth = barWidth
+        trimWave.audioVisualizationMode = .read
+        trimWave.meteringLevels = levels
+        
+        trimWave.tintColor = .white
+        trimWave.backgroundColor = .clear
+        trimWave.alpha = 0.0
                     
-        self.audioContentView.addSubview(audioVisualizationView)
+        waveContainer.addSubview(trimWave)
         contentView.bringSubviewToFront(leftHandle)
         contentView.bringSubviewToFront(rightHandle)
-        self.audioVisualizationView = audioVisualizationView
+        self.trimWave = trimWave
         
         UIView.animate(withDuration: 0.4) {
-            audioVisualizationView.alpha = 1.0
+            trimWave.alpha = 1.0
         }
     }
     
