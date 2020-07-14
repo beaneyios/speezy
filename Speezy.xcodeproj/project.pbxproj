@@ -11,7 +11,7 @@
 		94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71429DDB4953F7C3622682B /* Pods_Speezy.framework */; };
 		BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4F988A2480F7CE00B1AE8B /* twitter.png */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
-		BE50344B24BA4D5200A414D1 /* AudiowaveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */; };
+		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
 		BE50344D24BB21FD00A414D1 /* LargeSoundwaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */; };
 		BE50344F24BB25DA00A414D1 /* LargeSoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */; };
 		BE50345124BB9C6C00A414D1 /* TrimmableSoundwaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50345024BB9C6C00A414D1 /* TrimmableSoundwaveView.xib */; };
@@ -47,7 +47,7 @@
 		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4F988A2480F7CE00B1AE8B /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
-		BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudiowaveRenderer.swift; sourceTree = "<group>"; };
+		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
 		BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeSoundwaveView.xib; sourceTree = "<group>"; };
 		BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeSoundwaveView.swift; sourceTree = "<group>"; };
 		BE50345024BB9C6C00A414D1 /* TrimmableSoundwaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrimmableSoundwaveView.xib; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		BEAACE8324BA031A0074E4B9 /* Recording */ = {
 			isa = PBXGroup;
 			children = (
-				BEAACE8A24BA10400074E4B9 /* Helpers */,
+				BEAACE8A24BA10400074E4B9 /* Controller */,
 				BEAACE8924BA08710074E4B9 /* Views */,
 				BEAACE8424BA04D70074E4B9 /* View Controllers */,
 			);
@@ -177,14 +177,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		BEAACE8A24BA10400074E4B9 /* Helpers */ = {
+		BEAACE8A24BA10400074E4B9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */,
 				BE50344824BA4D2C00A414D1 /* AudioContext.swift */,
-				BE50344A24BA4D5200A414D1 /* AudiowaveRenderer.swift */,
+				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 			);
-			path = Helpers;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		E15487FD64A1D16053241EB9 /* Frameworks */ = {
@@ -370,7 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEAACE8624BA04E30074E4B9 /* AudioEditingViewController.swift in Sources */,
-				BE50344B24BA4D5200A414D1 /* AudiowaveRenderer.swift in Sources */,
+				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* TrimmableSoundwaveView.swift in Sources */,
 				BE79270B247EE55F0079652C /* ViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,

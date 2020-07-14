@@ -35,22 +35,12 @@
                             <viewLayoutGuide key="contentLayoutGuide" id="5bs-yp-zgo"/>
                             <viewLayoutGuide key="frameLayoutGuide" id="bsE-lP-NEb"/>
                         </scrollView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXz-8r-q8Q">
-                            <rect key="frame" x="16" y="16" width="46" height="30"/>
-                            <color key="backgroundColor" red="0.8824555838" green="0.60906909229999995" blue="0.86448737499999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <state key="normal" title="Button"/>
-                            <connections>
-                                <action selector="play:" destination="iN0-l3-epB" eventType="touchUpInside" id="tbc-f6-3kT"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ICs-PM-STR" secondAttribute="bottom" id="D1d-ZJ-VBN"/>
                         <constraint firstAttribute="trailing" secondItem="ICs-PM-STR" secondAttribute="trailing" id="fo1-G4-Qan"/>
                         <constraint firstItem="ICs-PM-STR" firstAttribute="leading" secondItem="IFb-kf-Gt1" secondAttribute="leading" id="gtF-4C-yDF"/>
-                        <constraint firstItem="LXz-8r-q8Q" firstAttribute="top" secondItem="IFb-kf-Gt1" secondAttribute="top" constant="16" id="i3E-L2-ra2"/>
-                        <constraint firstItem="LXz-8r-q8Q" firstAttribute="leading" secondItem="IFb-kf-Gt1" secondAttribute="leading" constant="16" id="sB0-kA-yTa"/>
                         <constraint firstItem="ICs-PM-STR" firstAttribute="top" secondItem="IFb-kf-Gt1" secondAttribute="top" id="tTy-XC-wae"/>
                     </constraints>
                 </view>
@@ -65,7 +55,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="button" destination="LXz-8r-q8Q" id="Luf-bi-G6J"/>
                 <outlet property="contentView" destination="VN9-e4-pJ2" id="WLE-SH-DzC"/>
                 <outlet property="scrollView" destination="ICs-PM-STR" id="Rlr-xa-13H"/>
             </connections>

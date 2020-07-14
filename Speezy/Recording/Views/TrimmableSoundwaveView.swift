@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SoundWave
-import AVKit
 
 class TrimmableSoundwaveView: UIView {
     
@@ -34,35 +33,15 @@ class TrimmableSoundwaveView: UIView {
     func configure(with url: URL) {
         setUpHandles()
 
-        AudioContext.load(fromAudioURL: url) { (context) in
-            guard let context = context else {
-                return
-            }
-            
+        AudioLevelGenerator.render(fromAudioURL: url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing)) { (levels, _) in
             DispatchQueue.main.async {
-                self.configure(with: context, url: url)
+                self.createAudioVisualisationView(with: levels)
             }
         }
-    }
-    
-    private func configure(with context: AudioContext, url: URL) {
-        let dbLevels = AudiowaveRenderer.render(
-            audioContext: context,
-            targetSamples: Int(self.frame.width / totalSpacePerBar)
-        )
-        
-        guard let minLevel = dbLevels.sorted().first else {
-            return
-        }
-        
-        let percentageValues = dbLevels.map {
-            ($0 - minLevel) / 110
-        }
-        
-        createAudioVisualisationView(with: percentageValues)
     }
     
     private func createAudioVisualisationView(with levels: [Float]) {
+        
         let audioVisualizationViewSize = CGSize(
             width: audioContentView.frame.width,
             height: audioContentView.frame.height

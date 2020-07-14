@@ -12,8 +12,13 @@ import AVKit
 import SnapKit
 import SoundWave
 
+enum PlayerState {
+    case fresh
+    case playing
+    case paused
+}
+
 class ViewController: UIViewController {
-    
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnRecord: UIButton!
@@ -22,10 +27,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var mainWaveContainer: UIView!
     @IBOutlet weak var trimmableWaveContainer: UIView!
     
+    private var mainWave: LargeSoundwaveView?
+    
     var documentInteractionController: UIDocumentInteractionController?
     
+    // State
+    var state: PlayerState = .fresh
     var currentFileURL = Bundle.main.url(forResource: "test", withExtension: "m4a")
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSoundWaves()
@@ -40,22 +49,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
-        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+        switch state {
+        case .fresh, .paused:
+            btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+            mainWave?.play()
+            state = .playing
+        case .playing:
+            btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+            mainWave?.pause()
+            state = .paused
+        }
     }
     
     @IBAction func toggleCut(_ sender: Any) {
     }
     
     func setUpSoundWaves() {
-        let soundWaveView = LargeSoundwaveView.instanceFromNib()
-        mainWaveContainer.addSubview(soundWaveView)
-        
-        soundWaveView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.mainWaveContainer)
-        }
-        
-        soundWaveView.configure(with: currentFileURL!)
-        
+        setUpMainSoundwave()
+        setUpTrimmableSoundwave()
+    }
+    
+    func setUpTrimmableSoundwave() {
         let trimmableSoundwaveView = TrimmableSoundwaveView.instanceFromNib()
         trimmableWaveContainer.addSubview(trimmableSoundwaveView)
         
@@ -64,6 +78,22 @@ class ViewController: UIViewController {
         }
         
         trimmableSoundwaveView.configure(with: currentFileURL!)
+    }
+    
+    func setUpMainSoundwave() {
+        guard let currentFileURL = self.currentFileURL else {
+            return
+        }
+        
+        let soundWaveView = LargeSoundwaveView.instanceFromNib()
+        mainWaveContainer.addSubview(soundWaveView)
+        
+        soundWaveView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.mainWaveContainer)
+        }
+        
+        soundWaveView.configure(with: currentFileURL)
+        mainWave = soundWaveView
     }
     
     @IBAction func go(_ sender: Any) {

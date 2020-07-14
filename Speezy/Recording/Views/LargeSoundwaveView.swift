@@ -8,74 +8,43 @@
 
 import UIKit
 import SoundWave
-import AVKit
 import SnapKit
 
 class LargeSoundwaveView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var button: UIButton!
     private var timer: Timer?
     private var audioVisualizationView: AudioVisualizationView!
-    private var currentPosition: TimeInterval = 0.0
     
     private let barSpacing: CGFloat = 3.0
     private let barWidth: CGFloat = 3.0
     private var totalSpacePerBar: CGFloat { barSpacing + barWidth }
     
-    private var time: TimeInterval = 0.0
-    
-    @IBAction func play(_ sender: Any) {
-        self.play()
-    }
-    
+    private var totalTime: TimeInterval = 0.0
+    private var currentTime: TimeInterval = 0.0
+    private var state: PlayerState = .fresh
+
     func configure(with url: URL) {
         scrollView.delegate = self
-        AudioContext.load(fromAudioURL: url) { (context) in
-            guard let context = context else {
-                return
-            }
-            
-            self.configure(with: context, url: url)
-        }
+        AudioLevelGenerator.render(
+            fromAudioURL: url,
+            targetSamplesPolicy: .fitToDuration,
+            completion: createAudioVisualisationView(with:seconds:)
+        )
     }
-    
-    private func configure(with context: AudioContext, url: URL) {
-        guard let audioFile = try? AVAudioFile(forReading: url) else {
-            assertionFailure("Couldn't load URL \(url.absoluteString)")
-            return
-        }
-        
-        let audioAsset = AVAsset(url: url)
-        
-        let audioFilePFormat = audioFile.processingFormat
-        let audioFileLength = audioFile.length
+}
 
-        let frameSizeToRead = Int(audioFilePFormat.sampleRate / 10)
-        let numberOfFrames = Int(audioFileLength) / frameSizeToRead
-        
-        let dbLevels = AudiowaveRenderer.render(audioContext: context, targetSamples: numberOfFrames)
-        
-        guard let minLevel = dbLevels.sorted().first else {
-            return
-        }
-        
-        let percentageValues = dbLevels.map {
-            ($0 - minLevel) / 110
-        }
-        
-        createAudioVisualisationView(with: percentageValues, asset: audioAsset)
-    }
-    
-    private func createAudioVisualisationView(with levels: [Float], asset: AVAsset) {
+// MARK: View set up
+extension LargeSoundwaveView {
+    private func createAudioVisualisationView(with levels: [Float], seconds: TimeInterval) {
         DispatchQueue.main.async {
             let audioVisualizationViewSize = CGSize(
                 width: CGFloat(levels.count) * self.totalSpacePerBar,
                 height: self.frame.height - 24.0
             )
             
-            self.createTimeLine(asset: asset, width: audioVisualizationViewSize.width)
+            self.createTimeLine(seconds: seconds, width: audioVisualizationViewSize.width)
             
             let audioVisualizationView = AudioVisualizationView(
                 frame: CGRect(
@@ -99,14 +68,11 @@ class LargeSoundwaveView: UIView {
             self.contentView.addSubview(audioVisualizationView)
             
             self.audioVisualizationView = audioVisualizationView
-            self.contentView.bringSubviewToFront(self.button)
         }
     }
     
-    private func createTimeLine(asset: AVAsset, width: CGFloat) {
-        let duration = asset.duration
-        let seconds = TimeInterval(CMTimeGetSeconds(duration))
-        time = seconds
+    private func createTimeLine(seconds: TimeInterval, width: CGFloat) {
+        totalTime = seconds
         let gap = width / CGFloat(seconds)
         
         DispatchQueue.main.async {
@@ -149,11 +115,50 @@ class LargeSoundwaveView: UIView {
         }
     }
     
-    private func play() {
-        audioVisualizationView.play(for: time)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            self.startTimer()
+    private func timeLabel(duration: TimeInterval) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [ .minute, .second ]
+        formatter.zeroFormattingBehavior = [ .pad ]
+
+        return formatter.string(from: duration) ?? "\(duration)"
+    }
+}
+
+// MARK: Actions
+extension LargeSoundwaveView {
+    func play() {
+        if state == .playing {
+            return
         }
+        
+        state = .playing
+        
+        if self.currentTime > 0.0 {
+            audioVisualizationView.play(for: totalTime - currentTime)
+            self.startTimer()
+        } else {
+            audioVisualizationView.play(for: totalTime)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.startTimer()
+            }
+        }
+    }
+    
+    func pause() {
+        if state == .paused {
+            return
+        }
+        
+        state = .paused
+        
+        guard let percentage = audioVisualizationView.currentGradientPercentage, percentage < 100, percentage > 0 else {
+            return
+        }
+
+        currentTime = totalTime * TimeInterval(percentage)
+        timer?.invalidate()
+        audioVisualizationView.pause()
     }
     
     private func startTimer() {
@@ -171,47 +176,17 @@ class LargeSoundwaveView: UIView {
     private func advanceScrollViewWithTimer() {
         scrollView.setContentOffset(
             CGPoint(
-                x: self.scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(time * 20.0)),
+                x: self.scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(totalTime * 20.0)),
                 y: 0.0
             ),
             animated: false
         )
     }
-    
-    private func timeLabel(duration: TimeInterval) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [ .minute, .second ]
-        formatter.zeroFormattingBehavior = [ .pad ]
-
-        return formatter.string(from: duration) ?? "\(duration)"
-    }
 }
 
 extension LargeSoundwaveView: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        guard let percentage = audioVisualizationView.currentGradientPercentage, percentage < 100, percentage > 0 else {
-//            return
-//        }
-//
-//        currentPosition = 10 * TimeInterval((audioVisualizationView.currentGradientPercentage ?? 1))
-//        timer?.invalidate()
-//        audioVisualizationView.pause()
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        guard let percentage = audioVisualizationView.currentGradientPercentage, percentage < 100 else {
-//            return
-//        }
-//
-//        let currentOffset = scrollView.contentSize.width * CGFloat(percentage)
-//        scrollView.setContentOffset(
-//            CGPoint(x: currentOffset - (frame.width / 2.0), y: 0.0),
-//            animated: false
-//        )
-//
-//        startTimer()
-//        audioVisualizationView.play(for: 10 - currentPosition)
+        pause()
     }
 }
 

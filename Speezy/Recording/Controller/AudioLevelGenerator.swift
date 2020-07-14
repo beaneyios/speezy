@@ -10,8 +10,92 @@ import Foundation
 import AVKit
 import Accelerate
 
-class AudiowaveRenderer {
-    static func render(audioContext: AudioContext?, targetSamples: Int) -> [Float]{
+class AudioLevelGenerator {
+    
+    enum TargetSamples {
+        case fitToWidth(width: CGFloat, barSpacing: CGFloat)
+        case fitToDuration
+    }
+    
+    typealias AudioLevelCompletion = ([Float], TimeInterval) -> Void
+    static func render(fromAudioURL audioURL: URL, targetSamplesPolicy: TargetSamples, completion: @escaping AudioLevelCompletion) {
+        self.load(fromAudioURL: audioURL) { (context) in
+            guard let context = context else {
+                assertionFailure("Context creation failed")
+                return
+            }
+            
+            let targetSamples: Int = {
+                switch targetSamplesPolicy {
+                case .fitToDuration:
+                    guard let audioFile = try? AVAudioFile(forReading: audioURL) else {
+                        assertionFailure("Couldn't load URL \(audioURL.absoluteString)")
+                        return 100
+                    }
+                    
+                    let audioFilePFormat = audioFile.processingFormat
+                    let audioFileLength = audioFile.length
+
+                    let frameSizeToRead = Int(audioFilePFormat.sampleRate / 10)
+                    let numberOfFrames = Int(audioFileLength) / frameSizeToRead
+                    return numberOfFrames
+                    
+                case let .fitToWidth(width, barSpacing):
+                    return Int(width * barSpacing)
+                }
+            }()
+            
+            let levels = self.render(audioContext: context, targetSamples: targetSamples)
+            let duration = AVAsset(url: audioURL).duration
+            let seconds = TimeInterval(CMTimeGetSeconds(duration))
+            
+            guard let minLevel = levels.sorted().first else {
+                return
+            }
+            
+            let percentageLevels = levels.map {
+                ($0 - minLevel) / 110
+            }
+            
+            completion(percentageLevels, seconds)
+        }
+    }
+    
+    private static func load(
+        fromAudioURL audioURL: URL,
+        completionHandler: @escaping (_ audioContext: AudioContext?) -> ()
+    ) {
+        let asset = AVURLAsset(url: audioURL, options: [AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true as Bool)])
+
+        guard let assetTrack = asset.tracks(withMediaType: AVMediaType.audio).first else {
+            fatalError("Couldn't load AVAssetTrack")
+        }
+
+        asset.loadValuesAsynchronously(forKeys: ["duration"]) {
+            var error: NSError?
+            let status = asset.statusOfValue(forKey: "duration", error: &error)
+            switch status {
+            case .loaded:
+                guard
+                    let formatDescriptions = assetTrack.formatDescriptions as? [CMAudioFormatDescription],
+                    let audioFormatDesc = formatDescriptions.first,
+                    let asbd = CMAudioFormatDescriptionGetStreamBasicDescription(audioFormatDesc)
+                    else { break }
+
+                let totalSamples = Int((asbd.pointee.mSampleRate) * Float64(asset.duration.value) / Float64(asset.duration.timescale))
+                let audioContext = AudioContext(audioURL: audioURL, totalSamples: totalSamples, asset: asset, assetTrack: assetTrack)
+                completionHandler(audioContext)
+                return
+
+            case .failed, .cancelled, .loading, .unknown:
+                print("Couldn't load asset: \(error?.localizedDescription ?? "Unknown error")")
+            }
+
+            completionHandler(nil)
+        }
+    }
+    
+    private static func render(audioContext: AudioContext?, targetSamples: Int) -> [Float] {
         guard let audioContext = audioContext else {
             fatalError("Couldn't create the audioContext")
         }
@@ -82,9 +166,8 @@ class AudiowaveRenderer {
 
             guard samplesToProcess > 0 else { continue }
 
-            processSamples(
+            outputSamples += processSamples(
                 fromData: &sampleBuffer,
-                outputSamples: &outputSamples,
                 samplesToProcess: samplesToProcess,
                 downSampledLength: downSampledLength,
                 samplesPerPixel: samplesPerPixel,
@@ -99,9 +182,8 @@ class AudiowaveRenderer {
             let samplesPerPixel = samplesToProcess
             let filter = [Float](repeating: 1.0 / Float(samplesPerPixel), count: samplesPerPixel)
 
-            processSamples(
+            outputSamples += processSamples(
                 fromData: &sampleBuffer,
-                outputSamples: &outputSamples,
                 samplesToProcess: samplesToProcess,
                 downSampledLength: downSampledLength,
                 samplesPerPixel: samplesPerPixel,
@@ -117,21 +199,22 @@ class AudiowaveRenderer {
         return outputSamples
     }
     
-    static func processSamples(
+    private static func processSamples(
         fromData sampleBuffer: inout Data,
-        outputSamples: inout [Float],
         samplesToProcess: Int,
         downSampledLength: Int,
         samplesPerPixel: Int,
-        filter: [Float])
-    {
-        sampleBuffer.withUnsafeBytes { (samples: UnsafePointer<Int16>) in
+        filter: [Float]) -> [Float] {
+        return sampleBuffer.withUnsafeBytes { (samples) -> [Float] in
             var processingBuffer = [Float](repeating: 0.0, count: samplesToProcess)
 
             let sampleCount = vDSP_Length(samplesToProcess)
+            
+            let unsafeBufferPointer = samples.bindMemory(to: Int16.self)
+            let unsafePointer = unsafeBufferPointer.baseAddress!
 
             //Convert 16bit int samples to floats
-            vDSP_vflt16(samples, 1, &processingBuffer, 1, sampleCount)
+            vDSP_vflt16(unsafePointer, 1, &processingBuffer, 1, sampleCount)
 
             //Take the absolute values to get amplitude
             vDSP_vabs(processingBuffer, 1, &processingBuffer, 1, sampleCount)
@@ -150,11 +233,11 @@ class AudiowaveRenderer {
             //Remove processed samples
             sampleBuffer.removeFirst(samplesToProcess * MemoryLayout<Int16>.size)
 
-            outputSamples += downSampledData
+            return downSampledData
         }
     }
     
-    static func getdB(from normalizedSamples: inout [Float]) {
+    private static func getdB(from normalizedSamples: inout [Float]) {
         // Convert samples to a log scale
         var zero: Float = 32768.0
         vDSP_vdbcon(
