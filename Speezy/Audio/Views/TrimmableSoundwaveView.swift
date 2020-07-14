@@ -27,8 +27,8 @@ class TrimmableSoundwaveView: UIView {
     private let barWidth: CGFloat = 1.0
     private var totalSpacePerBar: CGFloat { barSpacing + barWidth }
         
-    private var lastLeftLocation: CGFloat = 16.0
-    private var lastRightLocation: CGFloat = 16.0
+    private var lastLeftLocation: CGFloat = 0.0
+    private var lastRightLocation: CGFloat = 0.0
     
     private var manager: AudioManager?
     
@@ -54,7 +54,7 @@ class TrimmableSoundwaveView: UIView {
     
     private func createAudioVisualisationView(with levels: [Float]) {
         
-        let audioVisualizationViewSize = CGSize(
+        let waveSize = CGSize(
             width: waveContainer.frame.width,
             height: waveContainer.frame.height
         )
@@ -63,8 +63,8 @@ class TrimmableSoundwaveView: UIView {
             frame: CGRect(
                 x: 0,
                 y: 0.0,
-                width: audioVisualizationViewSize.width,
-                height: audioVisualizationViewSize.height
+                width: waveSize.width,
+                height: waveSize.height
             )
         )
         
@@ -121,7 +121,13 @@ class TrimmableSoundwaveView: UIView {
         }
         
         if sender.state == .ended {
-            lastLeftLocation = newConstraint
+            if newConstraint > 0 {
+                lastLeftLocation = newConstraint
+            } else {
+                lastLeftLocation = 0.0
+            }
+                        
+            trim()
         }
     }
     
@@ -148,6 +154,26 @@ class TrimmableSoundwaveView: UIView {
         
         if sender.state == .ended {
             lastRightLocation = newConstraint
+            
+            if newConstraint > 0 {
+                lastRightLocation = newConstraint
+            } else {
+                lastRightLocation = 0.0
+            }
+            
+            trim()
+        }
+    }
+    
+    private func trim() {
+        if let manager = manager {
+            let percentageStart = lastLeftLocation / contentView.frame.width
+            let percentageEnd = (contentView.frame.width - lastRightLocation) / contentView.frame.width
+            let durationStart = manager.duration * TimeInterval(percentageStart)
+            let durationEnd = manager.duration * TimeInterval(percentageEnd)
+            
+            print(durationStart)
+            print(durationEnd)
         }
     }
 }

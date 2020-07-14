@@ -15,6 +15,12 @@ class AudioManager: NSObject {
         didSet { stateDidChange() }
     }
     
+    var duration: TimeInterval {
+        let asset = AVAsset(url: item.url)
+        let duration = CMTimeGetSeconds(asset.duration)
+        return TimeInterval(duration)
+    }
+    
     private var observations = [ObjectIdentifier : Observation]()
     private var player: AVAudioPlayer?
     private var timer: Timer?
