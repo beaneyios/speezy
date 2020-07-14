@@ -24,6 +24,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnCrop: UIButton!
     
+    @IBOutlet weak var lblTimer: UILabel!
+    
     @IBOutlet weak var mainWaveContainer: UIView!
     @IBOutlet weak var trimmableWaveContainer: UIView!
     
@@ -146,7 +148,13 @@ class ViewController: UIViewController {
 
 extension ViewController: AudioManagerObserver {
     func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
-        // noop for now
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [ .hour, .minute, .second ]
+        formatter.zeroFormattingBehavior = [ .pad ]
+
+        let durationString = formatter.string(from: time) ?? "\(time)"
+        lblTimer.text = durationString
     }
     
     func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
