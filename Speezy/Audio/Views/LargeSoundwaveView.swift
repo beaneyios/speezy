@@ -165,7 +165,12 @@ extension LargeSoundwaveView {
     private func stop() {
         currentTime = 0.0
         wave.stop()
-        scrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
+        
+        guard let manager = self.manager else {
+            return
+        }
+        
+        configure(manager: manager)
     }
     
     private func advanceScrollViewWithTimer() {

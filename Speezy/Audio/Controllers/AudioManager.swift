@@ -151,6 +151,8 @@ extension AudioManager {
 
 extension AudioManager: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        timer?.invalidate()
+        timer = nil
         state = .idle
         stateDidChange()
     }
