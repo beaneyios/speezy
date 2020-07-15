@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnCrop: UIButton!
+    @IBOutlet weak var btnShare: UIButton!
+    
     
     @IBOutlet weak var lblTimer: UILabel!
     
@@ -88,6 +90,10 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func share(_ sender: Any) {
+        share()
+    }
+    
     func hideTrimView(animated: Bool) {
         trimContainerHeight.constant = 0.0
         trimContainer.alpha = 0.0
@@ -104,18 +110,33 @@ class ViewController: UIViewController {
     func hideTrimWave(_ wave: TrimmableSoundwaveView) {
         btnCrop.setImage(UIImage(named: "crop-button"), for: .normal)
         
+        btnCut.enable()
+        btnRecord.enable()
+        btnPlayback.enable()
+        btnShare.enable()
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.trimContainer.alpha = 0.0
         }) { (finished) in
-            wave.removeFromSuperview()
-            self.trimWave = nil            
             self.trimContainerHeight.constant = 0.0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            }) { (finished) in
+                wave.removeFromSuperview()
+                self.trimWave = nil
+                self.trimContainerHeight.constant = 0.0
+            }
         }
     }
     
     func showTrimWave() {
         btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
         
+        btnCut.disable()
+        btnRecord.disable()
+        btnPlayback.disable()
+        btnShare.disable()
+                
         let trimWave = TrimmableSoundwaveView.instanceFromNib()
         trimWave.delegate = self
         trimContainer.addSubview(trimWave)
@@ -192,79 +213,52 @@ extension ViewController: AudioManagerObserver {
     }
 }
 
-extension UIView {
-    func addShadow() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 2.0
-        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        layer.masksToBounds = false
-        layer.rasterizationScale = UIScreen.main.scale
-        layer.shouldRasterize = true
-    }
-    
-    func removeShadow() {
-        layer.shadowColor = nil
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 0
-        layer.shadowOpacity = 0
-        layer.zPosition = 0
-    }
-}
-
-extension ViewController: UIDocumentInteractionControllerDelegate {
-    func documentInteractionControllerDidDismissOpenInMenu(_ controller: UIDocumentInteractionController) {
-    }
-}
-
 // MARK: For later.
 extension ViewController {
-    func shareage() {
-        if let audioURL4 = Bundle.main.url(forResource: "test" , withExtension: "m4a"), let image = UIImage(named: "speezy") {
-            
-            VideoGenerator.fileName = "Speezy Audio File"
-            VideoGenerator.shouldOptimiseImageForVideo = true
-            VideoGenerator.current.generate(withImages: [image], andAudios: [audioURL4], andType: .single, { (progress) in
-                print(progress)
-            }, outcome: { (outcome) in
-                switch outcome {
-                case let .success(url):
-                    DispatchQueue.main.async {
-                        self.sendToWhatsApp(url: url)
-                    }
-                case let .failure(error):
-                    print("FAILED \(error.localizedDescription)")
-                    return
-                }
-            })
-        } else {
-            
+    func share() {
+        guard let image = UIImage(named: "speezy") else {
+            return
         }
+        
+        let audioURL = audioManager.item.url
+        
+        VideoGenerator.fileName = "Speezy Audio File"
+        VideoGenerator.shouldOptimiseImageForVideo = true
+        VideoGenerator.current.generate(withImages: [image], andAudios: [audioURL], andType: .single, { (progress) in
+            print(progress)
+        }, outcome: { (outcome) in
+            switch outcome {
+            case let .success(url):
+                DispatchQueue.main.async {
+                    self.sendToWhatsApp(url: url)
+                }
+            case let .failure(error):
+                print("FAILED \(error.localizedDescription)")
+                return
+            }
+        })
     }
     
     func sendToWhatsApp(url: URL) {
-        if let aString = URL(string: "whatsapp://app") {
-            if UIApplication.shared.canOpenURL(aString) {
-                documentInteractionController = UIDocumentInteractionController(url: url)
-                documentInteractionController?.uti = "net.whatsapp.video"
-                documentInteractionController?.delegate = self
-                documentInteractionController?.annotation = "Test"
-                documentInteractionController?.presentOpenInMenu(
-                    from: CGRect(x: 0, y: 0, width: 0, height: 0),
-                    in: view,
-                    animated: true
-                )
-            } else {
-                let alert = UIAlertController(
-                    title: "Error",
-                    message: "No WhatsApp installed on your iPhone",
-                    preferredStyle: .alert
-                )
-                
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(ok)
-                present(alert, animated: true, completion: nil)
-            }
-        }
+        documentInteractionController = UIDocumentInteractionController(url: url)
+        documentInteractionController?.uti = "net.whatsapp.video"
+        documentInteractionController?.annotation = "Test"
+        documentInteractionController?.presentOpenInMenu(
+            from: CGRect(x: 0, y: 0, width: 0, height: 0),
+            in: view,
+            animated: true
+        )
+    }
+}
+
+extension UIButton {
+    func disable() {
+        isEnabled = false
+        alpha = 0.5
+    }
+    
+    func enable() {
+        isEnabled = true
+        alpha = 1.0
     }
 }

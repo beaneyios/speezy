@@ -30,6 +30,7 @@
 		BEAACE8624BA04E30074E4B9 /* AudioEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8524BA04E30074E4B9 /* AudioEditingViewController.swift */; };
 		BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEAACE8D24BA155F0074E4B9 /* test.m4a */; };
 		BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */; };
+		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		BEAACE8524BA04E30074E4B9 /* AudioEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditingViewController.swift; sourceTree = "<group>"; };
 		BEAACE8D24BA155F0074E4B9 /* test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.m4a; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditor.swift; sourceTree = "<group>"; };
+		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
 				BE4F988A2480F7CE00B1AE8B /* twitter.png */,
 				BEAACE8D24BA155F0074E4B9 /* test.m4a */,
@@ -210,6 +213,30 @@
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEF0ECB024BF948D00B9D554 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0ECB124BF949400B9D554 /* Extensions */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BEF0ECB124BF949400B9D554 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0ECB224BF949800B9D554 /* UI */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BEF0ECB224BF949800B9D554 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		E15487FD64A1D16053241EB9 /* Frameworks */ = {
@@ -396,6 +423,7 @@
 			files = (
 				BEAACE8624BA04E30074E4B9 /* AudioEditingViewController.swift in Sources */,
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
+				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* TrimmableSoundwaveView.swift in Sources */,
 				BE79270B247EE55F0079652C /* ViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
