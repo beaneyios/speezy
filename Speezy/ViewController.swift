@@ -60,6 +60,18 @@ class ViewController: UIViewController {
         }
     }
     
+    func configureMainSoundWave() {        
+        let soundWaveView = LargeSoundwaveView.instanceFromNib()
+        mainWaveContainer.addSubview(soundWaveView)
+        
+        soundWaveView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.mainWaveContainer)
+        }
+        
+        soundWaveView.configure(manager: audioManager)
+        mainWave = soundWaveView
+    }
+    
     @IBAction func toggleRecording(_ sender: Any) {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
     }
@@ -105,6 +117,7 @@ class ViewController: UIViewController {
         btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
         
         let trimWave = TrimmableSoundwaveView.instanceFromNib()
+        trimWave.delegate = self
         trimContainer.addSubview(trimWave)
         
         trimWave.snp.makeConstraints { (maker) in
@@ -112,8 +125,7 @@ class ViewController: UIViewController {
         }
         
         trimContainer.layoutIfNeeded()
-        
-        trimContainerHeight.constant = 64.0
+        trimContainerHeight.constant = 90.0
         UIView.animate(withDuration: 0.4, animations: {
             self.view.layoutIfNeeded()
             self.trimContainer.alpha = 1.0
@@ -123,19 +135,90 @@ class ViewController: UIViewController {
         
         self.trimWave = trimWave
     }
-    
-    func configureMainSoundWave() {
-        let soundWaveView = LargeSoundwaveView.instanceFromNib()
-        mainWaveContainer.addSubview(soundWaveView)
-        
-        soundWaveView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.mainWaveContainer)
+}
+
+extension ViewController: TrimmableSoundWaveViewDelegate {
+    func trimViewDidApplyTrim(_ view: TrimmableSoundwaveView) {
+        let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
+        let crop = UIAlertAction(title: "Crop", style: .destructive) { (action) in
+            self.audioManager.applyTrim()
         }
         
-        soundWaveView.configure(manager: audioManager)
-        mainWave = soundWaveView
+        let cancel = UIAlertAction(title: "Not yet", style: .cancel, handler: nil)
+        alert.addAction(crop)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
     
+    func trimViewDidCancelTrim(_ view: TrimmableSoundwaveView) {
+        audioManager.cancelTrim()
+    }
+}
+
+extension ViewController: AudioManagerObserver {
+    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [ .hour, .minute, .second ]
+        formatter.zeroFormattingBehavior = [ .pad ]
+        let durationString = formatter.string(from: time) ?? "\(time)"
+        lblTimer.text = durationString
+    }
+    
+    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
+        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+    }
+    
+    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioPlayerDidStop(_ player: AudioManager) {
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
+        lblTimer.text = "00:00:00"
+    }
+    
+    func audioPlayer(_ player: AudioManager, didApplyTrimmedItem item: AudioItem) {
+        lblTimer.text = "00:00:00"
+        toggleTrimView()
+    }
+    
+    func audioPlayerDidCancelTrim(_ player: AudioManager) {
+        lblTimer.text = "00:00:00"
+        toggleTrimView()
+    }
+}
+
+extension UIView {
+    func addShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 2.0
+        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        layer.masksToBounds = false
+        layer.rasterizationScale = UIScreen.main.scale
+        layer.shouldRasterize = true
+    }
+    
+    func removeShadow() {
+        layer.shadowColor = nil
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 0
+        layer.shadowOpacity = 0
+        layer.zPosition = 0
+    }
+}
+
+extension ViewController: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerDidDismissOpenInMenu(_ controller: UIDocumentInteractionController) {
+    }
+}
+
+// MARK: For later.
+extension ViewController {
     func shareage() {
         if let audioURL4 = Bundle.main.url(forResource: "test" , withExtension: "m4a"), let image = UIImage(named: "speezy") {
             
@@ -183,58 +266,5 @@ class ViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
             }
         }
-    }
-}
-
-extension ViewController: AudioManagerObserver {
-    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [ .hour, .minute, .second ]
-        formatter.zeroFormattingBehavior = [ .pad ]
-
-        let durationString = formatter.string(from: time) ?? "\(time)"
-        lblTimer.text = durationString
-    }
-    
-    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
-        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
-    }
-    
-    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
-        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-    }
-    
-    func audioPlayerDidStop(_ player: AudioManager) {
-        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-    }
-    
-    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
-        // no op for now
-    }
-}
-
-extension ViewController: UIDocumentInteractionControllerDelegate {
-    func documentInteractionControllerDidDismissOpenInMenu(_ controller: UIDocumentInteractionController) {
-    }
-}
-
-extension UIView {
-    func addShadow() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 2.0
-        layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        layer.masksToBounds = false
-        layer.rasterizationScale = UIScreen.main.scale
-        layer.shouldRasterize = true
-    }
-    
-    func removeShadow() {
-        layer.shadowColor = nil
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 0
-        layer.shadowOpacity = 0
-        layer.zPosition = 0
     }
 }

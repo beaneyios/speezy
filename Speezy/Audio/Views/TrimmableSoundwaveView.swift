@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 import SoundWave
 
+protocol TrimmableSoundWaveViewDelegate: AnyObject {
+    func trimViewDidApplyTrim(_ view: TrimmableSoundwaveView)
+    func trimViewDidCancelTrim(_ view: TrimmableSoundwaveView)
+}
+
 class TrimmableSoundwaveView: UIView {
     
     @IBOutlet weak var contentView: UIView!
@@ -20,6 +25,8 @@ class TrimmableSoundwaveView: UIView {
     
     @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
+    
+    weak var delegate: TrimmableSoundWaveViewDelegate?
     
     private var trimWave: AudioVisualizationView!
     
@@ -163,6 +170,14 @@ class TrimmableSoundwaveView: UIView {
             
             trim()
         }
+    }
+    
+    @IBAction func applyTrim(_ sender: Any) {
+        delegate?.trimViewDidApplyTrim(self)
+    }
+    
+    @IBAction func cancelTrim(_ sender: Any) {
+        delegate?.trimViewDidCancelTrim(self)
     }
     
     private func trim() {

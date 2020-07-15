@@ -34,7 +34,28 @@ class AudioManager: NSObject {
         super.init()
         self.player?.delegate = self
     }
+    
+    private func stateDidChange() {
+        observations.forEach {
+            guard let observer = $0.value.observer else {
+                observations.removeValue(forKey: $0.key)
+                return
+            }
 
+            switch state {
+            case .idle:
+                observer.audioPlayerDidStop(self)
+            case .playing(let item):
+                observer.audioPlayer(self, didStartPlaying: item)
+            case .paused(let item):
+                observer.audioPlayer(self, didPausePlaybackOf: item)
+            }
+        }
+    }
+}
+
+// MARK: Playback
+extension AudioManager {
     func play() {
         state = .playing(item)
         player?.play()
@@ -58,6 +79,27 @@ class AudioManager: NSObject {
         timer?.invalidate()
     }
     
+    private func startTimer() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+            guard let player = self.player else {
+                assertionFailure("Player nil for some reason")
+                return
+            }
+            
+            self.observations.forEach {
+                guard let observer = $0.value.observer else {
+                    self.observations.removeValue(forKey: $0.key)
+                    return
+                }
+                
+                observer.audioPlayer(self, progressedWithTime: player.currentTime)
+            }
+        }
+    }
+}
+
+// MARK: Editing
+extension AudioManager {
     func trim(from: TimeInterval, to: TimeInterval) {
         AudioEditor.trim(fileURL: item.url, startTime: from, stopTime: to) { (url) in
             let trimmedItem = AudioItem(url: url)
@@ -76,39 +118,33 @@ class AudioManager: NSObject {
         }
     }
     
-    func stateDidChange() {
-        observations.forEach {
-            guard let observer = $0.value.observer else {
-                observations.removeValue(forKey: $0.key)
-                return
-            }
-
-            switch state {
-            case .idle:
-                observer.audioPlayerDidStop(self)
-            case .playing(let item):
-                observer.audioPlayer(self, didStartPlaying: item)
-            case .paused(let item):
-                observer.audioPlayer(self, didPausePlaybackOf: item)
-            }
+    func applyTrim() {
+        guard let trimmedItem = self.trimmedItem else {
+            return
         }
-    }
-    
-    private func startTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-            guard let player = self.player else {
-                assertionFailure("Player nil for some reason")
+        
+        self.item = trimmedItem
+        
+        self.observations.forEach {
+            guard let observer = $0.value.observer else {
+                self.observations.removeValue(forKey: $0.key)
                 return
             }
             
-            self.observations.forEach {
-                guard let observer = $0.value.observer else {
-                    self.observations.removeValue(forKey: $0.key)
-                    return
-                }
-                
-                observer.audioPlayer(self, progressedWithTime: player.currentTime)
+            observer.audioPlayer(self, didApplyTrimmedItem: trimmedItem)
+        }
+    }
+    
+    func cancelTrim() {
+        trimmedItem = nil
+        
+        self.observations.forEach {
+            guard let observer = $0.value.observer else {
+                self.observations.removeValue(forKey: $0.key)
+                return
             }
+            
+            observer.audioPlayerDidCancelTrim(self)
         }
     }
 }

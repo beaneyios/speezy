@@ -143,30 +143,8 @@ extension LargeSoundwaveView {
     }
 }
 
-// MARK: Actions
-extension LargeSoundwaveView: AudioManagerObserver {
-    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
-        if time > 2.0 {
-            self.advanceScrollViewWithTimer()
-        }
-    }
-    
-    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
-        play()
-    }
-    
-    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
-        pause()
-    }
-    
-    func audioPlayerDidStop(_ player: AudioManager) {
-        stop()
-    }
-    
-    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
-        configure(manager: player)
-    }
-    
+// MARK: Playback
+extension LargeSoundwaveView {
     private func play() {
         if self.currentTime > 0.0 {
             wave.play(for: totalTime - currentTime)
@@ -198,6 +176,39 @@ extension LargeSoundwaveView: AudioManagerObserver {
             ),
             animated: false
         )
+    }
+}
+
+// MARK: Observer
+extension LargeSoundwaveView: AudioManagerObserver {
+    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+        if time > 2.0 {
+            self.advanceScrollViewWithTimer()
+        }
+    }
+    
+    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
+        play()
+    }
+    
+    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+        pause()
+    }
+    
+    func audioPlayerDidStop(_ player: AudioManager) {
+        stop()
+    }
+    
+    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
+        configure(manager: player)
+    }
+    
+    func audioPlayerDidCancelTrim(_ player: AudioManager) {
+        configure(manager: player)
+    }
+    
+    func audioPlayer(_ player: AudioManager, didApplyTrimmedItem item: AudioItem) {
+        configure(manager: player)
     }
 }
 

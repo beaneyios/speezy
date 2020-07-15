@@ -13,5 +13,8 @@ protocol AudioManagerObserver: class {
     func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem)
     func audioPlayerDidStop(_ player: AudioManager)
     func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval)
+    
     func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem)
+    func audioPlayer(_ player: AudioManager, didApplyTrimmedItem item: AudioItem)
+    func audioPlayerDidCancelTrim(_ player: AudioManager)
 }

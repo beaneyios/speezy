@@ -2,28 +2,28 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="xMS-hc-oAM" customClass="TrimmableSoundwaveView" customModule="Speezy" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="780" height="116"/>
+            <rect key="frame" x="0.0" y="0.0" width="780" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spJ-im-iW4">
-                    <rect key="frame" x="0.0" y="0.0" width="780" height="116"/>
+                    <rect key="frame" x="0.0" y="0.0" width="780" height="154"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ylu-1e-ghH">
-                            <rect key="frame" x="0.0" y="0.0" width="16" height="116"/>
+                            <rect key="frame" x="0.0" y="0.0" width="16" height="154"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="16" id="FsM-xq-r2m"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7EE-4e-uLl">
-                            <rect key="frame" x="764" y="0.0" width="16" height="116"/>
+                            <rect key="frame" x="764" y="0.0" width="16" height="154"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="16" id="JIy-wJ-NRJ"/>
@@ -37,14 +37,14 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uI4-pf-hhf">
-                            <rect key="frame" x="16" y="112" width="748" height="4"/>
+                            <rect key="frame" x="16" y="150" width="748" height="4"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="4" id="jhL-98-mEs"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4J9-SX-eUJ">
-                            <rect key="frame" x="16" y="4" width="748" height="108"/>
+                            <rect key="frame" x="16" y="4" width="748" height="146"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -68,13 +68,48 @@
                         <constraint firstAttribute="bottom" secondItem="uI4-pf-hhf" secondAttribute="bottom" id="sbY-eL-U4s"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxm-Wf-y1l">
+                    <rect key="frame" x="325" y="162" width="47" height="30"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelTrim:" destination="xMS-hc-oAM" eventType="touchUpInside" id="Jvx-X2-lRB"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5z-Zw-J4e">
+                    <rect key="frame" x="380" y="162" width="20" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="IRz-fK-VWP"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1l-Xh-ILo">
+                    <rect key="frame" x="408" y="162" width="82" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Apply Crop">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="applyTrim:" destination="xMS-hc-oAM" eventType="touchUpInside" id="rLM-UM-Eem"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="spJ-im-iW4" secondAttribute="trailing" id="0q5-m0-XQd"/>
                 <constraint firstItem="spJ-im-iW4" firstAttribute="top" secondItem="xMS-hc-oAM" secondAttribute="top" id="3QR-2f-vXv"/>
+                <constraint firstItem="c5z-Zw-J4e" firstAttribute="leading" secondItem="Hxm-Wf-y1l" secondAttribute="trailing" constant="8" id="F2m-C7-K8j"/>
                 <constraint firstItem="spJ-im-iW4" firstAttribute="leading" secondItem="xMS-hc-oAM" secondAttribute="leading" id="Nng-4h-qos"/>
-                <constraint firstAttribute="bottom" secondItem="spJ-im-iW4" secondAttribute="bottom" id="PAY-B2-rjW"/>
+                <constraint firstItem="c5z-Zw-J4e" firstAttribute="centerX" secondItem="xMS-hc-oAM" secondAttribute="centerX" id="Rwp-Qh-Qxh"/>
+                <constraint firstItem="c5z-Zw-J4e" firstAttribute="top" secondItem="spJ-im-iW4" secondAttribute="bottom" constant="8" id="Xkf-Gn-LuZ"/>
+                <constraint firstItem="Hxm-Wf-y1l" firstAttribute="top" secondItem="spJ-im-iW4" secondAttribute="bottom" constant="8" id="czl-QS-8Pc"/>
+                <constraint firstAttribute="bottom" secondItem="c5z-Zw-J4e" secondAttribute="bottom" constant="8" id="dc8-Lr-oxW"/>
+                <constraint firstItem="W1l-Xh-ILo" firstAttribute="top" secondItem="spJ-im-iW4" secondAttribute="bottom" constant="8" id="e6o-at-Ef4"/>
+                <constraint firstItem="W1l-Xh-ILo" firstAttribute="leading" secondItem="c5z-Zw-J4e" secondAttribute="trailing" constant="8" id="ePP-0j-QTo"/>
+                <constraint firstAttribute="bottom" secondItem="Hxm-Wf-y1l" secondAttribute="bottom" constant="8" id="l61-hf-9wi"/>
+                <constraint firstAttribute="bottom" secondItem="W1l-Xh-ILo" secondAttribute="bottom" constant="8" id="t7Z-4l-hiu"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -85,7 +120,7 @@
                 <outlet property="rightHandleConstraint" destination="iV8-PO-yWc" id="hym-WY-QoT"/>
                 <outlet property="waveContainer" destination="4J9-SX-eUJ" id="0i2-oB-TUc"/>
             </connections>
-            <point key="canvasLocation" x="-46.376811594202906" y="290.625"/>
+            <point key="canvasLocation" x="-46.376811594202906" y="318.75"/>
         </view>
     </objects>
 </document>
