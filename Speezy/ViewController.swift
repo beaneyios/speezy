@@ -125,7 +125,7 @@ class ViewController: UIViewController {
         }
         
         trimContainer.layoutIfNeeded()
-        trimContainerHeight.constant = 90.0
+        trimContainerHeight.constant = 100.0
         UIView.animate(withDuration: 0.4, animations: {
             self.view.layoutIfNeeded()
             self.trimContainer.alpha = 1.0
