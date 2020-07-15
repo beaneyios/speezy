@@ -14,6 +14,9 @@ class LargeSoundwaveView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var timelineContainer: UIView!
+    @IBOutlet weak var waveContainer: UIView!
+    
     private var wave: AudioVisualizationView!
     
     private let barSpacing: CGFloat = 3.0
@@ -28,7 +31,9 @@ class LargeSoundwaveView: UIView {
         self.manager = manager
         manager.addObserver(self)
         scrollView.delegate = self
-        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToDuration) { (levels, duration) in
+        
+        let item = manager.trimmedItem?.url ?? manager.item.url
+        AudioLevelGenerator.render(fromAudioURL: item, targetSamplesPolicy: .fitToDuration) { (levels, duration) in
             DispatchQueue.main.async {
                 let waveSize = CGSize(
                     width: CGFloat(levels.count) * self.totalSpacePerBar,
@@ -45,6 +50,12 @@ class LargeSoundwaveView: UIView {
 // MARK: View set up
 extension LargeSoundwaveView {
     private func createAudioVisualisationView(with levels: [Float], seconds: TimeInterval, waveSize: CGSize) {
+        if let wave = self.wave {
+            wave.removeFromSuperview()
+            self.wave = nil
+            scrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        
         let wave = AudioVisualizationView(
             frame: CGRect(
                 x: 0,
@@ -65,7 +76,7 @@ extension LargeSoundwaveView {
         wave.alpha = 0.0
         
         scrollView.contentSize = waveSize
-        contentView.addSubview(wave)
+        waveContainer.addSubview(wave)
         self.wave = wave
         
         UIView.animate(withDuration: 0.3) {
@@ -74,6 +85,10 @@ extension LargeSoundwaveView {
     }
     
     private func createTimeLine(seconds: TimeInterval, width: CGFloat) {
+        timelineContainer.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
         totalTime = seconds
         let gap = width / CGFloat(seconds)
         
@@ -85,7 +100,7 @@ extension LargeSoundwaveView {
             label.text = "\(self.timeLabel(duration: TimeInterval($0)))"
             label.textColor = .white
             label.alpha = 0.3
-            contentView.addSubview(label)
+            timelineContainer.addSubview(label)
             
             if let previousLabel = previousLabel {
                 label.snp.makeConstraints { (maker) in
@@ -104,7 +119,7 @@ extension LargeSoundwaveView {
             let verticalLine = UIView()
             verticalLine.backgroundColor = .white
             verticalLine.alpha = 0.2
-            contentView.addSubview(verticalLine)
+            timelineContainer.addSubview(verticalLine)
             
             verticalLine.snp.makeConstraints { (maker) in
                 maker.top.equalTo(contentView.snp.top).offset(24.0)
@@ -146,6 +161,10 @@ extension LargeSoundwaveView: AudioManagerObserver {
     
     func audioPlayerDidStop(_ player: AudioManager) {
         stop()
+    }
+    
+    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
+        configure(manager: player)
     }
     
     private func play() {

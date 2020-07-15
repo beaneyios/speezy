@@ -172,8 +172,7 @@ class TrimmableSoundwaveView: UIView {
             let durationStart = manager.duration * TimeInterval(percentageStart)
             let durationEnd = manager.duration * TimeInterval(percentageEnd)
             
-            print(durationStart)
-            print(durationEnd)
+            manager.trim(from: durationStart, to: durationEnd)
         }
     }
 }

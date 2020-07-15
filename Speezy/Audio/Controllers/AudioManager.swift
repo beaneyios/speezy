@@ -10,7 +10,9 @@ import Foundation
 import AVKit
 
 class AudioManager: NSObject {
-    let item: AudioItem
+    private(set) var item: AudioItem
+    private(set) var trimmedItem: AudioItem?
+    
     private(set) var state = State.idle {
         didSet { stateDidChange() }
     }
@@ -28,8 +30,8 @@ class AudioManager: NSObject {
     init(item: AudioItem) {
         self.item = item
         self.player = try? AVAudioPlayer(contentsOf: item.url)
-        super.init()
         
+        super.init()
         self.player?.delegate = self
     }
 
@@ -54,6 +56,24 @@ class AudioManager: NSObject {
     func stop() {
         state = .idle
         timer?.invalidate()
+    }
+    
+    func trim(from: TimeInterval, to: TimeInterval) {
+        AudioEditor.trim(fileURL: item.url, startTime: from, stopTime: to) { (url) in
+            let trimmedItem = AudioItem(url: url)
+            self.trimmedItem = trimmedItem
+            
+            self.player = try? AVAudioPlayer(contentsOf: url)
+            
+            self.observations.forEach {
+                guard let observer = $0.value.observer else {
+                    self.observations.removeValue(forKey: $0.key)
+                    return
+                }
+                
+                observer.audioPlayer(self, didCreateTrimmedItem: trimmedItem)
+            }
+        }
     }
     
     func stateDidChange() {

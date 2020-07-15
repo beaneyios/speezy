@@ -36,15 +36,28 @@ class ViewController: UIViewController {
     
     var documentInteractionController: UIDocumentInteractionController?
     
-    let audioManager = AudioManager(
-        item: AudioItem(url: Bundle.main.url(forResource: "test", withExtension: "m4a")!)
-    )
+    var audioManager: AudioManager!
             
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpMainSoundWave()
+        
+        configureAudioManager {
+            DispatchQueue.main.async {
+                self.configureMainSoundWave()
+            }
+        }
+    
         hideTrimView(animated: false)
-        audioManager.addObserver(self)
+    }
+    
+    func configureAudioManager(completion: @escaping () -> Void) {
+        let audioURL = Bundle.main.url(forResource: "test", withExtension: "m4a")!
+        
+        AudioEditor.convertOriginalToSpeezyFormat(url: audioURL) { (url) in
+            self.audioManager = AudioManager(item: AudioItem(url: url))
+            self.audioManager.addObserver(self)
+            completion()
+        }
     }
     
     @IBAction func toggleRecording(_ sender: Any) {
@@ -111,7 +124,7 @@ class ViewController: UIViewController {
         self.trimWave = trimWave
     }
     
-    func setUpMainSoundWave() {
+    func configureMainSoundWave() {
         let soundWaveView = LargeSoundwaveView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
@@ -121,10 +134,6 @@ class ViewController: UIViewController {
         
         soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
-    }
-    
-    @IBAction func go(_ sender: Any) {
-        trimmage()
     }
     
     func shareage() {
@@ -147,16 +156,6 @@ class ViewController: UIViewController {
             })
         } else {
             
-        }
-    }
-    
-    func trimmage() {
-        let editor = AudioEditor()
-        editor.trim(fileURL: audioManager.item.url, startTime: 1, stopTime: 4) { (outputURL) in
-            
-            DispatchQueue.main.async {
-                
-            }
         }
     }
     
@@ -208,6 +207,10 @@ extension ViewController: AudioManagerObserver {
     
     func audioPlayerDidStop(_ player: AudioManager) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
+        // no op for now
     }
 }
 

@@ -10,7 +10,7 @@ import Foundation
 import AVKit
 
 class AudioEditor {
-    func trim(
+    static func trim(
         fileURL: URL,
         startTime: Double,
         stopTime: Double,
@@ -20,15 +20,11 @@ class AudioEditor {
         let asset = AVAsset(url: fileURL)
         let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
         
-        guard compatiblePresets.contains(AVAssetExportPresetMediumQuality) else {
-            return
-        }
-        
-        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
-            return
-        }
-        
-        guard let outputURL = self.outputURL(for: "output.m4a") else {
+        guard
+            compatiblePresets.contains(AVAssetExportPresetHighestQuality),
+            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
+            let outputURL = self.outputURL(for: "output.m4a")
+        else {
             return
         }
         
@@ -42,11 +38,10 @@ class AudioEditor {
         let range: CMTimeRange = CMTimeRangeFromTimeToTime(start: start, end: stop)
         exportSession.timeRange = range
         
-        exportSession.exportAsynchronously(completionHandler: {
-            
+        exportSession.exportAsynchronously() {
             switch exportSession.status {
             case .failed:
-                print("Export failed: \(exportSession.error!.localizedDescription)")
+                print("Export failed: \(exportSession.error?.localizedDescription)")
             case .cancelled:
                 print("Export canceled")
             default:
@@ -55,10 +50,42 @@ class AudioEditor {
                     finished(outputURL)
                 })
             }
-        })
+        }
     }
     
-    private func outputURL(for name: String) -> URL? {
+    static func convertOriginalToSpeezyFormat(url: URL, finished: @escaping (URL) -> Void) {
+        let asset = AVAsset(url: url)
+        let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
+        
+        guard
+            compatiblePresets.contains(AVAssetExportPresetHighestQuality),
+            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
+            let outputURL = self.outputURL(for: "original.m4a")
+        else {
+            return
+        }
+        
+        deleteExistingOutputFile("original.m4a")
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileType.m4a
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .failed:
+                print("Export failed: \(exportSession.error?.localizedDescription)")
+            case .cancelled:
+                print("Export canceled")
+            default:
+                print("Successfully exported audio")
+                DispatchQueue.main.async(execute: {
+                    finished(outputURL)
+                })
+            }
+        }
+    }
+    
+    private static func outputURL(for name: String) -> URL? {
         let fileManager = FileManager.default
         do {
             let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
@@ -71,7 +98,7 @@ class AudioEditor {
         return nil
     }
     
-    private func deleteExistingOutputFile(_ name: String) {
+    private static func deleteExistingOutputFile(_ name: String) {
         let fileManager = FileManager.default
         do {
             let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)

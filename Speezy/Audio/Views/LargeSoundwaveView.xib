@@ -21,7 +21,27 @@
                             <subviews>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VN9-e4-pJ2" userLabel="Content View">
                                     <rect key="frame" x="0.0" y="0.0" width="780" height="188"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffG-1s-og7">
+                                            <rect key="frame" x="0.0" y="0.0" width="780" height="188"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEz-cA-Yw4">
+                                            <rect key="frame" x="0.0" y="0.0" width="780" height="188"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                    </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstItem="ffG-1s-og7" firstAttribute="leading" secondItem="VN9-e4-pJ2" secondAttribute="leading" id="0ZC-07-OCf"/>
+                                        <constraint firstAttribute="trailing" secondItem="ffG-1s-og7" secondAttribute="trailing" id="Of5-Lm-dii"/>
+                                        <constraint firstItem="ffG-1s-og7" firstAttribute="top" secondItem="VN9-e4-pJ2" secondAttribute="top" id="YAd-Yi-wE7"/>
+                                        <constraint firstItem="zEz-cA-Yw4" firstAttribute="top" secondItem="VN9-e4-pJ2" secondAttribute="top" id="aGq-Tr-RmL"/>
+                                        <constraint firstAttribute="bottom" secondItem="zEz-cA-Yw4" secondAttribute="bottom" id="caM-NR-22p"/>
+                                        <constraint firstItem="zEz-cA-Yw4" firstAttribute="leading" secondItem="VN9-e4-pJ2" secondAttribute="leading" id="eNM-Ih-AlI"/>
+                                        <constraint firstAttribute="trailing" secondItem="zEz-cA-Yw4" secondAttribute="trailing" id="kO2-am-WP9"/>
+                                        <constraint firstAttribute="bottom" secondItem="ffG-1s-og7" secondAttribute="bottom" id="n8Z-UR-fmG"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,6 +77,8 @@
             <connections>
                 <outlet property="contentView" destination="VN9-e4-pJ2" id="WLE-SH-DzC"/>
                 <outlet property="scrollView" destination="ICs-PM-STR" id="Rlr-xa-13H"/>
+                <outlet property="timelineContainer" destination="ffG-1s-og7" id="mgX-ug-WF5"/>
+                <outlet property="waveContainer" destination="zEz-cA-Yw4" id="1X8-EW-JIw"/>
             </connections>
             <point key="canvasLocation" x="456" y="367.91604197901052"/>
         </view>

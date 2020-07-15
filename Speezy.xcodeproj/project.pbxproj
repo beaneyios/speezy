@@ -173,11 +173,11 @@
 		BEAACE8324BA031A0074E4B9 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				BE50346624BE02C600A414D1 /* Protocols */,
+				BEAACE8A24BA10400074E4B9 /* Controllers */,
 				BE50346324BE02B100A414D1 /* Models */,
-				BEAACE8A24BA10400074E4B9 /* Controller */,
-				BEAACE8924BA08710074E4B9 /* Views */,
+				BE50346624BE02C600A414D1 /* Protocols */,
 				BEAACE8424BA04D70074E4B9 /* View Controllers */,
+				BEAACE8924BA08710074E4B9 /* Views */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		BEAACE8A24BA10400074E4B9 /* Controller */ = {
+		BEAACE8A24BA10400074E4B9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */,
@@ -209,7 +209,7 @@
 				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E15487FD64A1D16053241EB9 /* Frameworks */ = {

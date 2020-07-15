@@ -34,7 +34,8 @@ class AudioLevelGenerator {
                     }
                     
                     let audioFilePFormat = audioFile.processingFormat
-                    let audioFileLength = audioFile.length
+//                    let audioFileLength = audioFile.length
+                    let audioFileLength = 200000
 
                     let frameSizeToRead = Int(audioFilePFormat.sampleRate / 10)
                     let numberOfFrames = Int(audioFileLength) / frameSizeToRead
