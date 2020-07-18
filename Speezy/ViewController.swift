@@ -112,7 +112,6 @@ class ViewController: UIViewController {
         
         btnCut.enable()
         btnRecord.enable()
-        btnPlayback.enable()
         btnShare.enable()
         
         UIView.animate(withDuration: 0.3, animations: {
@@ -134,7 +133,6 @@ class ViewController: UIViewController {
         
         btnCut.disable()
         btnRecord.disable()
-        btnPlayback.disable()
         btnShare.disable()
                 
         let trimWave = TrimmableSoundwaveView.instanceFromNib()
@@ -216,6 +214,7 @@ extension ViewController: AudioManagerObserver {
 // MARK: For later.
 extension ViewController {
     func share() {
+        btnShare.disable()
         guard let image = UIImage(named: "speezy") else {
             return
         }
