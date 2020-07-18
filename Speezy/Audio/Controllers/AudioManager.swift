@@ -24,8 +24,12 @@ class AudioManager: NSObject {
     }
     
     private var observations = [ObjectIdentifier : Observation]()
+    
     private var player: AVAudioPlayer?
     private var timer: Timer?
+    
+    private var recordingSession: AVAudioSession?
+    private var audioRecorder: AVAudioRecorder?
     
     init(item: AudioItem) {
         self.item = item
@@ -51,6 +55,51 @@ class AudioManager: NSObject {
                 observer.audioPlayer(self, didPausePlaybackOf: item)
             }
         }
+    }
+}
+
+// MARK: Recording
+extension AudioManager: AVAudioRecorderDelegate {
+    func record() {
+        do {
+            recordingSession = AVAudioSession.sharedInstance()
+            try recordingSession?.setCategory(.playAndRecord, mode: .default)
+            try recordingSession?.setActive(true, options: [])
+            recordingSession?.requestRecordPermission({ (allowed) in
+                DispatchQueue.main.async {
+                    if allowed {
+                        self.startRecording()
+                    } else {
+                        
+                    }
+                }
+            })
+        } catch {
+            
+        }
+    }
+    
+    private func startRecording() {
+        let audioFilename = self.getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        do {
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder?.delegate = self
+            audioRecorder?.record()
+        } catch {
+            
+        }
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 }
 
