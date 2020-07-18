@@ -26,10 +26,11 @@ class AudioManager: NSObject {
     private var observations = [ObjectIdentifier : Observation]()
     
     private var player: AVAudioPlayer?
-    private var timer: Timer?
+    private var playbackTimer: Timer?
     
     private var recordingSession: AVAudioSession?
     private var audioRecorder: AVAudioRecorder?
+    private var recordingTimer: Timer?
     
     init(item: AudioItem) {
         self.item = item
@@ -79,6 +80,12 @@ extension AudioManager: AVAudioRecorderDelegate {
         }
     }
     
+    func stopRecording() {
+        audioRecorder?.stop()
+        recordingTimer?.invalidate()
+        recordingTimer = nil
+    }
+    
     private func startRecording() {
         let audioFilename = self.getDocumentsDirectory().appendingPathComponent("recording.m4a")
         let settings = [
@@ -90,8 +97,37 @@ extension AudioManager: AVAudioRecorderDelegate {
         
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder?.isMeteringEnabled = true
             audioRecorder?.delegate = self
             audioRecorder?.record()
+            
+            self.observations.forEach {
+                guard let observer = $0.value.observer else {
+                    self.observations.removeValue(forKey: $0.key)
+                    return
+                }
+
+                observer.audioPlayerDidStartRecording(self)
+            }
+            
+            self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+                guard let recorder = self.audioRecorder else {
+                    assertionFailure("Somehow recorder is nil.")
+                    return
+                }
+
+                recorder.updateMeters()
+                let power = recorder.averagePower(forChannel: 0)
+
+                self.observations.forEach {
+                    guard let observer = $0.value.observer else {
+                        self.observations.removeValue(forKey: $0.key)
+                        return
+                    }
+
+                    observer.audioPlayer(self, didRecordBarWithPower: power, duration: recorder.currentTime)
+                }
+            }
         } catch {
             
         }
@@ -108,7 +144,7 @@ extension AudioManager {
     func play() {
         state = .playing(item)
         player?.play()
-        startTimer()
+        startPlaybackTimer()
     }
 
     func pause() {
@@ -120,16 +156,16 @@ extension AudioManager {
             player?.pause()
         }
         
-        timer?.invalidate()
+        playbackTimer?.invalidate()
     }
 
     func stop() {
         state = .idle
-        timer?.invalidate()
+        playbackTimer?.invalidate()
     }
     
-    private func startTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+    private func startPlaybackTimer() {
+        self.playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
             guard let player = self.player else {
                 assertionFailure("Player nil for some reason")
                 return
@@ -200,8 +236,8 @@ extension AudioManager {
 
 extension AudioManager: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        timer?.invalidate()
-        timer = nil
+        playbackTimer?.invalidate()
+        playbackTimer = nil
         state = .idle
         stateDidChange()
     }

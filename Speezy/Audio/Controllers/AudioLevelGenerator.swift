@@ -14,6 +14,19 @@ struct AudioData {
     let dBLevels: [Float]
     let percentageLevels: [Float]
     let duration: TimeInterval
+    
+    func addingDBLevel(_ dB: Float, addedDuration: TimeInterval) -> AudioData {
+        var newDBLevels = dBLevels
+        newDBLevels.append(dB)
+        
+        let newPercentageLevels = AudioLevelGenerator.generatePercentageLevels(from: newDBLevels)
+        
+        return AudioData(
+            dBLevels: newDBLevels,
+            percentageLevels: newPercentageLevels,
+            duration: duration + addedDuration
+        )
+    }
 }
 
 class AudioLevelGenerator {

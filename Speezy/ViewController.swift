@@ -74,8 +74,17 @@ class ViewController: UIViewController {
         mainWave = soundWaveView
     }
     
+    var recording = false
     @IBAction func toggleRecording(_ sender: Any) {
-        btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
+        if recording == false {
+            btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
+            audioManager.record()
+            recording = true
+        } else {
+            btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
+            audioManager.stopRecording()
+            recording = false
+        }
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
@@ -175,6 +184,14 @@ extension ViewController: TrimmableSoundWaveViewDelegate {
 }
 
 extension ViewController: AudioManagerObserver {
+    func audioPlayerDidStartRecording(_ player: AudioManager) {
+        // no op
+    }
+    
+    func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
+        // No op
+    }
+    
     func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional

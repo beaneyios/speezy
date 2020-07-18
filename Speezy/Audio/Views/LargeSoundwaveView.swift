@@ -176,10 +176,10 @@ extension LargeSoundwaveView {
         configure(manager: manager)
     }
     
-    private func advanceScrollViewWithTimer() {
+    private func advanceScrollViewWithTimer(advanceFactor: TimeInterval) {
         scrollView.setContentOffset(
             CGPoint(
-                x: self.scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(totalTime * 20.0)),
+                x: self.scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(totalTime * advanceFactor)),
                 y: 0.0
             ),
             animated: false
@@ -191,7 +191,7 @@ extension LargeSoundwaveView {
 extension LargeSoundwaveView: AudioManagerObserver {
     func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
         if time > 2.0 {
-            self.advanceScrollViewWithTimer()
+            self.advanceScrollViewWithTimer(advanceFactor: 20.0)
         }
     }
     
@@ -217,6 +217,40 @@ extension LargeSoundwaveView: AudioManagerObserver {
     
     func audioPlayer(_ player: AudioManager, didApplyTrimmedItem item: AudioItem) {
         configure(manager: player)
+    }
+    
+    func audioPlayerDidStartRecording(_ player: AudioManager) {
+        wave.reset()
+        wave.audioVisualizationMode = .write
+        
+        guard let audioData = self.audioData else {
+            assertionFailure("Audio data shouldn't be nil here")
+            return
+        }
+        
+        audioData.percentageLevels.forEach {
+            self.wave.add(meteringLevel: $0)
+        }
+    }
+    
+    func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
+        audioData = audioData?.addingDBLevel(decibel, addedDuration: duration)
+        wave.audioVisualizationMode = .write
+        
+        guard let audioData = audioData, let percentageLevel = audioData.percentageLevels.last else {
+            assertionFailure("Somehow audioData is nil.")
+            return
+        }
+        
+        let waveSize = CGSize(
+            width: CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar,
+            height: self.frame.height - 24.0
+        )
+        
+        wave.frame.size.width = waveSize.width
+        scrollView.contentSize.width = waveSize.width
+        wave.add(meteringLevel: percentageLevel)
+        advanceScrollViewWithTimer(advanceFactor: 10.0)
     }
 }
 
