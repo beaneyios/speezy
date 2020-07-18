@@ -10,6 +10,12 @@ import Foundation
 import AVKit
 import Accelerate
 
+struct AudioData {
+    let dBLevels: [Float]
+    let percentageLevels: [Float]
+    let duration: TimeInterval
+}
+
 class AudioLevelGenerator {
     
     enum TargetSamples {
@@ -17,7 +23,7 @@ class AudioLevelGenerator {
         case fitToDuration
     }
     
-    typealias AudioLevelCompletion = ([Float], TimeInterval) -> Void
+    typealias AudioLevelCompletion = (AudioData) -> Void
     static func render(fromAudioURL audioURL: URL, targetSamplesPolicy: TargetSamples, completion: @escaping AudioLevelCompletion) {
         self.load(fromAudioURL: audioURL) { (context) in
             guard let context = context else {
@@ -34,8 +40,7 @@ class AudioLevelGenerator {
                     }
                     
                     let audioFilePFormat = audioFile.processingFormat
-//                    let audioFileLength = audioFile.length
-                    let audioFileLength = 200000
+                    let audioFileLength = audioFile.length
 
                     let frameSizeToRead = Int(audioFilePFormat.sampleRate / 10)
                     let numberOfFrames = Int(audioFileLength) / frameSizeToRead
@@ -49,17 +54,28 @@ class AudioLevelGenerator {
             let levels = self.render(audioContext: context, targetSamples: targetSamples)
             let duration = AVAsset(url: audioURL).duration
             let seconds = TimeInterval(CMTimeGetSeconds(duration))
+            let percentageLevels = self.generatePercentageLevels(from: levels)
             
-            guard let minLevel = levels.sorted().first else {
-                return
-            }
-            
-            let percentageLevels = levels.map {
-                ($0 - minLevel) / 110
-            }
-            
-            completion(percentageLevels, seconds)
+            completion(
+                AudioData(
+                    dBLevels: levels,
+                    percentageLevels: percentageLevels,
+                    duration: seconds
+                )
+            )
         }
+    }
+    
+    static func generatePercentageLevels(from dB: [Float]) -> [Float] {
+        guard let minLevel = dB.sorted().first else {
+            return []
+        }
+        
+        let percentageLevels = dB.map {
+            ($0 - minLevel) / 110
+        }
+        
+        return percentageLevels
     }
     
     private static func load(
@@ -119,8 +135,7 @@ class AudioLevelGenerator {
             AVLinearPCMIsNonInterleaved: false
         ]
 
-        let readerOutput = AVAssetReaderTrackOutput(track: audioContext.assetTrack,
-                                                    outputSettings: outputSettingsDict)
+        let readerOutput = AVAssetReaderTrackOutput(track: audioContext.assetTrack, outputSettings: outputSettingsDict)
         readerOutput.alwaysCopiesSampleData = false
         reader.add(readerOutput)
 
@@ -205,7 +220,8 @@ class AudioLevelGenerator {
         samplesToProcess: Int,
         downSampledLength: Int,
         samplesPerPixel: Int,
-        filter: [Float]) -> [Float] {
+        filter: [Float]
+    ) -> [Float] {
         return sampleBuffer.withUnsafeBytes { (samples) -> [Float] in
             var processingBuffer = [Float](repeating: 0.0, count: samplesToProcess)
 

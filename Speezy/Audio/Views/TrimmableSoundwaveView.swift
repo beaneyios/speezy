@@ -52,9 +52,9 @@ class TrimmableSoundwaveView: UIView {
             return
         }
         
-        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing)) { (levels, _) in
+        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing)) { (audioData) in
             DispatchQueue.main.async {
-                self.createAudioVisualisationView(with: levels)
+                self.createAudioVisualisationView(with: audioData.percentageLevels)
             }
         }
     }

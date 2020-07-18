@@ -26,6 +26,8 @@ class LargeSoundwaveView: UIView {
     private var totalTime: TimeInterval = 0.0
     private var currentTime: TimeInterval = 0.0
     private var manager: AudioManager?
+    
+    private var audioData: AudioData?
 
     func configure(manager: AudioManager) {
         self.manager = manager
@@ -33,15 +35,16 @@ class LargeSoundwaveView: UIView {
         scrollView.delegate = self
         
         let item = manager.trimmedItem?.url ?? manager.item.url
-        AudioLevelGenerator.render(fromAudioURL: item, targetSamplesPolicy: .fitToDuration) { (levels, duration) in
+        AudioLevelGenerator.render(fromAudioURL: item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 let waveSize = CGSize(
-                    width: CGFloat(levels.count) * self.totalSpacePerBar,
+                    width: CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar,
                     height: self.frame.height - 24.0
                 )
                 
-                self.createTimeLine(seconds: duration, width: waveSize.width)
-                self.createAudioVisualisationView(with: levels, seconds: duration, waveSize: waveSize)
+                self.audioData = audioData
+                self.createTimeLine(seconds: audioData.duration, width: waveSize.width)
+                self.createAudioVisualisationView(with: audioData.percentageLevels, seconds: audioData.duration, waveSize: waveSize)
             }
         }
     }
