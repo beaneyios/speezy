@@ -25,7 +25,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     
-    
     @IBOutlet weak var lblTimer: UILabel!
     
     @IBOutlet weak var mainWaveContainer: UIView!
@@ -56,7 +55,7 @@ class ViewController: UIViewController {
         let audioURL = Bundle.main.url(forResource: "test", withExtension: "m4a")!
         
         AudioEditor.convertOriginalToSpeezyFormat(url: audioURL) { (url) in
-            self.audioManager = AudioManager(item: AudioItem(url: url))
+            self.audioManager = AudioManager(item: AudioItem(id: nil, url: url))
             self.audioManager.addObserver(self)
             completion()
         }
@@ -74,17 +73,8 @@ class ViewController: UIViewController {
         mainWave = soundWaveView
     }
     
-    var recording = false
     @IBAction func toggleRecording(_ sender: Any) {
-        if recording == false {
-            btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
-            audioManager.record()
-            recording = true
-        } else {
-            btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
-            audioManager.stopRecording()
-            recording = false
-        }
+        audioManager.toggleRecording()
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
@@ -183,9 +173,20 @@ extension ViewController: TrimmableSoundWaveViewDelegate {
     }
 }
 
+// MARK: State management
 extension ViewController: AudioManagerObserver {
+    func audioPlayerDidStopRecording(_ player: AudioManager) {
+        btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
+        btnPlayback.enable()
+        btnCut.enable()
+        btnCrop.enable()
+    }
+    
     func audioPlayerDidStartRecording(_ player: AudioManager) {
-        // no op
+        btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
+        btnPlayback.disable()
+        btnCut.disable()
+        btnCrop.disable()
     }
     
     func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
@@ -203,14 +204,23 @@ extension ViewController: AudioManagerObserver {
     
     func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+        btnRecord.disable()
+        btnCut.disable()
+        btnCrop.disable()
     }
     
     func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+        btnRecord.enable()
+        btnCut.enable()
+        btnCrop.enable()
     }
     
     func audioPlayerDidStop(_ player: AudioManager) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+        btnRecord.enable()
+        btnCut.enable()
+        btnCrop.enable()
     }
     
     func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {

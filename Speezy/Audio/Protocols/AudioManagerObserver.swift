@@ -20,4 +20,5 @@ protocol AudioManagerObserver: class {
     
     func audioPlayerDidStartRecording(_ player: AudioManager)
     func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval)
+    func audioPlayerDidStopRecording(_ player: AudioManager)
 }

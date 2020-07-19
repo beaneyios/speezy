@@ -23,7 +23,6 @@ class LargeSoundwaveView: UIView {
     private let barWidth: CGFloat = 3.0
     private var totalSpacePerBar: CGFloat { barSpacing + barWidth }
     
-    private var totalTime: TimeInterval = 0.0
     private var currentTime: TimeInterval = 0.0
     private var manager: AudioManager?
     
@@ -92,7 +91,6 @@ extension LargeSoundwaveView {
             $0.removeFromSuperview()
         }
         
-        totalTime = seconds
         let gap = width / CGFloat(seconds)
         
         var previousLabel: UILabel?
@@ -149,19 +147,27 @@ extension LargeSoundwaveView {
 // MARK: Playback
 extension LargeSoundwaveView {
     private func play() {
+        guard let duration = audioData?.duration else {
+            return
+        }
+        
         if self.currentTime > 0.0 {
-            wave.play(for: totalTime - currentTime)
+            wave.play(for: duration - currentTime)
         } else {
-            wave.play(for: totalTime)
+            wave.play(for: duration)
         }
     }
     
     private func pause() {
-        guard let percentage = wave.currentGradientPercentage, percentage < 100, percentage > 0 else {
+        guard
+            let duration = audioData?.duration,
+            let percentage = wave.currentGradientPercentage,
+            percentage < 100, percentage > 0
+        else {
             return
         }
 
-        currentTime = totalTime * TimeInterval(percentage)
+        currentTime = duration * TimeInterval(percentage)
         wave.pause()
     }
     
@@ -177,9 +183,13 @@ extension LargeSoundwaveView {
     }
     
     private func advanceScrollViewWithTimer(advanceFactor: TimeInterval) {
+        guard let duration = audioData?.duration else {
+            return
+        }
+        
         scrollView.setContentOffset(
             CGPoint(
-                x: self.scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(totalTime * advanceFactor)),
+                x: scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(duration * advanceFactor)),
                 y: 0.0
             ),
             animated: false
@@ -231,6 +241,18 @@ extension LargeSoundwaveView: AudioManagerObserver {
         audioData.percentageLevels.forEach {
             self.wave.add(meteringLevel: $0)
         }
+    }
+    
+    func audioPlayerDidStopRecording(_ player: AudioManager) {
+        wave.reset()
+        wave.audioVisualizationMode = .read
+        
+        guard let audioData = self.audioData else {
+            assertionFailure("Audio data shouldn't be nil here")
+            return
+        }
+        
+        wave.meteringLevels = audioData.percentageLevels
     }
     
     func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {

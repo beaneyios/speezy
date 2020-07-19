@@ -11,11 +11,10 @@ import AVKit
 
 class AudioManager: NSObject {
     private(set) var item: AudioItem
+    private(set) var originalItem: AudioItem
     private(set) var trimmedItem: AudioItem?
     
-    private(set) var state = State.idle {
-        didSet { stateDidChange() }
-    }
+    private(set) var state = State.idle
     
     var duration: TimeInterval {
         let asset = AVAsset(url: item.url)
@@ -33,11 +32,8 @@ class AudioManager: NSObject {
     private var recordingTimer: Timer?
     
     init(item: AudioItem) {
+        self.originalItem = item
         self.item = item
-        self.player = try? AVAudioPlayer(contentsOf: item.url)
-        
-        super.init()
-        self.player?.delegate = self
     }
     
     private func stateDidChange() {
@@ -49,11 +45,26 @@ class AudioManager: NSObject {
 
             switch state {
             case .idle:
+                break
+                
+            case .trimmingStarted(let item):
+                observer.audioPlayer(self, didCreateTrimmedItem: item)
+            case .trimmingCancelled:
+                observer.audioPlayerDidCancelTrim(self)
+            case .trimmingApplied(let item):
+                observer.audioPlayer(self, didApplyTrimmedItem: item)
+                
+            case .stoppedPlayback:
                 observer.audioPlayerDidStop(self)
-            case .playing(let item):
+            case .startedPlayback(let item):
                 observer.audioPlayer(self, didStartPlaying: item)
-            case .paused(let item):
+            case .pausedPlayback(let item):
                 observer.audioPlayer(self, didPausePlaybackOf: item)
+            
+            case .startedRecording:
+                observer.audioPlayerDidStartRecording(self)
+            case .stoppedRecording:
+                observer.audioPlayerDidStopRecording(self)
             }
         }
     }
@@ -61,6 +72,15 @@ class AudioManager: NSObject {
 
 // MARK: Recording
 extension AudioManager: AVAudioRecorderDelegate {
+    func toggleRecording() {
+        switch state {
+        case .startedRecording:
+            stopRecording()
+        default:
+            startRecording()
+        }
+    }
+    
     func record() {
         do {
             recordingSession = AVAudioSession.sharedInstance()
@@ -80,14 +100,8 @@ extension AudioManager: AVAudioRecorderDelegate {
         }
     }
     
-    func stopRecording() {
-        audioRecorder?.stop()
-        recordingTimer?.invalidate()
-        recordingTimer = nil
-    }
-    
     private func startRecording() {
-        let audioFilename = self.getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        let audioFilename = self.getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -125,11 +139,32 @@ extension AudioManager: AVAudioRecorderDelegate {
                         return
                     }
 
-                    observer.audioPlayer(self, didRecordBarWithPower: power, duration: recorder.currentTime)
+                    observer.audioPlayer(self, didRecordBarWithPower: power, duration: 0.1)
                 }
             }
         } catch {
             
+        }
+        
+        state = .startedRecording(item)
+        stateDidChange()
+    }
+    
+    func stopRecording() {
+        audioRecorder?.stop()
+        recordingTimer?.invalidate()
+        recordingTimer = nil
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        let newRecording = getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
+        let currentFile = item.url
+        let outputURL = item.url
+        
+        AudioEditor.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
+            self.item = AudioItem(id: self.item.id, url: url)
+            self.state = .stoppedRecording(self.item)
+            self.stateDidChange()
         }
     }
     
@@ -140,28 +175,49 @@ extension AudioManager: AVAudioRecorderDelegate {
 }
 
 // MARK: Playback
-extension AudioManager {
+extension AudioManager: AVAudioPlayerDelegate {
+    func togglePlayback() {
+        switch state {
+        case .startedPlayback:
+            pause()
+        default:
+            play()
+        }
+    }
+    
     func play() {
-        state = .playing(item)
+        player = try? AVAudioPlayer(contentsOf: item.url)
+        player?.delegate = self
+        
+        state = .startedPlayback(item)
         player?.play()
         startPlaybackTimer()
+        stateDidChange()
     }
 
     func pause() {
         switch state {
-        case .idle, .paused:
-            break
-        case .playing(let item):
-            state = .paused(item)
+        case let .startedPlayback(item):
+            state = .pausedPlayback(item)
             player?.pause()
+            playbackTimer?.invalidate()
+            stateDidChange()
+        default:
+            break
         }
-        
-        playbackTimer?.invalidate()
     }
 
     func stop() {
-        state = .idle
+        state = .stoppedPlayback
         playbackTimer?.invalidate()
+        stateDidChange()
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        playbackTimer?.invalidate()
+        playbackTimer = nil
+        state = .stoppedPlayback
+        stateDidChange()
     }
     
     private func startPlaybackTimer() {
@@ -187,19 +243,12 @@ extension AudioManager {
 extension AudioManager {
     func trim(from: TimeInterval, to: TimeInterval) {
         AudioEditor.trim(fileURL: item.url, startTime: from, stopTime: to) { (url) in
-            let trimmedItem = AudioItem(url: url)
+            let trimmedItem = AudioItem(id: self.item.id, url: url)
             self.trimmedItem = trimmedItem
             
             self.player = try? AVAudioPlayer(contentsOf: url)
-            
-            self.observations.forEach {
-                guard let observer = $0.value.observer else {
-                    self.observations.removeValue(forKey: $0.key)
-                    return
-                }
-                
-                observer.audioPlayer(self, didCreateTrimmedItem: trimmedItem)
-            }
+            self.state = .trimmingStarted(trimmedItem)
+            self.stateDidChange()
         }
     }
     
@@ -209,51 +258,18 @@ extension AudioManager {
         }
         
         self.item = trimmedItem
-        
-        self.observations.forEach {
-            guard let observer = $0.value.observer else {
-                self.observations.removeValue(forKey: $0.key)
-                return
-            }
-            
-            observer.audioPlayer(self, didApplyTrimmedItem: trimmedItem)
-        }
+        self.state = .trimmingApplied(trimmedItem)
+        self.stateDidChange()
     }
     
     func cancelTrim() {
         trimmedItem = nil
-        
-        self.observations.forEach {
-            guard let observer = $0.value.observer else {
-                self.observations.removeValue(forKey: $0.key)
-                return
-            }
-            
-            observer.audioPlayerDidCancelTrim(self)
-        }
-    }
-}
-
-extension AudioManager: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        playbackTimer?.invalidate()
-        playbackTimer = nil
-        state = .idle
+        state = .trimmingCancelled(self.item)
         stateDidChange()
     }
 }
 
-extension AudioManager {
-    func togglePlayback() {
-        switch state {
-        case .playing:
-            self.pause()
-        case .paused, .idle:
-            self.play()
-        }
-    }
-}
-
+// MARK: State management
 extension AudioManager {
     func addObserver(_ observer: AudioManagerObserver) {
         let id = ObjectIdentifier(observer)
@@ -269,8 +285,17 @@ extension AudioManager {
 extension AudioManager {
     enum State {
         case idle
-        case playing(AudioItem)
-        case paused(AudioItem)
+        
+        case trimmingStarted(AudioItem)
+        case trimmingCancelled(AudioItem)
+        case trimmingApplied(AudioItem)
+        
+        case stoppedPlayback
+        case startedPlayback(AudioItem)
+        case pausedPlayback(AudioItem)
+        
+        case startedRecording(AudioItem)
+        case stoppedRecording(AudioItem)
     }
     
     struct Observation {

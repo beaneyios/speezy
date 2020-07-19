@@ -9,5 +9,11 @@
 import Foundation
 
 struct AudioItem {
+    let id: String
     let url: URL
+    
+    init(id: String?, url: URL) {
+        self.id = id ?? UUID().uuidString
+        self.url = url
+    }
 }

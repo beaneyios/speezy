@@ -73,14 +73,47 @@ class AudioEditor {
         exportSession.exportAsynchronously {
             switch exportSession.status {
             case .failed:
-                print("Export failed: \(exportSession.error?.localizedDescription)")
+                assertionFailure("Export failed: \(exportSession.error?.localizedDescription)")
             case .cancelled:
-                print("Export canceled")
+                assertionFailure("Export canceled")
             default:
-                print("Successfully exported audio")
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     finished(outputURL)
-                })
+                }
+            }
+        }
+    }
+    
+    static func combineAudioFiles(audioURLs: [URL], outputURL: URL, finished: @escaping (URL) -> Void) {
+        let composition = AVMutableComposition()
+        let compositionAudioTrack = composition.addMutableTrack(
+            withMediaType: AVMediaType.audio,
+            preferredTrackID: kCMPersistentTrackID_Invalid
+        )
+
+        audioURLs.forEach {
+            compositionAudioTrack?.append(url: $0)
+        }
+
+        guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A) else {
+            assertionFailure("Can't create export session")
+            return
+        }
+        
+        deleteExistingOutputURL(audioURLs.first!)
+        
+        exportSession.outputFileType = AVFileType.m4a
+        exportSession.outputURL = outputURL
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .failed:
+                assertionFailure("Export failed: \(exportSession.error?.localizedDescription)")
+            case .cancelled:
+                assertionFailure("Export canceled")
+            default:
+                DispatchQueue.main.async {
+                    finished(outputURL)
+                }
             }
         }
     }
@@ -106,6 +139,27 @@ class AudioEditor {
             try fileManager.removeItem(at: fileURL)
         } catch {
             print(error)
+        }
+    }
+    
+    private static func deleteExistingOutputURL(_ url: URL) {
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: url)
+        } catch {
+            print(error)
+        }
+    }
+}
+
+extension AVMutableCompositionTrack {
+    func append(url: URL) {
+        let newAsset = AVURLAsset(url: url)
+        let range = CMTimeRangeMake(start: CMTime.zero, duration: newAsset.duration)
+        let end = timeRange.end
+        
+        if let track = newAsset.tracks(withMediaType: AVMediaType.audio).first {
+            try! insertTimeRange(range, of: track, at: end)
         }
     }
 }
