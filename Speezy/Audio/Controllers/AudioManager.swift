@@ -22,6 +22,10 @@ class AudioManager: NSObject {
         return TimeInterval(duration)
     }
     
+    var currentPlaybackTime: TimeInterval {
+        player?.currentTime ?? 0.0
+    }
+    
     private var observations = [ObjectIdentifier : Observation]()
     
     private var player: AVAudioPlayer?
@@ -186,15 +190,17 @@ extension AudioManager: AVAudioPlayerDelegate {
     }
     
     func play() {
-        player = try? AVAudioPlayer(contentsOf: item.url)
-        player?.delegate = self
+        if state.isPaused == false {
+            player = try? AVAudioPlayer(contentsOf: item.url)
+            player?.delegate = self
+        }
         
         state = .startedPlayback(item)
         player?.play()
         startPlaybackTimer()
         stateDidChange()
     }
-
+    
     func pause() {
         switch state {
         case let .startedPlayback(item):
@@ -296,6 +302,14 @@ extension AudioManager {
         
         case startedRecording(AudioItem)
         case stoppedRecording(AudioItem)
+        
+        var isPaused: Bool {
+            if case State.pausedPlayback = self {
+                return true
+            } else {
+                return false
+            }
+        }
     }
     
     struct Observation {

@@ -98,6 +98,7 @@ extension LargeSoundwaveView {
             $0.removeFromSuperview()
         }
         
+        previousLabel = nil
         let gap = width / CGFloat(seconds)
         
         (1...Int(seconds)).forEach {
