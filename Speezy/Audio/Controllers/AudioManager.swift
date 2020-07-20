@@ -23,14 +23,12 @@ class AudioManager: NSObject {
     }
     
     var currentPlaybackTime: TimeInterval {
-        player?.currentTime ?? 0.0
+        audioPlayer?.currentPlaybackTime ?? 0.0
     }
     
     private var observations = [ObjectIdentifier : Observation]()
     
-    private var player: AVAudioPlayer?
-    private var playbackTimer: Timer?
-    
+    private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
     
     init(item: AudioItem) {
@@ -124,7 +122,7 @@ extension AudioManager: AudioRecorderDelegate {
 }
 
 // MARK: Playback
-extension AudioManager: AVAudioPlayerDelegate {
+extension AudioManager: AudioPlayerDelegate {
     func togglePlayback() {
         switch state {
         case .startedPlayback:
@@ -136,56 +134,44 @@ extension AudioManager: AVAudioPlayerDelegate {
     
     func play() {
         if state.isPaused == false {
-            player = try? AVAudioPlayer(contentsOf: item.url)
-            player?.delegate = self
+            audioPlayer = AudioPlayer(item: trimmedItem ?? item)
+            audioPlayer?.delegate = self
         }
         
-        state = .startedPlayback(item)
-        player?.play()
-        startPlaybackTimer()
-        stateDidChange()
+        audioPlayer?.play()
     }
     
     func pause() {
         switch state {
-        case let .startedPlayback(item):
-            state = .pausedPlayback(item)
-            player?.pause()
-            playbackTimer?.invalidate()
-            stateDidChange()
+        case .startedPlayback:
+            audioPlayer?.pause()
         default:
             break
         }
     }
 
     func stop() {
-        state = .stoppedPlayback
-        playbackTimer?.invalidate()
+        audioPlayer?.stop()
+    }
+    
+    func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
+        state = .startedPlayback(item)
         stateDidChange()
     }
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        playbackTimer?.invalidate()
-        playbackTimer = nil
-        state = .stoppedPlayback
+    func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
+        state = .pausedPlayback(item)
         stateDidChange()
     }
     
-    private func startPlaybackTimer() {
-        self.playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-            guard let player = self.player else {
-                assertionFailure("Player nil for some reason")
+    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval) {
+        self.observations.forEach {
+            guard let observer = $0.value.observer else {
+                self.observations.removeValue(forKey: $0.key)
                 return
             }
             
-            self.observations.forEach {
-                guard let observer = $0.value.observer else {
-                    self.observations.removeValue(forKey: $0.key)
-                    return
-                }
-                
-                observer.audioPlayer(self, progressedWithTime: player.currentTime)
-            }
+            observer.audioPlayer(self, progressedWithTime: time)
         }
     }
 }
@@ -196,8 +182,6 @@ extension AudioManager {
         AudioEditor.trim(fileURL: item.url, startTime: from, stopTime: to) { (url) in
             let trimmedItem = AudioItem(id: self.item.id, url: url)
             self.trimmedItem = trimmedItem
-            
-            self.player = try? AVAudioPlayer(contentsOf: url)
             self.state = .trimmingStarted(trimmedItem)
             self.stateDidChange()
         }
