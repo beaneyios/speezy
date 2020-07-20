@@ -85,6 +85,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         let outputURL = item.url
         
         AudioEditor.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
+            FileManager.default.deleteExistingURL(newRecording)
             let newItem = AudioItem(id: self.item.id, url: url)
             self.delegate?.audioRecorder(self, didFinishRecordingWithCompletedItem: newItem)
         }

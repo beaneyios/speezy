@@ -57,7 +57,7 @@ class AudioEditor {
             return
         }
         
-        FileManager.default.deleteExistingOutputURL(audioURLs.first!)
+        FileManager.default.deleteExistingURL(audioURLs.first!)
         
         exportSession.outputFileType = AVFileType.m4a
         exportSession.outputURL = outputURL

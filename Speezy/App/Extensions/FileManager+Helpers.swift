@@ -36,7 +36,7 @@ extension FileManager {
         }
     }
     
-    func deleteExistingOutputURL(_ url: URL) {
+    func deleteExistingURL(_ url: URL) {
         let fileManager = FileManager.default
         do {
             try fileManager.removeItem(at: url)
