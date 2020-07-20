@@ -21,6 +21,7 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
+    @IBOutlet weak var btnTitle: UIButton!
     
     @IBOutlet weak var recordContainer: UIView!
     private var recordProcessingSpinner: UIActivityIndicatorView?
@@ -46,6 +47,7 @@ class AudioItemViewController: UIViewController {
         
         configureAudioManager()
         configureMainSoundWave()
+        configureTitle()
         hideCropView(animated: false)
     }
     
@@ -63,6 +65,37 @@ class AudioItemViewController: UIViewController {
         
         soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
+    }
+    
+    func configureTitle() {
+        btnTitle.setTitle(audioManager.item.title, for: .normal)
+    }
+    
+    @IBAction func chooseTitle(_ sender: Any) {
+        let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Title"
+        }
+        
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
+            guard
+                let alertController = alertController,
+                let textField = alertController.textFields?.first,
+                let text = textField.text
+            else {
+                return
+            }
+            
+            self.audioManager.updateTitle(title: text)
+            self.configureTitle()
+            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
+        }
+        
+        alertController.addAction(confirmAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func close(_ sender: Any) {

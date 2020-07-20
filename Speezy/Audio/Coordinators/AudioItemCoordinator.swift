@@ -44,7 +44,7 @@ extension AudioItemCoordinator {
 extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     private func navigateToNewItem() {
         let id = UUID().uuidString
-        let item = AudioItem(id: id, path: "\(id).m4a")
+        let item = AudioItem(id: id, path: "\(id).m4a", title: "No title")
         navigateToAudioItem(item: item)
     }
     

@@ -27,7 +27,7 @@ class AudioCropper {
     
     func crop(from: TimeInterval, to: TimeInterval) {
         crop(audioItem: originalItem, startTime: from, stopTime: to) { (path) in
-            let croppedItem = AudioItem(id: self.originalItem.id, path: path)
+            let croppedItem = AudioItem(id: self.originalItem.id, path: path, title: self.originalItem.title)
             self.croppedItem = croppedItem
             self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
         }

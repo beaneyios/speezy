@@ -34,6 +34,17 @@ class AudioManager: NSObject {
         self.originalItem = item
         self.item = item
     }
+    
+    func updateTitle(title: String) {
+        let audioItem = AudioItem(
+            id: item.id,
+            path: item.path,
+            title: title
+        )
+        
+        self.item = audioItem
+        self.originalItem = audioItem
+    }
 }
 
 // MARK: Recording
@@ -191,7 +202,7 @@ extension AudioManager: AudioCropperDelegate {
         FileManager.default.deleteExistingFile(with: "\(item.id).m4a")
         FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: "\(item.id).m4a")
         
-        let completeItem = AudioItem(id: item.id, path: "\(item.id).m4a")
+        let completeItem = AudioItem(id: item.id, path: "\(item.id).m4a", title: item.title)
         self.item = completeItem
         self.originalItem = completeItem
         

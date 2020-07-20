@@ -31,7 +31,7 @@ class TimelineView: UIView {
         label.font = UIFont.systemFont(ofSize: 12.0)
         label.text = "\(self.timeLabel(duration: TimeInterval(second)))"
         label.textColor = .white
-        label.alpha = 0.3
+        label.alpha = 0.0
         self.addSubview(label)
         
         if let previousLabel = previousLabel {
@@ -50,7 +50,7 @@ class TimelineView: UIView {
         
         let verticalLine = UIView()
         verticalLine.backgroundColor = .white
-        verticalLine.alpha = 0.2
+        verticalLine.alpha = 0.0
         self.addSubview(verticalLine)
         
         verticalLine.snp.makeConstraints { (maker) in
@@ -62,6 +62,7 @@ class TimelineView: UIView {
         
         UIView.animate(withDuration: 0.3, delay: TimeInterval(second) / 10.0, options: [], animations: {
             label.alpha = 0.3
+            verticalLine.alpha = 0.3
         }, completion: nil)
     }
     

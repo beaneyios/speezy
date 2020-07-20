@@ -10,14 +10,16 @@ import Foundation
 
 struct AudioItem: Codable, Equatable, Identifiable {
     let id: String
+    let title: String
     let path: String
     
     var url: URL {
         FileManager.default.documentsURL(with: path)!
     }
     
-    init(id: String, path: String) {
+    init(id: String, path: String, title: String) {
         self.id = id
         self.path = path
+        self.title = title
     }
 }
