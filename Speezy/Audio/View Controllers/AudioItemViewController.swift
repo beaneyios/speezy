@@ -50,8 +50,6 @@ class AudioItemViewController: UIViewController {
     }
     
     func configureAudioManager() {
-        let audioURL = Bundle.main.url(forResource: "testFile2", withExtension: "m4a")!
-        audioManager = AudioManager(item: AudioItem(id: nil, url: audioURL))
         audioManager.addObserver(self)
     }
     

@@ -13,12 +13,15 @@ class LargeSoundwaveView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var keylineContainer: UIView!
     @IBOutlet weak var timelineContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
     
+    private var waveWidth: Constraint!
+    
     private var wave: AudioVisualizationView!
     private var timelineView: TimelineView!
-    
+        
     private let barSpacing: CGFloat = 3.0
     private let barWidth: CGFloat = 3.0
     private var totalSpacePerBar: CGFloat { barSpacing + barWidth }
@@ -38,6 +41,19 @@ class LargeSoundwaveView: UIView {
         let item = manager.item.url
         AudioLevelGenerator.render(fromAudioURL: item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
+                let line = UIView()
+                line.backgroundColor = .red
+                
+                self.keylineContainer.addSubview(line)
+                
+                line.snp.makeConstraints { (maker) in
+                    maker.height.equalTo(2.0)
+                    maker.trailing.equalToSuperview()
+                    maker.leading.equalToSuperview()
+                    maker.centerY.equalToSuperview()
+                    maker.centerX.equalToSuperview()
+                }
+                
                 let waveSize = self.waveSize(audioData: audioData)
                 self.audioData = audioData
                 self.createTimeLine(seconds: audioData.duration, width: waveSize.width)
@@ -103,6 +119,11 @@ extension LargeSoundwaveView {
         waveContainer.addSubview(wave)
         self.wave = wave
         
+        wave.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+            self.waveWidth = maker.width.equalTo(waveSize.width).constraint
+        }
+        
         UIView.animate(withDuration: 0.3) {
             wave.alpha = 1.0
         }
@@ -137,9 +158,24 @@ extension LargeSoundwaveView {
                 animated: false
             )
         } else if case AudioManager.State.startedRecording = manager.state {
+            
+            let waveWidth = waveSize.width
+            
+            let offset: CGFloat = {
+                if waveWidth < frame.width {
+                    return 0.0
+                } else {
+                    return waveWidth - frame.width
+                }
+            }()
+            
+            print("wave width \(waveWidth)")
+            print("frame width \(frame.width)")
+            print("offset: \(offset)")
+                        
             scrollView.setContentOffset(
                 CGPoint(
-                    x: waveSize.width - frame.width,
+                    x: offset,
                     y: 0.0
                 ),
                 animated: false
@@ -253,8 +289,7 @@ extension LargeSoundwaveView: AudioManagerObserver {
             )
         }
         
-        wave.frame.size.width = waveSize.width
-        scrollView.contentSize.width = waveSize.width
+        waveWidth.update(offset: waveSize.width)
         wave.add(meteringLevel: percentageLevel)
         advanceScrollViewWithTimer(advanceFactor: 10.0)
     }

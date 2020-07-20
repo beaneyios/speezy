@@ -40,7 +40,13 @@ class AudioLevelGenerator {
     static func render(fromAudioURL audioURL: URL, targetSamplesPolicy: TargetSamples, completion: @escaping AudioLevelCompletion) {
         self.load(fromAudioURL: audioURL) { (context) in
             guard let context = context else {
-                assertionFailure("Context creation failed")
+                completion(
+                    AudioData(
+                        dBLevels: [],
+                        percentageLevels: [],
+                        duration: 0.0
+                    )
+                )
                 return
             }
             
@@ -99,7 +105,8 @@ class AudioLevelGenerator {
         let asset = AVURLAsset(url: audioURL, options: [AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true as Bool)])
 
         guard let assetTrack = asset.tracks(withMediaType: AVMediaType.audio).first else {
-            fatalError("Couldn't load AVAssetTrack")
+            completionHandler(nil)
+            return
         }
 
         asset.loadValuesAsynchronously(forKeys: ["duration"]) {

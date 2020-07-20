@@ -14,6 +14,10 @@ class TimelineView: UIView {
     private var previousLabel: UILabel?
     
     func createTimeLine(seconds: TimeInterval, width: CGFloat) {
+        guard seconds > 0 else {
+            return
+        }
+        
         let gap = width / CGFloat(seconds)
         
         (1...Int(seconds)).forEach {
@@ -37,7 +41,7 @@ class TimelineView: UIView {
             }
         } else {
             label.snp.makeConstraints { (maker) in
-                maker.centerX.equalTo(self.snp.centerX).offset(gap)
+                maker.centerX.equalTo(self.snp.leading).offset(gap)
                 maker.top.equalTo(self)
             }
         }

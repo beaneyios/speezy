@@ -198,6 +198,10 @@ extension AudioManager: AudioCropperDelegate {
 
 // MARK: State management
 extension AudioManager {
+    struct Observation {
+        weak var observer: AudioManagerObserver?
+    }
+    
     func addObserver(_ observer: AudioManagerObserver) {
         let id = ObjectIdentifier(observer)
         observations[id] = Observation(observer: observer)
@@ -233,10 +237,6 @@ extension AudioManager {
                 return false
             }
         }
-    }
-    
-    struct Observation {
-        weak var observer: AudioManagerObserver?
     }
     
     private func stateDidChange() {

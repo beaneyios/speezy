@@ -17,12 +17,12 @@ class AudioEditor {
         guard
             compatiblePresets.contains(AVAssetExportPresetHighestQuality),
             let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
-            let outputURL = self.outputURL(for: "original.m4a")
+            let outputURL = FileManager.default.documentsOutputURL(with: "original.m4a")
         else {
             return
         }
         
-        deleteExistingOutputFile("original.m4a")
+        FileManager.default.deleteExistingOutputFile(with: "original.m4a")
         
         exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.m4a
@@ -57,7 +57,7 @@ class AudioEditor {
             return
         }
         
-        deleteExistingOutputURL(audioURLs.first!)
+        FileManager.default.deleteExistingOutputURL(audioURLs.first!)
         
         exportSession.outputFileType = AVFileType.m4a
         exportSession.outputURL = outputURL
@@ -72,39 +72,6 @@ class AudioEditor {
                     finished(outputURL)
                 }
             }
-        }
-    }
-    
-    private static func outputURL(for name: String) -> URL? {
-        let fileManager = FileManager.default
-        do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            let fileURL = documentDirectory.appendingPathComponent(name)
-            return fileURL
-        } catch {
-            print(error)
-        }
-        
-        return nil
-    }
-    
-    private static func deleteExistingOutputFile(_ name: String) {
-        let fileManager = FileManager.default
-        do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            let fileURL = documentDirectory.appendingPathComponent(name)
-            try fileManager.removeItem(at: fileURL)
-        } catch {
-            print(error)
-        }
-    }
-    
-    private static func deleteExistingOutputURL(_ url: URL) {
-        let fileManager = FileManager.default
-        do {
-            try fileManager.removeItem(at: url)
-        } catch {
-            print(error)
         }
     }
 }

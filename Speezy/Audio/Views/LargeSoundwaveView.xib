@@ -26,17 +26,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="780" height="188"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zm7-8u-0lt">
+                                            <rect key="frame" x="0.0" y="0.0" width="780" height="188"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
                                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEz-cA-Yw4">
                                             <rect key="frame" x="0.0" y="0.0" width="780" height="188"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="ffG-1s-og7" firstAttribute="leading" secondItem="VN9-e4-pJ2" secondAttribute="leading" id="0ZC-07-OCf"/>
+                                        <constraint firstAttribute="bottom" secondItem="zm7-8u-0lt" secondAttribute="bottom" id="GIO-83-dVm"/>
+                                        <constraint firstAttribute="trailing" secondItem="zm7-8u-0lt" secondAttribute="trailing" id="NuX-DO-JX0"/>
                                         <constraint firstAttribute="trailing" secondItem="ffG-1s-og7" secondAttribute="trailing" id="Of5-Lm-dii"/>
+                                        <constraint firstItem="zm7-8u-0lt" firstAttribute="leading" secondItem="VN9-e4-pJ2" secondAttribute="leading" id="XR4-MM-uJQ"/>
                                         <constraint firstItem="ffG-1s-og7" firstAttribute="top" secondItem="VN9-e4-pJ2" secondAttribute="top" id="YAd-Yi-wE7"/>
                                         <constraint firstItem="zEz-cA-Yw4" firstAttribute="top" secondItem="VN9-e4-pJ2" secondAttribute="top" id="aGq-Tr-RmL"/>
+                                        <constraint firstItem="zm7-8u-0lt" firstAttribute="top" secondItem="VN9-e4-pJ2" secondAttribute="top" id="bg9-c4-cWw"/>
                                         <constraint firstAttribute="bottom" secondItem="zEz-cA-Yw4" secondAttribute="bottom" id="caM-NR-22p"/>
                                         <constraint firstItem="zEz-cA-Yw4" firstAttribute="leading" secondItem="VN9-e4-pJ2" secondAttribute="leading" id="eNM-Ih-AlI"/>
                                         <constraint firstAttribute="trailing" secondItem="zEz-cA-Yw4" secondAttribute="trailing" id="kO2-am-WP9"/>
@@ -59,6 +67,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ICs-PM-STR" secondAttribute="bottom" id="D1d-ZJ-VBN"/>
+                        <constraint firstItem="VN9-e4-pJ2" firstAttribute="width" relation="greaterThanOrEqual" secondItem="IFb-kf-Gt1" secondAttribute="width" id="Zq0-XN-GBz"/>
                         <constraint firstAttribute="trailing" secondItem="ICs-PM-STR" secondAttribute="trailing" id="fo1-G4-Qan"/>
                         <constraint firstItem="ICs-PM-STR" firstAttribute="leading" secondItem="IFb-kf-Gt1" secondAttribute="leading" id="gtF-4C-yDF"/>
                         <constraint firstItem="ICs-PM-STR" firstAttribute="top" secondItem="IFb-kf-Gt1" secondAttribute="top" id="tTy-XC-wae"/>
@@ -76,6 +85,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="contentView" destination="VN9-e4-pJ2" id="WLE-SH-DzC"/>
+                <outlet property="keylineContainer" destination="zm7-8u-0lt" id="92X-Wi-dgz"/>
                 <outlet property="scrollView" destination="ICs-PM-STR" id="Rlr-xa-13H"/>
                 <outlet property="timelineContainer" destination="ffG-1s-og7" id="mgX-ug-WF5"/>
                 <outlet property="waveContainer" destination="zEz-cA-Yw4" id="1X8-EW-JIw"/>

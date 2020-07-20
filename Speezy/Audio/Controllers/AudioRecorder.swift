@@ -65,7 +65,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
 
                 recorder.updateMeters()
                 let power = recorder.averagePower(forChannel: 0)
-                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, duration: 0.1)
+                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, duration: 0.05)
             }
         } catch {
             

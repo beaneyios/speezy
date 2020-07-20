@@ -61,12 +61,12 @@ extension AudioCropper {
         guard
             compatiblePresets.contains(AVAssetExportPresetHighestQuality),
             let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
-            let outputURL = outputURL(for: "output.m4a")
+            let outputURL = FileManager.default.documentsOutputURL(with: "output.m4a")
         else {
             return
         }
         
-        deleteExistingOutputFile("output.m4a")
+        FileManager.default.deleteExistingOutputFile(with: "output.m4a")
         
         exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.m4a
@@ -89,29 +89,5 @@ extension AudioCropper {
                 })
             }
         }
-    }
-    
-    func deleteExistingOutputFile(_ name: String) {
-        let fileManager = FileManager.default
-        do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            let fileURL = documentDirectory.appendingPathComponent(name)
-            try fileManager.removeItem(at: fileURL)
-        } catch {
-            print(error)
-        }
-    }
-    
-    func outputURL(for name: String) -> URL? {
-        let fileManager = FileManager.default
-        do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            let fileURL = documentDirectory.appendingPathComponent(name)
-            return fileURL
-        } catch {
-            print(error)
-        }
-        
-        return nil
     }
 }
