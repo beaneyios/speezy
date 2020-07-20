@@ -57,7 +57,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             audioRecorder?.record()
             delegate?.audioRecorderDidStartRecording(self)
                         
-            recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+            recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
                 guard let recorder = self.audioRecorder else {
                     assertionFailure("Somehow recorder is nil.")
                     return
@@ -65,7 +65,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
 
                 recorder.updateMeters()
                 let power = recorder.averagePower(forChannel: 0)
-                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, duration: 0.05)
+                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, duration: 0.1)
             }
         } catch {
             

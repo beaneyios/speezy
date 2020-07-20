@@ -43,6 +43,7 @@ class LargeSoundwaveView: UIView {
             DispatchQueue.main.async {
                 let line = UIView()
                 line.backgroundColor = .red
+                line.alpha = 0.6
                 
                 self.keylineContainer.addSubview(line)
                 
@@ -254,18 +255,16 @@ extension LargeSoundwaveView: AudioManagerObserver {
     }
     
     func audioPlayerDidStopRecording(_ player: AudioManager) {
-        alpha = 1.0
-        
-        manager = player
-        wave.reset()
-        wave.audioVisualizationMode = .read
-        
-        guard let audioData = self.audioData else {
-            assertionFailure("Audio data shouldn't be nil here")
-            return
+        AudioLevelGenerator.render(fromAudioURL: player.item.url, targetSamplesPolicy: .fitToDuration) { (audioData) in
+            DispatchQueue.main.async {
+                self.alpha = 1.0
+                
+                self.manager = player
+                self.wave.reset()
+                self.wave.audioVisualizationMode = .read
+                self.wave.meteringLevels = audioData.percentageLevels
+            }
         }
-        
-        wave.meteringLevels = audioData.percentageLevels
     }
     
     func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {

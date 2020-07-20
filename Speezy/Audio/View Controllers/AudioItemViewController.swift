@@ -105,42 +105,42 @@ class AudioItemViewController: UIViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.cropContainer.alpha = 0.0
         }) { (finished) in
+            self.cropView?.removeFromSuperview()
+            self.cropView = nil
             self.cropContainerHeight.constant = 0.0
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
-            }) { (finished) in
-                self.cropView?.removeFromSuperview()
-                self.cropView = nil
-                self.cropContainerHeight.constant = 0.0
-            }
+            })
         }
     }
     
     func showCropView() {
         btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
-        
         btnCut.disable()
         btnRecord.disable()
         btnShare.disable()
-                
-        let cropView = CropView.instanceFromNib()
-        cropView.delegate = self
-        cropContainer.addSubview(cropView)
         
-        cropView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.cropContainer)
-        }
-        
-        cropContainer.layoutIfNeeded()
-        cropContainerHeight.constant = 100.0
+        self.cropContainerHeight.constant = 100.0
         UIView.animate(withDuration: 0.4, animations: {
             self.view.layoutIfNeeded()
             self.cropContainer.alpha = 1.0
         }) { (finished) in
+            let cropView = CropView.instanceFromNib()
+            cropView.delegate = self
+            cropView.alpha = 0.0
+            self.cropContainer.addSubview(cropView)
+            
+            cropView.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(self.cropContainer)
+            }
+            
+            self.cropView = cropView
             cropView.configure(manager: self.audioManager)
+            
+            UIView.animate(withDuration: 0.3) {
+                cropView.alpha = 1.0
+            }
         }
-        
-        self.cropView = cropView
     }
 }
 
@@ -228,8 +228,12 @@ extension AudioItemViewController: AudioManagerObserver {
     
     func audioPlayerDidStop(_ player: AudioManager) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-        btnRecord.enable()
-        btnCut.enable()
+        
+        if cropView == nil {
+            btnRecord.enable()
+            btnCut.enable()
+        }
+        
         btnCrop.enable()
     }
     

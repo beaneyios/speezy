@@ -128,7 +128,7 @@ class CropView: UIView {
         
         if sender.state == .ended {
             if newConstraint > 0 {
-                lastLeftLocation = newConstraint
+                lastLeftLocation = leftHandleConstraint.constant
             } else {
                 lastLeftLocation = 0.0
             }
@@ -142,6 +142,7 @@ class CropView: UIView {
         
         let translation = sender.translation(in: contentView)
         let newConstraint = lastRightLocation - translation.x
+        print(translation.x)
         
         if sender.state == .changed {
             if newConstraint < 0 {
@@ -159,10 +160,8 @@ class CropView: UIView {
         }
         
         if sender.state == .ended {
-            lastRightLocation = newConstraint
-            
-            if newConstraint > 0 {
-                lastRightLocation = newConstraint
+            if rightHandleConstraint.constant > 0 {
+                lastRightLocation = rightHandleConstraint.constant
             } else {
                 lastRightLocation = 0.0
             }

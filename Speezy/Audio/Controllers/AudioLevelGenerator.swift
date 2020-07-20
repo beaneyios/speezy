@@ -64,7 +64,7 @@ class AudioLevelGenerator {
 
                     let frameSizeToRead = Int(sampleRate / 10)
                     let numberOfFrames = Int(audioFileLength) / frameSizeToRead
-                    return numberOfFrames
+                    return numberOfFrames > 0 ? numberOfFrames : 100
                     
                 case let .fitToWidth(width, barSpacing):
                     return Int(width / barSpacing)
