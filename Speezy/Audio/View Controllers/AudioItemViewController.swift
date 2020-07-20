@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+// AudioItemViewController.swift
 //  Speezy
 //
 //  Created by Matt Beaney on 27/05/2020.
@@ -17,7 +17,7 @@ enum PlayerState {
     case paused
 }
 
-class ViewController: UIViewController {
+class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnRecord: UIButton!
@@ -142,7 +142,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: CropViewDelegate {
+extension AudioItemViewController: CropViewDelegate {
     func cropViewDidApplyCrop(_ view: CropView) {
         let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
         let crop = UIAlertAction(title: "Crop", style: .destructive) { (action) in
@@ -161,7 +161,7 @@ extension ViewController: CropViewDelegate {
 }
 
 // MARK: State management
-extension ViewController: AudioManagerObserver {
+extension AudioItemViewController: AudioManagerObserver {
     func audioPlayerProcessingRecording(_ player: AudioManager) {
         btnRecord.disable()
         
@@ -250,7 +250,7 @@ extension ViewController: AudioManagerObserver {
 }
 
 // MARK: For later.
-extension ViewController {
+extension AudioItemViewController {
     func share() {
         btnShare.disable()
         guard let image = UIImage(named: "speezy") else {
