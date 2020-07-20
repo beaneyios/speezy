@@ -195,6 +195,7 @@
                         <outlet property="btnShare" destination="dS4-sh-ukM" id="jGR-FV-oIE"/>
                         <outlet property="lblTimer" destination="BHa-y7-Fyu" id="8YV-wv-N99"/>
                         <outlet property="mainWaveContainer" destination="aD4-iy-Eyt" id="RiN-lJ-Mwd"/>
+                        <outlet property="recordContainer" destination="OA5-DV-Fw0" id="PyV-4i-kxC"/>
                         <outlet property="trimContainer" destination="I7a-EG-tAp" id="8lb-jS-nfL"/>
                         <outlet property="trimContainerHeight" destination="oMl-BD-Qm2" id="zpx-AT-Ubc"/>
                     </connections>

@@ -17,6 +17,7 @@ class LargeSoundwaveView: UIView {
     @IBOutlet weak var waveContainer: UIView!
     
     private var wave: AudioVisualizationView!
+    private var timelineView: TimelineView!
     
     private let barSpacing: CGFloat = 3.0
     private let barWidth: CGFloat = 3.0
@@ -29,8 +30,6 @@ class LargeSoundwaveView: UIView {
         manager?.currentPlaybackTime ?? 0.0
     }
     
-    private var previousLabel: UILabel?
-
     func configure(manager: AudioManager) {
         self.manager = manager
         manager.addObserver(self)
@@ -45,6 +44,23 @@ class LargeSoundwaveView: UIView {
                 self.createAudioVisualisationView(with: audioData.percentageLevels, seconds: audioData.duration, waveSize: waveSize)
             }
         }
+    }
+    
+    private func createTimeLine(seconds: TimeInterval, width: CGFloat) {
+        timelineView?.removeFromSuperview()
+        timelineView = nil
+        
+        let timelineView = TimelineView()
+        timelineContainer.addSubview(timelineView)
+        timelineView.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(timelineContainer)
+            maker.trailing.equalTo(timelineContainer)
+            maker.leading.equalTo(timelineContainer)
+            maker.top.equalTo(timelineContainer)
+        }
+        
+        timelineView.createTimeLine(seconds: seconds, width: width)
+        self.timelineView = timelineView
     }
     
     private func waveSize(audioData: AudioData) -> CGSize {
@@ -91,67 +107,6 @@ extension LargeSoundwaveView {
             wave.alpha = 1.0
         }
     }
-    
-    private func createTimeLine(seconds: TimeInterval, width: CGFloat) {
-        timelineContainer.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        previousLabel = nil
-        let gap = width / CGFloat(seconds)
-        
-        (1...Int(seconds)).forEach {
-            self.addSecond(second: $0, gap: gap)
-        }
-    }
-    
-    private func addSecond(second: Int, gap: CGFloat) {
-        let label = UILabel()
-        label.alpha = 0.0
-        label.font = UIFont.systemFont(ofSize: 12.0)
-        label.text = "\(self.timeLabel(duration: TimeInterval(second)))"
-        label.textColor = .white
-        label.alpha = 0.3
-        timelineContainer.addSubview(label)
-        
-        if let previousLabel = previousLabel {
-            label.snp.makeConstraints { (maker) in
-                maker.centerX.equalTo(previousLabel.snp.centerX).offset(gap)
-                maker.top.equalTo(contentView)
-            }
-        } else {
-            label.snp.makeConstraints { (maker) in
-                maker.centerX.equalTo(contentView.snp.centerX).offset(gap)
-                maker.top.equalTo(contentView)
-            }
-        }
-        
-        previousLabel = label
-        
-        let verticalLine = UIView()
-        verticalLine.backgroundColor = .white
-        verticalLine.alpha = 0.2
-        timelineContainer.addSubview(verticalLine)
-        
-        verticalLine.snp.makeConstraints { (maker) in
-            maker.top.equalTo(contentView.snp.top).offset(24.0)
-            maker.bottom.equalTo(contentView.snp.bottom)
-            maker.width.equalTo(1.0)
-            maker.leading.equalTo(label.snp.leading)
-        }
-        
-        UIView.animate(withDuration: 0.3, delay: TimeInterval(second) / 10.0, options: [], animations: {
-            label.alpha = 0.3
-        }, completion: nil)
-    }
-    
-    private func timeLabel(duration: TimeInterval) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [ .minute, .second ]
-        formatter.zeroFormattingBehavior = [ .pad ]
-        return formatter.string(from: duration) ?? "\(duration)"
-    }
 }
 
 // MARK: Playback
@@ -162,23 +117,34 @@ extension LargeSoundwaveView {
     }
     
     private func advanceScrollViewWithTimer(advanceFactor: TimeInterval) {
-        guard let audioData = audioData else {
+        guard let manager = self.manager, let audioData = audioData else {
             return
         }
         
-        let duration = audioData.duration
-        let currentTime = currentPlaybackTime
-        let currentPercentage = currentTime / duration
         let waveSize = self.waveSize(audioData: audioData)
-        let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
-        scrollView.setContentOffset(
-            CGPoint(
-                x: centerPoint - (frame.width / 2.0),
-                y: 0.0
-            ),
-            animated: false
-        )
+        if case AudioManager.State.startedPlayback = manager.state {
+            let duration = audioData.duration
+            let currentTime = currentPlaybackTime
+            let currentPercentage = currentTime / duration
+            let centerPoint = waveSize.width * CGFloat(currentPercentage)
+            
+            scrollView.setContentOffset(
+                CGPoint(
+                    x: centerPoint - (frame.width / 2.0),
+                    y: 0.0
+                ),
+                animated: false
+            )
+        } else if case AudioManager.State.startedRecording = manager.state {
+            scrollView.setContentOffset(
+                CGPoint(
+                    x: waveSize.width - frame.width,
+                    y: 0.0
+                ),
+                animated: false
+            )
+        }
     }
 }
 
@@ -241,7 +207,13 @@ extension LargeSoundwaveView: AudioManagerObserver {
         }
     }
     
+    func audioPlayerProcessingRecording(_ player: AudioManager) {
+        alpha = 0.5
+    }
+    
     func audioPlayerDidStopRecording(_ player: AudioManager) {
+        alpha = 1.0
+        
         manager = player
         wave.reset()
         wave.audioVisualizationMode = .read
@@ -269,7 +241,10 @@ extension LargeSoundwaveView: AudioManagerObserver {
         let waveSize = self.waveSize(audioData: audioData)
         
         if let previousDuration = previousDuration, let newDuration = newDuration, Int(previousDuration) < Int(newDuration) {
-            addSecond(second: Int(newDuration), gap: self.waveSize(audioData: audioData).width / CGFloat(newDuration))
+            timelineView.addSecond(
+                second: Int(newDuration),
+                gap: self.waveSize(audioData: audioData).width / CGFloat(newDuration)
+            )
         }
         
         wave.frame.size.width = waveSize.width

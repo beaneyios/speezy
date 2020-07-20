@@ -35,6 +35,7 @@
 		BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */; };
 		BEBFD4B024C58EF800200D87 /* testFile.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AF24C58EF800200D87 /* testFile.m4a */; };
 		BEBFD4B224C5916D00200D87 /* testFile2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4B124C5916D00200D87 /* testFile2.m4a */; };
+		BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4B324C595F800200D87 /* TimelineView.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNibView.swift; sourceTree = "<group>"; };
 		BEBFD4AF24C58EF800200D87 /* testFile.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = testFile.m4a; sourceTree = "<group>"; };
 		BEBFD4B124C5916D00200D87 /* testFile2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = testFile2.m4a; sourceTree = "<group>"; };
+		BEBFD4B324C595F800200D87 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -158,9 +160,9 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
-				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
+				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BE4F988A2480F7CE00B1AE8B /* twitter.png */,
 				BEBFD4B124C5916D00200D87 /* testFile2.m4a */,
 				BEAACE8D24BA155F0074E4B9 /* test.m4a */,
@@ -213,6 +215,7 @@
 				BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */,
 				BE50345024BB9C6C00A414D1 /* TrimmableSoundwaveView.xib */,
 				BE50345224BB9C7600A414D1 /* TrimmableSoundwaveView.swift */,
+				BEBFD4B324C595F800200D87 /* TimelineView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				BE50346824BE02CE00A414D1 /* AudioManagerObserver.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
+				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -69,6 +69,8 @@ class AudioManager: NSObject {
                 observer.audioPlayerDidStartRecording(self)
             case .stoppedRecording:
                 observer.audioPlayerDidStopRecording(self)
+            case .processingRecording:
+                observer.audioPlayerProcessingRecording(self)
             }
         }
     }
@@ -155,6 +157,8 @@ extension AudioManager: AVAudioRecorderDelegate {
     }
     
     func stopRecording() {
+        state = .processingRecording(item)
+        stateDidChange()
         audioRecorder?.stop()
         recordingTimer?.invalidate()
         recordingTimer = nil
@@ -301,6 +305,7 @@ extension AudioManager {
         case pausedPlayback(AudioItem)
         
         case startedRecording(AudioItem)
+        case processingRecording(AudioItem)
         case stoppedRecording(AudioItem)
         
         var isPaused: Bool {

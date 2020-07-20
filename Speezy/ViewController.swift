@@ -24,6 +24,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     
+    @IBOutlet weak var recordContainer: UIView!
+    private var recordProcessingSpinner: UIActivityIndicatorView?
+    
     @IBOutlet weak var lblTimer: UILabel!
     
     @IBOutlet weak var mainWaveContainer: UIView!
@@ -41,23 +44,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureAudioManager {
-            DispatchQueue.main.async {
-                self.configureMainSoundWave()
-            }
-        }
-    
+        configureAudioManager()
+        configureMainSoundWave()
         hideTrimView(animated: false)
     }
     
-    func configureAudioManager(completion: @escaping () -> Void) {
+    func configureAudioManager() {
         let audioURL = Bundle.main.url(forResource: "testFile2", withExtension: "m4a")!
-        
-        AudioEditor.convertOriginalToSpeezyFormat(url: audioURL) { (url) in
-            self.audioManager = AudioManager(item: AudioItem(id: nil, url: url))
-            self.audioManager.addObserver(self)
-            completion()
-        }
+        audioManager = AudioManager(item: AudioItem(id: nil, url: audioURL))
+        audioManager.addObserver(self)
     }
     
     func configureMainSoundWave() {        
@@ -77,7 +72,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
-        toggleTrimView()
+        if case AudioManager.State.trimmingStarted = audioManager.state {
+            audioManager.cancelTrim()
+        } else {
+            toggleTrimView()
+        }
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
@@ -174,11 +173,30 @@ extension ViewController: TrimmableSoundWaveViewDelegate {
 
 // MARK: State management
 extension ViewController: AudioManagerObserver {
+    func audioPlayerProcessingRecording(_ player: AudioManager) {
+        btnRecord.disable()
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.tintColor = .white
+        spinner.color = .white
+        spinner.startAnimating()
+        
+        recordContainer.addSubview(spinner)
+        spinner.snp.makeConstraints { (maker) in
+            maker.center.equalToSuperview()
+        }
+        
+        recordProcessingSpinner = spinner
+    }
+    
     func audioPlayerDidStopRecording(_ player: AudioManager) {
+        recordProcessingSpinner?.removeFromSuperview()
+        
         btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
         btnPlayback.enable()
         btnCut.enable()
         btnCrop.enable()
+        btnRecord.enable()
     }
     
     func audioPlayerDidStartRecording(_ player: AudioManager) {
