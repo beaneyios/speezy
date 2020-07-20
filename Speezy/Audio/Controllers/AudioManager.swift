@@ -82,6 +82,8 @@ extension AudioManager: AudioRecorderDelegate {
     func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem) {
         state = .stoppedRecording(item)
         stateDidChange()
+        
+        AudioStorage.saveItem(item)
     }
 }
 
@@ -186,6 +188,8 @@ extension AudioManager: AudioCropperDelegate {
         state = .croppingFinished(item)
         stateDidChange()
         audioCropper = nil
+        
+        AudioStorage.saveItem(item)
     }
     
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
@@ -193,6 +197,8 @@ extension AudioManager: AudioCropperDelegate {
         state = .cancelledCropping(item)
         stateDidChange()
         audioCropper = nil
+        
+        AudioStorage.saveItem(item)
     }
 }
 

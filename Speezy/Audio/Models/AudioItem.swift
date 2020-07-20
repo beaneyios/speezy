@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AudioItem {
+struct AudioItem: Codable, Equatable, Identifiable {
     let id: String
     let url: URL
     
