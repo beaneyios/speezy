@@ -57,7 +57,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             audioRecorder?.record()
             delegate?.audioRecorderDidStartRecording(self)
                         
-            self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+            recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
                 guard let recorder = self.audioRecorder else {
                     assertionFailure("Somehow recorder is nil.")
                     return
