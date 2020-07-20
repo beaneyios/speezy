@@ -35,7 +35,7 @@ class LargeSoundwaveView: UIView {
         manager.addObserver(self)
         scrollView.delegate = self
         
-        let item = manager.trimmedItem?.url ?? manager.item.url
+        let item = manager.item.url
         AudioLevelGenerator.render(fromAudioURL: item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 let waveSize = self.waveSize(audioData: audioData)
@@ -161,7 +161,9 @@ extension LargeSoundwaveView: AudioManagerObserver {
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
         if centerPoint >= center.x {
-            self.advanceScrollViewWithTimer(advanceFactor: 20.0)
+            advanceScrollViewWithTimer(advanceFactor: 20.0)
+        } else {
+            scrollView.setContentOffset(.zero, animated: false)
         }
         
         let newPercentage = Float(time) / Float(audioData.duration)

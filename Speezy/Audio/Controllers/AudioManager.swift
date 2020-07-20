@@ -174,6 +174,11 @@ extension AudioManager: AudioPlayerDelegate {
             observer.audioPlayer(self, progressedWithTime: time)
         }
     }
+    
+    func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
+        state = .stoppedPlayback
+        stateDidChange()
+    }
 }
 
 // MARK: Editing

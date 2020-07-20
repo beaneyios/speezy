@@ -12,6 +12,7 @@ import AVKit
 protocol AudioPlayerDelegate: AnyObject {
     func audioPlayerDidStartPlayback(_ player: AudioPlayer)
     func audioPlayerDidPausePlayback(_ player: AudioPlayer)
+    func audioPlayerDidFinishPlayback(_ player: AudioPlayer)
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval)
 }
 
@@ -27,6 +28,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     init(item: AudioItem) {
         player = try? AVAudioPlayer(contentsOf: item.url)
+        super.init()
+        player?.delegate = self
     }
     
     func play() {
@@ -48,6 +51,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playbackTimer?.invalidate()
         playbackTimer = nil
+        delegate?.audioPlayerDidFinishPlayback(self)
     }
     
     private func startPlaybackTimer() {
