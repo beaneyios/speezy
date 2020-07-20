@@ -31,11 +31,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mainWaveContainer: UIView!
     
-    @IBOutlet weak var trimContainer: UIView!
-    @IBOutlet weak var trimContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var cropContainer: UIView!
+    @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
     
     private var mainWave: LargeSoundwaveView?
-    private var trimWave: TrimmableSoundwaveView?
+    private var cropView: CropView?
     
     var documentInteractionController: UIDocumentInteractionController?
     
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         
         configureAudioManager()
         configureMainSoundWave()
-        hideTrimView(animated: false)
+        hideCropView(animated: false)
     }
     
     func configureAudioManager() {
@@ -72,11 +72,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
-        if case AudioManager.State.trimmingStarted = audioManager.state {
-            audioManager.cancelCrop()
-        } else {
-            toggleTrimView()
-        }
+        audioManager.toggleCropping()
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
@@ -91,20 +87,13 @@ class ViewController: UIViewController {
         share()
     }
     
-    func hideTrimView(animated: Bool) {
-        trimContainerHeight.constant = 0.0
-        trimContainer.alpha = 0.0
-    }
-    
-    func toggleTrimView() {
-        if let trimWave = self.trimWave {
-            hideTrimWave(trimWave)
-        } else {
-            showTrimWave()
+    func hideCropView(animated: Bool = true) {
+        guard animated else {
+            cropContainerHeight.constant = 0.0
+            cropContainer.alpha = 0.0
+            return
         }
-    }
-    
-    func hideTrimWave(_ wave: TrimmableSoundwaveView) {
+        
         btnCrop.setImage(UIImage(named: "crop-button"), for: .normal)
         
         btnCut.enable()
@@ -112,49 +101,49 @@ class ViewController: UIViewController {
         btnShare.enable()
         
         UIView.animate(withDuration: 0.3, animations: {
-            self.trimContainer.alpha = 0.0
+            self.cropContainer.alpha = 0.0
         }) { (finished) in
-            self.trimContainerHeight.constant = 0.0
+            self.cropContainerHeight.constant = 0.0
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
             }) { (finished) in
-                wave.removeFromSuperview()
-                self.trimWave = nil
-                self.trimContainerHeight.constant = 0.0
+                self.cropView?.removeFromSuperview()
+                self.cropView = nil
+                self.cropContainerHeight.constant = 0.0
             }
         }
     }
     
-    func showTrimWave() {
+    func showCropView() {
         btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
         
         btnCut.disable()
         btnRecord.disable()
         btnShare.disable()
                 
-        let trimWave = TrimmableSoundwaveView.instanceFromNib()
-        trimWave.delegate = self
-        trimContainer.addSubview(trimWave)
+        let cropView = CropView.instanceFromNib()
+        cropView.delegate = self
+        cropContainer.addSubview(cropView)
         
-        trimWave.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.trimContainer)
+        cropView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.cropContainer)
         }
         
-        trimContainer.layoutIfNeeded()
-        trimContainerHeight.constant = 100.0
+        cropContainer.layoutIfNeeded()
+        cropContainerHeight.constant = 100.0
         UIView.animate(withDuration: 0.4, animations: {
             self.view.layoutIfNeeded()
-            self.trimContainer.alpha = 1.0
+            self.cropContainer.alpha = 1.0
         }) { (finished) in
-            trimWave.configure(manager: self.audioManager)
+            cropView.configure(manager: self.audioManager)
         }
         
-        self.trimWave = trimWave
+        self.cropView = cropView
     }
 }
 
-extension ViewController: TrimmableSoundWaveViewDelegate {
-    func trimViewDidApplyTrim(_ view: TrimmableSoundwaveView) {
+extension ViewController: CropViewDelegate {
+    func cropViewDidApplyCrop(_ view: CropView) {
         let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
         let crop = UIAlertAction(title: "Crop", style: .destructive) { (action) in
             self.audioManager.applyCrop()
@@ -166,7 +155,7 @@ extension ViewController: TrimmableSoundWaveViewDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    func trimViewDidCancelTrim(_ view: TrimmableSoundwaveView) {
+    func cropViewDidCancelCrop(_ view: CropView) {
         audioManager.cancelCrop()
     }
 }
@@ -240,18 +229,23 @@ extension ViewController: AudioManagerObserver {
         btnCrop.enable()
     }
     
-    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
+    func audioPlayer(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+        lblTimer.text = "00:00:00"
+        showCropView()
+    }
+    
+    func audioPlayer(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
     }
     
-    func audioPlayer(_ player: AudioManager, didApplyTrimmedItem item: AudioItem) {
+    func audioPlayer(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
-        toggleTrimView()
+        hideCropView()
     }
     
-    func audioPlayerDidCancelTrim(_ player: AudioManager) {
+    func audioPlayerDidCancelCropping(_ player: AudioManager) {
         lblTimer.text = "00:00:00"
-        toggleTrimView()
+        hideCropView()
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  TrimmableSoundwaveView.swift
+//  CropView.swift
 //  Speezy
 //
 //  Created by Matt Beaney on 12/07/2020.
@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-protocol TrimmableSoundWaveViewDelegate: AnyObject {
-    func trimViewDidApplyTrim(_ view: TrimmableSoundwaveView)
-    func trimViewDidCancelTrim(_ view: TrimmableSoundwaveView)
+protocol CropViewDelegate: AnyObject {
+    func cropViewDidApplyCrop(_ view: CropView)
+    func cropViewDidCancelCrop(_ view: CropView)
 }
 
-class TrimmableSoundwaveView: UIView {
+class CropView: UIView {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var waveContainer: UIView!
@@ -25,9 +25,9 @@ class TrimmableSoundwaveView: UIView {
     @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
     
-    weak var delegate: TrimmableSoundWaveViewDelegate?
+    weak var delegate: CropViewDelegate?
     
-    private var trimWave: AudioVisualizationView!
+    private var cropWave: AudioVisualizationView!
     
     private let barSpacing: CGFloat = 1.0
     private let barWidth: CGFloat = 1.0
@@ -65,7 +65,7 @@ class TrimmableSoundwaveView: UIView {
             height: waveContainer.frame.height
         )
                     
-        let trimWave = AudioVisualizationView(
+        let cropWave = AudioVisualizationView(
             frame: CGRect(
                 x: 0,
                 y: 0.0,
@@ -74,24 +74,24 @@ class TrimmableSoundwaveView: UIView {
             )
         )
         
-        trimWave.gradientEndColor = .red
-        trimWave.gradientStartColor = .white
-        trimWave.meteringLevelBarInterItem = barSpacing
-        trimWave.meteringLevelBarWidth = barWidth
-        trimWave.audioVisualizationMode = .read
-        trimWave.meteringLevels = levels
+        cropWave.gradientEndColor = .red
+        cropWave.gradientStartColor = .white
+        cropWave.meteringLevelBarInterItem = barSpacing
+        cropWave.meteringLevelBarWidth = barWidth
+        cropWave.audioVisualizationMode = .read
+        cropWave.meteringLevels = levels
         
-        trimWave.tintColor = .white
-        trimWave.backgroundColor = .clear
-        trimWave.alpha = 0.0
+        cropWave.tintColor = .white
+        cropWave.backgroundColor = .clear
+        cropWave.alpha = 0.0
                     
-        waveContainer.addSubview(trimWave)
+        waveContainer.addSubview(cropWave)
         contentView.bringSubviewToFront(leftHandle)
         contentView.bringSubviewToFront(rightHandle)
-        self.trimWave = trimWave
+        self.cropWave = cropWave
         
         UIView.animate(withDuration: 0.4) {
-            trimWave.alpha = 1.0
+            cropWave.alpha = 1.0
         }
     }
     
@@ -133,7 +133,7 @@ class TrimmableSoundwaveView: UIView {
                 lastLeftLocation = 0.0
             }
                         
-            trim()
+            crop()
         }
     }
     
@@ -167,19 +167,19 @@ class TrimmableSoundwaveView: UIView {
                 lastRightLocation = 0.0
             }
             
-            trim()
+            crop()
         }
     }
     
-    @IBAction func applyTrim(_ sender: Any) {
-        delegate?.trimViewDidApplyTrim(self)
+    @IBAction func applyCrop(_ sender: Any) {
+        delegate?.cropViewDidApplyCrop(self)
     }
     
-    @IBAction func cancelTrim(_ sender: Any) {
-        delegate?.trimViewDidCancelTrim(self)
+    @IBAction func cancelCrop(_ sender: Any) {
+        delegate?.cropViewDidCancelCrop(self)
     }
     
-    private func trim() {
+    private func crop() {
         if let manager = manager {
             let percentageStart = lastLeftLocation / contentView.frame.width
             let percentageEnd = (contentView.frame.width - lastRightLocation) / contentView.frame.width
@@ -191,8 +191,8 @@ class TrimmableSoundwaveView: UIView {
     }
 }
 
-extension TrimmableSoundwaveView {
-    class func instanceFromNib() -> TrimmableSoundwaveView {
-        return UINib(nibName: "TrimmableSoundwaveView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! TrimmableSoundwaveView
+extension CropView {
+    class func instanceFromNib() -> CropView {
+        return UINib(nibName: "CropView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! CropView
     }
 }

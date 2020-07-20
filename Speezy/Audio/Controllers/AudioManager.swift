@@ -34,41 +34,6 @@ class AudioManager: NSObject {
         self.originalItem = item
         self.item = item
     }
-    
-    private func stateDidChange() {
-        observations.forEach {
-            guard let observer = $0.value.observer else {
-                observations.removeValue(forKey: $0.key)
-                return
-            }
-
-            switch state {
-            case .idle:
-                break
-                
-            case .trimmingStarted(let item):
-                observer.audioPlayer(self, didCreateTrimmedItem: item)
-            case .trimmingCancelled:
-                observer.audioPlayerDidCancelTrim(self)
-            case .trimmingApplied(let item):
-                observer.audioPlayer(self, didApplyTrimmedItem: item)
-                
-            case .stoppedPlayback:
-                observer.audioPlayerDidStop(self)
-            case .startedPlayback(let item):
-                observer.audioPlayer(self, didStartPlaying: item)
-            case .pausedPlayback(let item):
-                observer.audioPlayer(self, didPausePlaybackOf: item)
-            
-            case .startedRecording:
-                observer.audioPlayerDidStartRecording(self)
-            case .stoppedRecording:
-                observer.audioPlayerDidStopRecording(self)
-            case .processingRecording:
-                observer.audioPlayerProcessingRecording(self)
-            }
-        }
-    }
 }
 
 // MARK: Recording
@@ -182,12 +147,23 @@ extension AudioManager: AudioPlayerDelegate {
 
 // MARK: Editing
 extension AudioManager: AudioCropperDelegate {
-    func crop(from: TimeInterval, to: TimeInterval) {
-        if audioCropper == nil {
-            audioCropper = AudioCropper(originalItem: item)
-            audioCropper?.delegate = self
+    func toggleCropping() {
+        switch state {
+        case .startedCropping, .adjustedCropping:
+            cancelCrop()
+        default:
+            startCropping()
         }
-        
+    }
+    
+    func startCropping() {
+        audioCropper = AudioCropper(originalItem: item)
+        audioCropper?.delegate = self
+        state = .startedCropping(item)
+        stateDidChange()
+    }
+    
+    func crop(from: TimeInterval, to: TimeInterval) {
         audioCropper?.crop(from: from, to: to)
     }
     
@@ -201,20 +177,20 @@ extension AudioManager: AudioCropperDelegate {
     
     func audioCropper(_ cropper: AudioCropper, didCreateCroppedItem item: AudioItem) {
         self.item = item
-        state = .trimmingStarted(item)
+        state = .adjustedCropping(item)
         stateDidChange()
     }
     
     func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem) {
         self.item = item
-        state = .trimmingApplied(item)
+        state = .croppingFinished(item)
         stateDidChange()
         audioCropper = nil
     }
     
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
         self.item = item
-        state = .trimmingCancelled(item)
+        state = .cancelledCropping(item)
         stateDidChange()
         audioCropper = nil
     }
@@ -237,9 +213,10 @@ extension AudioManager {
     enum State {
         case idle
         
-        case trimmingStarted(AudioItem)
-        case trimmingCancelled(AudioItem)
-        case trimmingApplied(AudioItem)
+        case startedCropping(AudioItem)
+        case adjustedCropping(AudioItem)
+        case cancelledCropping(AudioItem)
+        case croppingFinished(AudioItem)
         
         case stoppedPlayback
         case startedPlayback(AudioItem)
@@ -260,5 +237,42 @@ extension AudioManager {
     
     struct Observation {
         weak var observer: AudioManagerObserver?
+    }
+    
+    private func stateDidChange() {
+        observations.forEach {
+            guard let observer = $0.value.observer else {
+                observations.removeValue(forKey: $0.key)
+                return
+            }
+
+            switch state {
+            case .idle:
+                break
+                
+            case .startedCropping(let item):
+                observer.audioPlayer(self, didStartCroppingItem: item)
+            case .adjustedCropping(let item):
+                observer.audioPlayer(self, didAdjustCropOnItem: item)
+            case .cancelledCropping:
+                observer.audioPlayerDidCancelCropping(self)
+            case .croppingFinished(let item):
+                observer.audioPlayer(self, didFinishCroppingItem: item)
+                
+            case .stoppedPlayback:
+                observer.audioPlayerDidStop(self)
+            case .startedPlayback(let item):
+                observer.audioPlayer(self, didStartPlaying: item)
+            case .pausedPlayback(let item):
+                observer.audioPlayer(self, didPausePlaybackOf: item)
+            
+            case .startedRecording:
+                observer.audioPlayerDidStartRecording(self)
+            case .stoppedRecording:
+                observer.audioPlayerDidStopRecording(self)
+            case .processingRecording:
+                observer.audioPlayerProcessingRecording(self)
+            }
+        }
     }
 }

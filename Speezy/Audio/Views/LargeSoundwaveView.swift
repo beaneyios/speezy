@@ -182,15 +182,19 @@ extension LargeSoundwaveView: AudioManagerObserver {
         stop()
     }
     
-    func audioPlayer(_ player: AudioManager, didCreateTrimmedItem item: AudioItem) {
+    func audioPlayer(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+        // no op
+    }
+    
+    func audioPlayer(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
         configure(manager: player)
     }
     
-    func audioPlayerDidCancelTrim(_ player: AudioManager) {
+    func audioPlayerDidCancelCropping(_ player: AudioManager) {
         configure(manager: player)
     }
     
-    func audioPlayer(_ player: AudioManager, didApplyTrimmedItem item: AudioItem) {
+    func audioPlayer(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
         configure(manager: player)
     }
     
