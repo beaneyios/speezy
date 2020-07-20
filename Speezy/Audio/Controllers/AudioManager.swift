@@ -12,8 +12,6 @@ import AVKit
 class AudioManager: NSObject {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
-    private(set) var trimmedItem: AudioItem?
-    
     private(set) var state = State.idle
     
     var duration: TimeInterval {
@@ -30,6 +28,7 @@ class AudioManager: NSObject {
     
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
+    private var audioCropper: AudioCropper?
     
     init(item: AudioItem) {
         self.originalItem = item
@@ -134,7 +133,7 @@ extension AudioManager: AudioPlayerDelegate {
     
     func play() {
         if state.isPaused == false {
-            audioPlayer = AudioPlayer(item: trimmedItem ?? item)
+            audioPlayer = AudioPlayer(item: item)
             audioPlayer?.delegate = self
         }
         
@@ -182,30 +181,42 @@ extension AudioManager: AudioPlayerDelegate {
 }
 
 // MARK: Editing
-extension AudioManager {
-    func trim(from: TimeInterval, to: TimeInterval) {
-        AudioEditor.trim(fileURL: item.url, startTime: from, stopTime: to) { (url) in
-            let trimmedItem = AudioItem(id: self.item.id, url: url)
-            self.trimmedItem = trimmedItem
-            self.state = .trimmingStarted(trimmedItem)
-            self.stateDidChange()
-        }
-    }
-    
-    func applyTrim() {
-        guard let trimmedItem = self.trimmedItem else {
-            return
+extension AudioManager: AudioCropperDelegate {
+    func crop(from: TimeInterval, to: TimeInterval) {
+        if audioCropper == nil {
+            audioCropper = AudioCropper(originalItem: item)
+            audioCropper?.delegate = self
         }
         
-        self.item = trimmedItem
-        self.state = .trimmingApplied(trimmedItem)
-        self.stateDidChange()
+        audioCropper?.crop(from: from, to: to)
     }
     
-    func cancelTrim() {
-        trimmedItem = nil
-        state = .trimmingCancelled(self.item)
+    func applyCrop() {
+        audioCropper?.applyCrop()
+    }
+    
+    func cancelCrop() {
+        audioCropper?.cancelCrop()
+    }
+    
+    func audioCropper(_ cropper: AudioCropper, didCreateCroppedItem item: AudioItem) {
+        self.item = item
+        state = .trimmingStarted(item)
         stateDidChange()
+    }
+    
+    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem) {
+        self.item = item
+        state = .trimmingApplied(item)
+        stateDidChange()
+        audioCropper = nil
+    }
+    
+    func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
+        self.item = item
+        state = .trimmingCancelled(item)
+        stateDidChange()
+        audioCropper = nil
     }
 }
 

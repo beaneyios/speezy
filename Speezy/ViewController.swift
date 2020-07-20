@@ -73,7 +73,7 @@ class ViewController: UIViewController {
     
     @IBAction func toggleCrop(_ sender: Any) {
         if case AudioManager.State.trimmingStarted = audioManager.state {
-            audioManager.cancelTrim()
+            audioManager.cancelCrop()
         } else {
             toggleTrimView()
         }
@@ -157,7 +157,7 @@ extension ViewController: TrimmableSoundWaveViewDelegate {
     func trimViewDidApplyTrim(_ view: TrimmableSoundwaveView) {
         let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
         let crop = UIAlertAction(title: "Crop", style: .destructive) { (action) in
-            self.audioManager.applyTrim()
+            self.audioManager.applyCrop()
         }
         
         let cancel = UIAlertAction(title: "Not yet", style: .cancel, handler: nil)
@@ -167,7 +167,7 @@ extension ViewController: TrimmableSoundWaveViewDelegate {
     }
     
     func trimViewDidCancelTrim(_ view: TrimmableSoundwaveView) {
-        audioManager.cancelTrim()
+        audioManager.cancelCrop()
     }
 }
 
