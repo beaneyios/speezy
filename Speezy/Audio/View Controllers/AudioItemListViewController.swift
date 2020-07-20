@@ -11,6 +11,7 @@ import UIKit
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
+    func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController {
@@ -22,9 +23,27 @@ class AudioItemListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(newItemTapped))
+        navigationItem.rightBarButtonItem = plusButton
+        title = "My recordings"
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    @objc func newItemTapped() {
+        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
+    }
+    
+    func reloadItem(_ item: AudioItem) {
+        if audioItems.contains(item) {
+            audioItems = audioItems.replacing(item)
+        } else {
+            audioItems.append(item)
+        }
+        
+        tableView.reloadData()
     }
 }
 

@@ -120,7 +120,11 @@ extension LargeSoundwaveView {
         self.wave = wave
         
         wave.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+            maker.leading.equalToSuperview()
+            maker.top.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            
+            maker.trailing.lessThanOrEqualToSuperview()
             self.waveWidth = maker.width.equalTo(waveSize.width).constraint
         }
         
@@ -168,10 +172,6 @@ extension LargeSoundwaveView {
                     return waveWidth - frame.width
                 }
             }()
-            
-            print("wave width \(waveWidth)")
-            print("frame width \(frame.width)")
-            print("offset: \(offset)")
                         
             scrollView.setContentOffset(
                 CGPoint(

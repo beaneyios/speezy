@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient-background" translatesAutoresizingMaskIntoConstraints="NO" id="Zmk-Mo-9I9">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient-background" translatesAutoresizingMaskIntoConstraints="NO" id="Zmk-Mo-9I9">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aD4-iy-Eyt">
@@ -163,19 +163,30 @@
                                     <constraint firstAttribute="bottom" secondItem="8rO-mP-Tkm" secondAttribute="bottom" id="yek-yh-Skh"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYG-qo-4mv">
+                                <rect key="frame" x="16" y="16" width="45" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="close:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tY9-XI-tJq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="LKo-eR-PaE" firstAttribute="top" secondItem="aD4-iy-Eyt" secondAttribute="bottom" constant="32" id="2lE-nY-Jqm"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aD4-iy-Eyt" secondAttribute="trailing" id="3od-kO-Eey"/>
-                            <constraint firstItem="Zmk-Mo-9I9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7yc-yh-OYg"/>
+                            <constraint firstItem="Zmk-Mo-9I9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7yc-yh-OYg"/>
                             <constraint firstItem="fp4-HA-iza" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="8Ra-SH-0Nn"/>
                             <constraint firstItem="I7a-EG-tAp" firstAttribute="top" secondItem="LKo-eR-PaE" secondAttribute="bottom" constant="32" id="8nF-7p-Hc2"/>
+                            <constraint firstItem="IYG-qo-4mv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="CId-yl-aQY"/>
                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FV6-1O-9M8"/>
                             <constraint firstItem="dS4-sh-ukM" firstAttribute="top" secondItem="I7a-EG-tAp" secondAttribute="bottom" constant="16" id="UA7-xn-tlP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="I7a-EG-tAp" secondAttribute="trailing" constant="24" id="USQ-So-FTA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zmk-Mo-9I9" secondAttribute="trailing" id="Vrd-Nm-2aZ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Zmk-Mo-9I9" secondAttribute="bottom" id="csS-6B-c5I"/>
+                            <constraint firstAttribute="trailing" secondItem="Zmk-Mo-9I9" secondAttribute="trailing" id="Vrd-Nm-2aZ"/>
+                            <constraint firstAttribute="bottom" secondItem="Zmk-Mo-9I9" secondAttribute="bottom" id="csS-6B-c5I"/>
                             <constraint firstItem="I7a-EG-tAp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="dbs-IV-n0x"/>
                             <constraint firstItem="fp4-HA-iza" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="diI-wG-mzO"/>
                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dwf-61-tYK"/>
@@ -183,6 +194,7 @@
                             <constraint firstItem="dS4-sh-ukM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hfV-Qn-rxK"/>
                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="top" secondItem="BHa-y7-Fyu" secondAttribute="bottom" constant="16" id="hg0-dG-pQ0"/>
                             <constraint firstItem="LKo-eR-PaE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l37-CT-RpQ"/>
+                            <constraint firstItem="IYG-qo-4mv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="lJl-PS-xrJ"/>
                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="top" secondItem="fp4-HA-iza" secondAttribute="bottom" constant="24" id="ok8-X0-D4N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

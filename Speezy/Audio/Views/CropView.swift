@@ -29,8 +29,8 @@ class CropView: UIView {
     
     private var cropWave: AudioVisualizationView!
     
-    private let barSpacing: CGFloat = 1.0
-    private let barWidth: CGFloat = 1.0
+    private let barSpacing: CGFloat = 0.5
+    private let barWidth: CGFloat = 0.5
     private var totalSpacePerBar: CGFloat { barSpacing + barWidth }
         
     private var lastLeftLocation: CGFloat = 0.0
@@ -51,7 +51,7 @@ class CropView: UIView {
             return
         }
         
-        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing)) { (audioData) in
+        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing + barWidth)) { (audioData) in
             DispatchQueue.main.async {
                 self.createAudioVisualisationView(with: audioData.percentageLevels)
             }

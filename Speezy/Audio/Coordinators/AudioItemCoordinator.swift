@@ -24,7 +24,7 @@ class AudioItemCoordinator: ViewCoordinator {
     }
     
     override func start() {
-//        navigateToNewItem()
+        navigationController.setNavigationBarHidden(false, animated: false)
         navigateToAudioItemList()
     }
     
@@ -34,8 +34,16 @@ class AudioItemCoordinator: ViewCoordinator {
 }
 
 extension AudioItemCoordinator {
+    var listViewController: AudioItemListViewController? {
+        navigationController.viewControllers.first {
+            $0 is AudioItemListViewController
+        } as? AudioItemListViewController
+    }
+}
+
+extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     private func navigateToNewItem() {
-        let id = UUID().uuidString        
+        let id = UUID().uuidString
         let item = AudioItem(id: id, path: "\(id).m4a")
         navigateToAudioItem(item: item)
     }
@@ -47,11 +55,24 @@ extension AudioItemCoordinator {
         
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
-        navigationController.pushViewController(viewController, animated: true)
+        viewController.delegate = self
+        navigationController.present(viewController, animated: true, completion: nil)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem) {
+        listViewController?.reloadItem(item)
+    }
+    
+    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 
 extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController) {
+        navigateToNewItem()
+    }
+    
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem) {
         navigateToAudioItem(item: item)
     }

@@ -8,13 +8,11 @@
 
 import UIKit
 import SwiftVideoGenerator
-import AVKit
 import SnapKit
 
-enum PlayerState {
-    case fresh
-    case playing
-    case paused
+protocol AudioItemViewControllerDelegate: AnyObject {
+    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem)
+    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
 class AudioItemViewController: UIViewController {
@@ -33,6 +31,8 @@ class AudioItemViewController: UIViewController {
     
     @IBOutlet weak var cropContainer: UIView!
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
+    
+    weak var delegate: AudioItemViewControllerDelegate?
     
     private var mainWave: LargeSoundwaveView?
     private var cropView: CropView?
@@ -63,6 +63,10 @@ class AudioItemViewController: UIViewController {
         
         soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
+    }
+    
+    @IBAction func close(_ sender: Any) {
+        delegate?.audioItemViewControllerShouldPop(self)
     }
     
     @IBAction func toggleRecording(_ sender: Any) {
@@ -184,6 +188,8 @@ extension AudioItemViewController: AudioManagerObserver {
         btnCut.enable()
         btnCrop.enable()
         btnRecord.enable()
+        
+        delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
     
     func audioPlayerDidStartRecording(_ player: AudioManager) {
@@ -239,11 +245,13 @@ extension AudioItemViewController: AudioManagerObserver {
     func audioPlayer(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         hideCropView()
+        delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
     
     func audioPlayerDidCancelCropping(_ player: AudioManager) {
         lblTimer.text = "00:00:00"
         hideCropView()
+        delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
 }
 

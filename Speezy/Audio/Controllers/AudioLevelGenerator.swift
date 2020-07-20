@@ -67,7 +67,7 @@ class AudioLevelGenerator {
                     return numberOfFrames
                     
                 case let .fitToWidth(width, barSpacing):
-                    return Int(width * barSpacing)
+                    return Int(width / barSpacing)
                 }
             }()
             
@@ -92,7 +92,7 @@ class AudioLevelGenerator {
         }
         
         let percentageLevels = dB.map {
-            ($0 - minLevel) / 55
+            ($0 - minLevel) / 85
         }
         
         return percentageLevels

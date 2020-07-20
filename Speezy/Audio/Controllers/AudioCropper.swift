@@ -10,7 +10,7 @@ import Foundation
 import AVKit
 
 protocol AudioCropperDelegate: AnyObject {
-    func audioCropper(_ cropper: AudioCropper, didCreateCroppedItem item: AudioItem)
+    func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem)
     func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem)
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem)
 }
@@ -29,7 +29,7 @@ class AudioCropper {
         crop(audioItem: originalItem, startTime: from, stopTime: to) { (path) in
             let croppedItem = AudioItem(id: self.originalItem.id, path: path)
             self.croppedItem = croppedItem
-            self.delegate?.audioCropper(self, didCreateCroppedItem: croppedItem)
+            self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
         }
     }
     
@@ -65,7 +65,7 @@ extension AudioCropper {
             return
         }
         
-        FileManager.default.deleteExistingFile(with: "output.m4a")
+        FileManager.default.deleteExistingFile(with: "\(audioItem.id)_cropped.m4a")
         
         exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.m4a

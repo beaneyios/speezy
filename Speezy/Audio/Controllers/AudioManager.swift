@@ -15,7 +15,7 @@ class AudioManager: NSObject {
     private(set) var state = State.idle
     
     var duration: TimeInterval {
-        let asset = AVAsset(url: item.url)
+        let asset = AVAsset(url: originalItem.url)
         let duration = CMTimeGetSeconds(asset.duration)
         return TimeInterval(duration)
     }
@@ -80,6 +80,9 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem) {
+        self.originalItem = item
+        self.item = item
+        
         state = .stoppedRecording(item)
         stateDidChange()
         
@@ -99,7 +102,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func play() {
-        if state.isPaused == false {
+        if state.shouldRegeneratePlayer == false {
             audioPlayer = AudioPlayer(item: item)
             audioPlayer?.delegate = self
         }
@@ -177,7 +180,7 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.cancelCrop()
     }
     
-    func audioCropper(_ cropper: AudioCropper, didCreateCroppedItem item: AudioItem) {
+    func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
         self.item = item
         state = .adjustedCropping(item)
         stateDidChange()
@@ -188,7 +191,10 @@ extension AudioManager: AudioCropperDelegate {
         FileManager.default.deleteExistingFile(with: "\(item.id).m4a")
         FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: "\(item.id).m4a")
         
-        self.item = item
+        let completeItem = AudioItem(id: item.id, path: "\(item.id).m4a")
+        self.item = completeItem
+        self.originalItem = completeItem
+        
         state = .croppingFinished(item)
         stateDidChange()
         audioCropper = nil
@@ -240,10 +246,11 @@ extension AudioManager {
         case processingRecording(AudioItem)
         case stoppedRecording(AudioItem)
         
-        var isPaused: Bool {
-            if case State.pausedPlayback = self {
+        var shouldRegeneratePlayer: Bool {
+            switch self {
+            case .pausedPlayback:
                 return true
-            } else {
+            default:
                 return false
             }
         }
