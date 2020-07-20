@@ -10,7 +10,6 @@ import UIKit
 import SwiftVideoGenerator
 import AVKit
 import SnapKit
-import SoundWave
 
 enum PlayerState {
     case fresh
@@ -52,7 +51,7 @@ class ViewController: UIViewController {
     }
     
     func configureAudioManager(completion: @escaping () -> Void) {
-        let audioURL = Bundle.main.url(forResource: "test", withExtension: "m4a")!
+        let audioURL = Bundle.main.url(forResource: "testFile2", withExtension: "m4a")!
         
         AudioEditor.convertOriginalToSpeezyFormat(url: audioURL) { (url) in
             self.audioManager = AudioManager(item: AudioItem(id: nil, url: url))

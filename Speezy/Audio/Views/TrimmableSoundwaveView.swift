@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SoundWave
 
 protocol TrimmableSoundWaveViewDelegate: AnyObject {
     func trimViewDidApplyTrim(_ view: TrimmableSoundwaveView)

@@ -128,7 +128,7 @@ extension AudioManager: AVAudioRecorderDelegate {
                 observer.audioPlayerDidStartRecording(self)
             }
             
-            self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+            self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
                 guard let recorder = self.audioRecorder else {
                     assertionFailure("Somehow recorder is nil.")
                     return

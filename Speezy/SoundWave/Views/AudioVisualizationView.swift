@@ -31,12 +31,12 @@ public class AudioVisualizationView: BaseNibView {
 
 	public var audioVisualizationMode: AudioVisualizationMode = .read
 	
-	public var audioVisualizationTimeInterval: TimeInterval = 0.05 // Time interval between each metering bar representation
+	public var audioVisualizationTimeInterval: TimeInterval = 0.1 // Time interval between each metering bar representation
 
 	// Specify a `gradientPercentage` to have the width of gradient be that percentage of the view width (starting from left)
 	// The rest of the screen will be filled by `self.gradientStartColor` to display nicely.
 	// Do not specify any `gradientPercentage` for gradient calculating fitting size automatically.
-	public var currentGradientPercentage: Float?
+    public var currentGradientPercentage: Float?
 
 	private var meteringLevelsArray: [Float] = []	// Mutating recording array (values are percentage: 0.0 to 1.0)
 	private var meteringLevelsClusteredArray: [Float] = [] // Generated read mode array (values are percentage: 0.0 to 1.0)
@@ -47,8 +47,6 @@ public class AudioVisualizationView: BaseNibView {
 		}
 		return meteringLevelsArray
 	}
-
-	private var playChronometer: Chronometer?
 
 	public var meteringLevels: [Float]? {
 		didSet {
@@ -148,55 +146,15 @@ public class AudioVisualizationView: BaseNibView {
 		self.setNeedsDisplay()
 		return self.meteringLevelsClusteredArray
 	}
-
-	// PRAGMA: - Play Mode Handling
-
-	public func play(for duration: TimeInterval) {
-		guard self.audioVisualizationMode == .read else {
-			fatalError("trying to read audio visualization in write mode")
-		}
-
-		guard self.meteringLevels != nil else {
-			fatalError("trying to read audio visualization of non initialized sound record")
-		}
-
-		if let currentChronometer = self.playChronometer {
-			currentChronometer.start() // resume current
-			return
-		}
-
-		self.playChronometer = Chronometer(withTimeInterval: self.audioVisualizationTimeInterval)
-		self.playChronometer?.start(shouldFire: false)
-
-		self.playChronometer?.timerDidUpdate = { [weak self] timerDuration in
-			guard let this = self else {
-				return
-			}
-			
-			if timerDuration >= duration {
-				this.stop()
-				return
-			}
-			
-			this.currentGradientPercentage = Float(timerDuration) / Float(duration)
-			this.setNeedsDisplay()
-		}
-	}
-
-	public func pause() {
-		guard let chronometer = self.playChronometer, chronometer.isPlaying else {
-			fatalError("trying to pause audio visualization view when not playing")
-		}
-		self.playChronometer?.pause()
-	}
+    
+    public func advanceGradient(percentage: Float) {
+        self.currentGradientPercentage = percentage
+        self.setNeedsDisplay()
+    }
 
 	public func stop() {
-		self.playChronometer?.stop()
-		self.playChronometer = nil
-
-		self.currentGradientPercentage = 1.0
+        self.currentGradientPercentage = 0.0
 		self.setNeedsDisplay()
-		self.currentGradientPercentage = nil
 	}
 
 	// MARK: - Mask + Gradient

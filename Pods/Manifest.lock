@@ -1,24 +1,20 @@
 PODS:
   - SnapKit (5.0.1)
-  - SoundWave (0.1.4)
   - SwiftVideoGenerator (1.4.0)
 
 DEPENDENCIES:
   - SnapKit (~> 5.0.0)
-  - SoundWave
   - SwiftVideoGenerator
 
 SPEC REPOS:
   trunk:
     - SnapKit
-    - SoundWave
     - SwiftVideoGenerator
 
 SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SoundWave: d98ffaa863570b29d991da32a09b7ce1b4aaf2d4
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
 
-PODFILE CHECKSUM: a75e5ac810b57414f6caf5d5a1ebc46eaf9e4130
+PODFILE CHECKSUM: d4853b9611596bce0fd44ad8e241f5612648d0fc
 
 COCOAPODS: 1.9.1

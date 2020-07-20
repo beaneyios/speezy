@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SoundWave
 import SnapKit
 
 class LargeSoundwaveView: UIView {
@@ -157,47 +156,25 @@ extension LargeSoundwaveView {
 
 // MARK: Playback
 extension LargeSoundwaveView {
-    private func play() {
-        guard let duration = audioData?.duration else {
-            return
-        }
-        
-        if currentPlaybackTime > 0.0 {
-            wave.play(for: duration - currentPlaybackTime)
-        } else {
-            wave.play(for: duration)
-        }
-    }
-    
-    private func pause() {
-        guard
-            let percentage = wave.currentGradientPercentage,
-            percentage < 100, percentage > 0
-        else {
-            return
-        }
-
-        wave.pause()
-    }
-    
     private func stop() {
         wave.stop()
-        
-        guard let manager = self.manager else {
-            return
-        }
-        
-        configure(manager: manager)
+        scrollView.setContentOffset(.zero, animated: true)
     }
     
     private func advanceScrollViewWithTimer(advanceFactor: TimeInterval) {
-        guard let duration = audioData?.duration else {
+        guard let audioData = audioData else {
             return
         }
         
+        let duration = audioData.duration
+        let currentTime = currentPlaybackTime
+        let currentPercentage = currentTime / duration
+        let waveSize = self.waveSize(audioData: audioData)
+        let centerPoint = waveSize.width * CGFloat(currentPercentage)
+        
         scrollView.setContentOffset(
             CGPoint(
-                x: scrollView.contentOffset.x + (scrollView.contentSize.width / CGFloat(duration * advanceFactor)),
+                x: centerPoint - (frame.width / 2.0),
                 y: 0.0
             ),
             animated: false
@@ -208,17 +185,29 @@ extension LargeSoundwaveView {
 // MARK: Observer
 extension LargeSoundwaveView: AudioManagerObserver {
     func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
-        if time > 2.0 {
+        guard let audioData = audioData else {
+            return
+        }
+        
+        let duration = audioData.duration
+        let currentPercentage = time / duration
+        let waveSize = self.waveSize(audioData: audioData)
+        let centerPoint = waveSize.width * CGFloat(currentPercentage)
+        
+        if centerPoint >= center.x {
             self.advanceScrollViewWithTimer(advanceFactor: 20.0)
         }
+        
+        let newPercentage = Float(time) / Float(audioData.duration)
+        wave.advanceGradient(percentage: newPercentage)
     }
     
     func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
-        play()
+        // no op
     }
     
     func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
-        pause()
+        // no op
     }
     
     func audioPlayerDidStop(_ player: AudioManager) {
