@@ -31,9 +31,7 @@ class AudioManager: NSObject {
     private var player: AVAudioPlayer?
     private var playbackTimer: Timer?
     
-    private var recordingSession: AVAudioSession?
-    private var audioRecorder: AVAudioRecorder?
-    private var recordingTimer: Timer?
+    private var audioRecorder: AudioRecorder?
     
     init(item: AudioItem) {
         self.originalItem = item
@@ -77,7 +75,7 @@ class AudioManager: NSObject {
 }
 
 // MARK: Recording
-extension AudioManager: AVAudioRecorderDelegate {
+extension AudioManager: AudioRecorderDelegate {
     func toggleRecording() {
         switch state {
         case .startedRecording:
@@ -87,98 +85,41 @@ extension AudioManager: AVAudioRecorderDelegate {
         }
     }
     
-    func record() {
-        do {
-            recordingSession = AVAudioSession.sharedInstance()
-            try recordingSession?.setCategory(.playAndRecord, mode: .default)
-            try recordingSession?.setActive(true, options: [])
-            recordingSession?.requestRecordPermission({ (allowed) in
-                DispatchQueue.main.async {
-                    if allowed {
-                        self.startRecording()
-                    } else {
-                        
-                    }
-                }
-            })
-        } catch {
-            
-        }
+    func startRecording() {
+        let audioRecorder = AudioRecorder(item: item)
+        audioRecorder.delegate = self
+        audioRecorder.record()
+        self.audioRecorder = audioRecorder
     }
     
-    private func startRecording() {
-        let audioFilename = self.getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-        
-        do {
-            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            audioRecorder?.isMeteringEnabled = true
-            audioRecorder?.delegate = self
-            audioRecorder?.record()
-            
-            self.observations.forEach {
-                guard let observer = $0.value.observer else {
-                    self.observations.removeValue(forKey: $0.key)
-                    return
-                }
-
-                observer.audioPlayerDidStartRecording(self)
-            }
-            
-            self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-                guard let recorder = self.audioRecorder else {
-                    assertionFailure("Somehow recorder is nil.")
-                    return
-                }
-
-                recorder.updateMeters()
-                let power = recorder.averagePower(forChannel: 0)
-
-                self.observations.forEach {
-                    guard let observer = $0.value.observer else {
-                        self.observations.removeValue(forKey: $0.key)
-                        return
-                    }
-
-                    observer.audioPlayer(self, didRecordBarWithPower: power, duration: 0.1)
-                }
-            }
-        } catch {
-            
-        }
-        
+    func stopRecording() {
+        audioRecorder?.stopRecording()
+    }
+    
+    func audioRecorderDidStartRecording(_ recorder: AudioRecorder) {
         state = .startedRecording(item)
         stateDidChange()
     }
     
-    func stopRecording() {
+    func audioRecorderDidStartProcessingRecording(_ recorder: AudioRecorder) {
         state = .processingRecording(item)
         stateDidChange()
-        audioRecorder?.stop()
-        recordingTimer?.invalidate()
-        recordingTimer = nil
     }
     
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        let newRecording = getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
-        let currentFile = item.url
-        let outputURL = item.url
-        
-        AudioEditor.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
-            self.item = AudioItem(id: self.item.id, url: url)
-            self.state = .stoppedRecording(self.item)
-            self.stateDidChange()
+    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, duration: TimeInterval) {
+        observations.forEach {
+            guard let observer = $0.value.observer else {
+                self.observations.removeValue(forKey: $0.key)
+                return
+            }
+
+            observer.audioPlayer(self, didRecordBarWithPower: power, duration: duration)
         }
     }
     
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem) {
+        state = .stoppedRecording(item)
+        stateDidChange()
     }
 }
 
