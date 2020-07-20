@@ -26,9 +26,8 @@ class AudioCropper {
     }
     
     func crop(from: TimeInterval, to: TimeInterval) {
-        let url = originalItem.url
-        crop(fileURL: url, startTime: from, stopTime: to) { (url) in
-            let croppedItem = AudioItem(id: self.originalItem.id, url: url)
+        crop(audioItem: originalItem, startTime: from, stopTime: to) { (path) in
+            let croppedItem = AudioItem(id: self.originalItem.id, path: path)
             self.croppedItem = croppedItem
             self.delegate?.audioCropper(self, didCreateCroppedItem: croppedItem)
         }
@@ -49,24 +48,24 @@ class AudioCropper {
 
 extension AudioCropper {
     func crop(
-        fileURL: URL,
+        audioItem: AudioItem,
         startTime: Double,
         stopTime: Double,
-        finished: @escaping (URL) -> Void
+        finished: @escaping (String) -> Void
     ) {
         
-        let asset = AVAsset(url: fileURL)
+        let asset = AVAsset(url: audioItem.url)
         let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
         
         guard
             compatiblePresets.contains(AVAssetExportPresetHighestQuality),
             let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
-            let outputURL = FileManager.default.documentsOutputURL(with: "output.m4a")
+            let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)_cropped.m4a")
         else {
             return
         }
         
-        FileManager.default.deleteExistingOutputFile(with: "output.m4a")
+        FileManager.default.deleteExistingFile(with: "output.m4a")
         
         exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.m4a
@@ -85,7 +84,7 @@ extension AudioCropper {
             default:
                 print("Successfully cropped audio")
                 DispatchQueue.main.async(execute: {
-                    finished(outputURL)
+                    finished("\(audioItem.id)_cropped.m4a")
                 })
             }
         }

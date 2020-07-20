@@ -204,6 +204,36 @@
             </objects>
             <point key="canvasLocation" x="130.40000000000001" y="138.0809595202399"/>
         </scene>
+        <!--Audio Item List View Controller-->
+        <scene sceneID="co9-jQ-0gB">
+            <objects>
+                <viewController storyboardIdentifier="AudioItemListViewController" id="PtS-EP-wtG" customClass="AudioItemListViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jO6-yj-Wkd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5y-1d-41N">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" id="8yA-Iy-nME"/>
+                            <constraint firstItem="j5y-1d-41N" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="RHA-DZ-evl"/>
+                            <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="Z69-9u-VIT" secondAttribute="top" id="Srj-1S-x4K"/>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="j5y-1d-41N" secondAttribute="trailing" id="wAg-Jr-6OH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Z69-9u-VIT"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="j5y-1d-41N" id="FF6-F5-jzw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-5v-JcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="855" y="138"/>
+        </scene>
     </scenes>
     <resources>
         <image name="crop-button" width="120" height="120"/>

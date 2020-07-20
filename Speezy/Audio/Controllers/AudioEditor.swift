@@ -17,12 +17,12 @@ class AudioEditor {
         guard
             compatiblePresets.contains(AVAssetExportPresetHighestQuality),
             let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
-            let outputURL = FileManager.default.documentsOutputURL(with: "original.m4a")
+            let outputURL = FileManager.default.documentsURL(with: "original.m4a")
         else {
             return
         }
         
-        FileManager.default.deleteExistingOutputFile(with: "original.m4a")
+        FileManager.default.deleteExistingFile(with: "original.m4a")
         
         exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.m4a

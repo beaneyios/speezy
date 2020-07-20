@@ -26,4 +26,12 @@ class AudioStorage {
         
         Storage.store(itemList, to: .documents, as: audioItemsKey)
     }
+    
+    static func fetchItems() -> [AudioItem] {
+        Storage.retrieve(audioItemsKey, from: .documents, as: [AudioItem].self) ?? []
+    }
+    
+    static func url(for id: String) -> URL {
+        FileManager.default.documentsURL(with: id)!
+    }
 }

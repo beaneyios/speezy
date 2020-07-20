@@ -184,6 +184,10 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem) {
+        
+        FileManager.default.deleteExistingFile(with: "\(item.id).m4a")
+        FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: "\(item.id).m4a")
+        
         self.item = item
         state = .croppingFinished(item)
         stateDidChange()

@@ -46,6 +46,7 @@
 		BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */; };
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
+		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +107,7 @@
 		BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
+		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				BE79270A247EE55F0079652C /* AudioItemViewController.swift */,
+				BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BEBFD4C024C5B9C700200D87 /* AppCoordinator.swift in Sources */,
+				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,

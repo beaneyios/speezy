@@ -9,7 +9,7 @@
 import Foundation
 
 extension FileManager {
-    func documentsOutputURL(with fileName: String, create: Bool = false) -> URL? {
+    func documentsURL(with fileName: String, create: Bool = false) -> URL? {
         do {
             let documentDirectory = try url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileURL = documentDirectory.appendingPathComponent(fileName)
@@ -26,7 +26,18 @@ extension FileManager {
         return nil
     }
     
-    func deleteExistingOutputFile(with fileName: String) {
+    func renameFile(from originalName: String, to newName: String) {
+        do {
+            let documentDirectory = try url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let originPath = documentDirectory.appendingPathComponent(originalName)
+            let destinationPath = documentDirectory.appendingPathComponent(newName)
+            try FileManager.default.moveItem(at: originPath, to: destinationPath)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteExistingFile(with fileName: String) {
         do {
             let documentDirectory = try url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let fileURL = documentDirectory.appendingPathComponent(fileName)

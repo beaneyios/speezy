@@ -14,7 +14,7 @@ class TimelineView: UIView {
     private var previousLabel: UILabel?
     
     func createTimeLine(seconds: TimeInterval, width: CGFloat) {
-        guard seconds > 0 else {
+        guard Int(seconds) > 0 else {
             return
         }
         

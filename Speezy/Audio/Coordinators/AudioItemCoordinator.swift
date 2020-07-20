@@ -24,7 +24,8 @@ class AudioItemCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToNewItem()
+//        navigateToNewItem()
+        navigateToAudioItemList()
     }
     
     override func finish() {
@@ -34,14 +35,8 @@ class AudioItemCoordinator: ViewCoordinator {
 
 extension AudioItemCoordinator {
     private func navigateToNewItem() {
-        let id = UUID().uuidString
-        guard let url = FileManager.default.documentsOutputURL(with: "\(id).m4a", create: true) else {
-            assertionFailure("Unable to create URL for uuid")
-            return
-        }
-        
-        let item = AudioItem(id: id, url: url)
-        
+        let id = UUID().uuidString        
+        let item = AudioItem(id: id, path: "\(id).m4a")
         navigateToAudioItem(item: item)
     }
     
@@ -52,6 +47,22 @@ extension AudioItemCoordinator {
         
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem) {
+        navigateToAudioItem(item: item)
+    }
+    
+    private func navigateToAudioItemList() {
+        guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemListViewController") as? AudioItemListViewController else {
+            return
+        }
+        
+        viewController.audioItems = AudioStorage.fetchItems()
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
     }
 }
