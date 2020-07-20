@@ -86,7 +86,7 @@ class AudioLevelGenerator {
         }
         
         let percentageLevels = dB.map {
-            ($0 - minLevel) / 110
+            ($0 - minLevel) / 55
         }
         
         return percentageLevels
