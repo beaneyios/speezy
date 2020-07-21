@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         let navigationController = UINavigationController()
-        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.appCoordinator = AppCoordinator(navigationController: navigationController)
         self.appCoordinator.start()
         window?.rootViewController = navigationController

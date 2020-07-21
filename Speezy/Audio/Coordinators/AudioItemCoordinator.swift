@@ -24,7 +24,6 @@ class AudioItemCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigationController.setNavigationBarHidden(false, animated: false)
         navigateToAudioItemList()
     }
     
