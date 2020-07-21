@@ -53,18 +53,18 @@ class AudioManager: NSObject {
     
     func addTag(title: String) {
         let tag = Tag(id: UUID().uuidString, title: title)
-        
-        var currentItem = item
-        
+                
         let newItem = AudioItem(
-            id: currentItem.id,
-            path: currentItem.path,
-            title: currentItem.title,
-            tags: currentItem.tags + [tag]
+            id: item.id,
+            path: item.path,
+            title: item.title,
+            tags: item.tags + [tag]
         )
         
         self.item = newItem
         self.originalItem = newItem
+        
+        AudioStorage.saveItem(newItem)
     }
 }
 

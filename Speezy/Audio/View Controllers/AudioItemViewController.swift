@@ -76,7 +76,11 @@ class AudioItemViewController: UIViewController {
     }
     
     func configureTags() {
+        tagsView?.removeFromSuperview()
+        tagsView = nil
+        
         let tagsView = TagsView.createFromNib()
+        tagsView.delegate = self
         tagContainer.addSubview(tagsView)
         
         tagsView.snp.makeConstraints { (maker) in
@@ -197,6 +201,35 @@ class AudioItemViewController: UIViewController {
                 cropView.alpha = 1.0
             }
         }
+    }
+}
+
+extension AudioItemViewController: TagsViewDelegate {
+    func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
+        let alertController = UIAlertController(title: "Add tag", message: "", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Add your tag"
+        }
+        
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
+            guard
+                let alertController = alertController,
+                let textField = alertController.textFields?.first,
+                let text = textField.text
+            else {
+                return
+            }
+            
+            self.audioManager.addTag(title: text)
+            self.configureTags()
+            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
+        }
+        
+        alertController.addAction(confirmAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 

@@ -10,10 +10,16 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol TagsViewDelegate: AnyObject {
+    func tagsViewDidSelectAddTag(_ tagsView: TagsView)
+}
+
 class TagsView: UIView, NibLoadable {
     
     @IBOutlet weak var collectionView: UICollectionView!
     private var tags = [Tag]()
+    
+    weak var delegate: TagsViewDelegate?
     
     private var foreColor: UIColor!
     private var backColor: UIColor!
@@ -110,7 +116,7 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
         let tag = tags[indexPath.row]
         
         if tag.id == "add_tag" {
-            print("Add tag here")
+            delegate?.tagsViewDidSelectAddTag(self)
         }
     }
 }

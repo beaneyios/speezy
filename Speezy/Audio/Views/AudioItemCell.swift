@@ -32,6 +32,9 @@ class AudioItemCell: UITableViewCell {
     }
     
     func configureTags(item: AudioItem) {
+        tagsView?.removeFromSuperview()
+        tagsView = nil
+        
         let tagsView = TagsView.createFromNib()
         tagContainer.addSubview(tagsView)
         
