@@ -10,6 +10,7 @@ target 'Speezy' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'AFDateHelper', '~> 4.3.0'
   pod 'SCLAlertView'
+  pod 'Hero'
 
   target 'SpeezyTests' do
     inherit! :search_paths

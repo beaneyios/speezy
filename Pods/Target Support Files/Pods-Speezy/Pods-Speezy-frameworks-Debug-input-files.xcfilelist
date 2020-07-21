@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework
+${BUILT_PRODUCTS_DIR}/Hero/Hero.framework
 ${BUILT_PRODUCTS_DIR}/SCLAlertView/SCLAlertView.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
 ${BUILT_PRODUCTS_DIR}/SwiftVideoGenerator/SwiftVideoGenerator.framework

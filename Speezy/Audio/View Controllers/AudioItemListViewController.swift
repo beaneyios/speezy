@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SCLAlertView
+import Hero
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
@@ -17,6 +18,8 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
 
 class AudioItemListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var btnRecord: UIButton!
+    @IBOutlet weak var gradient: UIImageView!
     
     weak var delegate: AudioItemListViewControllerDelegate?
     var audioItems: [AudioItem] = []
@@ -36,6 +39,9 @@ class AudioItemListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        hero.isEnabled = true
+        btnRecord.hero.id = "record"
+        
         loadItems()
     }
     
@@ -45,6 +51,7 @@ class AudioItemListViewController: UIViewController {
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
+        
         delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
     }
     

@@ -253,6 +253,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="800"/>
                     <connections>
+                        <outlet property="bgGradient" destination="Zmk-Mo-9I9" id="Mkh-OT-o7C"/>
                         <outlet property="btnCrop" destination="lqf-bC-Bmq" id="dgY-iO-hQs"/>
                         <outlet property="btnCut" destination="YjA-7i-Qk8" id="L1P-Ux-HbZ"/>
                         <outlet property="btnPlayback" destination="5yY-ac-jcu" id="kUw-ZV-Ygz"/>
@@ -327,6 +328,8 @@
                         <viewLayoutGuide key="safeArea" id="Z69-9u-VIT"/>
                     </view>
                     <connections>
+                        <outlet property="btnRecord" destination="3EA-ef-aIt" id="wiX-xo-XcP"/>
+                        <outlet property="gradient" destination="Yae-3d-PVl" id="HXe-ql-GbO"/>
                         <outlet property="tableView" destination="j5y-1d-41N" id="FF6-F5-jzw"/>
                     </connections>
                 </viewController>

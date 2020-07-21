@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFDateHelper" "${PODS_CONFIGURATION_BUILD_DIR}/SCLAlertView" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftVideoGenerator"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFDateHelper" "${PODS_CONFIGURATION_BUILD_DIR}/Hero" "${PODS_CONFIGURATION_BUILD_DIR}/SCLAlertView" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftVideoGenerator"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFDateHelper/AFDateHelper.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SCLAlertView/SCLAlertView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftVideoGenerator/SwiftVideoGenerator.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFDateHelper/AFDateHelper.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Hero/Hero.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SCLAlertView/SCLAlertView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftVideoGenerator/SwiftVideoGenerator.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "AFDateHelper" -framework "SCLAlertView" -framework "SnapKit" -framework "SwiftVideoGenerator"
+OTHER_LDFLAGS = $(inherited) -framework "AFDateHelper" -framework "CoreGraphics" -framework "CoreMedia" -framework "Foundation" -framework "Hero" -framework "QuartzCore" -framework "SCLAlertView" -framework "SnapKit" -framework "SwiftVideoGenerator" -framework "UIKit"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

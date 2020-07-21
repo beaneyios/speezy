@@ -10,6 +10,7 @@ import UIKit
 import SwiftVideoGenerator
 import SnapKit
 import SCLAlertView
+import Hero
 
 protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem)
@@ -23,6 +24,8 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
+    
+    @IBOutlet weak var bgGradient: UIImageView!
     
     @IBOutlet weak var recordContainer: UIView!
     private var recordProcessingSpinner: UIActivityIndicatorView?
@@ -54,6 +57,13 @@ class AudioItemViewController: UIViewController {
         configureTitle()
         configureTags()
         hideCropView(animated: false)
+        
+        hero.isEnabled = true
+        btnRecord.hero.id = "record"
+        
+        let presenting = HeroDefaultAnimationType.zoom
+        let dismissing = HeroDefaultAnimationType.zoomOut
+        hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
     }
     
     func configureAudioManager() {
