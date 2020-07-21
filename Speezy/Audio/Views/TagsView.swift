@@ -15,13 +15,22 @@ class TagsView: UIView, NibLoadable {
     @IBOutlet weak var collectionView: UICollectionView!
     private var tags = [Tag]()
     
-    func configure(with tags: [Tag], scrollDirection: UICollectionView.ScrollDirection) {
-        let addTag = Tag(
-            id: "add_tag",
-            title: "Add Tag +"
-        )
+    private var foreColor: UIColor!
+    private var backColor: UIColor!
+    
+    func configure(with tags: [Tag], foreColor: UIColor, backColor: UIColor, scrollDirection: UICollectionView.ScrollDirection, showAddTag: Bool) {
+        self.foreColor = foreColor
+        self.backColor = backColor
+        self.tags = tags
         
-        self.tags = tags + [addTag]
+        if showAddTag {
+            self.tags.append(
+                Tag(
+                    id: "add_tag",
+                    title: "Add Tag +"
+                )
+            )
+        }
         
         addSubview(collectionView)
         collectionView.register(TagCell.nib, forCellWithReuseIdentifier: "cell")
@@ -59,7 +68,7 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
             if tag.id == "add_tag" {
                 return .white
             } else {
-                return .clear
+                return backColor
             }
         }()
         
@@ -67,7 +76,7 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
             if tag.id == "add_tag" {
                 return .black
             } else {
-                return .white
+                return foreColor
             }
         }()
         
@@ -85,7 +94,7 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
         let cell = TagCell.createFromNib()
         
         cell.frame.size.height = 16.0
-        cell.configure(with: tag, foregroundColor: .white, backgroundColor: .clear)
+        cell.configure(with: tag, foregroundColor: foreColor, backgroundColor: backColor)
         
         let size = cell.systemLayoutSizeFitting(
             CGSize(

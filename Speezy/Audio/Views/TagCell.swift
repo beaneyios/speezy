@@ -16,7 +16,7 @@ class TagCell: UICollectionViewCell, NibLoadable {
         lblTitle.text = tag.title
         lblTitle.textColor = foregroundColor
         
-        container.layer.cornerRadius = 8.0
+        container.layer.cornerRadius = 17.0
         container.layer.borderWidth = 1.0
         container.layer.borderColor = foregroundColor.cgColor
         container.backgroundColor = backgroundColor

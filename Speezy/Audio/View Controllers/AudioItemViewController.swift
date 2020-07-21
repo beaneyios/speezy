@@ -83,7 +83,14 @@ class AudioItemViewController: UIViewController {
             maker.edges.equalToSuperview()
         }
         
-        tagsView.configure(with: audioManager.item.tags, scrollDirection: .vertical)
+        tagsView.configure(
+            with: audioManager.item.tags,
+            foreColor: .white,
+            backColor: .clear,
+            scrollDirection: .vertical,
+            showAddTag: true
+        )
+
         self.tagsView = tagsView
     }
     

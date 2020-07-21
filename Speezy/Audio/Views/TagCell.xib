@@ -21,7 +21,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2K-Bd-9kQ">
                                 <rect key="frame" x="16" y="8" width="323" height="83"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -48,7 +48,7 @@
                 <outlet property="container" destination="GtG-OD-JOn" id="uV4-aR-sNH"/>
                 <outlet property="lblTitle" destination="L2K-Bd-9kQ" id="MGB-Ee-ZD6"/>
             </connections>
-            <point key="canvasLocation" x="-22.463768115942031" y="134.93303571428569"/>
+            <point key="canvasLocation" x="-22.463768115942031" y="134.26339285714286"/>
         </collectionViewCell>
     </objects>
 </document>

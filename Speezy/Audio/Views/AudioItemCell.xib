@@ -49,6 +49,13 @@
                                     <constraint firstAttribute="height" constant="1" id="9I5-5S-bhY"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6o-re-EtC">
+                                <rect key="frame" x="16" y="86" width="343" height="35"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="dGt-aK-IqJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -56,10 +63,13 @@
                             <constraint firstItem="YTC-Lc-jeb" firstAttribute="centerY" secondItem="rQ0-PN-mtv" secondAttribute="centerY" id="ASY-Dl-6pE"/>
                             <constraint firstItem="rQ0-PN-mtv" firstAttribute="top" secondItem="m9a-Oj-cnc" secondAttribute="top" constant="16" id="Aft-Fb-d2D"/>
                             <constraint firstItem="rQ0-PN-mtv" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Eg8-HF-fFM"/>
-                            <constraint firstItem="bBU-Jb-exf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DyN-tS-hI9" secondAttribute="bottom" constant="16" id="ElF-a9-CWJ"/>
                             <constraint firstAttribute="bottom" secondItem="bBU-Jb-exf" secondAttribute="bottom" id="H3P-rZ-GEI"/>
                             <constraint firstItem="DyN-tS-hI9" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Nik-Sw-sF0"/>
+                            <constraint firstItem="bBU-Jb-exf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="t6o-re-EtC" secondAttribute="bottom" constant="16" id="VXK-CS-utT"/>
                             <constraint firstItem="bBU-Jb-exf" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="bZx-m1-0Hj"/>
+                            <constraint firstAttribute="trailing" secondItem="t6o-re-EtC" secondAttribute="trailing" constant="16" id="dNl-1S-Cgm"/>
+                            <constraint firstItem="t6o-re-EtC" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="dRF-81-ocV"/>
+                            <constraint firstItem="t6o-re-EtC" firstAttribute="top" secondItem="DyN-tS-hI9" secondAttribute="bottom" constant="16" id="fbo-Ez-S73"/>
                             <constraint firstAttribute="trailing" secondItem="YTC-Lc-jeb" secondAttribute="trailing" constant="16" id="nqb-S4-KOL"/>
                             <constraint firstItem="DyN-tS-hI9" firstAttribute="top" secondItem="rQ0-PN-mtv" secondAttribute="bottom" constant="12" id="ssg-iV-N3p"/>
                             <constraint firstAttribute="trailing" secondItem="bBU-Jb-exf" secondAttribute="trailing" id="w93-c3-cUp"/>
@@ -78,6 +88,8 @@
                 <outlet property="btnMoreOptions" destination="YTC-Lc-jeb" id="jKz-a6-Qtw"/>
                 <outlet property="lblDate" destination="DyN-tS-hI9" id="WYo-aN-Hn5"/>
                 <outlet property="lblTitle" destination="rQ0-PN-mtv" id="LRf-kT-oSW"/>
+                <outlet property="tagContainer" destination="t6o-re-EtC" id="zqE-KU-uhq"/>
+                <outlet property="tagContainerHeight" destination="dGt-aK-IqJ" id="khm-kc-kex"/>
             </connections>
             <point key="canvasLocation" x="142.75362318840581" y="82.366071428571431"/>
         </tableViewCell>

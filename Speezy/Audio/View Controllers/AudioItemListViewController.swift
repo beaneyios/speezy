@@ -28,6 +28,7 @@ class AudioItemListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .black
         title = "My recordings"
         
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
         tableView.estimatedRowHeight = 100.0
         tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none

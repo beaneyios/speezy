@@ -280,28 +280,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5y-1d-41N">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="637"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="91"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-ef-aIt">
-                                <rect key="frame" x="150" y="584" width="75" height="75"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPH-Zo-Pi6">
+                                <rect key="frame" x="0.0" y="576" width="375" height="91"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Yae-3d-PVl">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-ef-aIt">
+                                        <rect key="frame" x="150" y="8" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="3EA-ef-aIt" secondAttribute="height" multiplier="1:1" id="kuD-uU-1tY"/>
+                                        </constraints>
+                                        <state key="normal" image="speezy"/>
+                                        <connections>
+                                            <action selector="speezyTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="7A7-9l-q2L"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="Xp5-db-x0M"/>
-                                    <constraint firstAttribute="width" constant="75" id="gGZ-8v-VDl"/>
+                                    <constraint firstItem="3EA-ef-aIt" firstAttribute="centerX" secondItem="qPH-Zo-Pi6" secondAttribute="centerX" id="6ZM-BR-jK1"/>
+                                    <constraint firstAttribute="height" constant="91" id="8zE-Bu-nRS"/>
+                                    <constraint firstAttribute="bottom" secondItem="3EA-ef-aIt" secondAttribute="bottom" constant="8" id="IHL-L8-De4"/>
+                                    <constraint firstItem="3EA-ef-aIt" firstAttribute="top" secondItem="qPH-Zo-Pi6" secondAttribute="top" constant="8" id="Krd-rS-hxb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Yae-3d-PVl" secondAttribute="bottom" id="Rrg-Dh-Y9y"/>
+                                    <constraint firstItem="Yae-3d-PVl" firstAttribute="leading" secondItem="qPH-Zo-Pi6" secondAttribute="leading" id="kHg-SM-s90"/>
+                                    <constraint firstItem="Yae-3d-PVl" firstAttribute="top" secondItem="qPH-Zo-Pi6" secondAttribute="top" id="lfm-9e-1n5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yae-3d-PVl" secondAttribute="trailing" id="qlj-Ua-HcU"/>
                                 </constraints>
-                                <state key="normal" image="speezy"/>
-                                <connections>
-                                    <action selector="speezyTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="7A7-9l-q2L"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" constant="30" id="8yA-Iy-nME"/>
-                            <constraint firstAttribute="bottom" secondItem="3EA-ef-aIt" secondAttribute="bottom" constant="8" id="Quo-43-F7U"/>
+                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="bottom" secondItem="Z69-9u-VIT" secondAttribute="bottom" id="3xe-1k-4dl"/>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" id="8yA-Iy-nME"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="RHA-DZ-evl"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="Z69-9u-VIT" secondAttribute="top" id="Srj-1S-x4K"/>
-                            <constraint firstItem="3EA-ef-aIt" firstAttribute="centerX" secondItem="jO6-yj-Wkd" secondAttribute="centerX" id="keM-cy-2UR"/>
+                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="dIr-4b-cae"/>
+                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="trailing" secondItem="Z69-9u-VIT" secondAttribute="trailing" id="pmO-Fe-zh3"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="j5y-1d-41N" secondAttribute="trailing" id="wAg-Jr-6OH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Z69-9u-VIT"/>
@@ -312,10 +332,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-5v-JcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="855" y="138"/>
+            <point key="canvasLocation" x="853.60000000000002" y="137.18140929535232"/>
         </scene>
     </scenes>
     <resources>
+        <image name="bottom-gradient" width="120" height="22"/>
         <image name="crop-button" width="120" height="120"/>
         <image name="cut-button" width="120" height="120"/>
         <image name="gradient-background" width="1063" height="1891"/>
