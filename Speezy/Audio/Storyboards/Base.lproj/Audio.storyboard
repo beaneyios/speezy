@@ -230,15 +230,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5y-1d-41N">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="637"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-ef-aIt">
+                                <rect key="frame" x="150" y="584" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="Xp5-db-x0M"/>
+                                    <constraint firstAttribute="width" constant="75" id="gGZ-8v-VDl"/>
+                                </constraints>
+                                <state key="normal" image="speezy"/>
+                                <connections>
+                                    <action selector="speezyTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="7A7-9l-q2L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" id="8yA-Iy-nME"/>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" constant="30" id="8yA-Iy-nME"/>
+                            <constraint firstAttribute="bottom" secondItem="3EA-ef-aIt" secondAttribute="bottom" constant="8" id="Quo-43-F7U"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="RHA-DZ-evl"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="Z69-9u-VIT" secondAttribute="top" id="Srj-1S-x4K"/>
+                            <constraint firstItem="3EA-ef-aIt" firstAttribute="centerX" secondItem="jO6-yj-Wkd" secondAttribute="centerX" id="keM-cy-2UR"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="j5y-1d-41N" secondAttribute="trailing" id="wAg-Jr-6OH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Z69-9u-VIT"/>
@@ -257,6 +270,7 @@
         <image name="cut-button" width="120" height="120"/>
         <image name="gradient-background" width="1063" height="1891"/>
         <image name="play-button" width="120" height="120"/>
+        <image name="speezy" width="446" height="441"/>
         <image name="start-recording-button" width="120" height="120"/>
     </resources>
 </document>
