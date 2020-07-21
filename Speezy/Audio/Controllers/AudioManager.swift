@@ -24,6 +24,10 @@ class AudioManager: NSObject {
         audioPlayer?.currentPlaybackTime ?? 0.0
     }
     
+    var isCropping: Bool {
+        audioCropper != nil
+    }
+    
     private var observations = [ObjectIdentifier : Observation]()
     
     private var audioPlayer: AudioPlayer?
@@ -164,10 +168,9 @@ extension AudioManager: AudioPlayerDelegate {
 // MARK: Editing
 extension AudioManager: AudioCropperDelegate {
     func toggleCropping() {
-        switch state {
-        case .startedCropping, .adjustedCropping:
+        if isCropping {
             cancelCrop()
-        default:
+        } else {
             startCropping()
         }
     }

@@ -254,15 +254,19 @@ extension AudioItemViewController: AudioManagerObserver {
     
     func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-        btnRecord.enable()
-        btnCut.enable()
+        
+        if audioManager.isCropping == false {
+            btnRecord.enable()
+            btnCut.enable()
+        }
+        
         btnCrop.enable()
     }
     
     func audioPlayerDidStop(_ player: AudioManager) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         
-        if cropView == nil {
+        if audioManager.isCropping == false {
             btnRecord.enable()
             btnCut.enable()
         }
