@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFDateHelper
 
 class AudioItemCell: UITableViewCell {
 
@@ -29,6 +30,12 @@ class AudioItemCell: UITableViewCell {
             tagsView?.removeFromSuperview()
             tagsView = nil
         }
+        
+        lblDate.text = audioItem.date.toStringWithRelativeTime(
+            strings: [
+                RelativeTimeStringType.nowPast: "Just now"
+            ]
+        )
     }
     
     func configureTags(item: AudioItem) {

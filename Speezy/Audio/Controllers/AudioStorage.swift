@@ -27,6 +27,17 @@ class AudioStorage {
         Storage.store(itemList, to: .documents, as: audioItemsKey)
     }
     
+    static func deleteItem(_ item: AudioItem) {
+        var itemList = Storage.retrieve(
+            audioItemsKey,
+            from: .documents,
+            as: [AudioItem].self
+        ) ?? []
+        
+        itemList = itemList.removing(item)
+        Storage.store(itemList, to: .documents, as: audioItemsKey)
+    }
+    
     static func fetchItems() -> [AudioItem] {
         Storage.retrieve(audioItemsKey, from: .documents, as: [AudioItem].self) ?? []
     }

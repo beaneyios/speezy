@@ -33,7 +33,11 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
     
     func play() {
-        player?.play()
+        guard let player = player else {
+            return
+        }
+        
+        player.play()
         startPlaybackTimer()
         delegate?.audioPlayerDidStartPlayback(self)
     }

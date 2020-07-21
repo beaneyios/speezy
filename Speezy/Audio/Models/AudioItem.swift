@@ -17,16 +17,18 @@ struct AudioItem: Codable, Equatable, Identifiable {
     let id: String
     let title: String
     let path: String
+    let date: Date
     let tags: [Tag]
     
     var url: URL {
         FileManager.default.documentsURL(with: path)!
     }
     
-    init(id: String, path: String, title: String, tags: [Tag]) {
+    init(id: String, path: String, title: String, date: Date, tags: [Tag]) {
         self.id = id
         self.path = path
         self.title = title
+        self.date = date
         self.tags = tags
     }
 }

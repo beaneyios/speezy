@@ -44,11 +44,14 @@ class AudioManager: NSObject {
             id: item.id,
             path: item.path,
             title: title,
+            date: item.date,
             tags: item.tags
         )
         
         self.item = audioItem
         self.originalItem = audioItem
+        
+        AudioStorage.saveItem(audioItem)
     }
     
     func addTag(title: String) {
@@ -58,6 +61,7 @@ class AudioManager: NSObject {
             id: item.id,
             path: item.path,
             title: item.title,
+            date: item.date,
             tags: item.tags + [tag]
         )
         
@@ -226,8 +230,10 @@ extension AudioManager: AudioCropperDelegate {
             id: item.id,
             path: "\(item.id).m4a",
             title: item.title,
+            date: item.date,
             tags: item.tags
         )
+        
         self.item = completeItem
         self.originalItem = completeItem
         

@@ -47,20 +47,8 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
             id: id,
             path: "\(id).m4a",
             title: "No title",
-            tags: [
-                Tag(
-                    id: UUID().uuidString,
-                    title: "Test Tag"
-                ),
-                Tag(
-                    id: UUID().uuidString,
-                    title: "Test Tag Much longer"
-                ),
-                Tag(
-                    id: UUID().uuidString,
-                    title: "Test"
-                )
-            ]
+            date: Date(),
+            tags: []
         )
         navigateToAudioItem(item: item)
     }
@@ -99,8 +87,7 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
         guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemListViewController") as? AudioItemListViewController else {
             return
         }
-        
-        viewController.audioItems = AudioStorage.fetchItems()
+
         viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
     }

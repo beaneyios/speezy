@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SCLAlertView
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
@@ -34,6 +35,13 @@ class AudioItemListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
+        
+        loadItems()
+    }
+    
+    private func loadItems() {
+        audioItems = AudioStorage.fetchItems()
+        tableView.reloadData()
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
@@ -77,5 +85,21 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            
+            alert.addButton("Delete", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
+                let item = self.audioItems[indexPath.row]
+                FileManager.default.deleteExistingURL(item.url)
+                AudioStorage.deleteItem(item)
+                self.audioItems.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {}
+            alert.showWarning("Delete item", subTitle: "Are you sure you want to delete this clip? You will not be able to undo this action.", closeButtonTitle: "Not yet")
+        }
+    }
 }

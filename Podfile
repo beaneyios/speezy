@@ -8,6 +8,8 @@ target 'Speezy' do
   # Pods for Speezy
   pod 'SwiftVideoGenerator'
   pod 'SnapKit', '~> 5.0.0'
+  pod 'AFDateHelper', '~> 4.3.0'
+  pod 'SCLAlertView'
 
   target 'SpeezyTests' do
     inherit! :search_paths

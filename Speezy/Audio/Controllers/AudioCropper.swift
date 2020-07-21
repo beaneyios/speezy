@@ -31,6 +31,7 @@ class AudioCropper {
                 id: self.originalItem.id,
                 path: path,
                 title: self.originalItem.title,
+                date: self.originalItem.date,
                 tags: self.originalItem.tags
             )
             self.croppedItem = croppedItem

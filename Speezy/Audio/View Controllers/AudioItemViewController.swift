@@ -9,6 +9,7 @@
 import UIKit
 import SwiftVideoGenerator
 import SnapKit
+import SCLAlertView
 
 protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem)
@@ -99,17 +100,12 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
-        let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "Title"
-        }
-        
-        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
-            guard
-                let alertController = alertController,
-                let textField = alertController.textFields?.first,
-                let text = textField.text
-            else {
+        let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
+        let alert = SCLAlertView(appearance: appearance)
+        let textField = alert.addTextField("Add a title")
+        textField.layer.cornerRadius = 12.0
+        alert.addButton("Add") {
+            guard let text = textField.text else {
                 return
             }
             
@@ -118,11 +114,13 @@ class AudioItemViewController: UIViewController {
             self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
         }
         
-        alertController.addAction(confirmAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
+        alert.showEdit(
+            "Title",
+            subTitle: "Add the title for your audio file here",
+            closeButtonTitle: "Cancel",
+            colorStyle: 0x3B08A0,
+            animationStyle: .topToBottom
+        )
     }
     
     @IBAction func close(_ sender: Any) {
@@ -206,17 +204,13 @@ class AudioItemViewController: UIViewController {
 
 extension AudioItemViewController: TagsViewDelegate {
     func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
-        let alertController = UIAlertController(title: "Add tag", message: "", preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "Add your tag"
-        }
         
-        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak alertController] _ in
-            guard
-                let alertController = alertController,
-                let textField = alertController.textFields?.first,
-                let text = textField.text
-            else {
+        let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
+        let alert = SCLAlertView(appearance: appearance)
+        let textField = alert.addTextField("Add tag")
+        textField.layer.cornerRadius = 12.0
+        alert.addButton("Add") {
+            guard let text = textField.text else {
                 return
             }
             
@@ -225,25 +219,32 @@ extension AudioItemViewController: TagsViewDelegate {
             self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
         }
         
-        alertController.addAction(confirmAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
+        alert.showEdit(
+            "Add Tag",
+            subTitle: "Add the title for your tag here",
+            closeButtonTitle: "Cancel",
+            colorStyle: 0x3B08A0,
+            animationStyle: .bottomToTop
+        )
     }
 }
 
 extension AudioItemViewController: CropViewDelegate {
     func cropViewDidApplyCrop(_ view: CropView) {
-        let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
-        let crop = UIAlertAction(title: "Crop", style: .destructive) { (action) in
+        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
+        let alert = SCLAlertView(appearance: appearance)
+        
+        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
             self.audioManager.applyCrop()
         }
         
-        let cancel = UIAlertAction(title: "Not yet", style: .cancel, handler: nil)
-        alert.addAction(crop)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
+        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {}
+        alert.showWarning(
+            "Crop item",
+            subTitle: "Are you sure you want to crop? You will not be able to undo this action.",
+            closeButtonTitle: "Not yet",
+            animationStyle: .bottomToTop
+        )
     }
     
     func cropViewDidCancelCrop(_ view: CropView) {
