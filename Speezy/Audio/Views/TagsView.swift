@@ -10,33 +10,33 @@ import Foundation
 import UIKit
 import SnapKit
 
-class TagsView: UIView {
-    private let collectionView: UICollectionView!
+class TagsView: UIView, NibLoadable {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     private var tags = [Tag]()
-    private var borderColor: UIColor?
     
-    override init(frame: CGRect) {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: LeftAlignedCollectionViewFlowLayout())
-        collectionView.register(UINib(nibName: "TagCell", bundle: nil), forCellWithReuseIdentifier: "cell")
-        self.collectionView = collectionView
-        super.init(frame: frame)
+    func configure(with tags: [Tag], scrollDirection: UICollectionView.ScrollDirection) {
+        let addTag = Tag(
+            id: "add_tag",
+            title: "Add Tag +"
+        )
         
-        backgroundColor = .clear
-        collectionView.backgroundColor = .clear
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(with tags: [Tag], borderColor: UIColor) {
-        self.borderColor = borderColor
-        self.tags = tags
+        self.tags = tags + [addTag]
         
         addSubview(collectionView)
-        collectionView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+        collectionView.register(TagCell.nib, forCellWithReuseIdentifier: "cell")
+        
+        switch scrollDirection {
+        case .horizontal:
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = scrollDirection
+            collectionView.collectionViewLayout = layout
+        default:
+            let layout = LeftAlignedCollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            collectionView.collectionViewLayout = layout
         }
+        
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -54,7 +54,29 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TagCell
         let tag = tags[indexPath.row]
-        cell.configure(with: tag, borderColor: borderColor ?? .white)
+        
+        let backgroundColor: UIColor = {
+            if tag.id == "add_tag" {
+                return .white
+            } else {
+                return .clear
+            }
+        }()
+        
+        let foregroundColor: UIColor = {
+            if tag.id == "add_tag" {
+                return .black
+            } else {
+                return .white
+            }
+        }()
+        
+        cell.configure(
+            with: tag,
+            foregroundColor: foregroundColor,
+            backgroundColor: backgroundColor
+        )
+        
         return cell
     }
     
@@ -63,7 +85,7 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
         let cell = TagCell.createFromNib()
         
         cell.frame.size.height = 16.0
-        cell.configure(with: tag, borderColor: .white)
+        cell.configure(with: tag, foregroundColor: .white, backgroundColor: .clear)
         
         let size = cell.systemLayoutSizeFitting(
             CGSize(
@@ -73,6 +95,14 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
         )
         
         return size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tag = tags[indexPath.row]
+        
+        if tag.id == "add_tag" {
+            print("Add tag here")
+        }
     }
 }
 

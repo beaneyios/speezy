@@ -15,6 +15,7 @@
 		BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098224C732DC00317EB7 /* TagsView.swift */; };
 		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
+		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
 		BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4F988A2480F7CE00B1AE8B /* twitter.png */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
@@ -78,6 +79,7 @@
 		BE2B098224C732DC00317EB7 /* TagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
 		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
 		BE4F988A2480F7CE00B1AE8B /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				BE2B098324C732DC00317EB7 /* TagCell.swift */,
 				BE2B098124C732DC00317EB7 /* TagCell.xib */,
 				BE2B098224C732DC00317EB7 /* TagsView.swift */,
+				BE2B098924C73BD100317EB7 /* TagsView.xib */,
 				BEBFD4B324C595F800200D87 /* TimelineView.swift */,
 			);
 			path = Views;
@@ -466,6 +469,7 @@
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
 				BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
+				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
 				BEBFD4B024C58EF800200D87 /* testFile.m4a in Resources */,
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
 				BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */,

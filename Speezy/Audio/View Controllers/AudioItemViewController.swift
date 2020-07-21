@@ -76,14 +76,14 @@ class AudioItemViewController: UIViewController {
     }
     
     func configureTags() {
-        let tagsView = TagsView()
+        let tagsView = TagsView.createFromNib()
         tagContainer.addSubview(tagsView)
         
         tagsView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
         
-        tagsView.configure(with: audioManager.item.tags, borderColor: .white)
+        tagsView.configure(with: audioManager.item.tags, scrollDirection: .vertical)
         self.tagsView = tagsView
     }
     
