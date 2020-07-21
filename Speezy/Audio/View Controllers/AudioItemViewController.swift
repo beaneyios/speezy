@@ -314,6 +314,7 @@ extension AudioItemViewController {
             switch outcome {
             case let .success(url):
                 DispatchQueue.main.async {
+                    self.btnShare.enable()
                     self.sendToWhatsApp(url: url)
                 }
             case let .failure(error):
