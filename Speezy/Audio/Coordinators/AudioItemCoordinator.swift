@@ -73,6 +73,7 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
+        viewController.modalPresentationStyle = .fullScreen
         navigationController.present(viewController, animated: true, completion: nil)
     }
     
