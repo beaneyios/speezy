@@ -11,6 +11,10 @@
 		94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71429DDB4953F7C3622682B /* Pods_Speezy.framework */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
 		BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B097824C7239300317EB7 /* AudioItemCell.xib */; };
+		BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098124C732DC00317EB7 /* TagCell.xib */; };
+		BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098224C732DC00317EB7 /* TagsView.swift */; };
+		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
+		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4F988A2480F7CE00B1AE8B /* twitter.png */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
@@ -70,6 +74,10 @@
 		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
 		BE2B097824C7239300317EB7 /* AudioItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioItemCell.xib; sourceTree = "<group>"; };
+		BE2B098124C732DC00317EB7 /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
+		BE2B098224C732DC00317EB7 /* TagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
+		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE4F988A2480F7CE00B1AE8B /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
@@ -238,13 +246,16 @@
 		BEAACE8924BA08710074E4B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BE50344C24BB21FD00A414D1 /* PlaybackView.xib */,
-				BE50344E24BB25DA00A414D1 /* PlaybackView.swift */,
-				BE50345024BB9C6C00A414D1 /* CropView.xib */,
-				BE50345224BB9C7600A414D1 /* CropView.swift */,
-				BEBFD4B324C595F800200D87 /* TimelineView.swift */,
 				BE2B097724C7239300317EB7 /* AudioItemCell.swift */,
 				BE2B097824C7239300317EB7 /* AudioItemCell.xib */,
+				BE50345224BB9C7600A414D1 /* CropView.swift */,
+				BE50345024BB9C6C00A414D1 /* CropView.xib */,
+				BE50344E24BB25DA00A414D1 /* PlaybackView.swift */,
+				BE50344C24BB21FD00A414D1 /* PlaybackView.xib */,
+				BE2B098324C732DC00317EB7 /* TagCell.swift */,
+				BE2B098124C732DC00317EB7 /* TagCell.xib */,
+				BE2B098224C732DC00317EB7 /* TagsView.swift */,
+				BEBFD4B324C595F800200D87 /* TimelineView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +314,7 @@
 			children = (
 				BEBFD4C224C5B9DC00200D87 /* ViewCoordinator.swift */,
 				BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */,
+				BE2B098724C7336F00317EB7 /* NibLoadable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -449,6 +461,7 @@
 				BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */,
+				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BEAACE8024B9C1B00074E4B9 /* speezy.png in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
 				BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */,
@@ -540,6 +553,7 @@
 			files = (
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
+				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
@@ -551,6 +565,7 @@
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
+				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* AudioManagerObserver.swift in Sources */,
@@ -561,6 +576,7 @@
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
+				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,

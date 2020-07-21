@@ -186,6 +186,10 @@
                                                     <action selector="share:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yiq-u4-JK6"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAB-Ut-zSR">
+                                                <rect key="frame" x="16" y="518" width="343" height="133"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -193,14 +197,18 @@
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="16" id="1AM-dk-ucx"/>
                                             <constraint firstItem="LKo-eR-PaE" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="1Yy-vz-XKF"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="2kF-DV-yPE"/>
+                                            <constraint firstItem="tAB-Ut-zSR" firstAttribute="top" secondItem="I7a-EG-tAp" secondAttribute="bottom" constant="16" id="C2I-Qw-6di"/>
                                             <constraint firstItem="IYG-qo-4mv" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="16" id="KLm-Ng-OO7"/>
                                             <constraint firstAttribute="trailing" secondItem="I7a-EG-tAp" secondAttribute="trailing" constant="16" id="N7T-ki-vVc"/>
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="Ntj-z4-TTr"/>
+                                            <constraint firstAttribute="trailing" secondItem="tAB-Ut-zSR" secondAttribute="trailing" constant="16" id="Rnj-0u-muk"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="top" secondItem="LKo-eR-PaE" secondAttribute="bottom" constant="16" id="T7d-Wi-wGR"/>
                                             <constraint firstItem="IYG-qo-4mv" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="VLS-cN-t3Z"/>
+                                            <constraint firstAttribute="bottom" secondItem="tAB-Ut-zSR" secondAttribute="bottom" constant="16" id="Yb0-3b-rgl"/>
                                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="top" secondItem="BHa-y7-Fyu" secondAttribute="bottom" constant="16" id="Zhx-eJ-OD2"/>
                                             <constraint firstAttribute="trailing" secondItem="aD4-iy-Eyt" secondAttribute="trailing" id="h0b-58-Msv"/>
                                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="ue9-Xs-sa7"/>
+                                            <constraint firstItem="tAB-Ut-zSR" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="vBV-ZH-fdC"/>
                                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" id="vny-A6-7ho"/>
                                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="top" secondItem="QDO-J8-gZl" secondAttribute="bottom" constant="32" id="xop-NH-4VV"/>
                                             <constraint firstItem="LKo-eR-PaE" firstAttribute="top" secondItem="aD4-iy-Eyt" secondAttribute="bottom" constant="16" id="y85-XS-Vty"/>
@@ -245,6 +253,7 @@
                         <outlet property="lblTimer" destination="BHa-y7-Fyu" id="8YV-wv-N99"/>
                         <outlet property="mainWaveContainer" destination="aD4-iy-Eyt" id="RiN-lJ-Mwd"/>
                         <outlet property="recordContainer" destination="OA5-DV-Fw0" id="PyV-4i-kxC"/>
+                        <outlet property="tagContainer" destination="tAB-Ut-zSR" id="5sm-fk-NYZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

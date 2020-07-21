@@ -47,7 +47,20 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
             id: id,
             path: "\(id).m4a",
             title: "No title",
-            tags: []
+            tags: [
+                Tag(
+                    id: UUID().uuidString,
+                    title: "Test Tag"
+                ),
+                Tag(
+                    id: UUID().uuidString,
+                    title: "Test Tag Much longer"
+                ),
+                Tag(
+                    id: UUID().uuidString,
+                    title: "Test"
+                )
+            ]
         )
         navigateToAudioItem(item: item)
     }

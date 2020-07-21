@@ -33,10 +33,13 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var cropContainer: UIView!
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var tagContainer: UIView!
+    
     weak var delegate: AudioItemViewControllerDelegate?
     
     private var mainWave: PlaybackView?
     private var cropView: CropView?
+    private var tagsView: TagsView?
     
     var documentInteractionController: UIDocumentInteractionController?
     
@@ -48,6 +51,7 @@ class AudioItemViewController: UIViewController {
         configureAudioManager()
         configureMainSoundWave()
         configureTitle()
+        configureTags()
         hideCropView(animated: false)
     }
     
@@ -69,6 +73,18 @@ class AudioItemViewController: UIViewController {
     
     func configureTitle() {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
+    }
+    
+    func configureTags() {
+        let tagsView = TagsView()
+        tagContainer.addSubview(tagsView)
+        
+        tagsView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        tagsView.configure(with: audioManager.item.tags, borderColor: .white)
+        self.tagsView = tagsView
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
