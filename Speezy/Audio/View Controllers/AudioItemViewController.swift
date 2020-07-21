@@ -35,7 +35,7 @@ class AudioItemViewController: UIViewController {
     
     weak var delegate: AudioItemViewControllerDelegate?
     
-    private var mainWave: LargeSoundwaveView?
+    private var mainWave: PlaybackView?
     private var cropView: CropView?
     
     var documentInteractionController: UIDocumentInteractionController?
@@ -56,7 +56,7 @@ class AudioItemViewController: UIViewController {
     }
     
     func configureMainSoundWave() {        
-        let soundWaveView = LargeSoundwaveView.instanceFromNib()
+        let soundWaveView = PlaybackView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
         soundWaveView.snp.makeConstraints { (maker) in

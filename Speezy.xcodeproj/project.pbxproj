@@ -12,8 +12,8 @@
 		BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4F988A2480F7CE00B1AE8B /* twitter.png */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
-		BE50344D24BB21FD00A414D1 /* LargeSoundwaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */; };
-		BE50344F24BB25DA00A414D1 /* LargeSoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */; };
+		BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* PlaybackView.xib */; };
+		BE50344F24BB25DA00A414D1 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* PlaybackView.swift */; };
 		BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50345024BB9C6C00A414D1 /* CropView.xib */; };
 		BE50345324BB9C7600A414D1 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50345224BB9C7600A414D1 /* CropView.swift */; };
 		BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50346124BDFCA900A414D1 /* AudioManager.swift */; };
@@ -69,8 +69,8 @@
 		BE4F988A2480F7CE00B1AE8B /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
-		BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeSoundwaveView.xib; sourceTree = "<group>"; };
-		BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeSoundwaveView.swift; sourceTree = "<group>"; };
+		BE50344C24BB21FD00A414D1 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
+		BE50344E24BB25DA00A414D1 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		BE50345024BB9C6C00A414D1 /* CropView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropView.xib; sourceTree = "<group>"; };
 		BE50345224BB9C7600A414D1 /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		BE50346124BDFCA900A414D1 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
@@ -234,8 +234,8 @@
 		BEAACE8924BA08710074E4B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BE50344C24BB21FD00A414D1 /* LargeSoundwaveView.xib */,
-				BE50344E24BB25DA00A414D1 /* LargeSoundwaveView.swift */,
+				BE50344C24BB21FD00A414D1 /* PlaybackView.xib */,
+				BE50344E24BB25DA00A414D1 /* PlaybackView.swift */,
 				BE50345024BB9C6C00A414D1 /* CropView.xib */,
 				BE50345224BB9C7600A414D1 /* CropView.swift */,
 				BEBFD4B324C595F800200D87 /* TimelineView.swift */,
@@ -440,7 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEBFD4B224C5916D00200D87 /* testFile2.m4a in Resources */,
-				BE50344D24BB21FD00A414D1 /* LargeSoundwaveView.xib in Resources */,
+				BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */,
 				BEAACE8024B9C1B00074E4B9 /* speezy.png in Resources */,
@@ -537,7 +537,7 @@
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
-				BE50344F24BB25DA00A414D1 /* LargeSoundwaveView.swift in Sources */,
+				BE50344F24BB25DA00A414D1 /* PlaybackView.swift in Sources */,
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,

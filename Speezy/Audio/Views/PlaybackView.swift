@@ -1,5 +1,5 @@
 //
-//  LargeSoundwaveView.swift
+//  PlaybackView.swift
 //  Speezy
 //
 //  Created by Matt Beaney on 12/07/2020.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class LargeSoundwaveView: UIView {
+class PlaybackView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -89,7 +89,7 @@ class LargeSoundwaveView: UIView {
 }
 
 // MARK: View set up
-extension LargeSoundwaveView {
+extension PlaybackView {
     private func createAudioVisualisationView(with levels: [Float], seconds: TimeInterval, waveSize: CGSize) {
         if let wave = self.wave {
             wave.removeFromSuperview()
@@ -136,7 +136,7 @@ extension LargeSoundwaveView {
 }
 
 // MARK: Playback
-extension LargeSoundwaveView {
+extension PlaybackView {
     private func stop() {
         wave.stop()
         scrollView.setContentOffset(.zero, animated: true)
@@ -186,7 +186,7 @@ extension LargeSoundwaveView {
 }
 
 // MARK: Observer
-extension LargeSoundwaveView: AudioManagerObserver {
+extension PlaybackView: AudioManagerObserver {
     func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
         guard let audioData = audioData else {
             return
@@ -294,14 +294,14 @@ extension LargeSoundwaveView: AudioManagerObserver {
     }
 }
 
-extension LargeSoundwaveView: UIScrollViewDelegate {
+extension PlaybackView: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         manager?.pause()
     }
 }
 
-extension LargeSoundwaveView {
-    class func instanceFromNib() -> LargeSoundwaveView {
-        return UINib(nibName: "LargeSoundwaveView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! LargeSoundwaveView
+extension PlaybackView {
+    class func instanceFromNib() -> PlaybackView {
+        return UINib(nibName: "PlaybackView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! PlaybackView
     }
 }
