@@ -90,7 +90,7 @@ extension AudioManager: AudioRecorderDelegate {
                 return
             }
 
-            observer.audioPlayer(self, didRecordBarWithPower: power, duration: duration)
+            observer.audioManager(self, didRecordBarWithPower: power, duration: duration)
         }
     }
     
@@ -155,7 +155,7 @@ extension AudioManager: AudioPlayerDelegate {
                 return
             }
             
-            observer.audioPlayer(self, progressedWithTime: time)
+            observer.audioManager(self, progressedWithTime: time)
         }
     }
     
@@ -282,27 +282,27 @@ extension AudioManager {
                 break
                 
             case .startedCropping(let item):
-                observer.audioPlayer(self, didStartCroppingItem: item)
+                observer.audioManager(self, didStartCroppingItem: item)
             case .adjustedCropping(let item):
-                observer.audioPlayer(self, didAdjustCropOnItem: item)
+                observer.audioManager(self, didAdjustCropOnItem: item)
             case .cancelledCropping:
-                observer.audioPlayerDidCancelCropping(self)
+                observer.audioManagerDidCancelCropping(self)
             case .croppingFinished(let item):
-                observer.audioPlayer(self, didFinishCroppingItem: item)
+                observer.audioManager(self, didFinishCroppingItem: item)
                 
             case .stoppedPlayback:
-                observer.audioPlayerDidStop(self)
+                observer.audioManagerDidStop(self)
             case .startedPlayback(let item):
-                observer.audioPlayer(self, didStartPlaying: item)
+                observer.audioManager(self, didStartPlaying: item)
             case .pausedPlayback(let item):
-                observer.audioPlayer(self, didPausePlaybackOf: item)
+                observer.audioManager(self, didPausePlaybackOf: item)
             
             case .startedRecording:
-                observer.audioPlayerDidStartRecording(self)
+                observer.audioManagerDidStartRecording(self)
             case .stoppedRecording:
-                observer.audioPlayerDidStopRecording(self)
+                observer.audioManagerDidStopRecording(self)
             case .processingRecording:
-                observer.audioPlayerProcessingRecording(self)
+                observer.audioManagerProcessingRecording(self)
             }
         }
     }

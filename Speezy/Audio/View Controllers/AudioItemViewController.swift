@@ -197,7 +197,7 @@ extension AudioItemViewController: CropViewDelegate {
 
 // MARK: State management
 extension AudioItemViewController: AudioManagerObserver {
-    func audioPlayerProcessingRecording(_ player: AudioManager) {
+    func audioManagerProcessingRecording(_ player: AudioManager) {
         btnRecord.disable()
         
         let spinner = UIActivityIndicatorView(style: .medium)
@@ -213,7 +213,7 @@ extension AudioItemViewController: AudioManagerObserver {
         recordProcessingSpinner = spinner
     }
     
-    func audioPlayerDidStopRecording(_ player: AudioManager) {
+    func audioManagerDidStopRecording(_ player: AudioManager) {
         recordProcessingSpinner?.removeFromSuperview()
         
         btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
@@ -225,18 +225,18 @@ extension AudioItemViewController: AudioManagerObserver {
         delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
     
-    func audioPlayerDidStartRecording(_ player: AudioManager) {
+    func audioManagerDidStartRecording(_ player: AudioManager) {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
         btnPlayback.disable()
         btnCut.disable()
         btnCrop.disable()
     }
     
-    func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
+    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
         // No op
     }
     
-    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [ .hour, .minute, .second ]
@@ -245,14 +245,14 @@ extension AudioItemViewController: AudioManagerObserver {
         lblTimer.text = durationString
     }
     
-    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
+    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
         btnRecord.disable()
         btnCut.disable()
         btnCrop.disable()
     }
     
-    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         
         if audioManager.isCropping == false {
@@ -263,7 +263,7 @@ extension AudioItemViewController: AudioManagerObserver {
         btnCrop.enable()
     }
     
-    func audioPlayerDidStop(_ player: AudioManager) {
+    func audioManagerDidStop(_ player: AudioManager) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         
         if audioManager.isCropping == false {
@@ -274,22 +274,22 @@ extension AudioItemViewController: AudioManagerObserver {
         btnCrop.enable()
     }
     
-    func audioPlayer(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         showCropView()
     }
     
-    func audioPlayer(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
     }
     
-    func audioPlayer(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
+    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         hideCropView()
         delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
     
-    func audioPlayerDidCancelCropping(_ player: AudioManager) {
+    func audioManagerDidCancelCropping(_ player: AudioManager) {
         lblTimer.text = "00:00:00"
         hideCropView()
         delegate?.audioItemViewController(self, didSaveItem: player.item)

@@ -9,18 +9,18 @@
 import Foundation
 
 protocol AudioManagerObserver: class {
-    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem)
-    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem)
-    func audioPlayerDidStop(_ player: AudioManager)
-    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval)
+    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem)
+    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem)
+    func audioManagerDidStop(_ player: AudioManager)
+    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval)
     
-    func audioPlayer(_ player: AudioManager, didStartCroppingItem item: AudioItem)
-    func audioPlayer(_ player: AudioManager, didAdjustCropOnItem item: AudioItem)
-    func audioPlayer(_ player: AudioManager, didFinishCroppingItem item: AudioItem)
-    func audioPlayerDidCancelCropping(_ player: AudioManager)
+    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem)
+    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem)
+    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem)
+    func audioManagerDidCancelCropping(_ player: AudioManager)
     
-    func audioPlayerDidStartRecording(_ player: AudioManager)
-    func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval)
-    func audioPlayerProcessingRecording(_ player: AudioManager)
-    func audioPlayerDidStopRecording(_ player: AudioManager)
+    func audioManagerDidStartRecording(_ player: AudioManager)
+    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval)
+    func audioManagerProcessingRecording(_ player: AudioManager)
+    func audioManagerDidStopRecording(_ player: AudioManager)
 }

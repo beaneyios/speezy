@@ -187,7 +187,7 @@ extension PlaybackView {
 
 // MARK: Observer
 extension PlaybackView: AudioManagerObserver {
-    func audioPlayer(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
         guard let audioData = audioData else {
             return
         }
@@ -207,35 +207,35 @@ extension PlaybackView: AudioManagerObserver {
         wave.advanceGradient(percentage: newPercentage)
     }
     
-    func audioPlayer(_ player: AudioManager, didStartPlaying item: AudioItem) {
+    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
         // no op
     }
     
-    func audioPlayer(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
         // no op
     }
     
-    func audioPlayerDidStop(_ player: AudioManager) {
+    func audioManagerDidStop(_ player: AudioManager) {
         stop()
     }
     
-    func audioPlayer(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
         // no op
     }
     
-    func audioPlayer(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
         configure(manager: player)
     }
     
-    func audioPlayerDidCancelCropping(_ player: AudioManager) {
+    func audioManagerDidCancelCropping(_ player: AudioManager) {
         configure(manager: player)
     }
     
-    func audioPlayer(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
+    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
         configure(manager: player)
     }
     
-    func audioPlayerDidStartRecording(_ player: AudioManager) {
+    func audioManagerDidStartRecording(_ player: AudioManager) {
         wave.stop()
         wave.reset()
         wave.audioVisualizationMode = .write
@@ -250,11 +250,11 @@ extension PlaybackView: AudioManagerObserver {
         }
     }
     
-    func audioPlayerProcessingRecording(_ player: AudioManager) {
+    func audioManagerProcessingRecording(_ player: AudioManager) {
         alpha = 0.5
     }
     
-    func audioPlayerDidStopRecording(_ player: AudioManager) {
+    func audioManagerDidStopRecording(_ player: AudioManager) {
         AudioLevelGenerator.render(fromAudioURL: player.item.url, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 self.alpha = 1.0
@@ -267,7 +267,7 @@ extension PlaybackView: AudioManagerObserver {
         }
     }
     
-    func audioPlayer(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
+    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
         let previousDuration = audioData?.duration
         audioData = audioData?.addingDBLevel(decibel, addedDuration: duration)
         let newDuration = audioData?.duration
