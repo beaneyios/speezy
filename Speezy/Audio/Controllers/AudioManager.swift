@@ -43,11 +43,28 @@ class AudioManager: NSObject {
         let audioItem = AudioItem(
             id: item.id,
             path: item.path,
-            title: title
+            title: title,
+            tags: item.tags
         )
         
         self.item = audioItem
         self.originalItem = audioItem
+    }
+    
+    func addTag(title: String) {
+        let tag = Tag(id: UUID().uuidString, title: title)
+        
+        var currentItem = item
+        
+        let newItem = AudioItem(
+            id: currentItem.id,
+            path: currentItem.path,
+            title: currentItem.title,
+            tags: currentItem.tags + [tag]
+        )
+        
+        self.item = newItem
+        self.originalItem = newItem
     }
 }
 
@@ -205,7 +222,12 @@ extension AudioManager: AudioCropperDelegate {
         FileManager.default.deleteExistingFile(with: "\(item.id).m4a")
         FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: "\(item.id).m4a")
         
-        let completeItem = AudioItem(id: item.id, path: "\(item.id).m4a", title: item.title)
+        let completeItem = AudioItem(
+            id: item.id,
+            path: "\(item.id).m4a",
+            title: item.title,
+            tags: item.tags
+        )
         self.item = completeItem
         self.originalItem = completeItem
         
