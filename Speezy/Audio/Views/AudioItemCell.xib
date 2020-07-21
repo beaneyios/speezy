@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="146" id="KGk-i7-Jjw" customClass="AudioItemCell" customModule="Speezy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9a-Oj-cnc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio item title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQ0-PN-mtv">
+                                <rect key="frame" x="16" y="16" width="137.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 day ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyN-tS-hI9">
+                                <rect key="frame" x="16" y="52" width="65" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTC-Lc-jeb">
+                                <rect key="frame" x="339" y="24" width="20" height="8"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YTC-Lc-jeb" secondAttribute="height" multiplier="5:2" id="0U1-oL-y92"/>
+                                    <constraint firstAttribute="height" constant="8" id="CoB-mE-Jku"/>
+                                </constraints>
+                                <state key="normal" image="more-options-button"/>
+                                <connections>
+                                    <action selector="moreOptionsTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qv6-zO-YcX"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBU-Jb-exf">
+                                <rect key="frame" x="16" y="145" width="359" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="9I5-5S-bhY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="YTC-Lc-jeb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rQ0-PN-mtv" secondAttribute="trailing" constant="16" id="2gx-wv-mzQ"/>
+                            <constraint firstItem="YTC-Lc-jeb" firstAttribute="centerY" secondItem="rQ0-PN-mtv" secondAttribute="centerY" id="ASY-Dl-6pE"/>
+                            <constraint firstItem="rQ0-PN-mtv" firstAttribute="top" secondItem="m9a-Oj-cnc" secondAttribute="top" constant="16" id="Aft-Fb-d2D"/>
+                            <constraint firstItem="rQ0-PN-mtv" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Eg8-HF-fFM"/>
+                            <constraint firstItem="bBU-Jb-exf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DyN-tS-hI9" secondAttribute="bottom" constant="16" id="ElF-a9-CWJ"/>
+                            <constraint firstAttribute="bottom" secondItem="bBU-Jb-exf" secondAttribute="bottom" id="H3P-rZ-GEI"/>
+                            <constraint firstItem="DyN-tS-hI9" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Nik-Sw-sF0"/>
+                            <constraint firstItem="bBU-Jb-exf" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="bZx-m1-0Hj"/>
+                            <constraint firstAttribute="trailing" secondItem="YTC-Lc-jeb" secondAttribute="trailing" constant="16" id="nqb-S4-KOL"/>
+                            <constraint firstItem="DyN-tS-hI9" firstAttribute="top" secondItem="rQ0-PN-mtv" secondAttribute="bottom" constant="12" id="ssg-iV-N3p"/>
+                            <constraint firstAttribute="trailing" secondItem="bBU-Jb-exf" secondAttribute="trailing" id="w93-c3-cUp"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="m9a-Oj-cnc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8aN-T1-E2n"/>
+                    <constraint firstAttribute="trailing" secondItem="m9a-Oj-cnc" secondAttribute="trailing" id="kPC-gd-sSv"/>
+                    <constraint firstItem="m9a-Oj-cnc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="p2J-dk-apC"/>
+                    <constraint firstAttribute="bottom" secondItem="m9a-Oj-cnc" secondAttribute="bottom" id="wiS-5w-A0r"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnMoreOptions" destination="YTC-Lc-jeb" id="jKz-a6-Qtw"/>
+                <outlet property="lblDate" destination="DyN-tS-hI9" id="WYo-aN-Hn5"/>
+                <outlet property="lblTitle" destination="rQ0-PN-mtv" id="LRf-kT-oSW"/>
+            </connections>
+            <point key="canvasLocation" x="142.75362318840581" y="82.366071428571431"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="more-options-button" width="120" height="48"/>
+    </resources>
+</document>

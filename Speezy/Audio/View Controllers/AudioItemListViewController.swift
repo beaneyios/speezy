@@ -27,7 +27,9 @@ class AudioItemListViewController: UIViewController {
         navigationItem.rightBarButtonItem = plusButton
         title = "My recordings"
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.estimatedRowHeight = 100.0
+        tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -57,8 +59,10 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = "Test"
+        let audioItem = audioItems[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AudioItemCell
+        cell.configure(with: audioItem)
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -66,4 +70,6 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         let audioItem = audioItems[indexPath.row]
         delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
+    
+    
 }
