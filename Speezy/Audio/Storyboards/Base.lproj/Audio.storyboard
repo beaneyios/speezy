@@ -199,6 +199,17 @@
                                                     <constraint firstAttribute="height" constant="133" id="AiB-lW-cAp"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCE-Bg-OhX">
+                                                <rect key="frame" x="214" y="24.5" width="18" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="18" id="WXM-zf-s2C"/>
+                                                    <constraint firstAttribute="height" constant="18" id="bMg-mw-Sjv"/>
+                                                </constraints>
+                                                <state key="normal" image="btn-edit"/>
+                                                <connections>
+                                                    <action selector="chooseTitle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IaB-GL-ZvB"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -207,6 +218,7 @@
                                             <constraint firstItem="LKo-eR-PaE" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="1Yy-vz-XKF"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="2kF-DV-yPE"/>
                                             <constraint firstItem="OW3-RS-nfp" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="Gcf-Vc-rK2"/>
+                                            <constraint firstItem="hCE-Bg-OhX" firstAttribute="centerY" secondItem="QDO-J8-gZl" secondAttribute="centerY" id="ITK-8H-PDW"/>
                                             <constraint firstItem="IYG-qo-4mv" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="16" id="KLm-Ng-OO7"/>
                                             <constraint firstAttribute="trailing" secondItem="I7a-EG-tAp" secondAttribute="trailing" constant="16" id="N7T-ki-vVc"/>
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="Ntj-z4-TTr"/>
@@ -219,6 +231,7 @@
                                             <constraint firstAttribute="trailing" secondItem="aD4-iy-Eyt" secondAttribute="trailing" id="h0b-58-Msv"/>
                                             <constraint firstItem="tAB-Ut-zSR" firstAttribute="top" secondItem="OW3-RS-nfp" secondAttribute="bottom" constant="16" id="iTD-iT-zZZ"/>
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IYG-qo-4mv" secondAttribute="trailing" constant="16" id="kAt-5G-Hec"/>
+                                            <constraint firstItem="hCE-Bg-OhX" firstAttribute="leading" secondItem="QDO-J8-gZl" secondAttribute="trailing" constant="8" id="td6-Gf-LMn"/>
                                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="ue9-Xs-sa7"/>
                                             <constraint firstItem="tAB-Ut-zSR" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="vBV-ZH-fdC"/>
                                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" id="vny-A6-7ho"/>
@@ -270,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.40000000000001" y="138.0809595202399"/>
+            <point key="canvasLocation" x="130.40000000000001" y="137.6311844077961"/>
         </scene>
         <!--Audio Item List View Controller-->
         <scene sceneID="co9-jQ-0gB">
@@ -340,6 +353,7 @@
     </scenes>
     <resources>
         <image name="bottom-gradient" width="120" height="22"/>
+        <image name="btn-edit" width="491" height="448"/>
         <image name="crop-button" width="120" height="120"/>
         <image name="cut-button" width="120" height="120"/>
         <image name="gradient-background" width="1063" height="1891"/>
