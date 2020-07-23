@@ -24,7 +24,7 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
-    
+    @IBOutlet weak var btnTitle2: UIButton!
     @IBOutlet weak var bgGradient: UIImageView!
     
     @IBOutlet weak var recordContainer: UIView!
@@ -38,12 +38,15 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
     
     @IBOutlet weak var tagContainer: UIView!
+    @IBOutlet weak var btnDone: UIButton!
     
     weak var delegate: AudioItemViewControllerDelegate?
     
     private var mainWave: PlaybackView?
     private var cropView: CropView?
     private var tagsView: TagsView?
+    
+    
     
     var documentInteractionController: UIDocumentInteractionController?
     
@@ -299,6 +302,12 @@ extension AudioItemViewController: AudioManagerObserver {
         btnCut.enable()
         btnCrop.enable()
         btnRecord.enable()
+        btnDone.enable()
+        btnShare.enable()
+        btnTitle.enable()
+        btnTitle2.enable()
+        tagsView?.alpha = 1.0
+        tagsView?.isUserInteractionEnabled = true
         
         delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
@@ -308,6 +317,12 @@ extension AudioItemViewController: AudioManagerObserver {
         btnPlayback.disable()
         btnCut.disable()
         btnCrop.disable()
+        btnDone.disable()
+        btnShare.disable()
+        btnTitle.disable()
+        btnTitle2.disable()
+        tagsView?.alpha = 0.5
+        tagsView?.isUserInteractionEnabled = false
     }
     
     func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
