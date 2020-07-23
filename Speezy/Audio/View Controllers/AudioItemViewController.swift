@@ -46,7 +46,7 @@ class AudioItemViewController: UIViewController {
     private var cropView: CropView?
     private var tagsView: TagsView?
     
-    
+    private var infoAlert: SCLAlertView?
     
     var documentInteractionController: UIDocumentInteractionController?
     
@@ -392,6 +392,11 @@ extension AudioItemViewController: AudioManagerObserver {
 // MARK: For later.
 extension AudioItemViewController {
     func share() {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Preparing your video to share", subTitle: "This should only take a few seconds")
+        self.infoAlert = alert
+        
         btnShare.disable()
         guard let image = UIImage(named: "speezy") else {
             return
@@ -407,6 +412,8 @@ extension AudioItemViewController {
             switch outcome {
             case let .success(url):
                 DispatchQueue.main.async {
+                    self.infoAlert?.hideView()
+                    self.infoAlert = nil
                     self.btnShare.enable()
                     self.sendToWhatsApp(url: url)
                 }
