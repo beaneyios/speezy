@@ -9,6 +9,10 @@
 import UIKit
 import AFDateHelper
 
+protocol AudioItemCellDelegate: AnyObject {
+    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: AudioItem)
+}
+
 class AudioItemCell: UITableViewCell {
 
     @IBOutlet weak var lblTitle: UILabel!
@@ -17,9 +21,13 @@ class AudioItemCell: UITableViewCell {
     @IBOutlet weak var tagContainer: UIView!
     @IBOutlet weak var tagContainerHeight: NSLayoutConstraint!
     
+    weak var delegate: AudioItemCellDelegate?
+    
     private var tagsView: TagsView?
+    private var audioItem: AudioItem?
     
     func configure(with audioItem: AudioItem) {
+        self.audioItem = audioItem
         lblTitle.text = audioItem.title
         
         if audioItem.tags.count > 0 {
@@ -60,6 +68,11 @@ class AudioItemCell: UITableViewCell {
     }
     
     @IBAction func moreOptionsTapped(_ sender: Any) {
-        print("More options")
+        guard let audioItem = audioItem else {
+            assertionFailure("Somehow the audio item is nil")
+            return
+        }
+        
+        delegate?.audioItemCell(self, didTapMoreOptionsWithItem: audioItem)
     }
 }
