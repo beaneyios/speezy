@@ -286,39 +286,39 @@
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="91"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPH-Zo-Pi6">
-                                <rect key="frame" x="0.0" y="576" width="375" height="91"/>
+                                <rect key="frame" x="0.0" y="560" width="375" height="107"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Yae-3d-PVl">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="91"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-ef-aIt">
-                                        <rect key="frame" x="150" y="8" width="75" height="75"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="3EA-ef-aIt" secondAttribute="height" multiplier="1:1" id="kuD-uU-1tY"/>
-                                        </constraints>
-                                        <state key="normal" image="speezy"/>
-                                        <connections>
-                                            <action selector="speezyTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="7A7-9l-q2L"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="3EA-ef-aIt" firstAttribute="centerX" secondItem="qPH-Zo-Pi6" secondAttribute="centerX" id="6ZM-BR-jK1"/>
-                                    <constraint firstAttribute="height" constant="91" id="8zE-Bu-nRS"/>
-                                    <constraint firstAttribute="bottom" secondItem="3EA-ef-aIt" secondAttribute="bottom" constant="8" id="IHL-L8-De4"/>
-                                    <constraint firstItem="3EA-ef-aIt" firstAttribute="top" secondItem="qPH-Zo-Pi6" secondAttribute="top" constant="8" id="Krd-rS-hxb"/>
+                                    <constraint firstAttribute="height" constant="107" id="8zE-Bu-nRS"/>
                                     <constraint firstAttribute="bottom" secondItem="Yae-3d-PVl" secondAttribute="bottom" id="Rrg-Dh-Y9y"/>
                                     <constraint firstItem="Yae-3d-PVl" firstAttribute="leading" secondItem="qPH-Zo-Pi6" secondAttribute="leading" id="kHg-SM-s90"/>
                                     <constraint firstItem="Yae-3d-PVl" firstAttribute="top" secondItem="qPH-Zo-Pi6" secondAttribute="top" id="lfm-9e-1n5"/>
                                     <constraint firstAttribute="trailing" secondItem="Yae-3d-PVl" secondAttribute="trailing" id="qlj-Ua-HcU"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-ef-aIt">
+                                <rect key="frame" x="150" y="576" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="4hS-Ez-L1u"/>
+                                    <constraint firstAttribute="height" constant="75" id="6g3-Em-e4c"/>
+                                </constraints>
+                                <state key="normal" image="speezy"/>
+                                <connections>
+                                    <action selector="speezyTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="7A7-9l-q2L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="bottom" secondItem="Z69-9u-VIT" secondAttribute="bottom" id="3xe-1k-4dl"/>
+                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="bottom" secondItem="jO6-yj-Wkd" secondAttribute="bottom" id="3xe-1k-4dl"/>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="3EA-ef-aIt" secondAttribute="bottom" constant="16" id="7jt-p9-RK8"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" id="8yA-Iy-nME"/>
+                            <constraint firstItem="3EA-ef-aIt" firstAttribute="centerX" secondItem="jO6-yj-Wkd" secondAttribute="centerX" id="CBs-5f-RMc"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="RHA-DZ-evl"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="Z69-9u-VIT" secondAttribute="top" id="Srj-1S-x4K"/>
                             <constraint firstItem="qPH-Zo-Pi6" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="dIr-4b-cae"/>

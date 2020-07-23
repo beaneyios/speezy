@@ -48,6 +48,8 @@ class AudioItemViewController: UIViewController {
     var documentInteractionController: UIDocumentInteractionController?
     
     var audioManager: AudioManager!
+    
+    var firstRecord: Bool = true
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +112,10 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
+        chooseTitle()
+    }
+    
+    private func chooseTitle() {
         let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
         let alert = SCLAlertView(appearance: appearance)
         let textField = alert.addTextField("Add a title")
@@ -281,6 +287,11 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManagerDidStopRecording(_ player: AudioManager) {
+        if audioManager.item.title == "No title" && firstRecord {
+            firstRecord = false
+            chooseTitle()
+        }
+        
         recordProcessingSpinner?.removeFromSuperview()
         
         btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
