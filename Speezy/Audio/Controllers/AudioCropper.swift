@@ -64,7 +64,7 @@ extension AudioCropper {
         let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
         
         guard
-            compatiblePresets.contains(AVAssetExportPresetHighestQuality),
+            compatiblePresets.contains(AVAssetExportPresetAppleM4A),
             let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
             let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)_cropped.m4a")
         else {

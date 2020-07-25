@@ -45,9 +45,9 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
+            AVSampleRateKey: 44100,
             AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
         
         do {
