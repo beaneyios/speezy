@@ -31,6 +31,15 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVv-3C-vn9">
+                                <rect key="frame" x="320" y="0.0" width="55" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="FHV-em-vl8"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="moreOptionsTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fOr-Bs-qwF"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTC-Lc-jeb">
                                 <rect key="frame" x="339" y="24" width="20" height="8"/>
                                 <constraints>
@@ -61,14 +70,17 @@
                         <constraints>
                             <constraint firstItem="YTC-Lc-jeb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rQ0-PN-mtv" secondAttribute="trailing" constant="16" id="2gx-wv-mzQ"/>
                             <constraint firstItem="YTC-Lc-jeb" firstAttribute="centerY" secondItem="rQ0-PN-mtv" secondAttribute="centerY" id="ASY-Dl-6pE"/>
+                            <constraint firstItem="OVv-3C-vn9" firstAttribute="top" secondItem="m9a-Oj-cnc" secondAttribute="top" id="AVi-Te-dBS"/>
                             <constraint firstItem="rQ0-PN-mtv" firstAttribute="top" secondItem="m9a-Oj-cnc" secondAttribute="top" constant="16" id="Aft-Fb-d2D"/>
                             <constraint firstItem="rQ0-PN-mtv" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Eg8-HF-fFM"/>
                             <constraint firstAttribute="bottom" secondItem="bBU-Jb-exf" secondAttribute="bottom" id="H3P-rZ-GEI"/>
+                            <constraint firstItem="OVv-3C-vn9" firstAttribute="centerY" secondItem="YTC-Lc-jeb" secondAttribute="centerY" id="H6p-5L-JCT"/>
                             <constraint firstItem="DyN-tS-hI9" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Nik-Sw-sF0"/>
                             <constraint firstItem="bBU-Jb-exf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="t6o-re-EtC" secondAttribute="bottom" constant="16" id="VXK-CS-utT"/>
                             <constraint firstItem="bBU-Jb-exf" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="bZx-m1-0Hj"/>
                             <constraint firstAttribute="trailing" secondItem="t6o-re-EtC" secondAttribute="trailing" constant="16" id="dNl-1S-Cgm"/>
                             <constraint firstItem="t6o-re-EtC" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="dRF-81-ocV"/>
+                            <constraint firstAttribute="trailing" secondItem="OVv-3C-vn9" secondAttribute="trailing" id="fbX-EI-JOU"/>
                             <constraint firstItem="t6o-re-EtC" firstAttribute="top" secondItem="DyN-tS-hI9" secondAttribute="bottom" constant="16" id="fbo-Ez-S73"/>
                             <constraint firstAttribute="trailing" secondItem="YTC-Lc-jeb" secondAttribute="trailing" constant="16" id="nqb-S4-KOL"/>
                             <constraint firstItem="DyN-tS-hI9" firstAttribute="top" secondItem="rQ0-PN-mtv" secondAttribute="bottom" constant="12" id="ssg-iV-N3p"/>

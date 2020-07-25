@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftVideoGenerator
 import SnapKit
 import SCLAlertView
 import Hero
@@ -17,7 +16,7 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
-class AudioItemViewController: UIViewController {
+class AudioItemViewController: UIViewController, AudioShareable {
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnRecord: UIButton!
@@ -46,8 +45,7 @@ class AudioItemViewController: UIViewController {
     private var cropView: CropView?
     private var tagsView: TagsView?
     
-    private var infoAlert: SCLAlertView?
-    
+    var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
     
     var audioManager: AudioManager!
@@ -163,7 +161,12 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func share(_ sender: Any) {
-        share()
+        btnShare.disable()
+        share(item: audioManager.item) {
+            DispatchQueue.main.async {
+                self.btnShare.enable()
+            }
+        }
     }
     
     func hideCropView(animated: Bool = true) {
@@ -386,80 +389,5 @@ extension AudioItemViewController: AudioManagerObserver {
         lblTimer.text = "00:00:00"
         hideCropView()
         delegate?.audioItemViewController(self, didSaveItem: player.item)
-    }
-}
-
-// MARK: For later.
-extension AudioItemViewController {
-    func share() {
-        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
-        let alert = SCLAlertView(appearance: appearance)
-        alert.showInfo("Preparing your video to share", subTitle: "This should only take a few seconds")
-        self.infoAlert = alert
-        
-        btnShare.disable()
-        
-        let item = audioManager.item
-        
-        let videoPlaceholder = VideoPlaceholderView.createFromNib()
-        
-        videoPlaceholder.configure(with: item)
-        videoPlaceholder.setNeedsLayout()
-        videoPlaceholder.layoutIfNeeded()
-        
-        let audioURL = item.url
-        
-        let image = videoPlaceholder.asImage()
-        
-        VideoGenerator.fileName = "Speezy Audio File"
-        VideoGenerator.shouldOptimiseImageForVideo = true
-        VideoGenerator.current.generate(withImages: [image], andAudios: [audioURL], andType: .single, { (progress) in
-            print(progress)
-        }, outcome: { (outcome) in
-            switch outcome {
-            case let .success(url):
-                DispatchQueue.main.async {
-                    self.infoAlert?.hideView()
-                    self.infoAlert = nil
-                    self.btnShare.enable()
-                    self.sendToWhatsApp(url: url)
-                }
-            case let .failure(error):
-                print("FAILED \(error.localizedDescription)")
-                return
-            }
-        })
-    }
-    
-    func sendToWhatsApp(url: URL) {
-        documentInteractionController = UIDocumentInteractionController(url: url)
-        documentInteractionController?.uti = "net.whatsapp.video"
-        documentInteractionController?.annotation = "Test"
-        documentInteractionController?.presentOpenInMenu(
-            from: CGRect(x: 0, y: 0, width: 0, height: 0),
-            in: view,
-            animated: true
-        )
-    }
-}
-
-extension UIView {
-    func asImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
-        }
-    }
-}
-
-extension UIButton {
-    func disable() {
-        isEnabled = false
-        alpha = 0.5
-    }
-    
-    func enable() {
-        isEnabled = true
-        alpha = 1.0
     }
 }

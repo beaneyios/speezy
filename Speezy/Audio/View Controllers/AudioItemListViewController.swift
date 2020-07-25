@@ -10,18 +10,18 @@ import Foundation
 import UIKit
 import SCLAlertView
 import Hero
-import SwiftVideoGenerator
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
 }
 
-class AudioItemListViewController: UIViewController {
+class AudioItemListViewController: UIViewController, AudioShareable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
     
+    var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
     
     weak var delegate: AudioItemListViewControllerDelegate?
@@ -144,37 +144,6 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     }
     
     func share(item: AudioItem) {
-        guard let image = UIImage(named: "speezy") else {
-            return
-        }
-        
-        let audioURL = item.url
-        
-        VideoGenerator.fileName = "Speezy Audio File"
-        VideoGenerator.shouldOptimiseImageForVideo = true
-        VideoGenerator.current.generate(withImages: [image], andAudios: [audioURL], andType: .single, { (progress) in
-            print(progress)
-        }, outcome: { (outcome) in
-            switch outcome {
-            case let .success(url):
-                DispatchQueue.main.async {
-                    self.sendToWhatsApp(url: url)
-                }
-            case let .failure(error):
-                print("FAILED \(error.localizedDescription)")
-                return
-            }
-        })
-    }
-    
-    func sendToWhatsApp(url: URL) {
-        documentInteractionController = UIDocumentInteractionController(url: url)
-        documentInteractionController?.uti = "net.whatsapp.video"
-        documentInteractionController?.annotation = "Test"
-        documentInteractionController?.presentOpenInMenu(
-            from: CGRect(x: 0, y: 0, width: 0, height: 0),
-            in: view,
-            animated: true
-        )
+        share(item: item, completion: nil)
     }
 }
