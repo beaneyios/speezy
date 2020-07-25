@@ -9,11 +9,6 @@
 import Foundation
 import UIKit
 
-protocol CropViewDelegate: AnyObject {
-    func cropViewDidApplyCrop(_ view: CropView)
-    func cropViewDidCancelCrop(_ view: CropView)
-}
-
 class CropView: UIView {
     
     @IBOutlet weak var contentView: UIView!
@@ -24,9 +19,7 @@ class CropView: UIView {
     
     @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
-    
-    weak var delegate: CropViewDelegate?
-    
+        
     private var cropWave: AudioVisualizationView!
     
     private let barSpacing: CGFloat = 0.5
@@ -51,7 +44,7 @@ class CropView: UIView {
             return
         }
         
-        AudioLevelGenerator.render(fromAudioURL: manager.item.url, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing + barWidth)) { (audioData) in
+        AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToWidth(width: frame.width, barSpacing: barSpacing + barWidth)) { (audioData) in
             DispatchQueue.main.async {
                 self.createAudioVisualisationView(with: audioData.percentageLevels)
             }
@@ -168,14 +161,6 @@ class CropView: UIView {
             
             crop()
         }
-    }
-    
-    @IBAction func applyCrop(_ sender: Any) {
-        delegate?.cropViewDidApplyCrop(self)
-    }
-    
-    @IBAction func cancelCrop(_ sender: Any) {
-        delegate?.cropViewDidCancelCrop(self)
     }
     
     private func crop() {

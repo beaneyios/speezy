@@ -28,6 +28,10 @@ class AudioManager: NSObject {
         audioCropper != nil
     }
     
+    var hasActiveCrop: Bool {
+        audioCropper?.hasActiveCrop ?? false
+    }
+    
     private var observations = [ObjectIdentifier : Observation]()
     
     private var audioPlayer: AudioPlayer?
@@ -187,16 +191,20 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
-        state = .stoppedPlayback
+        state = .stoppedPlayback(item)
         stateDidChange()
     }
 }
 
 // MARK: Editing
 extension AudioManager: AudioCropperDelegate {
-    func toggleCropping() {
+    func toggleCrop() {
         if isCropping {
-            cancelCrop()
+            if hasActiveCrop {
+                confirmCrop()
+            } else {
+                cancelCrop()
+            }
         } else {
             startCropping()
         }
@@ -219,6 +227,11 @@ extension AudioManager: AudioCropperDelegate {
     
     func cancelCrop() {
         audioCropper?.cancelCrop()
+    }
+    
+    func confirmCrop() {
+        state = .confirmingCrop(item)
+        stateDidChange()
     }
     
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
@@ -285,8 +298,9 @@ extension AudioManager {
         case adjustedCropping(AudioItem)
         case cancelledCropping(AudioItem)
         case croppingFinished(AudioItem)
+        case confirmingCrop(AudioItem)
         
-        case stoppedPlayback
+        case stoppedPlayback(AudioItem)
         case startedPlayback(AudioItem)
         case pausedPlayback(AudioItem)
         
@@ -323,9 +337,11 @@ extension AudioManager {
                 observer.audioManagerDidCancelCropping(self)
             case .croppingFinished(let item):
                 observer.audioManager(self, didFinishCroppingItem: item)
+            case .confirmingCrop(let item):
+                observer.audioManager(self, didConfirmCropOnItem: item)
                 
-            case .stoppedPlayback:
-                observer.audioManagerDidStop(self)
+            case .stoppedPlayback(let item):
+                observer.audioManager(self, didStopPlaying: item)
             case .startedPlayback(let item):
                 observer.audioManager(self, didStartPlaying: item)
             case .pausedPlayback(let item):

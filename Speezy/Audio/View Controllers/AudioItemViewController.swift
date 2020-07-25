@@ -26,6 +26,8 @@ class AudioItemViewController: UIViewController, AudioShareable {
     @IBOutlet weak var btnTitle2: UIButton!
     @IBOutlet weak var bgGradient: UIImageView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var recordContainer: UIView!
     private var recordProcessingSpinner: UIActivityIndicatorView?
     
@@ -149,7 +151,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
-        audioManager.toggleCropping()
+        audioManager.toggleCrop()
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
@@ -200,13 +202,12 @@ class AudioItemViewController: UIViewController, AudioShareable {
         btnRecord.disable()
         btnShare.disable()
         
-        self.cropContainerHeight.constant = 100.0
+        cropContainerHeight.constant = 100.0
         UIView.animate(withDuration: 0.4, animations: {
             self.view.layoutIfNeeded()
             self.cropContainer.alpha = 1.0
         }) { (finished) in
             let cropView = CropView.instanceFromNib()
-            cropView.delegate = self
             cropView.alpha = 0.0
             self.cropContainer.addSubview(cropView)
             
@@ -220,6 +221,11 @@ class AudioItemViewController: UIViewController, AudioShareable {
             UIView.animate(withDuration: 0.3) {
                 cropView.alpha = 1.0
             }
+            
+            self.scrollView.setContentOffset(
+                CGPoint(x: 0, y: 100.0),
+                animated: true
+            )
         }
     }
 }
@@ -251,31 +257,26 @@ extension AudioItemViewController: TagsViewDelegate {
     }
 }
 
-extension AudioItemViewController: CropViewDelegate {
-    func cropViewDidApplyCrop(_ view: CropView) {
-        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
-        let alert = SCLAlertView(appearance: appearance)
-        
-        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
-            self.audioManager.applyCrop()
-        }
-        
-        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {}
-        alert.showWarning(
-            "Crop item",
-            subTitle: "Are you sure you want to crop? You will not be able to undo this action.",
-            closeButtonTitle: "Not yet",
-            animationStyle: .bottomToTop
-        )
-    }
-    
-    func cropViewDidCancelCrop(_ view: CropView) {
-        audioManager.cancelCrop()
-    }
-}
-
 // MARK: State management
 extension AudioItemViewController: AudioManagerObserver {
+    // Recording
+    func audioManagerDidStartRecording(_ player: AudioManager) {
+        btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
+        btnPlayback.disable()
+        btnCut.disable()
+        btnCrop.disable()
+        btnDone.disable()
+        btnShare.disable()
+        btnTitle.disable()
+        btnTitle2.disable()
+        tagsView?.alpha = 0.5
+        tagsView?.isUserInteractionEnabled = false
+    }
+    
+    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
+        // No op
+    }
+    
     func audioManagerProcessingRecording(_ player: AudioManager) {
         btnRecord.disable()
         
@@ -315,21 +316,13 @@ extension AudioItemViewController: AudioManagerObserver {
         delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
     
-    func audioManagerDidStartRecording(_ player: AudioManager) {
-        btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
-        btnPlayback.disable()
+    // Playback
+    
+    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
+        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+        btnRecord.disable()
         btnCut.disable()
         btnCrop.disable()
-        btnDone.disable()
-        btnShare.disable()
-        btnTitle.disable()
-        btnTitle2.disable()
-        tagsView?.alpha = 0.5
-        tagsView?.isUserInteractionEnabled = false
-    }
-    
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
-        // No op
     }
     
     func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
@@ -339,13 +332,6 @@ extension AudioItemViewController: AudioManagerObserver {
         formatter.zeroFormattingBehavior = [ .pad ]
         let durationString = formatter.string(from: time) ?? "\(time)"
         lblTimer.text = durationString
-    }
-    
-    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
-        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
-        btnRecord.disable()
-        btnCut.disable()
-        btnCrop.disable()
     }
     
     func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
@@ -359,7 +345,7 @@ extension AudioItemViewController: AudioManagerObserver {
         btnCrop.enable()
     }
     
-    func audioManagerDidStop(_ player: AudioManager) {
+    func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         
         if audioManager.isCropping == false {
@@ -370,6 +356,8 @@ extension AudioItemViewController: AudioManagerObserver {
         btnCrop.enable()
     }
     
+    // Cropping
+    
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         showCropView()
@@ -377,6 +365,26 @@ extension AudioItemViewController: AudioManagerObserver {
     
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
+    }
+    
+    func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {
+        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
+        let alert = SCLAlertView(appearance: appearance)
+        
+        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
+            self.audioManager.applyCrop()
+        }
+        
+        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {
+            self.audioManager.cancelCrop()
+        }
+        
+        alert.showWarning(
+            "Crop item",
+            subTitle: "Are you sure you want to crop? You will not be able to undo this action.",
+            closeButtonTitle: "Not yet",
+            animationStyle: .bottomToTop
+        )
     }
     
     func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {

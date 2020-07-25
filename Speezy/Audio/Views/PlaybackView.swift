@@ -38,8 +38,7 @@ class PlaybackView: UIView {
         manager.addObserver(self)
         scrollView.delegate = self
         
-        let item = manager.item.url
-        AudioLevelGenerator.render(fromAudioURL: item, targetSamplesPolicy: .fitToDuration) { (audioData) in
+        AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 let line = UIView()
                 line.backgroundColor = .red
@@ -187,6 +186,12 @@ extension PlaybackView {
 
 // MARK: Observer
 extension PlaybackView: AudioManagerObserver {
+    // Playback
+    
+    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
+        // no op
+    }
+    
     func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
         guard let audioData = audioData else {
             return
@@ -207,17 +212,16 @@ extension PlaybackView: AudioManagerObserver {
         wave.advanceGradient(percentage: newPercentage)
     }
     
-    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
-        // no op
-    }
     
     func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
         // no op
     }
     
-    func audioManagerDidStop(_ player: AudioManager) {
+    func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
         stop()
     }
+    
+    // Cropping
     
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
         // no op
@@ -227,6 +231,10 @@ extension PlaybackView: AudioManagerObserver {
         configure(manager: player)
     }
     
+    func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {
+        // no op
+    }
+    
     func audioManagerDidCancelCropping(_ player: AudioManager) {
         configure(manager: player)
     }
@@ -234,6 +242,8 @@ extension PlaybackView: AudioManagerObserver {
     func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
         configure(manager: player)
     }
+    
+    // Recording
     
     func audioManagerDidStartRecording(_ player: AudioManager) {
         wave.stop()
@@ -254,8 +264,10 @@ extension PlaybackView: AudioManagerObserver {
         alpha = 0.5
     }
     
+    
+    
     func audioManagerDidStopRecording(_ player: AudioManager) {
-        AudioLevelGenerator.render(fromAudioURL: player.item.url, targetSamplesPolicy: .fitToDuration) { (audioData) in
+        AudioLevelGenerator.render(fromAudioItem: player.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 self.alpha = 1.0
                 

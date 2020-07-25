@@ -13,13 +13,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spJ-im-iW4">
-                    <rect key="frame" x="0.0" y="0.0" width="780" height="154"/>
+                    <rect key="frame" x="0.0" y="0.0" width="780" height="200"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ylu-1e-ghH">
-                            <rect key="frame" x="0.0" y="0.0" width="16" height="154"/>
+                            <rect key="frame" x="0.0" y="0.0" width="16" height="200"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron-left" translatesAutoresizingMaskIntoConstraints="NO" id="3kF-VL-Lhj">
-                                    <rect key="frame" x="4" y="69.5" width="8" height="15.5"/>
+                                    <rect key="frame" x="4" y="92.5" width="8" height="15.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="3kF-VL-Lhj" secondAttribute="height" multiplier="16:31" id="mFO-GG-qxy"/>
                                     </constraints>
@@ -34,10 +34,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7EE-4e-uLl">
-                            <rect key="frame" x="764" y="0.0" width="16" height="154"/>
+                            <rect key="frame" x="764" y="0.0" width="16" height="200"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron-right" translatesAutoresizingMaskIntoConstraints="NO" id="GeT-OA-iAj">
-                                    <rect key="frame" x="4" y="69.5" width="8" height="15.5"/>
+                                    <rect key="frame" x="4" y="92.5" width="8" height="15.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="GeT-OA-iAj" secondAttribute="height" multiplier="16:31" id="39p-ll-3JY"/>
                                     </constraints>
@@ -59,14 +59,14 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uI4-pf-hhf">
-                            <rect key="frame" x="16" y="150" width="748" height="4"/>
+                            <rect key="frame" x="16" y="196" width="748" height="4"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="4" id="jhL-98-mEs"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4J9-SX-eUJ">
-                            <rect key="frame" x="16" y="4" width="748" height="146"/>
+                            <rect key="frame" x="16" y="4" width="748" height="192"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -90,50 +90,13 @@
                         <constraint firstAttribute="bottom" secondItem="uI4-pf-hhf" secondAttribute="bottom" id="sbY-eL-U4s"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQv-AB-feq">
-                    <rect key="frame" x="321" y="162" width="138" height="30"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1l-Xh-ILo">
-                            <rect key="frame" x="87" y="0.0" width="43" height="30"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" title="Apply">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="applyCrop:" destination="xMS-hc-oAM" eventType="touchUpInside" id="rLM-UM-Eem"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxm-Wf-y1l">
-                            <rect key="frame" x="8" y="0.0" width="47" height="30"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                            <state key="normal" title="Cancel">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="cancelCrop:" destination="xMS-hc-oAM" eventType="touchUpInside" id="Jvx-X2-lRB"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="W1l-Xh-ILo" secondAttribute="bottom" id="C1T-83-TBn"/>
-                        <constraint firstAttribute="trailing" secondItem="W1l-Xh-ILo" secondAttribute="trailing" constant="8" id="Kh3-6P-NUB"/>
-                        <constraint firstItem="Hxm-Wf-y1l" firstAttribute="top" secondItem="kQv-AB-feq" secondAttribute="top" id="bOQ-hj-DKi"/>
-                        <constraint firstItem="W1l-Xh-ILo" firstAttribute="leading" secondItem="Hxm-Wf-y1l" secondAttribute="trailing" constant="32" id="hKj-FD-Hk3"/>
-                        <constraint firstAttribute="bottom" secondItem="Hxm-Wf-y1l" secondAttribute="bottom" id="hUl-ib-896"/>
-                        <constraint firstItem="W1l-Xh-ILo" firstAttribute="top" secondItem="kQv-AB-feq" secondAttribute="top" id="kmo-hF-aIl"/>
-                        <constraint firstItem="Hxm-Wf-y1l" firstAttribute="leading" secondItem="kQv-AB-feq" secondAttribute="leading" constant="8" id="wq2-9e-w3c"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="spJ-im-iW4" secondAttribute="trailing" id="0q5-m0-XQd"/>
                 <constraint firstItem="spJ-im-iW4" firstAttribute="top" secondItem="xMS-hc-oAM" secondAttribute="top" id="3QR-2f-vXv"/>
-                <constraint firstItem="kQv-AB-feq" firstAttribute="top" secondItem="spJ-im-iW4" secondAttribute="bottom" constant="8" id="7fk-oR-jn0"/>
-                <constraint firstAttribute="bottom" secondItem="kQv-AB-feq" secondAttribute="bottom" constant="8" id="Mqw-fy-ke6"/>
                 <constraint firstItem="spJ-im-iW4" firstAttribute="leading" secondItem="xMS-hc-oAM" secondAttribute="leading" id="Nng-4h-qos"/>
-                <constraint firstItem="kQv-AB-feq" firstAttribute="centerX" secondItem="xMS-hc-oAM" secondAttribute="centerX" id="ijc-Pk-x9M"/>
+                <constraint firstAttribute="bottom" secondItem="spJ-im-iW4" secondAttribute="bottom" id="k4e-w2-bdb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

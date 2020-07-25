@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVKit
 
 struct Tag: Codable, Equatable, Identifiable {
     let id: String
@@ -22,6 +23,10 @@ struct AudioItem: Codable, Equatable, Identifiable {
     
     var url: URL {
         FileManager.default.documentsURL(with: path)!
+    }
+    
+    var duration: TimeInterval {
+        TimeInterval(CMTimeGetSeconds(AVAsset(url: url).duration))
     }
     
     init(id: String, path: String, title: String, date: Date, tags: [Tag]) {

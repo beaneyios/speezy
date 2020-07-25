@@ -19,6 +19,23 @@ class AudioCropper {
     private let originalItem: AudioItem
     private(set) var croppedItem: AudioItem?
     
+    private var cropFrom: TimeInterval?
+    private var cropTo: TimeInterval?
+    
+    var hasActiveCrop: Bool {
+        let duration = TimeInterval(CMTimeGetSeconds(AVAsset(url: originalItem.url).duration))
+        
+        if
+            let cropFrom = cropFrom,
+            let cropTo = cropTo,
+            cropFrom > 0 || cropTo < duration
+        {
+            return true
+        }
+        
+        return false
+    }
+    
     weak var delegate: AudioCropperDelegate?
     
     init(originalItem: AudioItem) {
@@ -26,6 +43,8 @@ class AudioCropper {
     }
     
     func crop(from: TimeInterval, to: TimeInterval) {
+        cropFrom = from
+        cropTo = to
         crop(audioItem: originalItem, startTime: from, stopTime: to) { (path) in
             let croppedItem = AudioItem(
                 id: self.originalItem.id,
