@@ -398,11 +398,18 @@ extension AudioItemViewController {
         self.infoAlert = alert
         
         btnShare.disable()
-        guard let image = UIImage(named: "speezy") else {
-            return
-        }
         
-        let audioURL = audioManager.item.url
+        let item = audioManager.item
+        
+        let videoPlaceholder = VideoPlaceholderView.createFromNib()
+        
+        videoPlaceholder.configure(with: item)
+        videoPlaceholder.setNeedsLayout()
+        videoPlaceholder.layoutIfNeeded()
+        
+        let audioURL = item.url
+        
+        let image = videoPlaceholder.asImage()
         
         VideoGenerator.fileName = "Speezy Audio File"
         VideoGenerator.shouldOptimiseImageForVideo = true
@@ -433,6 +440,15 @@ extension AudioItemViewController {
             in: view,
             animated: true
         )
+    }
+}
+
+extension UIView {
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
     }
 }
 
