@@ -436,7 +436,7 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
             self.getImage(fromSourceType: .photoLibrary)
         }
         
-        let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .default) { action in
+        let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
             self.audioManager.setImageAttachment(nil) {
                 self.configureImageAttachment()
             }
@@ -445,7 +445,7 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
         alert.addAction(cameraAction)
         alert.addAction(photoAlbumAction)
         alert.addAction(clearPhotoAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 
