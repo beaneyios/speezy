@@ -37,6 +37,7 @@ class AudioManager: NSObject {
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
+    private let audioAttachmentManager = AudioAttachmentManager()
     
     init(item: AudioItem) {
         self.originalItem = item
@@ -73,6 +74,18 @@ class AudioManager: NSObject {
         self.originalItem = newItem
         
         AudioStorage.saveItem(newItem)
+    }
+    
+    func setImageAttachment(_ attachment: UIImage?, completion: @escaping () -> Void) {
+        audioAttachmentManager.storeAttachment(
+            attachment,
+            forItem: item,
+            completion: completion
+        )
+    }
+    
+    func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
+        audioAttachmentManager.fetchAttachment(forItem: item, completion: completion)
     }
 }
 

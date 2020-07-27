@@ -29,7 +29,13 @@ struct AudioItem: Codable, Equatable, Identifiable {
         TimeInterval(CMTimeGetSeconds(AVAsset(url: url).duration))
     }
     
-    init(id: String, path: String, title: String, date: Date, tags: [Tag]) {
+    init(
+        id: String,
+        path: String,
+        title: String,
+        date: Date,
+        tags: [Tag]
+    ) {
         self.id = id
         self.path = path
         self.title = title

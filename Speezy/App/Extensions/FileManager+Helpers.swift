@@ -11,7 +11,13 @@ import Foundation
 extension FileManager {
     func documentsURL(with fileName: String, create: Bool = false) -> URL? {
         do {
-            let documentDirectory = try url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let documentDirectory = try url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: false
+            )
+            
             let fileURL = documentDirectory.appendingPathComponent(fileName)
             
             if fileExists(atPath: fileURL.absoluteString) == false && create {

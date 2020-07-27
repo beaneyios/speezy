@@ -24,6 +24,9 @@ class AudioItemViewController: UIViewController, AudioShareable {
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
     @IBOutlet weak var btnTitle2: UIButton!
+    @IBOutlet weak var btnCamera: UIButton!
+    @IBOutlet weak var imgAttachment: UIImageView!
+    
     @IBOutlet weak var bgGradient: UIImageView!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -61,6 +64,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
         configureMainSoundWave()
         configureTitle()
         configureTags()
+        configureImageAttachment()
         hideCropView(animated: false)
         
         hero.isEnabled = true
@@ -89,6 +93,22 @@ class AudioItemViewController: UIViewController, AudioShareable {
     
     func configureTitle() {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
+    }
+    
+    func configureImageAttachment() {        
+        audioManager.fetchImageAttachment { (image) in
+            DispatchQueue.main.async {
+                self.imgAttachment.layer.cornerRadius = self.imgAttachment.frame.width / 2.0
+                guard let image = image else {
+                    self.btnCamera.alpha = 1.0
+                    self.imgAttachment.image = nil
+                    return
+                }
+                
+                self.btnCamera.alpha = 0.5
+                self.imgAttachment.image = image
+            }
+        }
     }
     
     func configureTags() {
@@ -160,6 +180,10 @@ class AudioItemViewController: UIViewController, AudioShareable {
     
     @IBAction func toggleCut(_ sender: Any) {
         
+    }
+    
+    @IBAction func attachPhoto(_ sender: Any) {
+        showAlert()
     }
     
     @IBAction func share(_ sender: Any) {
@@ -397,5 +421,66 @@ extension AudioItemViewController: AudioManagerObserver {
         lblTimer.text = "00:00:00"
         hideCropView()
         delegate?.audioItemViewController(self, didSaveItem: player.item)
+    }
+}
+
+extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func showAlert() {
+        let alert = UIAlertController(title: "Image Selection", message: "From where you want to pick this image?", preferredStyle: .actionSheet)
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+            self.getImage(fromSourceType: .camera)
+        }
+        
+        let photoAlbumAction = UIAlertAction(title: "Photo Album", style: .default) { action in
+            self.getImage(fromSourceType: .photoLibrary)
+        }
+        
+        let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .default) { action in
+            self.audioManager.setImageAttachment(nil) {
+                self.configureImageAttachment()
+            }
+        }
+        
+        alert.addAction(cameraAction)
+        alert.addAction(photoAlbumAction)
+        alert.addAction(clearPhotoAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    //get image from source type
+    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+
+        //Check is source type available
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+                return
+            }
+            
+            self.audioManager.setImageAttachment(image) {
+                self.configureImageAttachment()
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
