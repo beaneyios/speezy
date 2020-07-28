@@ -95,7 +95,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
     }
     
-    func configureImageAttachment() {        
+    func configureImageAttachment() {
         audioManager.fetchImageAttachment { (image) in
             DispatchQueue.main.async {
                 self.imgAttachment.layer.cornerRadius = self.imgAttachment.frame.width / 2.0

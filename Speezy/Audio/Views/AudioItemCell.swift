@@ -48,10 +48,7 @@ class AudioItemCell: UITableViewCell {
             ]
         )
         
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        
-        imgAttachment.layer.cornerRadius = imgAttachment.frame.width / 2.0
+        imgAttachment.layer.cornerRadius = 20.0
         
         audioAttachmentManager.fetchAttachment(forItem: audioItem) { (image) in
             DispatchQueue.main.async {
@@ -59,6 +56,10 @@ class AudioItemCell: UITableViewCell {
                     self.imgAttachmentWidth.constant = 0.0
                 } else {
                     self.imgAttachmentWidth.constant = 40.0
+                }
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.layoutIfNeeded()
                 }
                 
                 self.imgAttachment.image = image

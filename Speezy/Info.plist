@@ -24,6 +24,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>For attaching photos to your sound clips.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>For recording sound clips.</string>
 	<key>UIApplicationSceneManifest</key>

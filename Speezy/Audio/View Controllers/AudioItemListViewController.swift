@@ -76,6 +76,8 @@ class AudioItemListViewController: UIViewController, AudioShareable {
             audioItems.append(item)
         }
         
+        audioAttachmentManager.resetCache()
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

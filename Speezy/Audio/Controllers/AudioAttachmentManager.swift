@@ -12,6 +12,10 @@ import UIKit
 class AudioAttachmentManager {
     private(set) var imageAttachmentCache = [String: UIImage]()
     
+    func resetCache() {
+        imageAttachmentCache = [:]
+    }
+    
     func storeAttachment(
         _ image: UIImage?,
         forItem item: AudioItem,
