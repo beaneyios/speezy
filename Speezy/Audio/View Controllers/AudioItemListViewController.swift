@@ -27,10 +27,16 @@ class AudioItemListViewController: UIViewController, AudioShareable {
     weak var delegate: AudioItemListViewControllerDelegate?
     var audioItems: [AudioItem] = []
     
+    private var audioAttachmentManager = AudioAttachmentManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        let plusButton = UIBarButtonItem(image: UIImage(named: "settings-button"), style: .plain, target: self, action: #selector(newItemTapped))
+        let plusButton = UIBarButtonItem(
+            image: UIImage(named: "settings-button"),
+            style: .plain,
+            target: self,
+            action: #selector(newItemTapped)
+        )
         navigationItem.rightBarButtonItem = plusButton
         navigationItem.rightBarButtonItem?.tintColor = .black
         title = "My recordings"
@@ -50,11 +56,12 @@ class AudioItemListViewController: UIViewController, AudioShareable {
     
     private func loadItems() {
         audioItems = AudioStorage.fetchItems()
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }        
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
-        
         delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
     }
     
@@ -69,7 +76,9 @@ class AudioItemListViewController: UIViewController, AudioShareable {
             audioItems.append(item)
         }
         
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -85,7 +94,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let audioItem = audioItems[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AudioItemCell
-        cell.configure(with: audioItem)
+        cell.configure(with: audioItem, audioAttachmentManager: audioAttachmentManager)
         cell.delegate = self
         cell.selectionStyle = .none
         return cell
@@ -144,6 +153,10 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     }
     
     func share(item: AudioItem) {
-        share(item: item, attachmentImage: nil, completion: nil)
+        share(
+            item: item,
+            attachmentImage: audioAttachmentManager.imageAttachmentCache[item.id],
+            completion: nil
+        )
     }
 }

@@ -59,12 +59,19 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6o-re-EtC">
-                                <rect key="frame" x="16" y="86" width="343" height="35"/>
+                                <rect key="frame" x="16" y="86" width="287" height="35"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="dGt-aK-IqJ"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bbe-Lz-PBd">
+                                <rect key="frame" x="319" y="83.5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6wh-Lk-seG"/>
+                                    <constraint firstAttribute="width" constant="40" id="XFD-tW-XXZ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -77,12 +84,14 @@
                             <constraint firstItem="OVv-3C-vn9" firstAttribute="centerY" secondItem="YTC-Lc-jeb" secondAttribute="centerY" id="H6p-5L-JCT"/>
                             <constraint firstItem="DyN-tS-hI9" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="Nik-Sw-sF0"/>
                             <constraint firstItem="bBU-Jb-exf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="t6o-re-EtC" secondAttribute="bottom" constant="16" id="VXK-CS-utT"/>
+                            <constraint firstItem="Bbe-Lz-PBd" firstAttribute="leading" secondItem="t6o-re-EtC" secondAttribute="trailing" constant="16" id="a9N-2x-0Jd"/>
                             <constraint firstItem="bBU-Jb-exf" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="bZx-m1-0Hj"/>
-                            <constraint firstAttribute="trailing" secondItem="t6o-re-EtC" secondAttribute="trailing" constant="16" id="dNl-1S-Cgm"/>
                             <constraint firstItem="t6o-re-EtC" firstAttribute="leading" secondItem="m9a-Oj-cnc" secondAttribute="leading" constant="16" id="dRF-81-ocV"/>
                             <constraint firstAttribute="trailing" secondItem="OVv-3C-vn9" secondAttribute="trailing" id="fbX-EI-JOU"/>
                             <constraint firstItem="t6o-re-EtC" firstAttribute="top" secondItem="DyN-tS-hI9" secondAttribute="bottom" constant="16" id="fbo-Ez-S73"/>
+                            <constraint firstAttribute="trailing" secondItem="Bbe-Lz-PBd" secondAttribute="trailing" constant="16" id="kOy-oC-epn"/>
                             <constraint firstAttribute="trailing" secondItem="YTC-Lc-jeb" secondAttribute="trailing" constant="16" id="nqb-S4-KOL"/>
+                            <constraint firstItem="Bbe-Lz-PBd" firstAttribute="centerY" secondItem="t6o-re-EtC" secondAttribute="centerY" id="rG7-qh-Dr5"/>
                             <constraint firstItem="DyN-tS-hI9" firstAttribute="top" secondItem="rQ0-PN-mtv" secondAttribute="bottom" constant="12" id="ssg-iV-N3p"/>
                             <constraint firstAttribute="trailing" secondItem="bBU-Jb-exf" secondAttribute="trailing" id="w93-c3-cUp"/>
                         </constraints>
@@ -98,6 +107,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnMoreOptions" destination="YTC-Lc-jeb" id="jKz-a6-Qtw"/>
+                <outlet property="imgAttachment" destination="Bbe-Lz-PBd" id="qhG-wK-ybO"/>
+                <outlet property="imgAttachmentWidth" destination="XFD-tW-XXZ" id="WXM-xq-Gu6"/>
                 <outlet property="lblDate" destination="DyN-tS-hI9" id="WYo-aN-Hn5"/>
                 <outlet property="lblTitle" destination="rQ0-PN-mtv" id="LRf-kT-oSW"/>
                 <outlet property="tagContainer" destination="t6o-re-EtC" id="zqE-KU-uhq"/>

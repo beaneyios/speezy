@@ -183,7 +183,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
     }
     
     @IBAction func attachPhoto(_ sender: Any) {
-        showAlert()
+        showAttachmentAlert()
     }
     
     @IBAction func share(_ sender: Any) {
@@ -425,7 +425,7 @@ extension AudioItemViewController: AudioManagerObserver {
 }
 
 extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func showAlert() {
+    private func showAttachmentAlert() {
         let alert = UIAlertController(title: "Image Selection", message: "From where you want to pick this image?", preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
@@ -438,7 +438,10 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
         
         let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
             self.audioManager.setImageAttachment(nil) {
-                self.configureImageAttachment()
+                DispatchQueue.main.async {
+                    self.configureImageAttachment()
+                    self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
+                }
             }
         }
         
@@ -449,9 +452,7 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
         self.present(alert, animated: true, completion: nil)
     }
 
-    //get image from source type
     private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
-
         //Check is source type available
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             let imagePickerController = UIImagePickerController()
@@ -475,7 +476,10 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
             }
             
             self.audioManager.setImageAttachment(image) {
-                self.configureImageAttachment()
+                DispatchQueue.main.async {
+                    self.configureImageAttachment()
+                    self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
+                }
             }
         }
     }

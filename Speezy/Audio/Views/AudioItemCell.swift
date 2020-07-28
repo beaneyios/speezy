@@ -18,15 +18,18 @@ class AudioItemCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var btnMoreOptions: UIButton!
+    @IBOutlet weak var imgAttachment: UIImageView!
+    
     @IBOutlet weak var tagContainer: UIView!
     @IBOutlet weak var tagContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var imgAttachmentWidth: NSLayoutConstraint!
     
     weak var delegate: AudioItemCellDelegate?
     
     private var tagsView: TagsView?
     private var audioItem: AudioItem?
     
-    func configure(with audioItem: AudioItem) {
+    func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
         self.audioItem = audioItem
         lblTitle.text = audioItem.title
         
@@ -44,6 +47,23 @@ class AudioItemCell: UITableViewCell {
                 RelativeTimeStringType.nowPast: "Just now"
             ]
         )
+        
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        
+        imgAttachment.layer.cornerRadius = imgAttachment.frame.width / 2.0
+        
+        audioAttachmentManager.fetchAttachment(forItem: audioItem) { (image) in
+            DispatchQueue.main.async {
+                if image == nil {
+                    self.imgAttachmentWidth.constant = 0.0
+                } else {
+                    self.imgAttachmentWidth.constant = 40.0
+                }
+                
+                self.imgAttachment.image = image
+            }
+        }
     }
     
     func configureTags(item: AudioItem) {
