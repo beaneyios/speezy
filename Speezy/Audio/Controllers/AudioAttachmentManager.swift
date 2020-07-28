@@ -34,7 +34,7 @@ class AudioAttachmentManager {
                 return
             }
             
-            guard let imageData = image?.pngData() else {
+            guard let imageData = image?.jpegData(compressionQuality: 1.0) else {
                 FileManager.default.deleteExistingURL(url)
                 completion()
                 return

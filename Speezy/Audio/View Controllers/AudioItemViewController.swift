@@ -19,20 +19,18 @@ protocol AudioItemViewControllerDelegate: AnyObject {
 class AudioItemViewController: UIViewController, AudioShareable {
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnPlayback: UIButton!
-    @IBOutlet weak var btnRecord: UIButton!
+    @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
     @IBOutlet weak var btnTitle2: UIButton!
-    @IBOutlet weak var btnCamera: UIButton!
-    @IBOutlet weak var imgAttachment: UIImageView!
+    @IBOutlet weak var btnCamera: SpeezyButton!
     
     @IBOutlet weak var bgGradient: UIImageView!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var recordContainer: UIView!
-    private var recordProcessingSpinner: UIActivityIndicatorView?
     
     @IBOutlet weak var lblTimer: UILabel!
     
@@ -96,17 +94,18 @@ class AudioItemViewController: UIViewController, AudioShareable {
     }
     
     func configureImageAttachment() {
+        btnCamera.startLoading()
+        btnCamera.imageView?.contentMode = .scaleAspectFill
         audioManager.fetchImageAttachment { (image) in
             DispatchQueue.main.async {
-                self.imgAttachment.layer.cornerRadius = self.imgAttachment.frame.width / 2.0
+                self.btnCamera.stopLoading()
+                self.btnCamera.layer.cornerRadius = self.btnCamera.frame.width / 2.0
                 guard let image = image else {
-                    self.btnCamera.alpha = 1.0
-                    self.imgAttachment.image = nil
+                    self.btnCamera.setImage(UIImage(named: "camera-button"), for: .normal)
                     return
                 }
                 
-                self.btnCamera.alpha = 0.5
-                self.imgAttachment.image = image
+                self.btnCamera.setImage(image, for: .normal)
             }
         }
     }
@@ -302,19 +301,7 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManagerProcessingRecording(_ player: AudioManager) {
-        btnRecord.disable()
-        
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.tintColor = .white
-        spinner.color = .white
-        spinner.startAnimating()
-        
-        recordContainer.addSubview(spinner)
-        spinner.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
-        }
-        
-        recordProcessingSpinner = spinner
+        btnRecord.startLoading()
     }
     
     func audioManagerDidStopRecording(_ player: AudioManager) {
@@ -323,7 +310,7 @@ extension AudioItemViewController: AudioManagerObserver {
             chooseTitle()
         }
         
-        recordProcessingSpinner?.removeFromSuperview()
+        btnRecord.stopLoading()
         
         btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
         btnPlayback.enable()
@@ -458,6 +445,7 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
             imagePickerController.sourceType = sourceType
+            btnCamera.startLoading()
             self.present(imagePickerController, animated: true, completion: nil)
         }
     }
@@ -485,6 +473,7 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        btnCamera.stopLoading()
         picker.dismiss(animated: true, completion: nil)
     }
 }

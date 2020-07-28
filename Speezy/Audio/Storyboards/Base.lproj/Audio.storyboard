@@ -96,7 +96,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-DV-Fw0" userLabel="Record container">
                                                 <rect key="frame" x="147.5" y="382" width="80" height="80"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp7-Oy-Ge7">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp7-Oy-Ge7" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" image="start-recording-button"/>
@@ -140,13 +140,10 @@
                                                             <constraint firstAttribute="height" constant="60" id="rMi-yW-k4S"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Um-fY-qrB" userLabel="Crop container">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Um-fY-qrB" userLabel="Camera container">
                                                         <rect key="frame" x="228" y="0.0" width="60" height="60"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QM2-kB-61K">
-                                                                <rect key="frame" x="2" y="2" width="56" height="56"/>
-                                                            </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVx-we-4Et">
+                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVx-we-4Et" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="camera-button"/>
@@ -158,14 +155,10 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="eVx-we-4Et" secondAttribute="trailing" id="794-E0-dO5"/>
-                                                            <constraint firstAttribute="trailing" secondItem="QM2-kB-61K" secondAttribute="trailing" constant="2" id="9xm-p2-WHF"/>
                                                             <constraint firstAttribute="height" constant="60" id="XGV-6j-Rdo"/>
-                                                            <constraint firstItem="QM2-kB-61K" firstAttribute="top" secondItem="3Um-fY-qrB" secondAttribute="top" constant="2" id="aFY-2F-VqX"/>
                                                             <constraint firstAttribute="width" constant="60" id="geo-Ux-6Jn"/>
-                                                            <constraint firstItem="QM2-kB-61K" firstAttribute="leading" secondItem="3Um-fY-qrB" secondAttribute="leading" constant="2" id="iMd-5N-2l5"/>
                                                             <constraint firstAttribute="bottom" secondItem="eVx-we-4Et" secondAttribute="bottom" id="odE-Vk-oOD"/>
                                                             <constraint firstItem="eVx-we-4Et" firstAttribute="top" secondItem="3Um-fY-qrB" secondAttribute="top" id="s2n-vg-mta"/>
-                                                            <constraint firstAttribute="bottom" secondItem="QM2-kB-61K" secondAttribute="bottom" constant="2" id="w0C-nm-28i"/>
                                                             <constraint firstItem="eVx-we-4Et" firstAttribute="leading" secondItem="3Um-fY-qrB" secondAttribute="leading" id="yEX-dC-fln"/>
                                                         </constraints>
                                                     </view>
@@ -328,7 +321,6 @@
                         <outlet property="btnTitle2" destination="hCE-Bg-OhX" id="tMc-sq-5K7"/>
                         <outlet property="cropContainer" destination="I7a-EG-tAp" id="8lb-jS-nfL"/>
                         <outlet property="cropContainerHeight" destination="oMl-BD-Qm2" id="zpx-AT-Ubc"/>
-                        <outlet property="imgAttachment" destination="QM2-kB-61K" id="srQ-KR-8P7"/>
                         <outlet property="lblTimer" destination="BHa-y7-Fyu" id="8YV-wv-N99"/>
                         <outlet property="mainWaveContainer" destination="aD4-iy-Eyt" id="RiN-lJ-Mwd"/>
                         <outlet property="recordContainer" destination="OA5-DV-Fw0" id="PyV-4i-kxC"/>
