@@ -326,6 +326,29 @@
                         <outlet property="recordContainer" destination="OA5-DV-Fw0" id="PyV-4i-kxC"/>
                         <outlet property="scrollView" destination="L5y-n3-5AW" id="ciw-ki-fFG"/>
                         <outlet property="tagContainer" destination="tAB-Ut-zSR" id="5sm-fk-NYZ"/>
+                        <outletCollection property="recordHidables" destination="IYG-qo-4mv" collectionClass="NSMutableArray" id="27a-kj-JN2"/>
+                        <outletCollection property="recordHidables" destination="dS4-sh-ukM" collectionClass="NSMutableArray" id="TJp-Iv-gpf"/>
+                        <outletCollection property="recordHidables" destination="QDO-J8-gZl" collectionClass="NSMutableArray" id="S0d-q2-JDa"/>
+                        <outletCollection property="recordHidables" destination="hCE-Bg-OhX" collectionClass="NSMutableArray" id="LND-rL-azI"/>
+                        <outletCollection property="recordHidables" destination="YjA-7i-Qk8" collectionClass="NSMutableArray" id="SWF-IG-L2X"/>
+                        <outletCollection property="recordHidables" destination="5yY-ac-jcu" collectionClass="NSMutableArray" id="OHK-ci-24v"/>
+                        <outletCollection property="recordHidables" destination="lqf-bC-Bmq" collectionClass="NSMutableArray" id="hjv-t1-BuC"/>
+                        <outletCollection property="recordHidables" destination="eVx-we-4Et" collectionClass="NSMutableArray" id="RoV-rf-pED"/>
+                        <outletCollection property="playbackHidables" destination="IYG-qo-4mv" collectionClass="NSMutableArray" id="2Ty-ee-GpJ"/>
+                        <outletCollection property="playbackHidables" destination="dS4-sh-ukM" collectionClass="NSMutableArray" id="wwB-uc-teM"/>
+                        <outletCollection property="playbackHidables" destination="QDO-J8-gZl" collectionClass="NSMutableArray" id="YBa-6O-phN"/>
+                        <outletCollection property="playbackHidables" destination="hCE-Bg-OhX" collectionClass="NSMutableArray" id="DOl-Ae-juw"/>
+                        <outletCollection property="playbackHidables" destination="YjA-7i-Qk8" collectionClass="NSMutableArray" id="Kcd-K5-6YH"/>
+                        <outletCollection property="playbackHidables" destination="tp7-Oy-Ge7" collectionClass="NSMutableArray" id="KsH-uQ-cz4"/>
+                        <outletCollection property="playbackHidables" destination="lqf-bC-Bmq" collectionClass="NSMutableArray" id="nGd-VT-yWF"/>
+                        <outletCollection property="playbackHidables" destination="eVx-we-4Et" collectionClass="NSMutableArray" id="ZOu-pH-cEH"/>
+                        <outletCollection property="cropHidables" destination="eVx-we-4Et" collectionClass="NSMutableArray" id="GEH-fz-F3m"/>
+                        <outletCollection property="cropHidables" destination="YjA-7i-Qk8" collectionClass="NSMutableArray" id="vZf-Dk-C1M"/>
+                        <outletCollection property="cropHidables" destination="tp7-Oy-Ge7" collectionClass="NSMutableArray" id="TVR-3O-59x"/>
+                        <outletCollection property="cropHidables" destination="dS4-sh-ukM" collectionClass="NSMutableArray" id="qk7-QY-3vv"/>
+                        <outletCollection property="cropHidables" destination="IYG-qo-4mv" collectionClass="NSMutableArray" id="tKL-Ll-d54"/>
+                        <outletCollection property="cropHidables" destination="QDO-J8-gZl" collectionClass="NSMutableArray" id="8Py-rB-W5h"/>
+                        <outletCollection property="cropHidables" destination="hCE-Bg-OhX" collectionClass="NSMutableArray" id="DAi-Zq-PDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

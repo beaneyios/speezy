@@ -17,6 +17,11 @@ protocol AudioItemViewControllerDelegate: AnyObject {
 }
 
 class AudioItemViewController: UIViewController, AudioShareable {
+    
+    @IBOutlet var recordHidables: [UIButton]!
+    @IBOutlet var playbackHidables: [UIButton]!
+    @IBOutlet var cropHidables: [UIButton]!
+    
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
@@ -73,92 +78,8 @@ class AudioItemViewController: UIViewController, AudioShareable {
         hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
     }
     
-    func configureAudioManager() {
-        audioManager.addObserver(self)
-    }
-    
-    func configureMainSoundWave() {        
-        let soundWaveView = PlaybackView.instanceFromNib()
-        mainWaveContainer.addSubview(soundWaveView)
-        
-        soundWaveView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.mainWaveContainer)
-        }
-        
-        soundWaveView.configure(manager: audioManager)
-        mainWave = soundWaveView
-    }
-    
-    func configureTitle() {
-        btnTitle.setTitle(audioManager.item.title, for: .normal)
-    }
-    
-    func configureImageAttachment() {
-        btnCamera.startLoading()
-        btnCamera.imageView?.contentMode = .scaleAspectFill
-        audioManager.fetchImageAttachment { (image) in
-            DispatchQueue.main.async {
-                self.btnCamera.stopLoading()
-                self.btnCamera.layer.cornerRadius = self.btnCamera.frame.width / 2.0
-                guard let image = image else {
-                    self.btnCamera.setImage(UIImage(named: "camera-button"), for: .normal)
-                    return
-                }
-                
-                self.btnCamera.setImage(image, for: .normal)
-            }
-        }
-    }
-    
-    func configureTags() {
-        tagsView?.removeFromSuperview()
-        tagsView = nil
-        
-        let tagsView = TagsView.createFromNib()
-        tagsView.delegate = self
-        tagContainer.addSubview(tagsView)
-        
-        tagsView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
-        tagsView.configure(
-            with: audioManager.item.tags,
-            foreColor: .white,
-            backColor: .clear,
-            scrollDirection: .vertical,
-            showAddTag: true
-        )
-
-        self.tagsView = tagsView
-    }
-    
     @IBAction func chooseTitle(_ sender: Any) {
         chooseTitle()
-    }
-    
-    private func chooseTitle() {
-        let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
-        let alert = SCLAlertView(appearance: appearance)
-        let textField = alert.addTextField("Add a title")
-        textField.layer.cornerRadius = 12.0
-        alert.addButton("Add") {
-            guard let text = textField.text else {
-                return
-            }
-            
-            self.audioManager.updateTitle(title: text)
-            self.configureTitle()
-            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
-        }
-        
-        alert.showEdit(
-            "Title",
-            subTitle: "Add the title for your audio file here",
-            closeButtonTitle: "Cancel",
-            colorStyle: 0x3B08A0,
-            animationStyle: .topToBottom
-        )
     }
     
     @IBAction func close(_ sender: Any) {
@@ -186,6 +107,12 @@ class AudioItemViewController: UIViewController, AudioShareable {
     }
     
     @IBAction func share(_ sender: Any) {
+        if audioManager.hasRecorded == false {
+            let alert = SCLAlertView()
+            alert.showError("No recording found", subTitle: "You haven't recorded anything! Tap the record button to get started", closeButtonTitle: "OK")
+            return
+        }
+        
         btnShare.disable()
         share(item: audioManager.item, attachmentImage: audioManager.currentImageAttachment) {
             DispatchQueue.main.async {
@@ -193,37 +120,103 @@ class AudioItemViewController: UIViewController, AudioShareable {
             }
         }
     }
+}
+
+// MARK: Configuration
+extension AudioItemViewController {
+    private func configureAudioManager() {
+        audioManager.addObserver(self)
+    }
     
-    func hideCropView(animated: Bool = true) {
-        guard animated else {
-            cropContainerHeight.constant = 0.0
-            cropContainer.alpha = 0.0
-            return
+    private func configureMainSoundWave() {
+        let soundWaveView = PlaybackView.instanceFromNib()
+        mainWaveContainer.addSubview(soundWaveView)
+        
+        soundWaveView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.mainWaveContainer)
         }
         
-        btnCrop.setImage(UIImage(named: "crop-button"), for: .normal)
-        
-        btnCut.enable()
-        btnRecord.enable()
-        btnShare.enable()
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.cropContainer.alpha = 0.0
-        }) { (finished) in
-            self.cropView?.removeFromSuperview()
-            self.cropView = nil
-            self.cropContainerHeight.constant = 0.0
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
+        soundWaveView.configure(manager: audioManager)
+        mainWave = soundWaveView
+    }
+    
+    private func configureTitle() {
+        btnTitle.setTitle(audioManager.item.title, for: .normal)
+    }
+    
+    private func configureImageAttachment() {
+        btnCamera.startLoading()
+        btnCamera.imageView?.contentMode = .scaleAspectFill
+        audioManager.fetchImageAttachment { (image) in
+            DispatchQueue.main.async {
+                self.btnCamera.stopLoading()
+                self.btnCamera.layer.cornerRadius = self.btnCamera.frame.width / 2.0
+                guard let image = image else {
+                    self.btnCamera.setImage(UIImage(named: "camera-button"), for: .normal)
+                    return
+                }
+                
+                self.btnCamera.setImage(image, for: .normal)
+            }
         }
     }
     
-    func showCropView() {
+    private func configureTags() {
+        tagsView?.removeFromSuperview()
+        tagsView = nil
+        
+        let tagsView = TagsView.createFromNib()
+        tagsView.delegate = self
+        tagContainer.addSubview(tagsView)
+        
+        tagsView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        tagsView.configure(
+            with: audioManager.item.tags,
+            foreColor: .white,
+            backColor: .clear,
+            scrollDirection: .vertical,
+            showAddTag: true
+        )
+
+        self.tagsView = tagsView
+    }
+}
+
+// MARK: Actions
+extension AudioItemViewController {
+    private func chooseTitle() {
+        let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
+        let alert = SCLAlertView(appearance: appearance)
+        let textField = alert.addTextField("Add a title")
+        textField.layer.cornerRadius = 12.0
+        alert.addButton("Add") {
+            guard let text = textField.text else {
+                return
+            }
+            
+            self.audioManager.updateTitle(title: text)
+            self.configureTitle()
+            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
+        }
+        
+        alert.showEdit(
+            "Title",
+            subTitle: "Add the title for your audio file here",
+            closeButtonTitle: "Cancel",
+            colorStyle: 0x3B08A0,
+            animationStyle: .topToBottom
+        )
+    }
+    
+    private func showCropView() {
         btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
-        btnCut.disable()
-        btnRecord.disable()
-        btnShare.disable()
+        
+        cropHidables.forEach {
+            $0.disable()
+        }
         
         cropContainerHeight.constant = 100.0
         UIView.animate(withDuration: 0.4, animations: {
@@ -251,8 +244,34 @@ class AudioItemViewController: UIViewController, AudioShareable {
             )
         }
     }
+    
+    private func hideCropView(animated: Bool = true) {
+        guard animated else {
+            cropContainerHeight.constant = 0.0
+            cropContainer.alpha = 0.0
+            return
+        }
+        
+        btnCrop.setImage(UIImage(named: "crop-button"), for: .normal)
+        
+        cropHidables.forEach {
+            $0.enable()
+        }
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.cropContainer.alpha = 0.0
+        }) { (finished) in
+            self.cropView?.removeFromSuperview()
+            self.cropView = nil
+            self.cropContainerHeight.constant = 0.0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
 }
 
+// MARK: Tags view delegate
 extension AudioItemViewController: TagsViewDelegate {
     func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
         
@@ -282,16 +301,16 @@ extension AudioItemViewController: TagsViewDelegate {
 
 // MARK: State management
 extension AudioItemViewController: AudioManagerObserver {
+    
     // Recording
+    
     func audioManagerDidStartRecording(_ player: AudioManager) {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
-        btnPlayback.disable()
-        btnCut.disable()
-        btnCrop.disable()
-        btnDone.disable()
-        btnShare.disable()
-        btnTitle.disable()
-        btnTitle2.disable()
+        
+        recordHidables.forEach {
+            $0.disable()
+        }
+
         tagsView?.alpha = 0.5
         tagsView?.isUserInteractionEnabled = false
     }
@@ -313,14 +332,11 @@ extension AudioItemViewController: AudioManagerObserver {
         btnRecord.stopLoading()
         
         btnRecord.setImage(UIImage(named: "start-recording-button"), for: .normal)
-        btnPlayback.enable()
-        btnCut.enable()
-        btnCrop.enable()
-        btnRecord.enable()
-        btnDone.enable()
-        btnShare.enable()
-        btnTitle.enable()
-        btnTitle2.enable()
+        
+        recordHidables.forEach {
+            $0.enable()
+        }
+        
         tagsView?.alpha = 1.0
         tagsView?.isUserInteractionEnabled = true
         
@@ -331,9 +347,10 @@ extension AudioItemViewController: AudioManagerObserver {
     
     func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
-        btnRecord.disable()
-        btnCut.disable()
-        btnCrop.disable()
+        
+        playbackHidables.forEach {
+            $0.disable()
+        }
     }
     
     func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
@@ -411,6 +428,7 @@ extension AudioItemViewController: AudioManagerObserver {
     }
 }
 
+// MARK: Image attachment
 extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func showAttachmentAlert() {
         let alert = UIAlertController(title: "Image Selection", message: "From where you want to pick this image?", preferredStyle: .actionSheet)

@@ -37,6 +37,10 @@ class AudioManager: NSObject {
         audioAttachmentManager.imageAttachmentCache[item.id]
     }
     
+    var hasRecorded: Bool {
+        item.duration > 0
+    }
+    
     private var observations = [ObjectIdentifier : Observation]()
     
     private var audioPlayer: AudioPlayer?
