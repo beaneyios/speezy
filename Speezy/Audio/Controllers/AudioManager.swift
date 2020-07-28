@@ -8,6 +8,7 @@
 
 import Foundation
 import AVKit
+import UIKit
 
 class AudioManager: NSObject {
     private(set) var item: AudioItem
@@ -30,6 +31,10 @@ class AudioManager: NSObject {
     
     var hasActiveCrop: Bool {
         audioCropper?.hasActiveCrop ?? false
+    }
+    
+    var currentImageAttachment: UIImage? {
+        audioAttachmentManager.imageAttachmentCache[item.id]
     }
     
     private var observations = [ObjectIdentifier : Observation]()

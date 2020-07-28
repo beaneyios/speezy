@@ -144,6 +144,6 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     }
     
     func share(item: AudioItem) {
-        share(item: item, completion: nil)
+        share(item: item, attachmentImage: nil, completion: nil)
     }
 }

@@ -188,7 +188,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
     
     @IBAction func share(_ sender: Any) {
         btnShare.disable()
-        share(item: audioManager.item) {
+        share(item: audioManager.item, attachmentImage: audioManager.currentImageAttachment) {
             DispatchQueue.main.async {
                 self.btnShare.enable()
             }

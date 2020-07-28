@@ -13,28 +13,42 @@ import SCLAlertView
 protocol AudioShareable: AnyObject {
     var shareAlert: SCLAlertView? { get set }
     var documentInteractionController: UIDocumentInteractionController? { get set }
-    func share(item: AudioItem, completion: (() -> Void)?)
+    func share(item: AudioItem, attachmentImage: UIImage?, completion: (() -> Void)?)
 }
 
 extension AudioShareable where Self: UIViewController {
-    func share(item: AudioItem, completion: (() -> Void)?) {
+    func share(item: AudioItem, attachmentImage: UIImage?, completion: (() -> Void)?) {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alert = SCLAlertView(appearance: appearance)
-        alert.showInfo("Preparing your video to share", subTitle: "This should only take a few seconds")
+        alert.showInfo(
+            "Preparing your video to share",
+            subTitle: "This should only take a few seconds"
+        )
         shareAlert = alert
         
-        let videoPlaceholder = VideoPlaceholderView.createFromNib()
-        videoPlaceholder.configure(with: item)
-        videoPlaceholder.setNeedsLayout()
-        videoPlaceholder.layoutIfNeeded()
+        var images = [UIImage]()
+        
+        if let attachmentImage = attachmentImage {
+            let videoPlaceholder = CustomVideoPlaceholderView.createFromNib()
+            
+            let ratio = attachmentImage.size.width / attachmentImage.size.height
+            videoPlaceholder.frame.size.height = videoPlaceholder.frame.width / ratio
+            videoPlaceholder.configure(with: item, attachmentImage: attachmentImage)
+            videoPlaceholder.setNeedsLayout()
+            videoPlaceholder.layoutIfNeeded()
+            images.append(videoPlaceholder.asImage())
+        } else {
+            let videoPlaceholder = VideoPlaceholderView.createFromNib()
+            videoPlaceholder.configure(with: item)
+            videoPlaceholder.setNeedsLayout()
+            videoPlaceholder.layoutIfNeeded()
+            images.append(videoPlaceholder.asImage())
+        }
         
         let audioURL = item.url
-        
-        let image = videoPlaceholder.asImage()
-        
         VideoGenerator.fileName = "Speezy Audio File"
         VideoGenerator.shouldOptimiseImageForVideo = true
-        VideoGenerator.current.generate(withImages: [image], andAudios: [audioURL], andType: .single, { (progress) in
+        VideoGenerator.current.generate(withImages: images, andAudios: [audioURL], andType: .single, { (progress) in
             print(progress)
         }, outcome: { (outcome) in
             switch outcome {
