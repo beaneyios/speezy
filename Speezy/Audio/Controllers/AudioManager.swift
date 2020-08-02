@@ -41,6 +41,14 @@ class AudioManager: NSObject {
         item.duration > 0
     }
     
+    private var firstRecord = true
+    private var recordingStoppedAutomatically = false
+    var shouldAutomaticallyShowTitleSelector: Bool {
+        let firstRecord = self.firstRecord
+        self.firstRecord = false
+        return firstRecord && item.title == "No title" && recordingStoppedAutomatically == false
+    }
+    
     private var observations = [ObjectIdentifier : Observation]()
     
     private var audioPlayer: AudioPlayer?
@@ -110,6 +118,8 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func startRecording() {
+        recordingStoppedAutomatically = false
+        
         let audioRecorder = AudioRecorder(item: item)
         audioRecorder.delegate = self
         audioRecorder.record()
@@ -130,14 +140,19 @@ extension AudioManager: AudioRecorderDelegate {
         stateDidChange()
     }
     
-    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, duration: TimeInterval) {
+    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         observations.forEach {
             guard let observer = $0.value.observer else {
                 self.observations.removeValue(forKey: $0.key)
                 return
             }
 
-            observer.audioManager(self, didRecordBarWithPower: power, duration: duration)
+            observer.audioManager(
+                self,
+                didRecordBarWithPower: power,
+                stepDuration: stepDuration,
+                totalDuration: totalDuration
+            )
         }
     }
     
@@ -149,6 +164,19 @@ extension AudioManager: AudioRecorderDelegate {
         stateDidChange()
         
         AudioStorage.saveItem(item)
+    }
+    
+    func audioRecorder(_ recorder: AudioRecorder, didReachMaxRecordLimitWithItem item: AudioItem) {
+        recordingStoppedAutomatically = true
+        
+        observations.forEach {
+            guard let observer = $0.value.observer else {
+                self.observations.removeValue(forKey: $0.key)
+                return
+            }
+
+            observer.audioManager(self, didReachMaxRecordingLimitWithItem: item)
+        }
     }
 }
 

@@ -15,11 +15,16 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     private var recordingTimer: Timer?
     
     weak var delegate: AudioRecorderDelegate?
+    private var totalTime: TimeInterval = 0.0
+    
+    private let recordingThreshhold: TimeInterval = 180.0
     
     let item: AudioItem
     
     init(item: AudioItem) {
         self.item = item
+        
+        self.totalTime = item.duration
     }
     
     func record() {
@@ -62,10 +67,17 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
                     assertionFailure("Somehow recorder is nil.")
                     return
                 }
-
+                
                 recorder.updateMeters()
                 let power = recorder.averagePower(forChannel: 0)
-                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, duration: 0.1)
+                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, stepDuration: 0.1, totalDuration: self.totalTime)
+                
+                if self.totalTime > self.recordingThreshhold {
+                    self.stopRecording()
+                    self.delegate?.audioRecorder(self, didReachMaxRecordLimitWithItem: self.item)
+                }
+                
+                self.totalTime += 0.1
             }
         } catch {
             
@@ -99,6 +111,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
 protocol AudioRecorderDelegate: AnyObject {
     func audioRecorderDidStartRecording(_ recorder: AudioRecorder)
     func audioRecorderDidStartProcessingRecording(_ recorder: AudioRecorder)
-    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, duration: TimeInterval)
+    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
     func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem)
+    func audioRecorder(_ recorder: AudioRecorder, didReachMaxRecordLimitWithItem item: AudioItem)
 }

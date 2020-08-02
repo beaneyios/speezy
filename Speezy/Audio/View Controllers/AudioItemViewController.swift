@@ -57,9 +57,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
     var documentInteractionController: UIDocumentInteractionController?
     
     var audioManager: AudioManager!
-    
-    var firstRecord: Bool = true
-            
+                
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -315,8 +313,8 @@ extension AudioItemViewController: AudioManagerObserver {
         tagsView?.isUserInteractionEnabled = false
     }
     
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
-        // No op
+    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+        lblTimer.text = TimeFormatter.formatTime(time: totalDuration)
     }
     
     func audioManagerProcessingRecording(_ player: AudioManager) {
@@ -324,8 +322,7 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManagerDidStopRecording(_ player: AudioManager) {
-        if audioManager.item.title == "No title" && firstRecord {
-            firstRecord = false
+        if audioManager.shouldAutomaticallyShowTitleSelector {
             chooseTitle()
         }
         
@@ -343,6 +340,11 @@ extension AudioItemViewController: AudioManagerObserver {
         delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
     
+    func audioManager(_ player: AudioManager, didReachMaxRecordingLimitWithItem item: AudioItem) {
+        let alert = SCLAlertView()
+        alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
+    }
+    
     // Playback
     
     func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
@@ -354,12 +356,7 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [ .hour, .minute, .second ]
-        formatter.zeroFormattingBehavior = [ .pad ]
-        let durationString = formatter.string(from: time) ?? "\(time)"
-        lblTimer.text = durationString
+        lblTimer.text = TimeFormatter.formatTime(time: time)
     }
     
     func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {

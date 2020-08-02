@@ -32,6 +32,7 @@
 		BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */; };
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
 		BE6565D924CC450100D77BFE /* AudioShareable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D824CC450100D77BFE /* AudioShareable.swift */; };
+		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE792707247EE55F0079652C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792706247EE55F0079652C /* AppDelegate.swift */; };
 		BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792708247EE55F0079652C /* SceneDelegate.swift */; };
 		BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79270A247EE55F0079652C /* AudioItemViewController.swift */; };
@@ -105,6 +106,7 @@
 		BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AsImage.swift"; sourceTree = "<group>"; };
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
 		BE6565D824CC450100D77BFE /* AudioShareable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioShareable.swift; sourceTree = "<group>"; };
+		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE792703247EE55F0079652C /* Speezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE792706247EE55F0079652C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE792708247EE55F0079652C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
 				BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */,
 				BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */,
+				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
+				BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */,
 				BE50344F24BB25DA00A414D1 /* PlaybackView.swift in Sources */,
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,

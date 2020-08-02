@@ -263,9 +263,7 @@ extension PlaybackView: AudioManagerObserver {
     func audioManagerProcessingRecording(_ player: AudioManager) {
         alpha = 0.5
     }
-    
-    
-    
+        
     func audioManagerDidStopRecording(_ player: AudioManager) {
         AudioLevelGenerator.render(fromAudioItem: player.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
@@ -279,9 +277,13 @@ extension PlaybackView: AudioManagerObserver {
         }
     }
     
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, duration: TimeInterval) {
+    func audioManager(_ player: AudioManager, didReachMaxRecordingLimitWithItem item: AudioItem) {
+        // no op
+    }
+    
+    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         let previousDuration = audioData?.duration
-        audioData = audioData?.addingDBLevel(decibel, addedDuration: duration)
+        audioData = audioData?.addingDBLevel(decibel, addedDuration: stepDuration)
         let newDuration = audioData?.duration
         
         wave.audioVisualizationMode = .write
