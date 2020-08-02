@@ -14,6 +14,7 @@ import Hero
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
+    func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController, AudioShareable {
@@ -35,7 +36,7 @@ class AudioItemListViewController: UIViewController, AudioShareable {
             image: UIImage(named: "settings-button"),
             style: .plain,
             target: self,
-            action: #selector(newItemTapped)
+            action: #selector(settingsItemTapped)
         )
         navigationItem.rightBarButtonItem = plusButton
         navigationItem.rightBarButtonItem?.tintColor = .black
@@ -65,8 +66,8 @@ class AudioItemListViewController: UIViewController, AudioShareable {
         delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
     }
     
-    @objc func newItemTapped() {
-        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
+    @objc func settingsItemTapped() {
+        delegate?.audioItemListViewControllerDidSelectSettings(self)
     }
     
     func reloadItem(_ item: AudioItem) {

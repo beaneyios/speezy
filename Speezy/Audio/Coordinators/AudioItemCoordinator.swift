@@ -75,6 +75,12 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
 }
 
 extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
+        add(settingsCoordinator)
+        settingsCoordinator.start()
+    }
+    
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController) {
         navigateToNewItem()
     }

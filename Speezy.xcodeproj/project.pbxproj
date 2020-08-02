@@ -19,7 +19,6 @@
 		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
-		BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BE4F988A2480F7CE00B1AE8B /* twitter.png */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
 		BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* PlaybackView.xib */; };
@@ -33,6 +32,14 @@
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
 		BE6565D924CC450100D77BFE /* AudioShareable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D824CC450100D77BFE /* AudioShareable.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
+		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
+		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
+		BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */; };
+		BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766D24D6CBEC0009BE63 /* SettingsCell.swift */; };
+		BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE77766E24D6CBEC0009BE63 /* SettingsCell.xib */; };
+		BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767224D6CCD90009BE63 /* SettingsItem.swift */; };
+		BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE77767424D6D3100009BE63 /* SettingsFooterView.xib */; };
+		BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767624D6D3390009BE63 /* SettingsFooterView.swift */; };
 		BE792707247EE55F0079652C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792706247EE55F0079652C /* AppDelegate.swift */; };
 		BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792708247EE55F0079652C /* SceneDelegate.swift */; };
 		BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79270A247EE55F0079652C /* AudioItemViewController.swift */; };
@@ -40,14 +47,10 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
-		BEAACE8024B9C1B00074E4B9 /* speezy.png in Resources */ = {isa = PBXBuildFile; fileRef = BEAACE7F24B9C1B00074E4B9 /* speezy.png */; };
-		BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEAACE8D24BA155F0074E4B9 /* test.m4a */; };
 		BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */; };
 		BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */; };
 		BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */; };
 		BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */; };
-		BEBFD4B024C58EF800200D87 /* testFile.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AF24C58EF800200D87 /* testFile.m4a */; };
-		BEBFD4B224C5916D00200D87 /* testFile2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4B124C5916D00200D87 /* testFile2.m4a */; };
 		BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4B324C595F800200D87 /* TimelineView.swift */; };
 		BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */; };
 		BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4B924C5A23700200D87 /* AudioPlayer.swift */; };
@@ -93,7 +96,6 @@
 		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
-		BE4F988A2480F7CE00B1AE8B /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
 		BE50344C24BB21FD00A414D1 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
@@ -107,6 +109,14 @@
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
 		BE6565D824CC450100D77BFE /* AudioShareable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioShareable.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemListViewController.swift; sourceTree = "<group>"; };
+		BE77766D24D6CBEC0009BE63 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		BE77766E24D6CBEC0009BE63 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		BE77767224D6CCD90009BE63 /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
+		BE77767424D6D3100009BE63 /* SettingsFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsFooterView.xib; sourceTree = "<group>"; };
+		BE77767624D6D3390009BE63 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
 		BE792703247EE55F0079652C /* Speezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE792706247EE55F0079652C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE792708247EE55F0079652C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,14 +128,10 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BEAACE7F24B9C1B00074E4B9 /* speezy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speezy.png; sourceTree = "<group>"; };
-		BEAACE8D24BA155F0074E4B9 /* test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.m4a; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditor.swift; sourceTree = "<group>"; };
 		BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizationView.swift; sourceTree = "<group>"; };
 		BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioVisualizationView.xib; sourceTree = "<group>"; };
 		BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNibView.swift; sourceTree = "<group>"; };
-		BEBFD4AF24C58EF800200D87 /* testFile.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = testFile.m4a; sourceTree = "<group>"; };
-		BEBFD4B124C5916D00200D87 /* testFile2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = testFile2.m4a; sourceTree = "<group>"; };
 		BEBFD4B324C595F800200D87 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		BEBFD4B924C5A23700200D87 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -194,6 +200,61 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		BE77766224D6CB440009BE63 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BE77767124D6CCD10009BE63 /* Models */,
+				BE77766324D6CB4B0009BE63 /* Coordinators */,
+				BE77766424D6CB4F0009BE63 /* Storyboards */,
+				BE77766524D6CB570009BE63 /* View Controllers */,
+				BE77766624D6CB6D0009BE63 /* Views */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		BE77766324D6CB4B0009BE63 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		BE77766424D6CB4F0009BE63 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				BE77766924D6CB810009BE63 /* Settings.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		BE77766524D6CB570009BE63 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BE77766624D6CB6D0009BE63 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE77766D24D6CBEC0009BE63 /* SettingsCell.swift */,
+				BE77766E24D6CBEC0009BE63 /* SettingsCell.xib */,
+				BE77767424D6D3100009BE63 /* SettingsFooterView.xib */,
+				BE77767624D6D3390009BE63 /* SettingsFooterView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BE77767124D6CCD10009BE63 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BE77767224D6CCD90009BE63 /* SettingsItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BE7926FA247EE55F0079652C = {
 			isa = PBXGroup;
 			children = (
@@ -219,12 +280,8 @@
 			children = (
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
+				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
-				BE4F988A2480F7CE00B1AE8B /* twitter.png */,
-				BEBFD4B124C5916D00200D87 /* testFile2.m4a */,
-				BEAACE8D24BA155F0074E4B9 /* test.m4a */,
-				BEBFD4AF24C58EF800200D87 /* testFile.m4a */,
-				BEAACE7F24B9C1B00074E4B9 /* speezy.png */,
 				BE792706247EE55F0079652C /* AppDelegate.swift */,
 				BE792708247EE55F0079652C /* SceneDelegate.swift */,
 				BE79270F247EE5610079652C /* Assets.xcassets */,
@@ -498,22 +555,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEBFD4B224C5916D00200D87 /* testFile2.m4a in Resources */,
 				BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
-				BE4F988B2480F7CF00B1AE8B /* twitter.png in Resources */,
+				BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */,
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
-				BEAACE8024B9C1B00074E4B9 /* speezy.png in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
-				BEAACE8E24BA155F0074E4B9 /* test.m4a in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
-				BEBFD4B024C58EF800200D87 /* testFile.m4a in Resources */,
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
 				BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */,
+				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
+				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +664,7 @@
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BE6565D924CC450100D77BFE /* AudioShareable.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
+				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
@@ -620,11 +676,13 @@
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioEditor.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
+				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEBFD4C024C5B9C700200D87 /* AppCoordinator.swift in Sources */,
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
+				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
@@ -633,6 +691,8 @@
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
+				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
+				BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */,
 				BEBFD4C324C5B9DC00200D87 /* ViewCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
