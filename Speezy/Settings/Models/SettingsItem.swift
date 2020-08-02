@@ -10,7 +10,13 @@ import Foundation
 import UIKit
 
 struct SettingsItem {
+    enum Identifier {
+        case acknowledgements
+        case feedback
+        case privacyPolicy
+    }
+    
     var icon: UIImage?
     var title: String
-    var tint: UIColor
+    var identifier: Identifier
 }

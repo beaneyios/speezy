@@ -19,9 +19,9 @@ class SettingsItemListViewController: UIViewController {
         
     weak var delegate: SettingsItemListViewControllerDelegate?
     var settingsItems: [SettingsItem] = [
-        SettingsItem(icon: UIImage(named: "heart-icon"), title: "Acknowledgements", tint: .red),
-        SettingsItem(icon: UIImage(named: "tos-icon"), title: "Terms and Conditions", tint: .red),
-        SettingsItem(icon: UIImage(named: "feedback-icon"), title: "Feedback", tint: .red)
+        SettingsItem(icon: UIImage(named: "heart-icon"), title: "Acknowledgements", identifier: .acknowledgements),
+        SettingsItem(icon: UIImage(named: "tos-icon"), title: "Privacy Policy", identifier: .privacyPolicy),
+        SettingsItem(icon: UIImage(named: "feedback-icon"), title: "Feedback", identifier: .feedback)
     ]
         
     override func viewDidLoad() {

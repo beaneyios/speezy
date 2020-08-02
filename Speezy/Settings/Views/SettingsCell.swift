@@ -24,6 +24,5 @@ class SettingsCell: UITableViewCell {
     func configure(with item: SettingsItem) {
         imgIcon.image = item.icon
         lblTitle.text = item.title
-        imgIcon.tintColor = item.tint
     }
 }

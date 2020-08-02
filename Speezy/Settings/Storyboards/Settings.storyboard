@@ -35,7 +35,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIs-7o-RRz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="-216"/>
+            <point key="canvasLocation" x="-585" y="-202"/>
+        </scene>
+        <!--Privacy Policy View Controller-->
+        <scene sceneID="E6T-by-Fz6">
+            <objects>
+                <viewController storyboardIdentifier="PrivacyPolicyViewController" id="aIs-Tw-elR" customClass="PrivacyPolicyViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oj1-ED-qEg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mLw-Rc-bkm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fPl-t4-N0q" firstAttribute="trailing" secondItem="mLw-Rc-bkm" secondAttribute="trailing" id="4vc-ov-weH"/>
+                            <constraint firstItem="mLw-Rc-bkm" firstAttribute="leading" secondItem="fPl-t4-N0q" secondAttribute="leading" id="A8k-L4-j3Y"/>
+                            <constraint firstItem="fPl-t4-N0q" firstAttribute="bottom" secondItem="mLw-Rc-bkm" secondAttribute="bottom" id="I6a-tb-ZdN"/>
+                            <constraint firstItem="mLw-Rc-bkm" firstAttribute="top" secondItem="fPl-t4-N0q" secondAttribute="top" id="PWz-3W-JzK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fPl-t4-N0q"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="mLw-Rc-bkm" id="0we-qq-GSd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ROu-8v-NfQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="84" y="-203"/>
         </scene>
     </scenes>
 </document>

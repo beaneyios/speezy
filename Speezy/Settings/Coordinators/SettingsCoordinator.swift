@@ -25,6 +25,8 @@ class SettingsCoordinator: ViewCoordinator {
     
     override func start() {
         let listViewController = storyboard.instantiateViewController(identifier: "SettingsItemListViewController") as! SettingsItemListViewController
+        listViewController.title = "Settings"
+        listViewController.delegate = self
         navigationController.pushViewController(listViewController, animated: true)
     }
     
@@ -35,6 +37,27 @@ class SettingsCoordinator: ViewCoordinator {
 
 extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
     func settingsItemListViewController(_ viewController: SettingsItemListViewController, didSelectSettingsItem item: SettingsItem) {
+        switch item.identifier {
+        case .acknowledgements:
+            navigateToAcknowledgements()
+        case .feedback:
+            navigateToFeedback()
+        case .privacyPolicy:
+            navigateToPrivacyPolicy()
+        }
+    }
+    
+    private func navigateToAcknowledgements() {
         
+    }
+    
+    private func navigateToFeedback() {
+        
+    }
+    
+    private func navigateToPrivacyPolicy() {
+        let privacyViewController = storyboard.instantiateViewController(identifier: "PrivacyPolicyViewController") as! PrivacyPolicyViewController
+        privacyViewController.title = "Privacy Policy"
+        navigationController.pushViewController(privacyViewController, animated: true)
     }
 }
