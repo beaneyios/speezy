@@ -198,7 +198,7 @@ extension AudioManager: AudioPlayerDelegate {
             
         }
         
-        if state.shouldRegeneratePlayer == false {
+        if state.shouldRegeneratePlayer == true {
             audioPlayer = AudioPlayer(item: item)
             audioPlayer?.delegate = self
         }
@@ -213,6 +213,16 @@ extension AudioManager: AudioPlayerDelegate {
         default:
             break
         }
+    }
+    
+    func seek(to percentage: Float) {
+        if audioPlayer == nil {
+            audioPlayer = AudioPlayer(item: item)
+            audioPlayer?.delegate = self
+            state = .pausedPlayback(item)
+        }
+        
+        audioPlayer?.seek(to: percentage)
     }
 
     func stop() {
@@ -241,6 +251,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
+        audioPlayer = nil
         state = .stoppedPlayback(item)
         stateDidChange()
     }
@@ -361,6 +372,24 @@ extension AudioManager {
         var shouldRegeneratePlayer: Bool {
             switch self {
             case .pausedPlayback:
+                return false
+            default:
+                return true
+            }
+        }
+        
+        var isInPlayback: Bool {
+            switch self {
+            case .startedPlayback, .pausedPlayback, .stoppedPlayback:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        var isRecording: Bool {
+            switch self {
+            case .startedRecording, .stoppedRecording, .processingRecording:
                 return true
             default:
                 return false
