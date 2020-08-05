@@ -375,8 +375,9 @@ extension AudioItemViewController: AudioManagerObserver {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         
         if audioManager.isCropping == false {
-            btnRecord.enable()
-            btnCut.enable()
+            playbackHidables.forEach {
+                $0.enable()
+            }
         }
         
         btnCrop.enable()
