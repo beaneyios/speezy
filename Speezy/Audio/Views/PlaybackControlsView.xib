@@ -32,18 +32,26 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="minimumTrackTintColor" red="1" green="0.0033983118411132773" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </slider>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-26-qzN">
-                            <rect key="frame" x="312" y="15" width="90" height="30"/>
-                            <state key="normal" title="+10 Seconds">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-26-qzN">
+                            <rect key="frame" x="336" y="19" width="35" height="22.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22.5" id="9yW-hp-bWf"/>
+                                <constraint firstAttribute="width" constant="35" id="gmV-Uv-haL"/>
+                            </constraints>
+                            <state key="normal" image="skip-forward-button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="skipForward:" destination="iN0-l3-epB" eventType="touchUpInside" id="GXn-zq-d2L"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpw-t1-TWk">
-                            <rect key="frame" x="117" y="15" width="87" height="30"/>
-                            <state key="normal" title="-10 Seconds">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpw-t1-TWk">
+                            <rect key="frame" x="145" y="19" width="35" height="22.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22.5" id="oHO-Wz-jQp"/>
+                                <constraint firstAttribute="width" constant="35" id="qqp-f4-TXc"/>
+                            </constraints>
+                            <state key="normal" image="skip-backward-button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -53,14 +61,14 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="Wca-26-qzN" firstAttribute="leading" secondItem="aMf-M5-TtZ" secondAttribute="trailing" constant="24" id="1Tz-sQ-UyL"/>
+                        <constraint firstItem="Wca-26-qzN" firstAttribute="leading" secondItem="aMf-M5-TtZ" secondAttribute="trailing" constant="48" id="1Tz-sQ-UyL"/>
                         <constraint firstAttribute="trailing" secondItem="XwK-sH-l71" secondAttribute="trailing" id="4la-As-XHR"/>
                         <constraint firstItem="Wca-26-qzN" firstAttribute="centerY" secondItem="aMf-M5-TtZ" secondAttribute="centerY" id="Bza-yM-82e"/>
                         <constraint firstItem="XwK-sH-l71" firstAttribute="top" secondItem="aMf-M5-TtZ" secondAttribute="bottom" constant="8" id="Lmp-e5-L6C"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XwK-sH-l71" secondAttribute="bottom" id="O6n-Np-Qpg"/>
                         <constraint firstItem="aMf-M5-TtZ" firstAttribute="centerX" secondItem="qpt-nd-dJd" secondAttribute="centerX" id="bYn-nc-2pc"/>
                         <constraint firstItem="aMf-M5-TtZ" firstAttribute="top" secondItem="qpt-nd-dJd" secondAttribute="top" id="ba6-ZG-gBH"/>
-                        <constraint firstItem="aMf-M5-TtZ" firstAttribute="leading" secondItem="vpw-t1-TWk" secondAttribute="trailing" constant="24" id="i4z-GV-Zbb"/>
+                        <constraint firstItem="aMf-M5-TtZ" firstAttribute="leading" secondItem="vpw-t1-TWk" secondAttribute="trailing" constant="48" id="i4z-GV-Zbb"/>
                         <constraint firstItem="vpw-t1-TWk" firstAttribute="centerY" secondItem="aMf-M5-TtZ" secondAttribute="centerY" id="mQC-Ty-b0i"/>
                         <constraint firstItem="XwK-sH-l71" firstAttribute="leading" secondItem="qpt-nd-dJd" secondAttribute="leading" id="ohh-Sh-L2x"/>
                     </constraints>
@@ -84,5 +92,7 @@
     </objects>
     <resources>
         <image name="play-button" width="120" height="120"/>
+        <image name="skip-backward-button" width="80" height="55"/>
+        <image name="skip-forward-button" width="80" height="55"/>
     </resources>
 </document>
