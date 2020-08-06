@@ -116,10 +116,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKo-eR-PaE" userLabel="Buttons container">
-                                                <rect key="frame" x="71.5" y="382" width="232" height="80"/>
+                                                <rect key="frame" x="63.5" y="382" width="248" height="80"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-DV-Fw0" userLabel="Record container">
-                                                        <rect key="frame" x="76" y="0.0" width="80" height="80"/>
+                                                        <rect key="frame" x="84" y="0.0" width="80" height="80"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp7-Oy-Ge7" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -141,7 +141,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQy-A7-vA9" userLabel="Crop container">
-                                                        <rect key="frame" x="172" y="10" width="60" height="60"/>
+                                                        <rect key="frame" x="188" y="10" width="60" height="60"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqf-bC-Bmq">
                                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -189,12 +189,12 @@
                                                 <constraints>
                                                     <constraint firstItem="LQy-A7-vA9" firstAttribute="centerY" secondItem="OA5-DV-Fw0" secondAttribute="centerY" id="2gr-JJ-cxn"/>
                                                     <constraint firstItem="OA5-DV-Fw0" firstAttribute="top" secondItem="LKo-eR-PaE" secondAttribute="top" id="BUC-Ct-fdX"/>
-                                                    <constraint firstItem="OA5-DV-Fw0" firstAttribute="leading" secondItem="8rO-mP-Tkm" secondAttribute="trailing" constant="16" id="Ki1-8J-xYj"/>
+                                                    <constraint firstItem="OA5-DV-Fw0" firstAttribute="leading" secondItem="8rO-mP-Tkm" secondAttribute="trailing" constant="24" id="Ki1-8J-xYj"/>
                                                     <constraint firstItem="8rO-mP-Tkm" firstAttribute="centerY" secondItem="OA5-DV-Fw0" secondAttribute="centerY" id="SaP-lp-WWs"/>
                                                     <constraint firstAttribute="trailing" secondItem="LQy-A7-vA9" secondAttribute="trailing" id="TE3-3x-Vaq"/>
                                                     <constraint firstAttribute="bottom" secondItem="OA5-DV-Fw0" secondAttribute="bottom" id="hgm-sv-kPM"/>
                                                     <constraint firstItem="8rO-mP-Tkm" firstAttribute="leading" secondItem="LKo-eR-PaE" secondAttribute="leading" id="om4-yq-hoF"/>
-                                                    <constraint firstItem="LQy-A7-vA9" firstAttribute="leading" secondItem="OA5-DV-Fw0" secondAttribute="trailing" constant="16" id="roU-ZD-ezT"/>
+                                                    <constraint firstItem="LQy-A7-vA9" firstAttribute="leading" secondItem="OA5-DV-Fw0" secondAttribute="trailing" constant="24" id="roU-ZD-ezT"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7a-EG-tAp">
