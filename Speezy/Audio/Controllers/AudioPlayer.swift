@@ -27,6 +27,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     private var playbackTimer: Timer?
     
     init(item: AudioItem) {
+        print("initting player")
         player = try? AVAudioPlayer(contentsOf: item.url)
         super.init()
         player?.delegate = self
@@ -37,6 +38,14 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
             return
         }
         
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+            try AVAudioSession.sharedInstance().setActive(true, options: [])
+        } catch {
+            
+        }
+
         player.play()
         startPlaybackTimer()
         delegate?.audioPlayerDidStartPlayback(self)
@@ -50,6 +59,19 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
 
     func stop() {
         playbackTimer?.invalidate()
+    }
+    
+    func seek(to percentage: Float) {
+        guard let player = self.player else {
+            
+            assertionFailure("Somehow the skip is getting called despite the player being nil")
+            return
+        }
+        
+        let timePosition = player.duration * TimeInterval(percentage)
+        player.currentTime = timePosition
+        
+        delegate?.audioPlayer(self, progressedWithTime: player.currentTime)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

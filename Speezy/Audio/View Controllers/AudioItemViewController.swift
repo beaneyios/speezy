@@ -23,7 +23,6 @@ class AudioItemViewController: UIViewController, AudioShareable {
     @IBOutlet var cropHidables: [UIButton]!
     
     @IBOutlet weak var btnCut: UIButton!
-    @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
@@ -36,19 +35,18 @@ class AudioItemViewController: UIViewController, AudioShareable {
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var recordContainer: UIView!
-    
-    @IBOutlet weak var lblTimer: UILabel!
-    
     @IBOutlet weak var mainWaveContainer: UIView!
-    
     @IBOutlet weak var cropContainer: UIView!
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var tagContainer: UIView!
+    @IBOutlet weak var playbackControlsContainer: UIView!
+    
+    @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnDone: UIButton!
     
     weak var delegate: AudioItemViewControllerDelegate?
     
+    private var playbackControlsView: PlaybackControlsView?
     private var mainWave: PlaybackView?
     private var cropView: CropView?
     private var tagsView: TagsView?
@@ -63,6 +61,7 @@ class AudioItemViewController: UIViewController, AudioShareable {
         
         configureAudioManager()
         configureMainSoundWave()
+        configurePlaybackControls()
         configureTitle()
         configureTags()
         configureImageAttachment()
@@ -90,10 +89,6 @@ class AudioItemViewController: UIViewController, AudioShareable {
     
     @IBAction func toggleCrop(_ sender: Any) {
         audioManager.toggleCrop()
-    }
-    
-    @IBAction func togglePlayback(_ sender: Any) {
-        audioManager.togglePlayback()
     }
     
     @IBAction func toggleCut(_ sender: Any) {
@@ -124,6 +119,15 @@ class AudioItemViewController: UIViewController, AudioShareable {
 extension AudioItemViewController {
     private func configureAudioManager() {
         audioManager.addObserver(self)
+    }
+    
+    private func configurePlaybackControls() {
+        let playbackControlsView = PlaybackControlsView.instanceFromNib()
+        playbackControlsView.configure(with: audioManager)
+        playbackControlsContainer.addSubview(playbackControlsView)
+        playbackControlsView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
     }
     
     private func configureMainSoundWave() {
@@ -348,8 +352,6 @@ extension AudioItemViewController: AudioManagerObserver {
     // Playback
     
     func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
-        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
-        
         playbackHidables.forEach {
             $0.disable()
         }
@@ -360,8 +362,6 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
-        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-        
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -372,8 +372,6 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
-        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
-        
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()

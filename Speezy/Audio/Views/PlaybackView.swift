@@ -148,39 +148,46 @@ extension PlaybackView {
         
         let waveSize = self.waveSize(audioData: audioData)
         
-        if case AudioManager.State.startedPlayback = manager.state {
-            let duration = audioData.duration
-            let currentTime = currentPlaybackTime
-            let currentPercentage = currentTime / duration
-            let centerPoint = waveSize.width * CGFloat(currentPercentage)
-            
-            scrollView.setContentOffset(
-                CGPoint(
-                    x: centerPoint - (frame.width / 2.0),
-                    y: 0.0
-                ),
-                animated: false
-            )
-        } else if case AudioManager.State.startedRecording = manager.state {
-            
-            let waveWidth = waveSize.width
-            
-            let offset: CGFloat = {
-                if waveWidth < frame.width {
-                    return 0.0
-                } else {
-                    return waveWidth - frame.width
-                }
-            }()
-                        
-            scrollView.setContentOffset(
-                CGPoint(
-                    x: offset,
-                    y: 0.0
-                ),
-                animated: false
-            )
+        if manager.state.isInPlayback {
+            advanceScrollViewForPlayback(waveSize: waveSize, audioData: audioData)
+        } else if manager.state.isRecording {
+            advanceScrollViewForRecording(waveSize: waveSize)
         }
+    }
+    
+    private func advanceScrollViewForPlayback(waveSize: CGSize, audioData: AudioData) {
+        let duration = audioData.duration
+        let currentTime = currentPlaybackTime
+        let currentPercentage = currentTime / duration
+        let centerPoint = waveSize.width * CGFloat(currentPercentage)
+        
+        scrollView.setContentOffset(
+            CGPoint(
+                x: centerPoint - (frame.width / 2.0),
+                y: 0.0
+            ),
+            animated: false
+        )
+    }
+    
+    private func advanceScrollViewForRecording(waveSize: CGSize) {
+        let waveWidth = waveSize.width
+        
+        let offset: CGFloat = {
+            if waveWidth < frame.width {
+                return 0.0
+            } else {
+                return waveWidth - frame.width
+            }
+        }()
+                    
+        scrollView.setContentOffset(
+            CGPoint(
+                x: offset,
+                y: 0.0
+            ),
+            animated: false
+        )
     }
 }
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PlaybackControlsView" customModule="Speezy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="516" height="224"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpt-nd-dJd">
+                    <rect key="frame" x="0.0" y="0.0" width="516" height="224"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMf-M5-TtZ">
+                            <rect key="frame" x="228" y="0.0" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="DoA-jI-nvc"/>
+                                <constraint firstAttribute="width" constant="60" id="Oe4-Mj-dGD"/>
+                            </constraints>
+                            <state key="normal" image="play-button"/>
+                            <connections>
+                                <action selector="togglePlayback:" destination="iN0-l3-epB" eventType="touchUpInside" id="Bya-Um-GZd"/>
+                            </connections>
+                        </button>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwK-sH-l71">
+                            <rect key="frame" x="-2" y="68" width="520" height="31"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="minimumTrackTintColor" red="1" green="0.0033983118411132773" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </slider>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-26-qzN">
+                            <rect key="frame" x="336" y="19" width="35" height="22.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22.5" id="9yW-hp-bWf"/>
+                                <constraint firstAttribute="width" constant="35" id="gmV-Uv-haL"/>
+                            </constraints>
+                            <state key="normal" image="skip-forward-button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="skipForward:" destination="iN0-l3-epB" eventType="touchUpInside" id="GXn-zq-d2L"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpw-t1-TWk">
+                            <rect key="frame" x="145" y="19" width="35" height="22.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22.5" id="oHO-Wz-jQp"/>
+                                <constraint firstAttribute="width" constant="35" id="qqp-f4-TXc"/>
+                            </constraints>
+                            <state key="normal" image="skip-backward-button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="skipBackward:" destination="iN0-l3-epB" eventType="touchUpInside" id="8YN-Eq-Hpw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Wca-26-qzN" firstAttribute="leading" secondItem="aMf-M5-TtZ" secondAttribute="trailing" constant="48" id="1Tz-sQ-UyL"/>
+                        <constraint firstAttribute="trailing" secondItem="XwK-sH-l71" secondAttribute="trailing" id="4la-As-XHR"/>
+                        <constraint firstItem="Wca-26-qzN" firstAttribute="centerY" secondItem="aMf-M5-TtZ" secondAttribute="centerY" id="Bza-yM-82e"/>
+                        <constraint firstItem="XwK-sH-l71" firstAttribute="top" secondItem="aMf-M5-TtZ" secondAttribute="bottom" constant="8" id="Lmp-e5-L6C"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XwK-sH-l71" secondAttribute="bottom" id="O6n-Np-Qpg"/>
+                        <constraint firstItem="aMf-M5-TtZ" firstAttribute="centerX" secondItem="qpt-nd-dJd" secondAttribute="centerX" id="bYn-nc-2pc"/>
+                        <constraint firstItem="aMf-M5-TtZ" firstAttribute="top" secondItem="qpt-nd-dJd" secondAttribute="top" id="ba6-ZG-gBH"/>
+                        <constraint firstItem="aMf-M5-TtZ" firstAttribute="leading" secondItem="vpw-t1-TWk" secondAttribute="trailing" constant="48" id="i4z-GV-Zbb"/>
+                        <constraint firstItem="vpw-t1-TWk" firstAttribute="centerY" secondItem="aMf-M5-TtZ" secondAttribute="centerY" id="mQC-Ty-b0i"/>
+                        <constraint firstItem="XwK-sH-l71" firstAttribute="leading" secondItem="qpt-nd-dJd" secondAttribute="leading" id="ohh-Sh-L2x"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qpt-nd-dJd" secondAttribute="bottom" id="5Yv-bQ-W0U"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qpt-nd-dJd" secondAttribute="trailing" id="N9u-F7-2ud"/>
+                <constraint firstItem="qpt-nd-dJd" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="n6P-7w-iql"/>
+                <constraint firstItem="qpt-nd-dJd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nIu-tR-eDN"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btnPlayback" destination="aMf-M5-TtZ" id="3EH-Ur-lG4"/>
+                <outlet property="sliderPlayback" destination="XwK-sH-l71" id="PPt-9t-ow8"/>
+            </connections>
+            <point key="canvasLocation" x="-46.399999999999999" y="214.09295352323841"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="play-button" width="120" height="120"/>
+        <image name="skip-backward-button" width="80" height="55"/>
+        <image name="skip-forward-button" width="80" height="55"/>
+    </resources>
+</document>
