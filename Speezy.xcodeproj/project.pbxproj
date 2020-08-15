@@ -13,6 +13,8 @@
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */; };
 		BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */; };
+		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
+		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
 		BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B097824C7239300317EB7 /* AudioItemCell.xib */; };
@@ -95,6 +97,8 @@
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackControlsView.xib; sourceTree = "<group>"; };
 		BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
+		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
+		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
 		BE2B097824C7239300317EB7 /* AudioItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioItemCell.xib; sourceTree = "<group>"; };
@@ -356,6 +360,8 @@
 				BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */,
 				BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */,
 				BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */,
+				BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */,
+				BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -576,6 +582,7 @@
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
 				BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */,
+				BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */,
 				BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */,
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
@@ -672,6 +679,7 @@
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
+				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,

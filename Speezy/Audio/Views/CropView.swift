@@ -117,6 +117,9 @@ class CropView: UIView {
             
             leftHandleConstraint.constant = newConstraint
             layoutIfNeeded()
+            
+            let percentage = newConstraint / contentView.frame.width
+            manager?.leftCropHandleMoved(to: percentage)
         }
         
         if sender.state == .ended {

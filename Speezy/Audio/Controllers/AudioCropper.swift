@@ -19,8 +19,8 @@ class AudioCropper {
     private let originalItem: AudioItem
     private(set) var croppedItem: AudioItem?
     
-    private var cropFrom: TimeInterval?
-    private var cropTo: TimeInterval?
+    private(set) var cropFrom: TimeInterval?
+    private(set) var cropTo: TimeInterval?
     
     var hasActiveCrop: Bool {
         let duration = TimeInterval(CMTimeGetSeconds(AVAsset(url: originalItem.url).duration))

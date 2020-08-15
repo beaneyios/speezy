@@ -89,6 +89,9 @@ extension PlaybackControlsView: AudioManagerObserver {
     
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {}
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {}
+    
+    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
+    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
     func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {}
     func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {}
     func audioManagerDidCancelCropping(_ player: AudioManager) {}

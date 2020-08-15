@@ -388,8 +388,16 @@ extension AudioItemViewController: AudioManagerObserver {
         showCropView()
     }
     
+    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
+        // no op
+    }
+    
+    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
+        // no op
+    }
+    
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
-        lblTimer.text = "00:00:00"
+//        lblTimer.text = "00:00:00"
     }
     
     func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {

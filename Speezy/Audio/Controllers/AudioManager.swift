@@ -15,6 +15,14 @@ class AudioManager: NSObject {
     private(set) var originalItem: AudioItem
     private(set) var state = State.idle
     
+    private var currentItem: AudioItem {
+        audioCropper?.croppedItem ?? item
+    }
+    
+    var startPosition: TimeInterval {
+        audioCropper?.cropFrom ?? 0.0
+    }
+    
     var duration: TimeInterval {
         let asset = AVAsset(url: originalItem.url)
         let duration = CMTimeGetSeconds(asset.duration)
@@ -193,7 +201,7 @@ extension AudioManager: AudioPlayerDelegate {
     
     func play() {
         if state.shouldRegeneratePlayer == true {
-            audioPlayer = AudioPlayer(item: item)
+            audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
         }
         
@@ -276,6 +284,16 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.crop(from: from, to: to)
     }
     
+    func leftCropHandleMoved(to percentage: CGFloat) {
+        observations.forEach {
+            $0.value.observer?.audioManager(self, didMoveLeftCropHandleTo: percentage)
+        }
+    }
+    
+    func rightCropHandleMoved(to: CGFloat) {
+        
+    }
+    
     func applyCrop() {
         audioCropper?.applyCrop()
     }
@@ -290,7 +308,6 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
-        self.item = item
         state = .adjustedCropping(item)
         stateDidChange()
     }
