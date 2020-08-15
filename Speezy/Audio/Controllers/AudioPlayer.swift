@@ -37,6 +37,14 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         guard let player = player else {
             return
         }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default)
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+            try AVAudioSession.sharedInstance().setActive(true, options: [])
+        } catch {
+            
+        }
 
         player.play()
         startPlaybackTimer()

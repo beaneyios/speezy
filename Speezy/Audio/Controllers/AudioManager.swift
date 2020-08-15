@@ -192,12 +192,6 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func play() {
-        do {
-            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-        } catch {
-            
-        }
-        
         if state.shouldRegeneratePlayer == true {
             audioPlayer = AudioPlayer(item: item)
             audioPlayer?.delegate = self
