@@ -359,7 +359,7 @@ extension AudioItemViewController {
         tagsView?.isUserInteractionEnabled = false
     }
     
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         lblTimer.text = TimeFormatter.formatTime(time: totalDuration)
     }
     
@@ -398,17 +398,17 @@ extension AudioItemViewController {
 
 // MARK: PLAYBACK
 extension AudioItemViewController {
-    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
         playbackHidables.forEach {
             $0.disable()
         }
     }
     
-    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
         lblTimer.text = TimeFormatter.formatTime(time: time)
     }
     
-    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -418,7 +418,7 @@ extension AudioItemViewController {
         btnCrop.enable()
     }
     
-    func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -431,28 +431,28 @@ extension AudioItemViewController {
 
 // MARK: CROPPING
 extension AudioItemViewController {
-    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         showCropView()
         scrollView.isScrollEnabled = false
     }
     
-    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
         // no op
     }
     
-    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
         // no op
     }
     
-    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
     }
     
-    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         hideCropView()
-        delegate?.audioItemViewController(self, didSaveItem: player.item)
+        delegate?.audioItemViewController(self, didSaveItem: manager.item)
         scrollView.isScrollEnabled = true
     }
     

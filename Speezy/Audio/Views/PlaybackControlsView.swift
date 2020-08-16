@@ -79,29 +79,29 @@ class PlaybackControlsView: UIView, NibLoadable {
 }
 
 extension PlaybackControlsView: AudioManagerObserver {
-    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
     }
     
-    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
-    func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         sliderPlayback.setValue(0.0, animated: true)
     }
     
-    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
         let percentageComplete = time / manager.currentItem.duration
         self.sliderPlayback.setValue(Float(percentageComplete), animated: false)
     }
     
-    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
         resetSlider()
     }
     
-    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
         resetSlider()
     }
     
@@ -109,12 +109,12 @@ extension PlaybackControlsView: AudioManagerObserver {
         resetSlider()
     }
     
-    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {}
     
     func audioManagerDidStartRecording(_ player: AudioManager) {}
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
+    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
     func audioManagerProcessingRecording(_ player: AudioManager) {}
     func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {}
 }
