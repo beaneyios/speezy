@@ -96,6 +96,10 @@ class AudioItemViewController: UIViewController, AudioShareable {
         audioManager.toggleCrop()
     }
     
+    @IBAction func applyCrop(_ sender: Any) {
+        audioManager.confirmCrop()
+    }
+    
     @IBAction func cancelCrop(_ sender: Any) {
         audioManager.cancelCrop()
     }
@@ -424,7 +428,7 @@ extension AudioItemViewController: AudioManagerObserver {
         }
         
         alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {
-            self.audioManager.cancelCrop()
+            
         }
         
         alert.showWarning(

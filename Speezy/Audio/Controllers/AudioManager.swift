@@ -262,15 +262,7 @@ extension AudioManager: AudioPlayerDelegate {
 // MARK: Editing
 extension AudioManager: AudioCropperDelegate {
     func toggleCrop() {
-        if isCropping {
-            if hasActiveCrop {
-                confirmCrop()
-            } else {
-                cancelCrop()
-            }
-        } else {
-            startCropping()
-        }
+        startCropping()
     }
     
     func startCropping() {
@@ -290,8 +282,10 @@ extension AudioManager: AudioCropperDelegate {
         }
     }
     
-    func rightCropHandleMoved(to: CGFloat) {
-        
+    func rightCropHandleMoved(to percentage: CGFloat) {
+        observations.forEach {
+            $0.value.observer?.audioManager(self, didMoveRightCropHandleTo: percentage)
+        }
     }
     
     func applyCrop() {
@@ -299,10 +293,12 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func cancelCrop() {
+        stop()
         audioCropper?.cancelCrop()
     }
     
     func confirmCrop() {
+        stop()
         state = .confirmingCrop(item)
         stateDidChange()
     }
