@@ -297,12 +297,6 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.cancelCrop()
     }
     
-    func confirmCrop() {
-        stop()
-        state = .confirmingCrop(item)
-        stateDidChange()
-    }
-    
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
         state = .adjustedCropping(item)
         stateDidChange()
@@ -366,7 +360,6 @@ extension AudioManager {
         case adjustedCropping(AudioItem)
         case cancelledCropping(AudioItem)
         case croppingFinished(AudioItem)
-        case confirmingCrop(AudioItem)
         
         case stoppedPlayback(AudioItem)
         case startedPlayback(AudioItem)
@@ -423,8 +416,6 @@ extension AudioManager {
                 observer.audioManagerDidCancelCropping(self)
             case .croppingFinished(let item):
                 observer.audioManager(self, didFinishCroppingItem: item)
-            case .confirmingCrop(let item):
-                observer.audioManager(self, didConfirmCropOnItem: item)
                 
             case .stoppedPlayback(let item):
                 observer.audioManager(self, didStopPlaying: item)

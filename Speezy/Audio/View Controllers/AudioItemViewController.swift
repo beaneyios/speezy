@@ -97,7 +97,23 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     }
     
     @IBAction func applyCrop(_ sender: Any) {
-        audioManager.confirmCrop()
+        audioManager.stop()
+        
+        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
+        let alert = SCLAlertView(appearance: appearance)
+        
+        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
+            self.audioManager.applyCrop()
+        }
+        
+        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue, action: {})
+        
+        alert.showWarning(
+            "Crop item",
+            subTitle: "Are you sure you want to crop? You will not be able to undo this action.",
+            closeButtonTitle: "Not yet",
+            animationStyle: .bottomToTop
+        )
     }
     
     @IBAction func cancelCrop(_ sender: Any) {
@@ -417,26 +433,6 @@ extension AudioItemViewController {
     
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
-    }
-    
-    func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {
-        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
-        let alert = SCLAlertView(appearance: appearance)
-        
-        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
-            self.audioManager.applyCrop()
-        }
-        
-        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {
-            
-        }
-        
-        alert.showWarning(
-            "Crop item",
-            subTitle: "Are you sure you want to crop? You will not be able to undo this action.",
-            closeButtonTitle: "Not yet",
-            animationStyle: .bottomToTop
-        )
     }
     
     func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {

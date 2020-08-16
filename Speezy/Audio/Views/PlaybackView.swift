@@ -378,10 +378,6 @@ extension PlaybackView {
     
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {}
     
-    func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {
-        // no op
-    }
-    
     func audioManagerDidCancelCropping(_ player: AudioManager) {
         removeCropOverlayView()
     }

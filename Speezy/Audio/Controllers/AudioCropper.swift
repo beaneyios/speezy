@@ -60,6 +60,7 @@ class AudioCropper {
     
     func applyCrop() {
         guard let croppedItem = self.croppedItem else {
+            delegate?.audioCropper(self, didCancelCropReturningToItem: originalItem)
             return
         }
         

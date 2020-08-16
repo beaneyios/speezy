@@ -109,7 +109,6 @@ extension PlaybackControlsView: AudioManagerObserver {
         resetSlider()
     }
     
-    func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {}
     func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
     func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {}
