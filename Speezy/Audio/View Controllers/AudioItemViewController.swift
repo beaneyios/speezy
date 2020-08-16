@@ -367,8 +367,17 @@ extension AudioItemViewController {
         btnRecord.startLoading()
     }
     
-    func audioManagerDidStopRecording(_ player: AudioManager) {
-        if audioManager.shouldAutomaticallyShowTitleSelector {
+    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
+        if maxLimitedReached {
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Done") {
+                if self.audioManager.shouldAutomaticallyShowTitleSelector {
+                    self.chooseTitle()
+                }
+            }
+            alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
+        } else if audioManager.shouldAutomaticallyShowTitleSelector {
             chooseTitle()
         }
         
@@ -384,11 +393,6 @@ extension AudioItemViewController {
         tagsView?.isUserInteractionEnabled = true
         
         delegate?.audioItemViewController(self, didSaveItem: player.item)
-    }
-    
-    func audioManager(_ player: AudioManager, didReachMaxRecordingLimitWithItem item: AudioItem) {
-        let alert = SCLAlertView()
-        alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
     }
 }
 

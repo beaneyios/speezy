@@ -15,6 +15,7 @@
 		BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
+		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
 		BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B097824C7239300317EB7 /* AudioItemCell.xib */; };
@@ -99,6 +100,7 @@
 		BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
+		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
 		BE2B097824C7239300317EB7 /* AudioItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioItemCell.xib; sourceTree = "<group>"; };
@@ -196,6 +198,14 @@
 				09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BE0E53D024E9BDE8009BA1F9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BE50346324BE02B100A414D1 /* Models */ = {
@@ -320,6 +330,7 @@
 		BEAACE8324BA031A0074E4B9 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				BE0E53D024E9BDE8009BA1F9 /* Extensions */,
 				BEAACE8A24BA10400074E4B9 /* Controllers */,
 				BEBFD4C424C5BAA600200D87 /* Coordinators */,
 				BE50346324BE02B100A414D1 /* Models */,
@@ -693,6 +704,7 @@
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
+				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,

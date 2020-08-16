@@ -17,33 +17,27 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     weak var delegate: AudioRecorderDelegate?
     private var totalTime: TimeInterval = 0.0
     
-    private let recordingThreshhold: TimeInterval = 180.0
+    private let recordingThreshhold: TimeInterval = 180
     
     let item: AudioItem
     
     init(item: AudioItem) {
         self.item = item
-        
         self.totalTime = item.duration
     }
     
     func record() {
-        do {
-            recordingSession = AVAudioSession.sharedInstance()
-            try recordingSession?.setCategory(.playAndRecord, mode: .default)
-            try recordingSession?.setActive(true, options: [])
-            recordingSession?.requestRecordPermission({ (allowed) in
-                DispatchQueue.main.async {
-                    if allowed {
-                        self.startRecording()
-                    } else {
-                        
-                    }
+        recordingSession = AVAudioSession.sharedInstance()
+        recordingSession?.prepareForRecording()
+        recordingSession?.requestRecordPermission({ (allowed) in
+            DispatchQueue.main.async {
+                if allowed {
+                    self.startRecording()
+                } else {
+                    // TODO: Handle not allowed.
                 }
-            })
-        } catch {
-            
-        }
+            }
+        })
     }
     
     private func startRecording() {
@@ -74,7 +68,6 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
                 
                 if self.totalTime > self.recordingThreshhold {
                     self.stopRecording()
-                    self.delegate?.audioRecorder(self, didReachMaxRecordLimitWithItem: self.item)
                 }
                 
                 self.totalTime += 0.1
@@ -98,7 +91,11 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         
         AudioEditor.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
             FileManager.default.deleteExistingURL(newRecording)
-            self.delegate?.audioRecorder(self, didFinishRecordingWithCompletedItem: self.item)
+            self.delegate?.audioRecorder(
+                self,
+                didFinishRecordingWithCompletedItem: self.item,
+                maxLimitReached: self.item.duration >= self.recordingThreshhold
+            )
         }
     }
     
@@ -112,6 +109,5 @@ protocol AudioRecorderDelegate: AnyObject {
     func audioRecorderDidStartRecording(_ recorder: AudioRecorder)
     func audioRecorderDidStartProcessingRecording(_ recorder: AudioRecorder)
     func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
-    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem)
-    func audioRecorder(_ recorder: AudioRecorder, didReachMaxRecordLimitWithItem item: AudioItem)
+    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem, maxLimitReached: Bool)
 }

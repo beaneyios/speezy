@@ -116,8 +116,7 @@ extension PlaybackControlsView: AudioManagerObserver {
     func audioManagerDidStartRecording(_ player: AudioManager) {}
     func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
     func audioManagerProcessingRecording(_ player: AudioManager) {}
-    func audioManagerDidStopRecording(_ player: AudioManager) {}
-    func audioManager(_ player: AudioManager, didReachMaxRecordingLimitWithItem item: AudioItem) {}
+    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {}
 }
 
 extension PlaybackControlsView {

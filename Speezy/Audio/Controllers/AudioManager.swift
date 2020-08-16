@@ -42,11 +42,10 @@ class AudioManager: NSObject {
     }
     
     private var firstRecord = true
-    private var recordingStoppedAutomatically = false
     var shouldAutomaticallyShowTitleSelector: Bool {
         let firstRecord = self.firstRecord
         self.firstRecord = false
-        return firstRecord && item.title == "No title" && recordingStoppedAutomatically == false
+        return firstRecord && item.title == "No title"
     }
     
     private var observations = [ObjectIdentifier : Observation]()
@@ -110,7 +109,7 @@ class AudioManager: NSObject {
 extension AudioManager: AudioRecorderDelegate {
     func toggleRecording() {
         switch state {
-        case .startedRecording:
+        case .recording:
             stopRecording()
         default:
             startRecording()
@@ -118,8 +117,6 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func startRecording() {
-        recordingStoppedAutomatically = false
-        
         let audioRecorder = AudioRecorder(item: item)
         audioRecorder.delegate = self
         audioRecorder.record()
@@ -131,52 +128,32 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func audioRecorderDidStartRecording(_ recorder: AudioRecorder) {
-        state = .startedRecording(item)
-        stateDidChange()
+        performAction(action: .showRecordingStarted(item))
     }
     
     func audioRecorderDidStartProcessingRecording(_ recorder: AudioRecorder) {
-        state = .processingRecording(item)
-        stateDidChange()
+        performAction(action: .showRecordingProcessing(item))
     }
     
     func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
-        observations.forEach {
-            guard let observer = $0.value.observer else {
-                self.observations.removeValue(forKey: $0.key)
-                return
-            }
-
-            observer.audioManager(
-                self,
-                didRecordBarWithPower: power,
+        performAction(
+            action: .showRecordingProgressed(
+                power: power,
                 stepDuration: stepDuration,
                 totalDuration: totalDuration
             )
-        }
+        )
     }
     
-    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem) {
+    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem, maxLimitReached: Bool) {
         self.originalItem = item
         self.item = item
         
-        state = .stoppedRecording(item)
-        stateDidChange()
+        performAction(
+            action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
+        )
         
         AudioStorage.saveItem(item)
-    }
-    
-    func audioRecorder(_ recorder: AudioRecorder, didReachMaxRecordLimitWithItem item: AudioItem) {
-        recordingStoppedAutomatically = true
-        
-        observations.forEach {
-            guard let observer = $0.value.observer else {
-                self.observations.removeValue(forKey: $0.key)
-                return
-            }
-
-            observer.audioManager(self, didReachMaxRecordingLimitWithItem: item)
-        }
     }
 }
 
@@ -224,13 +201,11 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
-        state = .startedPlayback(item)
-        stateDidChange()
+        performAction(action: .showPlaybackStarted(item))
     }
     
     func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
-        state = .pausedPlayback(item)
-        stateDidChange()
+        performAction(action: .showPlaybackPaused(item))
     }
     
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval) {
@@ -246,8 +221,7 @@ extension AudioManager: AudioPlayerDelegate {
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
         audioPlayer = nil
-        state = .stoppedPlayback(item)
-        stateDidChange()
+        performAction(action: .showPlaybackStopped(item))
     }
 }
 
@@ -276,8 +250,7 @@ extension AudioManager: AudioCropperDelegate {
     func startCropping() {
         audioCropper = AudioCropper(originalItem: item)
         audioCropper?.delegate = self
-        state = .startedCropping(item)
-        stateDidChange()
+        performAction(action: .showCrop(item))
     }
     
     func crop(from: TimeInterval, to: TimeInterval) {
@@ -306,8 +279,7 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
-        state = .adjustedCropping(item)
-        stateDidChange()
+        performAction(action: .showCropAdjusted(item))
     }
     
     func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem) {
@@ -326,8 +298,7 @@ extension AudioManager: AudioCropperDelegate {
         self.item = completeItem
         self.originalItem = completeItem
         
-        state = .croppingFinished(item)
-        stateDidChange()
+        performAction(action: .showCropFinished(item))
         audioCropper = nil
         
         AudioStorage.saveItem(item)
@@ -335,8 +306,7 @@ extension AudioManager: AudioCropperDelegate {
     
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
         self.item = item
-        state = .cancelledCropping(item)
-        stateDidChange()
+        performAction(action: .showCropCancelled(item))
         audioCropper = nil
         
         AudioStorage.saveItem(item)
@@ -361,21 +331,31 @@ extension AudioManager {
 }
 
 extension AudioManager {
+    enum Action {
+        case showCrop(AudioItem)
+        case showCropAdjusted(AudioItem)
+        case showCropCancelled(AudioItem)
+        case showCropFinished(AudioItem)
+        
+        case showPlaybackStopped(AudioItem)
+        case showPlaybackStarted(AudioItem)
+        case showPlaybackPaused(AudioItem)
+        
+        case showRecordingStarted(AudioItem)
+        case showRecordingProgressed(power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
+        case showRecordingProcessing(AudioItem)
+        case showRecordingStopped(AudioItem, maxLimitReached: Bool)
+    }
+    
     enum State {
         case idle
-        
-        case startedCropping(AudioItem)
-        case adjustedCropping(AudioItem)
-        case cancelledCropping(AudioItem)
-        case croppingFinished(AudioItem)
-        
+    
         case stoppedPlayback(AudioItem)
         case startedPlayback(AudioItem)
         case pausedPlayback(AudioItem)
         
-        case startedRecording(AudioItem)
-        case processingRecording(AudioItem)
-        case stoppedRecording(AudioItem)
+        case cropping
+        case recording
         
         var shouldRegeneratePlayer: Bool {
             switch self {
@@ -397,7 +377,7 @@ extension AudioManager {
         
         var isRecording: Bool {
             switch self {
-            case .startedRecording, .stoppedRecording, .processingRecording:
+            case .recording:
                 return true
             default:
                 return false
@@ -405,39 +385,59 @@ extension AudioManager {
         }
     }
     
-    private func stateDidChange() {
+    func performAction(action: Action) {
         observations.forEach {
             guard let observer = $0.value.observer else {
                 observations.removeValue(forKey: $0.key)
                 return
             }
-
-            switch state {
-            case .idle:
-                break
-                
-            case .startedCropping(let item):
+            
+            switch action {
+            case .showCrop(let item):
+                state = .cropping
                 observer.audioManager(self, didStartCroppingItem: item)
-            case .adjustedCropping(let item):
+                
+            case .showCropAdjusted(let item):
                 observer.audioManager(self, didAdjustCropOnItem: item)
-            case .cancelledCropping:
+                
+            case .showCropCancelled:
+                state = .idle
                 observer.audioManagerDidCancelCropping(self)
-            case .croppingFinished(let item):
+                
+            case .showCropFinished(let item):
+                state = .idle
                 observer.audioManager(self, didFinishCroppingItem: item)
                 
-            case .stoppedPlayback(let item):
+            case .showPlaybackStopped(let item):
+                state = .stoppedPlayback(item)
                 observer.audioManager(self, didStopPlaying: item)
-            case .startedPlayback(let item):
+                
+            case .showPlaybackStarted(let item):
+                state = .startedPlayback(item)
                 observer.audioManager(self, didStartPlaying: item)
-            case .pausedPlayback(let item):
+                
+            case .showPlaybackPaused(let item):
+                state = .pausedPlayback(item)
                 observer.audioManager(self, didPausePlaybackOf: item)
-            
-            case .startedRecording:
+                
+            case .showRecordingStarted:
+                state = .recording
                 observer.audioManagerDidStartRecording(self)
-            case .stoppedRecording:
-                observer.audioManagerDidStopRecording(self)
-            case .processingRecording:
+            
+            case let .showRecordingProgressed(power, stepDuration, totalDuration):
+                observer.audioManager(
+                    self,
+                    didRecordBarWithPower: power,
+                    stepDuration: stepDuration,
+                    totalDuration: totalDuration
+                )
+                
+            case .showRecordingProcessing:
                 observer.audioManagerProcessingRecording(self)
+                
+            case let .showRecordingStopped(item, maxLimitReached):
+                state = .idle
+                observer.audioManagerDidStopRecording(self, maxLimitedReached: maxLimitReached)
             }
         }
     }
