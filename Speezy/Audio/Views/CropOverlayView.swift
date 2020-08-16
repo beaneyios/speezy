@@ -21,7 +21,8 @@ class CropOverlayView: UIView, NibLoadable {
     
     func changeEnd(percentage: CGFloat) {
         let endX = frame.width * percentage
-        trailingConstraint.constant = endX
+        let endConstraint = frame.width - endX
+        trailingConstraint.constant = -endConstraint
         setNeedsLayout()
         layoutIfNeeded()
     }
