@@ -16,7 +16,7 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
-class AudioItemViewController: UIViewController, AudioShareable {
+class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObserver {
     
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
@@ -320,11 +320,8 @@ extension AudioItemViewController: TagsViewDelegate {
     }
 }
 
-// MARK: State management
-extension AudioItemViewController: AudioManagerObserver {
-    
-    // Recording
-    
+// MARK: RECORDING
+extension AudioItemViewController {
     func audioManagerDidStartRecording(_ player: AudioManager) {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
         
@@ -367,9 +364,10 @@ extension AudioItemViewController: AudioManagerObserver {
         let alert = SCLAlertView()
         alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
     }
-    
-    // Playback
-    
+}
+
+// MARK: PLAYBACK
+extension AudioItemViewController {
     func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
         playbackHidables.forEach {
             $0.disable()
@@ -399,9 +397,10 @@ extension AudioItemViewController: AudioManagerObserver {
         
         btnCrop.enable()
     }
-    
-    // Cropping
-    
+}
+
+// MARK: CROPPING
+extension AudioItemViewController {
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         showCropView()
