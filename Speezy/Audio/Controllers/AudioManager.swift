@@ -15,7 +15,7 @@ class AudioManager: NSObject {
     private(set) var originalItem: AudioItem
     private(set) var state = State.idle
     
-    private var currentItem: AudioItem {
+    var currentItem: AudioItem {
         audioCropper?.croppedItem ?? item
     }
     
@@ -219,9 +219,9 @@ extension AudioManager: AudioPlayerDelegate {
     
     func seek(to percentage: Float) {
         if audioPlayer == nil {
-            audioPlayer = AudioPlayer(item: item)
+            audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
-            state = .pausedPlayback(item)
+            state = .pausedPlayback(currentItem)
         }
         
         audioPlayer?.seek(to: percentage)

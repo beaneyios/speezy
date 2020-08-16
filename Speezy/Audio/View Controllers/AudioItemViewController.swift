@@ -34,10 +34,15 @@ class AudioItemViewController: UIViewController, AudioShareable {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var controlButtonsHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var recordContainer: UIView!
     @IBOutlet weak var mainWaveContainer: UIView!
+    
     @IBOutlet weak var cropContainer: UIView!
+    @IBOutlet weak var cropWaveContainer: UIView!
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var tagContainer: UIView!
     @IBOutlet weak var playbackControlsContainer: UIView!
     
@@ -89,6 +94,10 @@ class AudioItemViewController: UIViewController, AudioShareable {
     
     @IBAction func toggleCrop(_ sender: Any) {
         audioManager.toggleCrop()
+    }
+    
+    @IBAction func cancelCrop(_ sender: Any) {
+        audioManager.cancelCrop()
     }
     
     @IBAction func toggleCut(_ sender: Any) {
@@ -221,16 +230,18 @@ extension AudioItemViewController {
         }
         
         cropContainerHeight.constant = 100.0
+        controlButtonsHeight.constant = 0.0
+        
         UIView.animate(withDuration: 0.4, animations: {
             self.view.layoutIfNeeded()
             self.cropContainer.alpha = 1.0
         }) { (finished) in
             let cropView = CropView.instanceFromNib()
             cropView.alpha = 0.0
-            self.cropContainer.addSubview(cropView)
+            self.cropWaveContainer.addSubview(cropView)
             
             cropView.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(self.cropContainer)
+                maker.edges.equalTo(self.cropWaveContainer)
             }
             
             self.cropView = cropView
@@ -249,6 +260,7 @@ extension AudioItemViewController {
     
     private func hideCropView(animated: Bool = true) {
         guard animated else {
+            controlButtonsHeight.constant = 80.0
             cropContainerHeight.constant = 0.0
             cropContainer.alpha = 0.0
             return
@@ -260,7 +272,10 @@ extension AudioItemViewController {
             $0.enable()
         }
         
+        controlButtonsHeight.constant = 80.0
+        
         UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
             self.cropContainer.alpha = 0.0
         }) { (finished) in
             self.cropView?.removeFromSuperview()
@@ -397,7 +412,7 @@ extension AudioItemViewController: AudioManagerObserver {
     }
     
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
-//        lblTimer.text = "00:00:00"
+        lblTimer.text = "00:00:00"
     }
     
     func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem) {
