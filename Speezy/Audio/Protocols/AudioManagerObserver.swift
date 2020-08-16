@@ -6,7 +6,7 @@
 //  Copyright © 2020 Speezy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol AudioManagerObserver: class {
     func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem)
@@ -17,7 +17,8 @@ protocol AudioManagerObserver: class {
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem)
     func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem)
     func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem)
-    func audioManager(_ player: AudioManager, didConfirmCropOnItem item: AudioItem)
+    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat)
+    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat)
     func audioManagerDidCancelCropping(_ player: AudioManager)
     
     func audioManagerDidStartRecording(_ player: AudioManager)

@@ -59,6 +59,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
 
     func stop() {
         playbackTimer?.invalidate()
+        playbackTimer = nil
+        delegate?.audioPlayerDidFinishPlayback(self)
     }
     
     func seek(to percentage: Float) {
@@ -75,9 +77,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        playbackTimer?.invalidate()
-        playbackTimer = nil
-        delegate?.audioPlayerDidFinishPlayback(self)
+        stop()
     }
     
     private func startPlaybackTimer() {

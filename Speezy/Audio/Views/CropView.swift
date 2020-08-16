@@ -19,6 +19,12 @@ class CropView: UIView {
     
     @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var leftChevron: UIImageView!
+    @IBOutlet weak var rightChevron: UIImageView!
+    
+    @IBOutlet var cropFrameViews: [UIView]!
+    
         
     private var cropWave: AudioVisualizationView!
     
@@ -99,13 +105,18 @@ class CropView: UIView {
     }
     
     @objc func leftPan(sender: UIPanGestureRecognizer) {
+        defer {
+            notifyLeftPanMoved()
+            adjustColours()
+        }
+        
         layoutIfNeeded()
         
         let translation = sender.translation(in: contentView)
         let newConstraint = lastLeftLocation + translation.x
         
         if sender.state == .changed {
-            if newConstraint < 0 {
+            if newConstraint < 2 {
                 leftHandleConstraint.constant = 0.0
                 lastLeftLocation = 0.0
                 return
@@ -131,14 +142,18 @@ class CropView: UIView {
     }
     
     @objc func rightPan(sender: UIPanGestureRecognizer) {
+        defer {
+            notifyRightPanMoved()
+            adjustColours()
+        }
+        
         layoutIfNeeded()
         
         let translation = sender.translation(in: contentView)
         let newConstraint = lastRightLocation - translation.x
-        print(translation.x)
         
         if sender.state == .changed {
-            if newConstraint < 0 {
+            if newConstraint < 2 {
                 rightHandleConstraint.constant = 0.0
                 lastRightLocation = 0.0
                 return
@@ -160,6 +175,34 @@ class CropView: UIView {
             }
             
             crop()
+        }
+    }
+    
+    private func notifyLeftPanMoved() {
+        let percentage = leftHandleConstraint.constant / contentView.frame.width
+        manager?.leftCropHandleMoved(to: percentage)
+    }
+    
+    private func notifyRightPanMoved() {
+        let percentage = (contentView.frame.width - rightHandleConstraint.constant) / contentView.frame.width
+        manager?.rightCropHandleMoved(to: percentage)
+    }
+    
+    private func adjustColours() {
+        if rightHandleConstraint.constant == 0 && leftHandleConstraint.constant == 0 {
+            cropFrameViews.forEach {
+                $0.backgroundColor = .white
+            }
+            
+            leftChevron.tintColor = UIColor(named: "speezy-purple")
+            rightChevron.tintColor = UIColor(named: "speezy-purple")
+        } else {
+            cropFrameViews.forEach {
+                $0.backgroundColor = UIColor(named: "speezy-red")
+            }
+            
+            leftChevron.tintColor = .white
+            rightChevron.tintColor = .white
         }
     }
     

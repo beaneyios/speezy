@@ -122,7 +122,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
         let alert = SCLAlertView(appearance: appearance)
         
-        alert.addButton("Delete", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
+        alert.addButton("Delete", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: UIColor(named: "speezy-red")) {
             self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
             FileManager.default.deleteExistingURL(item.url)
             AudioStorage.deleteItem(item)

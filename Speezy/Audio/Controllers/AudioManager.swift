@@ -15,6 +15,14 @@ class AudioManager: NSObject {
     private(set) var originalItem: AudioItem
     private(set) var state = State.idle
     
+    var currentItem: AudioItem {
+        audioCropper?.croppedItem ?? item
+    }
+    
+    var startPosition: TimeInterval {
+        audioCropper?.cropFrom ?? 0.0
+    }
+    
     var duration: TimeInterval {
         let asset = AVAsset(url: originalItem.url)
         let duration = CMTimeGetSeconds(asset.duration)
@@ -23,14 +31,6 @@ class AudioManager: NSObject {
     
     var currentPlaybackTime: TimeInterval {
         audioPlayer?.currentPlaybackTime ?? 0.0
-    }
-    
-    var isCropping: Bool {
-        audioCropper != nil
-    }
-    
-    var hasActiveCrop: Bool {
-        audioCropper?.hasActiveCrop ?? false
     }
     
     var currentImageAttachment: UIImage? {
@@ -193,7 +193,7 @@ extension AudioManager: AudioPlayerDelegate {
     
     func play() {
         if state.shouldRegeneratePlayer == true {
-            audioPlayer = AudioPlayer(item: item)
+            audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
         }
         
@@ -211,9 +211,9 @@ extension AudioManager: AudioPlayerDelegate {
     
     func seek(to percentage: Float) {
         if audioPlayer == nil {
-            audioPlayer = AudioPlayer(item: item)
+            audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
-            state = .pausedPlayback(item)
+            state = .pausedPlayback(currentItem)
         }
         
         audioPlayer?.seek(to: percentage)
@@ -251,18 +251,26 @@ extension AudioManager: AudioPlayerDelegate {
     }
 }
 
-// MARK: Editing
+// MARK: CROPPING
 extension AudioManager: AudioCropperDelegate {
-    func toggleCrop() {
-        if isCropping {
-            if hasActiveCrop {
-                confirmCrop()
-            } else {
-                cancelCrop()
-            }
-        } else {
-            startCropping()
+    var isCropping: Bool {
+        audioCropper != nil
+    }
+    
+    var canCrop: Bool {
+        currentItem.duration > 3.0
+    }
+    
+    var hasActiveCrop: Bool {
+        guard let croppedItemDuration = audioCropper?.croppedItem?.duration else {
+            return false
         }
+        
+        return croppedItemDuration != item.duration
+    }
+    
+    func toggleCrop() {
+        startCropping()
     }
     
     func startCropping() {
@@ -276,21 +284,28 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.crop(from: from, to: to)
     }
     
+    func leftCropHandleMoved(to percentage: CGFloat) {
+        observations.forEach {
+            $0.value.observer?.audioManager(self, didMoveLeftCropHandleTo: percentage)
+        }
+    }
+    
+    func rightCropHandleMoved(to percentage: CGFloat) {
+        observations.forEach {
+            $0.value.observer?.audioManager(self, didMoveRightCropHandleTo: percentage)
+        }
+    }
+    
     func applyCrop() {
         audioCropper?.applyCrop()
     }
     
     func cancelCrop() {
+        stop()
         audioCropper?.cancelCrop()
     }
     
-    func confirmCrop() {
-        state = .confirmingCrop(item)
-        stateDidChange()
-    }
-    
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
-        self.item = item
         state = .adjustedCropping(item)
         stateDidChange()
     }
@@ -353,7 +368,6 @@ extension AudioManager {
         case adjustedCropping(AudioItem)
         case cancelledCropping(AudioItem)
         case croppingFinished(AudioItem)
-        case confirmingCrop(AudioItem)
         
         case stoppedPlayback(AudioItem)
         case startedPlayback(AudioItem)
@@ -410,8 +424,6 @@ extension AudioManager {
                 observer.audioManagerDidCancelCropping(self)
             case .croppingFinished(let item):
                 observer.audioManager(self, didFinishCroppingItem: item)
-            case .confirmingCrop(let item):
-                observer.audioManager(self, didConfirmCropOnItem: item)
                 
             case .stoppedPlayback(let item):
                 observer.audioManager(self, didStopPlaying: item)
