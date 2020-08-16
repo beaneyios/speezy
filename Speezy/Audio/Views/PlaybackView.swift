@@ -174,7 +174,7 @@ extension PlaybackView {
         scrollView.setContentOffset(.zero, animated: true)
     }
     
-    private func advanceScrollViewWithTimer(advanceFactor: TimeInterval) {
+    private func advanceScrollViewWithTimer() {
         guard let manager = self.manager, let audioData = audioData else {
             return
         }
@@ -245,7 +245,7 @@ extension PlaybackView: AudioManagerObserver {
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
         if centerPoint >= center.x {
-            advanceScrollViewWithTimer(advanceFactor: 20.0)
+            advanceScrollViewWithTimer()
         } else {
             scrollView.setContentOffset(.zero, animated: false)
         }
@@ -325,7 +325,7 @@ extension PlaybackView {
         
         waveWidth.update(offset: waveSize.width)
         wave.add(meteringLevel: percentageLevel)
-        advanceScrollViewWithTimer(advanceFactor: 10.0)
+        advanceScrollViewWithTimer()
     }
 }
 
