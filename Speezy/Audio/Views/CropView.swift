@@ -105,9 +105,10 @@ class CropView: UIView {
         let newConstraint = lastLeftLocation + translation.x
         
         if sender.state == .changed {
-            if newConstraint < 0 {
+            if newConstraint < 2 {
                 leftHandleConstraint.constant = 0.0
                 lastLeftLocation = 0.0
+                notifyLeftPanMoved()
                 return
             }
             
@@ -118,8 +119,7 @@ class CropView: UIView {
             leftHandleConstraint.constant = newConstraint
             layoutIfNeeded()
             
-            let percentage = newConstraint / contentView.frame.width
-            manager?.leftCropHandleMoved(to: percentage)
+            notifyLeftPanMoved()
         }
         
         if sender.state == .ended {
@@ -131,6 +131,11 @@ class CropView: UIView {
                         
             crop()
         }
+    }
+    
+    private func notifyLeftPanMoved() {
+        let percentage = leftHandleConstraint.constant / contentView.frame.width
+        manager?.leftCropHandleMoved(to: percentage)
     }
     
     @objc func rightPan(sender: UIPanGestureRecognizer) {
