@@ -405,6 +405,7 @@ extension AudioItemViewController: AudioManagerObserver {
     func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         showCropView()
+        scrollView.isScrollEnabled = false
     }
     
     func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
@@ -443,12 +444,14 @@ extension AudioItemViewController: AudioManagerObserver {
         lblTimer.text = "00:00:00"
         hideCropView()
         delegate?.audioItemViewController(self, didSaveItem: player.item)
+        scrollView.isScrollEnabled = true
     }
     
     func audioManagerDidCancelCropping(_ player: AudioManager) {
         lblTimer.text = "00:00:00"
         hideCropView()
         delegate?.audioItemViewController(self, didSaveItem: player.item)
+        scrollView.isScrollEnabled = true
     }
 }
 
