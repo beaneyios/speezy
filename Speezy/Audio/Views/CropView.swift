@@ -19,6 +19,12 @@ class CropView: UIView {
     
     @IBOutlet weak var leftHandleConstraint: NSLayoutConstraint!
     @IBOutlet weak var rightHandleConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var leftChevron: UIImageView!
+    @IBOutlet weak var rightChevron: UIImageView!
+    
+    @IBOutlet var cropFrameViews: [UIView]!
+    
         
     private var cropWave: AudioVisualizationView!
     
@@ -99,6 +105,11 @@ class CropView: UIView {
     }
     
     @objc func leftPan(sender: UIPanGestureRecognizer) {
+        defer {
+            notifyLeftPanMoved()
+            adjustColours()
+        }
+        
         layoutIfNeeded()
         
         let translation = sender.translation(in: contentView)
@@ -108,7 +119,6 @@ class CropView: UIView {
             if newConstraint < 2 {
                 leftHandleConstraint.constant = 0.0
                 lastLeftLocation = 0.0
-                notifyLeftPanMoved()
                 return
             }
             
@@ -118,8 +128,6 @@ class CropView: UIView {
             
             leftHandleConstraint.constant = newConstraint
             layoutIfNeeded()
-            
-            notifyLeftPanMoved()
         }
         
         if sender.state == .ended {
@@ -129,6 +137,43 @@ class CropView: UIView {
                 lastLeftLocation = 0.0
             }
                         
+            crop()
+        }
+    }
+    
+    @objc func rightPan(sender: UIPanGestureRecognizer) {
+        defer {
+            notifyRightPanMoved()
+            adjustColours()
+        }
+        
+        layoutIfNeeded()
+        
+        let translation = sender.translation(in: contentView)
+        let newConstraint = lastRightLocation - translation.x
+        
+        if sender.state == .changed {
+            if newConstraint < 2 {
+                rightHandleConstraint.constant = 0.0
+                lastRightLocation = 0.0
+                return
+            }
+            
+            if (newConstraint + 48.0) > (contentView.frame.width - leftHandle.frame.maxX) {
+                return
+            }
+            
+            rightHandleConstraint.constant = newConstraint
+            layoutIfNeeded()
+        }
+        
+        if sender.state == .ended {
+            if rightHandleConstraint.constant > 0 {
+                lastRightLocation = rightHandleConstraint.constant
+            } else {
+                lastRightLocation = 0.0
+            }
+            
             crop()
         }
     }
@@ -143,38 +188,21 @@ class CropView: UIView {
         manager?.rightCropHandleMoved(to: percentage)
     }
     
-    @objc func rightPan(sender: UIPanGestureRecognizer) {
-        layoutIfNeeded()
-        
-        let translation = sender.translation(in: contentView)
-        let newConstraint = lastRightLocation - translation.x
-        
-        if sender.state == .changed {
-            if newConstraint < 2 {
-                rightHandleConstraint.constant = 0.0
-                lastRightLocation = 0.0
-                notifyRightPanMoved()
-                return
+    private func adjustColours() {
+        if rightHandleConstraint.constant == 0 && leftHandleConstraint.constant == 0 {
+            cropFrameViews.forEach {
+                $0.backgroundColor = .white
             }
             
-            if (newConstraint + 48.0) > (contentView.frame.width - leftHandle.frame.maxX) {
-                return
+            leftChevron.tintColor = UIColor(named: "speezy-purple")
+            rightChevron.tintColor = UIColor(named: "speezy-purple")
+        } else {
+            cropFrameViews.forEach {
+                $0.backgroundColor = UIColor(named: "speezy-red")
             }
             
-            rightHandleConstraint.constant = newConstraint
-            layoutIfNeeded()
-            
-            notifyRightPanMoved()
-        }
-        
-        if sender.state == .ended {
-            if rightHandleConstraint.constant > 0 {
-                lastRightLocation = rightHandleConstraint.constant
-            } else {
-                lastRightLocation = 0.0
-            }
-            
-            crop()
+            leftChevron.tintColor = .white
+            rightChevron.tintColor = .white
         }
     }
     

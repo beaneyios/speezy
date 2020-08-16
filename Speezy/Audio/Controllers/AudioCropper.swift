@@ -22,20 +22,6 @@ class AudioCropper {
     private(set) var cropFrom: TimeInterval?
     private(set) var cropTo: TimeInterval?
     
-    var hasActiveCrop: Bool {
-        let duration = TimeInterval(CMTimeGetSeconds(AVAsset(url: originalItem.url).duration))
-        
-        if
-            let cropFrom = cropFrom,
-            let cropTo = cropTo,
-            cropFrom > 0 || cropTo < duration
-        {
-            return true
-        }
-        
-        return false
-    }
-    
     weak var delegate: AudioCropperDelegate?
     
     init(originalItem: AudioItem) {

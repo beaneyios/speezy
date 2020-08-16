@@ -93,16 +93,26 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     }
     
     @IBAction func toggleCrop(_ sender: Any) {
-        audioManager.toggleCrop()
+        if audioManager.canCrop {
+            audioManager.toggleCrop()
+        } else {
+            let alert = SCLAlertView()
+            alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to crop - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
+        }
     }
     
     @IBAction func applyCrop(_ sender: Any) {
         audioManager.stop()
         
+        if audioManager.hasActiveCrop == false {
+            audioManager.cancelCrop()
+            return
+        }
+        
         let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
         let alert = SCLAlertView(appearance: appearance)
         
-        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .red) {
+        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: UIColor(named: "speezy-red")) {
             self.audioManager.applyCrop()
         }
         

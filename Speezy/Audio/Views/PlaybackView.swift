@@ -43,7 +43,7 @@ class PlaybackView: UIView {
         AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 let line = UIView()
-                line.backgroundColor = .red
+                line.backgroundColor = UIColor(named: "speezy-red")
                 line.alpha = 0.6
                 
                 self.keylineContainer.addSubview(line)

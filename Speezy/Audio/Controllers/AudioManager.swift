@@ -33,14 +33,6 @@ class AudioManager: NSObject {
         audioPlayer?.currentPlaybackTime ?? 0.0
     }
     
-    var isCropping: Bool {
-        audioCropper != nil
-    }
-    
-    var hasActiveCrop: Bool {
-        audioCropper?.hasActiveCrop ?? false
-    }
-    
     var currentImageAttachment: UIImage? {
         audioAttachmentManager.imageAttachmentCache[item.id]
     }
@@ -259,8 +251,24 @@ extension AudioManager: AudioPlayerDelegate {
     }
 }
 
-// MARK: Editing
+// MARK: CROPPING
 extension AudioManager: AudioCropperDelegate {
+    var isCropping: Bool {
+        audioCropper != nil
+    }
+    
+    var canCrop: Bool {
+        currentItem.duration > 3.0
+    }
+    
+    var hasActiveCrop: Bool {
+        guard let croppedItemDuration = audioCropper?.croppedItem?.duration else {
+            return false
+        }
+        
+        return croppedItemDuration != item.duration
+    }
+    
     func toggleCrop() {
         startCropping()
     }
