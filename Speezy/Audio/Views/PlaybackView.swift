@@ -228,12 +228,12 @@ extension PlaybackView {
 extension PlaybackView: AudioManagerObserver {
     // Playback
     
-    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
         // no op
     }
     
-    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
-        let time = time + player.startPosition
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
+        let time = time + manager.startPosition
         
         guard let audioData = audioData else {
             return
@@ -255,11 +255,11 @@ extension PlaybackView: AudioManagerObserver {
     }
     
     
-    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
         // no op
     }
     
-    func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
         stop()
     }
 }
@@ -285,7 +285,7 @@ extension PlaybackView {
         alpha = 0.5
     }
         
-    func audioManagerDidStopRecording(_ player: AudioManager) {
+    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
         AudioLevelGenerator.render(fromAudioItem: player.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 self.alpha = 1.0
@@ -298,11 +298,7 @@ extension PlaybackView {
         }
     }
     
-    func audioManager(_ player: AudioManager, didReachMaxRecordingLimitWithItem item: AudioItem) {
-        // no op
-    }
-    
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         let previousDuration = audioData?.duration
         audioData = audioData?.addingDBLevel(decibel, addedDuration: stepDuration)
         let newDuration = audioData?.duration
@@ -331,7 +327,7 @@ extension PlaybackView {
 
 // MARK: CROPPING LISTENERS
 extension PlaybackView {
-    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return
@@ -341,7 +337,7 @@ extension PlaybackView {
         createCropOverlayView(waveSize: waveSize)
     }
     
-    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return
@@ -359,7 +355,7 @@ extension PlaybackView {
         
     }
     
-    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return
@@ -376,14 +372,14 @@ extension PlaybackView {
         scrollView.setContentOffset(scrollPosition, animated: false)
     }
     
-    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
     
     func audioManagerDidCancelCropping(_ player: AudioManager) {
         removeCropOverlayView()
     }
     
-    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
-        configure(manager: player)
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
+        configure(manager: manager)
         removeCropOverlayView()
     }
 }

@@ -9,38 +9,7 @@
 import Foundation
 import AVKit
 
-class AudioEditor {    
-    static func convertOriginalToSpeezyFormat(url: URL, finished: @escaping (URL) -> Void) {
-        let asset = AVAsset(url: url)
-        let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
-        
-        guard
-            compatiblePresets.contains(AVAssetExportPresetAppleM4A),
-            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
-            let outputURL = FileManager.default.documentsURL(with: "original.m4a")
-        else {
-            return
-        }
-        
-        FileManager.default.deleteExistingFile(with: "original.m4a")
-        
-        exportSession.outputURL = outputURL
-        exportSession.outputFileType = AVFileType.m4a
-        
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
-            case .failed:
-                assertionFailure("Export failed: \(exportSession.error?.localizedDescription)")
-            case .cancelled:
-                assertionFailure("Export canceled")
-            default:
-                DispatchQueue.main.async {
-                    finished(outputURL)
-                }
-            }
-        }
-    }
-    
+class AudioFileCombiner {        
     static func combineAudioFiles(audioURLs: [URL], outputURL: URL, finished: @escaping (URL) -> Void) {
         let composition = AVMutableComposition()
         let compositionAudioTrack = composition.addMutableTrack(
@@ -64,7 +33,7 @@ class AudioEditor {
         exportSession.exportAsynchronously {
             switch exportSession.status {
             case .failed:
-                assertionFailure("Export failed: \(exportSession.error?.localizedDescription)")
+                assertionFailure("Export failed: \(exportSession.error)")
             case .cancelled:
                 assertionFailure("Export canceled")
             default:

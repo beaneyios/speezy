@@ -85,7 +85,12 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     }
     
     @IBAction func close(_ sender: Any) {
-        delegate?.audioItemViewControllerShouldPop(self)
+        if audioManager.hasUnsavedChanges {
+            let alert = SCLAlertView()
+            alert.showWarning("You have unsaved changes", subTitle: "Do you want to do this?")
+        } else {
+            delegate?.audioItemViewControllerShouldPop(self)
+        }
     }
     
     @IBAction func toggleRecording(_ sender: Any) {
@@ -240,7 +245,6 @@ extension AudioItemViewController {
             
             self.audioManager.updateTitle(title: text)
             self.configureTitle()
-            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
         }
         
         alert.showEdit(
@@ -333,7 +337,6 @@ extension AudioItemViewController: TagsViewDelegate {
             
             self.audioManager.addTag(title: text)
             self.configureTags()
-            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
         }
         
         alert.showEdit(
@@ -359,7 +362,7 @@ extension AudioItemViewController {
         tagsView?.isUserInteractionEnabled = false
     }
     
-    func audioManager(_ player: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         lblTimer.text = TimeFormatter.formatTime(time: totalDuration)
     }
     
@@ -367,8 +370,17 @@ extension AudioItemViewController {
         btnRecord.startLoading()
     }
     
-    func audioManagerDidStopRecording(_ player: AudioManager) {
-        if audioManager.shouldAutomaticallyShowTitleSelector {
+    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
+        if maxLimitedReached {
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Done") {
+                if self.audioManager.shouldAutomaticallyShowTitleSelector {
+                    self.chooseTitle()
+                }
+            }
+            alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
+        } else if audioManager.shouldAutomaticallyShowTitleSelector {
             chooseTitle()
         }
         
@@ -382,29 +394,22 @@ extension AudioItemViewController {
         
         tagsView?.alpha = 1.0
         tagsView?.isUserInteractionEnabled = true
-        
-        delegate?.audioItemViewController(self, didSaveItem: player.item)
-    }
-    
-    func audioManager(_ player: AudioManager, didReachMaxRecordingLimitWithItem item: AudioItem) {
-        let alert = SCLAlertView()
-        alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
     }
 }
 
 // MARK: PLAYBACK
 extension AudioItemViewController {
-    func audioManager(_ player: AudioManager, didStartPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
         playbackHidables.forEach {
             $0.disable()
         }
     }
     
-    func audioManager(_ player: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
         lblTimer.text = TimeFormatter.formatTime(time: time)
     }
     
-    func audioManager(_ player: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -414,7 +419,7 @@ extension AudioItemViewController {
         btnCrop.enable()
     }
     
-    func audioManager(_ player: AudioManager, didStopPlaying item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -427,28 +432,27 @@ extension AudioItemViewController {
 
 // MARK: CROPPING
 extension AudioItemViewController {
-    func audioManager(_ player: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         showCropView()
         scrollView.isScrollEnabled = false
     }
     
-    func audioManager(_ player: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
         // no op
     }
     
-    func audioManager(_ player: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
         // no op
     }
     
-    func audioManager(_ player: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
     }
     
-    func audioManager(_ player: AudioManager, didFinishCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         hideCropView()
-        delegate?.audioItemViewController(self, didSaveItem: player.item)
         scrollView.isScrollEnabled = true
     }
     
