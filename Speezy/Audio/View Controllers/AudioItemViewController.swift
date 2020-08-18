@@ -85,7 +85,12 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     }
     
     @IBAction func close(_ sender: Any) {
-        delegate?.audioItemViewControllerShouldPop(self)
+        if audioManager.hasUnsavedChanges {
+            let alert = SCLAlertView()
+            alert.showWarning("You have unsaved changes", subTitle: "Do you want to do this?")
+        } else {
+            delegate?.audioItemViewControllerShouldPop(self)
+        }
     }
     
     @IBAction func toggleRecording(_ sender: Any) {
@@ -240,7 +245,6 @@ extension AudioItemViewController {
             
             self.audioManager.updateTitle(title: text)
             self.configureTitle()
-            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
         }
         
         alert.showEdit(
@@ -333,7 +337,6 @@ extension AudioItemViewController: TagsViewDelegate {
             
             self.audioManager.addTag(title: text)
             self.configureTags()
-            self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
         }
         
         alert.showEdit(
@@ -391,8 +394,6 @@ extension AudioItemViewController {
         
         tagsView?.alpha = 1.0
         tagsView?.isUserInteractionEnabled = true
-        
-        delegate?.audioItemViewController(self, didSaveItem: player.item)
     }
 }
 
@@ -452,7 +453,6 @@ extension AudioItemViewController {
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
         lblTimer.text = "00:00:00"
         hideCropView()
-        delegate?.audioItemViewController(self, didSaveItem: manager.item)
         scrollView.isScrollEnabled = true
     }
     

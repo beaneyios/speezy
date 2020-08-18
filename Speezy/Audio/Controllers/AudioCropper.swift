@@ -16,7 +16,7 @@ protocol AudioCropperDelegate: AnyObject {
 }
 
 class AudioCropper {
-    private let originalItem: AudioItem
+    private let item: AudioItem
     private(set) var croppedItem: AudioItem?
     
     private(set) var cropFrom: TimeInterval?
@@ -24,20 +24,20 @@ class AudioCropper {
     
     weak var delegate: AudioCropperDelegate?
     
-    init(originalItem: AudioItem) {
-        self.originalItem = originalItem
+    init(item: AudioItem) {
+        self.item = item
     }
     
     func crop(from: TimeInterval, to: TimeInterval) {
         cropFrom = from
         cropTo = to
-        crop(audioItem: originalItem, startTime: from, stopTime: to) { (path) in
+        crop(audioItem: item, startTime: from, stopTime: to) { (path) in
             let croppedItem = AudioItem(
-                id: self.originalItem.id,
+                id: self.item.id,
                 path: path,
-                title: self.originalItem.title,
-                date: self.originalItem.date,
-                tags: self.originalItem.tags
+                title: self.item.title,
+                date: self.item.date,
+                tags: self.item.tags
             )
             self.croppedItem = croppedItem
             self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
@@ -46,7 +46,7 @@ class AudioCropper {
     
     func applyCrop() {
         guard let croppedItem = self.croppedItem else {
-            delegate?.audioCropper(self, didCancelCropReturningToItem: originalItem)
+            delegate?.audioCropper(self, didCancelCropReturningToItem: item)
             return
         }
         
@@ -54,7 +54,7 @@ class AudioCropper {
     }
     
     func cancelCrop() {
-        delegate?.audioCropper(self, didCancelCropReturningToItem: originalItem)
+        delegate?.audioCropper(self, didCancelCropReturningToItem: item)
     }
 }
 

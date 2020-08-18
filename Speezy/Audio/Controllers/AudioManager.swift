@@ -14,31 +14,10 @@ class AudioManager: NSObject {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
     private(set) var state = State.idle
-    
-    var currentItem: AudioItem {
-        audioCropper?.croppedItem ?? item
-    }
-    
-    var startPosition: TimeInterval {
-        audioCropper?.cropFrom ?? 0.0
-    }
-    
-    var duration: TimeInterval {
-        let asset = AVAsset(url: originalItem.url)
-        let duration = CMTimeGetSeconds(asset.duration)
-        return TimeInterval(duration)
-    }
-    
-    var currentPlaybackTime: TimeInterval {
-        audioPlayer?.currentPlaybackTime ?? 0.0
-    }
+    private(set) var hasUnsavedChanges: Bool = false
     
     var currentImageAttachment: UIImage? {
         audioAttachmentManager.imageAttachmentCache[item.id]
-    }
-    
-    var hasRecorded: Bool {
-        item.duration > 0
     }
     
     private var firstRecord = true
@@ -57,7 +36,14 @@ class AudioManager: NSObject {
     
     init(item: AudioItem) {
         self.originalItem = item
-        self.item = item
+        
+        self.item = AudioItem(
+            id: item.id,
+            path: "\(item.id)_staging.m4a",
+            title: item.title,
+            date: item.date,
+            tags: item.tags
+        )
     }
     
     func updateTitle(title: String) {
@@ -70,9 +56,8 @@ class AudioManager: NSObject {
         )
         
         self.item = audioItem
-        self.originalItem = audioItem
         
-        AudioStorage.saveItem(audioItem)
+        self.prepareStagingFile()
     }
     
     func addTag(title: String) {
@@ -87,9 +72,7 @@ class AudioManager: NSObject {
         )
         
         self.item = newItem
-        self.originalItem = newItem
-        
-        AudioStorage.saveItem(newItem)
+        self.prepareStagingFile()
     }
     
     func setImageAttachment(_ attachment: UIImage?, completion: @escaping () -> Void) {
@@ -103,10 +86,22 @@ class AudioManager: NSObject {
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
         audioAttachmentManager.fetchAttachment(forItem: item, completion: completion)
     }
+    
+    private func prepareStagingFile() {
+        do {
+            try FileManager.default.copyItem(at: originalItem.url, to: item.url)
+        } catch {
+            assertionFailure("This copy should always work.")
+        }
+    }
 }
 
 // MARK: Recording
 extension AudioManager: AudioRecorderDelegate {
+    var hasRecorded: Bool {
+        item.duration > 0
+    }
+    
     func toggleRecording() {
         switch state {
         case .recording:
@@ -146,19 +141,36 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem, maxLimitReached: Bool) {
-        self.originalItem = item
         self.item = item
         
         performAction(
             action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
         )
         
-        AudioStorage.saveItem(item)
+        hasUnsavedChanges = true
     }
 }
 
 // MARK: Playback
 extension AudioManager: AudioPlayerDelegate {
+    var currentItem: AudioItem {
+        audioCropper?.croppedItem ?? item
+    }
+    
+    var startPosition: TimeInterval {
+        audioCropper?.cropFrom ?? 0.0
+    }
+    
+    var duration: TimeInterval {
+        let asset = AVAsset(url: item.url)
+        let duration = CMTimeGetSeconds(asset.duration)
+        return TimeInterval(duration)
+    }
+    
+    var currentPlaybackTime: TimeInterval {
+        audioPlayer?.currentPlaybackTime ?? 0.0
+    }
+    
     func togglePlayback() {
         switch state {
         case .startedPlayback:
@@ -248,7 +260,7 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func startCropping() {
-        audioCropper = AudioCropper(originalItem: item)
+        audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
         performAction(action: .showCrop(item))
     }
@@ -284,32 +296,19 @@ extension AudioManager: AudioCropperDelegate {
     
     func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem) {
         
-        FileManager.default.deleteExistingFile(with: "\(item.id).m4a")
-        FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: "\(item.id).m4a")
-        
-        let completeItem = AudioItem(
-            id: item.id,
-            path: "\(item.id).m4a",
-            title: item.title,
-            date: item.date,
-            tags: item.tags
-        )
-        
-        self.item = completeItem
-        self.originalItem = completeItem
+        FileManager.default.deleteExistingFile(with: self.item.path)
+        FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: self.item.path)
         
         performAction(action: .showCropFinished(item))
         audioCropper = nil
         
-        AudioStorage.saveItem(item)
+        hasUnsavedChanges = true
     }
     
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
         self.item = item
         performAction(action: .showCropCancelled(item))
         audioCropper = nil
-        
-        AudioStorage.saveItem(item)
     }
 }
 
@@ -435,7 +434,7 @@ extension AudioManager {
             case .showRecordingProcessing:
                 observer.audioManagerProcessingRecording(self)
                 
-            case let .showRecordingStopped(item, maxLimitReached):
+            case let .showRecordingStopped(_, maxLimitReached):
                 state = .idle
                 observer.audioManagerDidStopRecording(self, maxLimitedReached: maxLimitReached)
             }

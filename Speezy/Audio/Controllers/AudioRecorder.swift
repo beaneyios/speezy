@@ -41,7 +41,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     private func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.m4a")
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 44100,
@@ -85,11 +85,11 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        let newRecording = getDocumentsDirectory().appendingPathComponent("recording_\(item.id).m4a")
+        let newRecording = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.m4a")
         let currentFile = item.url
         let outputURL = item.url
         
-        AudioEditor.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
+        AudioFileCombiner.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
             FileManager.default.deleteExistingURL(newRecording)
             self.delegate?.audioRecorder(
                 self,
