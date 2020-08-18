@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,10 +22,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdI-M0-UXU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYG-qo-4mv">
-                                        <rect key="frame" x="16" y="16" width="47" height="35"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                        <state key="normal" title="Done">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYG-qo-4mv">
+                                        <rect key="frame" x="16" y="16.5" width="31" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="IYG-qo-4mv" secondAttribute="height" multiplier="1:1" id="Nc2-TP-ICA"/>
+                                            <constraint firstAttribute="width" constant="31" id="bj9-37-YQh"/>
+                                            <constraint firstAttribute="height" constant="31" id="k7s-Ng-tXm"/>
+                                        </constraints>
+                                        <state key="normal" image="btn-close">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -32,12 +37,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dS4-sh-ukM">
-                                        <rect key="frame" x="329" y="16" width="30" height="30"/>
+                                        <rect key="frame" x="292" y="17" width="67" height="30"/>
+                                        <color key="backgroundColor" name="speezy-red"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CqI-pR-Ezz"/>
-                                            <constraint firstAttribute="width" constant="30" id="TA5-ak-fIb"/>
                                         </constraints>
-                                        <state key="normal" image="share-button">
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="   SEND   ">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -51,17 +57,35 @@
                                             <constraint firstAttribute="height" constant="1" id="TyO-l0-Wnh"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6t1-NN-t0O">
+                                        <rect key="frame" x="197" y="17" width="87" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="R00-H2-GzN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="   DRAFTS   ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="share:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gy6-bx-1Fu"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="dS4-sh-ukM" secondAttribute="trailing" constant="16" id="11x-3e-R0r"/>
+                                    <constraint firstItem="o6y-oZ-8mP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IYG-qo-4mv" secondAttribute="bottom" id="3D7-YM-SfI"/>
                                     <constraint firstAttribute="bottom" secondItem="o6y-oZ-8mP" secondAttribute="bottom" id="3pZ-x6-e2D"/>
-                                    <constraint firstItem="IYG-qo-4mv" firstAttribute="top" secondItem="fdI-M0-UXU" secondAttribute="top" constant="16" id="BAW-Aq-xK0"/>
-                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="top" secondItem="fdI-M0-UXU" secondAttribute="top" constant="16" id="IL3-Oq-0DF"/>
+                                    <constraint firstItem="IYG-qo-4mv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fdI-M0-UXU" secondAttribute="top" id="BAW-Aq-xK0"/>
+                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="leading" secondItem="6t1-NN-t0O" secondAttribute="trailing" constant="8" id="Bfs-pr-2Vk"/>
                                     <constraint firstAttribute="trailing" secondItem="o6y-oZ-8mP" secondAttribute="trailing" id="KI3-m3-7Sj"/>
                                     <constraint firstItem="IYG-qo-4mv" firstAttribute="leading" secondItem="fdI-M0-UXU" secondAttribute="leading" constant="16" id="QTN-Nj-H42"/>
                                     <constraint firstAttribute="height" constant="64" id="SxP-vs-3uq"/>
+                                    <constraint firstItem="IYG-qo-4mv" firstAttribute="centerY" secondItem="fdI-M0-UXU" secondAttribute="centerY" id="dTT-c0-dDG"/>
+                                    <constraint firstItem="6t1-NN-t0O" firstAttribute="centerY" secondItem="dS4-sh-ukM" secondAttribute="centerY" id="iqF-dc-YkK"/>
                                     <constraint firstItem="o6y-oZ-8mP" firstAttribute="leading" secondItem="fdI-M0-UXU" secondAttribute="leading" id="pz2-Ba-ilu"/>
+                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="centerY" secondItem="fdI-M0-UXU" secondAttribute="centerY" id="yKg-dY-eBf"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5y-n3-5AW">
@@ -347,7 +371,9 @@
                         <outlet property="btnCrop" destination="lqf-bC-Bmq" id="dgY-iO-hQs"/>
                         <outlet property="btnCut" destination="YjA-7i-Qk8" id="L1P-Ux-HbZ"/>
                         <outlet property="btnDone" destination="IYG-qo-4mv" id="R6g-qb-Fsg"/>
+                        <outlet property="btnDrafts" destination="6t1-NN-t0O" id="QkZ-SB-igw"/>
                         <outlet property="btnRecord" destination="tp7-Oy-Ge7" id="m84-2O-lLe"/>
+                        <outlet property="btnSend" destination="dS4-sh-ukM" id="yNU-tP-8Wo"/>
                         <outlet property="btnShare" destination="dS4-sh-ukM" id="jGR-FV-oIE"/>
                         <outlet property="btnTitle" destination="QDO-J8-gZl" id="OER-AL-Ijm"/>
                         <outlet property="btnTitle2" destination="hCE-Bg-OhX" id="tMc-sq-5K7"/>
@@ -458,15 +484,18 @@
     </scenes>
     <resources>
         <image name="bottom-gradient" width="120" height="22"/>
+        <image name="btn-close" width="500" height="500"/>
         <image name="btn-edit" width="491" height="448"/>
         <image name="camera-button" width="500" height="500"/>
         <image name="cancel-button" width="500" height="500"/>
         <image name="crop-button" width="120" height="120"/>
         <image name="cut-button" width="120" height="120"/>
         <image name="gradient-background" width="1063" height="1891"/>
-        <image name="share-button" width="500" height="500"/>
         <image name="speezy" width="446" height="441"/>
         <image name="start-recording-button" width="120" height="120"/>
         <image name="tick-button" width="500" height="500"/>
+        <namedColor name="speezy-red">
+            <color red="0.9137254901960784" green="0.20392156862745098" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

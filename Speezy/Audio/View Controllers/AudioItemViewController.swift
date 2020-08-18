@@ -22,6 +22,9 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     @IBOutlet var playbackHidables: [UIButton]!
     @IBOutlet var cropHidables: [UIButton]!
     
+    @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnDrafts: UIButton!
+    
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
@@ -65,6 +68,7 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
         super.viewDidLoad()
         
         configureAudioManager()
+        configureNavButtons()
         configureMainSoundWave()
         configurePlaybackControls()
         configureTitle()
@@ -163,6 +167,14 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
 extension AudioItemViewController {
     private func configureAudioManager() {
         audioManager.addObserver(self)
+    }
+    
+    private func configureNavButtons() {
+        btnSend.layer.cornerRadius = 5.0
+        btnDrafts.layer.cornerRadius = 5.0
+        
+        btnDrafts.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
+        btnDrafts.layer.borderWidth = 1.0
     }
     
     private func configurePlaybackControls() {
