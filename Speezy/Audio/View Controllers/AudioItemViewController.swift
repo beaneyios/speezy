@@ -170,6 +170,11 @@ extension AudioItemViewController {
     }
     
     private func configureNavButtons() {
+        if audioManager.duration <= 0.0 {
+            btnSend.isEnabled = false
+            btnSend.alpha = 0.6
+        }
+        
         btnSend.layer.cornerRadius = 5.0
         btnDrafts.layer.cornerRadius = 5.0
         

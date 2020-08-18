@@ -37,10 +37,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dS4-sh-ukM">
-                                        <rect key="frame" x="292" y="17" width="67" height="30"/>
+                                        <rect key="frame" x="292" y="14.5" width="67" height="35"/>
                                         <color key="backgroundColor" name="speezy-red"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="CqI-pR-Ezz"/>
+                                            <constraint firstAttribute="height" constant="35" id="CqI-pR-Ezz"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <state key="normal" title="   SEND   ">
@@ -58,10 +58,10 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6t1-NN-t0O">
-                                        <rect key="frame" x="197" y="17" width="87" height="30"/>
+                                        <rect key="frame" x="193" y="14.5" width="87" height="35"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="R00-H2-GzN"/>
+                                            <constraint firstAttribute="height" constant="35" id="R00-H2-GzN"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <state key="normal" title="   DRAFTS   ">
@@ -78,7 +78,7 @@
                                     <constraint firstItem="o6y-oZ-8mP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IYG-qo-4mv" secondAttribute="bottom" id="3D7-YM-SfI"/>
                                     <constraint firstAttribute="bottom" secondItem="o6y-oZ-8mP" secondAttribute="bottom" id="3pZ-x6-e2D"/>
                                     <constraint firstItem="IYG-qo-4mv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fdI-M0-UXU" secondAttribute="top" id="BAW-Aq-xK0"/>
-                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="leading" secondItem="6t1-NN-t0O" secondAttribute="trailing" constant="8" id="Bfs-pr-2Vk"/>
+                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="leading" secondItem="6t1-NN-t0O" secondAttribute="trailing" constant="12" id="Bfs-pr-2Vk"/>
                                     <constraint firstAttribute="trailing" secondItem="o6y-oZ-8mP" secondAttribute="trailing" id="KI3-m3-7Sj"/>
                                     <constraint firstItem="IYG-qo-4mv" firstAttribute="leading" secondItem="fdI-M0-UXU" secondAttribute="leading" constant="16" id="QTN-Nj-H42"/>
                                     <constraint firstAttribute="height" constant="64" id="SxP-vs-3uq"/>
