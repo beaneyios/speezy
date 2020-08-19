@@ -12,7 +12,8 @@ import SCLAlertView
 import Hero
 
 protocol AudioItemViewControllerDelegate: AnyObject {
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem)
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem)
+    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem)
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
@@ -82,6 +83,19 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
         let presenting = HeroDefaultAnimationType.zoom
         let dismissing = HeroDefaultAnimationType.zoomOut
         hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+    }
+    
+    @IBAction func saveToDrafts(_ sender: Any) {
+        audioManager.save { (item) in
+            self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+            self.delegate?.audioItemViewControllerShouldPop(self)
+        }
+    }
+    
+    @IBAction func send(_ sender: Any) {
+        audioManager.save { (item) in
+            self.delegate?.audioItemViewController(self, shouldSendItem: item)
+        }
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
@@ -476,7 +490,6 @@ extension AudioItemViewController {
     func audioManagerDidCancelCropping(_ player: AudioManager) {
         lblTimer.text = "00:00:00"
         hideCropView()
-        delegate?.audioItemViewController(self, didSaveItem: player.item)
         scrollView.isScrollEnabled = true
     }
 }
@@ -498,7 +511,6 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
             self.audioManager.setImageAttachment(nil) {
                 DispatchQueue.main.async {
                     self.configureImageAttachment()
-                    self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
                 }
             }
         }
@@ -537,7 +549,6 @@ extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigation
             self.audioManager.setImageAttachment(image) {
                 DispatchQueue.main.async {
                     self.configureImageAttachment()
-                    self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
                 }
             }
         }

@@ -46,6 +46,12 @@ class AudioManager: NSObject {
         )
     }
     
+    func save(completion: (AudioItem) -> Void) {
+        FileManager.default.deleteExistingFile(with: self.originalItem.path)
+        FileManager.default.renameFile(from: "\(item.id)_staging.m4a", to: self.originalItem.path)
+        completion(item)
+    }
+    
     func updateTitle(title: String) {
         let audioItem = AudioItem(
             id: item.id,

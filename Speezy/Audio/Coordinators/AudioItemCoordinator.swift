@@ -65,7 +65,11 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         navigationController.present(viewController, animated: true, completion: nil)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem) {
+    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {
+        listViewController?.reloadItem(item)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem) {
         listViewController?.reloadItem(item)
     }
     
