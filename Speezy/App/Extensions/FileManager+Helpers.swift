@@ -43,6 +43,18 @@ extension FileManager {
         }
     }
     
+    func copy(original originalURL: URL, to destinationURL: URL) {
+        do {
+            if fileExists(atPath: destinationURL.path) {
+               deleteExistingURL(destinationURL)
+            }
+            
+            try copyItem(at: originalURL, to: destinationURL)
+        } catch {
+            print(error)
+        }
+    }
+    
     func deleteExistingFile(with fileName: String) {
         do {
             let documentDirectory = try url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)

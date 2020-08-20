@@ -10,21 +10,28 @@ import AVKit
 
 extension AVAudioSession {
     var isHeadphonesConnected: Bool {
-        return !currentRoute.outputs.filter { $0.portType == AVAudioSession.Port.headphones }.isEmpty
+        return !currentRoute.outputs.filter {
+            $0.portType == AVAudioSession.Port.headphones || $0.portType == AVAudioSession.Port.bluetoothHFP || $0.portType == AVAudioSession.Port.bluetoothA2DP
+            
+        }.isEmpty
     }
     
     func selectCorrectOutput() throws {
-        if isHeadphonesConnected {
-            try overrideOutputAudioPort(.none)
-        } else {
-            try overrideOutputAudioPort(.speaker)
+        do {
+            if isHeadphonesConnected {
+                try overrideOutputAudioPort(.none)
+            } else {
+                try overrideOutputAudioPort(.speaker)
+            }
+        } catch {
+            print(error)
         }
     }
     
     func prepareForPlayback() {
         do {
+            try setCategory(.playback, mode: .spokenAudio)
             try selectCorrectOutput()
-            try setCategory(.playAndRecord, mode: .spokenAudio)
             try setActive(true, options: [])
         } catch {
             assertionFailure("Something went wrong configuring playback")

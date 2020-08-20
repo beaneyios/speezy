@@ -47,7 +47,6 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     @IBOutlet weak var cropWaveContainer: UIView!
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var tagContainer: UIView!
     @IBOutlet weak var playbackControlsContainer: UIView!
     
     @IBOutlet weak var lblTimer: UILabel!
@@ -58,7 +57,6 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     private var playbackControlsView: PlaybackControlsView?
     private var mainWave: PlaybackView?
     private var cropView: CropView?
-    private var tagsView: TagsView?
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -69,20 +67,7 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
         super.viewDidLoad()
         
         configureAudioManager()
-        configureNavButtons()
-        configureMainSoundWave()
-        configurePlaybackControls()
-        configureTitle()
-        configureTags()
-        configureImageAttachment()
-        hideCropView(animated: false)
-        
-        hero.isEnabled = true
-        btnRecord.hero.id = "record"
-        
-        let presenting = HeroDefaultAnimationType.zoom
-        let dismissing = HeroDefaultAnimationType.zoomOut
-        hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+        configureSubviews()
     }
     
     @IBAction func saveToDrafts(_ sender: Any) {
@@ -160,25 +145,26 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     @IBAction func attachPhoto(_ sender: Any) {
         showAttachmentAlert()
     }
-    
-    @IBAction func share(_ sender: Any) {
-        if audioManager.hasRecorded == false {
-            let alert = SCLAlertView()
-            alert.showError("No recording found", subTitle: "You haven't recorded anything! Tap the record button to get started", closeButtonTitle: "OK")
-            return
-        }
-        
-        btnShare.disable()
-        share(item: audioManager.item, attachmentImage: audioManager.currentImageAttachment) {
-            DispatchQueue.main.async {
-                self.btnShare.enable()
-            }
-        }
-    }
 }
 
 // MARK: Configuration
 extension AudioItemViewController {
+    private func configureSubviews() {
+        configureNavButtons()
+        configureMainSoundWave()
+        configurePlaybackControls()
+        configureTitle()
+        configureImageAttachment()
+        hideCropView(animated: false)
+        
+        hero.isEnabled = true
+        btnRecord.hero.id = "record"
+        
+        let presenting = HeroDefaultAnimationType.zoom
+        let dismissing = HeroDefaultAnimationType.zoomOut
+        hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+    }
+    
     private func configureAudioManager() {
         audioManager.addObserver(self)
     }
@@ -236,29 +222,6 @@ extension AudioItemViewController {
                 self.btnCamera.setImage(image, for: .normal)
             }
         }
-    }
-    
-    private func configureTags() {
-        tagsView?.removeFromSuperview()
-        tagsView = nil
-        
-        let tagsView = TagsView.createFromNib()
-        tagsView.delegate = self
-        tagContainer.addSubview(tagsView)
-        
-        tagsView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
-        tagsView.configure(
-            with: audioManager.item.tags,
-            foreColor: .white,
-            backColor: .clear,
-            scrollDirection: .vertical,
-            showAddTag: true
-        )
-
-        self.tagsView = tagsView
     }
 }
 
@@ -353,33 +316,6 @@ extension AudioItemViewController {
     }
 }
 
-// MARK: Tags view delegate
-extension AudioItemViewController: TagsViewDelegate {
-    func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
-        
-        let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
-        let alert = SCLAlertView(appearance: appearance)
-        let textField = alert.addTextField("Add tag")
-        textField.layer.cornerRadius = 12.0
-        alert.addButton("Add") {
-            guard let text = textField.text else {
-                return
-            }
-            
-            self.audioManager.addTag(title: text)
-            self.configureTags()
-        }
-        
-        alert.showEdit(
-            "Add Tag",
-            subTitle: "Add the title for your tag here",
-            closeButtonTitle: "Cancel",
-            colorStyle: 0x3B08A0,
-            animationStyle: .bottomToTop
-        )
-    }
-}
-
 // MARK: RECORDING
 extension AudioItemViewController {
     func audioManagerDidStartRecording(_ player: AudioManager) {
@@ -388,9 +324,6 @@ extension AudioItemViewController {
         recordHidables.forEach {
             $0.disable()
         }
-
-        tagsView?.alpha = 0.5
-        tagsView?.isUserInteractionEnabled = false
     }
     
     func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
@@ -422,9 +355,6 @@ extension AudioItemViewController {
         recordHidables.forEach {
             $0.enable()
         }
-        
-        tagsView?.alpha = 1.0
-        tagsView?.isUserInteractionEnabled = true
     }
 }
 

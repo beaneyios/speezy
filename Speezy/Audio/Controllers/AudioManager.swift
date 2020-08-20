@@ -46,10 +46,30 @@ class AudioManager: NSObject {
         )
     }
     
+    func createStagingFile() {
+        DispatchQueue.global().async {
+            do {
+                try FileManager.default.copyItem(at: self.originalItem.url, to: self.item.url)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     func save(completion: (AudioItem) -> Void) {
         FileManager.default.deleteExistingFile(with: self.originalItem.path)
-        FileManager.default.renameFile(from: "\(item.id)_staging.m4a", to: self.originalItem.path)
-        completion(item)
+        FileManager.default.copy(original: item.url, to: originalItem.url)
+        
+        let newItem = AudioItem(
+            id: item.id,
+            path: "\(item.id).m4a",
+            title: item.title,
+            date: item.date,
+            tags: item.tags
+        )
+        
+        AudioStorage.saveItem(newItem)
+        completion(newItem)
     }
     
     func updateTitle(title: String) {
@@ -62,8 +82,6 @@ class AudioManager: NSObject {
         )
         
         self.item = audioItem
-        
-        self.prepareStagingFile()
     }
     
     func addTag(title: String) {
@@ -78,7 +96,6 @@ class AudioManager: NSObject {
         )
         
         self.item = newItem
-        self.prepareStagingFile()
     }
     
     func setImageAttachment(_ attachment: UIImage?, completion: @escaping () -> Void) {
@@ -91,14 +108,6 @@ class AudioManager: NSObject {
     
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
         audioAttachmentManager.fetchAttachment(forItem: item, completion: completion)
-    }
-    
-    private func prepareStagingFile() {
-        do {
-            try FileManager.default.copyItem(at: originalItem.url, to: item.url)
-        } catch {
-            assertionFailure("This copy should always work.")
-        }
     }
 }
 

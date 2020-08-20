@@ -62,7 +62,19 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         viewController.audioManager = audioManager
         viewController.delegate = self
         viewController.modalPresentationStyle = .fullScreen
-        navigationController.present(viewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.present(navigationController, animated: true, completion: nil)
+    }
+    
+    private func navigateToPublish(item: AudioItem, on pushingViewController: UIViewController) {
+        guard let viewController = storyboard.instantiateViewController(identifier: "PublishViewController") as? PublishViewController else {
+            return
+        }
+        
+        let audioManager = AudioManager(item: item)
+        viewController.audioManager = audioManager
+        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
     }
     
     func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {
@@ -71,6 +83,7 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     
     func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem) {
         listViewController?.reloadItem(item)
+        navigateToPublish(item: item, on: viewController)
     }
     
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
