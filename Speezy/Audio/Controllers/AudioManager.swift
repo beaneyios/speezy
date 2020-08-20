@@ -21,10 +21,8 @@ class AudioManager: NSObject {
     }
     
     private var firstRecord = true
-    var shouldAutomaticallyShowTitleSelector: Bool {
-        let firstRecord = self.firstRecord
-        self.firstRecord = false
-        return firstRecord && item.title == "No title"
+    var noTitleSet: Bool {
+        item.title == "No title"
     }
     
     private var observations = [ObjectIdentifier : Observation]()

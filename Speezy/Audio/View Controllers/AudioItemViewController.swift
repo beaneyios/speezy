@@ -70,10 +70,24 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
         configureSubviews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     @IBAction func saveToDrafts(_ sender: Any) {
-        audioManager.save { (item) in
-            self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-            self.delegate?.audioItemViewControllerShouldPop(self)
+        let saveAction = {
+            self.audioManager.save { (item) in
+                self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                self.delegate?.audioItemViewControllerShouldPop(self)
+            }
+        }
+        
+        if audioManager.noTitleSet {
+            self.showTitleAlert {
+                saveAction()
+            }
+        } else {
+            saveAction()
         }
     }
     
@@ -84,7 +98,7 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
-        chooseTitle()
+        showTitleAlert()
     }
     
     @IBAction func close(_ sender: Any) {
@@ -227,7 +241,7 @@ extension AudioItemViewController {
 
 // MARK: Actions
 extension AudioItemViewController {
-    private func chooseTitle() {
+    private func showTitleAlert(completion: (() -> Void)? = nil) {
         let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
         let alert = SCLAlertView(appearance: appearance)
         let textField = alert.addTextField("Add a title")
@@ -239,6 +253,7 @@ extension AudioItemViewController {
             
             self.audioManager.updateTitle(title: text)
             self.configureTitle()
+            completion?()
         }
         
         alert.showEdit(
@@ -336,16 +351,8 @@ extension AudioItemViewController {
     
     func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
         if maxLimitedReached {
-            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
-            let alert = SCLAlertView(appearance: appearance)
-            alert.addButton("Done") {
-                if self.audioManager.shouldAutomaticallyShowTitleSelector {
-                    self.chooseTitle()
-                }
-            }
+            let alert = SCLAlertView()
             alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
-        } else if audioManager.shouldAutomaticallyShowTitleSelector {
-            chooseTitle()
         }
         
         btnRecord.stopLoading()
