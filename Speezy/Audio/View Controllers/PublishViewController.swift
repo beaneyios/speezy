@@ -62,7 +62,7 @@ extension PublishViewController: TagsViewDelegate {
             with: audioManager.item.tags,
             foreColor: UIColor(named: "speezy-purple")!,
             backColor: .clear,
-            scrollDirection: .vertical,
+            scrollDirection: .horizontal,
             showAddTag: true
         )
 
@@ -75,7 +75,7 @@ extension PublishViewController: TagsViewDelegate {
         let alert = SCLAlertView(appearance: appearance)
         let textField = alert.addTextField("Add tag")
         textField.layer.cornerRadius = 12.0
-        alert.addButton("Add") {
+        alert.addButton("Add tag") {
             guard let text = textField.text else {
                 return
             }
@@ -84,9 +84,19 @@ extension PublishViewController: TagsViewDelegate {
             self.configureTags()
         }
         
+        alert.addButton("Add another") {
+            guard let text = textField.text else {
+                return
+            }
+            
+            self.audioManager.addTag(title: text)
+            self.configureTags()
+            self.tagsViewDidSelectAddTag(tagsView)
+        }
+        
         alert.showEdit(
             "Add Tag",
-            subTitle: "Add the title for your tag here",
+            subTitle: "Add the title for your tag here. Add multiple tags by separating with a comma (,)",
             closeButtonTitle: "Cancel",
             colorStyle: 0x3B08A0,
             animationStyle: .bottomToTop

@@ -30,11 +30,9 @@ class TagsView: UIView, NibLoadable {
         self.tags = tags
         
         if showAddTag {
-            self.tags.append(
-                Tag(
-                    id: "add_tag",
-                    title: "Add Tag +"
-                )
+            self.tags.insert(
+                Tag(id: "add_tag", title: "Add Tag +"),
+                at: 0
             )
         }
         

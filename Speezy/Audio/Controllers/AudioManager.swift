@@ -83,14 +83,19 @@ class AudioManager: NSObject {
     }
     
     func addTag(title: String) {
-        let tag = Tag(id: UUID().uuidString, title: title)
+        
+        let tagTitles = title.split(separator: ",")
+        
+        let tags = tagTitles.map {
+            Tag(id: UUID().uuidString, title: String($0))
+        }
                 
         let newItem = AudioItem(
             id: item.id,
             path: item.path,
             title: item.title,
             date: item.date,
-            tags: item.tags + [tag]
+            tags: item.tags + tags
         )
         
         self.item = newItem
