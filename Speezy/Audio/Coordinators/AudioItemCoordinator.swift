@@ -61,8 +61,9 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
-        viewController.modalPresentationStyle = .fullScreen
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.interactivePopGestureRecognizer?.delegate = nil
         navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.present(navigationController, animated: true, completion: nil)
     }

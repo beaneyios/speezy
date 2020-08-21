@@ -12,6 +12,8 @@ import SCLAlertView
 
 class PublishViewController: UIViewController {
     @IBOutlet weak var waveContainer: UIView!
+    private var waveView: PlaybackView!
+    
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var imgBtn: SpeezyButton!
     
@@ -34,6 +36,7 @@ class PublishViewController: UIViewController {
         }
         
         self.configureTags()
+        self.configureMainSoundWave()
     }
     
     @IBAction func didTapSend(_ sender: Any) {
@@ -101,5 +104,19 @@ extension PublishViewController: TagsViewDelegate {
             colorStyle: 0x3B08A0,
             animationStyle: .bottomToTop
         )
+    }
+}
+
+extension PublishViewController {
+    private func configureMainSoundWave() {
+        let soundWaveView = PlaybackView.instanceFromNib()
+        waveContainer.addSubview(soundWaveView)
+        
+        soundWaveView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(self.waveContainer)
+        }
+        
+        soundWaveView.configure(manager: audioManager)
+        waveView = soundWaveView
     }
 }
