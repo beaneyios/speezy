@@ -445,11 +445,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-FQ-uJf">
-                                        <rect key="frame" x="16" y="16.5" width="46" height="31"/>
+                                        <rect key="frame" x="26" y="16.5" width="47" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="zpV-8a-V78"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                         <state key="normal" title="Back">
                                             <color key="titleColor" name="speezy-purple"/>
                                         </state>
@@ -465,17 +465,37 @@
                                             <constraint firstAttribute="height" constant="1" id="9Mo-TB-KQJ"/>
                                         </constraints>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-button" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-Hw-0qT">
+                                        <rect key="frame" x="8" y="16.5" width="15" height="31"/>
+                                        <color key="tintColor" name="speezy-purple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="15" id="5YI-Pc-fNl"/>
+                                            <constraint firstAttribute="height" constant="31" id="ju5-Cy-6aH"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XI-MP-8ze">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="64"/>
+                                        <connections>
+                                            <action selector="didTapBack:" destination="hpF-aO-sJo" eventType="touchUpInside" id="P9v-wk-89x"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="4XI-MP-8ze" firstAttribute="trailing" secondItem="ZRh-FQ-uJf" secondAttribute="trailing" constant="20" id="1DA-jO-sP3"/>
+                                    <constraint firstItem="4XI-MP-8ze" firstAttribute="leading" secondItem="xIR-Ui-ZKg" secondAttribute="leading" id="6ic-5H-y4o"/>
+                                    <constraint firstItem="4XI-MP-8ze" firstAttribute="top" secondItem="xIR-Ui-ZKg" secondAttribute="top" id="ERk-6p-bTY"/>
                                     <constraint firstItem="hcj-r2-4Fw" firstAttribute="leading" secondItem="xIR-Ui-ZKg" secondAttribute="leading" id="ERs-uC-WsG"/>
                                     <constraint firstItem="hcj-r2-4Fw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZRh-FQ-uJf" secondAttribute="bottom" id="Lme-hP-v4q"/>
+                                    <constraint firstItem="ZRh-FQ-uJf" firstAttribute="leading" secondItem="nLi-Hw-0qT" secondAttribute="trailing" constant="3" id="Ovs-LL-0oB"/>
                                     <constraint firstAttribute="bottom" secondItem="hcj-r2-4Fw" secondAttribute="bottom" id="PTU-9x-a8r"/>
                                     <constraint firstItem="ZRh-FQ-uJf" firstAttribute="centerY" secondItem="xIR-Ui-ZKg" secondAttribute="centerY" id="Rnr-m1-hj6"/>
-                                    <constraint firstItem="ZRh-FQ-uJf" firstAttribute="leading" secondItem="xIR-Ui-ZKg" secondAttribute="leading" constant="16" id="gp6-7y-Gc1"/>
+                                    <constraint firstAttribute="bottom" secondItem="4XI-MP-8ze" secondAttribute="bottom" id="dev-lL-2jj"/>
                                     <constraint firstAttribute="height" constant="64" id="iaD-96-BXq"/>
                                     <constraint firstItem="ZRh-FQ-uJf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xIR-Ui-ZKg" secondAttribute="top" id="jOB-Jb-cMS"/>
                                     <constraint firstAttribute="trailing" secondItem="hcj-r2-4Fw" secondAttribute="trailing" id="lry-sK-2UA"/>
+                                    <constraint firstItem="nLi-Hw-0qT" firstAttribute="centerY" secondItem="ZRh-FQ-uJf" secondAttribute="centerY" id="wEY-S8-Bwt"/>
+                                    <constraint firstItem="nLi-Hw-0qT" firstAttribute="leading" secondItem="xIR-Ui-ZKg" secondAttribute="leading" constant="8" id="xpp-TP-hiw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdL-1K-b1V">
@@ -794,6 +814,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back-button" width="250" height="500"/>
         <image name="bottom-gradient" width="120" height="22"/>
         <image name="btn-close" width="500" height="500"/>
         <image name="btn-edit" width="491" height="448"/>
