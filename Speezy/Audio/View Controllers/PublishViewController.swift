@@ -20,6 +20,8 @@ class PublishViewController: UIViewController {
     @IBOutlet weak var tagsContainer: UIView!
     private var tagsView: TagsView?
     
+    
+    
     @IBOutlet weak var titleToggle: UISwitch!
     @IBOutlet weak var imageToggle: UISwitch!
     @IBOutlet weak var tagsToggle: UISwitch!
@@ -29,12 +31,7 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audioManager.fetchImageAttachment { (image) in
-            if let image = image {
-                self.imgBtn.setImage(image, for: .normal)
-            }
-        }
-        
+        self.configureImageAttachment()
         self.configureTags()
         self.configureMainSoundWave()
     }
@@ -45,6 +42,10 @@ class PublishViewController: UIViewController {
     
     @IBAction func didTapDraft(_ sender: Any) {
         
+    }
+    
+    @IBAction func didTapCameraButton(_ sender: Any) {
+        showAttachmentAlert()
     }
 }
 
@@ -118,5 +119,87 @@ extension PublishViewController {
         
         soundWaveView.configure(manager: audioManager)
         waveView = soundWaveView
+    }
+}
+
+extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func configureImageAttachment() {
+        imgBtn.startLoading(color: .lightGray)
+        imgBtn.imageView?.contentMode = .scaleAspectFill
+        audioManager.fetchImageAttachment { (image) in
+            DispatchQueue.main.async {
+                self.imgBtn.stopLoading()
+                self.imgBtn.layer.cornerRadius = 5.0
+                guard let image = image else {
+                    self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
+                    return
+                }
+                
+                self.imgBtn.setImage(image, for: .normal)
+            }
+        }
+    }
+    
+    private func showAttachmentAlert() {
+        let alert = UIAlertController(title: "Image Selection", message: "From where you want to pick this image?", preferredStyle: .actionSheet)
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+            self.getImage(fromSourceType: .camera)
+        }
+        
+        let photoAlbumAction = UIAlertAction(title: "Photo Album", style: .default) { action in
+            self.getImage(fromSourceType: .photoLibrary)
+        }
+        
+        let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
+            self.audioManager.setImageAttachment(nil) {
+                DispatchQueue.main.async {
+                    self.configureImageAttachment()
+                }
+            }
+        }
+        
+        alert.addAction(cameraAction)
+        alert.addAction(photoAlbumAction)
+        alert.addAction(clearPhotoAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        //Check is source type available
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            imgBtn.startLoading(color: .lightGray)
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+                return
+            }
+            
+            self.audioManager.setImageAttachment(image) {
+                DispatchQueue.main.async {
+                    self.configureImageAttachment()
+                }
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imgBtn.stopLoading()
+        picker.dismiss(animated: true, completion: nil)
     }
 }

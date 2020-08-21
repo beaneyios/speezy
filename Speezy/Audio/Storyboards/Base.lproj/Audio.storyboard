@@ -115,28 +115,6 @@
                                                     <action selector="chooseTitle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IaB-GL-ZvB"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Um-fY-qrB" userLabel="Camera container">
-                                                <rect key="frame" x="309" y="16" width="50" height="50"/>
-                                                <subviews>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVx-we-4Et" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="camera-button"/>
-                                                        <connections>
-                                                            <action selector="attachPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Kq-LY-7mK"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="eVx-we-4Et" secondAttribute="trailing" id="794-E0-dO5"/>
-                                                    <constraint firstAttribute="height" constant="50" id="XGV-6j-Rdo"/>
-                                                    <constraint firstAttribute="width" constant="50" id="geo-Ux-6Jn"/>
-                                                    <constraint firstAttribute="bottom" secondItem="eVx-we-4Et" secondAttribute="bottom" id="odE-Vk-oOD"/>
-                                                    <constraint firstItem="eVx-we-4Et" firstAttribute="top" secondItem="3Um-fY-qrB" secondAttribute="top" id="s2n-vg-mta"/>
-                                                    <constraint firstItem="eVx-we-4Et" firstAttribute="leading" secondItem="3Um-fY-qrB" secondAttribute="leading" id="yEX-dC-fln"/>
-                                                </constraints>
-                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHa-y7-Fyu">
                                                 <rect key="frame" x="78.5" y="183" width="218.5" height="57"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
@@ -297,7 +275,6 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="LKo-eR-PaE" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="1Yy-vz-XKF"/>
-                                            <constraint firstItem="3Um-fY-qrB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hCE-Bg-OhX" secondAttribute="trailing" constant="16" id="2cd-X2-d0Z"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="2kF-DV-yPE"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="top" secondItem="0Kl-TL-kjc" secondAttribute="bottom" constant="16" id="3Ej-Po-BrC"/>
                                             <constraint firstItem="hCE-Bg-OhX" firstAttribute="centerY" secondItem="QDO-J8-gZl" secondAttribute="centerY" id="ITK-8H-PDW"/>
@@ -310,8 +287,6 @@
                                             <constraint firstAttribute="trailing" secondItem="aD4-iy-Eyt" secondAttribute="trailing" id="h0b-58-Msv"/>
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="q2o-LB-VQq"/>
                                             <constraint firstItem="0Kl-TL-kjc" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="rR0-lZ-5rv"/>
-                                            <constraint firstItem="3Um-fY-qrB" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="16" id="rqs-Bt-ND6"/>
-                                            <constraint firstAttribute="trailing" secondItem="3Um-fY-qrB" secondAttribute="trailing" constant="16" id="tUO-Ev-UIQ"/>
                                             <constraint firstItem="hCE-Bg-OhX" firstAttribute="leading" secondItem="QDO-J8-gZl" secondAttribute="trailing" constant="8" id="td6-Gf-LMn"/>
                                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="ue9-Xs-sa7"/>
                                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" id="vny-A6-7ho"/>
@@ -349,7 +324,6 @@
                     <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="bgGradient" destination="Zmk-Mo-9I9" id="Mkh-OT-o7C"/>
-                        <outlet property="btnCamera" destination="eVx-we-4Et" id="hyF-SG-L6m"/>
                         <outlet property="btnCrop" destination="lqf-bC-Bmq" id="dgY-iO-hQs"/>
                         <outlet property="btnCut" destination="YjA-7i-Qk8" id="L1P-Ux-HbZ"/>
                         <outlet property="btnDone" destination="IYG-qo-4mv" id="R6g-qb-Fsg"/>
@@ -387,9 +361,6 @@
                         <outletCollection property="cropHidables" destination="hCE-Bg-OhX" collectionClass="NSMutableArray" id="DAi-Zq-PDc"/>
                         <outletCollection property="cropHidables" destination="tp7-Oy-Ge7" collectionClass="NSMutableArray" id="TVR-3O-59x"/>
                         <outletCollection property="playbackHidables" destination="tp7-Oy-Ge7" collectionClass="NSMutableArray" id="KsH-uQ-cz4"/>
-                        <outletCollection property="cropHidables" destination="eVx-we-4Et" collectionClass="NSMutableArray" id="GEH-fz-F3m"/>
-                        <outletCollection property="recordHidables" destination="eVx-we-4Et" collectionClass="NSMutableArray" id="RoV-rf-pED"/>
-                        <outletCollection property="playbackHidables" destination="eVx-we-4Et" collectionClass="NSMutableArray" id="ZOu-pH-cEH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -567,6 +538,7 @@
                                                         <state key="normal" image="camera-button"/>
                                                         <connections>
                                                             <action selector="attachPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3p0-yx-bS1"/>
+                                                            <action selector="didTapCameraButton:" destination="hpF-aO-sJo" eventType="touchUpInside" id="sRX-nY-17T"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

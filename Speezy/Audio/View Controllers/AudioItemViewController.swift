@@ -155,10 +155,6 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     @IBAction func toggleCut(_ sender: Any) {
         
     }
-    
-    @IBAction func attachPhoto(_ sender: Any) {
-        showAttachmentAlert()
-    }
 }
 
 // MARK: Configuration
@@ -168,7 +164,6 @@ extension AudioItemViewController {
         configureMainSoundWave()
         configurePlaybackControls()
         configureTitle()
-        configureImageAttachment()
         hideCropView(animated: false)
         
         hero.isEnabled = true
@@ -219,23 +214,6 @@ extension AudioItemViewController {
     
     private func configureTitle() {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
-    }
-    
-    private func configureImageAttachment() {
-        btnCamera.startLoading()
-        btnCamera.imageView?.contentMode = .scaleAspectFill
-        audioManager.fetchImageAttachment { (image) in
-            DispatchQueue.main.async {
-                self.btnCamera.stopLoading()
-                self.btnCamera.layer.cornerRadius = self.btnCamera.frame.width / 2.0
-                guard let image = image else {
-                    self.btnCamera.setImage(UIImage(named: "camera-button"), for: .normal)
-                    return
-                }
-                
-                self.btnCamera.setImage(image, for: .normal)
-            }
-        }
     }
 }
 
@@ -428,71 +406,5 @@ extension AudioItemViewController {
         lblTimer.text = "00:00:00"
         hideCropView()
         scrollView.isScrollEnabled = true
-    }
-}
-
-// MARK: Image attachment
-extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func showAttachmentAlert() {
-        let alert = UIAlertController(title: "Image Selection", message: "From where you want to pick this image?", preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
-            self.getImage(fromSourceType: .camera)
-        }
-        
-        let photoAlbumAction = UIAlertAction(title: "Photo Album", style: .default) { action in
-            self.getImage(fromSourceType: .photoLibrary)
-        }
-        
-        let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
-            self.audioManager.setImageAttachment(nil) {
-                DispatchQueue.main.async {
-                    self.configureImageAttachment()
-                }
-            }
-        }
-        
-        alert.addAction(cameraAction)
-        alert.addAction(photoAlbumAction)
-        alert.addAction(clearPhotoAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
-        //Check is source type available
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = sourceType
-            btnCamera.startLoading()
-            self.present(imagePickerController, animated: true, completion: nil)
-        }
-    }
-    
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
-    ) {
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
-                return
-            }
-            
-            self.audioManager.setImageAttachment(image) {
-                DispatchQueue.main.async {
-                    self.configureImageAttachment()
-                }
-            }
-        }
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        btnCamera.stopLoading()
-        picker.dismiss(animated: true, completion: nil)
     }
 }

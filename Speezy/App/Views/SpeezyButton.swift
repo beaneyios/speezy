@@ -15,7 +15,7 @@ class SpeezyButton: UIButton {
     private var image: UIImage?
     private var isLoading: Bool = false
     
-    func startLoading() {
+    func startLoading(color: UIColor = .white) {
         if isLoading {
             return
         }
@@ -28,7 +28,7 @@ class SpeezyButton: UIButton {
         setImage(nil, for: .normal)
         
         let spinner = UIActivityIndicatorView(style: .large)
-        spinner.color = .white
+        spinner.color = color
         spinner.startAnimating()
         addSubview(spinner)
         
