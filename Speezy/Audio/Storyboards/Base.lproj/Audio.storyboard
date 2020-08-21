@@ -455,6 +455,7 @@
                                         </state>
                                         <connections>
                                             <action selector="close:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MF4-oB-Ren"/>
+                                            <action selector="didTapBack:" destination="hpF-aO-sJo" eventType="touchUpInside" id="mz7-pF-Fxg"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcj-r2-4Fw" userLabel="Separator">
@@ -552,7 +553,13 @@
                                                     <constraint firstItem="MHz-bI-Ysm" firstAttribute="leading" secondItem="DR9-wQ-4m1" secondAttribute="leading" id="k6C-hJ-hsU"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type your title here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gzp-Za-zt3">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type your title here..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24a-fQ-HND" userLabel="Type your title here...">
+                                                <rect key="frame" x="20" y="24" width="158" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gzp-Za-zt3">
                                                 <rect key="frame" x="16" y="16" width="235" height="100"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -636,6 +643,8 @@
                                             <constraint firstItem="ftm-dz-B09" firstAttribute="leading" secondItem="5BK-cn-xp6" secondAttribute="leading" constant="16" id="C8v-rH-QRK"/>
                                             <constraint firstItem="tf9-2W-sg0" firstAttribute="leading" secondItem="Haf-oj-JbG" secondAttribute="trailing" constant="16" id="CeP-gY-Zeb"/>
                                             <constraint firstAttribute="trailing" secondItem="swo-Dh-02v" secondAttribute="trailing" constant="16" id="CuX-Bz-1rB"/>
+                                            <constraint firstItem="24a-fQ-HND" firstAttribute="leading" secondItem="gzp-Za-zt3" secondAttribute="leading" constant="4" id="Dat-gs-8pD"/>
+                                            <constraint firstItem="24a-fQ-HND" firstAttribute="top" secondItem="gzp-Za-zt3" secondAttribute="top" constant="8" id="E7e-3B-tZJ"/>
                                             <constraint firstItem="5h9-LV-hHh" firstAttribute="centerY" secondItem="ftm-dz-B09" secondAttribute="centerY" id="EOV-yP-4mn"/>
                                             <constraint firstItem="5h9-LV-hHh" firstAttribute="leading" secondItem="ftm-dz-B09" secondAttribute="trailing" constant="16" id="Eaf-Em-Yky"/>
                                             <constraint firstItem="DR9-wQ-4m1" firstAttribute="leading" secondItem="gzp-Za-zt3" secondAttribute="trailing" constant="8" id="Jft-nD-mjo"/>
@@ -695,6 +704,7 @@
                         <outlet property="tagsContainer" destination="NMp-2I-waI" id="YRc-Hi-Nod"/>
                         <outlet property="tagsToggle" destination="swo-Dh-02v" id="l6G-6X-Pfh"/>
                         <outlet property="textView" destination="gzp-Za-zt3" id="kb3-Xp-vEF"/>
+                        <outlet property="textViewPlaceholder" destination="24a-fQ-HND" id="pL5-h2-YKi"/>
                         <outlet property="titleToggle" destination="5h9-LV-hHh" id="6UO-sW-V6U"/>
                         <outlet property="waveContainer" destination="fXW-le-O77" id="W6D-IF-n7s"/>
                     </connections>

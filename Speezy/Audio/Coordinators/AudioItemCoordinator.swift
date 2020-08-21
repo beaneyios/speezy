@@ -46,7 +46,7 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         let item = AudioItem(
             id: id,
             path: "\(id).m4a",
-            title: "No title",
+            title: "",
             date: Date(),
             tags: []
         )

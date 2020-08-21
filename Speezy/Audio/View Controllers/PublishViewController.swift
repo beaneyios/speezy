@@ -15,12 +15,12 @@ class PublishViewController: UIViewController {
     private var waveView: PlaybackView!
     
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var textViewPlaceholder: UILabel!
+    
     @IBOutlet weak var imgBtn: SpeezyButton!
     
     @IBOutlet weak var tagsContainer: UIView!
     private var tagsView: TagsView?
-    
-    
     
     @IBOutlet weak var titleToggle: UISwitch!
     @IBOutlet weak var imageToggle: UISwitch!
@@ -31,9 +31,7 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.configureImageAttachment()
-        self.configureTags()
-        self.configureMainSoundWave()
+        configureSubviews()
     }
     
     @IBAction func didTapSend(_ sender: Any) {
@@ -46,6 +44,45 @@ class PublishViewController: UIViewController {
     
     @IBAction func didTapCameraButton(_ sender: Any) {
         showAttachmentAlert()
+    }
+    
+    @IBAction func didTapBack(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension PublishViewController {
+    private func configureSubviews() {
+        configureTextView()
+        configureImageAttachment()
+        configureTags()
+        configureMainSoundWave()
+    }
+}
+
+extension PublishViewController: UITextViewDelegate {
+    private func configureTextView() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(gesture)
+        textView.delegate = self
+        
+        textViewPlaceholder.isHidden = audioManager.item.title != ""
+        textView.text = audioManager.item.title
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text != "") {
+            textViewPlaceholder.isHidden = true
+        } else {
+            textViewPlaceholder.isHidden = false
+        }
+        
+        audioManager.updateTitle(title: text)
+        return true
     }
 }
 
@@ -126,16 +163,27 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
     private func configureImageAttachment() {
         imgBtn.startLoading(color: .lightGray)
         imgBtn.imageView?.contentMode = .scaleAspectFill
-        audioManager.fetchImageAttachment { (image) in
+        
+        let imageApplication: (UIImage?) -> Void = { image in
+            self.imgBtn.stopLoading()
+            self.imgBtn.layer.cornerRadius = 5.0
+            guard let image = image else {
+                self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
+                return
+            }
+            
+            self.imgBtn.setImage(image, for: .normal)
+        }
+        
+        if let image = audioManager.currentImageAttachment {
             DispatchQueue.main.async {
-                self.imgBtn.stopLoading()
-                self.imgBtn.layer.cornerRadius = 5.0
-                guard let image = image else {
-                    self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
-                    return
+                imageApplication(image)
+            }
+        } else {
+            audioManager.fetchImageAttachment { (image) in
+                DispatchQueue.main.async {
+                    imageApplication(image)
                 }
-                
-                self.imgBtn.setImage(image, for: .normal)
             }
         }
     }
@@ -152,11 +200,8 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
-            self.audioManager.setImageAttachment(nil) {
-                DispatchQueue.main.async {
-                    self.configureImageAttachment()
-                }
-            }
+            self.audioManager.setImageAttachment(nil)
+            self.configureImageAttachment()
         }
         
         alert.addAction(cameraAction)
@@ -190,11 +235,9 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
                 return
             }
             
-            self.audioManager.setImageAttachment(image) {
-                DispatchQueue.main.async {
-                    self.configureImageAttachment()
-                }
-            }
+            
+            self.audioManager.setImageAttachment(image)
+            self.configureImageAttachment()
         }
     }
 

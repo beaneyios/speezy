@@ -16,10 +16,6 @@ class AudioManager: NSObject {
     private(set) var state = State.idle
     private(set) var hasUnsavedChanges: Bool = false
     
-    var currentImageAttachment: UIImage? {
-        audioAttachmentManager.imageAttachmentCache[item.id]
-    }
-    
     private var firstRecord = true
     var noTitleSet: Bool {
         item.title == "No title"
@@ -31,6 +27,8 @@ class AudioManager: NSObject {
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
     private let audioAttachmentManager = AudioAttachmentManager()
+    
+    private(set) var currentImageAttachment: UIImage?
     
     init(item: AudioItem) {
         self.originalItem = item
@@ -54,20 +52,38 @@ class AudioManager: NSObject {
         }
     }
     
-    func save(completion: (AudioItem) -> Void) {
-        FileManager.default.deleteExistingFile(with: self.originalItem.path)
-        FileManager.default.copy(original: item.url, to: originalItem.url)
+    func save(completion: @escaping (AudioItem) -> Void) {
+        let item = self.item
+        let originalItem = self.originalItem
         
-        let newItem = AudioItem(
-            id: item.id,
-            path: "\(item.id).m4a",
-            title: item.title,
-            date: item.date,
-            tags: item.tags
+        commitImageAttachment {
+            FileManager.default.deleteExistingFile(with: originalItem.path)
+            FileManager.default.copy(original: item.url, to: originalItem.url)
+            
+            let newItem = AudioItem(
+                id: item.id,
+                path: "\(item.id).m4a",
+                title: item.title,
+                date: item.date,
+                tags: item.tags
+            )
+            
+            AudioStorage.saveItem(newItem)
+            completion(newItem)
+        }
+    }
+    
+    private func commitImageAttachment(completion: @escaping () -> Void) {
+        guard let attachment = currentImageAttachment else {
+            completion()
+            return
+        }
+        
+        audioAttachmentManager.storeAttachment(
+            attachment,
+            forItem: item,
+            completion: completion
         )
-        
-        AudioStorage.saveItem(newItem)
-        completion(newItem)
     }
     
     func updateTitle(title: String) {
@@ -101,12 +117,8 @@ class AudioManager: NSObject {
         self.item = newItem
     }
     
-    func setImageAttachment(_ attachment: UIImage?, completion: @escaping () -> Void) {
-        audioAttachmentManager.storeAttachment(
-            attachment,
-            forItem: item,
-            completion: completion
-        )
+    func setImageAttachment(_ attachment: UIImage?) {
+        currentImageAttachment = attachment
     }
     
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
