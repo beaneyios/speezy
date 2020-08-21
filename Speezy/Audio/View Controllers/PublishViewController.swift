@@ -20,6 +20,7 @@ protocol PublishViewControllerDelegate: AnyObject {
 class PublishViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var playbackContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
     private var waveView: PlaybackView!
     
@@ -35,6 +36,10 @@ class PublishViewController: UIViewController {
     @IBOutlet weak var imageToggle: UISwitch!
     @IBOutlet weak var tagsToggle: UISwitch!
     
+    @IBOutlet weak var playbackBtn: UIButton!
+    
+    @IBOutlet weak var sendBtn: UIButton!
+    
     weak var delegate: PublishViewControllerDelegate?
     
     var audioManager: AudioManager!
@@ -42,7 +47,12 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureAudioManager()
         configureSubviews()
+    }
+    
+    @IBAction func didTapPlay(_ sender: Any) {
+        audioManager.togglePlayback()
     }
     
     @IBAction func didTapSend(_ sender: Any) {
@@ -97,7 +107,42 @@ extension PublishViewController {
         configureImageAttachment()
         configureTags()
         configureMainSoundWave()
+        configureSendButtons()
     }
+    
+    private func configureSendButtons() {
+        sendBtn.layer.cornerRadius = 10.0
+    }
+}
+
+extension PublishViewController: AudioManagerObserver {
+    private func configureAudioManager() {
+        audioManager.addObserver(self)
+    }
+    
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+        playbackBtn.setImage(UIImage(named: "pause-button"), for: .normal)
+    }
+    
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
+        playbackBtn.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
+        playbackBtn.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {}
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
+    func audioManagerDidCancelCropping(_ manager: AudioManager) {}
+    func audioManagerDidStartRecording(_ manager: AudioManager) {}
+    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
+    func audioManagerProcessingRecording(_ manager: AudioManager) {}
+    func audioManagerDidStopRecording(_ manager: AudioManager, maxLimitedReached: Bool) {}
 }
 
 extension PublishViewController: TagsViewDelegate {
@@ -169,6 +214,8 @@ extension PublishViewController {
         
         soundWaveView.configure(manager: audioManager)
         waveView = soundWaveView
+        
+        playbackContainer.layer.cornerRadius = 10.0
     }
 }
 
@@ -179,7 +226,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         let imageApplication: (UIImage?) -> Void = { image in
             self.imgBtn.stopLoading()
-            self.imgBtn.layer.cornerRadius = 5.0
+            self.imgBtn.layer.cornerRadius = 10.0
             guard let image = image else {
                 self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
                 return
