@@ -18,7 +18,7 @@ class AudioManager: NSObject {
     
     private var firstRecord = true
     var noTitleSet: Bool {
-        item.title == "No title"
+        item.title == ""
     }
     
     private var observations = [ObjectIdentifier : Observation]()
@@ -96,6 +96,8 @@ class AudioManager: NSObject {
         )
         
         self.item = audioItem
+        
+        hasUnsavedChanges = true
     }
     
     func addTag(title: String) {
@@ -115,10 +117,14 @@ class AudioManager: NSObject {
         )
         
         self.item = newItem
+        
+        hasUnsavedChanges = true
     }
     
     func setImageAttachment(_ attachment: UIImage?) {
         currentImageAttachment = attachment
+        
+        hasUnsavedChanges = true
     }
     
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {

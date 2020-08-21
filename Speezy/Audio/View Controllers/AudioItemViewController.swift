@@ -159,7 +159,11 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
 
 // MARK: Configuration
 extension AudioItemViewController {
-    private func configureSubviews() {
+    func configureAudioManager() {
+        audioManager.addObserver(self)
+    }
+    
+    func configureSubviews() {
         configureNavButtons()
         configureMainSoundWave()
         configurePlaybackControls()
@@ -172,10 +176,6 @@ extension AudioItemViewController {
         let presenting = HeroDefaultAnimationType.zoom
         let dismissing = HeroDefaultAnimationType.zoomOut
         hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
-    }
-    
-    private func configureAudioManager() {
-        audioManager.addObserver(self)
     }
     
     private func configureNavButtons() {

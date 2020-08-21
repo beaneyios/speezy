@@ -31,7 +31,7 @@ class AudioItemCell: UITableViewCell {
     
     func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
         self.audioItem = audioItem
-        lblTitle.text = audioItem.title
+        lblTitle.text = audioItem.title != "" ? audioItem.title : "No title"
         
         if audioItem.tags.count > 0 {
             tagContainerHeight.constant = 36.5

@@ -10,7 +10,16 @@ import Foundation
 import UIKit
 import SCLAlertView
 
+protocol PublishViewControllerDelegate: AnyObject {
+    func publishViewController(_ viewController: PublishViewController, shouldSendItem item: AudioItem)
+    func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem)
+    func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController)
+    func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController)
+}
+
 class PublishViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var waveContainer: UIView!
     private var waveView: PlaybackView!
     
@@ -26,6 +35,8 @@ class PublishViewController: UIViewController {
     @IBOutlet weak var imageToggle: UISwitch!
     @IBOutlet weak var tagsToggle: UISwitch!
     
+    weak var delegate: PublishViewControllerDelegate?
+    
     var audioManager: AudioManager!
     
     override func viewDidLoad() {
@@ -35,11 +46,20 @@ class PublishViewController: UIViewController {
     }
     
     @IBAction func didTapSend(_ sender: Any) {
-        
+        audioManager.save { (item) in
+            DispatchQueue.main.async {
+                self.delegate?.publishViewController(self, shouldSendItem: item)
+            }
+        }
     }
     
     @IBAction func didTapDraft(_ sender: Any) {
-        
+        audioManager.save { (item) in
+            DispatchQueue.main.async {
+                self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
+                self.delegate?.publishViewControllerShouldNavigateHome(self)
+            }
+        }
     }
     
     @IBAction func didTapCameraButton(_ sender: Any) {
@@ -47,42 +67,36 @@ class PublishViewController: UIViewController {
     }
     
     @IBAction func didTapBack(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if audioManager.hasUnsavedChanges {
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Save") {
+                self.audioManager.save { (item) in
+                    DispatchQueue.main.async {
+                        self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
+                        self.delegate?.publishViewControllerShouldNavigateBack(self)
+                    }
+                }
+            }
+            
+            alert.addButton("Discard") {
+                self.delegate?.publishViewControllerShouldNavigateBack(self)
+            }
+            
+            alert.showWarning("Changes not saved", subTitle: "You have unsaved changes, would you like to save or discard them?")
+        } else {
+            self.delegate?.publishViewControllerShouldNavigateBack(self)
+        }
     }
 }
 
 extension PublishViewController {
     private func configureSubviews() {
+        configureScrollView()
         configureTextView()
         configureImageAttachment()
         configureTags()
         configureMainSoundWave()
-    }
-}
-
-extension PublishViewController: UITextViewDelegate {
-    private func configureTextView() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(gesture)
-        textView.delegate = self
-        
-        textViewPlaceholder.isHidden = audioManager.item.title != ""
-        textView.text = audioManager.item.title
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text != "") {
-            textViewPlaceholder.isHidden = true
-        } else {
-            textViewPlaceholder.isHidden = false
-        }
-        
-        audioManager.updateTitle(title: text)
-        return true
     }
 }
 
@@ -111,7 +125,6 @@ extension PublishViewController: TagsViewDelegate {
     }
     
     func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
-        
         let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
         let alert = SCLAlertView(appearance: appearance)
         let textField = alert.addTextField("Add tag")
@@ -244,5 +257,44 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         imgBtn.stopLoading()
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PublishViewController: UIScrollViewDelegate {
+    private func configureScrollView() {
+        scrollView.delegate = self
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+}
+
+extension PublishViewController: UITextViewDelegate {
+    private func configureTextView() {
+        textView.delegate = self
+        textViewPlaceholder.isHidden = audioManager.item.title != ""
+        textView.text = audioManager.item.title
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            view.endEditing(true)
+            return false
+        }
+        
+        let updatedText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+
+        if updatedText.isEmpty {
+            textViewPlaceholder.isHidden = false
+        } else {
+            textViewPlaceholder.isHidden = true
+        }
+        
+        return true
     }
 }

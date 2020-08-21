@@ -567,7 +567,7 @@
                                                 </constraints>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NMp-2I-waI">
                                                 <rect key="frame" x="16" y="132" width="343" height="50"/>
@@ -701,6 +701,7 @@
                     <connections>
                         <outlet property="imageToggle" destination="tf9-2W-sg0" id="LLF-wh-4X2"/>
                         <outlet property="imgBtn" destination="MHz-bI-Ysm" id="kqr-fz-TeQ"/>
+                        <outlet property="scrollView" destination="Tt8-Dg-fId" id="uik-eV-uGq"/>
                         <outlet property="tagsContainer" destination="NMp-2I-waI" id="YRc-Hi-Nod"/>
                         <outlet property="tagsToggle" destination="swo-Dh-02v" id="l6G-6X-Pfh"/>
                         <outlet property="textView" destination="gzp-Za-zt3" id="kb3-Xp-vEF"/>
