@@ -295,6 +295,8 @@ extension PublishViewController: UITextViewDelegate {
             textViewPlaceholder.isHidden = true
         }
         
+        audioManager.updateTitle(title: updatedText)
+        
         return true
     }
 }
