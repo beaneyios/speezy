@@ -836,7 +836,7 @@
                                 <rect key="frame" x="0.0" y="417" width="375" height="250"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Ir-ch-V5x">
-                                        <rect key="frame" x="16" y="66" width="343" height="85"/>
+                                        <rect key="frame" x="16" y="54" width="343" height="85"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="Sfr-4o-TcT"/>
@@ -851,9 +851,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k2D-mh-Bgy">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-0t-PgU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-0t-PgU">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                                <color key="backgroundColor" name="alert-button-colour"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -877,7 +877,7 @@
                                     <constraint firstAttribute="trailing" secondItem="k2D-mh-Bgy" secondAttribute="trailing" id="WO6-Y8-1Ih"/>
                                     <constraint firstAttribute="height" constant="250" id="jBh-0L-YVe"/>
                                     <constraint firstAttribute="trailing" secondItem="9Ir-ch-V5x" secondAttribute="trailing" constant="16" id="ubQ-pe-c5u"/>
-                                    <constraint firstItem="9Ir-ch-V5x" firstAttribute="top" secondItem="k2D-mh-Bgy" secondAttribute="bottom" constant="16" id="xyc-aD-P8V"/>
+                                    <constraint firstItem="9Ir-ch-V5x" firstAttribute="top" secondItem="k2D-mh-Bgy" secondAttribute="bottom" constant="4" id="xyc-aD-P8V"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -894,6 +894,7 @@
                         <viewLayoutGuide key="safeArea" id="UC7-aU-DhP"/>
                     </view>
                     <connections>
+                        <outlet property="backgroundView" destination="PVV-g9-uD5" id="hpI-7W-pjj"/>
                         <outlet property="collectionView" destination="9Ir-ch-V5x" id="K2M-bN-lUK"/>
                         <outlet property="headerView" destination="k2D-mh-Bgy" id="eVA-0d-6Ws"/>
                         <outlet property="shareContainer" destination="IyW-vC-u7g" id="yZp-fh-WrW"/>
@@ -922,9 +923,6 @@
         <image name="tag-icon" width="500" height="500"/>
         <image name="tick-button" width="500" height="500"/>
         <image name="title-icon" width="500" height="500"/>
-        <namedColor name="alert-button-colour">
-            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="speezy-purple">
             <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

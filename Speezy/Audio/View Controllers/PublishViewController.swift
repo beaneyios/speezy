@@ -210,6 +210,7 @@ extension PublishViewController: ShareViewControllerDelegate {
         
         shareViewController.view.layer.cornerRadius = 10.0
         shareViewController.view.clipsToBounds = true
+        shareViewController.view.addShadow()
         
         shareViewController.view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
