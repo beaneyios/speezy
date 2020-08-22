@@ -73,6 +73,9 @@
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
+		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
+		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
+		BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126124F1964400B53D1A /* ShareOptionCell.xib */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
@@ -163,6 +166,9 @@
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
+		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
+		BEDC126124F1964400B53D1A /* ShareOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOptionCell.xib; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 				BE79270A247EE55F0079652C /* AudioItemViewController.swift */,
 				BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */,
 				BE088CE124EDC33C000FEE55 /* PublishViewController.swift */,
+				BEDC125E24F1960200B53D1A /* ShareViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -376,6 +383,8 @@
 				BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */,
 				BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */,
 				BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */,
+				BEDC126024F1964400B53D1A /* ShareOptionCell.swift */,
+				BEDC126124F1964400B53D1A /* ShareOptionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -605,6 +614,7 @@
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
 				BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
+				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
@@ -704,11 +714,13 @@
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BE6565D924CC450100D77BFE /* AudioShareable.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
+				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
+				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,

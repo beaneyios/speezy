@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SCLAlertView
+import SnapKit
 
 protocol PublishViewControllerDelegate: AnyObject {
     func publishViewController(_ viewController: PublishViewController, shouldSendItem item: AudioItem)
@@ -22,24 +23,20 @@ class PublishViewController: UIViewController {
     
     @IBOutlet weak var playbackContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
-    private var waveView: PlaybackView!
-    
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var textViewPlaceholder: UILabel!
-    
     @IBOutlet weak var imgBtn: SpeezyButton!
-    
     @IBOutlet weak var tagsContainer: UIView!
-    private var tagsView: TagsView?
-    
     @IBOutlet weak var titleToggle: UISwitch!
     @IBOutlet weak var imageToggle: UISwitch!
     @IBOutlet weak var tagsToggle: UISwitch!
-    
     @IBOutlet weak var playbackBtn: UIButton!
-    
     @IBOutlet weak var sendBtn: UIButton!
     
+    private var tagsView: TagsView?
+    private var waveView: PlaybackView!
+    private var shareView: ShareViewController!
+        
     weak var delegate: PublishViewControllerDelegate?
     
     var audioManager: AudioManager!
@@ -58,7 +55,8 @@ class PublishViewController: UIViewController {
     @IBAction func didTapSend(_ sender: Any) {
         audioManager.save { (item) in
             DispatchQueue.main.async {
-                self.delegate?.publishViewController(self, shouldSendItem: item)
+                self.startShare()
+//                self.delegate?.publishViewController(self, shouldSendItem: item)
             }
         }
     }
@@ -200,6 +198,30 @@ extension PublishViewController: TagsViewDelegate {
             colorStyle: 0x3B08A0,
             animationStyle: .bottomToTop
         )
+    }
+}
+
+extension PublishViewController: ShareViewControllerDelegate {
+    
+    private func startShare() {
+        let shareViewController = storyboard?.instantiateViewController(identifier: "ShareViewController") as! ShareViewController
+        addChild(shareViewController)
+        view.addSubview(shareViewController.view)
+        
+        shareViewController.view.layer.cornerRadius = 10.0
+        shareViewController.view.clipsToBounds = true
+        
+        shareViewController.view.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        shareViewController.delegate = self
+    }
+    
+    func shareViewControllerShouldPop(_ shareViewController: ShareViewController) {
+        shareViewController.view.removeFromSuperview()
+        shareViewController.removeFromParent()
+        shareViewController.willMove(toParent: nil)
     }
 }
 
