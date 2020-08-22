@@ -10,6 +10,7 @@ import UIKit
 
 protocol ShareViewControllerDelegate: AnyObject {
     func shareViewControllerShouldPop(_ shareViewController: ShareViewController)
+    func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption)
 }
 
 class ShareViewController: UIViewController {
@@ -22,9 +23,9 @@ class ShareViewController: UIViewController {
     weak var delegate: ShareViewControllerDelegate?
     
     let options: [ShareOption] = [
-        ShareOption(title: "WhatsApp", image: UIImage(named: "whatsapp-share-icon")),
-        ShareOption(title: "Email", image: UIImage(named: "email-share-icon")),
-        ShareOption(title: "Messenger", image: UIImage(named: "messenger-share-icon"))
+        ShareOption(title: "WhatsApp", image: UIImage(named: "whatsapp-share-icon"), platform: .whatsapp),
+        ShareOption(title: "Messenger", image: UIImage(named: "messenger-share-icon"), platform: .messenger),
+        ShareOption(title: "Email", image: UIImage(named: "email-share-icon"), platform: .email)
     ]
     
     override func viewDidLoad() {
@@ -118,12 +119,17 @@ extension ShareViewController: UICollectionViewDataSource, UICollectionViewDeleg
         cell.alpha = 0.0
         cell.transform = CGAffineTransform(translationX: 0.0, y: 15.0)
         
-        UIView.animate(withDuration: 0.3, delay: Double(indexPath.row) / 5.0, options: [], animations: {
+        UIView.animate(withDuration: 0.4, delay: Double(indexPath.row) / 6.0, options: [], animations: {
             cell.alpha = 1.0
             cell.transform = CGAffineTransform.identity
         }) { (finished) in
             
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let option = options[indexPath.row]
+        delegate?.shareViewController(self, didSelectOption: option)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

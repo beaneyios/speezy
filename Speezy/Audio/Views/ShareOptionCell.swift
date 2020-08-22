@@ -9,8 +9,15 @@
 import UIKit
 
 struct ShareOption {
+    enum Platform {
+        case messenger
+        case whatsapp
+        case email
+    }
+    
     let title: String
     let image: UIImage?
+    let platform: Platform
 }
 
 class ShareOptionCell: UICollectionViewCell, NibLoadable {

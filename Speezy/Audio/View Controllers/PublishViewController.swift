@@ -224,6 +224,10 @@ extension PublishViewController: ShareViewControllerDelegate {
         shareViewController.removeFromParent()
         shareViewController.willMove(toParent: nil)
     }
+    
+    func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
+        
+    }
 }
 
 extension PublishViewController {
