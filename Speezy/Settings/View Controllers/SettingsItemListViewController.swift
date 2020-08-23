@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 import MessageUI
+import DeviceKit
 
 protocol SettingsItemListViewControllerDelegate: AnyObject {
     func settingsItemListViewController(_ viewController: SettingsItemListViewController, didSelectSettingsItem item: SettingsItem)
@@ -86,8 +87,27 @@ extension SettingsItemListViewController: MFMailComposeViewControllerDelegate {
     func sendEmail() {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
+            
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+            
             mail.mailComposeDelegate = self
-            mail.setMessageBody("Speezy support request", isHTML: true)
+            mail.setToRecipients(["james@suggestv.io"])
+            mail.setMessageBody(
+                """
+                <h3>Speezy support request</h3>
+                <p>
+                    Type your feedback/request below.
+                </p>
+                <br><br><br><br>
+                <p>
+                    Device: \(Device.current) <br>
+                    iOS Version: \(UIDevice.current.systemVersion) <br>
+                    App Version: \(appVersion ?? "N/A") (\(buildNumber ?? "N/A"))
+                </p>
+                """,
+                isHTML: true
+            )
             present(mail, animated: true)
         } else {
             // show failure alert

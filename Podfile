@@ -11,6 +11,7 @@ target 'Speezy' do
   pod 'AFDateHelper', '~> 4.3.0'
   pod 'SCLAlertView'
   pod 'Hero'
+  pod 'DeviceKit', '~> 2.0'
 
   target 'SpeezyTests' do
     inherit! :search_paths
