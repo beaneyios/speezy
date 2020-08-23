@@ -22,7 +22,6 @@ class AudioShareController {
     private var completion: ShareCompletion?
     private var documentInteractionController: UIDocumentInteractionController?
     
-    
     init(parentViewController: UIViewController?) {
         self.parentViewController = parentViewController
     }
@@ -31,6 +30,8 @@ class AudioShareController {
         self.completion = completion
         self.audioItem = item
         self.config = config
+        
+        presentCustomShareDialogue()
     }
 }
 
@@ -52,7 +53,15 @@ extension AudioShareController: ShareViewControllerDelegate {
         shareViewController.delegate = self
     }
     
+    private func dismissCustomShareDialogue(shareViewController: ShareViewController) {
+        shareViewController.view.removeFromSuperview()
+        shareViewController.removeFromParent()
+        shareViewController.willMove(toParent: nil)
+    }
+    
     func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
+        shareViewController.dismissShare()
+        
         switch option.platform {
         case .email:
             break
@@ -62,9 +71,7 @@ extension AudioShareController: ShareViewControllerDelegate {
     }
     
     func shareViewControllerShouldPop(_ shareViewController: ShareViewController) {
-        shareViewController.view.removeFromSuperview()
-        shareViewController.removeFromParent()
-        shareViewController.willMove(toParent: nil)
+        dismissCustomShareDialogue(shareViewController: shareViewController)
     }
 }
 

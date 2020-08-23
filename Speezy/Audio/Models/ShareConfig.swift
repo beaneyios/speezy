@@ -9,8 +9,7 @@
 import UIKit
 
 struct ShareConfig {
-    let shareOption: ShareOption
-    let includeTags: String
-    let includeTitle: String
+    let includeTags: Bool
+    let includeTitle: Bool
     let attachment: UIImage?
 }

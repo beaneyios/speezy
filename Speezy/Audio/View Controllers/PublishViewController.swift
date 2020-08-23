@@ -41,6 +41,8 @@ class PublishViewController: UIViewController {
     
     var audioManager: AudioManager!
     
+    lazy var shareController = AudioShareController(parentViewController: self)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,8 +57,17 @@ class PublishViewController: UIViewController {
     @IBAction func didTapSend(_ sender: Any) {
         audioManager.save { (item) in
             DispatchQueue.main.async {
-                self.startShare()
-//                self.delegate?.publishViewController(self, shouldSendItem: item)
+                let shareConfig = ShareConfig(
+                    includeTags: self.tagsToggle.isOn,
+                    includeTitle: self.titleToggle.isOn,
+                    attachment: self.imageToggle.isOn ? self.audioManager.currentImageAttachment : nil
+                )
+                
+                self.shareController.share(
+                    self.audioManager.item,
+                    config: shareConfig,
+                    completion: nil
+                )
             }
         }
     }
@@ -198,35 +209,6 @@ extension PublishViewController: TagsViewDelegate {
             colorStyle: 0x3B08A0,
             animationStyle: .bottomToTop
         )
-    }
-}
-
-extension PublishViewController: ShareViewControllerDelegate {
-    
-    private func startShare() {
-        let shareViewController = storyboard?.instantiateViewController(identifier: "ShareViewController") as! ShareViewController
-        addChild(shareViewController)
-        view.addSubview(shareViewController.view)
-        
-        shareViewController.view.layer.cornerRadius = 10.0
-        shareViewController.view.clipsToBounds = true
-        shareViewController.view.addShadow()
-        
-        shareViewController.view.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        
-        shareViewController.delegate = self
-    }
-    
-    func shareViewControllerShouldPop(_ shareViewController: ShareViewController) {
-        shareViewController.view.removeFromSuperview()
-        shareViewController.removeFromParent()
-        shareViewController.willMove(toParent: nil)
-    }
-    
-    func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
-        
     }
 }
 

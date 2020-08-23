@@ -97,6 +97,10 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
         navigateToAudioItem(item: item)
     }
     
+    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem) {
+        navigateToPublish(item: item, on: viewController)
+    }
+    
     private func navigateToAudioItemList() {
         guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemListViewController") as? AudioItemListViewController else {
             return

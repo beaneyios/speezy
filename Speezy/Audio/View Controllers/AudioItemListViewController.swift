@@ -15,6 +15,7 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
+    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem)
 }
 
 class AudioItemListViewController: UIViewController {
@@ -159,12 +160,6 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     }
     
     func share(item: AudioItem) {
-        
-//        share(
-//            item: item,
-//            attachmentImage: audioAttachmentManager.imageAttachmentCache[item.id],
-//            shareOption: ShareOption(title: "Test", image: nil, platform: .whatsapp),
-//            completion: nil
-//        )
+        delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
     }
 }
