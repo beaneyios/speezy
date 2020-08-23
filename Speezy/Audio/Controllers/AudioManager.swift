@@ -53,9 +53,6 @@ class AudioManager: NSObject {
     }
     
     func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
-        let item = self.item
-        let originalItem = self.originalItem
-        
         if saveAttachment {
             commitImageAttachment {
                 self.saveItem(completion: completion)
