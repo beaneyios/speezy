@@ -14,11 +14,7 @@ class SettingsCell: UITableViewCell {
     @IBOutlet weak var container: UIView!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        self.container.backgroundColor = selected ? .systemGray4 : .white
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        self.container.backgroundColor = highlighted ? .systemGray4 : .white
+        self.container.backgroundColor = selected ? .systemGray5 : .white
     }
     
     func configure(with item: SettingsItem) {

@@ -26,4 +26,8 @@ class PrivacyPolicyViewController: UIViewController {
         
         webView.loadHTMLString(htmlString, baseURL: nil)
     }
+    
+    @IBAction func didTapBack(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
 }
