@@ -86,6 +86,9 @@
             <connections>
                 <outlet property="btnPlayback" destination="aMf-M5-TtZ" id="3EH-Ur-lG4"/>
                 <outlet property="sliderPlayback" destination="XwK-sH-l71" id="PPt-9t-ow8"/>
+                <outletCollection property="recordHidables" destination="vpw-t1-TWk" collectionClass="NSMutableArray" id="Km0-1x-GmD"/>
+                <outletCollection property="recordHidables" destination="aMf-M5-TtZ" collectionClass="NSMutableArray" id="wsO-3b-ALh"/>
+                <outletCollection property="recordHidables" destination="Wca-26-qzN" collectionClass="NSMutableArray" id="QGn-Cw-tB5"/>
             </connections>
             <point key="canvasLocation" x="-46.399999999999999" y="214.09295352323841"/>
         </view>

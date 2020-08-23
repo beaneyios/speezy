@@ -63,7 +63,9 @@ class AudioManager: NSObject {
     }
     
     private func saveItem(completion: @escaping (AudioItem) -> Void) {
+        NSLog("Deleting existing item")
         FileManager.default.deleteExistingFile(with: originalItem.path)
+        NSLog("Copying original item")
         FileManager.default.copy(original: item.url, to: originalItem.url)
         
         let newItem = AudioItem(
@@ -74,8 +76,11 @@ class AudioManager: NSObject {
             tags: item.tags
         )
         
+        NSLog("Saving list")
         AudioStorage.saveItem(newItem)
         self.hasUnsavedChanges = false
+        
+        NSLog("Completing")
         completion(newItem)
     }
     
@@ -299,14 +304,24 @@ extension AudioManager: AudioCropperDelegate {
         startCropping()
     }
     
+    func toggleCut() {
+        startCutting()
+    }
+    
     func startCropping() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        performAction(action: .showCrop(item))
+        performAction(action: .showCrop(item, .trim))
     }
     
-    func crop(from: TimeInterval, to: TimeInterval) {
-        audioCropper?.crop(from: from, to: to)
+    func startCutting() {
+        audioCropper = AudioCropper(item: item)
+        audioCropper?.delegate = self
+        performAction(action: .showCrop(item, .cut))
+    }
+    
+    func crop(from: TimeInterval, to: TimeInterval, cropKind: CropKind) {
+        audioCropper?.crop(from: from, to: to, cropKind: cropKind)
     }
     
     func leftCropHandleMoved(to percentage: CGFloat) {
@@ -334,10 +349,10 @@ extension AudioManager: AudioCropperDelegate {
         performAction(action: .showCropAdjusted(item))
     }
     
-    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem) {
+    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem, kind: CropKind) {
         
         FileManager.default.deleteExistingFile(with: self.item.path)
-        FileManager.default.renameFile(from: "\(item.id)_cropped.m4a", to: self.item.path)
+        FileManager.default.renameFile(from: "\(item.id)\(kind.pathExtension)", to: self.item.path)
         
         performAction(action: .showCropFinished(item))
         audioCropper = nil
@@ -371,7 +386,7 @@ extension AudioManager {
 
 extension AudioManager {
     enum Action {
-        case showCrop(AudioItem)
+        case showCrop(AudioItem, CropKind)
         case showCropAdjusted(AudioItem)
         case showCropCancelled(AudioItem)
         case showCropFinished(AudioItem)
@@ -432,9 +447,9 @@ extension AudioManager {
             }
             
             switch action {
-            case .showCrop(let item):
+            case .showCrop(let item, let kind):
                 state = .cropping
-                observer.audioManager(self, didStartCroppingItem: item)
+                observer.audioManager(self, didStartCroppingItem: item, kind: kind)
                 
             case .showCropAdjusted(let item):
                 observer.audioManager(self, didAdjustCropOnItem: item)

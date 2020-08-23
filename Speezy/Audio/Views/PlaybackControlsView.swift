@@ -12,6 +12,8 @@ class PlaybackControlsView: UIView, NibLoadable {
     @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var sliderPlayback: UISlider!
     
+    @IBOutlet var recordHidables: [UIButton]!
+    
     private var manager: AudioManager!
     
     func configure(with manager: AudioManager) {
@@ -111,12 +113,28 @@ extension PlaybackControlsView: AudioManagerObserver {
     
     func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
     func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
     
-    func audioManagerDidStartRecording(_ player: AudioManager) {}
+    func audioManagerDidStartRecording(_ player: AudioManager) {
+        recordHidables.forEach {
+            $0.isEnabled = false
+            $0.alpha = 0.6
+        }
+        
+        sliderPlayback.isEnabled = false
+    }
+    
+    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
+        recordHidables.forEach {
+            $0.isEnabled = true
+            $0.alpha = 1.0
+        }
+        
+        sliderPlayback.isEnabled = true
+    }
+    
     func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
     func audioManagerProcessingRecording(_ player: AudioManager) {}
-    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {}
 }
 
 extension PlaybackControlsView {

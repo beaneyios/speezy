@@ -14,7 +14,7 @@ protocol AudioManagerObserver: class {
     func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem)
     func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval)
     
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem)
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind)
     func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem)
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem)
     func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat)

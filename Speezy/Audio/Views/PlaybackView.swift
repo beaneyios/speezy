@@ -327,7 +327,7 @@ extension PlaybackView {
 
 // MARK: CROPPING LISTENERS
 extension PlaybackView {
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return

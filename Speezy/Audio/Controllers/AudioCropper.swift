@@ -11,13 +11,14 @@ import AVKit
 
 protocol AudioCropperDelegate: AnyObject {
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem)
-    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem)
+    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem, kind: CropKind)
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem)
 }
 
 class AudioCropper {
     private let item: AudioItem
     private(set) var croppedItem: AudioItem?
+    private var cutItem: AudioItem?
     
     private(set) var cropFrom: TimeInterval?
     private(set) var cropTo: TimeInterval?
@@ -28,20 +29,51 @@ class AudioCropper {
         self.item = item
     }
     
-    func crop(from: TimeInterval, to: TimeInterval) {
+    func crop(from: TimeInterval, to: TimeInterval, cropKind: CropKind) {
         cropFrom = from
         cropTo = to
-        crop(audioItem: item, startTime: from, stopTime: to) { (path) in
-            let croppedItem = AudioItem(
-                id: self.item.id,
-                path: path,
-                title: self.item.title,
-                date: self.item.date,
-                tags: self.item.tags
-            )
-            self.croppedItem = croppedItem
-            self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
+        
+        switch cropKind {
+        case .trim:
+            crop(audioItem: item, startTime: from, stopTime: to) { (path) in
+                let croppedItem = AudioItem(
+                    id: self.item.id,
+                    path: path,
+                    title: self.item.title,
+                    date: self.item.date,
+                    tags: self.item.tags
+                )
+                self.croppedItem = croppedItem
+                self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
+            }
+        case .cut:
+            crop(audioItem: item, startTime: from, stopTime: to) { (path) in
+                let croppedItem = AudioItem(
+                    id: self.item.id,
+                    path: path,
+                    title: self.item.title,
+                    date: self.item.date,
+                    tags: self.item.tags
+                )
+                
+                self.croppedItem = croppedItem
+                
+                self.cut(audioItem: self.item, from: from, to: to) { (path) in
+                    let cutItem = AudioItem(
+                        id: self.item.id,
+                        path: path,
+                        title: self.item.title,
+                        date: self.item.date,
+                        tags: self.item.tags
+                    )
+                    
+                    self.cutItem = cutItem
+                    self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
+                }
+            }
+            
         }
+        
     }
     
     func applyCrop() {
@@ -50,7 +82,7 @@ class AudioCropper {
             return
         }
         
-        delegate?.audioCropper(self, didApplyCroppedItem: croppedItem)
+        delegate?.audioCropper(self, didApplyCroppedItem: croppedItem, kind: cutItem != nil ? .cut : .trim)
     }
     
     func cancelCrop() {
@@ -59,6 +91,56 @@ class AudioCropper {
 }
 
 extension AudioCropper {
+    func cut(
+        audioItem: AudioItem,
+        from startTime: Double,
+        to endTime: Double,
+        finished: @escaping (String) -> Void
+    ) {
+        let asset = AVAsset(url: audioItem.url)
+        let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
+                
+        FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
+        
+        do {
+            let composition: AVMutableComposition = AVMutableComposition()
+            try composition.insertTimeRange( CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: asset, at: CMTime.zero)
+            
+            let startTime = CMTime(seconds: startTime, preferredTimescale: 100)
+            let endTime = CMTime(seconds: endTime, preferredTimescale: 100)
+            composition.removeTimeRange( CMTimeRangeFromTimeToTime(start: startTime, end: endTime))
+            
+            guard
+                compatiblePresets.contains(AVAssetExportPresetAppleM4A),
+                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A),
+                let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
+            else {
+                return
+            }
+            
+            exportSession.outputURL = outputURL
+            exportSession.outputFileType = AVFileType.m4a
+            
+            exportSession.exportAsynchronously() {
+                switch exportSession.status {
+                case .failed:
+                    print("Export failed: \(exportSession.error?.localizedDescription)")
+                case .cancelled:
+                    print("Export canceled")
+                default:
+                    print("Successfully cropped audio")
+                    DispatchQueue.main.async(execute: {
+                        finished("\(audioItem.id)_cut.m4a")
+                    })
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    
+    
     func crop(
         audioItem: AudioItem,
         startTime: Double,
@@ -72,12 +154,12 @@ extension AudioCropper {
         guard
             compatiblePresets.contains(AVAssetExportPresetAppleM4A),
             let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
-            let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)_cropped.m4a")
+            let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.trim.pathExtension)")
         else {
             return
         }
         
-        FileManager.default.deleteExistingFile(with: "\(audioItem.id)_cropped.m4a")
+        FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.trim.pathExtension)")
         
         exportSession.outputURL = outputURL
         exportSession.outputFileType = AVFileType.m4a
@@ -96,7 +178,7 @@ extension AudioCropper {
             default:
                 print("Successfully cropped audio")
                 DispatchQueue.main.async(execute: {
-                    finished("\(audioItem.id)_cropped.m4a")
+                    finished("\(audioItem.id)\(CropKind.trim.pathExtension)")
                 })
             }
         }

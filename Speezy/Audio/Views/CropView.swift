@@ -9,6 +9,20 @@
 import Foundation
 import UIKit
 
+enum CropKind {
+    case trim
+    case cut
+    
+    var pathExtension: String {
+        switch self {
+        case .trim:
+            return "_cropped.m4a"
+        case .cut:
+            return "_cut.m4a"
+        }
+    }
+}
+
 class CropView: UIView {
     
     @IBOutlet weak var contentView: UIView!
@@ -24,7 +38,6 @@ class CropView: UIView {
     @IBOutlet weak var rightChevron: UIImageView!
     
     @IBOutlet var cropFrameViews: [UIView]!
-    
         
     private var cropWave: AudioVisualizationView!
     
@@ -36,9 +49,11 @@ class CropView: UIView {
     private var lastRightLocation: CGFloat = 0.0
     
     private var manager: AudioManager?
+    private var cropKind: CropKind?
     
-    func configure(manager: AudioManager) {
+    func configure(manager: AudioManager, cropKind: CropKind) {
         self.manager = manager
+        self.cropKind = cropKind
         setUpHandles()
         layoutIfNeeded()
         render()
@@ -122,7 +137,7 @@ class CropView: UIView {
                 return
             }
             
-            if (newConstraint + 48.0) > rightHandle.frame.minX {
+            if (newConstraint + 5.0) > rightHandle.frame.minX {
                 return
             }
             
@@ -159,7 +174,7 @@ class CropView: UIView {
                 return
             }
             
-            if (newConstraint + 48.0) > (contentView.frame.width - leftHandle.frame.maxX) {
+            if (newConstraint + 5.0) > (contentView.frame.width - leftHandle.frame.maxX) {
                 return
             }
             
@@ -212,8 +227,8 @@ class CropView: UIView {
             let percentageEnd = (contentView.frame.width - lastRightLocation) / contentView.frame.width
             let durationStart = manager.duration * TimeInterval(percentageStart)
             let durationEnd = manager.duration * TimeInterval(percentageEnd)
-            
-            manager.crop(from: durationStart, to: durationEnd)
+                        
+            manager.crop(from: durationStart, to: durationEnd, cropKind: cropKind ?? .trim)
         }
     }
 }
