@@ -16,15 +16,9 @@ class AudioManager: NSObject {
     private(set) var state = State.idle
     private(set) var hasUnsavedChanges: Bool = false
     
-    var currentImageAttachment: UIImage? {
-        audioAttachmentManager.imageAttachmentCache[item.id]
-    }
-    
     private var firstRecord = true
-    var shouldAutomaticallyShowTitleSelector: Bool {
-        let firstRecord = self.firstRecord
-        self.firstRecord = false
-        return firstRecord && item.title == "No title"
+    var noTitleSet: Bool {
+        item.title == ""
     }
     
     private var observations = [ObjectIdentifier : Observation]()
@@ -33,6 +27,8 @@ class AudioManager: NSObject {
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
     private let audioAttachmentManager = AudioAttachmentManager()
+    
+    private(set) var currentImageAttachment: UIImage?
     
     init(item: AudioItem) {
         self.originalItem = item
@@ -43,6 +39,51 @@ class AudioManager: NSObject {
             title: item.title,
             date: item.date,
             tags: item.tags
+        )
+    }
+    
+    func createStagingFile() {
+        DispatchQueue.global().async {
+            do {
+                try FileManager.default.copyItem(at: self.originalItem.url, to: self.item.url)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
+        if saveAttachment {
+            commitImageAttachment {
+                self.saveItem(completion: completion)
+            }
+        } else {
+            saveItem(completion: completion)
+        }
+    }
+    
+    private func saveItem(completion: @escaping (AudioItem) -> Void) {
+        FileManager.default.deleteExistingFile(with: originalItem.path)
+        FileManager.default.copy(original: item.url, to: originalItem.url)
+        
+        let newItem = AudioItem(
+            id: item.id,
+            path: "\(item.id).m4a",
+            title: item.title,
+            date: item.date,
+            tags: item.tags
+        )
+        
+        AudioStorage.saveItem(newItem)
+        self.hasUnsavedChanges = false
+        completion(newItem)
+    }
+    
+    private func commitImageAttachment(completion: @escaping () -> Void) {
+        audioAttachmentManager.storeAttachment(
+            currentImageAttachment,
+            forItem: item,
+            completion: completion
         )
     }
     
@@ -57,41 +98,40 @@ class AudioManager: NSObject {
         
         self.item = audioItem
         
-        self.prepareStagingFile()
+        hasUnsavedChanges = true
     }
     
     func addTag(title: String) {
-        let tag = Tag(id: UUID().uuidString, title: title)
+        
+        let tagTitles = title.split(separator: ",")
+        
+        let tags = tagTitles.map {
+            Tag(id: UUID().uuidString, title: String($0))
+        }
                 
         let newItem = AudioItem(
             id: item.id,
             path: item.path,
             title: item.title,
             date: item.date,
-            tags: item.tags + [tag]
+            tags: item.tags + tags
         )
         
         self.item = newItem
-        self.prepareStagingFile()
+        
+        hasUnsavedChanges = true
     }
     
-    func setImageAttachment(_ attachment: UIImage?, completion: @escaping () -> Void) {
-        audioAttachmentManager.storeAttachment(
-            attachment,
-            forItem: item,
-            completion: completion
-        )
+    func setImageAttachment(_ attachment: UIImage?) {
+        currentImageAttachment = attachment
+        
+        hasUnsavedChanges = true
     }
     
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
-        audioAttachmentManager.fetchAttachment(forItem: item, completion: completion)
-    }
-    
-    private func prepareStagingFile() {
-        do {
-            try FileManager.default.copyItem(at: originalItem.url, to: item.url)
-        } catch {
-            assertionFailure("This copy should always work.")
+        audioAttachmentManager.fetchAttachment(forItem: item) { (image) in
+            self.currentImageAttachment = image
+            completion(image)
         }
     }
 }

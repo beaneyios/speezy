@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import SnapKit
+import MessageUI
+import DeviceKit
 
 protocol SettingsItemListViewControllerDelegate: AnyObject {
     func settingsItemListViewController(_ viewController: SettingsItemListViewController, didSelectSettingsItem item: SettingsItem)
@@ -46,6 +48,10 @@ class SettingsItemListViewController: UIViewController {
         
         footer.configure()
     }
+    
+    @IBAction func didTapBack(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension SettingsItemListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -61,11 +67,54 @@ extension SettingsItemListViewController: UITableViewDelegate, UITableViewDataSo
         let settingsItem = settingsItems[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! SettingsCell
         cell.configure(with: settingsItem)
+        cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let settingsItem = settingsItems[indexPath.row]
+        
+        if settingsItem.identifier == .feedback {
+            sendEmail()
+            return
+        }
+        
         delegate?.settingsItemListViewController(self, didSelectSettingsItem: settingsItem)
+    }
+}
+
+extension SettingsItemListViewController: MFMailComposeViewControllerDelegate {
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+            
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["james@suggestv.io"])
+            mail.setMessageBody(
+                """
+                <h3>Speezy support request</h3>
+                <p>
+                    Type your feedback/request below.
+                </p>
+                <br><br><br><br>
+                <p>
+                    Device: \(Device.current) <br>
+                    iOS Version: \(UIDevice.current.systemVersion) <br>
+                    App Version: \(appVersion ?? "N/A") (\(buildNumber ?? "N/A"))
+                </p>
+                """,
+                isHTML: true
+            )
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }

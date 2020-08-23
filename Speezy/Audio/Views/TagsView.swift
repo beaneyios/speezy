@@ -16,7 +16,7 @@ protocol TagsViewDelegate: AnyObject {
 
 class TagsView: UIView, NibLoadable {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: TableCellCollectionView!
     private var tags = [Tag]()
     
     weak var delegate: TagsViewDelegate?
@@ -30,11 +30,9 @@ class TagsView: UIView, NibLoadable {
         self.tags = tags
         
         if showAddTag {
-            self.tags.append(
-                Tag(
-                    id: "add_tag",
-                    title: "Add Tag +"
-                )
+            self.tags.insert(
+                Tag(id: "add_tag", title: "Add Tag +"),
+                at: 0
             )
         }
         

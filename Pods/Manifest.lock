@@ -1,5 +1,6 @@
 PODS:
   - AFDateHelper (4.3.0)
+  - DeviceKit (2.3.0)
   - Hero (1.5.0)
   - SCLAlertView (0.8)
   - SnapKit (5.0.1)
@@ -7,6 +8,7 @@ PODS:
 
 DEPENDENCIES:
   - AFDateHelper (~> 4.3.0)
+  - DeviceKit (~> 2.0)
   - Hero
   - SCLAlertView
   - SnapKit (~> 5.0.0)
@@ -15,6 +17,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFDateHelper
+    - DeviceKit
     - Hero
     - SCLAlertView
     - SnapKit
@@ -22,11 +25,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFDateHelper: b769c07d3d4784ee9a74633285304261bb27dc52
+  DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
 
-PODFILE CHECKSUM: 31829987eaa01fc8ffc8674c2d9c9159ee521312
+PODFILE CHECKSUM: 21ab9fa2a6684344b67c7ba389976454948cbf96
 
 COCOAPODS: 1.9.1

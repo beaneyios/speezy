@@ -15,15 +15,18 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
+    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem)
 }
 
-class AudioItemListViewController: UIViewController, AudioShareable {
+class AudioItemListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
+    
+    lazy var shareController = AudioShareController(parentViewController: self)
     
     weak var delegate: AudioItemListViewControllerDelegate?
     var audioItems: [AudioItem] = []
@@ -32,15 +35,6 @@ class AudioItemListViewController: UIViewController, AudioShareable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let plusButton = UIBarButtonItem(
-            image: UIImage(named: "settings-button"),
-            style: .plain,
-            target: self,
-            action: #selector(settingsItemTapped)
-        )
-        navigationItem.rightBarButtonItem = plusButton
-        navigationItem.rightBarButtonItem?.tintColor = .black
-        title = "My recordings"
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
         tableView.estimatedRowHeight = 100.0
@@ -62,12 +56,12 @@ class AudioItemListViewController: UIViewController, AudioShareable {
         }        
     }
     
-    @IBAction func speezyTapped(_ sender: Any) {
-        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
+    @IBAction func settingsTapped(_ sender: Any) {
+        delegate?.audioItemListViewControllerDidSelectSettings(self)
     }
     
-    @objc func settingsItemTapped() {
-        delegate?.audioItemListViewControllerDidSelectSettings(self)
+    @IBAction func speezyTapped(_ sender: Any) {
+        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
     }
     
     func reloadItem(_ item: AudioItem) {
@@ -108,29 +102,42 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let share = UIContextualAction(style: .normal, title: "Send") { (action, view, completionHandler) in
+            self.delegate?.audioItemListViewController(self, didSelectSendOnItem: self.audioItems[indexPath.row])
+            completionHandler(true)
+        }
+        
+        share.backgroundColor = UIColor(named: "speezy-purple")
+        
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let item = self.audioItems[indexPath.row]
-            deleteItem(item: item) {
+            self.deleteItem(item: item) {
                 self.audioItems.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
+            completionHandler(true)
         }
+        
+        return UISwipeActionsConfiguration(actions: [share, delete])
     }
     
     private func deleteItem(item: AudioItem, completion: @escaping () -> Void) {
-        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
-        let alert = SCLAlertView(appearance: appearance)
-        
-        alert.addButton("Delete", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: UIColor(named: "speezy-red")) {
+        let alert = UIAlertController(title: "Delete item", message: "Are you sure you want to delete this clip? You will not be able to undo this action.", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
             FileManager.default.deleteExistingURL(item.url)
             AudioStorage.deleteItem(item)
             completion()
         }
         
-        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {}
-        alert.showWarning("Delete item", subTitle: "Are you sure you want to delete this clip? You will not be able to undo this action.", closeButtonTitle: "Not yet")
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            
+        }
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -157,10 +164,6 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     }
     
     func share(item: AudioItem) {
-        share(
-            item: item,
-            attachmentImage: audioAttachmentManager.imageAttachmentCache[item.id],
-            completion: nil
-        )
+        delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
     }
 }

@@ -24,6 +24,7 @@ class AudioItemCoordinator: ViewCoordinator {
     }
     
     override func start() {
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigateToAudioItemList()
     }
     
@@ -46,7 +47,7 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         let item = AudioItem(
             id: id,
             path: "\(id).m4a",
-            title: "No title",
+            title: "",
             date: Date(),
             tags: []
         )
@@ -61,12 +62,19 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
-        viewController.modalPresentationStyle = .fullScreen
-        navigationController.present(viewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.present(navigationController, animated: true, completion: nil)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem) {
+    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {
         listViewController?.reloadItem(item)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem) {
+        listViewController?.reloadItem(item)
+        navigateToPublish(item: item, on: viewController)
     }
     
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
@@ -89,6 +97,10 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
         navigateToAudioItem(item: item)
     }
     
+    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem) {
+        navigateToPublish(item: item, on: viewController)
+    }
+    
     private func navigateToAudioItemList() {
         guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemListViewController") as? AudioItemListViewController else {
             return
@@ -96,5 +108,43 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
 
         viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AudioItemCoordinator: PublishViewControllerDelegate {
+    private func navigateToPublish(item: AudioItem, on pushingViewController: UIViewController) {
+        guard let viewController = storyboard.instantiateViewController(identifier: "PublishViewController") as? PublishViewController else {
+            return
+        }
+        
+        let audioManager = AudioManager(item: item)
+        viewController.audioManager = audioManager
+        viewController.delegate = self
+        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func publishViewController(_ viewController: PublishViewController, shouldSendItem item: AudioItem) {
+        
+    }
+    
+    func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
+        listViewController?.reloadItem(item)
+        
+        let audioViewController = viewController.navigationController?.viewControllers.first { $0 is AudioItemViewController } as? AudioItemViewController
+        audioViewController?.audioManager = AudioManager(item: item)
+        audioViewController?.configureAudioManager()
+        audioViewController?.configureSubviews()
+    }
+    
+    func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {
+        if viewController.navigationController == self.navigationController {
+            self.navigationController.popViewController(animated: true)
+        } else {
+            viewController.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController) {
+        viewController.navigationController?.popViewController(animated: true)
     }
 }

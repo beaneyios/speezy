@@ -12,23 +12,25 @@ import SCLAlertView
 import Hero
 
 protocol AudioItemViewControllerDelegate: AnyObject {
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItem item: AudioItem)
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem)
+    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem)
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
-class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObserver {
+class AudioItemViewController: UIViewController, AudioManagerObserver {
     
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
     @IBOutlet var cropHidables: [UIButton]!
+    
+    @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnDrafts: UIButton!
     
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
-    @IBOutlet weak var btnTitle2: UIButton!
-    @IBOutlet weak var btnCamera: SpeezyButton!
     
     @IBOutlet weak var bgGradient: UIImageView!
     
@@ -43,7 +45,6 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     @IBOutlet weak var cropWaveContainer: UIView!
     @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var tagContainer: UIView!
     @IBOutlet weak var playbackControlsContainer: UIView!
     
     @IBOutlet weak var lblTimer: UILabel!
@@ -54,7 +55,6 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     private var playbackControlsView: PlaybackControlsView?
     private var mainWave: PlaybackView?
     private var cropView: CropView?
-    private var tagsView: TagsView?
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -65,29 +65,60 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
         super.viewDidLoad()
         
         configureAudioManager()
-        configureMainSoundWave()
-        configurePlaybackControls()
-        configureTitle()
-        configureTags()
-        configureImageAttachment()
-        hideCropView(animated: false)
+        configureSubviews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    @IBAction func saveToDrafts(_ sender: Any) {
+        let saveAction = {
+            self.audioManager.save(saveAttachment: false) { (item) in
+                self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                self.delegate?.audioItemViewControllerShouldPop(self)
+            }
+        }
         
-        hero.isEnabled = true
-        btnRecord.hero.id = "record"
-        
-        let presenting = HeroDefaultAnimationType.zoom
-        let dismissing = HeroDefaultAnimationType.zoomOut
-        hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+        if audioManager.noTitleSet {
+            self.showTitleAlert {
+                saveAction()
+            }
+        } else {
+            saveAction()
+        }
+    }
+    
+    @IBAction func send(_ sender: Any) {
+        audioManager.save(saveAttachment: false) { (item) in
+            DispatchQueue.main.async {
+                self.delegate?.audioItemViewController(self, shouldSendItem: item)
+            }
+        }
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
-        chooseTitle()
+        showTitleAlert()
     }
     
     @IBAction func close(_ sender: Any) {
         if audioManager.hasUnsavedChanges {
-            let alert = SCLAlertView()
-            alert.showWarning("You have unsaved changes", subTitle: "Do you want to do this?")
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Save") {
+                self.audioManager.save(saveAttachment: false) { (item) in
+                    DispatchQueue.main.async {
+                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                        self.delegate?.audioItemViewControllerShouldPop(self)
+                    }
+                }
+            }
+            
+            alert.addButton("Discard") {
+                self.delegate?.audioItemViewControllerShouldPop(self)
+            }
+            
+            alert.showWarning("Changes not saved", subTitle: "You have unsaved changes, would you like to save or discard them?")
         } else {
             delegate?.audioItemViewControllerShouldPop(self)
         }
@@ -138,34 +169,47 @@ class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObs
     @IBAction func toggleCut(_ sender: Any) {
         
     }
-    
-    @IBAction func attachPhoto(_ sender: Any) {
-        showAttachmentAlert()
-    }
-    
-    @IBAction func share(_ sender: Any) {
-        if audioManager.hasRecorded == false {
-            let alert = SCLAlertView()
-            alert.showError("No recording found", subTitle: "You haven't recorded anything! Tap the record button to get started", closeButtonTitle: "OK")
-            return
-        }
-        
-        btnShare.disable()
-        share(item: audioManager.item, attachmentImage: audioManager.currentImageAttachment) {
-            DispatchQueue.main.async {
-                self.btnShare.enable()
-            }
-        }
-    }
 }
 
 // MARK: Configuration
 extension AudioItemViewController {
-    private func configureAudioManager() {
+    func configureAudioManager() {
         audioManager.addObserver(self)
     }
     
+    func configureSubviews() {
+        configureNavButtons()
+        configureMainSoundWave()
+        configurePlaybackControls()
+        configureTitle()
+        hideCropView(animated: false)
+        
+        hero.isEnabled = true
+        btnRecord.hero.id = "record"
+        
+        let presenting = HeroDefaultAnimationType.zoom
+        let dismissing = HeroDefaultAnimationType.zoomOut
+        hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+    }
+    
+    private func configureNavButtons() {
+        if audioManager.duration <= 0.0 {
+            btnSend.isEnabled = false
+            btnSend.alpha = 0.6
+        }
+        
+        btnSend.layer.cornerRadius = 5.0
+        btnDrafts.layer.cornerRadius = 5.0
+        
+        btnDrafts.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
+        btnDrafts.layer.borderWidth = 1.0
+    }
+    
     private func configurePlaybackControls() {
+        playbackControlsContainer.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
         let playbackControlsView = PlaybackControlsView.instanceFromNib()
         playbackControlsView.configure(with: audioManager)
         playbackControlsContainer.addSubview(playbackControlsView)
@@ -175,6 +219,9 @@ extension AudioItemViewController {
     }
     
     private func configureMainSoundWave() {
+        mainWave?.removeFromSuperview()
+        mainWave = nil
+        
         let soundWaveView = PlaybackView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
@@ -189,51 +236,11 @@ extension AudioItemViewController {
     private func configureTitle() {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
     }
-    
-    private func configureImageAttachment() {
-        btnCamera.startLoading()
-        btnCamera.imageView?.contentMode = .scaleAspectFill
-        audioManager.fetchImageAttachment { (image) in
-            DispatchQueue.main.async {
-                self.btnCamera.stopLoading()
-                self.btnCamera.layer.cornerRadius = self.btnCamera.frame.width / 2.0
-                guard let image = image else {
-                    self.btnCamera.setImage(UIImage(named: "camera-button"), for: .normal)
-                    return
-                }
-                
-                self.btnCamera.setImage(image, for: .normal)
-            }
-        }
-    }
-    
-    private func configureTags() {
-        tagsView?.removeFromSuperview()
-        tagsView = nil
-        
-        let tagsView = TagsView.createFromNib()
-        tagsView.delegate = self
-        tagContainer.addSubview(tagsView)
-        
-        tagsView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
-        tagsView.configure(
-            with: audioManager.item.tags,
-            foreColor: .white,
-            backColor: .clear,
-            scrollDirection: .vertical,
-            showAddTag: true
-        )
-
-        self.tagsView = tagsView
-    }
 }
 
 // MARK: Actions
 extension AudioItemViewController {
-    private func chooseTitle() {
+    private func showTitleAlert(completion: (() -> Void)? = nil) {
         let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
         let alert = SCLAlertView(appearance: appearance)
         let textField = alert.addTextField("Add a title")
@@ -245,6 +252,7 @@ extension AudioItemViewController {
             
             self.audioManager.updateTitle(title: text)
             self.configureTitle()
+            completion?()
         }
         
         alert.showEdit(
@@ -322,33 +330,6 @@ extension AudioItemViewController {
     }
 }
 
-// MARK: Tags view delegate
-extension AudioItemViewController: TagsViewDelegate {
-    func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
-        
-        let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
-        let alert = SCLAlertView(appearance: appearance)
-        let textField = alert.addTextField("Add tag")
-        textField.layer.cornerRadius = 12.0
-        alert.addButton("Add") {
-            guard let text = textField.text else {
-                return
-            }
-            
-            self.audioManager.addTag(title: text)
-            self.configureTags()
-        }
-        
-        alert.showEdit(
-            "Add Tag",
-            subTitle: "Add the title for your tag here",
-            closeButtonTitle: "Cancel",
-            colorStyle: 0x3B08A0,
-            animationStyle: .bottomToTop
-        )
-    }
-}
-
 // MARK: RECORDING
 extension AudioItemViewController {
     func audioManagerDidStartRecording(_ player: AudioManager) {
@@ -357,9 +338,6 @@ extension AudioItemViewController {
         recordHidables.forEach {
             $0.disable()
         }
-
-        tagsView?.alpha = 0.5
-        tagsView?.isUserInteractionEnabled = false
     }
     
     func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
@@ -372,16 +350,8 @@ extension AudioItemViewController {
     
     func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
         if maxLimitedReached {
-            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
-            let alert = SCLAlertView(appearance: appearance)
-            alert.addButton("Done") {
-                if self.audioManager.shouldAutomaticallyShowTitleSelector {
-                    self.chooseTitle()
-                }
-            }
+            let alert = SCLAlertView()
             alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
-        } else if audioManager.shouldAutomaticallyShowTitleSelector {
-            chooseTitle()
         }
         
         btnRecord.stopLoading()
@@ -391,9 +361,6 @@ extension AudioItemViewController {
         recordHidables.forEach {
             $0.enable()
         }
-        
-        tagsView?.alpha = 1.0
-        tagsView?.isUserInteractionEnabled = true
     }
 }
 
@@ -459,75 +426,6 @@ extension AudioItemViewController {
     func audioManagerDidCancelCropping(_ player: AudioManager) {
         lblTimer.text = "00:00:00"
         hideCropView()
-        delegate?.audioItemViewController(self, didSaveItem: player.item)
         scrollView.isScrollEnabled = true
-    }
-}
-
-// MARK: Image attachment
-extension AudioItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func showAttachmentAlert() {
-        let alert = UIAlertController(title: "Image Selection", message: "From where you want to pick this image?", preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
-            self.getImage(fromSourceType: .camera)
-        }
-        
-        let photoAlbumAction = UIAlertAction(title: "Photo Album", style: .default) { action in
-            self.getImage(fromSourceType: .photoLibrary)
-        }
-        
-        let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
-            self.audioManager.setImageAttachment(nil) {
-                DispatchQueue.main.async {
-                    self.configureImageAttachment()
-                    self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
-                }
-            }
-        }
-        
-        alert.addAction(cameraAction)
-        alert.addAction(photoAlbumAction)
-        alert.addAction(clearPhotoAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
-        //Check is source type available
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = sourceType
-            btnCamera.startLoading()
-            self.present(imagePickerController, animated: true, completion: nil)
-        }
-    }
-    
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
-    ) {
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
-                return
-            }
-            
-            self.audioManager.setImageAttachment(image) {
-                DispatchQueue.main.async {
-                    self.configureImageAttachment()
-                    self.delegate?.audioItemViewController(self, didSaveItem: self.audioManager.item)
-                }
-            }
-        }
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        btnCamera.stopLoading()
-        picker.dismiss(animated: true, completion: nil)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDelegate {
 
     var window: UIWindow?
     var appCoordinator: AppCoordinator!
@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         let navigationController = UINavigationController()
-        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.appCoordinator = AppCoordinator(navigationController: navigationController)
         self.appCoordinator.start()
         window?.rootViewController = navigationController
@@ -56,4 +55,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-

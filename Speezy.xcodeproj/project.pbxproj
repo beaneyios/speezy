@@ -11,6 +11,7 @@
 		94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71429DDB4953F7C3622682B /* Pods_Speezy.framework */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
+		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
 		BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */; };
 		BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -35,7 +36,6 @@
 		BE50346824BE02CE00A414D1 /* AudioManagerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50346724BE02CE00A414D1 /* AudioManagerObserver.swift */; };
 		BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */; };
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
-		BE6565D924CC450100D77BFE /* AudioShareable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D824CC450100D77BFE /* AudioShareable.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -45,7 +45,7 @@
 		BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767224D6CCD90009BE63 /* SettingsItem.swift */; };
 		BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE77767424D6D3100009BE63 /* SettingsFooterView.xib */; };
 		BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767624D6D3390009BE63 /* SettingsFooterView.swift */; };
-		BE77767924D6DA6E0009BE63 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767824D6DA6E0009BE63 /* PrivacyPolicyViewController.swift */; };
+		BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */; };
 		BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = BE77767A24D6DAAB0009BE63 /* privacy-policy.html */; };
 		BE77767D24D6DB8B0009BE63 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE77767C24D6DB8B0009BE63 /* WebKit.framework */; };
 		BE792707247EE55F0079652C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792706247EE55F0079652C /* AppDelegate.swift */; };
@@ -72,6 +72,14 @@
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
+		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
+		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
+		BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126124F1964400B53D1A /* ShareOptionCell.xib */; };
+		BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */; };
+		BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126624F2655D00B53D1A /* AudioShareController.swift */; };
+		BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126824F2657C00B53D1A /* ShareConfig.swift */; };
+		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
+		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
@@ -96,6 +104,7 @@
 		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
+		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
 		BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackControlsView.xib; sourceTree = "<group>"; };
 		BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -120,7 +129,6 @@
 		BE50346724BE02CE00A414D1 /* AudioManagerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManagerObserver.swift; sourceTree = "<group>"; };
 		BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AsImage.swift"; sourceTree = "<group>"; };
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
-		BE6565D824CC450100D77BFE /* AudioShareable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioShareable.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -130,7 +138,7 @@
 		BE77767224D6CCD90009BE63 /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		BE77767424D6D3100009BE63 /* SettingsFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsFooterView.xib; sourceTree = "<group>"; };
 		BE77767624D6D3390009BE63 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
-		BE77767824D6DA6E0009BE63 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		BE77767A24D6DAAB0009BE63 /* privacy-policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "privacy-policy.html"; sourceTree = "<group>"; };
 		BE77767C24D6DB8B0009BE63 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BE792703247EE55F0079652C /* Speezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +169,14 @@
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
+		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
+		BEDC126124F1964400B53D1A /* ShareOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOptionCell.xib; sourceTree = "<group>"; };
+		BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellCollectionView.swift; sourceTree = "<group>"; };
+		BEDC126624F2655D00B53D1A /* AudioShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioShareController.swift; sourceTree = "<group>"; };
+		BEDC126824F2657C00B53D1A /* ShareConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfig.swift; sourceTree = "<group>"; };
+		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
+		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
@@ -212,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				BE50346424BE02B900A414D1 /* AudioItem.swift */,
+				BEDC126824F2657C00B53D1A /* ShareConfig.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				BE50346724BE02CE00A414D1 /* AudioManagerObserver.swift */,
-				BE6565D824CC450100D77BFE /* AudioShareable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -228,6 +244,7 @@
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				BEDC126C24F2D2A900B53D1A /* Resources */,
 				BE77767124D6CCD10009BE63 /* Models */,
 				BE77766324D6CB4B0009BE63 /* Coordinators */,
 				BE77766424D6CB4F0009BE63 /* Storyboards */,
@@ -257,7 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */,
-				BE77767824D6DA6E0009BE63 /* PrivacyPolicyViewController.swift */,
+				BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -313,7 +330,6 @@
 				BE79270F247EE5610079652C /* Assets.xcassets */,
 				BE792711247EE5610079652C /* LaunchScreen.storyboard */,
 				BE792714247EE5610079652C /* Info.plist */,
-				BE77767A24D6DAAB0009BE63 /* privacy-policy.html */,
 			);
 			path = Speezy;
 			sourceTree = "<group>";
@@ -347,6 +363,8 @@
 			children = (
 				BE79270A247EE55F0079652C /* AudioItemViewController.swift */,
 				BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */,
+				BE088CE124EDC33C000FEE55 /* PublishViewController.swift */,
+				BEDC125E24F1960200B53D1A /* ShareViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -373,6 +391,8 @@
 				BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */,
 				BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */,
 				BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */,
+				BEDC126024F1964400B53D1A /* ShareOptionCell.swift */,
+				BEDC126124F1964400B53D1A /* ShareOptionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -390,6 +410,7 @@
 				BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */,
 				BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
+				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -454,6 +475,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		BEDC126C24F2D2A900B53D1A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BE77767A24D6DAAB0009BE63 /* privacy-policy.html */,
+				BEDC126D24F2D2B800B53D1A /* acknowledgements.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BEF0ECB024BF948D00B9D554 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,6 +512,7 @@
 				BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */,
 				BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */,
 				BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */,
+				BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -490,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */,
+				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -602,9 +634,11 @@
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
 				BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
+				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
+				BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,30 +722,36 @@
 			files = (
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
+				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
+				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
 				BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */,
 				BE50344F24BB25DA00A414D1 /* PlaybackView.swift in Sources */,
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
-				BE6565D924CC450100D77BFE /* AudioShareable.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
+				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
+				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
+				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */,
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* AudioManagerObserver.swift in Sources */,
+				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
+				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
@@ -731,7 +771,7 @@
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
-				BE77767924D6DA6E0009BE63 /* PrivacyPolicyViewController.swift in Sources */,
+				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
 				BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */,
 				BEBFD4C324C5B9DC00200D87 /* ViewCoordinator.swift in Sources */,
 			);

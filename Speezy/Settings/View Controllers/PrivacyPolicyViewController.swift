@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 import UIKit
 
-class PrivacyPolicyViewController: UIViewController {
+class WebViewViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     
     override func viewDidLoad() {
@@ -25,5 +25,9 @@ class PrivacyPolicyViewController: UIViewController {
         }
         
         webView.loadHTMLString(htmlString, baseURL: nil)
+    }
+    
+    @IBAction func didTapBack(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
 }

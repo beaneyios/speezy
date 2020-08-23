@@ -15,7 +15,7 @@ class VideoPlaceholderView: UIView, NibLoadable {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblTags: UILabel!
     
-    func configure(with item: AudioItem) {
+    func configure(with item: AudioItem, config: ShareConfig) {
         lblTitle.text = item.title
         let finalString = item.tags.map {
             "#\($0.title), "
@@ -23,5 +23,8 @@ class VideoPlaceholderView: UIView, NibLoadable {
         
         let trimmed = finalString.trimmingCharacters(in: CharacterSet(arrayLiteral: ",", " "))
         lblTags.text = trimmed
+        
+        lblTags.isHidden = config.includeTags == false
+        lblTitle.isHidden = config.includeTitle == false
     }
 }

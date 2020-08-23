@@ -40,24 +40,24 @@ extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
         switch item.identifier {
         case .acknowledgements:
             navigateToAcknowledgements()
-        case .feedback:
-            navigateToFeedback()
         case .privacyPolicy:
             navigateToPrivacyPolicy()
+        default:
+            break
         }
     }
     
     private func navigateToAcknowledgements() {
-        
-    }
-    
-    private func navigateToFeedback() {
-        
+        let privacyViewController = storyboard.instantiateViewController(identifier: "PrivacyPolicyViewController") as! WebViewViewController
+        privacyViewController.titleText = "Acknowledgements"
+        privacyViewController.path = "acknowledgements"
+        navigationController.pushViewController(privacyViewController, animated: true)
     }
     
     private func navigateToPrivacyPolicy() {
-        let privacyViewController = storyboard.instantiateViewController(identifier: "PrivacyPolicyViewController") as! PrivacyPolicyViewController
-        privacyViewController.title = "Privacy Policy"
+        let privacyViewController = storyboard.instantiateViewController(identifier: "PrivacyPolicyViewController") as! WebViewViewController
+        privacyViewController.titleText = "Privacy Policy"
+        privacyViewController.path = "privacy-policy"
         navigationController.pushViewController(privacyViewController, animated: true)
     }
 }

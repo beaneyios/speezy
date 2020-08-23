@@ -24,14 +24,21 @@ class AudioItemCell: UITableViewCell {
     @IBOutlet weak var tagContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var imgAttachmentWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var containerView: UIView!
+    
     weak var delegate: AudioItemCellDelegate?
     
     private var tagsView: TagsView?
     private var audioItem: AudioItem?
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        containerView.backgroundColor = highlighted ? .systemGray5 : .white
+    }
+    
     func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
         self.audioItem = audioItem
-        lblTitle.text = audioItem.title
+        lblTitle.text = audioItem.title != "" ? audioItem.title : "No title"
         
         if audioItem.tags.count > 0 {
             tagContainerHeight.constant = 36.5

@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="487" height="316"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-Aj-Fau">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-Aj-Fau" customClass="TableCellCollectionView" customModule="Speezy" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="487" height="316"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0iP-Ok-L9z" customClass="LeftAlignedCollectionViewFlowLayout" customModule="Speezy" customModuleProvider="target">
