@@ -76,7 +76,7 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     
     @IBAction func saveToDrafts(_ sender: Any) {
         let saveAction = {
-            self.audioManager.save { (item) in
+            self.audioManager.save(saveAttachment: false) { (item) in
                 self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
                 self.delegate?.audioItemViewControllerShouldPop(self)
             }
@@ -92,8 +92,10 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     }
     
     @IBAction func send(_ sender: Any) {
-        audioManager.save { (item) in
-            self.delegate?.audioItemViewController(self, shouldSendItem: item)
+        audioManager.save(saveAttachment: false) { (item) in
+            DispatchQueue.main.async {
+                self.delegate?.audioItemViewController(self, shouldSendItem: item)
+            }
         }
     }
     

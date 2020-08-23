@@ -128,19 +128,20 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
     }
     
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
-        guard let audioViewController = viewController.navigationController?.viewControllers.first { $0 is AudioItemViewController } as? AudioItemViewController else {
-            return
-        }
-        
         listViewController?.reloadItem(item)
         
-        audioViewController.audioManager = AudioManager(item: item)
-        audioViewController.configureAudioManager()
-        audioViewController.configureSubviews()
+        let audioViewController = viewController.navigationController?.viewControllers.first { $0 is AudioItemViewController } as? AudioItemViewController
+        audioViewController?.audioManager = AudioManager(item: item)
+        audioViewController?.configureAudioManager()
+        audioViewController?.configureSubviews()
     }
     
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {
-        viewController.navigationController?.dismiss(animated: true, completion: nil)
+        if viewController.navigationController == self.navigationController {
+            self.navigationController.popViewController(animated: true)
+        } else {
+            viewController.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController) {

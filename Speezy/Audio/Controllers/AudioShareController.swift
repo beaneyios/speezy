@@ -62,7 +62,12 @@ extension AudioShareController: ShareViewControllerDelegate {
     
     func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
         shareViewController.dismissShare()
-        generateVideoAndresentShareOption(item: audioItem, option: option, config: config)
+        
+        if config.attachment != nil || config.includeTags || config.includeTitle {
+            generateVideoAndPresentShareOption(item: audioItem, option: option, config: config)
+        } else {
+            generateAudioAndPresentShareOption(item: audioItem, option: option)
+        }
     }
     
     func shareViewControllerShouldPop(_ shareViewController: ShareViewController) {
@@ -71,7 +76,11 @@ extension AudioShareController: ShareViewControllerDelegate {
 }
 
 extension AudioShareController {
-    func generateVideoAndresentShareOption(item: AudioItem, option: ShareOption, config: ShareConfig) {
+    func generateAudioAndPresentShareOption(item: AudioItem, option: ShareOption) {
+        presentShareOption(url: item.url, option: option)
+    }
+    
+    func generateVideoAndPresentShareOption(item: AudioItem, option: ShareOption, config: ShareConfig) {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alert = SCLAlertView(appearance: appearance)
         alert.showInfo(
@@ -86,13 +95,13 @@ extension AudioShareController {
             let videoPlaceholder = CustomVideoPlaceholderView.createFromNib()
             let ratio = attachmentImage.size.width / attachmentImage.size.height
             videoPlaceholder.frame.size.height = videoPlaceholder.frame.width / ratio
-            videoPlaceholder.configure(with: item, attachmentImage: attachmentImage)
+            videoPlaceholder.configure(with: item, config: config)
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
             images.append(videoPlaceholder.asImage())
         } else {
             let videoPlaceholder = VideoPlaceholderView.createFromNib()
-            videoPlaceholder.configure(with: item)
+            videoPlaceholder.configure(with: item, config: config)
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
             images.append(videoPlaceholder.asImage())

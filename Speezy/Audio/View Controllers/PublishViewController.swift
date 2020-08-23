@@ -55,7 +55,7 @@ class PublishViewController: UIViewController {
     }
     
     @IBAction func didTapSend(_ sender: Any) {
-        audioManager.save { (item) in
+        audioManager.save(saveAttachment: true) { (item) in
             DispatchQueue.main.async {
                 let shareConfig = ShareConfig(
                     includeTags: self.tagsToggle.isOn,
@@ -73,7 +73,7 @@ class PublishViewController: UIViewController {
     }
     
     @IBAction func didTapDraft(_ sender: Any) {
-        audioManager.save { (item) in
+        audioManager.save(saveAttachment: true) { (item) in
             DispatchQueue.main.async {
                 self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
                 self.delegate?.publishViewControllerShouldNavigateHome(self)
@@ -90,7 +90,7 @@ class PublishViewController: UIViewController {
             let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
             let alert = SCLAlertView(appearance: appearance)
             alert.addButton("Save") {
-                self.audioManager.save { (item) in
+                self.audioManager.save(saveAttachment: true) { (item) in
                     DispatchQueue.main.async {
                         self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
                         self.delegate?.publishViewControllerShouldNavigateBack(self)

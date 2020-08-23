@@ -39,8 +39,13 @@ class AudioAttachmentManager {
                 completion()
                 return
             }
-                        
-            try? imageData.write(to: url)
+            
+            do {
+                try imageData.write(to: url)
+            } catch {
+                assertionFailure("Write failed")
+            }
+            
             completion()
         }
     }
