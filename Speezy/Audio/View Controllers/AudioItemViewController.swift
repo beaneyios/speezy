@@ -31,8 +31,6 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     @IBOutlet weak var btnCrop: UIButton!
     @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
-    @IBOutlet weak var btnTitle2: UIButton!
-    @IBOutlet weak var btnCamera: SpeezyButton!
     
     @IBOutlet weak var bgGradient: UIImageView!
     
@@ -105,8 +103,22 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     
     @IBAction func close(_ sender: Any) {
         if audioManager.hasUnsavedChanges {
-            let alert = SCLAlertView()
-            alert.showWarning("You have unsaved changes", subTitle: "Do you want to do this?")
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Save") {
+                self.audioManager.save(saveAttachment: false) { (item) in
+                    DispatchQueue.main.async {
+                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                        self.delegate?.audioItemViewControllerShouldPop(self)
+                    }
+                }
+            }
+            
+            alert.addButton("Discard") {
+                self.delegate?.audioItemViewControllerShouldPop(self)
+            }
+            
+            alert.showWarning("Changes not saved", subTitle: "You have unsaved changes, would you like to save or discard them?")
         } else {
             delegate?.audioItemViewControllerShouldPop(self)
         }
@@ -194,6 +206,10 @@ extension AudioItemViewController {
     }
     
     private func configurePlaybackControls() {
+        playbackControlsContainer.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
         let playbackControlsView = PlaybackControlsView.instanceFromNib()
         playbackControlsView.configure(with: audioManager)
         playbackControlsContainer.addSubview(playbackControlsView)
@@ -203,6 +219,9 @@ extension AudioItemViewController {
     }
     
     private func configureMainSoundWave() {
+        mainWave?.removeFromSuperview()
+        mainWave = nil
+        
         let soundWaveView = PlaybackView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
