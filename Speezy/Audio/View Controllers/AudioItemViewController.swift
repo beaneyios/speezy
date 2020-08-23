@@ -17,7 +17,7 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
-class AudioItemViewController: UIViewController, AudioShareable, AudioManagerObserver {
+class AudioItemViewController: UIViewController, AudioManagerObserver {
     
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!

@@ -22,6 +22,10 @@ class ShareViewController: UIViewController {
     
     weak var delegate: ShareViewControllerDelegate?
     
+    var item: AudioItem!
+    var attachment: UIImage?
+    var completion: (() -> Void)?
+    
     let options: [ShareOption] = [
         ShareOption(title: "WhatsApp", image: UIImage(named: "whatsapp-share-icon"), platform: .whatsapp),
         ShareOption(title: "Messenger", image: UIImage(named: "messenger-share-icon"), platform: .messenger),

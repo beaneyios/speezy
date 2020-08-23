@@ -17,13 +17,15 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
 }
 
-class AudioItemListViewController: UIViewController, AudioShareable {
+class AudioItemListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
+    
+    lazy var shareController = AudioShareController(parentViewController: self)
     
     weak var delegate: AudioItemListViewControllerDelegate?
     var audioItems: [AudioItem] = []
@@ -157,10 +159,12 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     }
     
     func share(item: AudioItem) {
-        share(
-            item: item,
-            attachmentImage: audioAttachmentManager.imageAttachmentCache[item.id],
-            completion: nil
-        )
+        
+//        share(
+//            item: item,
+//            attachmentImage: audioAttachmentManager.imageAttachmentCache[item.id],
+//            shareOption: ShareOption(title: "Test", image: nil, platform: .whatsapp),
+//            completion: nil
+//        )
     }
 }
