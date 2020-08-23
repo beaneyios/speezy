@@ -141,5 +141,3 @@ extension ShareViewController: UICollectionViewDataSource, UICollectionViewDeleg
         return CGSize(width: length, height: length)
     }
 }
-
-

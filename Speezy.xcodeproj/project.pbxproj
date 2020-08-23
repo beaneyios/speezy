@@ -78,6 +78,7 @@
 		BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */; };
 		BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126624F2655D00B53D1A /* AudioShareController.swift */; };
 		BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126824F2657C00B53D1A /* ShareConfig.swift */; };
+		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
@@ -173,6 +174,7 @@
 		BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellCollectionView.swift; sourceTree = "<group>"; };
 		BEDC126624F2655D00B53D1A /* AudioShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioShareController.swift; sourceTree = "<group>"; };
 		BEDC126824F2657C00B53D1A /* ShareConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfig.swift; sourceTree = "<group>"; };
+		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */,
 				BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */,
 				BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */,
+				BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -707,6 +710,7 @@
 			files = (
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
+				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,

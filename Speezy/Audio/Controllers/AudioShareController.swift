@@ -9,8 +9,9 @@
 import UIKit
 import SCLAlertView
 import SwiftVideoGenerator
+import MessageUI
 
-class AudioShareController {
+class AudioShareController: NSObject {
     typealias ShareCompletion = () -> Void
     
     weak var parentViewController: UIViewController?
@@ -61,13 +62,7 @@ extension AudioShareController: ShareViewControllerDelegate {
     
     func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
         shareViewController.dismissShare()
-        
-        switch option.platform {
-        case .email:
-            break
-        default:
-            presentNativeShareSheet(item: audioItem, config: config)
-        }
+        generateVideoAndresentShareOption(item: audioItem, option: option, config: config)
     }
     
     func shareViewControllerShouldPop(_ shareViewController: ShareViewController) {
@@ -76,7 +71,7 @@ extension AudioShareController: ShareViewControllerDelegate {
 }
 
 extension AudioShareController {
-    func presentNativeShareSheet(item: AudioItem, config: ShareConfig) {
+    func generateVideoAndresentShareOption(item: AudioItem, option: ShareOption, config: ShareConfig) {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
         let alert = SCLAlertView(appearance: appearance)
         alert.showInfo(
@@ -114,7 +109,7 @@ extension AudioShareController {
                 DispatchQueue.main.async {
                     self.shareAlert?.hideView()
                     self.shareAlert = nil
-                    self.sendToCustomShareSheet(url: url)
+                    self.presentShareOption(url: url, option: option)
                     self.completion?()
                 }
             case let .failure(error):
@@ -124,7 +119,16 @@ extension AudioShareController {
         })
     }
     
-    func sendToCustomShareSheet(url: URL) {
+    func presentShareOption(url: URL, option: ShareOption) {
+        switch option.platform {
+        case .email:
+            sendEmail(url: url)
+        default:
+            presentNativeShareSheet(url: url)
+        }
+    }
+    
+    func presentNativeShareSheet(url: URL) {
         guard let parentViewController = self.parentViewController else {
             assertionFailure("No parent view controller, there should be")
             return
@@ -136,5 +140,30 @@ extension AudioShareController {
             in: parentViewController.view,
             animated: true
         )
+    }
+}
+
+extension AudioShareController: MFMailComposeViewControllerDelegate {
+    func sendEmail(url: URL) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            let tagsText = audioItem.tags.map {
+                "<p>#\($0.title)</p>"
+            }.joined()
+            mail.setMessageBody("<p>Audio shared from Speezy</p><p>\(audioItem.title)</p>\(tagsText)", isHTML: true)
+            
+            if let data = try? Data(contentsOf: url) {
+                mail.addAttachmentData(data, mimeType: "video/mp4    ", fileName: "\(audioItem.title).m4v")
+            }
+
+            parentViewController?.present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }

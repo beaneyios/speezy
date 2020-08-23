@@ -24,6 +24,7 @@ class AudioItemCoordinator: ViewCoordinator {
     }
     
     override func start() {
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigateToAudioItemList()
     }
     
@@ -63,7 +64,6 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         viewController.delegate = self
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .fullScreen
-        navigationController.interactivePopGestureRecognizer?.delegate = nil
         navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.present(navigationController, animated: true, completion: nil)
     }

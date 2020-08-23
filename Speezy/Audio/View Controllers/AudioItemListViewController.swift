@@ -35,15 +35,6 @@ class AudioItemListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let plusButton = UIBarButtonItem(
-            image: UIImage(named: "settings-button"),
-            style: .plain,
-            target: self,
-            action: #selector(settingsItemTapped)
-        )
-        navigationItem.rightBarButtonItem = plusButton
-        navigationItem.rightBarButtonItem?.tintColor = .black
-        title = "My recordings"
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
         tableView.estimatedRowHeight = 100.0
@@ -65,12 +56,12 @@ class AudioItemListViewController: UIViewController {
         }        
     }
     
-    @IBAction func speezyTapped(_ sender: Any) {
-        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
+    @IBAction func settingsTapped(_ sender: Any) {
+        delegate?.audioItemListViewControllerDidSelectSettings(self)
     }
     
-    @objc func settingsItemTapped() {
-        delegate?.audioItemListViewControllerDidSelectSettings(self)
+    @IBAction func speezyTapped(_ sender: Any) {
+        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
     }
     
     func reloadItem(_ item: AudioItem) {
