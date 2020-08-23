@@ -102,29 +102,42 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let share = UIContextualAction(style: .normal, title: "Send") { (action, view, completionHandler) in
+            self.delegate?.audioItemListViewController(self, didSelectSendOnItem: self.audioItems[indexPath.row])
+            completionHandler(true)
+        }
+        
+        share.backgroundColor = UIColor(named: "speezy-purple")
+        
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let item = self.audioItems[indexPath.row]
-            deleteItem(item: item) {
+            self.deleteItem(item: item) {
                 self.audioItems.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
+            completionHandler(true)
         }
+        
+        return UISwipeActionsConfiguration(actions: [share, delete])
     }
     
     private func deleteItem(item: AudioItem, completion: @escaping () -> Void) {
-        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
-        let alert = SCLAlertView(appearance: appearance)
-        
-        alert.addButton("Delete", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: UIColor(named: "speezy-red")) {
+        let alert = UIAlertController(title: "Delete item", message: "Are you sure you want to delete this clip? You will not be able to undo this action.", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
             FileManager.default.deleteExistingURL(item.url)
             AudioStorage.deleteItem(item)
             completion()
         }
         
-        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue) {}
-        alert.showWarning("Delete item", subTitle: "Are you sure you want to delete this clip? You will not be able to undo this action.", closeButtonTitle: "Not yet")
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            
+        }
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
