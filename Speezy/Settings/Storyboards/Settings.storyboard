@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DW6-Nv-cIp">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I0A-1K-dTc">
@@ -87,7 +87,7 @@
                             <constraint firstItem="mXe-9p-Qsy" firstAttribute="trailing" secondItem="DW6-Nv-cIp" secondAttribute="trailing" id="FPc-jU-ZOg"/>
                             <constraint firstItem="mXe-9p-Qsy" firstAttribute="bottom" secondItem="DW6-Nv-cIp" secondAttribute="bottom" id="JA1-AE-Bc8"/>
                             <constraint firstAttribute="trailing" secondItem="I0A-1K-dTc" secondAttribute="trailing" id="JKu-y2-j7w"/>
-                            <constraint firstItem="DW6-Nv-cIp" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="bottom" id="LJR-hf-9oz"/>
+                            <constraint firstItem="DW6-Nv-cIp" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="bottom" constant="16" id="LJR-hf-9oz"/>
                             <constraint firstItem="DW6-Nv-cIp" firstAttribute="leading" secondItem="mXe-9p-Qsy" secondAttribute="leading" id="MoT-uD-TyH"/>
                             <constraint firstItem="I0A-1K-dTc" firstAttribute="leading" secondItem="mXe-9p-Qsy" secondAttribute="leading" id="OGb-Kt-ElJ"/>
                             <constraint firstItem="I0A-1K-dTc" firstAttribute="top" secondItem="mXe-9p-Qsy" secondAttribute="top" id="Vz6-pw-KVq"/>
@@ -102,10 +102,10 @@
             </objects>
             <point key="canvasLocation" x="-585" y="-202"/>
         </scene>
-        <!--Privacy Policy View Controller-->
+        <!--Web View View Controller-->
         <scene sceneID="E6T-by-Fz6">
             <objects>
-                <viewController storyboardIdentifier="PrivacyPolicyViewController" id="aIs-Tw-elR" customClass="PrivacyPolicyViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrivacyPolicyViewController" id="aIs-Tw-elR" customClass="WebViewViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oj1-ED-qEg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -193,6 +193,7 @@
                         <viewLayoutGuide key="safeArea" id="fPl-t4-N0q"/>
                     </view>
                     <connections>
+                        <outlet property="lblTitle" destination="3Xa-Nm-9Cb" id="QRB-XT-VFO"/>
                         <outlet property="webView" destination="mLw-Rc-bkm" id="0we-qq-GSd"/>
                     </connections>
                 </viewController>

@@ -45,7 +45,7 @@
 		BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767224D6CCD90009BE63 /* SettingsItem.swift */; };
 		BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE77767424D6D3100009BE63 /* SettingsFooterView.xib */; };
 		BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767624D6D3390009BE63 /* SettingsFooterView.swift */; };
-		BE77767924D6DA6E0009BE63 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767824D6DA6E0009BE63 /* PrivacyPolicyViewController.swift */; };
+		BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */; };
 		BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = BE77767A24D6DAAB0009BE63 /* privacy-policy.html */; };
 		BE77767D24D6DB8B0009BE63 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE77767C24D6DB8B0009BE63 /* WebKit.framework */; };
 		BE792707247EE55F0079652C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE792706247EE55F0079652C /* AppDelegate.swift */; };
@@ -79,6 +79,7 @@
 		BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126624F2655D00B53D1A /* AudioShareController.swift */; };
 		BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126824F2657C00B53D1A /* ShareConfig.swift */; };
 		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
+		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
@@ -137,7 +138,7 @@
 		BE77767224D6CCD90009BE63 /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		BE77767424D6D3100009BE63 /* SettingsFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsFooterView.xib; sourceTree = "<group>"; };
 		BE77767624D6D3390009BE63 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
-		BE77767824D6DA6E0009BE63 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		BE77767A24D6DAAB0009BE63 /* privacy-policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "privacy-policy.html"; sourceTree = "<group>"; };
 		BE77767C24D6DB8B0009BE63 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BE792703247EE55F0079652C /* Speezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Speezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +176,7 @@
 		BEDC126624F2655D00B53D1A /* AudioShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioShareController.swift; sourceTree = "<group>"; };
 		BEDC126824F2657C00B53D1A /* ShareConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfig.swift; sourceTree = "<group>"; };
 		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
+		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				BEDC126C24F2D2A900B53D1A /* Resources */,
 				BE77767124D6CCD10009BE63 /* Models */,
 				BE77766324D6CB4B0009BE63 /* Coordinators */,
 				BE77766424D6CB4F0009BE63 /* Storyboards */,
@@ -271,7 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */,
-				BE77767824D6DA6E0009BE63 /* PrivacyPolicyViewController.swift */,
+				BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -327,7 +330,6 @@
 				BE79270F247EE5610079652C /* Assets.xcassets */,
 				BE792711247EE5610079652C /* LaunchScreen.storyboard */,
 				BE792714247EE5610079652C /* Info.plist */,
-				BE77767A24D6DAAB0009BE63 /* privacy-policy.html */,
 			);
 			path = Speezy;
 			sourceTree = "<group>";
@@ -471,6 +473,15 @@
 				BEBFD4CA24C5DB8700200D87 /* Storage.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEDC126C24F2D2A900B53D1A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BE77767A24D6DAAB0009BE63 /* privacy-policy.html */,
+				BEDC126D24F2D2B800B53D1A /* acknowledgements.html */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		BEF0ECB024BF948D00B9D554 /* App */ = {
@@ -627,6 +638,7 @@
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
+				BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,7 +771,7 @@
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
-				BE77767924D6DA6E0009BE63 /* PrivacyPolicyViewController.swift in Sources */,
+				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
 				BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */,
 				BEBFD4C324C5B9DC00200D87 /* ViewCoordinator.swift in Sources */,
 			);

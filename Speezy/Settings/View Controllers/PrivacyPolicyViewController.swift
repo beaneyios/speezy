@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 import UIKit
 
-class PrivacyPolicyViewController: UIViewController {
+class WebViewViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     
     override func viewDidLoad() {
