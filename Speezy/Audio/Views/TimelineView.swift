@@ -60,10 +60,10 @@ class TimelineView: UIView {
             maker.leading.equalTo(label.snp.leading)
         }
         
-        UIView.animate(withDuration: 0.3, delay: TimeInterval(second) / 10.0, options: [], animations: {
+//        UIView.animate(withDuration: 0.3, delay: TimeInterval(second) / 10.0, options: [], animations: {
             label.alpha = 0.3
             verticalLine.alpha = 0.3
-        }, completion: nil)
+//        }, completion: nil)
     }
     
     private func timeLabel(duration: TimeInterval) -> String {
