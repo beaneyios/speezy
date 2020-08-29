@@ -46,8 +46,14 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSLog("Configuring publish view controller")
         configureAudioManager()
+        
+        NSLog("Finished configuring manager")
+        
         configureSubviews()
+        
+        NSLog("Finished configuring subviews")
     }
     
     @IBAction func didTapPlay(_ sender: Any) {
@@ -142,7 +148,7 @@ extension PublishViewController: AudioManagerObserver {
     }
     
     func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {}
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
     func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {}
     func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}

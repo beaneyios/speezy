@@ -22,7 +22,8 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
     @IBOutlet var cropHidables: [UIButton]!
-    
+    @IBOutlet var cutHidables: [UIButton]!
+        
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnDrafts: UIButton!
     
@@ -92,6 +93,7 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     @IBAction func send(_ sender: Any) {
         audioManager.save(saveAttachment: false) { (item) in
             DispatchQueue.main.async {
+                NSLog("Going to call delegate \(self.delegate)")
                 self.delegate?.audioItemViewController(self, shouldSendItem: item)
             }
         }
@@ -167,7 +169,12 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     }
     
     @IBAction func toggleCut(_ sender: Any) {
-        
+        if audioManager.canCrop {
+            audioManager.toggleCut()
+        } else {
+            let alert = SCLAlertView()
+            alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to cut - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
+        }
     }
 }
 
@@ -264,9 +271,61 @@ extension AudioItemViewController {
         )
     }
     
-    private func showCropView() {
-        btnCrop.setImage(UIImage(named: "crop-button-selected"), for: .normal)
+    private func showCutView() {
+        cutHidables.forEach {
+            $0.disable()
+        }
         
+        cropContainerHeight.constant = 100.0
+        controlButtonsHeight.constant = 0.0
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.layoutIfNeeded()
+            self.cropContainer.alpha = 1.0
+        }) { (finished) in
+            let cropView = CropView.instanceFromNib()
+            cropView.alpha = 0.0
+            self.cropWaveContainer.addSubview(cropView)
+            
+            cropView.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(self.cropWaveContainer)
+            }
+            
+            self.cropView = cropView
+            cropView.configure(manager: self.audioManager, cropKind: .cut)
+            
+            UIView.animate(withDuration: 0.3) {
+                cropView.alpha = 1.0
+            }
+            
+            self.scrollView.setContentOffset(
+                CGPoint(x: 0, y: 100.0),
+                animated: true
+            )
+        }
+    }
+    
+    private func hideCropView() {
+        cutHidables.forEach {
+            $0.enable()
+        }
+        
+        controlButtonsHeight.constant = 80.0
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+            self.cropContainer.alpha = 0.0
+        }) { (finished) in
+            self.cropView?.removeFromSuperview()
+            self.cropView = nil
+            self.cropContainerHeight.constant = 0.0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    private func showCropView() {
         cropHidables.forEach {
             $0.disable()
         }
@@ -287,7 +346,7 @@ extension AudioItemViewController {
             }
             
             self.cropView = cropView
-            cropView.configure(manager: self.audioManager)
+            cropView.configure(manager: self.audioManager, cropKind: .trim)
             
             UIView.animate(withDuration: 0.3) {
                 cropView.alpha = 1.0
@@ -399,9 +458,16 @@ extension AudioItemViewController {
 
 // MARK: CROPPING
 extension AudioItemViewController {
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem) {
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
         lblTimer.text = "00:00:00"
-        showCropView()
+
+        switch kind {
+        case .cut:
+            showCutView()
+        case .trim:
+            showCropView()
+        }
+
         scrollView.isScrollEnabled = false
     }
     

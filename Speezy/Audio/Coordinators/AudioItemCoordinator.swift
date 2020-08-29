@@ -120,6 +120,7 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
+        NSLog("Delegate called, presenting the view controller \(viewController) on navigation controller \(pushingViewController.navigationController)")
         pushingViewController.navigationController?.pushViewController(viewController, animated: true)
     }
     
