@@ -105,9 +105,8 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     
     @IBAction func close(_ sender: Any) {
         if audioManager.hasUnsavedChanges {
-            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
-            let alert = SCLAlertView(appearance: appearance)
-            alert.addButton("Save") {
+            let alert = UIAlertController(title: "Changes not saved", message: "You have unsaved changes, would you like to save or discard them?", preferredStyle: .actionSheet)
+            let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 self.audioManager.save(saveAttachment: false) { (item) in
                     DispatchQueue.main.async {
                         self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
@@ -116,11 +115,18 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
                 }
             }
             
-            alert.addButton("Discard") {
-                self.delegate?.audioItemViewControllerShouldPop(self)
+            let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
+                self.audioManager.discard {
+                    self.delegate?.audioItemViewControllerShouldPop(self)
+                }
             }
             
-            alert.showWarning("Changes not saved", subTitle: "You have unsaved changes, would you like to save or discard them?")
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(saveAction)
+            alert.addAction(discardAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
         } else {
             delegate?.audioItemViewControllerShouldPop(self)
         }
@@ -147,21 +153,15 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
             return
         }
         
-        let appearance = SCLAlertView.SCLAppearance(kButtonFont: UIFont.systemFont(ofSize: 16.0, weight: .light), showCloseButton: false)
-        let alert = SCLAlertView(appearance: appearance)
-        
-        alert.addButton("Crop", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: UIColor(named: "speezy-red")) {
+        let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
+        let cropAction = UIAlertAction(title: "Crop", style: .destructive) { (action) in
             self.audioManager.applyCrop()
         }
         
-        alert.addButton("Cancel", backgroundColor: UIColor(named: "alert-button-colour")!, textColor: .blue, action: {})
-        
-        alert.showWarning(
-            "Crop item",
-            subTitle: "Are you sure you want to crop? You will not be able to undo this action.",
-            closeButtonTitle: "Not yet",
-            animationStyle: .bottomToTop
-        )
+        let cancelAction = UIAlertAction(title: "Not yet", style: .cancel, handler: nil)
+        alert.addAction(cropAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func cancelCrop(_ sender: Any) {

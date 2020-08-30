@@ -62,10 +62,14 @@ class AudioManager: NSObject {
         }
     }
     
+    func discard(completion: @escaping () -> Void) {
+        FileManager.default.deleteExistingURL(item.url)
+        FileManager.default.copy(original: originalItem.url, to: item.url)
+        completion()
+    }
+    
     private func saveItem(completion: @escaping (AudioItem) -> Void) {
-        NSLog("Deleting existing item")
         FileManager.default.deleteExistingFile(with: originalItem.path)
-        NSLog("Copying original item")
         FileManager.default.copy(original: item.url, to: originalItem.url)
         
         let newItem = AudioItem(

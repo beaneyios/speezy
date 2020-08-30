@@ -93,9 +93,8 @@ class PublishViewController: UIViewController {
     
     @IBAction func didTapBack(_ sender: Any) {
         if audioManager.hasUnsavedChanges {
-            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
-            let alert = SCLAlertView(appearance: appearance)
-            alert.addButton("Save") {
+            let alert = UIAlertController(title: "Changes not saved", message: "You have unsaved changes, would you like to save or discard them?", preferredStyle: .actionSheet)
+            let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 self.audioManager.save(saveAttachment: true) { (item) in
                     DispatchQueue.main.async {
                         self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
@@ -104,11 +103,18 @@ class PublishViewController: UIViewController {
                 }
             }
             
-            alert.addButton("Discard") {
-                self.delegate?.publishViewControllerShouldNavigateBack(self)
+            let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
+                self.audioManager.discard {
+                    self.delegate?.publishViewControllerShouldNavigateBack(self)
+                }
             }
             
-            alert.showWarning("Changes not saved", subTitle: "You have unsaved changes, would you like to save or discard them?")
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(saveAction)
+            alert.addAction(discardAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
         } else {
             self.delegate?.publishViewControllerShouldNavigateBack(self)
         }

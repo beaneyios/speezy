@@ -128,7 +128,7 @@ extension AudioCropper {
                 case .cancelled:
                     print("Export canceled")
                 default:
-                    print("Successfully cropped audio")
+                    print("Successfully cut audio")
                     DispatchQueue.main.async(execute: {
                         finished("\(audioItem.id)_cut.m4a")
                     })
@@ -138,8 +138,6 @@ extension AudioCropper {
             
         }
     }
-    
-    
     
     func crop(
         audioItem: AudioItem,
