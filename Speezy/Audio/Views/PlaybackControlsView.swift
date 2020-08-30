@@ -94,7 +94,11 @@ extension PlaybackControlsView: AudioManagerObserver {
         sliderPlayback.setValue(0.0, animated: true)
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
+        if seekActive {
+            return
+        }
+        
         let percentageComplete = time / manager.currentItem.duration
         self.sliderPlayback.setValue(Float(percentageComplete), animated: false)
     }

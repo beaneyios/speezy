@@ -431,7 +431,7 @@ extension AudioItemViewController {
         }
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
         lblTimer.text = TimeFormatter.formatTime(time: time)
     }
     

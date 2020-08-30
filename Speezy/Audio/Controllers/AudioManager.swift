@@ -244,7 +244,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func seek(to percentage: Float) {
-        if audioPlayer == nil {
+        if audioPlayer == nil || isCropping {
             audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
             state = .pausedPlayback(currentItem)
@@ -265,15 +265,8 @@ extension AudioManager: AudioPlayerDelegate {
         performAction(action: .showPlaybackPaused(item))
     }
     
-    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval) {
-        self.observations.forEach {
-            guard let observer = $0.value.observer else {
-                self.observations.removeValue(forKey: $0.key)
-                return
-            }
-            
-            observer.audioManager(self, progressedWithTime: time)
-        }
+    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
+        performAction(action: .showPlaybackProgressed(time, seekActive: seekActive))
     }
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
@@ -394,6 +387,7 @@ extension AudioManager {
         case showPlaybackStopped(AudioItem)
         case showPlaybackStarted(AudioItem)
         case showPlaybackPaused(AudioItem)
+        case showPlaybackProgressed(TimeInterval, seekActive: Bool)
         
         case showRecordingStarted(AudioItem)
         case showRecordingProgressed(power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
@@ -473,7 +467,8 @@ extension AudioManager {
             case .showPlaybackPaused(let item):
                 state = .pausedPlayback(item)
                 observer.audioManager(self, didPausePlaybackOf: item)
-                
+            case let .showPlaybackProgressed(time, seekActive):
+                observer.audioManager(self, progressedWithTime: time, seekActive: seekActive)
             case .showRecordingStarted:
                 state = .recording
                 observer.audioManagerDidStartRecording(self)

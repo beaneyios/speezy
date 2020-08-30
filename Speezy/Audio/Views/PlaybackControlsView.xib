@@ -28,7 +28,7 @@
                             </connections>
                         </button>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwK-sH-l71">
-                            <rect key="frame" x="-2" y="68" width="520" height="31"/>
+                            <rect key="frame" x="10" y="68" width="496" height="31"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="minimumTrackTintColor" red="1" green="0.0033983118411132773" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </slider>
@@ -62,7 +62,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Wca-26-qzN" firstAttribute="leading" secondItem="aMf-M5-TtZ" secondAttribute="trailing" constant="48" id="1Tz-sQ-UyL"/>
-                        <constraint firstAttribute="trailing" secondItem="XwK-sH-l71" secondAttribute="trailing" id="4la-As-XHR"/>
+                        <constraint firstAttribute="trailing" secondItem="XwK-sH-l71" secondAttribute="trailing" constant="12" id="4la-As-XHR"/>
                         <constraint firstItem="Wca-26-qzN" firstAttribute="centerY" secondItem="aMf-M5-TtZ" secondAttribute="centerY" id="Bza-yM-82e"/>
                         <constraint firstItem="XwK-sH-l71" firstAttribute="top" secondItem="aMf-M5-TtZ" secondAttribute="bottom" constant="8" id="Lmp-e5-L6C"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XwK-sH-l71" secondAttribute="bottom" id="O6n-Np-Qpg"/>
@@ -70,7 +70,7 @@
                         <constraint firstItem="aMf-M5-TtZ" firstAttribute="top" secondItem="qpt-nd-dJd" secondAttribute="top" id="ba6-ZG-gBH"/>
                         <constraint firstItem="aMf-M5-TtZ" firstAttribute="leading" secondItem="vpw-t1-TWk" secondAttribute="trailing" constant="48" id="i4z-GV-Zbb"/>
                         <constraint firstItem="vpw-t1-TWk" firstAttribute="centerY" secondItem="aMf-M5-TtZ" secondAttribute="centerY" id="mQC-Ty-b0i"/>
-                        <constraint firstItem="XwK-sH-l71" firstAttribute="leading" secondItem="qpt-nd-dJd" secondAttribute="leading" id="ohh-Sh-L2x"/>
+                        <constraint firstItem="XwK-sH-l71" firstAttribute="leading" secondItem="qpt-nd-dJd" secondAttribute="leading" constant="12" id="ohh-Sh-L2x"/>
                     </constraints>
                 </view>
             </subviews>

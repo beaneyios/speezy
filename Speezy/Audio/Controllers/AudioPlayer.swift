@@ -13,7 +13,7 @@ protocol AudioPlayerDelegate: AnyObject {
     func audioPlayerDidStartPlayback(_ player: AudioPlayer)
     func audioPlayerDidPausePlayback(_ player: AudioPlayer)
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer)
-    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval)
+    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool)
 }
 
 class AudioPlayer: NSObject, AVAudioPlayerDelegate {
@@ -66,7 +66,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         let timePosition = player.duration * TimeInterval(percentage)
         player.currentTime = timePosition
         
-        delegate?.audioPlayer(self, progressedWithTime: player.currentTime)
+        delegate?.audioPlayer(self, progressedWithTime: player.currentTime, seekActive: true)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -80,7 +80,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
                 return
             }
             
-            self.delegate?.audioPlayer(self, progressedWithTime: player.currentTime)
+            self.delegate?.audioPlayer(self, progressedWithTime: player.currentTime, seekActive: false)
         }
     }
 }

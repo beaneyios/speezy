@@ -232,7 +232,7 @@ extension PlaybackView: AudioManagerObserver {
         // no op
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
         let time = time + manager.startPosition
         
         guard let audioData = audioData else {

@@ -147,7 +147,7 @@ extension PublishViewController: AudioManagerObserver {
         playbackBtn.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval) {}
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {}
     func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
     func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {}
