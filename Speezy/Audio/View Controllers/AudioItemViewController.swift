@@ -443,6 +443,7 @@ extension AudioItemViewController {
         }
         
         btnCrop.enable()
+        btnCut.enable()
     }
     
     func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
