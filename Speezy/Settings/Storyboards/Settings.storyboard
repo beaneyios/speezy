@@ -20,19 +20,13 @@
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcX-OV-uW4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I0A-1K-dTc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15Q-cU-bad">
-                                        <rect key="frame" x="34" y="16.5" width="47" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="2bv-JH-kV9"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                        <state key="normal" title="Back">
-                                            <color key="titleColor" name="speezy-purple"/>
-                                        </state>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Im-uJ-fgx" userLabel="Separator">
                                         <rect key="frame" x="0.0" y="63" width="375" height="1"/>
                                         <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -49,7 +43,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdG-T2-0Sk">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
                                         <connections>
                                             <action selector="didTapBack:" destination="dg1-FN-T3m" eventType="touchUpInside" id="Mnx-P6-5B1"/>
                                         </connections>
@@ -64,33 +58,32 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="3Im-uJ-fgx" firstAttribute="leading" secondItem="I0A-1K-dTc" secondAttribute="leading" id="06c-8n-TPo"/>
-                                    <constraint firstItem="3Im-uJ-fgx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="15Q-cU-bad" secondAttribute="bottom" id="CTU-Q4-qFe"/>
+                                    <constraint firstItem="Pvq-Ua-AVD" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="top" constant="20" id="0tT-jQ-crn"/>
                                     <constraint firstItem="KdG-T2-0Sk" firstAttribute="leading" secondItem="I0A-1K-dTc" secondAttribute="leading" id="Ef3-W9-EtB"/>
-                                    <constraint firstItem="KdG-T2-0Sk" firstAttribute="trailing" secondItem="15Q-cU-bad" secondAttribute="trailing" constant="20" id="Jhm-22-2gX"/>
-                                    <constraint firstItem="PPt-OQ-l68" firstAttribute="centerY" secondItem="15Q-cU-bad" secondAttribute="centerY" id="PsL-yt-7Vn"/>
+                                    <constraint firstItem="PPt-OQ-l68" firstAttribute="centerY" secondItem="Pvq-Ua-AVD" secondAttribute="centerY" id="KdR-FQ-hhc"/>
                                     <constraint firstItem="Pvq-Ua-AVD" firstAttribute="centerX" secondItem="I0A-1K-dTc" secondAttribute="centerX" id="TuK-Jn-NwU"/>
                                     <constraint firstItem="PPt-OQ-l68" firstAttribute="leading" secondItem="I0A-1K-dTc" secondAttribute="leading" constant="16" id="UBq-aa-OFz"/>
                                     <constraint firstAttribute="bottom" secondItem="3Im-uJ-fgx" secondAttribute="bottom" id="Z23-5K-AF5"/>
-                                    <constraint firstItem="15Q-cU-bad" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I0A-1K-dTc" secondAttribute="top" id="bzv-hg-kck"/>
+                                    <constraint firstItem="3Im-uJ-fgx" firstAttribute="top" secondItem="Pvq-Ua-AVD" secondAttribute="bottom" constant="19" id="ZMU-Q7-vcz"/>
                                     <constraint firstItem="KdG-T2-0Sk" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="top" id="c3b-bm-JvW"/>
                                     <constraint firstAttribute="trailing" secondItem="3Im-uJ-fgx" secondAttribute="trailing" id="crX-DH-f2I"/>
-                                    <constraint firstAttribute="height" constant="64" id="eMR-yk-i8t"/>
-                                    <constraint firstItem="15Q-cU-bad" firstAttribute="centerY" secondItem="I0A-1K-dTc" secondAttribute="centerY" id="fBr-2z-3vR"/>
                                     <constraint firstAttribute="bottom" secondItem="KdG-T2-0Sk" secondAttribute="bottom" id="n69-HP-lmf"/>
-                                    <constraint firstItem="Pvq-Ua-AVD" firstAttribute="centerY" secondItem="I0A-1K-dTc" secondAttribute="centerY" id="r2B-nB-sGx"/>
-                                    <constraint firstItem="15Q-cU-bad" firstAttribute="leading" secondItem="PPt-OQ-l68" secondAttribute="trailing" constant="3" id="tTB-lH-04n"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="qcX-OV-uW4" firstAttribute="top" secondItem="Y12-OY-Ykl" secondAttribute="top" id="32O-jR-VdU"/>
+                            <constraint firstItem="qcX-OV-uW4" firstAttribute="leading" secondItem="mXe-9p-Qsy" secondAttribute="leading" id="Db9-yv-OU6"/>
                             <constraint firstItem="mXe-9p-Qsy" firstAttribute="trailing" secondItem="DW6-Nv-cIp" secondAttribute="trailing" id="FPc-jU-ZOg"/>
+                            <constraint firstItem="qcX-OV-uW4" firstAttribute="trailing" secondItem="mXe-9p-Qsy" secondAttribute="trailing" id="Fol-jM-K5l"/>
                             <constraint firstItem="mXe-9p-Qsy" firstAttribute="bottom" secondItem="DW6-Nv-cIp" secondAttribute="bottom" id="JA1-AE-Bc8"/>
                             <constraint firstAttribute="trailing" secondItem="I0A-1K-dTc" secondAttribute="trailing" id="JKu-y2-j7w"/>
                             <constraint firstItem="DW6-Nv-cIp" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="bottom" constant="16" id="LJR-hf-9oz"/>
                             <constraint firstItem="DW6-Nv-cIp" firstAttribute="leading" secondItem="mXe-9p-Qsy" secondAttribute="leading" id="MoT-uD-TyH"/>
                             <constraint firstItem="I0A-1K-dTc" firstAttribute="leading" secondItem="mXe-9p-Qsy" secondAttribute="leading" id="OGb-Kt-ElJ"/>
                             <constraint firstItem="I0A-1K-dTc" firstAttribute="top" secondItem="mXe-9p-Qsy" secondAttribute="top" id="Vz6-pw-KVq"/>
+                            <constraint firstItem="qcX-OV-uW4" firstAttribute="bottom" secondItem="I0A-1K-dTc" secondAttribute="bottom" id="Zk0-Kl-yjb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mXe-9p-Qsy"/>
                     </view>
