@@ -42,16 +42,6 @@ class AudioManager: NSObject {
         )
     }
     
-    func createStagingFile() {
-        DispatchQueue.global().async {
-            do {
-                try FileManager.default.copyItem(at: self.originalItem.url, to: self.item.url)
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
     func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
         if saveAttachment {
             commitImageAttachment {
@@ -80,11 +70,8 @@ class AudioManager: NSObject {
             tags: item.tags
         )
         
-        NSLog("Saving list")
         AudioStorage.saveItem(newItem)
         self.hasUnsavedChanges = false
-        
-        NSLog("Completing")
         completion(newItem)
     }
     
@@ -106,7 +93,6 @@ class AudioManager: NSObject {
         )
         
         self.item = audioItem
-        
         hasUnsavedChanges = true
     }
     
@@ -124,6 +110,24 @@ class AudioManager: NSObject {
             title: item.title,
             date: item.date,
             tags: item.tags + tags
+        )
+        
+        self.item = newItem
+        
+        hasUnsavedChanges = true
+    }
+    
+    func deleteTag(tag: Tag) {
+        let newTags = item.tags.filter {
+            $0.id != tag.id
+        }
+        
+        let newItem = AudioItem(
+            id: item.id,
+            path: item.path,
+            title: item.title,
+            date: item.date,
+            tags: newTags
         )
         
         self.item = newItem

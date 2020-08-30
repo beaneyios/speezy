@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 
 protocol TagsViewDelegate: AnyObject {
-    func tagsViewDidSelectAddTag(_ tagsView: TagsView)
+    func tagsView(_ tagsView: TagsView, didSelectTag tag: Tag)
 }
 
 class TagsView: UIView, NibLoadable {
@@ -111,11 +111,8 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tag = tags[indexPath.row]
-        
-        if tag.id == "add_tag" {
-            delegate?.tagsViewDidSelectAddTag(self)
-        }
+        let tag = tags[indexPath.row]        
+        delegate?.tagsView(self, didSelectTag: tag)
     }
 }
 

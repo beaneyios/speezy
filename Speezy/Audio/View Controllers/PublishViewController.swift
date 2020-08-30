@@ -190,7 +190,28 @@ extension PublishViewController: TagsViewDelegate {
         self.tagsView = tagsView
     }
     
-    func tagsViewDidSelectAddTag(_ tagsView: TagsView) {
+    func tagsView(_ tagsView: TagsView, didSelectTag tag: Tag) {
+        if tag.id == "add_tag" {
+            presentAddTag()
+        } else {
+            presentDeleteTag(tag: tag)
+        }
+    }
+    
+    private func presentDeleteTag(tag: Tag) {
+        let alert = UIAlertController(title: "Delete Tag", message: "This will remove the tag from this audio", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            self.audioManager.deleteTag(tag: tag)
+            self.configureTags()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func presentAddTag() {
         let appearance = SCLAlertView.SCLAppearance(fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
         let alert = SCLAlertView(appearance: appearance)
         let textField = alert.addTextField("Add tag")
@@ -211,7 +232,7 @@ extension PublishViewController: TagsViewDelegate {
             
             self.audioManager.addTag(title: text)
             self.configureTags()
-            self.tagsViewDidSelectAddTag(tagsView)
+            self.presentAddTag()
         }
         
         alert.showEdit(
