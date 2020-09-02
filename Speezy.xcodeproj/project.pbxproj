@@ -12,6 +12,8 @@
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
+		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
+		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */; };
 		BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -105,6 +107,8 @@
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
+		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackControlsView.xib; sourceTree = "<group>"; };
 		BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -321,6 +325,7 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
 				BE77766224D6CB440009BE63 /* Settings */,
@@ -393,6 +398,7 @@
 				BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */,
 				BEDC126024F1964400B53D1A /* ShareOptionCell.swift */,
 				BEDC126124F1964400B53D1A /* ShareOptionCell.xib */,
+				BE0CA32A24FF8B7000F354BD /* WaveView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -548,6 +554,7 @@
 				BE792700247EE55F0079652C /* Frameworks */,
 				BE792701247EE55F0079652C /* Resources */,
 				8BD7A46B0703E53F9D366220 /* [CP] Embed Pods Frameworks */,
+				BE0CA32E25001A9F00F354BD /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -637,6 +644,7 @@
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
+				BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
 				BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */,
 			);
@@ -713,6 +721,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BE0CA32E25001A9F00F354BD /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -765,6 +793,7 @@
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
+				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
@@ -936,6 +965,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5P5MB2LN99;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
