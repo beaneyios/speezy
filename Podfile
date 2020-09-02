@@ -12,6 +12,7 @@ target 'Speezy' do
   pod 'SCLAlertView'
   pod 'Hero'
   pod 'DeviceKit', '~> 2.0'
+  pod 'Firebase/Crashlytics'
 
   target 'SpeezyTests' do
     inherit! :search_paths
