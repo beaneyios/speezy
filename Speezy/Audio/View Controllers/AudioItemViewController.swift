@@ -410,7 +410,7 @@ extension AudioItemViewController {
     func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
         if maxLimitedReached {
             let alert = SCLAlertView()
-            alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 3 minutes")
+            alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 2 minutes")
         }
         
         btnRecord.stopLoading()
