@@ -20,7 +20,7 @@ class PlaybackView: UIView {
     
     private var waveWidth: Constraint!
     
-    private var wave: AudioVisualizationView!
+    private var wave: AudioVisualisationView2!
     private var timelineView: TimelineView!
     private var cropOverlayView: CropOverlayView!
         
@@ -129,7 +129,7 @@ extension PlaybackView {
             scrollView.setContentOffset(CGPoint.zero, animated: true)
         }
         
-        let wave = AudioVisualizationView(
+        let wave = AudioVisualisationView2(
             frame: CGRect(
                 x: 0,
                 y: 24.0,
@@ -138,14 +138,7 @@ extension PlaybackView {
             )
         )
         
-        wave.gradientEndColor = .white
-        wave.gradientStartColor = .red
-        wave.meteringLevelBarInterItem = self.barSpacing
-        wave.meteringLevelBarWidth = self.barWidth
-        wave.tintColor = .white
-        wave.audioVisualizationMode = .read
         wave.backgroundColor = .clear
-        wave.meteringLevels = levels
         wave.alpha = 0.0
         
         scrollView.contentSize = waveSize
@@ -170,7 +163,7 @@ extension PlaybackView {
 // MARK: SCROLL VIEW HANDLING
 extension PlaybackView {
     private func stop() {
-        wave.stop()
+//        wave.stop()
         scrollView.setContentOffset(.zero, animated: true)
     }
     
@@ -251,7 +244,6 @@ extension PlaybackView: AudioManagerObserver {
         }
         
         let newPercentage = Float(time) / Float(audioData.duration)
-        wave.advanceGradient(percentage: newPercentage)
     }
     
     
@@ -267,18 +259,7 @@ extension PlaybackView: AudioManagerObserver {
 // MARK: RECORDING LISTENERS
 extension PlaybackView {
     func audioManagerDidStartRecording(_ player: AudioManager) {
-        wave.stop()
-        wave.reset()
-        wave.audioVisualizationMode = .write
-        
-        guard let audioData = self.audioData else {
-            assertionFailure("Audio data shouldn't be nil here")
-            return
-        }
-        
-        audioData.percentageLevels.forEach {
-            self.wave.add(meteringLevel: $0)
-        }
+
     }
     
     func audioManagerProcessingRecording(_ player: AudioManager) {
@@ -286,24 +267,14 @@ extension PlaybackView {
     }
         
     func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
-        AudioLevelGenerator.render(fromAudioItem: player.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
-            DispatchQueue.main.async {
-                self.alpha = 1.0
-                
-                self.manager = player
-                self.wave.reset()
-                self.wave.audioVisualizationMode = .read
-                self.wave.meteringLevels = audioData.percentageLevels
-            }
-        }
+        self.alpha = 1.0
+        self.manager = player
     }
     
     func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         let previousDuration = audioData?.duration
         audioData = audioData?.addingDBLevel(decibel, addedDuration: stepDuration)
         let newDuration = audioData?.duration
-        
-        wave.audioVisualizationMode = .write
         
         guard let audioData = audioData, let percentageLevel = audioData.percentageLevels.last else {
             assertionFailure("Somehow audioData is nil.")

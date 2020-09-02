@@ -50,13 +50,14 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         ]
         
         do {
+            let stepDuration = 0.1
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             audioRecorder?.isMeteringEnabled = true
             audioRecorder?.delegate = self
             audioRecorder?.record()
             delegate?.audioRecorderDidStartRecording(self)
                         
-            recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+            recordingTimer = Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { (timer) in
                 guard let recorder = self.audioRecorder else {
                     assertionFailure("Somehow recorder is nil.")
                     return
@@ -64,13 +65,13 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
                 
                 recorder.updateMeters()
                 let power = recorder.averagePower(forChannel: 0)
-                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, stepDuration: 0.1, totalDuration: self.totalTime)
+                self.delegate?.audioRecorder(self, didRecordBarWithPower: power, stepDuration: stepDuration, totalDuration: self.totalTime)
                 
                 if self.totalTime > self.recordingThreshhold {
                     self.stopRecording()
                 }
                 
-                self.totalTime += 0.1
+                self.totalTime += stepDuration
             }
         } catch {
             

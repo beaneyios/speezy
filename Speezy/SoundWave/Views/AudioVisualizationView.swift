@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PerformanceBezier
 
 public class AudioVisualizationView: BaseNibView {
 	public enum AudioVisualizationMode {
@@ -108,7 +109,9 @@ public class AudioVisualizationView: BaseNibView {
 		}
 
 		self.meteringLevelsArray.append(meteringLevel)
-		self.setNeedsDisplay()
+        self.setNeedsDisplay(
+            CGRect(x: frame.width - 5.0, y: 0.0, width: 5.0, height: frame.height)
+        )
 	}
 
 	public func scaleSoundDataToFitScreen() -> [Float] {
@@ -171,13 +174,13 @@ public class AudioVisualizationView: BaseNibView {
 		let maskContext = UIGraphicsGetCurrentContext()
 		UIColor.black.set()
 
-		self.drawMeteringLevelBars(inContext: maskContext!)
+        self.drawMeteringLevelBars(inContext: maskContext!)
 
 		let mask = UIGraphicsGetCurrentContext()?.makeImage()
 		UIGraphicsEndImageContext()
 
 		context.clip(to: self.bounds, mask: mask!)
-
+        
 		self.drawGradient(inContext: context)
 
 		context.restoreGState()
@@ -251,11 +254,23 @@ public class AudioVisualizationView: BaseNibView {
 		let heightForMeteringLevel = self.heightForMeteringLevel(self.currentMeteringLevelsArray[meteringLevelIndex])
 
 		if isUpperBar {
-			barPath = UIBezierPath(roundedRect: CGRect(x: xPointForMeteringLevel, y: self.centerY - heightForMeteringLevel,
-				width: self.meteringLevelBarWidth, height: heightForMeteringLevel), cornerRadius: self.meteringLevelBarCornerRadius)
+            barPath = UIBezierPath(
+                rect: CGRect(
+                    x: xPointForMeteringLevel,
+                    y: self.centerY - heightForMeteringLevel,
+                    width: self.meteringLevelBarWidth,
+                    height: heightForMeteringLevel
+                )
+            )
 		} else {
-			barPath = UIBezierPath(roundedRect: CGRect(x: xPointForMeteringLevel, y: self.centerY, width: self.meteringLevelBarWidth,
-				height: heightForMeteringLevel), cornerRadius: self.meteringLevelBarCornerRadius)
+            barPath = UIBezierPath(
+                rect: CGRect(
+                    x: xPointForMeteringLevel,
+                    y: self.centerY,
+                    width: self.meteringLevelBarWidth,
+                    height: heightForMeteringLevel
+                )
+            )
 		}
 
 		UIColor.black.set()
