@@ -17,7 +17,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     weak var delegate: AudioRecorderDelegate?
     private var totalTime: TimeInterval = 0.0
     
-    private let recordingThreshhold: TimeInterval = 180
+    static let recordingThreshhold: TimeInterval = 120
     
     let item: AudioItem
     
@@ -67,7 +67,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
                 let power = recorder.averagePower(forChannel: 0)
                 self.delegate?.audioRecorder(self, didRecordBarWithPower: power, stepDuration: stepDuration, totalDuration: self.totalTime)
                 
-                if self.totalTime > self.recordingThreshhold {
+                if self.totalTime > Self.recordingThreshhold {
                     self.stopRecording()
                 }
                 
@@ -95,7 +95,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             self.delegate?.audioRecorder(
                 self,
                 didFinishRecordingWithCompletedItem: self.item,
-                maxLimitReached: self.item.duration >= self.recordingThreshhold
+                maxLimitReached: self.item.duration >= Self.recordingThreshhold
             )
         }
     }
