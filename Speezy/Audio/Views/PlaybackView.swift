@@ -245,6 +245,7 @@ extension PlaybackView: AudioManagerObserver {
         }
         
         let newPercentage = Float(time) / Float(audioData.duration)
+        wave.advancePosition(percentage: newPercentage)
     }
     
     

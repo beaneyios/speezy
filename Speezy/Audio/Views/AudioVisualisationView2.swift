@@ -11,8 +11,11 @@ import UIKit
 import SnapKit
 
 class AudioVisualisationView2: UIView {
-    private var trailingConstraint: Constraint?
+    private var positionLeadingConstraint: Constraint?
+    private var waveTrailingConstraint: Constraint?
     private var meteringViews: [UIView] = []
+    
+    private var position: UIView!
     
     func configure(with meteringLevels: [Float]) {
         meteringViews.forEach {
@@ -32,14 +35,14 @@ class AudioVisualisationView2: UIView {
         addSubview(meteringView)
         
         if let previousMeteringView = meteringViews.last {
-            trailingConstraint?.deactivate()
+            waveTrailingConstraint?.deactivate()
             
             meteringView.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.left.equalTo(previousMeteringView.snp.right).offset(3.0)
                 make.height.equalTo(self).multipliedBy(meteringLevel)
                 make.width.equalTo(3.0)
-                self.trailingConstraint = make.trailing.lessThanOrEqualToSuperview().constraint
+                self.waveTrailingConstraint = make.trailing.lessThanOrEqualToSuperview().constraint
             }
         } else {
             meteringView.snp.makeConstraints { (make) in
@@ -47,10 +50,28 @@ class AudioVisualisationView2: UIView {
                 make.leading.equalToSuperview()
                 make.height.equalTo(self).multipliedBy(meteringLevel)
                 make.width.equalTo(3.0)
-                self.trailingConstraint = make.trailing.lessThanOrEqualToSuperview().constraint
+                self.waveTrailingConstraint = make.trailing.lessThanOrEqualToSuperview().constraint
             }
         }
         
         meteringViews.append(meteringView)
+    }
+    
+    func advancePosition(percentage: Float) {
+        if position == nil {
+            position = UIView()
+            position.backgroundColor = .white
+            addSubview(position)
+            position.snp.makeConstraints { (make) in
+                make.width.equalTo(1.0)
+                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
+                make.leading.equalToSuperview()
+            }
+        }
+        
+        position.snp.updateConstraints { (make) in
+            make.leading.equalToSuperview().offset(self.frame.width * CGFloat(percentage))
+        }
     }
 }
