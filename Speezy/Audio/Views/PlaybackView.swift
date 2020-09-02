@@ -138,6 +138,7 @@ extension PlaybackView {
             )
         )
         
+        wave.configure(with: levels)
         wave.backgroundColor = .clear
         wave.alpha = 0.0
         

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import PerformanceBezier
 
 public class AudioVisualizationView: BaseNibView {
 	public enum AudioVisualizationMode {
