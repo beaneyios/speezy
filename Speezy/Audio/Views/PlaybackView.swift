@@ -20,7 +20,7 @@ class PlaybackView: UIView {
     
     private var waveWidth: Constraint!
     
-    private var wave: AudioVisualisationView2!
+    private var wave: WaveView!
     private var timelineView: TimelineView!
     private var cropOverlayView: CropOverlayView!
         
@@ -129,7 +129,7 @@ extension PlaybackView {
             scrollView.setContentOffset(CGPoint.zero, animated: true)
         }
         
-        let wave = AudioVisualisationView2(
+        let wave = WaveView(
             frame: CGRect(
                 x: 0,
                 y: 24.0,

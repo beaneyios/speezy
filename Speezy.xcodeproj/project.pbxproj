@@ -12,7 +12,7 @@
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
-		BE0CA32B24FF8B7000F354BD /* AudioVisualisationView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* AudioVisualisationView2.swift */; };
+		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */; };
 		BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -106,7 +106,7 @@
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
-		BE0CA32A24FF8B7000F354BD /* AudioVisualisationView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualisationView2.swift; sourceTree = "<group>"; };
+		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackControlsView.xib; sourceTree = "<group>"; };
 		BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -395,7 +395,7 @@
 				BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */,
 				BEDC126024F1964400B53D1A /* ShareOptionCell.swift */,
 				BEDC126124F1964400B53D1A /* ShareOptionCell.xib */,
-				BE0CA32A24FF8B7000F354BD /* AudioVisualisationView2.swift */,
+				BE0CA32A24FF8B7000F354BD /* WaveView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -768,7 +768,7 @@
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
-				BE0CA32B24FF8B7000F354BD /* AudioVisualisationView2.swift in Sources */,
+				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
