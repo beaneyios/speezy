@@ -126,6 +126,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
             self.deleteItem(item: item) {
                 self.audioItems.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                self.toggleEmptyView()
             }
             completionHandler(true)
         }
