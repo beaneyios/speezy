@@ -22,6 +22,7 @@ class AudioItemListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
+    @IBOutlet weak var emptyView: UIView!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -52,8 +53,17 @@ class AudioItemListViewController: UIViewController {
     private func loadItems() {
         audioItems = AudioStorage.fetchItems()
         DispatchQueue.main.async {
+            self.toggleEmptyView()
             self.tableView.reloadData()
         }        
+    }
+    
+    private func toggleEmptyView() {
+        if audioItems.count == 0 {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
     }
     
     @IBAction func settingsTapped(_ sender: Any) {
@@ -74,6 +84,7 @@ class AudioItemListViewController: UIViewController {
         audioAttachmentManager.resetCache()
         
         DispatchQueue.main.async {
+            self.toggleEmptyView()
             self.tableView.reloadData()
         }
     }
