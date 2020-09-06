@@ -12,6 +12,8 @@ import SnapKit
 
 class VideoPlaceholderView: UIView, NibLoadable {
     
+    @IBOutlet weak var attributionHeight: NSLayoutConstraint!
+    @IBOutlet weak var lblAttribution: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblTags: UILabel!
     

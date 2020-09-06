@@ -98,19 +98,59 @@ extension AudioShareController {
             videoPlaceholder.configure(with: item, config: config)
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
-            images.append(videoPlaceholder.asImage())
+            
+            let changeFrequency = Int(item.duration / 10.0)
+            
+            if changeFrequency > 0 {
+                images = (1...changeFrequency).map {
+                    if ($0 % 2) == 0 {
+                        videoPlaceholder.attributionHeight.constant = 0.0
+                        videoPlaceholder.lblAttribution.text = ""
+                    } else {
+                        videoPlaceholder.attributionHeight.constant = 21.0
+                        videoPlaceholder.lblAttribution.text = "Audio Clip Created by Speezy"
+                    }
+                    
+                    videoPlaceholder.setNeedsLayout()
+                    videoPlaceholder.layoutIfNeeded()
+                    
+                    return videoPlaceholder.asImage()
+                }
+            } else {
+                images.append(videoPlaceholder.asImage())
+            }
         } else {
             let videoPlaceholder = VideoPlaceholderView.createFromNib()
             videoPlaceholder.configure(with: item, config: config)
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
-            images.append(videoPlaceholder.asImage())
+            
+            let changeFrequency = Int(item.duration / 10.0)
+            
+            if changeFrequency > 0 {
+                images = (1...changeFrequency).map {
+                    if ($0 % 2) == 0 {
+                        videoPlaceholder.attributionHeight.constant = 0.0
+                        videoPlaceholder.lblAttribution.text = ""
+                    } else {
+                        videoPlaceholder.attributionHeight.constant = 21.0
+                        videoPlaceholder.lblAttribution.text = "Audio Clip Created by Speezy"
+                    }
+                    
+                    videoPlaceholder.setNeedsLayout()
+                    videoPlaceholder.layoutIfNeeded()
+                    
+                    return videoPlaceholder.asImage()
+                }
+            } else {
+                images.append(videoPlaceholder.asImage())
+            }
         }
         
         let audioURL = item.url
         VideoGenerator.fileName = "Speezy Audio File"
         VideoGenerator.shouldOptimiseImageForVideo = true
-        VideoGenerator.current.generate(withImages: images, andAudios: [audioURL], andType: .single, { (progress) in
+        VideoGenerator.current.generate(withImages: images, andAudios: [audioURL], andType: .singleAudioMultipleImage, { (progress) in
             print(progress)
         }, outcome: { (outcome) in
             switch outcome {

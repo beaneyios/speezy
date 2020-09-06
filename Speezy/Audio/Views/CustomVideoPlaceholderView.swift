@@ -11,6 +11,8 @@ import UIKit
 
 class CustomVideoPlaceholderView: UIView, NibLoadable {
     
+    @IBOutlet weak var attributionHeight: NSLayoutConstraint!
+    @IBOutlet weak var lblAttribution: UILabel!
     @IBOutlet weak var imgAttachment: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblTags: UILabel!
