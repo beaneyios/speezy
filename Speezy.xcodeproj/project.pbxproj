@@ -36,6 +36,9 @@
 		BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50346124BDFCA900A414D1 /* AudioManager.swift */; };
 		BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50346424BE02B900A414D1 /* AudioItem.swift */; };
 		BE50346824BE02CE00A414D1 /* AudioManagerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50346724BE02CE00A414D1 /* AudioManagerObserver.swift */; };
+		BE6080A3250E84E7003CB318 /* transcription-test-file.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BE6080A2250E84E7003CB318 /* transcription-test-file.mp4 */; };
+		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
+		BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */; };
 		BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */; };
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
@@ -131,6 +134,9 @@
 		BE50346124BDFCA900A414D1 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		BE50346424BE02B900A414D1 /* AudioItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItem.swift; sourceTree = "<group>"; };
 		BE50346724BE02CE00A414D1 /* AudioManagerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManagerObserver.swift; sourceTree = "<group>"; };
+		BE6080A2250E84E7003CB318 /* transcription-test-file.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "transcription-test-file.mp4"; sourceTree = "<group>"; };
+		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
+		BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AsImage.swift"; sourceTree = "<group>"; };
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
@@ -245,6 +251,40 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		BE6080A0250E84A9003CB318 /* Transcription */ = {
+			isa = PBXGroup;
+			children = (
+				BE6080A5250E84F0003CB318 /* Model */,
+				BE6080A4250E84EA003CB318 /* Controllers */,
+				BE6080A1250E84B3003CB318 /* Assets */,
+			);
+			path = Transcription;
+			sourceTree = "<group>";
+		};
+		BE6080A1250E84B3003CB318 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				BE6080A2250E84E7003CB318 /* transcription-test-file.mp4 */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		BE6080A4250E84EA003CB318 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BE6080A5250E84F0003CB318 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE6080A6250E84FB003CB318 /* Transcript.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +365,7 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BE6080A0250E84A9003CB318 /* Transcription */,
 				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
@@ -635,6 +676,7 @@
 				BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */,
 				BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */,
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
+				BE6080A3250E84E7003CB318 /* transcription-test-file.mp4 in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
@@ -753,6 +795,7 @@
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
+				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
@@ -798,6 +841,7 @@
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
+				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
