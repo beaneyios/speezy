@@ -16,7 +16,7 @@ class AudioStorage {
             audioItemsKey,
             from: .documents,
             as: [AudioItem].self
-        ) ?? []
+            ) ?? []
         
         if itemList.contains(item) {
             itemList = itemList.replacing(item)
@@ -32,13 +32,23 @@ class AudioStorage {
             audioItemsKey,
             from: .documents,
             as: [AudioItem].self
-        ) ?? []
+            ) ?? []
         
         itemList = itemList.removing(item)
         Storage.store(itemList, to: .documents, as: audioItemsKey)
     }
     
     static func fetchItems() -> [AudioItem] {
+        return [
+            AudioItem(
+                id: "test",
+                path: "test",
+                title: "TEST TRANSCRIBED ITEM",
+                date: Date(),
+                tags: []
+            )
+        ]
+        
         Storage.retrieve(audioItemsKey, from: .documents, as: [AudioItem].self) ?? []
     }
     

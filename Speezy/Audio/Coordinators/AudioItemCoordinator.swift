@@ -83,6 +83,13 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
 }
 
 extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewControllerDidSelectTestSpeechItem(_ viewController: AudioItemListViewController, item: AudioItem) {
+        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
+        let transcriptionViewController = storyboard.instantiateViewController(identifier: "transcription") as! TranscriptionViewController
+        transcriptionViewController.audioItem = item
+        navigationController.pushViewController(transcriptionViewController, animated: true)
+    }
+    
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
         add(settingsCoordinator)

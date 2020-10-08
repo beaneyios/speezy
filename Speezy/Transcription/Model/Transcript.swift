@@ -8,11 +8,16 @@
 
 import Foundation
 
-struct Word {
-    let text: String
-    let timestamp: TimeInterval
+struct Timestamp: Codable {
+    let start: TimeInterval
+    let end: TimeInterval
 }
 
-struct Transcript {
+struct Word: Codable {
+    let text: String
+    let timestamp: Timestamp
+}
+
+struct Transcript: Codable {
     let words: [Word]
 }

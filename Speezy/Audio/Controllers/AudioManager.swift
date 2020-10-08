@@ -38,7 +38,8 @@ class AudioManager: NSObject {
             path: "\(item.id)_staging.m4a",
             title: item.title,
             date: item.date,
-            tags: item.tags
+            tags: item.tags,
+            url: item._url
         )
     }
     

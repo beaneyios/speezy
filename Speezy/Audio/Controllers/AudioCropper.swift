@@ -97,14 +97,14 @@ extension AudioCropper {
         to endTime: Double,
         finished: @escaping (String) -> Void
     ) {
-        let asset = AVAsset(url: audioItem.url)
+        let asset = AVURLAsset(url: audioItem.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
         let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
                 
         FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
         
         do {
             let composition: AVMutableComposition = AVMutableComposition()
-            try composition.insertTimeRange( CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: asset, at: CMTime.zero)
+            try composition.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: asset, at: CMTime.zero)
             
             let startTime = CMTime(seconds: startTime, preferredTimescale: 100)
             let endTime = CMTime(seconds: endTime, preferredTimescale: 100)

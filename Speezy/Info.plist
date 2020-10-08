@@ -24,10 +24,17 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>For attaching photos to your sound clips.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>For recording sound clips.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>For transcribing</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

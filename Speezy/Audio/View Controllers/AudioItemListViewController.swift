@@ -12,6 +12,7 @@ import SCLAlertView
 import Hero
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
+    func audioItemListViewControllerDidSelectTestSpeechItem(_ viewController: AudioItemListViewController, item: AudioItem)
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
@@ -109,8 +110,10 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let audioItem = audioItems[indexPath.row]
-        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
+        let url = Bundle.main.url(forResource: "transcription-test-file", withExtension: "m4a")
+        let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
+        delegate?.audioItemListViewControllerDidSelectTestSpeechItem(self, item: audioItem)
+//        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
