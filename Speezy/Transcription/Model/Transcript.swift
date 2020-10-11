@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Timestamp: Codable {
+struct Timestamp: Codable, Equatable {
     let start: TimeInterval
     let end: TimeInterval
 }
 
-struct Word: Codable {
+struct Word: Codable, Equatable {
     let text: String
     let timestamp: Timestamp
 }

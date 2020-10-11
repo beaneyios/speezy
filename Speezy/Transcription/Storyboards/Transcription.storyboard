@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17502"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ipv-Z4-yyp">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ipv-Z4-yyp">
+                                <rect key="frame" x="16" y="106" width="382" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="4" id="f2x-rV-6DI">
                                     <size key="itemSize" width="128" height="128"/>
@@ -29,8 +29,8 @@
                                 <cells/>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS3-7k-DHS">
-                                <rect key="frame" x="16" y="60" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="16" y="60" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="quit:" destination="Go0-iL-gIe" eventType="touchUpInside" id="9cM-L2-SZ2"/>
                                 </connections>
@@ -39,12 +39,12 @@
                         <viewLayoutGuide key="safeArea" id="aet-VW-8jC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Ipv-Z4-yyp" firstAttribute="top" secondItem="aet-VW-8jC" secondAttribute="top" id="FqO-Vr-9lK"/>
-                            <constraint firstItem="bS3-7k-DHS" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" constant="16" id="H07-hw-cNa"/>
-                            <constraint firstItem="bS3-7k-DHS" firstAttribute="top" secondItem="aet-VW-8jC" secondAttribute="top" constant="16" id="IhK-GZ-VBY"/>
-                            <constraint firstItem="aet-VW-8jC" firstAttribute="trailing" secondItem="Ipv-Z4-yyp" secondAttribute="trailing" id="VPS-U5-vEh"/>
-                            <constraint firstItem="Ipv-Z4-yyp" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" id="Vz0-0o-HCM"/>
-                            <constraint firstItem="aet-VW-8jC" firstAttribute="bottom" secondItem="Ipv-Z4-yyp" secondAttribute="bottom" id="gGX-gR-j73"/>
+                            <constraint firstItem="bS3-7k-DHS" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" constant="16" id="BSi-su-Tqd"/>
+                            <constraint firstItem="Ipv-Z4-yyp" firstAttribute="top" secondItem="bS3-7k-DHS" secondAttribute="bottom" constant="16" id="OGf-bt-eB7"/>
+                            <constraint firstAttribute="trailing" secondItem="Ipv-Z4-yyp" secondAttribute="trailing" constant="16" id="a7b-Wm-b66"/>
+                            <constraint firstItem="bS3-7k-DHS" firstAttribute="top" secondItem="aet-VW-8jC" secondAttribute="top" constant="16" id="eqJ-qA-vMW"/>
+                            <constraint firstItem="Ipv-Z4-yyp" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" constant="16" id="g8o-uS-g3v"/>
+                            <constraint firstAttribute="bottom" secondItem="Ipv-Z4-yyp" secondAttribute="bottom" constant="16" id="wPT-c5-69Z"/>
                         </constraints>
                     </view>
                     <connections>
@@ -53,7 +53,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ojs-H6-N8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="228" y="-241"/>
+            <point key="canvasLocation" x="227.536231884058" y="-241.07142857142856"/>
         </scene>
     </scenes>
     <resources>

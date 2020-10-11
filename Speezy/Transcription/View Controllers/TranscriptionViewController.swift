@@ -18,6 +18,8 @@ class TranscriptionViewController: UIViewController {
     var job: TranscriptionJob?
     var transcriber: SpeezySpeechTranscriber!
     
+    private var selectedWords: [Word] = []
+    
     var timer: Timer?
     
     @IBAction func quit(_ sender: Any) {
@@ -29,6 +31,9 @@ class TranscriptionViewController: UIViewController {
         
         collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+        collectionView.allowsMultipleSelection = true
         
         transcriber = SpeezySpeechTranscriber()
         
@@ -103,5 +108,32 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
         )
         
         return size
+    }
+    
+    private func toggleWord(at indexPath: IndexPath) {
+        guard let selectedWord = transcript?.words[indexPath.row] else {
+            assertionFailure("No transcript found.")
+            return
+        }
+        
+        if let indexOfWord = selectedWords.firstIndex(of: selectedWord) {
+            selectedWords.remove(at: indexOfWord)
+        } else {
+            selectedWords.append(selectedWord)
+        }
+        
+        print(selectedWords.map { $0.text })
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        toggleWord(at: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        toggleWord(at: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 4.0
     }
 }
