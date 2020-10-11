@@ -23,6 +23,17 @@ class TranscriptionViewController: UIViewController {
     private var selectedWords: [Word] = []
     
     var timer: Timer?
+    var zoomFactor: CGFloat = 1
+    
+    @IBAction func zoomIn(_ sender: Any) {
+        zoomFactor = min(zoomFactor * 1.2, 4)
+        collectionView.reloadData()
+    }
+    
+    @IBAction func zoomOut(_ sender: Any) {
+        zoomFactor = max(1, zoomFactor / 1.2)
+        collectionView.reloadData()
+    }
     
     @IBAction func play(_ sender: Any) {
         audioPlayer.play()
@@ -197,7 +208,7 @@ extension TranscriptionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
         let word = transcript!.words[indexPath.row]
-        cell.configure(with: word)
+        cell.configure(with: word, fontScale: zoomFactor)
         return cell
     }
 }
@@ -206,7 +217,7 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let template = WordCell.createFromNib()
         let word = transcript!.words[indexPath.row]
-        template.configure(with: word)
+        template.configure(with: word, fontScale: zoomFactor)
         template.frame.size.height = 45.0
         template.setNeedsLayout()
         template.layoutIfNeeded()
@@ -265,12 +276,6 @@ extension TranscriptionViewController: AudioPlayerDelegate {
     
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
         let cells = collectionView.visibleCells as! [WordCell]
-        
-        let items = cells.compactMap {
-            collectionView.indexPath(for: $0)
-        }
-        
-        
         
         cells.forEach {
             let indexPath = collectionView.indexPath(for: $0)!

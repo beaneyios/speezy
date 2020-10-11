@@ -33,8 +33,9 @@ class WordCell: UICollectionViewCell, NibLoadable {
         }
     }
     
-    func configure(with word: Word) {
+    func configure(with word: Word, fontScale: CGFloat) {
         lblTitle.text = word.text
+        lblTitle.font = UIFont.systemFont(ofSize: 17.0 * fontScale)
 //        lblTitle.text = "\(word.text) - \(word.timestamp.start) -> \(word.timestamp.end)"
     }
     
