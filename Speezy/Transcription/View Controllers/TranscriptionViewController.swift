@@ -18,9 +18,15 @@ class TranscriptionViewController: UIViewController {
     var job: TranscriptionJob?
     var transcriber: SpeezySpeechTranscriber!
     
+    var audioPlayer: AudioPlayer!
+    
     private var selectedWords: [Word] = []
     
     var timer: Timer?
+    
+    @IBAction func play(_ sender: Any) {
+        audioPlayer.play()
+    }
     
     @IBAction func quit(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -31,8 +37,11 @@ class TranscriptionViewController: UIViewController {
             $0.text.contains("HESITATION") ? $0 : nil
         } ?? []
         
-        cut(audioItem: audioItem, from: selectedWords) { (path) in
-            print(path)
+        cut(audioItem: audioItem, from: selectedWords) { (url) in
+            let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
+            self.audioItem = audioItem
+            self.audioPlayer = AudioPlayer(item: audioItem)
+            self.audioPlayer.delegate = self
         }
         
         let orderedSelectedWords = selectedWords.sorted {
@@ -71,8 +80,16 @@ class TranscriptionViewController: UIViewController {
         collectionView.reloadData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        audioPlayer.stop()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        audioPlayer = AudioPlayer(item: self.audioItem)
+        audioPlayer.delegate = self
         
         collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
@@ -121,7 +138,7 @@ class TranscriptionViewController: UIViewController {
     func cut(
         audioItem: AudioItem,
         from range: [Word],
-        finished: @escaping (String) -> Void
+        finished: @escaping (URL) -> Void
     ) {
         let asset = AVURLAsset(url: audioItem.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
         let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
@@ -158,7 +175,7 @@ class TranscriptionViewController: UIViewController {
                 default:
                     print("Successfully cut audio")
                     DispatchQueue.main.async(execute: {
-                        finished("\test_cut.m4a")
+                        finished(outputURL)
                     })
                 }
             }
@@ -230,5 +247,39 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 4.0
+    }
+}
+
+extension TranscriptionViewController: AudioPlayerDelegate {
+    func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
+        
+    }
+    
+    func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
+        
+    }
+    
+    func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
+        
+    }
+    
+    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
+        let cells = collectionView.visibleCells as! [WordCell]
+        
+        let items = cells.compactMap {
+            collectionView.indexPath(for: $0)
+        }
+        
+        
+        
+        cells.forEach {
+            let indexPath = collectionView.indexPath(for: $0)!
+            let word = transcript!.words[indexPath.item]
+            if word.timestamp.start < time && word.timestamp.end > time {
+                $0.highlightActive()
+            } else {
+                $0.highlightInactive()
+            }
+        }
     }
 }

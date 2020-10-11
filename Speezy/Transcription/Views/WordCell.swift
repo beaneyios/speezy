@@ -37,4 +37,12 @@ class WordCell: UICollectionViewCell, NibLoadable {
         lblTitle.text = word.text
 //        lblTitle.text = "\(word.text) - \(word.timestamp.start) -> \(word.timestamp.end)"
     }
+    
+    func highlightActive() {
+        self.lblTitle.textColor = .red
+    }
+    
+    func highlightInactive() {
+        self.lblTitle.textColor = .black
+    }
 }
