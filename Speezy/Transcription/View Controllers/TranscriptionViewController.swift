@@ -32,28 +32,39 @@ class TranscriptionViewController: UIViewController {
         
         transcriber = SpeezySpeechTranscriber()
         
-        let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")!
+        let job = TranscriptionJob(id: "10", fileName: "transcription-test-file-trimmed")
+        checkJob(job)
+        return;
         
+        let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")!
+        createTranscriptionJob(url: url)
+    }
+    
+    private func createTranscriptionJob(url: URL) {
         transcriber.createTranscriptionJob(url: url) { (job) in
             self.job = job
             TranscriptionJobStorage.save(job)
             
             self.timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true, block: { (timer) in
-                self.transcriber.checkJob(id: job.id) { (result) in
-                    switch result {
-                    case let .success(transcript):
-                        self.timer?.invalidate()
-                        self.timer = nil
-                        self.transcript = transcript
-                        
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    default:
-                        break
-                    }
-                }
+                self.checkJob(job)
             })
+        }
+    }
+    
+    private func checkJob(_ job: TranscriptionJob) {
+        self.transcriber.checkJob(id: job.id) { (result) in
+            switch result {
+            case let .success(transcript):
+                self.timer?.invalidate()
+                self.timer = nil
+                self.transcript = transcript
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            default:
+                break
+            }
         }
     }
 }
