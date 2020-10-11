@@ -35,5 +35,6 @@ class WordCell: UICollectionViewCell, NibLoadable {
     
     func configure(with word: Word) {
         lblTitle.text = word.text
+//        lblTitle.text = "\(word.text) - \(word.timestamp.start) -> \(word.timestamp.end)"
     }
 }

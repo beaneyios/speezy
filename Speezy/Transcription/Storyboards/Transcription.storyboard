@@ -35,6 +35,13 @@
                                     <action selector="quit:" destination="Go0-iL-gIe" eventType="touchUpInside" id="9cM-L2-SZ2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bd6-96-Uam">
+                                <rect key="frame" x="275" y="60" width="123" height="30"/>
+                                <state key="normal" title="Remove the uhms"/>
+                                <connections>
+                                    <action selector="removeUhms:" destination="Go0-iL-gIe" eventType="touchUpInside" id="Yix-Xa-KM6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aet-VW-8jC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -44,7 +51,10 @@
                             <constraint firstAttribute="trailing" secondItem="Ipv-Z4-yyp" secondAttribute="trailing" constant="16" id="a7b-Wm-b66"/>
                             <constraint firstItem="bS3-7k-DHS" firstAttribute="top" secondItem="aet-VW-8jC" secondAttribute="top" constant="16" id="eqJ-qA-vMW"/>
                             <constraint firstItem="Ipv-Z4-yyp" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" constant="16" id="g8o-uS-g3v"/>
+                            <constraint firstItem="Ipv-Z4-yyp" firstAttribute="top" secondItem="Bd6-96-Uam" secondAttribute="bottom" constant="16" id="kC7-HR-v6K"/>
+                            <constraint firstItem="aet-VW-8jC" firstAttribute="trailing" secondItem="Bd6-96-Uam" secondAttribute="trailing" constant="16" id="mHg-ed-Iv8"/>
                             <constraint firstAttribute="bottom" secondItem="Ipv-Z4-yyp" secondAttribute="bottom" constant="16" id="wPT-c5-69Z"/>
+                            <constraint firstItem="Bd6-96-Uam" firstAttribute="top" secondItem="aet-VW-8jC" secondAttribute="top" constant="16" id="xfI-zk-MPJ"/>
                         </constraints>
                     </view>
                     <connections>

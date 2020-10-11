@@ -26,6 +26,51 @@ class TranscriptionViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func removeUhms(_ sender: Any) {
+        selectedWords = transcript?.words.compactMap {
+            $0.text.contains("HESITATION") ? $0 : nil
+        } ?? []
+        
+        cut(audioItem: audioItem, from: selectedWords) { (path) in
+            print(path)
+        }
+        
+        let orderedSelectedWords = selectedWords.sorted {
+            $0.timestamp.start > $1.timestamp.start
+        }
+        
+        // Run through each selected word in reverse order.
+        // Find any words with a start time greater than that word.
+        // Adjust their start times by subtracting the duration of the selected word.
+        orderedSelectedWords.forEach { (selectedWord) in
+            let duration = selectedWord.timestamp.end - selectedWord.timestamp.start
+            
+            let newWords = transcript?.words.compactMap({ (word) -> Word? in
+                if word.text.contains("HESITATION") {
+                    return nil
+                }
+                
+                if word.timestamp.start > selectedWord.timestamp.start {
+                    return Word(
+                        text: word.text,
+                        timestamp: Timestamp(
+                            start: word.timestamp.start - duration,
+                            end: word.timestamp.end - duration
+                        )
+                    )
+                } else {
+                    return word
+                }
+            }) ?? []
+            
+            self.transcript = Transcript(
+                words: newWords
+            )
+        }
+        
+        collectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,6 +117,55 @@ class TranscriptionViewController: UIViewController {
             }
         }
     }
+    
+    func cut(
+        audioItem: AudioItem,
+        from range: [Word],
+        finished: @escaping (String) -> Void
+    ) {
+        let asset = AVURLAsset(url: audioItem.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
+        let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
+        
+        FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
+        
+        do {
+            let composition: AVMutableComposition = AVMutableComposition()
+            try composition.insertTimeRange( CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: asset, at: CMTime.zero)
+            
+            range.reversed().forEach {
+                let startTime = CMTime(seconds: $0.timestamp.start, preferredTimescale: 100)
+                let endTime = CMTime(seconds: $0.timestamp.end, preferredTimescale: 100)
+                composition.removeTimeRange(CMTimeRangeFromTimeToTime(start: startTime, end: endTime))
+            }
+            
+            guard
+                compatiblePresets.contains(AVAssetExportPresetAppleM4A),
+                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A),
+                let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
+            else {
+                return
+            }
+            
+            exportSession.outputURL = outputURL
+            exportSession.outputFileType = AVFileType.m4a
+            
+            exportSession.exportAsynchronously() {
+                switch exportSession.status {
+                case .failed:
+                    print("Export failed: \(exportSession.error?.localizedDescription)")
+                case .cancelled:
+                    print("Export canceled")
+                default:
+                    print("Successfully cut audio")
+                    DispatchQueue.main.async(execute: {
+                        finished("\test_cut.m4a")
+                    })
+                }
+            }
+        } catch {
+            
+        }
+    }
 }
 
 extension TranscriptionViewController: UICollectionViewDataSource {
@@ -107,6 +201,7 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
             )
         )
         
+//        return CGSize(width: collectionView.frame.width, height: 45.0);
         return size
     }
     
