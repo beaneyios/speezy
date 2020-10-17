@@ -8,21 +8,25 @@
 
 import UIKit
 
-protocol AudioManagerObserver: class {
+protocol AudioPlayerObserver: AnyObject {
     func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem)
     func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem)
     func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem)
     func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool)
-    
+}
+
+protocol AudioRecorderObserver: AnyObject {
+    func audioManagerDidStartRecording(_ manager: AudioManager)
+    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
+    func audioManagerProcessingRecording(_ manager: AudioManager)
+    func audioManagerDidStopRecording(_ manager: AudioManager, maxLimitedReached: Bool)
+}
+
+protocol AudioCropperObserver: AnyObject {
     func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind)
     func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem)
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem)
     func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat)
     func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat)
     func audioManagerDidCancelCropping(_ manager: AudioManager)
-    
-    func audioManagerDidStartRecording(_ manager: AudioManager)
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
-    func audioManagerProcessingRecording(_ manager: AudioManager)
-    func audioManagerDidStopRecording(_ manager: AudioManager, maxLimitedReached: Bool)
 }

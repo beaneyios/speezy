@@ -17,7 +17,7 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
 }
 
-class AudioItemViewController: UIViewController, AudioManagerObserver {
+class AudioItemViewController: UIViewController {
     
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
@@ -181,7 +181,9 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
 // MARK: Configuration
 extension AudioItemViewController {
     func configureAudioManager() {
-        audioManager.addObserver(self)
+        audioManager.addPlayerObserver(self)
+        audioManager.addRecorderObserver(self)
+        audioManager.addCropperObserver(self)
     }
     
     func configureSubviews() {
@@ -390,7 +392,7 @@ extension AudioItemViewController {
 }
 
 // MARK: RECORDING
-extension AudioItemViewController {
+extension AudioItemViewController: AudioRecorderObserver {
     func audioManagerDidStartRecording(_ player: AudioManager) {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
         
@@ -424,7 +426,7 @@ extension AudioItemViewController {
 }
 
 // MARK: PLAYBACK
-extension AudioItemViewController {
+extension AudioItemViewController: AudioPlayerObserver {
     func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
         playbackHidables.forEach {
             $0.disable()
@@ -458,7 +460,7 @@ extension AudioItemViewController {
 }
 
 // MARK: CROPPING
-extension AudioItemViewController {
+extension AudioItemViewController: AudioCropperObserver {
     func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
         lblTimer.text = "00:00:00"
 

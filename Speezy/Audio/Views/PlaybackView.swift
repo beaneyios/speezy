@@ -37,7 +37,9 @@ class PlaybackView: UIView {
     
     func configure(manager: AudioManager) {
         self.manager = manager
-        manager.addObserver(self)
+        manager.addPlayerObserver(self)
+        manager.addRecorderObserver(self)
+        manager.addCropperObserver(self)
         scrollView.delegate = self
         
         AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
@@ -219,7 +221,7 @@ extension PlaybackView {
 }
 
 // MARK: PLAYBACK LISTENERS
-extension PlaybackView: AudioManagerObserver {
+extension PlaybackView: AudioPlayerObserver {
     // Playback
     
     func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
@@ -259,7 +261,7 @@ extension PlaybackView: AudioManagerObserver {
 }
 
 // MARK: RECORDING LISTENERS
-extension PlaybackView {
+extension PlaybackView: AudioRecorderObserver {
     func audioManagerDidStartRecording(_ player: AudioManager) {
 
     }
@@ -299,7 +301,7 @@ extension PlaybackView {
 }
 
 // MARK: CROPPING LISTENERS
-extension PlaybackView {
+extension PlaybackView: AudioCropperObserver {
     func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")

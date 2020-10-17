@@ -136,9 +136,9 @@ extension PublishViewController {
     }
 }
 
-extension PublishViewController: AudioManagerObserver {
+extension PublishViewController: AudioPlayerObserver {
     private func configureAudioManager() {
-        audioManager.addObserver(self)
+        audioManager.addPlayerObserver(self)
     }
     
     func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
@@ -154,16 +154,6 @@ extension PublishViewController: AudioManagerObserver {
     }
     
     func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {}
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {}
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
-    func audioManagerDidCancelCropping(_ manager: AudioManager) {}
-    func audioManagerDidStartRecording(_ manager: AudioManager) {}
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
-    func audioManagerProcessingRecording(_ manager: AudioManager) {}
-    func audioManagerDidStopRecording(_ manager: AudioManager, maxLimitedReached: Bool) {}
 }
 
 extension PublishViewController: TagsViewDelegate {
