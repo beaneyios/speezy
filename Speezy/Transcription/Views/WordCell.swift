@@ -14,29 +14,33 @@ class WordCell: UICollectionViewCell, NibLoadable {
     
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                let attributeString = NSMutableAttributedString(string: lblTitle.text ?? "")
-                attributeString.addAttribute(
-                    NSAttributedString.Key.strikethroughStyle,
-                    value: 2,
-                    range: NSMakeRange(0, attributeString.length)
-                )
-                
-                lblTitle.attributedText = attributeString
-                lblTitle.textColor = .lightGray
-            } else {
-                let previousText = lblTitle.attributedText?.string
-                lblTitle.attributedText = nil
-                lblTitle.text = previousText
-                lblTitle.textColor = .black
-            }
+            configureWordHighlight(isSelected: isSelected)
         }
     }
     
-    func configure(with word: Word, fontScale: CGFloat) {
+    func configure(with word: Word, isSelected: Bool, fontScale: CGFloat) {
         lblTitle.text = word.text
         lblTitle.font = UIFont.systemFont(ofSize: 17.0 * fontScale)
-//        lblTitle.text = "\(word.text) - \(word.timestamp.start) -> \(word.timestamp.end)"
+        configureWordHighlight(isSelected: isSelected)
+    }
+    
+    private func configureWordHighlight(isSelected: Bool) {
+        if isSelected {
+            let attributeString = NSMutableAttributedString(string: lblTitle.text ?? "")
+            attributeString.addAttribute(
+                NSAttributedString.Key.strikethroughStyle,
+                value: 2,
+                range: NSMakeRange(0, attributeString.length)
+            )
+            
+            lblTitle.attributedText = attributeString
+            lblTitle.textColor = .lightGray
+        } else {
+            let previousText = lblTitle.attributedText?.string
+            lblTitle.attributedText = nil
+            lblTitle.text = previousText
+            lblTitle.textColor = .black
+        }
     }
     
     func highlightActive() {

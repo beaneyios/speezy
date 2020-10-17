@@ -24,72 +24,9 @@ class TranscriptionViewController: UIViewController {
     
     var timer: Timer?
     var zoomFactor: CGFloat = 1
+    var playing = false
     
-    @IBAction func zoomIn(_ sender: Any) {
-        zoomFactor = min(zoomFactor * 1.2, 4)
-        collectionView.reloadData()
-    }
-    
-    @IBAction func zoomOut(_ sender: Any) {
-        zoomFactor = max(1, zoomFactor / 1.2)
-        collectionView.reloadData()
-    }
-    
-    @IBAction func play(_ sender: Any) {
-        audioPlayer.play()
-    }
-    
-    @IBAction func quit(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func removeUhms(_ sender: Any) {
-        selectedWords = transcript?.words.compactMap {
-            $0.text.contains("HESITATION") ? $0 : nil
-        } ?? []
-        
-        cut(audioItem: audioItem, from: selectedWords) { (url) in
-            let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
-            self.audioItem = audioItem
-            self.audioPlayer = AudioPlayer(item: audioItem)
-            self.audioPlayer.delegate = self
-        }
-        
-        let orderedSelectedWords = selectedWords.sorted {
-            $0.timestamp.start > $1.timestamp.start
-        }
-        
-        // Run through each selected word in reverse order.
-        // Find any words with a start time greater than that word.
-        // Adjust their start times by subtracting the duration of the selected word.
-        orderedSelectedWords.forEach { (selectedWord) in
-            let duration = selectedWord.timestamp.end - selectedWord.timestamp.start
-            
-            let newWords = transcript?.words.compactMap({ (word) -> Word? in
-                if word.text.contains("HESITATION") {
-                    return nil
-                }
-                
-                if word.timestamp.start > selectedWord.timestamp.start {
-                    return Word(
-                        text: word.text,
-                        timestamp: Timestamp(
-                            start: word.timestamp.start - duration,
-                            end: word.timestamp.end - duration
-                        )
-                    )
-                } else {
-                    return word
-                }
-            }) ?? []
-            
-            self.transcript = Transcript(
-                words: newWords
-            )
-        }
-        
-        collectionView.reloadData()
-    }
+    @IBOutlet weak var playButton: UIButton!
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -110,12 +47,92 @@ class TranscriptionViewController: UIViewController {
         
         transcriber = SpeezySpeechTranscriber()
         
-        let job = TranscriptionJob(id: "10", fileName: "transcription-test-file-trimmed")
+        let job = TranscriptionJob(id: "21", fileName: "transcription-test-file-trimmed")
         checkJob(job)
         return;
         
         let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")!
         createTranscriptionJob(url: url)
+    }
+    
+    @IBAction func zoomIn(_ sender: Any) {
+        zoomFactor = min(zoomFactor * 1.2, 4)
+        collectionView.reloadData()
+    }
+    
+    @IBAction func zoomOut(_ sender: Any) {
+        zoomFactor = max(1, zoomFactor / 1.2)
+        collectionView.reloadData()
+    }
+
+    @IBAction func play(_ sender: Any) {
+        if playing {
+            audioPlayer.stop()
+        } else {
+            audioPlayer.play()
+        }
+    }
+    
+    @IBAction func quit(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func removeUhms(_ sender: Any) {
+        selectedWords = transcript?.words.compactMap {
+            $0.text.contains("HESITATION") ? $0 : nil
+        } ?? []
+        
+        removeSelectedWords()
+    }
+    
+    @IBAction func removeSelection(_ sender: Any) {
+        removeSelectedWords()
+    }
+    
+    private func removeSelectedWords() {
+        cut(audioItem: audioItem, from: selectedWords) { (url) in
+            let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
+            self.audioItem = audioItem
+            self.audioPlayer = AudioPlayer(item: audioItem)
+            self.audioPlayer.delegate = self
+        }
+        
+        let orderedSelectedWords = selectedWords.sorted {
+            $0.timestamp.start > $1.timestamp.start
+        }
+        
+        // Run through each selected word in reverse order.
+        // Find any words with a start time greater than that word.
+        // Adjust their start times by subtracting the duration of the selected word.
+        orderedSelectedWords.forEach { (selectedWord) in
+            let duration = selectedWord.timestamp.end - selectedWord.timestamp.start
+            
+            let newWords = transcript?.words.compactMap({ (word) -> Word? in
+                if self.selectedWords.contains(word) {
+                    return nil
+                }
+                
+                if word.timestamp.start > selectedWord.timestamp.start {
+                    return Word(
+                        text: word.text,
+                        timestamp: Timestamp(
+                            start: word.timestamp.start - duration,
+                            end: word.timestamp.end - duration
+                        )
+                    )
+                } else {
+                    return word
+                }
+            }) ?? []
+            
+            self.transcript = Transcript(
+                words: newWords
+            )
+            
+            self.selectedWords = []
+        }
+        
+        collectionView.reloadData()
     }
     
     private func createTranscriptionJob(url: URL) {
@@ -208,7 +225,8 @@ extension TranscriptionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
         let word = transcript!.words[indexPath.row]
-        cell.configure(with: word, fontScale: zoomFactor)
+        let isSelected = selectedWords.contains(word)
+        cell.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         return cell
     }
 }
@@ -217,7 +235,8 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let template = WordCell.createFromNib()
         let word = transcript!.words[indexPath.row]
-        template.configure(with: word, fontScale: zoomFactor)
+        let isSelected = selectedWords.contains(word)
+        template.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         template.frame.size.height = 45.0
         template.setNeedsLayout()
         template.layoutIfNeeded()
@@ -229,7 +248,10 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
             )
         )
         
-//        return CGSize(width: collectionView.frame.width, height: 45.0);
+        if size.width > collectionView.frame.width {
+            return CGSize(width: collectionView.frame.width, height: size.height * 2.0)
+        }
+        
         return size
     }
     
@@ -263,7 +285,8 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
 
 extension TranscriptionViewController: AudioPlayerDelegate {
     func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
-        
+        playing = true
+        self.playButton.setTitle("Stop", for: .normal)
     }
     
     func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
@@ -271,11 +294,20 @@ extension TranscriptionViewController: AudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
-        
+        playing = false
+        self.playButton.setTitle("Play", for: .normal)
     }
     
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
         let cells = collectionView.visibleCells as! [WordCell]
+        
+        let activeWord = transcript!.words.first {
+            $0.timestamp.start < time && $0.timestamp.end > time
+        }
+        
+        if let activeWord = activeWord, let indexOfWord = transcript!.words.firstIndex(of: activeWord){
+            collectionView.scrollToItem(at: IndexPath(item: indexOfWord, section: 0), at: .centeredVertically, animated: false)
+        }
         
         cells.forEach {
             let indexPath = collectionView.indexPath(for: $0)!

@@ -63,6 +63,13 @@
                                     <action selector="zoomOut:" destination="Go0-iL-gIe" eventType="touchUpInside" id="Uc1-pq-hw1"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bs0-mS-udr">
+                                <rect key="frame" x="277" y="106" width="121" height="30"/>
+                                <state key="normal" title="Remove selection"/>
+                                <connections>
+                                    <action selector="removeSelection:" destination="Go0-iL-gIe" eventType="touchUpInside" id="x2W-3D-Bb2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aet-VW-8jC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -71,6 +78,9 @@
                             <constraint firstItem="v9u-QI-4BR" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" constant="16" id="0Ry-N5-keN"/>
                             <constraint firstItem="bS3-7k-DHS" firstAttribute="leading" secondItem="aet-VW-8jC" secondAttribute="leading" constant="16" id="BSi-su-Tqd"/>
                             <constraint firstItem="J3L-oa-BEC" firstAttribute="top" secondItem="k9R-kL-fJ9" secondAttribute="bottom" constant="16" id="Mb7-rB-Gxb"/>
+                            <constraint firstItem="bs0-mS-udr" firstAttribute="top" secondItem="Bd6-96-Uam" secondAttribute="bottom" constant="16" id="O1b-E1-hSC"/>
+                            <constraint firstItem="aet-VW-8jC" firstAttribute="trailing" secondItem="bs0-mS-udr" secondAttribute="trailing" constant="16" id="O4O-5a-YgI"/>
+                            <constraint firstItem="Ipv-Z4-yyp" firstAttribute="top" secondItem="bs0-mS-udr" secondAttribute="bottom" constant="16" id="Rrp-81-dAY"/>
                             <constraint firstItem="J3L-oa-BEC" firstAttribute="leading" secondItem="v9u-QI-4BR" secondAttribute="trailing" constant="32" id="SNU-Qk-PR7"/>
                             <constraint firstItem="v9u-QI-4BR" firstAttribute="top" secondItem="bS3-7k-DHS" secondAttribute="bottom" constant="16" id="WB1-tQ-IXH"/>
                             <constraint firstItem="Bd6-96-Uam" firstAttribute="leading" secondItem="k9R-kL-fJ9" secondAttribute="trailing" constant="16" id="a5z-ZX-xMp"/>
@@ -87,6 +97,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Ipv-Z4-yyp" id="iRr-1K-Wbk"/>
+                        <outlet property="playButton" destination="k9R-kL-fJ9" id="R0G-mS-WUR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ojs-H6-N8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

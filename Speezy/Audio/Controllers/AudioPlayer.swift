@@ -51,6 +51,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func stop() {
+        player?.stop()
+        player?.currentTime = 0.0
         playbackTimer?.invalidate()
         playbackTimer = nil
         delegate?.audioPlayerDidFinishPlayback(self)
