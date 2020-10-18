@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SpeezyLoadingView" customModule="Speezy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="299" height="266"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ac7-6x-lME">
+                    <rect key="frame" x="87" y="16" width="54.5" height="234"/>
+                    <color key="backgroundColor" name="loading-bar-2"/>
+                </view>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KyK-Mp-WlN">
+                    <rect key="frame" x="157.5" y="45" width="55" height="176"/>
+                    <color key="backgroundColor" name="loading-bar-3"/>
+                </view>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v55-28-aEP">
+                    <rect key="frame" x="228.5" y="16" width="54.5" height="234"/>
+                    <color key="backgroundColor" name="loading-bar-4"/>
+                </view>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7Q-IW-vTk">
+                    <rect key="frame" x="16" y="45" width="55" height="176"/>
+                    <color key="backgroundColor" name="loading-bar-1"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Ac7-6x-lME" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5hx-Mi-gzn"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v55-28-aEP" secondAttribute="trailing" constant="16" id="6lG-1T-Jfk"/>
+                <constraint firstItem="KyK-Mp-WlN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="9cG-z9-bG2"/>
+                <constraint firstItem="Ac7-6x-lME" firstAttribute="width" secondItem="KyK-Mp-WlN" secondAttribute="width" id="RCb-wl-CF1"/>
+                <constraint firstItem="v55-28-aEP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="VEf-Dq-pkB"/>
+                <constraint firstItem="e7Q-IW-vTk" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Z6D-bS-T4o"/>
+                <constraint firstItem="e7Q-IW-vTk" firstAttribute="width" secondItem="Ac7-6x-lME" secondAttribute="width" id="dc2-mU-D3e"/>
+                <constraint firstItem="KyK-Mp-WlN" firstAttribute="width" secondItem="v55-28-aEP" secondAttribute="width" id="emI-BD-HlN"/>
+                <constraint firstItem="KyK-Mp-WlN" firstAttribute="leading" secondItem="Ac7-6x-lME" secondAttribute="trailing" constant="16" id="gw4-2G-QHL"/>
+                <constraint firstItem="Ac7-6x-lME" firstAttribute="leading" secondItem="e7Q-IW-vTk" secondAttribute="trailing" constant="16" id="pVf-Gb-kPp"/>
+                <constraint firstItem="v55-28-aEP" firstAttribute="leading" secondItem="KyK-Mp-WlN" secondAttribute="trailing" constant="16" id="rmu-uC-La0"/>
+                <constraint firstItem="e7Q-IW-vTk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="y7F-nN-MEU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="firstBar" destination="e7Q-IW-vTk" id="1Y6-pe-Koj"/>
+                <outlet property="fourthBar" destination="v55-28-aEP" id="c0N-VK-2C6"/>
+                <outlet property="secondBar" destination="Ac7-6x-lME" id="J4W-yV-0j9"/>
+                <outlet property="thirdBar" destination="KyK-Mp-WlN" id="8OP-NW-Xjt"/>
+            </connections>
+            <point key="canvasLocation" x="334" y="252"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="loading-bar-1">
+            <color red="0.89411764705882357" green="0.76078431372549016" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="loading-bar-2">
+            <color red="0.77647058823529413" green="0.49019607843137253" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="loading-bar-3">
+            <color red="0.72156862745098038" green="0.36078431372549019" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="loading-bar-4">
+            <color red="0.56470588235294117" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

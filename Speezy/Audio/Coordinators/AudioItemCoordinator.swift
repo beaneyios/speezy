@@ -31,6 +31,16 @@ class AudioItemCoordinator: ViewCoordinator {
     override func finish() {
         delegate?.audioItemCoordinatorDidFinish(self)
     }
+    
+    private func navigateToTranscription(item: AudioItem, on pushingViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: "transcription") as? TranscriptionViewController else {
+            return
+        }
+        
+        viewController.audioManager = AudioManager(item: item)
+        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 extension AudioItemCoordinator {
@@ -80,14 +90,15 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
         viewController.dismiss(animated: true, completion: nil)
     }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribe item: AudioItem) {
+        navigateToTranscription(item: item, on: viewController)
+    }
 }
 
 extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
     func audioItemListViewControllerDidSelectTestSpeechItem(_ viewController: AudioItemListViewController, item: AudioItem) {
-        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
-        let transcriptionViewController = storyboard.instantiateViewController(identifier: "transcription") as! TranscriptionViewController
-        transcriptionViewController.audioItem = item
-        navigationController.pushViewController(transcriptionViewController, animated: true)
+        navigateToTranscription(item: item, on: viewController)
     }
     
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
@@ -127,7 +138,6 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
-        NSLog("Delegate called, presenting the view controller \(viewController) on navigation controller \(pushingViewController.navigationController)")
         pushingViewController.navigationController?.pushViewController(viewController, animated: true)
     }
     

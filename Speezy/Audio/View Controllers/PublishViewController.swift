@@ -18,7 +18,7 @@ protocol PublishViewControllerDelegate: AnyObject {
     func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController)
 }
 
-class PublishViewController: UIViewController {
+class PublishViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var playbackContainer: UIView!
@@ -33,14 +33,14 @@ class PublishViewController: UIViewController {
     @IBOutlet weak var playbackBtn: UIButton!
     @IBOutlet weak var sendBtn: UIButton!
     
-    private var tagsView: TagsView?
-    private var waveView: PlaybackView!
-    private var shareView: ShareViewController!
-        
     weak var delegate: PublishViewControllerDelegate?
     
     var audioManager: AudioManager!
+    var waveView: PlaybackView!
     
+    private var tagsView: TagsView?
+    private var shareView: ShareViewController!
+            
     lazy var shareController = AudioShareController(parentViewController: self)
     
     override func viewDidLoad() {
@@ -127,7 +127,7 @@ extension PublishViewController {
         configureTextView()
         configureImageAttachment()
         configureTags()
-        configureMainSoundWave()
+        configurePreviewWave(audioManager: audioManager)
         configureSendButtons()
     }
     
@@ -232,22 +232,6 @@ extension PublishViewController: TagsViewDelegate {
             colorStyle: 0x3B08A0,
             animationStyle: .bottomToTop
         )
-    }
-}
-
-extension PublishViewController {
-    private func configureMainSoundWave() {
-        let soundWaveView = PlaybackView.instanceFromNib()
-        waveContainer.addSubview(soundWaveView)
-        
-        soundWaveView.snp.makeConstraints { (maker) in
-            maker.edges.equalTo(self.waveContainer)
-        }
-        
-        soundWaveView.configure(manager: audioManager)
-        waveView = soundWaveView
-        
-        playbackContainer.layer.cornerRadius = 10.0
     }
 }
 

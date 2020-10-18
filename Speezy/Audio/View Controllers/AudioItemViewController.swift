@@ -12,9 +12,24 @@ import SCLAlertView
 import Hero
 
 protocol AudioItemViewControllerDelegate: AnyObject {
-    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem)
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem)
-    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldSendItem item: AudioItem
+    )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didSaveItemToDrafts item: AudioItem
+    )
+    
+    func audioItemViewControllerShouldPop(
+        _ viewController: AudioItemViewController
+    )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didSelectTranscribe item: AudioItem
+    )
 }
 
 class AudioItemViewController: UIViewController {
@@ -175,6 +190,10 @@ class AudioItemViewController: UIViewController {
             let alert = SCLAlertView()
             alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to cut - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
         }
+    }
+    
+    @IBAction func presentTranscription(_ sender: Any) {
+        delegate?.audioItemViewController(self, didSelectTranscribe: audioManager.item)
     }
 }
 

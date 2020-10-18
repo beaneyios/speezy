@@ -25,6 +25,9 @@
 		BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351A6252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift */; };
 		BE2351AB252FA15500067BA2 /* transcription-test-file-trimmed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BE2351AA252FA15500067BA2 /* transcription-test-file-trimmed.m4a */; };
 		BE2351AF252FA1A800067BA2 /* transcription-test-file-trimmed.flac in Resources */ = {isa = PBXBuildFile; fileRef = BE2351AE252FA1A800067BA2 /* transcription-test-file-trimmed.flac */; };
+		BE2351DD253C9B4900067BA2 /* PreviewWavePresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */; };
+		BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */; };
+		BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
 		BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B097824C7239300317EB7 /* AudioItemCell.xib */; };
 		BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098124C732DC00317EB7 /* TagCell.xib */; };
@@ -140,6 +143,9 @@
 		BE2351A6252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalDisfluencyDetection.swift; sourceTree = "<group>"; };
 		BE2351AA252FA15500067BA2 /* transcription-test-file-trimmed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "transcription-test-file-trimmed.m4a"; sourceTree = "<group>"; };
 		BE2351AE252FA1A800067BA2 /* transcription-test-file-trimmed.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "transcription-test-file-trimmed.flac"; sourceTree = "<group>"; };
+		BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWavePresenting.swift; sourceTree = "<group>"; };
+		BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeezyLoadingView.xib; sourceTree = "<group>"; };
+		BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyLoadingView.swift; sourceTree = "<group>"; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
 		BE2B097824C7239300317EB7 /* AudioItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioItemCell.xib; sourceTree = "<group>"; };
 		BE2B098124C732DC00317EB7 /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
@@ -281,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				BE50346724BE02CE00A414D1 /* AudioManagerObserver.swift */,
+				BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -644,6 +651,8 @@
 			children = (
 				BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */,
 				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
+				BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */,
+				BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -765,6 +774,7 @@
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
+				BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */,
 				BE6080C4250FFE8E003CB318 /* Speezy-35fb1cf24683.json in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
 				BE6080B4250E8713003CB318 /* Transcription.storyboard in Resources */,
@@ -901,6 +911,7 @@
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
+				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
@@ -910,6 +921,7 @@
 				BE50346824BE02CE00A414D1 /* AudioManagerObserver.swift in Sources */,
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
 				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
+				BE2351DD253C9B4900067BA2 /* PreviewWavePresenting.swift in Sources */,
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,

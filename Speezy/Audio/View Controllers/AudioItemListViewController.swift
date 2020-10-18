@@ -112,8 +112,8 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")
         let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
-        delegate?.audioItemListViewControllerDidSelectTestSpeechItem(self, item: audioItem)
-//        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
+//        delegate?.audioItemListViewControllerDidSelectTestSpeechItem(self, item: audioItem)
+        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

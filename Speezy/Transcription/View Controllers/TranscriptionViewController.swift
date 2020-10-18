@@ -10,15 +10,13 @@ import Foundation
 import UIKit
 import AVKit
 
-class TranscriptionViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     
-    var audioItem: AudioItem!
     var transcript: Transcript?
     var job: TranscriptionJob?
     var transcriber: SpeezySpeechTranscriber!
     
-    var audioPlayer: AudioPlayer!
+    var audioManager: AudioManager!
     
     private var selectedWords: [Word] = []
     
@@ -26,18 +24,26 @@ class TranscriptionViewController: UIViewController {
     var zoomFactor: CGFloat = 1
     var playing = false
     
-    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var playbackContainer: UIView!
+    @IBOutlet weak var waveContainer: UIView!
+    @IBOutlet weak var cutButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var transcribeButton: UIButton!
+    
+    @IBOutlet weak var loadingContainer: UIView!
+    
+    var waveView: PlaybackView!
+    var loadingView: SpeezyLoadingView?
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        audioPlayer.stop()
+        audioManager.stop()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audioPlayer = AudioPlayer(item: self.audioItem)
-        audioPlayer.delegate = self
+        audioManager.addPlayerObserver(self)
         
         collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
@@ -47,12 +53,12 @@ class TranscriptionViewController: UIViewController {
         
         transcriber = SpeezySpeechTranscriber()
         
-        let job = TranscriptionJob(id: "21", fileName: "transcription-test-file-trimmed")
-        checkJob(job)
-        return;
+        configurePreviewWave(audioManager: audioManager)
         
-        let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")!
-        createTranscriptionJob(url: url)
+        transcribeButton.layer.cornerRadius = 10.0
+        
+        transcribeButton.setTitle("     TRANSCRIBING YOUR CLIP     ", for: .disabled)
+        configureLoader()
     }
     
     @IBAction func zoomIn(_ sender: Any) {
@@ -63,14 +69,6 @@ class TranscriptionViewController: UIViewController {
     @IBAction func zoomOut(_ sender: Any) {
         zoomFactor = max(1, zoomFactor / 1.2)
         collectionView.reloadData()
-    }
-
-    @IBAction func play(_ sender: Any) {
-        if playing {
-            audioPlayer.stop()
-        } else {
-            audioPlayer.play()
-        }
     }
     
     @IBAction func quit(_ sender: Any) {
@@ -85,16 +83,73 @@ class TranscriptionViewController: UIViewController {
         removeSelectedWords()
     }
     
-    @IBAction func removeSelection(_ sender: Any) {
-        removeSelectedWords()
+    @IBAction func createTranscriptionJob(_ sender: Any) {
+        startLoading()
+        
+        transcribeButton.backgroundColor = .lightGray
+        transcribeButton.isEnabled = false
+        
+        let job = TranscriptionJob(id: "21", fileName: "transcription-test-file-trimmed")
+        checkJob(job)
+        return;
+        
+        let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")!
+        createTranscriptionJob(url: url)
+    }
+    
+    @IBAction func playPreview(_ sender: Any) {
+        audioManager.play()
+    }
+    
+    private func configureLoader() {
+        loadingContainer.isHidden = true
+        let loading = SpeezyLoadingView.createFromNib()
+        loadingContainer.addSubview(loading)
+        
+        loading.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        self.loadingView = loading
+    }
+    
+    private func startLoading() {
+        loadingContainer.isHidden = false
+        
+        loadingView?.startAnimating()
+        loadingView?.alpha = 0.0
+        
+        UIView.animate(withDuration: 0.5) {
+            self.loadingView?.alpha = 1.0
+        }
+    }
+    
+    private func stopLoading(completion: @escaping () -> Void) {
+        self.loadingView?.restCompletion = {
+            UIView.animate(withDuration: 0.9) {
+                self.loadingView?.alpha = 0.0
+            } completion: { (finished) in
+                self.loadingContainer.isHidden = true
+                completion()
+            }
+        }
+        
+        self.loadingView?.stopAnimating()
     }
     
     private func removeSelectedWords() {
-        cut(audioItem: audioItem, from: selectedWords) { (url) in
-            let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
-            self.audioItem = audioItem
-            self.audioPlayer = AudioPlayer(item: audioItem)
-            self.audioPlayer.delegate = self
+        // TODO: Move this into the audio manager/cropper.
+        cut(audioItem: audioManager.item, from: selectedWords) { (url) in
+            let audioItem = AudioItem(
+                id: "Test",
+                path: "test",
+                title: "Test",
+                date: Date(),
+                tags: [],
+                url: url
+            )
+            
+            // TODO: Sort this out in the audio manager
         }
         
         let orderedSelectedWords = selectedWords.sorted {
@@ -155,7 +210,20 @@ class TranscriptionViewController: UIViewController {
                 self.transcript = transcript
                 
                 DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.8) {
+                        self.transcribeButton.alpha = 0.0
+                    } completion: { _ in
+                        self.transcribeButton.isHidden = true
+                    }
+                    
+                    self.collectionView.alpha = 0.0
                     self.collectionView.reloadData()
+                    
+                    self.stopLoading {
+                        UIView.animate(withDuration: 0.3) {
+                            self.collectionView.alpha = 1.0
+                        }
+                    }
                 }
             default:
                 break
@@ -283,22 +351,20 @@ extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension TranscriptionViewController: AudioPlayerDelegate {
-    func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
-        playing = true
-        self.playButton.setTitle("Stop", for: .normal)
-    }
-    
-    func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
+extension TranscriptionViewController: AudioPlayerObserver {
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
         
     }
     
-    func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
-        playing = false
-        self.playButton.setTitle("Play", for: .normal)
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
+        
     }
     
-    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
+        
+    }
+    
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
         let cells = collectionView.visibleCells as! [WordCell]
         
         let activeWord = transcript!.words.first {
