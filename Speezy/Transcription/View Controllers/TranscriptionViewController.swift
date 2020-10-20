@@ -31,6 +31,10 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var transcribeButton: UIButton!
     
     @IBOutlet weak var loadingContainer: UIView!
+    @IBOutlet weak var loadingObscurer: UIImageView!
+    
+    @IBOutlet weak var transcribeButtonCenterY: NSLayoutConstraint!
+    @IBOutlet weak var loadingContainerCenterY: NSLayoutConstraint!
     
     var waveView: PlaybackView!
     var loadingView: SpeezyLoadingView?
@@ -48,7 +52,6 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
         collectionView.allowsMultipleSelection = true
         
         transcriber = SpeezySpeechTranscriber()
@@ -57,7 +60,8 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         
         transcribeButton.layer.cornerRadius = 10.0
         
-        transcribeButton.setTitle("     TRANSCRIBING YOUR CLIP     ", for: .disabled)
+        transcribeButton.setTitleColor(.lightGray, for: .disabled)
+        transcribeButton.setTitle("     TRANSCRIBING     ", for: .disabled)
         configureLoader()
     }
     
@@ -86,7 +90,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     @IBAction func createTranscriptionJob(_ sender: Any) {
         startLoading()
         
-        transcribeButton.backgroundColor = .lightGray
+        transcribeButton.backgroundColor = .clear
         transcribeButton.isEnabled = false
         
         let job = TranscriptionJob(id: "21", fileName: "transcription-test-file-trimmed")
@@ -110,17 +114,24 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
             make.edges.equalToSuperview()
         }
         
-        self.loadingView = loading
+        loadingView = loading
     }
     
     private func startLoading() {
         loadingContainer.isHidden = false
-        
-        loadingView?.startAnimating()
         loadingView?.alpha = 0.0
         
-        UIView.animate(withDuration: 0.5) {
-            self.loadingView?.alpha = 1.0
+        transcribeButtonCenterY.isActive = false
+        loadingContainerCenterY.isActive = true
+        
+        UIView.animate(withDuration: 0.8) {
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.loadingView?.startAnimating()
+            
+            UIView.animate(withDuration: 0.5) {
+                self.loadingView?.alpha = 1.0
+            }
         }
     }
     
@@ -202,7 +213,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     }
     
     private func checkJob(_ job: TranscriptionJob) {
-        self.transcriber.checkJob(id: job.id) { (result) in
+        transcriber.checkJob(id: job.id) { (result) in
             switch result {
             case let .success(transcript):
                 self.timer?.invalidate()
@@ -211,6 +222,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
                 
                 DispatchQueue.main.async {
                     UIView.animate(withDuration: 0.8) {
+                        self.loadingObscurer.alpha = 0.0
                         self.transcribeButton.alpha = 0.0
                     } completion: { _ in
                         self.transcribeButton.isHidden = true
@@ -218,6 +230,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
                     
                     self.collectionView.alpha = 0.0
                     self.collectionView.reloadData()
+                    self.collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
                     
                     self.stopLoading {
                         UIView.animate(withDuration: 0.3) {
@@ -287,12 +300,19 @@ extension TranscriptionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        transcript?.words.count ?? 0
+        transcript?.words.count ?? 1000
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
-        let word = transcript!.words[indexPath.row]
+        
+        guard let transcript = self.transcript else {
+            cell.configureWithLorem()
+            cell.runLoremAnimation()
+            return cell
+        }
+        
+        let word = transcript.words[indexPath.row]
         let isSelected = selectedWords.contains(word)
         cell.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         return cell
@@ -302,9 +322,14 @@ extension TranscriptionViewController: UICollectionViewDataSource {
 extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let template = WordCell.createFromNib()
-        let word = transcript!.words[indexPath.row]
-        let isSelected = selectedWords.contains(word)
-        template.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
+        
+        if let word = transcript?.words[indexPath.row] {
+            let isSelected = selectedWords.contains(word)
+            template.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
+        } else {
+            template.configureWithLorem()
+        }
+        
         template.frame.size.height = 45.0
         template.setNeedsLayout()
         template.layoutIfNeeded()

@@ -35,6 +35,7 @@
 		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
+		BE45523E253F6E9500800D09 /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE45523D253F6E9500800D09 /* Lorem.swift */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
 		BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* PlaybackView.xib */; };
@@ -153,6 +154,7 @@
 		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
+		BE45523D253F6E9500800D09 /* Lorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
 		BE50344C24BB21FD00A414D1 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */,
 				BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */,
 				BE2351A6252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift */,
+				BE45523D253F6E9500800D09 /* Lorem.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
+				BE45523E253F6E9500800D09 /* Lorem.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
