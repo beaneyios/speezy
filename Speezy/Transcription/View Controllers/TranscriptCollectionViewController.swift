@@ -35,7 +35,7 @@ class TranscriptCollectionViewController: UIViewController {
     }
     
     func zoomOut() {
-        zoomFactor = min(zoomFactor * 1.2, 4)
+        zoomFactor = max(1, zoomFactor / 1.2)
         collectionView.reloadData()
     }
 }
