@@ -11,25 +11,23 @@ import UIKit
 import AVKit
 
 class TranscriptionViewController: UIViewController, PreviewWavePresenting {
+
+    var transcriber: SpeezySpeechTranscriber!
+    var audioManager: AudioManager!
     
     var transcript: Transcript?
     var job: TranscriptionJob?
-    var transcriber: SpeezySpeechTranscriber!
-    
-    var audioManager: AudioManager!
-    
     private var selectedWords: [Word] = []
     
     var timer: Timer?
-    var zoomFactor: CGFloat = 1
     var playing = false
     
     @IBOutlet weak var playbackContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
     @IBOutlet weak var cutButton: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var transcribeButton: UIButton!
     
+    @IBOutlet weak var collectionContainer: UIView!
     @IBOutlet weak var loadingContainer: UIView!
     @IBOutlet weak var loadingObscurer: UIImageView!
     
@@ -37,7 +35,9 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var loadingContainerCenterY: NSLayoutConstraint!
     
     var waveView: PlaybackView!
-    var loadingView: SpeezyLoadingView?
+    private var loadingView: SpeezyLoadingView?
+    private var collectionViewController: UIViewController!
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -47,32 +47,31 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audioManager.addPlayerObserver(self)
-        
-        collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.allowsMultipleSelection = true
-        
         transcriber = SpeezySpeechTranscriber()
-        
         configurePreviewWave(audioManager: audioManager)
         
         transcribeButton.layer.cornerRadius = 10.0
-        
         transcribeButton.setTitleColor(.lightGray, for: .disabled)
         transcribeButton.setTitle("     TRANSCRIBING     ", for: .disabled)
+        
         configureLoader()
+        switchToLorem()
     }
     
     @IBAction func zoomIn(_ sender: Any) {
-        zoomFactor = min(zoomFactor * 1.2, 4)
-        collectionView.reloadData()
+        guard let transcriptViewController = collectionViewController as? TranscriptCollectionViewController else {
+            return
+        }
+        
+        transcriptViewController.zoomIn()
     }
     
     @IBAction func zoomOut(_ sender: Any) {
-        zoomFactor = max(1, zoomFactor / 1.2)
-        collectionView.reloadData()
+        guard let transcriptViewController = collectionViewController as? TranscriptCollectionViewController else {
+            return
+        }
+        
+        transcriptViewController.zoomOut()
     }
     
     @IBAction func quit(_ sender: Any) {
@@ -103,6 +102,36 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     
     @IBAction func playPreview(_ sender: Any) {
         audioManager.play()
+    }
+    
+    private func switchToTranscript() {
+        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
+        let transcriptViewController = storyboard.instantiateViewController(identifier: "transcript") as! TranscriptCollectionViewController
+        transcriptViewController.audioManager = audioManager
+        transcriptViewController.transcript = transcript
+        
+        addChild(transcriptViewController)
+        collectionContainer.addSubview(transcriptViewController.view)
+        transcriptViewController.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        transcriptViewController.didMove(toParent: self)
+        collectionViewController = transcriptViewController
+    }
+    
+    private func switchToLorem() {
+        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
+        let loremViewController = storyboard.instantiateViewController(identifier: "lorem") as! LoremCollectionViewController
+                
+        addChild(loremViewController)
+        collectionContainer.addSubview(loremViewController.view)
+        loremViewController.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        loremViewController.didMove(toParent: self)
+        collectionViewController = loremViewController
     }
     
     private func configureLoader() {
@@ -198,7 +227,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
             self.selectedWords = []
         }
         
-        collectionView.reloadData()
+        // TODO: Reload selected words.
     }
     
     private func createTranscriptionJob(url: URL) {
@@ -228,13 +257,13 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
                         self.transcribeButton.isHidden = true
                     }
                     
-                    self.collectionView.alpha = 0.0
-                    self.collectionView.reloadData()
-                    self.collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+                    self.hideCollection()
                     
                     self.stopLoading {
+                        self.switchToTranscript()
+                        
                         UIView.animate(withDuration: 0.3) {
-                            self.collectionView.alpha = 1.0
+                            self.collectionContainer.alpha = 1.0
                         }
                     }
                 }
@@ -244,7 +273,16 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         }
     }
     
-    func cut(
+    private func hideCollection() {
+        UIView.animate(withDuration: 0.3) {
+            self.collectionContainer.alpha = 0.0
+        } completion: { _ in
+            self.collectionViewController.view.removeFromSuperview()
+            self.collectionViewController.removeFromParent()
+        }
+    }
+    
+    private func cut(
         audioItem: AudioItem,
         from range: [Word],
         finished: @escaping (URL) -> Void
@@ -290,124 +328,6 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
             }
         } catch {
             
-        }
-    }
-}
-
-extension TranscriptionViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        transcript?.words.count ?? 1000
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
-        
-        guard let transcript = self.transcript else {
-            cell.configureWithLorem()
-            cell.runLoremAnimation()
-            return cell
-        }
-        
-        let word = transcript.words[indexPath.row]
-        let isSelected = selectedWords.contains(word)
-        cell.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
-        return cell
-    }
-}
-
-extension TranscriptionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let template = WordCell.createFromNib()
-        
-        if let word = transcript?.words[indexPath.row] {
-            let isSelected = selectedWords.contains(word)
-            template.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
-        } else {
-            template.configureWithLorem()
-        }
-        
-        template.frame.size.height = 45.0
-        template.setNeedsLayout()
-        template.layoutIfNeeded()
-        
-        let size = template.systemLayoutSizeFitting(
-            CGSize(
-                width: UIView.layoutFittingCompressedSize.width,
-                height: 45.0
-            )
-        )
-        
-        if size.width > collectionView.frame.width {
-            return CGSize(width: collectionView.frame.width, height: size.height * 2.0)
-        }
-        
-        return size
-    }
-    
-    private func toggleWord(at indexPath: IndexPath) {
-        guard let selectedWord = transcript?.words[indexPath.row] else {
-            assertionFailure("No transcript found.")
-            return
-        }
-        
-        if let indexOfWord = selectedWords.firstIndex(of: selectedWord) {
-            selectedWords.remove(at: indexOfWord)
-        } else {
-            selectedWords.append(selectedWord)
-        }
-        
-        print(selectedWords.map { $0.text })
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        toggleWord(at: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        toggleWord(at: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 4.0
-    }
-}
-
-extension TranscriptionViewController: AudioPlayerObserver {
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
-        
-    }
-    
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
-        
-    }
-    
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
-        
-    }
-    
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        let cells = collectionView.visibleCells as! [WordCell]
-        
-        let activeWord = transcript!.words.first {
-            $0.timestamp.start < time && $0.timestamp.end > time
-        }
-        
-        if let activeWord = activeWord, let indexOfWord = transcript!.words.firstIndex(of: activeWord){
-            collectionView.scrollToItem(at: IndexPath(item: indexOfWord, section: 0), at: .centeredVertically, animated: false)
-        }
-        
-        cells.forEach {
-            let indexPath = collectionView.indexPath(for: $0)!
-            let word = transcript!.words[indexPath.item]
-            if word.timestamp.start < time && word.timestamp.end > time {
-                $0.highlightActive()
-            } else {
-                $0.highlightInactive()
-            }
         }
     }
 }
