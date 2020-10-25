@@ -25,19 +25,12 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var playbackContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
     @IBOutlet weak var cutButton: UIButton!
-    @IBOutlet weak var transcribeButton: UIButton!
     
+    @IBOutlet weak var transcribeContainer: UIView!
     @IBOutlet weak var collectionContainer: UIView!
-    @IBOutlet weak var loadingContainer: UIView!
-    @IBOutlet weak var loadingObscurer: UIImageView!
-    
-    @IBOutlet weak var transcribeButtonCenterY: NSLayoutConstraint!
-    @IBOutlet weak var loadingContainerCenterY: NSLayoutConstraint!
     
     var waveView: PlaybackView!
-    private var loadingView: SpeezyLoadingView?
     private var collectionViewController: UIViewController!
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -50,12 +43,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         transcriber = SpeezySpeechTranscriber()
         configurePreviewWave(audioManager: audioManager)
         
-        transcribeButton.layer.cornerRadius = 10.0
-        transcribeButton.setTitleColor(.lightGray, for: .disabled)
-        transcribeButton.setTitle("     TRANSCRIBING     ", for: .disabled)
-        
-        configureLoader()
-        switchToLorem()
+        transcribeContainer.layer.cornerRadius = 10.0
     }
     
     @IBAction func zoomIn(_ sender: Any) {
@@ -87,10 +75,9 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     }
     
     @IBAction func createTranscriptionJob(_ sender: Any) {
-        startLoading()
+        switchToLorem()
         
-        transcribeButton.backgroundColor = .clear
-        transcribeButton.isEnabled = false
+        transcribeContainer.isHidden = true
         
         let job = TranscriptionJob(id: "21", fileName: "transcription-test-file-trimmed")
         checkJob(job)
@@ -132,49 +119,6 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         
         loremViewController.didMove(toParent: self)
         collectionViewController = loremViewController
-    }
-    
-    private func configureLoader() {
-        loadingContainer.isHidden = true
-        let loading = SpeezyLoadingView.createFromNib()
-        loadingContainer.addSubview(loading)
-        
-        loading.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        
-        loadingView = loading
-    }
-    
-    private func startLoading() {
-        loadingContainer.isHidden = false
-        loadingView?.alpha = 0.0
-        
-        transcribeButtonCenterY.isActive = false
-        loadingContainerCenterY.isActive = true
-        
-        UIView.animate(withDuration: 0.8) {
-            self.view.layoutIfNeeded()
-        } completion: { _ in
-            self.loadingView?.startAnimating()
-            
-            UIView.animate(withDuration: 0.5) {
-                self.loadingView?.alpha = 1.0
-            }
-        }
-    }
-    
-    private func stopLoading(completion: @escaping () -> Void) {
-        self.loadingView?.restCompletion = {
-            UIView.animate(withDuration: 0.9) {
-                self.loadingView?.alpha = 0.0
-            } completion: { (finished) in
-                self.loadingContainer.isHidden = true
-                completion()
-            }
-        }
-        
-        self.loadingView?.stopAnimating()
     }
     
     private func removeSelectedWords() {
@@ -251,19 +195,20 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
                 
                 DispatchQueue.main.async {
                     UIView.animate(withDuration: 0.8) {
-                        self.loadingObscurer.alpha = 0.0
-                        self.transcribeButton.alpha = 0.0
+                        self.transcribeContainer.alpha = 0.0
                     } completion: { _ in
-                        self.transcribeButton.isHidden = true
+                        self.transcribeContainer.isHidden = true
                     }
                     
                     self.hideCollection()
                     
-                    self.stopLoading {
-                        self.switchToTranscript()
-                        
-                        UIView.animate(withDuration: 0.3) {
-                            self.collectionContainer.alpha = 1.0
+                    if let lorem = self.collectionViewController as? LoremCollectionViewController {
+                        lorem.stopLoading {
+                            self.switchToTranscript()
+                            
+                            UIView.animate(withDuration: 0.3) {
+                                self.collectionContainer.alpha = 1.0
+                            }
                         }
                     }
                 }

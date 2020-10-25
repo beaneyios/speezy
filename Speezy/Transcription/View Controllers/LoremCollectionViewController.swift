@@ -7,58 +7,76 @@
 //
 
 import UIKit
+import GhostTypewriter
 
 class LoremCollectionViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var titleLabel: TypewriterLabel!
+    @IBOutlet weak var loadingContainer: UIView!
+    private var loadingView: SpeezyLoadingView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.allowsMultipleSelection = true
-    }
-}
-
-extension LoremCollectionViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        configureLoader()
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        500
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        cell.configureWithLorem()
-        cell.runLoremAnimation()
-        return cell
-    }
-}
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 15
 
-extension LoremCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let template = WordCell.createFromNib()
-        template.configureWithLorem()
-        
-        template.frame.size.height = 45.0
-        template.setNeedsLayout()
-        template.layoutIfNeeded()
-        
-        let size = template.systemLayoutSizeFitting(
-            CGSize(
-                width: UIView.layoutFittingCompressedSize.width,
-                height: 45.0
-            )
-        )
-        
-        if size.width > collectionView.frame.width {
-            return CGSize(width: collectionView.frame.width, height: size.height * 2.0)
+        let attrString = NSMutableAttributedString(string: Lorem.sentences(3))
+        attrString.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+
+        titleLabel.attributedText = attrString
+                
+        titleLabel.typingTimeInterval = 0.05
+        titleLabel.startTypewritingAnimation {
+            DispatchQueue.main.async {
+                self.restart()
+            }
         }
         
-        return size
+        startLoading()
+    }
+    
+    private func restart() {
+        DispatchQueue.main.async {
+            self.titleLabel.resetTypewritingAnimation()
+            self.titleLabel.startTypewritingAnimation {
+                self.restart()
+            }
+        }
+    }
+    
+    private func configureLoader() {
+        loadingContainer.isHidden = true
+        let loading = SpeezyLoadingView.createFromNib()
+        loadingContainer.addSubview(loading)
+        
+        loading.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        loadingView = loading
+    }
+    
+    private func startLoading() {
+        loadingContainer.isHidden = false
+        self.loadingView?.startAnimating()
+    }
+    
+    func stopLoading(completion: @escaping () -> Void) {
+        self.loadingView?.restCompletion = {
+            UIView.animate(withDuration: 0.9) {
+                self.loadingView?.alpha = 0.0
+            } completion: { (finished) in
+                self.loadingContainer.isHidden = true
+                completion()
+            }
+        }
+        
+        self.loadingView?.stopAnimating()
     }
 }

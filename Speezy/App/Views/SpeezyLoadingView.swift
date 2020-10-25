@@ -93,7 +93,7 @@ class SpeezyLoadingView: UIView, NibLoadable {
         thirdConstraint.isActive = true
         fourthConstraint.isActive = true
         
-        UIView.animate(withDuration: 0.8) {
+        UIView.animate(withDuration: 0.3) {
             self.layoutIfNeeded()
         } completion: { (finished) in
             

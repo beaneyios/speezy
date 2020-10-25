@@ -28,6 +28,7 @@ PODS:
     - GoogleUtilities/Environment (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.6)
     - PromisesObjC (~> 1.2)
+  - GhostTypewriter (2.1.0)
   - GoogleDataTransport (6.2.1)
   - GoogleDataTransportCCTSupport (3.2.0):
     - GoogleDataTransport (~> 6.1)
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.2)
   - DeviceKit (~> 2.0)
   - Firebase/Crashlytics
+  - GhostTypewriter
   - Hero
   - SCLAlertView
   - SnapKit (~> 5.0.0)
@@ -69,6 +71,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - GhostTypewriter
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
@@ -88,6 +91,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 4505e4d4009b1d93f605088ee7d7764d5f0d1c84
   FirebaseCrashlytics: 7d0fa02ea8842cc4b2ab07b0735edafde1ad77d6
   FirebaseInstallations: 293f567159b6d66d1c990f13bb868066096c94ec
+  GhostTypewriter: 62540772d227fbfe633bfa728d08fe8af5b4d805
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
@@ -98,6 +102,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
 
-PODFILE CHECKSUM: 913d8ea13ab72ef127929b6f723a6beaab97f7a8
+PODFILE CHECKSUM: 6fe8788a56a953e513234d6272f43a5602edefbb
 
 COCOAPODS: 1.9.1
