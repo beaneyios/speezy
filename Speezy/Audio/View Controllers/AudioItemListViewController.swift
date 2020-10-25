@@ -110,7 +110,9 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")
+        // transcription-test-file-trimmed
+        // supertrimmed
+        let url = Bundle.main.url(forResource: "supertrimmed", withExtension: "flac")
         let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
 //        delegate?.audioItemListViewControllerDidSelectTestSpeechItem(self, item: audioItem)
         delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)

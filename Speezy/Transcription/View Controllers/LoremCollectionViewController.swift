@@ -26,7 +26,9 @@ class LoremCollectionViewController: UIViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 15
 
-        let attrString = NSMutableAttributedString(string: Lorem.sentences(3))
+        let content = "Your transcript will be ready soon - it usually takes around half the length of your clip to transcribe"
+        
+        let attrString = NSMutableAttributedString(string: content)
         attrString.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
 
         titleLabel.attributedText = attrString

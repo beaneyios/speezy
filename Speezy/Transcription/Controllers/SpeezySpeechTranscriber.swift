@@ -10,11 +10,19 @@ import Foundation
 import Alamofire
 
 struct SpeezySpeechTranscriber {
-    func createTranscriptionJob(url: URL, completion: @escaping (TranscriptionJob) -> Void) {
+    func createTranscriptionJob(audioId: String, url: URL, completion: @escaping (TranscriptionJob) -> Void) {
         let uploadUrl = URL(string: "http://localhost:8000/upload-audio")!
         
+        guard
+            let audioData = try? Data(contentsOf: url),
+            let audioIdData = audioId.data(using: .utf8)
+        else {
+            fatalError("ID Should not produce nil data")
+        }
+        
         AF.upload(multipartFormData: { (data) in
-            data.append(try! Data(contentsOf: url), withName: "audio", fileName: url.lastPathComponent, mimeType: "audio/flac")
+            data.append(audioData, withName: "audio", fileName: url.lastPathComponent, mimeType: "audio/flac")
+            data.append(audioIdData, withName: "audioId")
         }, to: uploadUrl).responseDecodable(of: TranscriptionJob.self) { response in
             switch response.result {
             case let .success(job):
@@ -25,9 +33,26 @@ struct SpeezySpeechTranscriber {
         }
     }
     
-    func checkJob(id: String, completion: @escaping (Result<Transcript, AFError>) -> Void) {
-        AF.request("http://localhost:8000/transcriptions/\(id)").responseDecodable(of: Transcript.self) { response in
+    func checkJob(id: String, completion: @escaping (Result<TranscriptJobCheckResponse, AFError>) -> Void) {
+        let request = AF.request("http://localhost:8000/transcriptions/\(id)")
+        request.responseDecodable(of: TranscriptJobCheckResponse.self) { (response) in
             completion(response.result)
+        }
+    }
+}
+
+enum TranscriptJobCheckResponse: Decodable {
+    case complete(Transcript)
+    case processing(TranscriptionJob)
+    case unknown
+    
+    init(from decoder: Decoder) throws {
+        if let transcript = try? Transcript(from: decoder) {
+            self = .complete(transcript)
+        } else if let job = try? TranscriptionJob(from: decoder) {
+            self = .processing(job)
+        } else {
+            self = .unknown
         }
     }
 }

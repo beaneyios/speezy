@@ -12,14 +12,13 @@ import AVKit
 
 class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 
-    var transcriber: SpeezySpeechTranscriber!
+    var transcriptionJobManager: TranscriptionJobManager!
     var audioManager: AudioManager!
     
     var transcript: Transcript?
     var job: TranscriptionJob?
     private var selectedWords: [Word] = []
     
-    var timer: Timer?
     var playing = false
     
     @IBOutlet weak var playbackContainer: UIView!
@@ -40,10 +39,18 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        transcriber = SpeezySpeechTranscriber()
+        transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
         configurePreviewWave(audioManager: audioManager)
         
         transcribeContainer.layer.cornerRadius = 10.0
+        
+        TranscriptionJobStorage.fetchItems().forEach {
+            TranscriptionJobStorage.deleteItem($0)
+        }
+        
+        transcriptionJobManager.addTranscriptionObserver(self)
+        
+        transcriptionJobManager.checkJobs()
     }
     
     @IBAction func zoomIn(_ sender: Any) {
@@ -79,12 +86,10 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         
         transcribeContainer.isHidden = true
         
-        let job = TranscriptionJob(id: "21", fileName: "transcription-test-file-trimmed")
-        checkJob(job)
-        return;
-        
-        let url = Bundle.main.url(forResource: "transcription-test-file-trimmed", withExtension: "flac")!
-        createTranscriptionJob(url: url)
+        transcriptionJobManager.createTranscriptionJob(
+            audioId: audioManager.item.id,
+            url: audioManager.item.url
+        )
     }
     
     @IBAction func playPreview(_ sender: Any) {
@@ -174,50 +179,6 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         // TODO: Reload selected words.
     }
     
-    private func createTranscriptionJob(url: URL) {
-        transcriber.createTranscriptionJob(url: url) { (job) in
-            self.job = job
-            TranscriptionJobStorage.save(job)
-            
-            self.timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true, block: { (timer) in
-                self.checkJob(job)
-            })
-        }
-    }
-    
-    private func checkJob(_ job: TranscriptionJob) {
-        transcriber.checkJob(id: job.id) { (result) in
-            switch result {
-            case let .success(transcript):
-                self.timer?.invalidate()
-                self.timer = nil
-                self.transcript = transcript
-                
-                DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.8) {
-                        self.transcribeContainer.alpha = 0.0
-                    } completion: { _ in
-                        self.transcribeContainer.isHidden = true
-                    }
-                    
-                    self.hideCollection()
-                    
-                    if let lorem = self.collectionViewController as? LoremCollectionViewController {
-                        lorem.stopLoading {
-                            self.switchToTranscript()
-                            
-                            UIView.animate(withDuration: 0.3) {
-                                self.collectionContainer.alpha = 1.0
-                            }
-                        }
-                    }
-                }
-            default:
-                break
-            }
-        }
-    }
-    
     private func hideCollection() {
         UIView.animate(withDuration: 0.3) {
             self.collectionContainer.alpha = 0.0
@@ -239,7 +200,14 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         
         do {
             let composition: AVMutableComposition = AVMutableComposition()
-            try composition.insertTimeRange( CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: asset, at: CMTime.zero)
+            try composition.insertTimeRange(
+                CMTimeRangeMake(
+                    start: CMTime.zero,
+                    duration: asset.duration
+                ),
+                of: asset,
+                at: CMTime.zero
+            )
             
             range.reversed().forEach {
                 let startTime = CMTime(seconds: $0.timestamp.start, preferredTimescale: 100)
@@ -274,5 +242,25 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         } catch {
             
         }
+    }
+}
+
+extension TranscriptionViewController: TranscriptionObserver {
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didFinishTranscribingWithAudioItemId: String,
+        transcript: Transcript
+    ) {
+        DispatchQueue.main.async {
+            self.transcript = transcript
+            self.switchToTranscript()
+        }        
+    }
+    
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didQueueTranscriptionJobWithAudioItemId: String
+    ) {
+        
     }
 }

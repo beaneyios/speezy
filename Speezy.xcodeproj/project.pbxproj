@@ -109,6 +109,8 @@
 		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
+		BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */; };
+		BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B7162546081B009308A4 /* supertrimmed.flac */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
 		BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */; };
@@ -234,6 +236,8 @@
 		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobManager.swift; sourceTree = "<group>"; };
+		BEF3B7162546081B009308A4 /* supertrimmed.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = supertrimmed.flac; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyButton.swift; sourceTree = "<group>"; };
@@ -319,6 +323,7 @@
 				BE6080B9250E90A0003CB318 /* transcription-test-file-trimmed.m4a */,
 				BE6080B5250E8E57003CB318 /* transcription-test-file.m4a */,
 				BE6080BD250EB455003CB318 /* transcription-test-file.flac */,
+				BEF3B7162546081B009308A4 /* supertrimmed.flac */,
 				BEA5AE8325178E490009ECCC /* test-transcribe.m4a */,
 				BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */,
 				BE2351AA252FA15500067BA2 /* transcription-test-file-trimmed.m4a */,
@@ -336,6 +341,7 @@
 				BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */,
 				BE2351A6252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift */,
 				BE45523D253F6E9500800D09 /* Lorem.swift */,
+				BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
+				BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */,
 				BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */,
 				BE6080C4250FFE8E003CB318 /* Speezy-35fb1cf24683.json in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
@@ -916,6 +923,7 @@
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
+				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,
 				BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
