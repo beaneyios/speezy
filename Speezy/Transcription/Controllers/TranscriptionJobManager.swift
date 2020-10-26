@@ -27,7 +27,6 @@ struct TranscriptionObservation {
 
 class TranscriptionJobManager {
     let transcriber: SpeezySpeechTranscriber
-    var timer: Timer?
     
     private var transcriptionObservatons = [ObjectIdentifier : TranscriptionObservation]()
     
@@ -43,16 +42,24 @@ class TranscriptionJobManager {
     }
         
     @objc func checkJobs() {
+        print("Checking jobs")
         let jobs = TranscriptionJobStorage.fetchItems()
+        
+        if jobs.isEmpty {
+            return
+        }
+        
         let group = DispatchGroup()
         
         // Check each job.
+        print("Job count \(jobs.count)")
         jobs.forEach { (job) in
             group.enter()
             self.checkJob(job) { (checkResult) in
                 // Update the storage.
                 switch checkResult {
                 case let .complete(transcript):
+                    print("Job complete, deleting item")
                     TranscriptionJobStorage.deleteItem(job)
                     self.transcriptionObservatons.forEach {
                         $0.value.observer?.transcriptionJobManager(
@@ -61,10 +68,8 @@ class TranscriptionJobManager {
                             transcript: transcript
                         )
                     }
-                    
-                    self.timer?.invalidate()
-                    self.timer = nil
                 case let .processing(job):
+                    print("Job processing, letting listeners know.")
                     self.transcriptionObservatons.forEach {
                         $0.value.observer?.transcriptionJobManager(
                             self,
@@ -75,12 +80,15 @@ class TranscriptionJobManager {
                     break
                 }
                 
+                print("Leaving the group.")
                 group.leave()
             }
         }
-        
+    
         group.notify(queue: .global()) {
+            print("All jobs checked, scheduling a 2 second timer")
             DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                print("Timer finished, checking jobs again.")
                 self.checkJobs()
             }
         }

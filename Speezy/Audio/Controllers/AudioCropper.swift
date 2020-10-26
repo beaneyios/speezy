@@ -111,15 +111,15 @@ extension AudioCropper {
             composition.removeTimeRange( CMTimeRangeFromTimeToTime(start: startTime, end: endTime))
             
             guard
-                compatiblePresets.contains(AVAssetExportPresetAppleM4A),
-                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A),
+                compatiblePresets.contains(AVAssetExportPresetPassthrough),
+                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough),
                 let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
             else {
                 return
             }
             
             exportSession.outputURL = outputURL
-            exportSession.outputFileType = AVFileType.m4a
+            exportSession.outputFileType = AVFileType.wav
             
             exportSession.exportAsynchronously() {
                 switch exportSession.status {
@@ -130,7 +130,7 @@ extension AudioCropper {
                 default:
                     print("Successfully cut audio")
                     DispatchQueue.main.async(execute: {
-                        finished("\(audioItem.id)_cut.m4a")
+                        finished("\(audioItem.id)_cut.wav")
                     })
                 }
             }
@@ -150,8 +150,8 @@ extension AudioCropper {
         let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
         
         guard
-            compatiblePresets.contains(AVAssetExportPresetAppleM4A),
-            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
+            compatiblePresets.contains(AVAssetExportPresetPassthrough),
+            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough),
             let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.trim.pathExtension)")
         else {
             return
@@ -160,7 +160,7 @@ extension AudioCropper {
         FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.trim.pathExtension)")
         
         exportSession.outputURL = outputURL
-        exportSession.outputFileType = AVFileType.m4a
+        exportSession.outputFileType = AVFileType.wav
         
         let start: CMTime = CMTimeMakeWithSeconds(startTime, preferredTimescale: asset.duration.timescale)
         let stop: CMTime = CMTimeMakeWithSeconds(stopTime, preferredTimescale: asset.duration.timescale)

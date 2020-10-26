@@ -21,7 +21,7 @@ struct SpeezySpeechTranscriber {
         }
         
         AF.upload(multipartFormData: { (data) in
-            data.append(audioData, withName: "audio", fileName: url.lastPathComponent, mimeType: "audio/flac")
+            data.append(audioData, withName: "audio", fileName: url.lastPathComponent, mimeType: "audio/wav")
             data.append(audioIdData, withName: "audioId")
         }, to: uploadUrl).responseDecodable(of: TranscriptionJob.self) { response in
             switch response.result {

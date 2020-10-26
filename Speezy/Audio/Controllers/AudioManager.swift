@@ -37,7 +37,7 @@ class AudioManager: NSObject {
         
         self.item = AudioItem(
             id: item.id,
-            path: "\(item.id)_staging.m4a",
+            path: "\(item.id)_staging.wav",
             title: item.title,
             date: item.date,
             tags: item.tags,
@@ -67,7 +67,7 @@ class AudioManager: NSObject {
         
         let newItem = AudioItem(
             id: item.id,
-            path: "\(item.id).m4a",
+            path: "\(item.id).wav",
             title: item.title,
             date: item.date,
             tags: item.tags

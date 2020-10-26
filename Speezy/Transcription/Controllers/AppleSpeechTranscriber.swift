@@ -20,7 +20,7 @@ class AppleSpeechTranscriber: NSObject {
             DispatchQueue.main.async {
                 if authStatus == .authorized {
                     self.recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_GB"))
-                    let request = SFSpeechURLRecognitionRequest(url: Bundle.main.url(forResource: "transcription-test-file", withExtension: "m4a")!)
+                    let request = SFSpeechURLRecognitionRequest(url: Bundle.main.url(forResource: "transcription-test-file", withExtension: "wav")!)
 //                    request.requiresOnDeviceRecognition = true
 //                    request.shouldReportPartialResults = false
                     

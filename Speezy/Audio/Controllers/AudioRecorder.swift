@@ -41,9 +41,9 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     private func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.m4a")
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.wav")
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
             AVSampleRateKey: 44100,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
@@ -86,7 +86,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        let newRecording = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.m4a")
+        let newRecording = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.wav")
         let currentFile = item.url
         let outputURL = item.url
         

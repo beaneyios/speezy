@@ -216,15 +216,15 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
             }
             
             guard
-                compatiblePresets.contains(AVAssetExportPresetAppleM4A),
-                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A),
+                compatiblePresets.contains(AVAssetExportPresetPassthrough),
+                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough),
                 let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
             else {
                 return
             }
             
             exportSession.outputURL = outputURL
-            exportSession.outputFileType = AVFileType.m4a
+            exportSession.outputFileType = AVFileType.wav
             
             exportSession.exportAsynchronously() {
                 switch exportSession.status {

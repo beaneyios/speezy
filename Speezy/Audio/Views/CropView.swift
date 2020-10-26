@@ -16,9 +16,9 @@ enum CropKind {
     var pathExtension: String {
         switch self {
         case .trim:
-            return "_cropped.m4a"
+            return "_cropped.wav"
         case .cut:
-            return "_cut.m4a"
+            return "_cut.wav"
         }
     }
 }
