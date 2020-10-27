@@ -255,9 +255,12 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 extension TranscriptionViewController: TranscriptionObserver {
     func transcriptionJobManager(
         _ manager: TranscriptionJobManager,
-        didFinishTranscribingWithAudioItemId: String,
+        didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     ) {
+        // Save the new transcript.
+        TranscriptStorage.save(transcript, id: id)
+        
         DispatchQueue.main.async {
             self.transcript = transcript
             self.switchToTranscript()

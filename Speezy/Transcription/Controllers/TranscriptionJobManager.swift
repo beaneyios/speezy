@@ -11,7 +11,7 @@ import Foundation
 protocol TranscriptionObserver: AnyObject {
     func transcriptionJobManager(
         _ manager: TranscriptionJobManager,
-        didFinishTranscribingWithAudioItemId: String,
+        didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     )
     
@@ -71,9 +71,6 @@ class TranscriptionJobManager {
         case let .complete(transcript):
             // Remove the job.
             TranscriptionJobStorage.deleteItem(job)
-            
-            // Save the new transcript.
-            TranscriptStorage.save(transcript, id: job.audioId)
             
             self.transcriptionObservatons.forEach {
                 $0.value.observer?.transcriptionJobManager(
