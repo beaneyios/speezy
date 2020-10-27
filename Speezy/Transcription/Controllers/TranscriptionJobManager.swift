@@ -42,7 +42,6 @@ class TranscriptionJobManager {
     }
         
     @objc func checkJobs() {
-        print("Checking jobs")
         let jobs = TranscriptionJobStorage.fetchItems()
         
         if jobs.isEmpty {
@@ -52,41 +51,15 @@ class TranscriptionJobManager {
         let group = DispatchGroup()
         
         // Check each job.
-        print("Job count \(jobs.count)")
         jobs.forEach { (job) in
             group.enter()
-            self.checkJob(job) { (checkResult) in
-                // Update the storage.
-                switch checkResult {
-                case let .complete(transcript):
-                    print("Job complete, deleting item")
-                    TranscriptionJobStorage.deleteItem(job)
-                    self.transcriptionObservatons.forEach {
-                        $0.value.observer?.transcriptionJobManager(
-                            self,
-                            didFinishTranscribingWithAudioItemId: job.id,
-                            transcript: transcript
-                        )
-                    }
-                case let .processing(job):
-                    print("Job processing, letting listeners know.")
-                    self.transcriptionObservatons.forEach {
-                        $0.value.observer?.transcriptionJobManager(
-                            self,
-                            didQueueTranscriptionJobWithAudioItemId: job.id
-                        )
-                    }
-                case .unknown:
-                    break
-                }
-                
-                print("Leaving the group.")
+            self.checkJob(job) { (response) in
+                self.handleJobResponse(response, job: job)
                 group.leave()
             }
         }
     
         group.notify(queue: .global()) {
-            print("All jobs checked, scheduling a 2 second timer")
             DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 2.0) {
                 print("Timer finished, checking jobs again.")
                 self.checkJobs()
@@ -94,7 +67,30 @@ class TranscriptionJobManager {
         }
     }
     
-    private func checkJob(_ job: TranscriptionJob, completion: @escaping (TranscriptJobCheckResponse) -> Void) {
+    private func handleJobResponse(_ response: TranscriptionJobCheckResponse, job: TranscriptionJob) {
+        switch response {
+        case let .complete(transcript):
+            TranscriptionJobStorage.deleteItem(job)
+            self.transcriptionObservatons.forEach {
+                $0.value.observer?.transcriptionJobManager(
+                    self,
+                    didFinishTranscribingWithAudioItemId: job.id,
+                    transcript: transcript
+                )
+            }
+        case let .processing(job):
+            self.transcriptionObservatons.forEach {
+                $0.value.observer?.transcriptionJobManager(
+                    self,
+                    didQueueTranscriptionJobWithAudioItemId: job.id
+                )
+            }
+        case .unknown:
+            break
+        }
+    }
+    
+    private func checkJob(_ job: TranscriptionJob, completion: @escaping (TranscriptionJobCheckResponse) -> Void) {
         transcriber.checkJob(id: job.id) { (result) in
             switch result {
             case let .success(checkResponse):

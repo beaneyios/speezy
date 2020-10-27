@@ -33,15 +33,15 @@ struct SpeezySpeechTranscriber {
         }
     }
     
-    func checkJob(id: String, completion: @escaping (Result<TranscriptJobCheckResponse, AFError>) -> Void) {
+    func checkJob(id: String, completion: @escaping (Result<TranscriptionJobCheckResponse, AFError>) -> Void) {
         let request = AF.request("http://localhost:8000/transcriptions/\(id)")
-        request.responseDecodable(of: TranscriptJobCheckResponse.self) { (response) in
+        request.responseDecodable(of: TranscriptionJobCheckResponse.self) { (response) in
             completion(response.result)
         }
     }
 }
 
-enum TranscriptJobCheckResponse: Decodable {
+enum TranscriptionJobCheckResponse: Decodable {
     case complete(Transcript)
     case processing(TranscriptionJob)
     case unknown
