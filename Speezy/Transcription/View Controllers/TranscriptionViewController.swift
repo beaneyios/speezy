@@ -264,7 +264,7 @@ extension TranscriptionViewController: TranscriptionObserver {
         DispatchQueue.main.async {
             self.transcript = transcript
             self.switchToTranscript()
-        }        
+        }
     }
     
     func transcriptionJobManager(
