@@ -97,7 +97,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDO-J8-gZl">
-                                                <rect key="frame" x="16" y="8" width="40" height="68"/>
+                                                <rect key="frame" x="16" y="8" width="40" height="76"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                 <state key="normal" title="Title">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,7 +107,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHa-y7-Fyu">
-                                                <rect key="frame" x="80" y="84" width="215" height="156"/>
+                                                <rect key="frame" x="80" y="92" width="215" height="148"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -263,33 +263,30 @@
                                                     <constraint firstAttribute="height" constant="100" placeholder="YES" id="oMl-BD-Qm2"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxr-yH-9iz">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKJ-qi-lee">
                                                 <rect key="frame" x="299" y="16" width="60" height="60"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="ald-RJ-1Kl"/>
-                                                    <constraint firstAttribute="width" constant="60" id="hAI-rR-qYZ"/>
+                                                    <constraint firstAttribute="width" constant="60" id="84m-ux-UVp"/>
+                                                    <constraint firstAttribute="height" constant="60" id="lLy-9g-jrc"/>
                                                 </constraints>
-                                                <state key="normal" image="transcription-button"/>
-                                                <connections>
-                                                    <action selector="presentTranscription:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k8b-v5-4dW"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="LKo-eR-PaE" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="1Yy-vz-XKF"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="2kF-DV-yPE"/>
                                             <constraint firstItem="I7a-EG-tAp" firstAttribute="top" secondItem="0Kl-TL-kjc" secondAttribute="bottom" constant="16" id="3Ej-Po-BrC"/>
-                                            <constraint firstItem="BHa-y7-Fyu" firstAttribute="top" secondItem="Bxr-yH-9iz" secondAttribute="bottom" constant="8" id="FHc-Lb-skP"/>
-                                            <constraint firstAttribute="trailing" secondItem="Bxr-yH-9iz" secondAttribute="trailing" constant="16" id="FRk-KG-JQf"/>
+                                            <constraint firstAttribute="trailing" secondItem="GKJ-qi-lee" secondAttribute="trailing" constant="16" id="94Z-TR-Lw4"/>
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="8" id="Jb2-jH-RrB"/>
                                             <constraint firstItem="LKo-eR-PaE" firstAttribute="top" secondItem="aD4-iy-Eyt" secondAttribute="bottom" constant="16" id="K9o-UG-sTY"/>
                                             <constraint firstAttribute="trailing" secondItem="I7a-EG-tAp" secondAttribute="trailing" constant="16" id="N7T-ki-vVc"/>
                                             <constraint firstAttribute="bottom" secondItem="I7a-EG-tAp" secondAttribute="bottom" constant="16" id="R5s-mp-JhG"/>
                                             <constraint firstItem="aD4-iy-Eyt" firstAttribute="top" secondItem="BHa-y7-Fyu" secondAttribute="bottom" constant="16" id="Zhx-eJ-OD2"/>
-                                            <constraint firstItem="Bxr-yH-9iz" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="16" id="atS-8n-Fca"/>
+                                            <constraint firstItem="BHa-y7-Fyu" firstAttribute="top" secondItem="GKJ-qi-lee" secondAttribute="bottom" constant="16" id="c2z-tV-13M"/>
                                             <constraint firstItem="0Kl-TL-kjc" firstAttribute="top" secondItem="LKo-eR-PaE" secondAttribute="bottom" constant="16" id="g3r-1d-3gP"/>
                                             <constraint firstAttribute="trailing" secondItem="aD4-iy-Eyt" secondAttribute="trailing" id="h0b-58-Msv"/>
+                                            <constraint firstItem="GKJ-qi-lee" firstAttribute="top" secondItem="FXX-3k-zyu" secondAttribute="top" constant="16" id="meo-sq-0ud"/>
                                             <constraint firstItem="QDO-J8-gZl" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="q2o-LB-VQq"/>
                                             <constraint firstItem="0Kl-TL-kjc" firstAttribute="leading" secondItem="FXX-3k-zyu" secondAttribute="leading" constant="16" id="rR0-lZ-5rv"/>
                                             <constraint firstItem="BHa-y7-Fyu" firstAttribute="centerX" secondItem="FXX-3k-zyu" secondAttribute="centerX" id="ue9-Xs-sa7"/>
@@ -336,6 +333,7 @@
                         <outlet property="btnSend" destination="dS4-sh-ukM" id="yNU-tP-8Wo"/>
                         <outlet property="btnShare" destination="dS4-sh-ukM" id="jGR-FV-oIE"/>
                         <outlet property="btnTitle" destination="QDO-J8-gZl" id="OER-AL-Ijm"/>
+                        <outlet property="btnTranscribeContainer" destination="GKJ-qi-lee" id="mue-jX-pjn"/>
                         <outlet property="controlButtonsHeight" destination="Wax-oX-hC0" id="x4E-qH-L14"/>
                         <outlet property="cropContainer" destination="0Kl-TL-kjc" id="eAy-9e-oqe"/>
                         <outlet property="cropContainerHeight" destination="VeQ-o0-dYb" id="5U7-e3-fsL"/>
@@ -1027,7 +1025,6 @@
         <image name="tag-icon" width="500" height="500"/>
         <image name="tick-button" width="500" height="500"/>
         <image name="title-icon" width="500" height="500"/>
-        <image name="transcription-button" width="500" height="500"/>
         <namedColor name="speezy-purple">
             <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

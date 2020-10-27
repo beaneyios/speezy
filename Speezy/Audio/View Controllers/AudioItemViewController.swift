@@ -43,6 +43,9 @@ class AudioItemViewController: UIViewController {
         
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnDrafts: UIButton!
+        
+    @IBOutlet weak var btnTranscribeContainer: UIView!
+    private var transcribeButton: TranscriptionButton?
     
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
@@ -95,6 +98,11 @@ class AudioItemViewController: UIViewController {
             configureSubviews()
             transcriptionCropUpdatesPending = false
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        audioManager.stopTranscriptionChecks()
     }
     
     @IBAction func saveToDrafts(_ sender: Any) {
@@ -205,7 +213,7 @@ class AudioItemViewController: UIViewController {
         }
     }
     
-    @IBAction func presentTranscription(_ sender: Any) {
+    func presentTranscription() {
         delegate?.audioItemViewController(self, didSelectTranscribeWithManager: audioManager)
     }
 }
@@ -216,9 +224,11 @@ extension AudioItemViewController {
         audioManager.addPlayerObserver(self)
         audioManager.addRecorderObserver(self)
         audioManager.addCropperObserver(self)
+        audioManager.addTranscriptionObserver(self)
     }
     
     func configureSubviews() {
+        configureTranscribeButton()
         configureNavButtons()
         configureMainSoundWave()
         configurePlaybackControls()
@@ -231,6 +241,21 @@ extension AudioItemViewController {
         let presenting = HeroDefaultAnimationType.zoom
         let dismissing = HeroDefaultAnimationType.zoomOut
         hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+    }
+    
+    private func configureTranscribeButton() {
+        let transcribeButton = TranscriptionButton.createFromNib()
+        btnTranscribeContainer.addSubview(transcribeButton)
+        transcribeButton.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        transcribeButton.switchToNormal()
+        self.transcribeButton = transcribeButton
+        
+        transcribeButton.action = {
+            self.presentTranscription()
+        }
     }
     
     private func configureNavButtons() {
@@ -532,5 +557,15 @@ extension AudioItemViewController: AudioCropperObserver {
         lblTimer.text = "00:00:00"
         hideCropView()
         scrollView.isScrollEnabled = true
+    }
+}
+
+extension AudioItemViewController: TranscriptionJobObserver {
+    func audioManager(_ manager: AudioManager, didFinishTranscribingWithAudioItemId id: String, transcript: Transcript) {
+        transcribeButton?.switchToSuccessful()
+    }
+    
+    func transcriptionJobManager(_ manager: AudioManager, didQueueTranscriptionJobWithAudioItemId: String) {
+        transcribeButton?.switchToLoading()
     }
 }

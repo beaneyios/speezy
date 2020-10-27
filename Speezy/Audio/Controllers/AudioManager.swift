@@ -461,6 +461,7 @@ extension AudioManager {
     
     enum TranscriptionJobAction {
         case transcriptionComplete(transcript: Transcript, audioId: String)
+        case transcriptionQueued(audioId: String)
     }
     
     enum State {
@@ -592,6 +593,8 @@ extension AudioManager {
             switch action {
             case let .transcriptionComplete(transcript, audioId):
                 observer.audioManager(self, didFinishTranscribingWithAudioItemId: audioId, transcript: transcript)
+            case let .transcriptionQueued(audioId):
+                observer.transcriptionJobManager(self, didQueueTranscriptionJobWithAudioItemId: audioId)
             }
         }
     }
@@ -608,6 +611,10 @@ extension AudioManager: TranscriptionJobManagerDelegate {
         transcriptionJobManager?.checkJobs()
     }
     
+    func stopTranscriptionChecks() {
+        transcriptionJobManager?.stopChecks()
+    }
+    
     var transcriptionJobExists: Bool {
         transcriptionJobManager?.jobExists(id: item.id) ?? false
     }
@@ -620,6 +627,12 @@ extension AudioManager: TranscriptionJobManagerDelegate {
                     audioId: id
                 )
             )
+        }
+    }
+    
+    func transcriptionJobManager(_ manager: TranscriptionJobManager, didQueueItemWithId id: String) {
+        if id == item.id {
+            performTranscriptionAction(action: .transcriptionQueued(audioId: id))
         }
     }
     

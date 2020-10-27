@@ -14,12 +14,18 @@ protocol TranscriptionJobManagerDelegate: AnyObject {
         didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     )
+    
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didQueueItemWithId id: String
+    )
 }
 
 class TranscriptionJobManager {
     let transcriber: SpeezySpeechTranscriber
     
     weak var delegate: TranscriptionJobManagerDelegate?
+    private var stopChecking: Bool = false
     
     init(transcriber: SpeezySpeechTranscriber) {
         self.transcriber = transcriber
@@ -35,7 +41,7 @@ class TranscriptionJobManager {
     @objc func checkJobs() {
         let jobs = TranscriptionJobStorage.fetchItems()
         
-        if jobs.isEmpty {
+        if jobs.isEmpty || stopChecking {
             return
         }
         
@@ -57,6 +63,10 @@ class TranscriptionJobManager {
         }
     }
     
+    func stopChecks() {
+        stopChecking = true
+    }
+    
     func jobExists(id: String) -> Bool {
         let items = TranscriptionJobStorage.fetchItems()
         return items.contains {
@@ -74,6 +84,11 @@ class TranscriptionJobManager {
                 self,
                 didFinishTranscribingWithAudioItemId: job.audioId,
                 transcript: transcript
+            )
+        case let .processing(job):
+            self.delegate?.transcriptionJobManager(
+                self,
+                didQueueItemWithId: job.audioId
             )
         default:
             break

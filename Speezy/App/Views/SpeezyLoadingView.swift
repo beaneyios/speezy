@@ -22,6 +22,31 @@ class SpeezyLoadingView: UIView, NibLoadable {
     
     var restCompletion: (() -> Void)?
     
+    var barTintColor: UIColor?
+    var barTintColors: [UIColor]?
+    
+    private var _barTintColors: [UIColor] {
+        if let barTintColors = self.barTintColors {
+            return barTintColors
+        }
+        
+        if let tintColor = self.barTintColor {
+            return [tintColor, tintColor, tintColor, tintColor]
+        }
+        
+        guard let speezyPurple = UIColor(named: "speezy-purple") else {
+            assertionFailure("No colour found for speezy-purple")
+            return [.white, .white, .white, .white]
+        }
+        
+        return [
+            speezyPurple,
+            speezyPurple,
+            speezyPurple,
+            speezyPurple
+        ]
+    }
+    
     override func awakeFromNib() {
         firstConstraint = firstBar.heightAnchor.constraint(
             equalTo: heightAnchor,
@@ -62,6 +87,11 @@ class SpeezyLoadingView: UIView, NibLoadable {
     
     var shouldAnimate: Bool = false
     func startAnimating() {
+        firstBar.backgroundColor = _barTintColors[0]
+        secondBar.backgroundColor = _barTintColors[1]
+        thirdBar.backgroundColor = _barTintColors[2]
+        fourthBar.backgroundColor = _barTintColors[3]
+        
         shouldAnimate = true
         animate(outward: true)
     }
