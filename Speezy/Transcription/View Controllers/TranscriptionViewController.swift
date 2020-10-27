@@ -121,7 +121,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     
     private func switchToLorem() {
         let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
-        let loremViewController = storyboard.instantiateViewController(identifier: "lorem") as! LoremCollectionViewController
+        let loremViewController = storyboard.instantiateViewController(identifier: "lorem") as! TranscriptionLoadingViewController
                 
         addChild(loremViewController)
         collectionContainer.addSubview(loremViewController.view)

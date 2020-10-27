@@ -231,10 +231,10 @@
             </objects>
             <point key="canvasLocation" x="227.536231884058" y="-241.30434782608697"/>
         </scene>
-        <!--Lorem Collection View Controller-->
+        <!--Transcription Loading View Controller-->
         <scene sceneID="HO9-hc-zGX">
             <objects>
-                <viewController storyboardIdentifier="lorem" id="qxN-uh-cEe" customClass="LoremCollectionViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lorem" id="qxN-uh-cEe" customClass="TranscriptionLoadingViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NPm-zK-Yzl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

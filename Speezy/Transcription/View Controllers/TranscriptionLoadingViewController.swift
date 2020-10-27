@@ -9,7 +9,7 @@
 import UIKit
 import GhostTypewriter
 
-class LoremCollectionViewController: UIViewController {
+class TranscriptionLoadingViewController: UIViewController {
     
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var titleLabel: TypewriterLabel!
