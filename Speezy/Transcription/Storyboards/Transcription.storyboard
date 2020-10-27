@@ -64,7 +64,7 @@
                                 <rect key="frame" x="16" y="300" width="382" height="420"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1at-qS-H6h">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1at-qS-H6h">
                                 <rect key="frame" x="0.0" y="202" width="414" height="82"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1J-ik-mrc">
@@ -117,19 +117,19 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Om4-PT-39y" secondAttribute="trailing" constant="16" id="EF2-lG-g7X"/>
-                                    <constraint firstItem="Om4-PT-39y" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" constant="16" id="G3W-2W-mzw"/>
-                                    <constraint firstAttribute="bottom" secondItem="hdy-vC-ldE" secondAttribute="bottom" constant="16" id="H5E-vf-943"/>
-                                    <constraint firstItem="F82-EQ-t2L" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" constant="16" id="IJe-VT-40P"/>
-                                    <constraint firstItem="J1J-ik-mrc" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" constant="16" id="J5R-A1-Qza"/>
-                                    <constraint firstItem="hdy-vC-ldE" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" constant="16" id="NMI-ch-5VT"/>
-                                    <constraint firstAttribute="bottom" secondItem="Om4-PT-39y" secondAttribute="bottom" constant="16" id="RD8-dP-8hS"/>
-                                    <constraint firstAttribute="bottom" secondItem="F82-EQ-t2L" secondAttribute="bottom" constant="16" id="UXq-td-saF"/>
+                                    <constraint firstAttribute="trailing" secondItem="Om4-PT-39y" secondAttribute="trailing" priority="999" constant="16" id="EF2-lG-g7X"/>
+                                    <constraint firstItem="Om4-PT-39y" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" priority="999" constant="16" id="G3W-2W-mzw"/>
+                                    <constraint firstAttribute="bottom" secondItem="hdy-vC-ldE" secondAttribute="bottom" priority="999" constant="16" id="H5E-vf-943"/>
+                                    <constraint firstItem="F82-EQ-t2L" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" priority="999" constant="16" id="IJe-VT-40P"/>
+                                    <constraint firstItem="J1J-ik-mrc" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" priority="999" constant="16" id="J5R-A1-Qza"/>
+                                    <constraint firstItem="hdy-vC-ldE" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" priority="999" constant="16" id="NMI-ch-5VT"/>
+                                    <constraint firstAttribute="bottom" secondItem="Om4-PT-39y" secondAttribute="bottom" priority="999" constant="16" id="RD8-dP-8hS"/>
+                                    <constraint firstAttribute="bottom" secondItem="F82-EQ-t2L" secondAttribute="bottom" priority="999" constant="16" id="UXq-td-saF"/>
                                     <constraint firstAttribute="height" constant="82" id="age-6b-wHU"/>
                                     <constraint firstItem="F82-EQ-t2L" firstAttribute="leading" secondItem="J1J-ik-mrc" secondAttribute="trailing" constant="16" id="eJO-eh-S4V"/>
-                                    <constraint firstAttribute="bottom" secondItem="J1J-ik-mrc" secondAttribute="bottom" constant="16" id="l1c-Kc-gmA"/>
+                                    <constraint firstAttribute="bottom" secondItem="J1J-ik-mrc" secondAttribute="bottom" priority="999" constant="16" id="l1c-Kc-gmA"/>
                                     <constraint firstItem="hdy-vC-ldE" firstAttribute="width" secondItem="hdy-vC-ldE" secondAttribute="height" multiplier="1:1" id="tBk-h1-783"/>
-                                    <constraint firstItem="Om4-PT-39y" firstAttribute="leading" secondItem="hdy-vC-ldE" secondAttribute="trailing" constant="16" id="vQX-Df-WWw"/>
+                                    <constraint firstItem="Om4-PT-39y" firstAttribute="leading" secondItem="hdy-vC-ldE" secondAttribute="trailing" priority="999" constant="16" id="vQX-Df-WWw"/>
                                     <constraint firstItem="J1J-ik-mrc" firstAttribute="leading" secondItem="1at-qS-H6h" secondAttribute="leading" constant="16" id="vfh-cy-bIv"/>
                                 </constraints>
                             </view>
@@ -222,6 +222,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonContainer" destination="1at-qS-H6h" id="ZD3-Vh-B7R"/>
                         <outlet property="buttonContainerHeight" destination="age-6b-wHU" id="XzH-9h-L7d"/>
                         <outlet property="collectionContainer" destination="yZl-qT-GMk" id="Arv-jQ-Nc7"/>
                         <outlet property="cutButton" destination="Om4-PT-39y" id="lLH-KY-V9z"/>

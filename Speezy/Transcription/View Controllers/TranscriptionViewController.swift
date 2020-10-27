@@ -24,6 +24,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var zoomInButton: UIButton!
     
+    @IBOutlet weak var buttonContainer: UIView!
     @IBOutlet weak var buttonContainerHeight: NSLayoutConstraint!
     
     @IBOutlet weak var collectionContainer: UIView!
@@ -82,8 +83,10 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 extension TranscriptionViewController {
     private func configureButtons() {
         if transcriptManager.transcriptExists {
+            buttonContainer.isHidden = false
             buttonContainerHeight.constant = 82.0
         } else {
+            buttonContainer.isHidden = true
             buttonContainerHeight.constant = 0.0
         }
         
