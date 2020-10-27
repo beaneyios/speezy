@@ -12,7 +12,6 @@ import AVKit
 
 class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 
-    var transcriptionJobManager: TranscriptionJobManager!
     var transcriptManager: TranscriptManager!
     var audioManager: AudioManager!
             
@@ -100,16 +99,15 @@ extension TranscriptionViewController {
     }
     
     private func configureDependencies() {
-        transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
-        transcriptionJobManager.addTranscriptionObserver(self)
         transcriptManager = TranscriptManager(audioManager: audioManager)
         
         audioManager.addCropperObserver(self)
         audioManager.addPlayerObserver(self)
+        audioManager.addTranscriptionObserver(self)
     }
     
     private func configureContentView() {
-        if transcriptionJobManager.jobExists(id: audioManager.item.id) {
+        if audioManager.transcriptionJobExists {
             switchToLorem()
         } else if transcriptManager.transcriptExists {
             switchToTranscript()
@@ -165,8 +163,8 @@ extension TranscriptionViewController {
 }
 
 extension TranscriptionViewController: TranscriptionJobObserver {
-    func transcriptionJobManager(
-        _ manager: TranscriptionJobManager,
+    func audioManager(
+        _ manager: AudioManager,
         didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     ) {
@@ -177,10 +175,7 @@ extension TranscriptionViewController: TranscriptionJobObserver {
         }
     }
     
-    func transcriptionJobManager(
-        _ manager: TranscriptionJobManager,
-        didQueueTranscriptionJobWithAudioItemId: String
-    ) {
+    func transcriptionJobManager(_ manager: AudioManager, didQueueTranscriptionJobWithAudioItemId: String) {
         
     }
 }
@@ -192,11 +187,7 @@ extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
     
     private func createTranscriptionJob() {
         switchToLorem()
-        
-        transcriptionJobManager.createTranscriptionJob(
-            audioId: audioManager.item.id,
-            url: audioManager.item.url
-        )
+        audioManager.startTranscriptionJob()
     }
 }
 

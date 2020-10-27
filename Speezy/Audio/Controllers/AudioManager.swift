@@ -24,10 +24,12 @@ class AudioManager: NSObject {
     private var playerObservatons = [ObjectIdentifier : AudioPlayerObservation]()
     private var recorderObservatons = [ObjectIdentifier : AudioRecorderObservation]()
     private var cropperObservatons = [ObjectIdentifier : AudioCropperObservation]()
+    private var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
     
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
+    private var transcriptionJobManager: TranscriptionJobManager?
     private let audioAttachmentManager = AudioAttachmentManager()
     
     private(set) var currentImageAttachment: UIImage?
@@ -394,6 +396,10 @@ extension AudioManager {
     struct AudioCropperObservation {
         weak var observer: AudioCropperObserver?
     }
+
+    struct TranscriptionJobObservation {
+        weak var observer: TranscriptionJobObserver?
+    }
     
     func addPlayerObserver(_ observer: AudioPlayerObserver) {
         let id = ObjectIdentifier(observer)
@@ -424,6 +430,11 @@ extension AudioManager {
         let id = ObjectIdentifier(observer)
         cropperObservatons.removeValue(forKey: id)
     }
+    
+    func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
+        let id = ObjectIdentifier(observer)
+        transcriptionJobObservations[id] = TranscriptionJobObservation(observer: observer)
+    }
 }
 
 extension AudioManager {
@@ -446,6 +457,10 @@ extension AudioManager {
         case showRecordingProgressed(power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
         case showRecordingProcessing(AudioItem)
         case showRecordingStopped(AudioItem, maxLimitReached: Bool)
+    }
+    
+    enum TranscriptionJobAction {
+        case transcriptionComplete(transcript: Transcript, audioId: String)
     }
     
     enum State {
@@ -564,6 +579,54 @@ extension AudioManager {
                 state = .idle
                 observer.audioManager(self, didFinishCroppingItem: item)
             }
+        }
+    }
+    
+    func performTranscriptionAction(action: TranscriptionJobAction) {
+        transcriptionJobObservations.forEach {
+            guard let observer = $0.value.observer else {
+                transcriptionJobObservations.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case let .transcriptionComplete(transcript, audioId):
+                observer.audioManager(self, didFinishTranscribingWithAudioItemId: audioId, transcript: transcript)
+            }
+        }
+    }
+}
+
+extension AudioManager: TranscriptionJobManagerDelegate {
+    func startTranscriptionJob() {
+        createTranscriptionJobManagerIfNoneExists()
+        transcriptionJobManager?.createTranscriptionJob(audioId: item.id, url: item.url)
+    }
+    
+    func checkTranscriptionJobs() {
+        createTranscriptionJobManagerIfNoneExists()
+        transcriptionJobManager?.checkJobs()
+    }
+    
+    var transcriptionJobExists: Bool {
+        transcriptionJobManager?.jobExists(id: item.id) ?? false
+    }
+    
+    func transcriptionJobManager(_ manager: TranscriptionJobManager, didFinishTranscribingWithAudioItemId id: String, transcript: Transcript) {
+        if id == item.id {
+            performTranscriptionAction(
+                action: .transcriptionComplete(
+                    transcript: transcript,
+                    audioId: id
+                )
+            )
+        }
+    }
+    
+    private func createTranscriptionJobManagerIfNoneExists() {
+        if transcriptionJobManager == nil {
+            transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
+            transcriptionJobManager?.delegate = self
         }
     }
 }

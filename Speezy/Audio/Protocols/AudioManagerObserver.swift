@@ -30,3 +30,16 @@ protocol AudioCropperObserver: AnyObject {
     func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat)
     func audioManagerDidCancelCropping(_ manager: AudioManager)
 }
+
+protocol TranscriptionJobObserver: AnyObject {
+    func audioManager(
+        _ manager: AudioManager,
+        didFinishTranscribingWithAudioItemId id: String,
+        transcript: Transcript
+    )
+    
+    func transcriptionJobManager(
+        _ manager: AudioManager,
+        didQueueTranscriptionJobWithAudioItemId: String
+    )
+}

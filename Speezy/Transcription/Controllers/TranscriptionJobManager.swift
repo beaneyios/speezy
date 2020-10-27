@@ -8,27 +8,18 @@
 
 import Foundation
 
-protocol TranscriptionJobObserver: AnyObject {
+protocol TranscriptionJobManagerDelegate: AnyObject {
     func transcriptionJobManager(
         _ manager: TranscriptionJobManager,
         didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     )
-    
-    func transcriptionJobManager(
-        _ manager: TranscriptionJobManager,
-        didQueueTranscriptionJobWithAudioItemId: String
-    )
-}
-
-struct TranscriptionJobObservation {
-    weak var observer: TranscriptionJobObserver?
 }
 
 class TranscriptionJobManager {
     let transcriber: SpeezySpeechTranscriber
     
-    private var transcriptionObservatons = [ObjectIdentifier : TranscriptionJobObservation]()
+    weak var delegate: TranscriptionJobManagerDelegate?
     
     init(transcriber: SpeezySpeechTranscriber) {
         self.transcriber = transcriber
@@ -79,21 +70,12 @@ class TranscriptionJobManager {
             // Remove the job.
             TranscriptionJobStorage.deleteItem(job)
             
-            self.transcriptionObservatons.forEach {
-                $0.value.observer?.transcriptionJobManager(
-                    self,
-                    didFinishTranscribingWithAudioItemId: job.id,
-                    transcript: transcript
-                )
-            }
-        case let .processing(job):
-            self.transcriptionObservatons.forEach {
-                $0.value.observer?.transcriptionJobManager(
-                    self,
-                    didQueueTranscriptionJobWithAudioItemId: job.id
-                )
-            }
-        case .unknown:
+            self.delegate?.transcriptionJobManager(
+                self,
+                didFinishTranscribingWithAudioItemId: job.audioId,
+                transcript: transcript
+            )
+        default:
             break
         }
     }
@@ -107,12 +89,5 @@ class TranscriptionJobManager {
                 completion(.unknown)
             }
         }
-    }
-}
-
-extension TranscriptionJobManager {
-    func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
-        let id = ObjectIdentifier(observer)
-        transcriptionObservatons[id] = TranscriptionJobObservation(observer: observer)
     }
 }

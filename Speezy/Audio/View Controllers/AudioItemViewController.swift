@@ -84,7 +84,7 @@ class AudioItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureAudioManager()
+        configureDependencies()
         configureSubviews()
     }
     
@@ -212,7 +212,7 @@ class AudioItemViewController: UIViewController {
 
 // MARK: Configuration
 extension AudioItemViewController {
-    func configureAudioManager() {
+    func configureDependencies() {
         audioManager.addPlayerObserver(self)
         audioManager.addRecorderObserver(self)
         audioManager.addCropperObserver(self)

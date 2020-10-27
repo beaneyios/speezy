@@ -150,7 +150,7 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
         
         let audioViewController = viewController.navigationController?.viewControllers.first { $0 is AudioItemViewController } as? AudioItemViewController
         audioViewController?.audioManager = AudioManager(item: item)
-        audioViewController?.configureAudioManager()
+        audioViewController?.configureDependencies()
         audioViewController?.configureSubviews()
     }
     
