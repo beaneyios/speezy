@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GhostTypewriter
 
 class TranscriptCollectionViewController: UIViewController {
     
@@ -17,6 +18,36 @@ class TranscriptCollectionViewController: UIViewController {
     private var selectedWords: [Word] = []
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var confirmationContainer: UIView!
+    @IBOutlet weak var tickIcon: UIImageView!
+    @IBOutlet weak var confirmationLabel: TypewriterLabel!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.confirmationContainer.alpha = 1.0
+            self.tickIcon.transform = CGAffineTransform(
+                scaleX: 1.3,
+                y: 1.3
+            )
+        } completion: { (finished) in
+            UIView.animate(withDuration: 0.3) {
+                self.tickIcon.transform = CGAffineTransform.identity
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+            UIView.animate(withDuration: 0.5) {
+                self.collectionView.alpha = 1.0
+                self.confirmationContainer.alpha = 0.0
+            }
+        }
+        
+        confirmationLabel.text = "Finished transcribing your file!"
+        confirmationLabel.typingTimeInterval = 0.02
+        confirmationLabel.startTypewritingAnimation()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +58,9 @@ class TranscriptCollectionViewController: UIViewController {
         collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
         
         audioManager.addPlayerObserver(self)
+        
+        collectionView.alpha = 0.0
+        confirmationContainer.alpha = 0.0
     }
     
     func zoomIn() {

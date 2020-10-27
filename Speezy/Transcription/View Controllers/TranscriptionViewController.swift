@@ -25,7 +25,6 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var waveContainer: UIView!
     @IBOutlet weak var cutButton: UIButton!
     
-    @IBOutlet weak var transcribeContainer: UIView!
     @IBOutlet weak var collectionContainer: UIView!
     
     var waveView: PlaybackView!
@@ -41,16 +40,20 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         
         transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
         configurePreviewWave(audioManager: audioManager)
-        
-        transcribeContainer.layer.cornerRadius = 10.0
-        
+                
         TranscriptionJobStorage.fetchItems().forEach {
             TranscriptionJobStorage.deleteItem($0)
         }
         
-        transcriptionJobManager.addTranscriptionObserver(self)
+        transcriptionJobManager.addTranscriptionObserver(self)        
+        switchToTranscribeAction()
         
-        transcriptionJobManager.checkJobs()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+            self.transcript = Transcript(words: (1...30).map {
+                Word(text: "\($0) word", timestamp: Timestamp(start: 0, end: 0))
+            })
+            self.switchToTranscript()
+        }
     }
     
     @IBAction func zoomIn(_ sender: Any) {
@@ -81,19 +84,23 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         removeSelectedWords()
     }
     
-    @IBAction func createTranscriptionJob(_ sender: Any) {
-        switchToLorem()
-        
-        transcribeContainer.isHidden = true
-        
-        transcriptionJobManager.createTranscriptionJob(
-            audioId: audioManager.item.id,
-            url: audioManager.item.url
-        )
-    }
-    
     @IBAction func playPreview(_ sender: Any) {
         audioManager.play()
+    }
+    
+    private func switchToTranscribeAction() {
+        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
+        let transcribeActionViewController = storyboard.instantiateViewController(identifier: "action") as! TranscribeActionViewController
+        transcribeActionViewController.delegate = self
+        
+        addChild(transcribeActionViewController)
+        collectionContainer.addSubview(transcribeActionViewController.view)
+        transcribeActionViewController.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        transcribeActionViewController.didMove(toParent: self)
+        collectionViewController = transcribeActionViewController
     }
     
     private func switchToTranscript() {
@@ -262,5 +269,20 @@ extension TranscriptionViewController: TranscriptionObserver {
         didQueueTranscriptionJobWithAudioItemId: String
     ) {
         
+    }
+}
+
+extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
+    func transcribeActionViewControllerDidSelectTranscribe(_ viewController: TranscribeActionViewController) {
+        createTranscriptionJob()
+    }
+    
+    private func createTranscriptionJob() {
+        switchToLorem()
+        
+        transcriptionJobManager.createTranscriptionJob(
+            audioId: audioManager.item.id,
+            url: audioManager.item.url
+        )
     }
 }

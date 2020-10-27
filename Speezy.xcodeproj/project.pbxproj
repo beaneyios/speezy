@@ -111,6 +111,7 @@
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */; };
 		BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B7162546081B009308A4 /* supertrimmed.flac */; };
+		BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
 		BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */; };
@@ -238,6 +239,7 @@
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobManager.swift; sourceTree = "<group>"; };
 		BEF3B7162546081B009308A4 /* supertrimmed.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = supertrimmed.flac; sourceTree = "<group>"; };
+		BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribeActionViewController.swift; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyButton.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */,
 				BE3FACAE2540BCF2006AD4D6 /* LoremCollectionViewController.swift */,
 				BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */,
+				BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
 				BE45523E253F6E9500800D09 /* Lorem.swift in Sources */,
+				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,

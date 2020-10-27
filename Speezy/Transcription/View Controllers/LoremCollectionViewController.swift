@@ -11,45 +11,54 @@ import GhostTypewriter
 
 class LoremCollectionViewController: UIViewController {
     
+    @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var titleLabel: TypewriterLabel!
     @IBOutlet weak var loadingContainer: UIView!
     private var loadingView: SpeezyLoadingView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureLabels()
         configureLoader()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        startLoading()
+        startTypeWriter()
+    }
+    
+    private func startTypeWriter() {
+        DispatchQueue.main.async {
+            self.titleLabel.resetTypewritingAnimation()
+            self.titleLabel.startTypewritingAnimation {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                    self.startTypeWriter()
+                }
+            }
+        }
+    }
+    
+    private func configureLabels() {
+        titleLabel.alpha = 0.0
+        titleLabel.textAlignment = .center
+        confirmationLabel.alpha = 0.0
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 15
 
-        let content = "Your transcript will be ready soon - it usually takes around half the length of your clip to transcribe"
+        let content = "Your transcript will be ready soon - it usually takes around half the length of your clip to transcribe."
         
         let attrString = NSMutableAttributedString(string: content)
-        attrString.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-
-        titleLabel.attributedText = attrString
-                
-        titleLabel.typingTimeInterval = 0.05
-        titleLabel.startTypewritingAnimation {
-            DispatchQueue.main.async {
-                self.restart()
-            }
-        }
+        attrString.addAttribute(
+            .paragraphStyle,
+            value: paragraphStyle,
+            range: NSMakeRange(0, attrString.length)
+        )
         
-        startLoading()
-    }
-    
-    private func restart() {
-        DispatchQueue.main.async {
-            self.titleLabel.resetTypewritingAnimation()
-            self.titleLabel.startTypewritingAnimation {
-                self.restart()
-            }
-        }
+        titleLabel.attributedText = attrString
+        titleLabel.typingTimeInterval = 0.04
     }
     
     private func configureLoader() {
@@ -66,7 +75,12 @@ class LoremCollectionViewController: UIViewController {
     
     private func startLoading() {
         loadingContainer.isHidden = false
-        self.loadingView?.startAnimating()
+        loadingView?.startAnimating()
+        
+        UIView.animate(withDuration: 0.4) {
+            self.titleLabel.alpha = 1.0
+            self.confirmationLabel.alpha = 1.0
+        }
     }
     
     func stopLoading(completion: @escaping () -> Void) {

@@ -27,7 +27,7 @@ class WordCell: UICollectionViewCell, NibLoadable {
         lblTitle.textAlignment = .left
         lblTitle.alpha = 1.0
         lblTitle.text = word.text
-        lblTitle.font = UIFont.systemFont(ofSize: 17.0 * fontScale)
+        lblTitle.font = UIFont.systemFont(ofSize: 22.0, weight: .thin)
         configureWordHighlight(isSelected: isSelected)
     }
     
@@ -56,41 +56,5 @@ class WordCell: UICollectionViewCell, NibLoadable {
     
     func highlightInactive() {
         self.lblTitle.textColor = .black
-    }
-}
-
-// MARK:- Lorem Configuration.
-extension WordCell {
-    func configureWithLorem() {
-        timer?.invalidate()
-        timer = nil
-        
-        let wordString = Lorem.word
-        
-        lblTitle.font = UIFont.systemFont(ofSize: 26.0)
-        lblTitle.alpha = 0.2
-        lblTitle.text = wordString
-        lblTitle.textColor = .lightGray
-        lblTitle.textAlignment = .center
-    }
-    
-    func runLoremAnimation() {
-        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { (timer) in
-            let randomNumber = Int.random(in: 0...10)
-            if randomNumber > 5 {
-                UIView.animate(withDuration: 1.0) {
-                    self.lblTitle.alpha = 0.05
-                } completion: { _ in
-                    self.lblTitle.text = Lorem.word
-                    UIView.animate(withDuration: 1.0) {
-                        self.lblTitle.alpha = 0.2
-                    } completion: { _ in
-                        self.runLoremAnimation()
-                    }
-                }
-            } else {
-                self.runLoremAnimation()
-            }
-        })
     }
 }

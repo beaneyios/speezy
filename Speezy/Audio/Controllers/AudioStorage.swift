@@ -39,15 +39,15 @@ class AudioStorage {
     }
     
     static func fetchItems() -> [AudioItem] {
-        return [
-            AudioItem(
-                id: "test",
-                path: "test",
-                title: "TEST TRANSCRIBED ITEM",
-                date: Date(),
-                tags: []
-            )
-        ]
+//        return [
+//            AudioItem(
+//                id: "test",
+//                path: "test",
+//                title: "TEST TRANSCRIBED ITEM",
+//                date: Date(),
+//                tags: []
+//            )
+//        ]
         
         Storage.retrieve(audioItemsKey, from: .documents, as: [AudioItem].self) ?? []
     }
