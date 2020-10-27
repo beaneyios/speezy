@@ -10,8 +10,11 @@ import Foundation
 import Alamofire
 
 struct SpeezySpeechTranscriber {
+    private let host = "https://quiet-hollows-82585.herokuapp.com"
+//    private let host = "http://localhost:8000"
+    
     func createTranscriptionJob(audioId: String, url: URL, completion: @escaping (TranscriptionJob) -> Void) {
-        let uploadUrl = URL(string: "http://localhost:8000/upload-audio")!
+        let uploadUrl = URL(string: "\(host)/upload-audio")!
         
         guard
             let audioData = try? Data(contentsOf: url),
@@ -34,7 +37,7 @@ struct SpeezySpeechTranscriber {
     }
     
     func checkJob(id: String, completion: @escaping (Result<TranscriptionJobCheckResponse, AFError>) -> Void) {
-        let request = AF.request("http://localhost:8000/transcriptions/\(id)")
+        let request = AF.request("\(host)/transcriptions/\(id)")
         request.responseDecodable(of: TranscriptionJobCheckResponse.self) { (response) in
             completion(response.result)
         }
