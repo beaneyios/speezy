@@ -222,6 +222,7 @@
                     <connections>
                         <outlet property="collectionContainer" destination="yZl-qT-GMk" id="Arv-jQ-Nc7"/>
                         <outlet property="cutButton" destination="Om4-PT-39y" id="lLH-KY-V9z"/>
+                        <outlet property="playButton" destination="iiE-Ek-LhW" id="jLR-8S-mEQ"/>
                         <outlet property="playbackContainer" destination="hFA-lF-6fi" id="Ewa-ke-B3l"/>
                         <outlet property="transcribeButtonContainer" destination="V1i-8X-NA7" id="i4L-3A-2fM"/>
                         <outlet property="waveContainer" destination="001-Lb-6tT" id="Bvw-cf-RCL"/>

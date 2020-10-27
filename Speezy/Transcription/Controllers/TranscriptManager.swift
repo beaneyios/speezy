@@ -14,22 +14,17 @@ class TranscriptManager {
     private var selectedWords: [Word] = []
     
     var transcript: Transcript? {
-        get {
-            TranscriptStorage.fetchTranscript(id: audioManager.item.id)
-        }
-        set {
-            if let transcript = transcript {
-                TranscriptStorage.save(transcript, id: audioManager.item.id)
-            }
-        }
+        TranscriptStorage.fetchTranscript(id: audioManager.item.id)
+    }
+    
+    var transcriptExists: Bool {
+        transcript != nil
     }
     
     init(audioManager: AudioManager) {
         self.audioManager = audioManager
-    }
-    
-    func transcriptExists() -> Bool {
-        transcript != nil
+        
+        audioManager.addCropperObserver(self)
     }
     
     func removeUhms() {
@@ -40,21 +35,15 @@ class TranscriptManager {
         removeSelectedWords()
     }
     
-    private func removeSelectedWords() {
-        // TODO: Move this into the audio manager/cropper.
-        cut(audioItem: audioManager.item, from: selectedWords) { (url) in
-            let audioItem = AudioItem(
-                id: "Test",
-                path: "test",
-                title: "Test",
-                date: Date(),
-                tags: [],
-                url: url
-            )
-            
-            // TODO: Sort this out in the audio manager
-        }
-        
+    func removeSelectedWords() {
+        cut(audioItem: audioManager.item, from: selectedWords)
+    }
+    
+    func updateTranscript(_ transcript: Transcript) {
+        TranscriptStorage.save(transcript, id: audioManager.item.id)
+    }
+    
+    private func adjustCurrentTranscript() {
         let orderedSelectedWords = selectedWords.sorted {
             $0.timestamp.start > $1.timestamp.start
         }
@@ -83,20 +72,14 @@ class TranscriptManager {
                 }
             }) ?? []
             
-            self.transcript = Transcript(
-                words: newWords
-            )
-            
+            self.updateTranscript(Transcript(words: newWords))
             self.selectedWords = []
         }
-        
-        // TODO: Reload selected words.
     }
     
     private func cut(
         audioItem: AudioItem,
-        from range: [Word],
-        finished: @escaping (URL) -> Void
+        from range: [Word]
     ) {
         let timeRanges: [CMTimeRange] = range.reversed().map {
             let startTime = CMTime(seconds: $0.timestamp.start, preferredTimescale: 100)
@@ -106,4 +89,16 @@ class TranscriptManager {
         
         audioManager.cut(timeRanges: timeRanges)
     }
+}
+
+extension TranscriptManager: AudioCropperObserver {
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
+        adjustCurrentTranscript()
+    }
+    
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
+    func audioManagerDidCancelCropping(_ manager: AudioManager) {}
 }

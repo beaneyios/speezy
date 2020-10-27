@@ -15,15 +15,13 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     var transcriptionJobManager: TranscriptionJobManager!
     var transcriptManager: TranscriptManager!
     var audioManager: AudioManager!
-    
-    var transcript: Transcript?
-    var job: TranscriptionJob?
-    private var selectedWords: [Word] = []
-    
+        
     var playing = false
     
     @IBOutlet weak var playbackContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
+    @IBOutlet weak var playButton: UIButton!
+    
     @IBOutlet weak var cutButton: UIButton!
     
     @IBOutlet weak var collectionContainer: UIView!
@@ -69,7 +67,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     }
     
     @IBAction func playPreview(_ sender: Any) {
-        audioManager.play()
+        audioManager.togglePlayback()
     }
 }
 
@@ -79,12 +77,15 @@ extension TranscriptionViewController {
         transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
         transcriptionJobManager.addTranscriptionObserver(self)
         transcriptManager = TranscriptManager(audioManager: audioManager)
+        
+        audioManager.addCropperObserver(self)
+        audioManager.addPlayerObserver(self)
     }
     
     private func configureContentView() {
         if transcriptionJobManager.jobExists(id: audioManager.item.id) {
             switchToLorem()
-        } else if transcriptManager.transcriptExists() {
+        } else if transcriptManager.transcriptExists {
             switchToTranscript()
         } else {
             switchToTranscribeAction()
@@ -110,7 +111,7 @@ extension TranscriptionViewController {
         let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
         let transcriptViewController = storyboard.instantiateViewController(identifier: "transcript") as! TranscriptCollectionViewController
         transcriptViewController.audioManager = audioManager
-        transcriptViewController.transcript = transcript
+        transcriptViewController.transcript = transcriptManager.transcript
         
         addChild(transcriptViewController)
         collectionContainer.addSubview(transcriptViewController.view)
@@ -143,11 +144,8 @@ extension TranscriptionViewController: TranscriptionJobObserver {
         didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     ) {
-        // Save the new transcript.
-        TranscriptStorage.save(transcript, id: id)
-        
+        transcriptManager.updateTranscript(transcript)
         DispatchQueue.main.async {
-            self.transcript = transcript
             self.switchToTranscript()
         }
     }
@@ -185,4 +183,20 @@ extension TranscriptionViewController: AudioCropperObserver {
     func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
     func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
     func audioManagerDidCancelCropping(_ manager: AudioManager) {}
+}
+
+extension TranscriptionViewController: AudioPlayerObserver {
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
+        playButton.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
+        playButton.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+        playButton.setImage(UIImage(named: "pause-button"), for: .normal)
+    }
+    
+    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {}
 }
