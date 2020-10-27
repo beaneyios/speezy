@@ -9,9 +9,21 @@
 import Foundation
 import AVKit
 
+protocol TranscriptObserver: AnyObject {
+    func transcriptManager(
+        _ manager: TranscriptManager,
+        didFinishEditingTranscript transcript: Transcript
+    )
+}
+
+struct TranscriptObservation {
+    weak var observer: TranscriptObserver?
+}
+
 class TranscriptManager {
     private let audioManager: AudioManager
     private var selectedWords: [Word] = []
+    private var transcriptObservatons = [ObjectIdentifier : TranscriptObservation]()
     
     var transcript: Transcript? {
         TranscriptStorage.fetchTranscript(id: audioManager.item.id)
@@ -72,8 +84,13 @@ class TranscriptManager {
                 }
             }) ?? []
             
-            self.updateTranscript(Transcript(words: newWords))
+            let newTranscript = Transcript(words: newWords)
+            self.updateTranscript(newTranscript)
             self.selectedWords = []
+            
+            self.transcriptObservatons.forEach {
+                $0.value.observer?.transcriptManager(self, didFinishEditingTranscript: newTranscript)
+            }
         }
     }
     
@@ -91,6 +108,50 @@ class TranscriptManager {
     }
 }
 
+extension TranscriptManager {
+    var numberOfWords: Int {
+        transcript?.words.count ?? 0
+    }
+    
+    func word(for index: Int) -> Word? {
+        transcript?.words[index]
+    }
+    
+    func isSelected(word: Word) -> Bool {
+        selectedWords.contains(word)
+    }
+    
+    func toggleSelection(at indexPath: IndexPath) {
+        guard let selectedWord = transcript?.words[indexPath.row] else {
+            assertionFailure("No transcript found.")
+            return
+        }
+        
+        if let indexOfWord = selectedWords.firstIndex(of: selectedWord) {
+            selectedWords.remove(at: indexOfWord)
+        } else {
+            selectedWords.append(selectedWord)
+        }
+    }
+    
+    func currentPlayingWord(at time: TimeInterval) -> Word? {
+        transcript?.words.first {
+            $0.timestamp.start < time && $0.timestamp.end > time
+        }
+    }
+    
+    func currentPlayingWordIndex(at time: TimeInterval) -> Int? {
+        guard
+            let activeWord = currentPlayingWord(at: time),
+            let indexOfWord = transcript?.words.firstIndex(of: activeWord)
+        else {
+            return nil
+        }
+        
+        return indexOfWord
+    }
+}
+
 extension TranscriptManager: AudioCropperObserver {
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
         adjustCurrentTranscript()
@@ -101,4 +162,11 @@ extension TranscriptManager: AudioCropperObserver {
     func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
     func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
     func audioManagerDidCancelCropping(_ manager: AudioManager) {}
+}
+
+extension TranscriptManager {
+    func addTranscriptObserver(_ observer: TranscriptObserver) {
+        let id = ObjectIdentifier(observer)
+        transcriptObservatons[id] = TranscriptObservation(observer: observer)
+    }
 }

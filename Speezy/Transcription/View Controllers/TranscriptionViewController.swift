@@ -36,7 +36,6 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         super.viewDidLoad()
         
         configureDependencies()
-        
         configureButtons()
         configurePreviewWave(audioManager: audioManager)
         configureContentView()
@@ -68,7 +67,11 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     }
     
     @IBAction func removeUhms(_ sender: Any) {
-        
+        transcriptManager.removeUhms()
+    }
+    
+    @IBAction func removeSelectedWords(_ sender: Any) {
+        transcriptManager.removeSelectedWords()
     }
     
     @IBAction func playPreview(_ sender: Any) {
@@ -134,7 +137,7 @@ extension TranscriptionViewController {
         let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
         let transcriptViewController = storyboard.instantiateViewController(identifier: "transcript") as! TranscriptCollectionViewController
         transcriptViewController.audioManager = audioManager
-        transcriptViewController.transcript = transcriptManager.transcript
+        transcriptViewController.transcriptManager = transcriptManager
         
         addChild(transcriptViewController)
         collectionContainer.addSubview(transcriptViewController.view)

@@ -10,17 +10,17 @@ import Foundation
 
 class TranscriptStorage {
     static func save(_ transcript: Transcript, id: String) {
-        Storage.store(transcript, to: .documents, as: id)
+        Storage.store(transcript, to: .documents, as: "\(id)_transcript")
     }
     
     static func deleteItem(_ transcript: Transcript, id: String) {
         if Storage.fileExists(id, in: .documents) {
-            Storage.remove(id, from: .documents)
+            Storage.remove("\(id)_transcript", from: .documents)
         }
     }
     
     static func fetchTranscript(id: String) -> Transcript? {
-        Storage.retrieve(id, from: .documents, as: Transcript.self)
+        Storage.retrieve("\(id)_transcript", from: .documents, as: Transcript.self)
     }
     
     static func url(for id: String) -> URL {

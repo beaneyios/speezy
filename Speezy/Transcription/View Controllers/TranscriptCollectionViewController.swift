@@ -9,13 +9,16 @@
 import UIKit
 import GhostTypewriter
 
+protocol TranscriptCollectionViewControllerDelegate: AnyObject {
+    func transcriptCollectionViewController(_ viewController: TranscriptCollectionViewController, didSelectWord: [Word])
+}
+
 class TranscriptCollectionViewController: UIViewController {
     
     var audioManager: AudioManager!
+    var transcriptManager: TranscriptManager!
     
-    var transcript: Transcript!
     var zoomFactor: CGFloat = 1
-    private var selectedWords: [Word] = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var confirmationContainer: UIView!
@@ -51,16 +54,9 @@ class TranscriptCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.allowsMultipleSelection = true
-        collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
-        
-        audioManager.addPlayerObserver(self)
-        
-        collectionView.alpha = 0.0
-        confirmationContainer.alpha = 0.0
+        configureCollectionView()
+        configureConfirmationContainer()
+        configureDependencies()
     }
     
     func zoomIn() {
@@ -72,6 +68,24 @@ class TranscriptCollectionViewController: UIViewController {
         zoomFactor = max(1, zoomFactor / 1.2)
         collectionView.reloadData()
     }
+    
+    private func configureDependencies() {
+        transcriptManager.addTranscriptObserver(self)
+        audioManager.addPlayerObserver(self)
+    }
+    
+    private func configureConfirmationContainer() {
+        confirmationContainer.alpha = 0.0
+    }
+    
+    private func configureCollectionView() {
+        collectionView.register(WordCell.nib, forCellWithReuseIdentifier: "cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
+        collectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+        collectionView.alpha = 0.0
+    }
 }
 
 extension TranscriptCollectionViewController: UICollectionViewDataSource {
@@ -80,14 +94,14 @@ extension TranscriptCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        transcript?.words.count ?? 1000
+        transcriptManager.numberOfWords
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
         
-        if let word = transcript?.words[indexPath.row] {
-            let isSelected = selectedWords.contains(word)
+        if let word = transcriptManager.word(for: indexPath.row) {
+            let isSelected = transcriptManager.isSelected(word: word)
             cell.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         }
         
@@ -99,8 +113,8 @@ extension TranscriptCollectionViewController: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let template = WordCell.createFromNib()
         
-        if let word = transcript?.words[indexPath.row] {
-            let isSelected = selectedWords.contains(word)
+        if let word = transcriptManager.word(for: indexPath.row) {
+            let isSelected = transcriptManager.isSelected(word: word)
             template.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         }
         
@@ -122,27 +136,12 @@ extension TranscriptCollectionViewController: UICollectionViewDelegateFlowLayout
         return size
     }
     
-    private func toggleWord(at indexPath: IndexPath) {
-        guard let selectedWord = transcript?.words[indexPath.row] else {
-            assertionFailure("No transcript found.")
-            return
-        }
-        
-        if let indexOfWord = selectedWords.firstIndex(of: selectedWord) {
-            selectedWords.remove(at: indexOfWord)
-        } else {
-            selectedWords.append(selectedWord)
-        }
-        
-        print(selectedWords.map { $0.text })
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        toggleWord(at: indexPath)
+        transcriptManager.toggleSelection(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        toggleWord(at: indexPath)
+        transcriptManager.toggleSelection(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -151,37 +150,38 @@ extension TranscriptCollectionViewController: UICollectionViewDelegateFlowLayout
 }
 
 extension TranscriptCollectionViewController: AudioPlayerObserver {
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
-        
-    }
-    
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
-        
-    }
-    
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
-        
-    }
-    
     func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
         let cells = collectionView.visibleCells as! [WordCell]
-        
-        let activeWord = transcript!.words.first {
-            $0.timestamp.start < time && $0.timestamp.end > time
-        }
-        
-        if let activeWord = activeWord, let indexOfWord = transcript!.words.firstIndex(of: activeWord){
-            collectionView.scrollToItem(at: IndexPath(item: indexOfWord, section: 0), at: .centeredVertically, animated: false)
+                
+        if let currentWordIndex = transcriptManager.currentPlayingWordIndex(at: time) {
+            collectionView.scrollToItem(at: IndexPath(item: currentWordIndex, section: 0), at: .centeredVertically, animated: false)
         }
         
         cells.forEach {
-            let indexPath = collectionView.indexPath(for: $0)!
-            let word = transcript!.words[indexPath.item]
+            guard
+                let indexPath = collectionView.indexPath(for: $0),
+                let word = transcriptManager.word(for: indexPath.row)
+            else {
+                return
+            }
+            
             if word.timestamp.start < time && word.timestamp.end > time {
                 $0.highlightActive()
             } else {
                 $0.highlightInactive()
             }
+        }
+    }
+    
+    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {}
+}
+
+extension TranscriptCollectionViewController: TranscriptObserver {
+    func transcriptManager(_ manager: TranscriptManager, didFinishEditingTranscript transcript: Transcript) {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
     }
 }

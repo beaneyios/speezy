@@ -93,9 +93,9 @@ extension PlaybackView {
     
     private func removeCropOverlayView() {
         UIView.animate(withDuration: 0.3, animations: {
-            self.cropOverlayView.alpha = 0.0
+            self.cropOverlayView?.alpha = 0.0
         }) { (finished) in
-            self.cropOverlayView.removeFromSuperview()
+            self.cropOverlayView?.removeFromSuperview()
             self.cropOverlayView = nil
         }
     }

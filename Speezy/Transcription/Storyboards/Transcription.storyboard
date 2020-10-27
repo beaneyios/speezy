@@ -99,6 +99,9 @@
                                         <state key="normal" image="cut-button">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="removeSelectedWords:" destination="Go0-iL-gIe" eventType="touchUpInside" id="BFp-a2-Evi"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdy-vC-ldE">
                                         <rect key="frame" x="282" y="16" width="50" height="50"/>

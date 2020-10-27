@@ -28,8 +28,10 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     
     func audioItemViewController(
         _ viewController: AudioItemViewController,
-        didSelectTranscribe item: AudioItem
+        didSelectTranscribeWithManager manager: AudioManager
     )
+    
+    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool
 }
 
 class AudioItemViewController: UIViewController {
@@ -72,6 +74,8 @@ class AudioItemViewController: UIViewController {
     private var mainWave: PlaybackView?
     private var cropView: CropView?
     
+    private var transcriptionCropUpdatesPending = false
+    
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
     
@@ -86,6 +90,11 @@ class AudioItemViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if transcriptionCropUpdatesPending {
+            configureSubviews()
+            transcriptionCropUpdatesPending = false
+        }
     }
     
     @IBAction func saveToDrafts(_ sender: Any) {
@@ -197,7 +206,7 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func presentTranscription(_ sender: Any) {
-        delegate?.audioItemViewController(self, didSelectTranscribe: audioManager.item)
+        delegate?.audioItemViewController(self, didSelectTranscribeWithManager: audioManager)
     }
 }
 
@@ -508,11 +517,15 @@ extension AudioItemViewController: AudioCropperObserver {
     func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
         lblTimer.text = "00:00:00"
     }
-    
+
     func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
-        lblTimer.text = "00:00:00"
-        hideCropView()
-        scrollView.isScrollEnabled = true
+        if delegate?.audioItemViewControllerIsTopViewController(self) ?? false {
+            lblTimer.text = "00:00:00"
+            hideCropView()
+            scrollView.isScrollEnabled = true
+        } else {
+            transcriptionCropUpdatesPending = true
+        }
     }
     
     func audioManagerDidCancelCropping(_ player: AudioManager) {

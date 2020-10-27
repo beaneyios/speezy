@@ -32,13 +32,13 @@ class AudioItemCoordinator: ViewCoordinator {
         delegate?.audioItemCoordinatorDidFinish(self)
     }
     
-    private func navigateToTranscription(item: AudioItem, on pushingViewController: UIViewController) {
+    private func navigateToTranscription(manager: AudioManager, on pushingViewController: UIViewController) {
         let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
         guard let viewController = storyboard.instantiateViewController(identifier: "transcription") as? TranscriptionViewController else {
             return
         }
         
-        viewController.audioManager = AudioManager(item: item)
+        viewController.audioManager = manager
         pushingViewController.navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -91,16 +91,16 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribe item: AudioItem) {
-        navigateToTranscription(item: item, on: viewController)
+    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribeWithManager manager: AudioManager) {
+        navigateToTranscription(manager: manager, on: viewController)
+    }
+    
+    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool {
+        viewController.navigationController?.viewControllers.last == viewController
     }
 }
 
-extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
-    func audioItemListViewControllerDidSelectTestSpeechItem(_ viewController: AudioItemListViewController, item: AudioItem) {
-        navigateToTranscription(item: item, on: viewController)
-    }
-    
+extension AudioItemCoordinator: AudioItemListViewControllerDelegate {    
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
         add(settingsCoordinator)

@@ -86,7 +86,7 @@ class AudioCropper {
             )
 
             self.cutItem = cutItem
-            self.delegate?.audioCropper(self, didAdjustCroppedItem: cutItem)
+            self.delegate?.audioCropper(self, didApplyCroppedItem: cutItem, kind: .cut)
         }
     }
     

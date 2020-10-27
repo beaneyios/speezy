@@ -21,14 +21,14 @@ protocol TranscriptionJobObserver: AnyObject {
     )
 }
 
-struct TranscriptionObservation {
+struct TranscriptionJobObservation {
     weak var observer: TranscriptionJobObserver?
 }
 
 class TranscriptionJobManager {
     let transcriber: SpeezySpeechTranscriber
     
-    private var transcriptionObservatons = [ObjectIdentifier : TranscriptionObservation]()
+    private var transcriptionObservatons = [ObjectIdentifier : TranscriptionJobObservation]()
     
     init(transcriber: SpeezySpeechTranscriber) {
         self.transcriber = transcriber
@@ -113,6 +113,6 @@ class TranscriptionJobManager {
 extension TranscriptionJobManager {
     func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
         let id = ObjectIdentifier(observer)
-        transcriptionObservatons[id] = TranscriptionObservation(observer: observer)
+        transcriptionObservatons[id] = TranscriptionJobObservation(observer: observer)
     }
 }

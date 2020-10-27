@@ -12,7 +12,6 @@ import SCLAlertView
 import Hero
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
-    func audioItemListViewControllerDidSelectTestSpeechItem(_ viewController: AudioItemListViewController, item: AudioItem)
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
