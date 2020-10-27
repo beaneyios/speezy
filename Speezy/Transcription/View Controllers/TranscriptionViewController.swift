@@ -15,14 +15,17 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     var transcriptionJobManager: TranscriptionJobManager!
     var transcriptManager: TranscriptManager!
     var audioManager: AudioManager!
-        
-    var playing = false
-    
+            
     @IBOutlet weak var playbackContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
     @IBOutlet weak var playButton: UIButton!
     
     @IBOutlet weak var cutButton: UIButton!
+    @IBOutlet weak var uhmButton: UIButton!
+    @IBOutlet weak var zoomOutButton: UIButton!
+    @IBOutlet weak var zoomInButton: UIButton!
+    
+    @IBOutlet weak var buttonContainerHeight: NSLayoutConstraint!
     
     @IBOutlet weak var collectionContainer: UIView!
     
@@ -33,6 +36,8 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         super.viewDidLoad()
         
         configureDependencies()
+        
+        configureButtons()
         configurePreviewWave(audioManager: audioManager)
         configureContentView()
     }
@@ -73,6 +78,24 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 
 // MARK: Configuration
 extension TranscriptionViewController {
+    private func configureButtons() {
+        if transcriptManager.transcriptExists {
+            buttonContainerHeight.constant = 82.0
+        } else {
+            buttonContainerHeight.constant = 0.0
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        
+        let transcriptExists = transcriptManager.transcriptExists
+        cutButton.isEnabled = transcriptExists
+        uhmButton.isEnabled = transcriptExists
+        zoomOutButton.isEnabled = transcriptExists
+        zoomInButton.isEnabled = transcriptExists
+    }
+    
     private func configureDependencies() {
         transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
         transcriptionJobManager.addTranscriptionObserver(self)
@@ -147,6 +170,7 @@ extension TranscriptionViewController: TranscriptionJobObserver {
         transcriptManager.updateTranscript(transcript)
         DispatchQueue.main.async {
             self.switchToTranscript()
+            self.configureButtons()
         }
     }
     

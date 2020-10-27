@@ -70,8 +70,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1J-ik-mrc">
                                         <rect key="frame" x="16" y="16" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="STA-yv-uNt"/>
-                                            <constraint firstAttribute="width" constant="50" id="hU0-cZ-xar"/>
+                                            <constraint firstAttribute="width" secondItem="J1J-ik-mrc" secondAttribute="height" multiplier="1:1" id="kMY-Pz-chZ"/>
                                         </constraints>
                                         <color key="tintColor" name="speezy-purple"/>
                                         <state key="normal" image="increase-text-button"/>
@@ -82,8 +81,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F82-EQ-t2L">
                                         <rect key="frame" x="82" y="16" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="ObK-ds-uKm"/>
-                                            <constraint firstAttribute="width" constant="50" id="aKP-pA-vgB"/>
+                                            <constraint firstAttribute="width" secondItem="F82-EQ-t2L" secondAttribute="height" multiplier="1:1" id="jEN-3k-5Sy"/>
                                         </constraints>
                                         <color key="tintColor" name="speezy-purple"/>
                                         <state key="normal" image="decrease-text-button"/>
@@ -124,6 +122,7 @@
                                     <constraint firstItem="hdy-vC-ldE" firstAttribute="top" secondItem="1at-qS-H6h" secondAttribute="top" constant="16" id="NMI-ch-5VT"/>
                                     <constraint firstAttribute="bottom" secondItem="Om4-PT-39y" secondAttribute="bottom" constant="16" id="RD8-dP-8hS"/>
                                     <constraint firstAttribute="bottom" secondItem="F82-EQ-t2L" secondAttribute="bottom" constant="16" id="UXq-td-saF"/>
+                                    <constraint firstAttribute="height" constant="82" id="age-6b-wHU"/>
                                     <constraint firstItem="F82-EQ-t2L" firstAttribute="leading" secondItem="J1J-ik-mrc" secondAttribute="trailing" constant="16" id="eJO-eh-S4V"/>
                                     <constraint firstAttribute="bottom" secondItem="J1J-ik-mrc" secondAttribute="bottom" constant="16" id="l1c-Kc-gmA"/>
                                     <constraint firstItem="hdy-vC-ldE" firstAttribute="width" secondItem="hdy-vC-ldE" secondAttribute="height" multiplier="1:1" id="tBk-h1-783"/>
@@ -220,12 +219,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonContainerHeight" destination="age-6b-wHU" id="XzH-9h-L7d"/>
                         <outlet property="collectionContainer" destination="yZl-qT-GMk" id="Arv-jQ-Nc7"/>
                         <outlet property="cutButton" destination="Om4-PT-39y" id="lLH-KY-V9z"/>
                         <outlet property="playButton" destination="iiE-Ek-LhW" id="jLR-8S-mEQ"/>
                         <outlet property="playbackContainer" destination="hFA-lF-6fi" id="Ewa-ke-B3l"/>
                         <outlet property="transcribeButtonContainer" destination="V1i-8X-NA7" id="i4L-3A-2fM"/>
+                        <outlet property="uhmButton" destination="hdy-vC-ldE" id="uAV-iu-9Hw"/>
                         <outlet property="waveContainer" destination="001-Lb-6tT" id="Bvw-cf-RCL"/>
+                        <outlet property="zoomInButton" destination="J1J-ik-mrc" id="of1-NK-8Mu"/>
+                        <outlet property="zoomOutButton" destination="F82-EQ-t2L" id="dQz-fh-kZW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ojs-H6-N8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
