@@ -26,6 +26,7 @@ class TranscriptionJobManager {
     
     weak var delegate: TranscriptionJobManagerDelegate?
     private var stopChecking: Bool = false
+    private var running: Bool = false
     
     init(transcriber: SpeezySpeechTranscriber) {
         self.transcriber = transcriber
@@ -34,11 +35,19 @@ class TranscriptionJobManager {
     func createTranscriptionJob(audioId: String, url: URL) {
         transcriber.createTranscriptionJob(audioId: audioId, url: url) { (job) in
             TranscriptionJobStorage.save(job)
-            self.checkJobs()
+            self.startCheckJobs()
         }
     }
+    
+    func startCheckJobs() {
+        if running {
+            return
+        }
         
-    @objc func checkJobs() {
+        checkJobs()
+    }
+        
+    private func checkJobs() {
         let jobs = TranscriptionJobStorage.fetchItems()
         
         if jobs.isEmpty || stopChecking {
@@ -65,6 +74,7 @@ class TranscriptionJobManager {
     
     func stopChecks() {
         stopChecking = true
+        running = false
     }
     
     func jobExists(id: String) -> Bool {

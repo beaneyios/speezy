@@ -27,7 +27,7 @@ class WordCell: UICollectionViewCell, NibLoadable {
         lblTitle.textAlignment = .left
         lblTitle.alpha = 1.0
         lblTitle.text = word.text
-        lblTitle.font = UIFont.systemFont(ofSize: 22.0, weight: .thin)
+        lblTitle.font = UIFont.systemFont(ofSize: 22.0 * fontScale, weight: .thin)
         configureWordHighlight(isSelected: isSelected)
     }
     

@@ -43,3 +43,10 @@ protocol TranscriptionJobObserver: AnyObject {
         didQueueTranscriptionJobWithAudioItemId: String
     )
 }
+
+protocol TranscriptObserver: AnyObject {
+    func audioManager(
+        _ manager: AudioManager,
+        didFinishEditingTranscript transcript: Transcript
+    )
+}

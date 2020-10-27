@@ -9,34 +9,34 @@
 import Foundation
 import AVKit
 
-protocol TranscriptObserver: AnyObject {
+protocol TranscriptManagerDelegate: AnyObject {
     func transcriptManager(
         _ manager: TranscriptManager,
         didFinishEditingTranscript transcript: Transcript
     )
-}
-
-struct TranscriptObservation {
-    weak var observer: TranscriptObserver?
+    
+    func transcriptManager(
+        _ manager: TranscriptManager,
+        shouldCutItemWithRanges ranges: [CMTimeRange]
+    )
 }
 
 class TranscriptManager {
-    private let audioManager: AudioManager
-    private var selectedWords: [Word] = []
-    private var transcriptObservatons = [ObjectIdentifier : TranscriptObservation]()
+    weak var delegate: TranscriptManagerDelegate?
     
-    var transcript: Transcript? {
-        TranscriptStorage.fetchTranscript(id: audioManager.item.id)
-    }
+    private var selectedWords: [Word] = []
+    
+    private(set) var transcript: Transcript?
     
     var transcriptExists: Bool {
         transcript != nil
     }
     
-    init(audioManager: AudioManager) {
-        self.audioManager = audioManager
-        
-        audioManager.addCropperObserver(self)
+    let audioItemId: String
+    
+    init(audioItemId: String) {
+        self.audioItemId = audioItemId
+        self.transcript = TranscriptStorage.fetchTranscript(id: audioItemId)
     }
     
     func removeUhms() {
@@ -48,14 +48,26 @@ class TranscriptManager {
     }
     
     func removeSelectedWords() {
-        cut(audioItem: audioManager.item, from: selectedWords)
+        cut(selectedWords)
     }
     
     func updateTranscript(_ transcript: Transcript) {
-        TranscriptStorage.save(transcript, id: audioManager.item.id)
+        self.transcript = transcript
     }
     
-    private func adjustCurrentTranscript() {
+    func saveTranscript() {
+        guard let transcript = self.transcript else {
+            return
+        }
+        
+        TranscriptStorage.save(transcript, id: audioItemId)
+    }
+    
+    func clearSelectedWords() {
+        selectedWords = []
+    }
+    
+    func updateTranscriptRemovingSelectedWords() {
         let orderedSelectedWords = selectedWords.sorted {
             $0.timestamp.start > $1.timestamp.start
         }
@@ -88,23 +100,21 @@ class TranscriptManager {
             self.updateTranscript(newTranscript)
             self.selectedWords = []
             
-            self.transcriptObservatons.forEach {
-                $0.value.observer?.transcriptManager(self, didFinishEditingTranscript: newTranscript)
-            }
+            self.delegate?.transcriptManager(
+                self,
+                didFinishEditingTranscript: newTranscript
+            )
         }
     }
     
-    private func cut(
-        audioItem: AudioItem,
-        from range: [Word]
-    ) {
+    private func cut(_ range: [Word]) {
         let timeRanges: [CMTimeRange] = range.reversed().map {
             let startTime = CMTime(seconds: $0.timestamp.start, preferredTimescale: 100)
             let endTime = CMTime(seconds: $0.timestamp.end, preferredTimescale: 100)
             return CMTimeRangeFromTimeToTime(start: startTime, end: endTime)
         }
         
-        audioManager.cut(timeRanges: timeRanges)
+        delegate?.transcriptManager(self, shouldCutItemWithRanges: timeRanges)
     }
 }
 
@@ -149,24 +159,5 @@ extension TranscriptManager {
         }
         
         return indexOfWord
-    }
-}
-
-extension TranscriptManager: AudioCropperObserver {
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
-        adjustCurrentTranscript()
-    }
-    
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
-    func audioManagerDidCancelCropping(_ manager: AudioManager) {}
-}
-
-extension TranscriptManager {
-    func addTranscriptObserver(_ observer: TranscriptObserver) {
-        let id = ObjectIdentifier(observer)
-        transcriptObservatons[id] = TranscriptObservation(observer: observer)
     }
 }

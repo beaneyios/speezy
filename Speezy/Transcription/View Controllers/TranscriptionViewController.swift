@@ -12,7 +12,6 @@ import AVKit
 
 class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 
-    var transcriptManager: TranscriptManager!
     var audioManager: AudioManager!
             
     @IBOutlet weak var playbackContainer: UIView!
@@ -67,11 +66,11 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     }
     
     @IBAction func removeUhms(_ sender: Any) {
-        transcriptManager.removeUhms()
+        audioManager.removeTranscribedUhms()
     }
     
     @IBAction func removeSelectedWords(_ sender: Any) {
-        transcriptManager.removeSelectedWords()
+        audioManager.removeSelectedTranscribedWords()
     }
     
     @IBAction func playPreview(_ sender: Any) {
@@ -82,7 +81,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 // MARK: Configuration
 extension TranscriptionViewController {
     private func configureButtons() {
-        if transcriptManager.transcriptExists {
+        if audioManager.transcriptExists {
             buttonContainer.isHidden = false
             buttonContainerHeight.constant = 82.0
         } else {
@@ -94,7 +93,7 @@ extension TranscriptionViewController {
             self.view.layoutIfNeeded()
         }
         
-        let transcriptExists = transcriptManager.transcriptExists
+        let transcriptExists = audioManager.transcriptExists
         cutButton.isEnabled = transcriptExists
         uhmButton.isEnabled = transcriptExists
         zoomOutButton.isEnabled = transcriptExists
@@ -102,8 +101,6 @@ extension TranscriptionViewController {
     }
     
     private func configureDependencies() {
-        transcriptManager = TranscriptManager(audioManager: audioManager)
-        
         audioManager.addCropperObserver(self)
         audioManager.addPlayerObserver(self)
         audioManager.addTranscriptionObserver(self)
@@ -112,7 +109,7 @@ extension TranscriptionViewController {
     private func configureContentView() {
         if audioManager.transcriptionJobExists {
             switchToLorem()
-        } else if transcriptManager.transcriptExists {
+        } else if audioManager.transcriptExists {
             switchToTranscript()
         } else {
             switchToTranscribeAction()
@@ -138,7 +135,6 @@ extension TranscriptionViewController {
         let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
         let transcriptViewController = storyboard.instantiateViewController(identifier: "transcript") as! TranscriptCollectionViewController
         transcriptViewController.audioManager = audioManager
-        transcriptViewController.transcriptManager = transcriptManager
         
         addChild(transcriptViewController)
         collectionContainer.addSubview(transcriptViewController.view)
@@ -171,7 +167,6 @@ extension TranscriptionViewController: TranscriptionJobObserver {
         didFinishTranscribingWithAudioItemId id: String,
         transcript: Transcript
     ) {
-        transcriptManager.updateTranscript(transcript)
         DispatchQueue.main.async {
             self.switchToTranscript()
             self.configureButtons()

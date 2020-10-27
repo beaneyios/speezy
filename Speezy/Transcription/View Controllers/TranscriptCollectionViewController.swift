@@ -16,8 +16,6 @@ protocol TranscriptCollectionViewControllerDelegate: AnyObject {
 class TranscriptCollectionViewController: UIViewController {
     
     var audioManager: AudioManager!
-    var transcriptManager: TranscriptManager!
-    
     var zoomFactor: CGFloat = 1
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -70,7 +68,7 @@ class TranscriptCollectionViewController: UIViewController {
     }
     
     private func configureDependencies() {
-        transcriptManager.addTranscriptObserver(self)
+        audioManager.addTranscriptObserver(self)
         audioManager.addPlayerObserver(self)
     }
     
@@ -94,14 +92,14 @@ extension TranscriptCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        transcriptManager.numberOfWords
+        audioManager.numberOfWordsInTranscript
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WordCell
         
-        if let word = transcriptManager.word(for: indexPath.row) {
-            let isSelected = transcriptManager.isSelected(word: word)
+        if let word = audioManager.transcribedWord(for: indexPath.row) {
+            let isSelected = audioManager.transcribedWordIsSelected(word: word)
             cell.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         }
         
@@ -113,8 +111,8 @@ extension TranscriptCollectionViewController: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let template = WordCell.createFromNib()
         
-        if let word = transcriptManager.word(for: indexPath.row) {
-            let isSelected = transcriptManager.isSelected(word: word)
+        if let word = audioManager.transcribedWord(for: indexPath.row) {
+            let isSelected = audioManager.transcribedWordIsSelected(word: word)
             template.configure(with: word, isSelected: isSelected, fontScale: zoomFactor)
         }
         
@@ -137,11 +135,11 @@ extension TranscriptCollectionViewController: UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        transcriptManager.toggleSelection(at: indexPath)
+        audioManager.selectTranscribedWord(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        transcriptManager.toggleSelection(at: indexPath)
+        audioManager.selectTranscribedWord(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -153,14 +151,14 @@ extension TranscriptCollectionViewController: AudioPlayerObserver {
     func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
         let cells = collectionView.visibleCells as! [WordCell]
                 
-        if let currentWordIndex = transcriptManager.currentPlayingWordIndex(at: time) {
+        if let currentWordIndex = audioManager.currentPlayingTranscribedWordIndex(at: time) {
             collectionView.scrollToItem(at: IndexPath(item: currentWordIndex, section: 0), at: .centeredVertically, animated: false)
         }
         
         cells.forEach {
             guard
                 let indexPath = collectionView.indexPath(for: $0),
-                let word = transcriptManager.word(for: indexPath.row)
+                let word = audioManager.transcribedWord(for: indexPath.row)
             else {
                 return
             }
@@ -179,7 +177,7 @@ extension TranscriptCollectionViewController: AudioPlayerObserver {
 }
 
 extension TranscriptCollectionViewController: TranscriptObserver {
-    func transcriptManager(_ manager: TranscriptManager, didFinishEditingTranscript transcript: Transcript) {
+    func audioManager(_ manager: AudioManager, didFinishEditingTranscript transcript: Transcript) {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

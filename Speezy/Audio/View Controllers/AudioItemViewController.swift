@@ -98,11 +98,14 @@ class AudioItemViewController: UIViewController {
             configureSubviews()
             transcriptionCropUpdatesPending = false
         }
+        
+        audioManager.checkTranscriptionJobs()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        audioManager.stopTranscriptionChecks()
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            audioManager.stopTranscriptionChecks()
+        }
     }
     
     @IBAction func saveToDrafts(_ sender: Any) {
@@ -250,7 +253,14 @@ extension AudioItemViewController {
             maker.edges.equalToSuperview()
         }
         
-        transcribeButton.switchToNormal()
+        if audioManager.transcriptExists {
+            transcribeButton.switchToSuccessful()
+        } else if audioManager.transcriptionJobExists {
+            transcribeButton.switchToLoading()
+        } else {
+            transcribeButton.switchToNormal()
+        }
+        
         self.transcribeButton = transcribeButton
         
         transcribeButton.action = {
