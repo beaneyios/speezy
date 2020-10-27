@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TranscriptionObserver: AnyObject {
+protocol TranscriptionJobObserver: AnyObject {
     func transcriptionJobManager(
         _ manager: TranscriptionJobManager,
         didFinishTranscribingWithAudioItemId id: String,
@@ -22,7 +22,7 @@ protocol TranscriptionObserver: AnyObject {
 }
 
 struct TranscriptionObservation {
-    weak var observer: TranscriptionObserver?
+    weak var observer: TranscriptionJobObserver?
 }
 
 class TranscriptionJobManager {
@@ -66,6 +66,13 @@ class TranscriptionJobManager {
         }
     }
     
+    func jobExists(id: String) -> Bool {
+        let items = TranscriptionJobStorage.fetchItems()
+        return items.contains {
+            $0.audioId == id
+        }
+    }
+    
     private func handleJobResponse(_ response: TranscriptionJobCheckResponse, job: TranscriptionJob) {
         switch response {
         case let .complete(transcript):
@@ -104,7 +111,7 @@ class TranscriptionJobManager {
 }
 
 extension TranscriptionJobManager {
-    func addTranscriptionObserver(_ observer: TranscriptionObserver) {
+    func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
         let id = ObjectIdentifier(observer)
         transcriptionObservatons[id] = TranscriptionObservation(observer: observer)
     }

@@ -16,6 +16,9 @@ protocol PreviewWavePresenting: AnyObject {
 
 extension PreviewWavePresenting {
     func configurePreviewWave(audioManager: AudioManager) {
+        waveView?.removeFromSuperview()
+        waveView = nil
+        
         let soundWaveView = PlaybackView.instanceFromNib()
         waveContainer.addSubview(soundWaveView)
         

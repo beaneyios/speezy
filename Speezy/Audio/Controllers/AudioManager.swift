@@ -332,6 +332,12 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.crop(from: from, to: to, cropKind: cropKind)
     }
     
+    func cut(timeRanges: [CMTimeRange]) {
+        audioCropper = AudioCropper(item: item)
+        audioCropper?.delegate = self
+        audioCropper?.cut(audioItem: self.item, timeRanges: timeRanges)
+    }
+    
     func leftCropHandleMoved(to percentage: CGFloat) {
         cropperObservatons.forEach {
             $0.value.observer?.audioManager(self, didMoveLeftCropHandleTo: percentage)

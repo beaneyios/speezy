@@ -188,7 +188,11 @@ class AudioItemViewController: UIViewController {
             audioManager.toggleCut()
         } else {
             let alert = SCLAlertView()
-            alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to cut - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
+            alert.showError(
+                "Clip not long enough",
+                subTitle: "Your recording wasn't long enough to cut - ensure the clip is at least 5 seconds",
+                closeButtonTitle: "OK"
+            )
         }
     }
     

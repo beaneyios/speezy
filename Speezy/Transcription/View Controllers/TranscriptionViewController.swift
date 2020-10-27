@@ -13,6 +13,7 @@ import AVKit
 class TranscriptionViewController: UIViewController, PreviewWavePresenting {
 
     var transcriptionJobManager: TranscriptionJobManager!
+    var transcriptManager: TranscriptManager!
     var audioManager: AudioManager!
     
     var transcript: Transcript?
@@ -30,30 +31,17 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     var waveView: PlaybackView!
     private var collectionViewController: UIViewController!
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        audioManager.stop()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
+        configureDependencies()
         configurePreviewWave(audioManager: audioManager)
-                
-        TranscriptionJobStorage.fetchItems().forEach {
-            TranscriptionJobStorage.deleteItem($0)
-        }
-        
-        transcriptionJobManager.addTranscriptionObserver(self)        
-        switchToTranscribeAction()
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
-            self.transcript = Transcript(words: (1...30).map {
-                Word(text: "\($0) word", timestamp: Timestamp(start: 0, end: 0))
-            })
-            self.switchToTranscript()
-        }
+        configureContentView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        audioManager.stop()
     }
     
     @IBAction func zoomIn(_ sender: Any) {
@@ -77,15 +65,30 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     }
     
     @IBAction func removeUhms(_ sender: Any) {
-        selectedWords = transcript?.words.compactMap {
-            $0.text.contains("HESITATION") ? $0 : nil
-        } ?? []
         
-        removeSelectedWords()
     }
     
     @IBAction func playPreview(_ sender: Any) {
         audioManager.play()
+    }
+}
+
+// MARK: Configuration
+extension TranscriptionViewController {
+    private func configureDependencies() {
+        transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
+        transcriptionJobManager.addTranscriptionObserver(self)
+        transcriptManager = TranscriptManager(audioManager: audioManager)
+    }
+    
+    private func configureContentView() {
+        if transcriptionJobManager.jobExists(id: audioManager.item.id) {
+            switchToLorem()
+        } else if transcriptManager.transcriptExists() {
+            switchToTranscript()
+        } else {
+            switchToTranscribeAction()
+        }
     }
     
     private func switchToTranscribeAction() {
@@ -132,127 +135,9 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
         loremViewController.didMove(toParent: self)
         collectionViewController = loremViewController
     }
-    
-    private func removeSelectedWords() {
-        // TODO: Move this into the audio manager/cropper.
-        cut(audioItem: audioManager.item, from: selectedWords) { (url) in
-            let audioItem = AudioItem(
-                id: "Test",
-                path: "test",
-                title: "Test",
-                date: Date(),
-                tags: [],
-                url: url
-            )
-            
-            // TODO: Sort this out in the audio manager
-        }
-        
-        let orderedSelectedWords = selectedWords.sorted {
-            $0.timestamp.start > $1.timestamp.start
-        }
-        
-        // Run through each selected word in reverse order.
-        // Find any words with a start time greater than that word.
-        // Adjust their start times by subtracting the duration of the selected word.
-        orderedSelectedWords.forEach { (selectedWord) in
-            let duration = selectedWord.timestamp.end - selectedWord.timestamp.start
-            
-            let newWords = transcript?.words.compactMap({ (word) -> Word? in
-                if self.selectedWords.contains(word) {
-                    return nil
-                }
-                
-                if word.timestamp.start > selectedWord.timestamp.start {
-                    return Word(
-                        text: word.text,
-                        timestamp: Timestamp(
-                            start: word.timestamp.start - duration,
-                            end: word.timestamp.end - duration
-                        )
-                    )
-                } else {
-                    return word
-                }
-            }) ?? []
-            
-            self.transcript = Transcript(
-                words: newWords
-            )
-            
-            self.selectedWords = []
-        }
-        
-        // TODO: Reload selected words.
-    }
-    
-    private func hideCollection() {
-        UIView.animate(withDuration: 0.3) {
-            self.collectionContainer.alpha = 0.0
-        } completion: { _ in
-            self.collectionViewController.view.removeFromSuperview()
-            self.collectionViewController.removeFromParent()
-        }
-    }
-    
-    private func cut(
-        audioItem: AudioItem,
-        from range: [Word],
-        finished: @escaping (URL) -> Void
-    ) {
-        let asset = AVURLAsset(url: audioItem.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
-        let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
-        
-        FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
-        
-        do {
-            let composition: AVMutableComposition = AVMutableComposition()
-            try composition.insertTimeRange(
-                CMTimeRangeMake(
-                    start: CMTime.zero,
-                    duration: asset.duration
-                ),
-                of: asset,
-                at: CMTime.zero
-            )
-            
-            range.reversed().forEach {
-                let startTime = CMTime(seconds: $0.timestamp.start, preferredTimescale: 100)
-                let endTime = CMTime(seconds: $0.timestamp.end, preferredTimescale: 100)
-                composition.removeTimeRange(CMTimeRangeFromTimeToTime(start: startTime, end: endTime))
-            }
-            
-            guard
-                compatiblePresets.contains(AVAssetExportPresetPassthrough),
-                let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough),
-                let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
-            else {
-                return
-            }
-            
-            exportSession.outputURL = outputURL
-            exportSession.outputFileType = AVFileType.wav
-            
-            exportSession.exportAsynchronously() {
-                switch exportSession.status {
-                case .failed:
-                    print("Export failed: \(exportSession.error?.localizedDescription)")
-                case .cancelled:
-                    print("Export canceled")
-                default:
-                    print("Successfully cut audio")
-                    DispatchQueue.main.async(execute: {
-                        finished(outputURL)
-                    })
-                }
-            }
-        } catch {
-            
-        }
-    }
 }
 
-extension TranscriptionViewController: TranscriptionObserver {
+extension TranscriptionViewController: TranscriptionJobObserver {
     func transcriptionJobManager(
         _ manager: TranscriptionJobManager,
         didFinishTranscribingWithAudioItemId id: String,
@@ -288,4 +173,16 @@ extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
             url: audioManager.item.url
         )
     }
+}
+
+extension TranscriptionViewController: AudioCropperObserver {
+    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
+        configurePreviewWave(audioManager: audioManager)
+    }
+    
+    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
+    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
+    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
+    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
+    func audioManagerDidCancelCropping(_ manager: AudioManager) {}
 }
