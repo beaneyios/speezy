@@ -61,7 +61,6 @@ class TranscriptionJobManager {
     
         group.notify(queue: .global()) {
             DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 2.0) {
-                print("Timer finished, checking jobs again.")
                 self.checkJobs()
             }
         }
@@ -70,7 +69,12 @@ class TranscriptionJobManager {
     private func handleJobResponse(_ response: TranscriptionJobCheckResponse, job: TranscriptionJob) {
         switch response {
         case let .complete(transcript):
+            // Remove the job.
             TranscriptionJobStorage.deleteItem(job)
+            
+            // Save the new transcript.
+            TranscriptStorage.save(transcript, id: job.audioId)
+            
             self.transcriptionObservatons.forEach {
                 $0.value.observer?.transcriptionJobManager(
                     self,
@@ -93,8 +97,8 @@ class TranscriptionJobManager {
     private func checkJob(_ job: TranscriptionJob, completion: @escaping (TranscriptionJobCheckResponse) -> Void) {
         transcriber.checkJob(id: job.id) { (result) in
             switch result {
-            case let .success(checkResponse):
-                completion(checkResponse)
+            case let .success(response):
+                completion(response)
             default:
                 completion(.unknown)
             }

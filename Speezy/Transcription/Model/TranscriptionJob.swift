@@ -11,4 +11,5 @@ import Foundation
 struct TranscriptionJob: Equatable, Codable, Identifiable {
     var id: String
     var fileName: String
+    var audioId: String
 }

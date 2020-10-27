@@ -41,8 +41,4 @@ class TranscriptionJobStorage {
     static func fetchItems() -> [TranscriptionJob] {
         Storage.retrieve(key, from: .documents, as: [TranscriptionJob].self) ?? []
     }
-    
-    static func url(for id: String) -> URL {
-        FileManager.default.documentsURL(with: id)!
-    }
 }
