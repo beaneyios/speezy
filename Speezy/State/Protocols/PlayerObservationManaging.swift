@@ -13,12 +13,12 @@ protocol PlayerObservationManaging: AnyObject {
 }
 
 extension PlayerObservationManaging {
-    func addPlayerObserver(_ observer: AudioPlayerObserver) {
+    func addPlaybackObserver(_ observer: AudioPlayerObserver) {
         let id = ObjectIdentifier(observer)
         playerObservatons[id] = AudioPlayerObservation(observer: observer)
     }
     
-    func removePlayerObserver(_ observer: AudioPlayerObserver) {
+    func removePlaybackObserver(_ observer: AudioPlayerObserver) {
         let id = ObjectIdentifier(observer)
         playerObservatons.removeValue(forKey: id)
     }

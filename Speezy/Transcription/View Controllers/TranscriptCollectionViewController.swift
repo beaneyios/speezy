@@ -69,7 +69,7 @@ class TranscriptCollectionViewController: UIViewController {
     
     private func configureDependencies() {
         audioManager.addTranscriptObserver(self)
-        audioManager.addPlayerObserver(self)
+        audioManager.addPlaybackObserver(self)
     }
     
     private func configureConfirmationContainer() {

@@ -37,7 +37,7 @@ class PlaybackView: UIView {
     
     func configure(manager: AudioManager) {
         self.manager = manager
-        manager.addPlayerObserver(self)
+        manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
         scrollView.delegate = self

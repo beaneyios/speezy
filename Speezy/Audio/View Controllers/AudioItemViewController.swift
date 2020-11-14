@@ -224,7 +224,7 @@ class AudioItemViewController: UIViewController {
 // MARK: Configuration
 extension AudioItemViewController {
     func configureDependencies() {
-        audioManager.addPlayerObserver(self)
+        audioManager.addPlaybackObserver(self)
         audioManager.addRecorderObserver(self)
         audioManager.addCropperObserver(self)
         audioManager.addTranscriptionObserver(self)

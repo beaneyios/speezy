@@ -10,8 +10,7 @@ import Foundation
 import AVKit
 import UIKit
 
-typealias AudioManagerObservationManaging = PlayerObservationManaging &
-                                            RecorderObservationManaging &
+typealias AudioManagerObservationManaging = RecorderObservationManaging &
                                             TranscriptionJobObservationManaging &
                                             TranscriptObservationManaging &
                                             CropperObservationManaging
@@ -19,15 +18,19 @@ typealias AudioManagerObservationManaging = PlayerObservationManaging &
 class AudioManager: NSObject, AudioManagerObservationManaging {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
-    private(set) var state = AudioState.idle
     private(set) var hasUnsavedChanges: Bool = false
+    
+    private(set) var stateManager: AudioStateManager
     
     private var firstRecord = true
     var noTitleSet: Bool {
         item.title == ""
     }
     
-    var playerObservatons = [ObjectIdentifier : AudioPlayerObservation]()
+    var state: AudioState {
+        stateManager.state
+    }
+    
     var recorderObservatons = [ObjectIdentifier : AudioRecorderObservation]()
     var cropperObservatons = [ObjectIdentifier : AudioCropperObservation]()
     var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
@@ -55,6 +58,7 @@ class AudioManager: NSObject, AudioManagerObservationManaging {
         )
         
         self.transcriptManager = TranscriptManager(audioItemId: item.id)
+        self.stateManager = AudioStateManager()
     }
     
     func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
@@ -172,7 +176,7 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func toggleRecording() {
-        switch state {
+        switch stateManager.state {
         case .recording:
             stopRecording()
         default:
@@ -238,8 +242,16 @@ extension AudioManager: AudioPlayerDelegate {
         audioPlayer?.currentPlaybackTime ?? 0.0
     }
     
+    func addPlaybackObserver(_ observer: AudioPlayerObserver) {
+        stateManager.addPlaybackObserver(observer)
+    }
+    
+    func removePlaybackObserver(_ observer: AudioPlayerObserver) {
+        stateManager.removePlaybackObserver(observer)
+    }
+    
     func togglePlayback() {
-        switch state {
+        switch stateManager.state {
         case .startedPlayback:
             pause()
         default:
@@ -248,7 +260,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func play() {
-        if state.shouldRegeneratePlayer == true {
+        if stateManager.state.shouldRegeneratePlayer == true {
             audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
         }
@@ -257,7 +269,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func pause() {
-        switch state {
+        switch stateManager.state {
         case .startedPlayback:
             audioPlayer?.pause()
         default:
@@ -269,7 +281,7 @@ extension AudioManager: AudioPlayerDelegate {
         if audioPlayer == nil || isCropping {
             audioPlayer = AudioPlayer(item: currentItem)
             audioPlayer?.delegate = self
-            state = .pausedPlayback(currentItem)
+            stateManager.state = .pausedPlayback(currentItem)
         }
         
         audioPlayer?.seek(to: percentage)
@@ -280,15 +292,15 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
-        performPlaybackAction(action: .showPlaybackStarted(item))
+        stateManager.performPlaybackAction(action: .showPlaybackStarted(item))
     }
     
     func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
-        performPlaybackAction(action: .showPlaybackPaused(item))
+        stateManager.performPlaybackAction(action: .showPlaybackPaused(item))
     }
     
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        performPlaybackAction(
+        stateManager.performPlaybackAction(
             action: .showPlaybackProgressed(
                 time,
                 seekActive: seekActive,
@@ -300,7 +312,7 @@ extension AudioManager: AudioPlayerDelegate {
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
         audioPlayer = nil
-        performPlaybackAction(action: .showPlaybackStopped(item))
+        stateManager.performPlaybackAction(action: .showPlaybackStopped(item))
     }
 }
 
@@ -396,36 +408,6 @@ extension AudioManager: AudioCropperDelegate {
 }
 
 extension AudioManager {
-    func performPlaybackAction(action: PlaybackAction) {
-        playerObservatons.forEach {
-            guard let observer = $0.value.observer else {
-                recorderObservatons.removeValue(forKey: $0.key)
-                return
-            }
-            
-            switch action {
-            case .showPlaybackStopped(let item):
-                state = .stoppedPlayback(item)
-                observer.playbackStopped(on: item)
-                
-            case .showPlaybackStarted(let item):
-                state = .startedPlayback(item)
-                observer.playBackBegan(on: item)
-                
-            case .showPlaybackPaused(let item):
-                state = .pausedPlayback(item)
-                observer.playbackPaused(on: item)
-            case let .showPlaybackProgressed(time, seekActive, item, startOffset):
-                observer.playbackProgressed(
-                    withTime: time,
-                    seekActive: seekActive,
-                    onItem: item,
-                    startOffset: startOffset
-                )
-            }
-        }
-    }
-    
     func performRecordingAction(action: RecordAction) {
         recorderObservatons.forEach {
             guard let observer = $0.value.observer else {
@@ -435,7 +417,7 @@ extension AudioManager {
             
             switch action {
             case .showRecordingStarted:
-                state = .recording
+                stateManager.state = .recording
                 observer.audioManagerDidStartRecording(self)
             
             case let .showRecordingProgressed(power, stepDuration, totalDuration):
@@ -450,7 +432,7 @@ extension AudioManager {
                 observer.audioManagerProcessingRecording(self)
                 
             case let .showRecordingStopped(_, maxLimitReached):
-                state = .idle
+                stateManager.state = .idle
                 observer.audioManagerDidStopRecording(self, maxLimitedReached: maxLimitReached)
             }
         }
@@ -465,18 +447,18 @@ extension AudioManager {
             
             switch action {
             case .showCrop(let item, let kind):
-                state = .cropping
+                stateManager.state = .cropping
                 observer.audioManager(self, didStartCroppingItem: item, kind: kind)
                 
             case .showCropAdjusted(let item):
                 observer.audioManager(self, didAdjustCropOnItem: item)
                 
             case .showCropCancelled:
-                state = .idle
+                stateManager.state = .idle
                 observer.audioManagerDidCancelCropping(self)
                 
             case .showCropFinished(let item):
-                state = .idle
+                stateManager.state = .idle
                 observer.audioManager(self, didFinishCroppingItem: item)
             }
         }

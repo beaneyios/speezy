@@ -102,7 +102,7 @@ extension TranscriptionViewController {
     
     private func configureDependencies() {
         audioManager.addCropperObserver(self)
-        audioManager.addPlayerObserver(self)
+        audioManager.addPlaybackObserver(self)
         audioManager.addTranscriptionObserver(self)
     }
     

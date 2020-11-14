@@ -8,8 +8,14 @@
 
 import Foundation
 
-class AudioStateManager: AudioManagerObservationManaging {
-    private(set) var state = AudioState.idle
+typealias AudioStateManagerObservationManaging =    PlayerObservationManaging &
+                                                    RecorderObservationManaging &
+                                                    TranscriptionJobObservationManaging &
+                                                    TranscriptObservationManaging &
+                                                    CropperObservationManaging
+
+class AudioStateManager: AudioStateManagerObservationManaging {
+    var state = AudioState.idle
     
     var playerObservatons = [ObjectIdentifier : AudioPlayerObservation]()
     var recorderObservatons = [ObjectIdentifier : AudioRecorderObservation]()

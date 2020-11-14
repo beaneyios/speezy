@@ -17,7 +17,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     weak var delegate: AudioRecorderDelegate?
     private var totalTime: TimeInterval = 0.0
     
-    static let recordingThreshhold: TimeInterval = 5
+    static let recordingThreshhold: TimeInterval = 120.0
     
     let item: AudioItem
     

@@ -159,7 +159,7 @@ extension PublishViewController: AudioPlayerObserver {
     }
     
     private func configureAudioManager() {
-        audioManager.addPlayerObserver(self)
+        audioManager.addPlaybackObserver(self)
     }
 }
 

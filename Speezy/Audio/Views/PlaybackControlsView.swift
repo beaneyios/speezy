@@ -18,7 +18,7 @@ class PlaybackControlsView: UIView, NibLoadable {
     
     func configure(with manager: AudioManager) {
         self.manager = manager
-        manager.addPlayerObserver(self)
+        manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
         
