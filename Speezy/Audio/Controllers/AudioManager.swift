@@ -92,60 +92,22 @@ class AudioManager: NSObject {
     }
     
     func updateTitle(title: String) {
-        let audioItem = AudioItem(
-            id: item.id,
-            path: item.path,
-            title: title,
-            date: item.date,
-            tags: item.tags
-        )
-        
-        self.item = audioItem
+        self.item = item.withUpdatedTitle(title)
         hasUnsavedChanges = true
     }
     
     func addTag(title: String) {
-        
-        let tagTitles = title.split(separator: ",")
-        
-        let tags = tagTitles.map {
-            Tag(id: UUID().uuidString, title: String($0))
-        }
-                
-        let newItem = AudioItem(
-            id: item.id,
-            path: item.path,
-            title: item.title,
-            date: item.date,
-            tags: item.tags + tags
-        )
-        
-        self.item = newItem
-        
+        self.item = item.addingTag(withTitle: title)
         hasUnsavedChanges = true
     }
     
     func deleteTag(tag: Tag) {
-        let newTags = item.tags.filter {
-            $0.id != tag.id
-        }
-        
-        let newItem = AudioItem(
-            id: item.id,
-            path: item.path,
-            title: item.title,
-            date: item.date,
-            tags: newTags
-        )
-        
-        self.item = newItem
-        
+        self.item = item.removingTag(tag: tag)
         hasUnsavedChanges = true
     }
     
     func setImageAttachment(_ attachment: UIImage?) {
         currentImageAttachment = attachment
-        
         hasUnsavedChanges = true
     }
     

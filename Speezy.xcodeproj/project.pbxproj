@@ -28,6 +28,7 @@
 		BE2351DD253C9B4900067BA2 /* PreviewWavePresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */; };
 		BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */; };
 		BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */; };
+		BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
 		BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B097824C7239300317EB7 /* AudioItemCell.xib */; };
 		BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098124C732DC00317EB7 /* TagCell.xib */; };
@@ -168,6 +169,7 @@
 		BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWavePresenting.swift; sourceTree = "<group>"; };
 		BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeezyLoadingView.xib; sourceTree = "<group>"; };
 		BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyLoadingView.swift; sourceTree = "<group>"; };
+		BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioItem+MetaData.swift"; sourceTree = "<group>"; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
 		BE2B097824C7239300317EB7 /* AudioItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioItemCell.xib; sourceTree = "<group>"; };
 		BE2B098124C732DC00317EB7 /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */,
+				BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1059,6 +1062,7 @@
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
+				BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */,
