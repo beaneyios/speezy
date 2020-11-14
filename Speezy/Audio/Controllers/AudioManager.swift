@@ -170,11 +170,7 @@ extension AudioManager: AudioRecorderDelegate {
         case .recording:
             stopRecording()
         default:
-            if duration < AudioRecorder.recordingThreshhold {
-                startRecording()
-            } else {
-                performRecordingAction(action: .showRecordingStopped(item, maxLimitReached: true))
-            }
+            startRecording()
         }
     }
     

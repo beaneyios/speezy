@@ -17,7 +17,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     weak var delegate: AudioRecorderDelegate?
     private var totalTime: TimeInterval = 0.0
     
-    static let recordingThreshhold: TimeInterval = 120
+    static let recordingThreshhold: TimeInterval = 5
     
     let item: AudioItem
     
@@ -27,6 +27,16 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func record() {
+        if item.duration >= Self.recordingThreshhold {
+            self.delegate?.audioRecorder(
+                self,
+                didFinishRecordingWithCompletedItem: self.item,
+                maxLimitReached: true
+            )
+            
+            return
+        }
+        
         recordingSession = AVAudioSession.sharedInstance()
         recordingSession?.prepareForRecording()
         recordingSession?.requestRecordPermission({ (allowed) in
