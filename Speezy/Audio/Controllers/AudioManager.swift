@@ -291,7 +291,7 @@ extension AudioManager: AudioPlayerDelegate {
         audioPlayer?.stop()
     }
     
-    func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
+    func audioPlayerDidBeginPlayback(_ player: AudioPlayer) {
         stateManager.performPlaybackAction(action: .showPlaybackStarted(item))
     }
     
@@ -299,7 +299,7 @@ extension AudioManager: AudioPlayerDelegate {
         stateManager.performPlaybackAction(action: .showPlaybackPaused(item))
     }
     
-    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
+    func audioPlayer(_ player: AudioPlayer, progressedPlaybackWithTime time: TimeInterval, seekActive: Bool) {
         stateManager.performPlaybackAction(
             action: .showPlaybackProgressed(
                 time,
@@ -310,7 +310,7 @@ extension AudioManager: AudioPlayerDelegate {
         )
     }
     
-    func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
+    func audioPlayerDidStopPlayback(_ player: AudioPlayer) {
         audioPlayer = nil
         stateManager.performPlaybackAction(action: .showPlaybackStopped(item))
     }
