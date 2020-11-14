@@ -450,10 +450,9 @@ extension AudioManager {
             
             switch action {
             case let .transcriptionComplete(transcript, audioId):
-                
-                break
+                observer.transcriptionFinished(on: audioId, transcript: transcript)
             case let .transcriptionQueued(audioId):
-                break
+                observer.transcriptionQueued(on: audioId)
             }
         }
     }
@@ -466,8 +465,8 @@ extension AudioManager {
             }
             
             switch action {
-            case let .finishedEditingTranscript(transcript, audioId):
-                break
+            case let .finishedEditingTranscript(transcript, _):
+                observer.finishedEditingTranscript(transcript: transcript)
             }
         }
     }
