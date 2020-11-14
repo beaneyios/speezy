@@ -81,4 +81,60 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             }
         }
     }
+    
+    func performCroppingAction(action: CropAction) {
+        cropperObservatons.forEach {
+            guard let observer = $0.value.observer else {
+                recorderObservatons.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case .showCrop(let item, let kind):
+                state = .cropping
+                observer.croppingStarted(onItem: item, kind: kind)
+                
+            case .showCropAdjusted(let item):
+                observer.cropRangeAdjusted(onItem: item)
+                
+            case .showCropCancelled:
+                state = .idle
+                observer.croppingCancelled()
+                
+            case .showCropFinished(let item):
+                state = .idle
+                observer.croppingFinished(onItem: item)
+            }
+        }
+    }
+    
+    func performTranscriptionAction(action: TranscriptionJobAction) {
+        transcriptionJobObservations.forEach {
+            guard let observer = $0.value.observer else {
+                transcriptionJobObservations.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case let .transcriptionComplete(transcript, audioId):
+                observer.transcriptionFinished(on: audioId, transcript: transcript)
+            case let .transcriptionQueued(audioId):
+                observer.transcriptionQueued(on: audioId)
+            }
+        }
+    }
+    
+    func performTranscriptAction(action: TranscriptAction) {
+        transcriptObservations.forEach {
+            guard let observer = $0.value.observer else {
+                transcriptObservations.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case let .finishedEditingTranscript(transcript, _):
+                observer.finishedEditingTranscript(transcript: transcript)
+            }
+        }
+    }
 }

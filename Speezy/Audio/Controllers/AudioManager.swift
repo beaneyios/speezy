@@ -10,11 +10,7 @@ import Foundation
 import AVKit
 import UIKit
 
-typealias AudioManagerObservationManaging = TranscriptionJobObservationManaging &
-                                            TranscriptObservationManaging &
-                                            CropperObservationManaging
-
-class AudioManager: NSObject, AudioManagerObservationManaging {
+class AudioManager: NSObject {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
     private(set) var hasUnsavedChanges: Bool = false
@@ -341,6 +337,14 @@ extension AudioManager: AudioCropperDelegate {
         return croppedItemDuration != item.duration
     }
     
+    func addCropperObserver(_ observer: AudioCropperObserver) {
+        stateManager.addCropperObserver(observer)
+    }
+    
+    func removeCropperObserver(_ observer: AudioCropperObserver) {
+        stateManager.removeCropperObserver(observer)
+    }
+    
     func toggleCrop() {
         startCropping()
     }
@@ -352,13 +356,13 @@ extension AudioManager: AudioCropperDelegate {
     func startCropping() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        performCroppingAction(action: .showCrop(item, .trim))
+        stateManager.performCroppingAction(action: .showCrop(item, .trim))
     }
     
     func startCutting() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        performCroppingAction(action: .showCrop(item, .cut))
+        stateManager.performCroppingAction(action: .showCrop(item, .cut))
     }
     
     func crop(from: TimeInterval, to: TimeInterval, cropKind: CropKind) {
@@ -393,7 +397,7 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
-        performCroppingAction(action: .showCropAdjusted(item))
+        stateManager.performCroppingAction(action: .showCropAdjusted(item))
     }
     
     func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem, kind: CropKind) {
@@ -401,7 +405,7 @@ extension AudioManager: AudioCropperDelegate {
         FileManager.default.deleteExistingFile(with: self.item.path)
         FileManager.default.renameFile(from: "\(item.id)\(kind.pathExtension)", to: self.item.path)
         
-        performCroppingAction(action: .showCropFinished(item))
+        stateManager.performCroppingAction(action: .showCropFinished(item))
         audioCropper = nil
         
         hasUnsavedChanges = true
@@ -409,71 +413,21 @@ extension AudioManager: AudioCropperDelegate {
     
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
         self.item = item
-        performCroppingAction(action: .showCropCancelled(item))
+        stateManager.performCroppingAction(action: .showCropCancelled(item))
         audioCropper = nil
-    }
-}
-
-extension AudioManager {
-    func performCroppingAction(action: CropAction) {
-        cropperObservatons.forEach {
-            guard let observer = $0.value.observer else {
-                recorderObservatons.removeValue(forKey: $0.key)
-                return
-            }
-            
-            switch action {
-            case .showCrop(let item, let kind):
-                stateManager.state = .cropping
-                observer.croppingStarted(onItem: item, kind: kind)
-                
-            case .showCropAdjusted(let item):
-                observer.cropRangeAdjusted(onItem: item)
-                
-            case .showCropCancelled:
-                stateManager.state = .idle
-                observer.croppingCancelled()
-                
-            case .showCropFinished(let item):
-                stateManager.state = .idle
-                observer.croppingFinished(onItem: item)
-            }
-        }
-    }
-    
-    func performTranscriptionAction(action: TranscriptionJobAction) {
-        transcriptionJobObservations.forEach {
-            guard let observer = $0.value.observer else {
-                transcriptionJobObservations.removeValue(forKey: $0.key)
-                return
-            }
-            
-            switch action {
-            case let .transcriptionComplete(transcript, audioId):
-                observer.transcriptionFinished(on: audioId, transcript: transcript)
-            case let .transcriptionQueued(audioId):
-                observer.transcriptionQueued(on: audioId)
-            }
-        }
-    }
-    
-    func performTranscriptAction(action: TranscriptAction) {
-        transcriptObservations.forEach {
-            guard let observer = $0.value.observer else {
-                transcriptObservations.removeValue(forKey: $0.key)
-                return
-            }
-            
-            switch action {
-            case let .finishedEditingTranscript(transcript, _):
-                observer.finishedEditingTranscript(transcript: transcript)
-            }
-        }
     }
 }
 
 // MARK: Transcription jobs
 extension AudioManager: TranscriptionJobManagerDelegate {
+    func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
+        stateManager.addTranscriptionObserver(observer)
+    }
+    
+    func removeTranscriptionObserver(_ observer: TranscriptionJobObserver) {
+        stateManager.removeTranscriptionObserver(observer)
+    }
+    
     func startTranscriptionJob() {
         createTranscriptionJobManagerIfNoneExists()
         transcriptionJobManager?.createTranscriptionJob(audioId: item.id, url: item.url)
@@ -497,7 +451,7 @@ extension AudioManager: TranscriptionJobManagerDelegate {
         if id == item.id {
             hasUnsavedChanges = true
             
-            performTranscriptionAction(
+            stateManager.performTranscriptionAction(
                 action: .transcriptionComplete(
                     transcript: transcript,
                     audioId: id
@@ -508,7 +462,7 @@ extension AudioManager: TranscriptionJobManagerDelegate {
     
     func transcriptionJobManager(_ manager: TranscriptionJobManager, didQueueItemWithId id: String) {
         if id == item.id {
-            performTranscriptionAction(action: .transcriptionQueued(audioId: id))
+            stateManager.performTranscriptionAction(action: .transcriptionQueued(audioId: id))
         }
     }
     
@@ -522,9 +476,17 @@ extension AudioManager: TranscriptionJobManagerDelegate {
 
 // MARK: Transcript editing
 extension AudioManager: TranscriptManagerDelegate {
+    func addTranscriptObserver(_ observer: TranscriptObserver) {
+        stateManager.addTranscriptObserver(observer)
+    }
+    
+    func removeTranscriptObserver(_ observer: TranscriptObserver) {
+        stateManager.removeTranscriptObserver(observer)
+    }
+    
     func transcriptManager(_ manager: TranscriptManager, didFinishEditingTranscript transcript: Transcript) {
         hasUnsavedChanges = true
-        performTranscriptAction(
+        stateManager.performTranscriptAction(
             action: .finishedEditingTranscript(transcript: transcript, audioId: item.id)
         )
     }
