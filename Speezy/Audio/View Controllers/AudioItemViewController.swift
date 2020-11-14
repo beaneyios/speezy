@@ -571,11 +571,11 @@ extension AudioItemViewController: AudioCropperObserver {
 }
 
 extension AudioItemViewController: TranscriptionJobObserver {
-    func audioManager(_ manager: AudioManager, didFinishTranscribingWithAudioItemId id: String, transcript: Transcript) {
+    func transcriptionFinished(on itemWithId: String, transcript: Transcript) {
         transcribeButton?.switchToSuccessful()
     }
     
-    func transcriptionJobManager(_ manager: AudioManager, didQueueTranscriptionJobWithAudioItemId: String) {
+    func transcriptionQueued(on itemId: String) {
         transcribeButton?.switchToLoading()
     }
 }

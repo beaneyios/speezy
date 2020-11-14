@@ -162,20 +162,14 @@ extension TranscriptionViewController {
 }
 
 extension TranscriptionViewController: TranscriptionJobObserver {
-    func audioManager(
-        _ manager: AudioManager,
-        didFinishTranscribingWithAudioItemId id: String,
-        transcript: Transcript
-    ) {
+    func transcriptionFinished(on itemWithId: String, transcript: Transcript) {
         DispatchQueue.main.async {
             self.switchToTranscript()
             self.configureButtons()
         }
     }
     
-    func transcriptionJobManager(_ manager: AudioManager, didQueueTranscriptionJobWithAudioItemId: String) {
-        
-    }
+    func transcriptionQueued(on itemId: String) {}
 }
 
 extension TranscriptionViewController: TranscribeActionViewControllerDelegate {

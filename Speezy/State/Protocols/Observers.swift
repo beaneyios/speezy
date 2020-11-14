@@ -45,21 +45,10 @@ protocol AudioCropperObserver: AnyObject {
 }
 
 protocol TranscriptionJobObserver: AnyObject {
-    func audioManager(
-        _ manager: AudioManager,
-        didFinishTranscribingWithAudioItemId id: String,
-        transcript: Transcript
-    )
-    
-    func transcriptionJobManager(
-        _ manager: AudioManager,
-        didQueueTranscriptionJobWithAudioItemId: String
-    )
+    func transcriptionFinished(on itemWithId: String, transcript: Transcript)
+    func transcriptionQueued(on itemId: String)
 }
 
 protocol TranscriptObserver: AnyObject {
-    func audioManager(
-        _ manager: AudioManager,
-        didFinishEditingTranscript transcript: Transcript
-    )
+    func finishedEditingTranscript(transcript: Transcript)
 }

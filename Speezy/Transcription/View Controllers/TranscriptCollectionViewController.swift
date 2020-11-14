@@ -182,7 +182,7 @@ extension TranscriptCollectionViewController: AudioPlayerObserver {
 }
 
 extension TranscriptCollectionViewController: TranscriptObserver {
-    func audioManager(_ manager: AudioManager, didFinishEditingTranscript transcript: Transcript) {
+    func finishedEditingTranscript(transcript: Transcript) {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
