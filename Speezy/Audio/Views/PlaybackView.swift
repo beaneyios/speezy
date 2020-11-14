@@ -179,7 +179,7 @@ extension PlaybackView {
         
         if playback {
             advanceScrollViewForPlayback(waveSize: waveSize, audioData: audioData, timeOffset: timeOffset)
-        } else if manager.state.isRecording {
+        } else {
             advanceScrollViewForRecording(waveSize: waveSize)
         }
     }
