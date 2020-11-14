@@ -10,8 +10,7 @@ import Foundation
 import AVKit
 import UIKit
 
-typealias AudioManagerObservationManaging = RecorderObservationManaging &
-                                            TranscriptionJobObservationManaging &
+typealias AudioManagerObservationManaging = TranscriptionJobObservationManaging &
                                             TranscriptObservationManaging &
                                             CropperObservationManaging
 
@@ -175,6 +174,14 @@ extension AudioManager: AudioRecorderDelegate {
         item.duration > 0
     }
     
+    func addRecorderObserver(_ observer: AudioRecorderObserver) {
+        stateManager.addRecorderObserver(observer)
+    }
+    
+    func removeRecorderObserver(_ observer: AudioRecorderObserver) {
+        stateManager.removeRecorderObserver(observer)
+    }
+    
     func toggleRecording() {
         switch stateManager.state {
         case .recording:
@@ -196,15 +203,15 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func audioRecorderDidStartRecording(_ recorder: AudioRecorder) {
-        performRecordingAction(action: .showRecordingStarted(item))
+        stateManager.performRecordingAction(action: .showRecordingStarted(item))
     }
     
     func audioRecorderDidStartProcessingRecording(_ recorder: AudioRecorder) {
-        performRecordingAction(action: .showRecordingProcessing(item))
+        stateManager.performRecordingAction(action: .showRecordingProcessing(item))
     }
     
     func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
-        performRecordingAction(
+        stateManager.performRecordingAction(
             action: .showRecordingProgressed(
                 power: power,
                 stepDuration: stepDuration,
@@ -216,7 +223,7 @@ extension AudioManager: AudioRecorderDelegate {
     func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem, maxLimitReached: Bool) {
         self.item = item
         
-        performRecordingAction(
+        stateManager.performRecordingAction(
             action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
         )
         
@@ -408,35 +415,6 @@ extension AudioManager: AudioCropperDelegate {
 }
 
 extension AudioManager {
-    func performRecordingAction(action: RecordAction) {
-        recorderObservatons.forEach {
-            guard let observer = $0.value.observer else {
-                recorderObservatons.removeValue(forKey: $0.key)
-                return
-            }
-            
-            switch action {
-            case .showRecordingStarted:
-                stateManager.state = .recording
-                observer.recordingBegan()
-            
-            case let .showRecordingProgressed(power, stepDuration, totalDuration):
-                observer.recordedBar(
-                    withPower: power,
-                    stepDuration: stepDuration,
-                    totalDuration: totalDuration
-                )
-                
-            case .showRecordingProcessing:
-                observer.recordingProcessing()
-                
-            case let .showRecordingStopped(_, maxLimitReached):
-                stateManager.state = .idle
-                observer.recordingStopped(maxLimitedReached: maxLimitReached)
-            }
-        }
-    }
-    
     func performCroppingAction(action: CropAction) {
         cropperObservatons.forEach {
             guard let observer = $0.value.observer else {

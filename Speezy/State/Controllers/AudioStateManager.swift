@@ -52,4 +52,33 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             }
         }
     }
+    
+    func performRecordingAction(action: RecordAction) {
+        recorderObservatons.forEach {
+            guard let observer = $0.value.observer else {
+                recorderObservatons.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case .showRecordingStarted:
+                state = .recording
+                observer.recordingBegan()
+            
+            case let .showRecordingProgressed(power, stepDuration, totalDuration):
+                observer.recordedBar(
+                    withPower: power,
+                    stepDuration: stepDuration,
+                    totalDuration: totalDuration
+                )
+                
+            case .showRecordingProcessing:
+                observer.recordingProcessing()
+                
+            case let .showRecordingStopped(_, maxLimitReached):
+                state = .idle
+                observer.recordingStopped(maxLimitedReached: maxLimitReached)
+            }
+        }
+    }
 }
