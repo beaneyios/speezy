@@ -28,20 +28,18 @@ class PlaybackView: UIView {
     private let barWidth: CGFloat = 3.0
     private var totalSpacePerBar: CGFloat { barSpacing + barWidth }
     
-    private var manager: AudioManager?
+    private var manager: AudioManager!
     private var audioData: AudioData?
-    
-    private var currentPlaybackTime: TimeInterval {
-        manager?.currentPlaybackTime ?? 0.0
-    }
     
     func configure(manager: AudioManager) {
         self.manager = manager
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
+    }
+    
+    private func render() {
         scrollView.delegate = self
-        
         AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
                 let line = UIView()
@@ -170,7 +168,7 @@ extension PlaybackView {
         scrollView.setContentOffset(.zero, animated: true)
     }
     
-    private func advanceScrollViewWithTimer() {
+    private func advanceScrollViewWithTimer(timeOffset: TimeInterval) {
         guard let manager = self.manager, let audioData = audioData else {
             return
         }
@@ -178,15 +176,15 @@ extension PlaybackView {
         let waveSize = self.waveSize(audioData: audioData)
         
         if manager.state.isInPlayback {
-            advanceScrollViewForPlayback(waveSize: waveSize, audioData: audioData)
+            advanceScrollViewForPlayback(waveSize: waveSize, audioData: audioData, timeOffset: timeOffset)
         } else if manager.state.isRecording {
             advanceScrollViewForRecording(waveSize: waveSize)
         }
     }
     
-    private func advanceScrollViewForPlayback(waveSize: CGSize, audioData: AudioData) {
+    private func advanceScrollViewForPlayback(waveSize: CGSize, audioData: AudioData, timeOffset: TimeInterval) {
         let duration = audioData.duration
-        let currentTime = currentPlaybackTime + (manager?.startOffset ?? 0.0)
+        let currentTime = timeOffset + (manager?.startOffset ?? 0.0)
         let currentPercentage = currentTime / duration
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
@@ -250,7 +248,7 @@ extension PlaybackView: AudioPlayerObserver {
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
         if centerPoint >= center.x {
-            advanceScrollViewWithTimer()
+            advanceScrollViewWithTimer(timeOffset: startOffset)
         } else {
             scrollView.setContentOffset(.zero, animated: false)
         }
@@ -287,7 +285,7 @@ extension PlaybackView: AudioRecorderObserver {
         
         waveWidth.update(offset: waveSize.width)
         wave.add(meteringLevel: percentageLevel)
-        advanceScrollViewWithTimer()
+        advanceScrollViewWithTimer(timeOffset: 0.0)
     }
     
     func recordingProcessing() {
@@ -301,7 +299,7 @@ extension PlaybackView: AudioRecorderObserver {
 
 // MARK: CROPPING LISTENERS
 extension PlaybackView: AudioCropperObserver {
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
+    func croppingStarted(onItem item: AudioItem, kind: CropKind) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return
@@ -311,25 +309,12 @@ extension PlaybackView: AudioCropperObserver {
         createCropOverlayView(waveSize: waveSize)
     }
     
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
-        guard let audioData = self.audioData else {
-            assertionFailure("Somehow audio data is nil")
-            return
-        }
-        
-        cropOverlayView.changeEnd(percentage: percentage)
-        
-        let waveWidth = waveSize(audioData: audioData).width
-        if waveWidth < frame.width {
-            return
-        }
-        
-        let scrollPosition = CGPoint(x: (waveWidth * percentage) - frame.width + 32.0, y: 0.0)
-        scrollView.setContentOffset(scrollPosition, animated: false)
-        
+    func croppingFinished(onItem item: AudioItem) {
+        configure(manager: manager)
+        removeCropOverlayView()
     }
     
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
+    func leftCropHandle(movedToPercentage percentage: CGFloat) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return
@@ -346,16 +331,28 @@ extension PlaybackView: AudioCropperObserver {
         scrollView.setContentOffset(scrollPosition, animated: false)
     }
     
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {}
+    func rightCropHandle(movedToPercentage percentage: CGFloat) {
+        guard let audioData = self.audioData else {
+            assertionFailure("Somehow audio data is nil")
+            return
+        }
+        
+        cropOverlayView.changeEnd(percentage: percentage)
+        
+        let waveWidth = waveSize(audioData: audioData).width
+        if waveWidth < frame.width {
+            return
+        }
+        
+        let scrollPosition = CGPoint(x: (waveWidth * percentage) - frame.width + 32.0, y: 0.0)
+        scrollView.setContentOffset(scrollPosition, animated: false)
+    }
     
-    func audioManagerDidCancelCropping(_ player: AudioManager) {
+    func croppingCancelled() {
         removeCropOverlayView()
     }
     
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
-        configure(manager: manager)
-        removeCropOverlayView()
-    }
+    func cropRangeAdjusted(onItem item: AudioItem) {}
 }
 
 extension PlaybackView: UIScrollViewDelegate {

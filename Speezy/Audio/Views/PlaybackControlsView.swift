@@ -140,21 +140,21 @@ extension PlaybackControlsView: AudioRecorderObserver {
 }
 
 extension PlaybackControlsView: AudioCropperObserver {
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func cropRangeAdjusted(onItem item: AudioItem) {
         resetSlider()
     }
     
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
+    func croppingFinished(onItem item: AudioItem) {
         resetSlider()
     }
     
-    func audioManagerDidCancelCropping(_ player: AudioManager) {
+    func croppingCancelled() {
         resetSlider()
     }
     
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {}
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {}
+    func croppingStarted(onItem item: AudioItem, kind: CropKind) {}
+    func leftCropHandle(movedToPercentage percentage: CGFloat) {}
+    func rightCropHandle(movedToPercentage percentage: CGFloat) {}
 }
 
 extension PlaybackControlsView {

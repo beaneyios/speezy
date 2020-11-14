@@ -373,13 +373,13 @@ extension AudioManager: AudioCropperDelegate {
     
     func leftCropHandleMoved(to percentage: CGFloat) {
         cropperObservatons.forEach {
-            $0.value.observer?.audioManager(self, didMoveLeftCropHandleTo: percentage)
+            $0.value.observer?.leftCropHandle(movedToPercentage: percentage)
         }
     }
     
     func rightCropHandleMoved(to percentage: CGFloat) {
         cropperObservatons.forEach {
-            $0.value.observer?.audioManager(self, didMoveRightCropHandleTo: percentage)
+            $0.value.observer?.rightCropHandle(movedToPercentage: percentage)
         }
     }
     
@@ -425,18 +425,18 @@ extension AudioManager {
             switch action {
             case .showCrop(let item, let kind):
                 stateManager.state = .cropping
-                observer.audioManager(self, didStartCroppingItem: item, kind: kind)
+                observer.croppingStarted(onItem: item, kind: kind)
                 
             case .showCropAdjusted(let item):
-                observer.audioManager(self, didAdjustCropOnItem: item)
+                observer.cropRangeAdjusted(onItem: item)
                 
             case .showCropCancelled:
                 stateManager.state = .idle
-                observer.audioManagerDidCancelCropping(self)
+                observer.croppingCancelled()
                 
             case .showCropFinished(let item):
                 stateManager.state = .idle
-                observer.audioManager(self, didFinishCroppingItem: item)
+                observer.croppingFinished(onItem: item)
             }
         }
     }

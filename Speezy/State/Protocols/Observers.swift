@@ -32,12 +32,16 @@ protocol AudioRecorderObserver: AnyObject {
 }
 
 protocol AudioCropperObserver: AnyObject {
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind)
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem)
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem)
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat)
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat)
-    func audioManagerDidCancelCropping(_ manager: AudioManager)
+    func croppingStarted(
+        onItem item: AudioItem,
+        kind: CropKind
+    )
+    
+    func cropRangeAdjusted(onItem item: AudioItem)
+    func croppingFinished(onItem item: AudioItem)
+    func leftCropHandle(movedToPercentage percentage: CGFloat)
+    func rightCropHandle(movedToPercentage percentage: CGFloat)
+    func croppingCancelled()
 }
 
 protocol TranscriptionJobObserver: AnyObject {

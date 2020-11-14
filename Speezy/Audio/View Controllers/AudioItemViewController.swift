@@ -533,7 +533,7 @@ extension AudioItemViewController: AudioPlayerObserver {
 
 // MARK: CROPPING
 extension AudioItemViewController: AudioCropperObserver {
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
+    func croppingStarted(onItem item: AudioItem, kind: CropKind) {
         lblTimer.text = "00:00:00"
 
         switch kind {
@@ -546,19 +546,11 @@ extension AudioItemViewController: AudioCropperObserver {
         scrollView.isScrollEnabled = false
     }
     
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
-        // no op
-    }
-    
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
-        // no op
-    }
-    
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
+    func cropRangeAdjusted(onItem item: AudioItem) {
         lblTimer.text = "00:00:00"
     }
-
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
+    
+    func croppingFinished(onItem item: AudioItem) {
         if delegate?.audioItemViewControllerIsTopViewController(self) ?? false {
             lblTimer.text = "00:00:00"
             hideCropView()
@@ -568,7 +560,10 @@ extension AudioItemViewController: AudioCropperObserver {
         }
     }
     
-    func audioManagerDidCancelCropping(_ player: AudioManager) {
+    func leftCropHandle(movedToPercentage percentage: CGFloat) {}
+    func rightCropHandle(movedToPercentage percentage: CGFloat) {}
+    
+    func croppingCancelled() {
         lblTimer.text = "00:00:00"
         hideCropView()
         scrollView.isScrollEnabled = true
