@@ -460,7 +460,7 @@ extension AudioItemViewController {
 
 // MARK: RECORDING
 extension AudioItemViewController: AudioRecorderObserver {
-    func audioManagerDidStartRecording(_ player: AudioManager) {
+    func recordingBegan() {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
         
         recordHidables.forEach {
@@ -468,15 +468,15 @@ extension AudioItemViewController: AudioRecorderObserver {
         }
     }
     
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         lblTimer.text = TimeFormatter.formatTime(time: totalDuration)
     }
     
-    func audioManagerProcessingRecording(_ player: AudioManager) {
+    func recordingProcessing() {
         btnRecord.startLoading()
     }
     
-    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
+    func recordingStopped(maxLimitedReached: Bool) {
         if maxLimitedReached {
             let alert = SCLAlertView()
             alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 2 minutes")

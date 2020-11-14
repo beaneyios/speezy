@@ -21,10 +21,14 @@ protocol AudioPlayerObserver: AnyObject {
 }
 
 protocol AudioRecorderObserver: AnyObject {
-    func audioManagerDidStartRecording(_ manager: AudioManager)
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
-    func audioManagerProcessingRecording(_ manager: AudioManager)
-    func audioManagerDidStopRecording(_ manager: AudioManager, maxLimitedReached: Bool)
+    func recordingBegan()
+    func recordedBar(
+        withPower decibel: Float,
+        stepDuration: TimeInterval,
+        totalDuration: TimeInterval
+    )
+    func recordingProcessing()
+    func recordingStopped(maxLimitedReached: Bool)
 }
 
 protocol AudioCropperObserver: AnyObject {

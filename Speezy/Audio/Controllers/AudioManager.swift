@@ -418,22 +418,21 @@ extension AudioManager {
             switch action {
             case .showRecordingStarted:
                 stateManager.state = .recording
-                observer.audioManagerDidStartRecording(self)
+                observer.recordingBegan()
             
             case let .showRecordingProgressed(power, stepDuration, totalDuration):
-                observer.audioManager(
-                    self,
-                    didRecordBarWithPower: power,
+                observer.recordedBar(
+                    withPower: power,
                     stepDuration: stepDuration,
                     totalDuration: totalDuration
                 )
                 
             case .showRecordingProcessing:
-                observer.audioManagerProcessingRecording(self)
+                observer.recordingProcessing()
                 
             case let .showRecordingStopped(_, maxLimitReached):
                 stateManager.state = .idle
-                observer.audioManagerDidStopRecording(self, maxLimitedReached: maxLimitReached)
+                observer.recordingStopped(maxLimitedReached: maxLimitReached)
             }
         }
     }

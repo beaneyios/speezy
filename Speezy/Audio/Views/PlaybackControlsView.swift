@@ -112,7 +112,7 @@ extension PlaybackControlsView: AudioPlayerObserver {
 }
 
 extension PlaybackControlsView: AudioRecorderObserver {
-    func audioManagerDidStartRecording(_ player: AudioManager) {
+    func recordingBegan() {
         recordHidables.forEach {
             $0.isEnabled = false
             $0.alpha = 0.6
@@ -121,7 +121,15 @@ extension PlaybackControlsView: AudioRecorderObserver {
         sliderPlayback.isEnabled = false
     }
     
-    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
+    func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+        
+    }
+    
+    func recordingProcessing() {
+        
+    }
+    
+    func recordingStopped(maxLimitedReached: Bool) {
         recordHidables.forEach {
             $0.isEnabled = true
             $0.alpha = 1.0
@@ -129,9 +137,6 @@ extension PlaybackControlsView: AudioRecorderObserver {
         
         sliderPlayback.isEnabled = true
     }
-    
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {}
-    func audioManagerProcessingRecording(_ player: AudioManager) {}
 }
 
 extension PlaybackControlsView: AudioCropperObserver {

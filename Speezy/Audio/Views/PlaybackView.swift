@@ -262,20 +262,11 @@ extension PlaybackView: AudioPlayerObserver {
 
 // MARK: RECORDING LISTENERS
 extension PlaybackView: AudioRecorderObserver {
-    func audioManagerDidStartRecording(_ player: AudioManager) {
-
-    }
-    
-    func audioManagerProcessingRecording(_ player: AudioManager) {
-        alpha = 0.5
-    }
+    func recordingBegan() {
         
-    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
-        self.alpha = 1.0
-        self.manager = player
     }
     
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         let previousDuration = audioData?.duration
         audioData = audioData?.addingDBLevel(decibel, addedDuration: stepDuration)
         let newDuration = audioData?.duration
@@ -297,6 +288,14 @@ extension PlaybackView: AudioRecorderObserver {
         waveWidth.update(offset: waveSize.width)
         wave.add(meteringLevel: percentageLevel)
         advanceScrollViewWithTimer()
+    }
+    
+    func recordingProcessing() {
+        alpha = 0.5
+    }
+    
+    func recordingStopped(maxLimitedReached: Bool) {
+        self.alpha = 1.0
     }
 }
 
