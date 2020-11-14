@@ -152,7 +152,12 @@ extension TranscriptCollectionViewController: AudioPlayerObserver {
     func playbackPaused(on item: AudioItem) {}
     func playbackStopped(on item: AudioItem) {}
     
-    func playbackProgressed(withTime time: TimeInterval, seekActive: Bool, onItem item: AudioItem) {
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem,
+        startOffset: TimeInterval
+    ) {
         let cells = collectionView.visibleCells as! [WordCell]
                 
         if let currentWordIndex = audioManager.currentPlayingTranscribedWordIndex(at: time) {

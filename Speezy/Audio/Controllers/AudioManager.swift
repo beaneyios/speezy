@@ -226,7 +226,7 @@ extension AudioManager: AudioPlayerDelegate {
         audioCropper?.croppedItem ?? item
     }
     
-    var startPosition: TimeInterval {
+    var startOffset: TimeInterval {
         audioCropper?.cropFrom ?? 0.0
     }
     
@@ -288,7 +288,14 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        performPlaybackAction(action: .showPlaybackProgressed(time, seekActive: seekActive, item: item))
+        performPlaybackAction(
+            action: .showPlaybackProgressed(
+                time,
+                seekActive: seekActive,
+                item: item,
+                timeOffset: startOffset
+            )
+        )
     }
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
@@ -388,7 +395,7 @@ extension AudioManager: AudioCropperDelegate {
     }
 }
 
-extension AudioManager {    
+extension AudioManager {
     func performPlaybackAction(action: PlaybackAction) {
         playerObservatons.forEach {
             guard let observer = $0.value.observer else {
@@ -408,8 +415,13 @@ extension AudioManager {
             case .showPlaybackPaused(let item):
                 state = .pausedPlayback(item)
                 observer.playbackPaused(on: item)
-            case let .showPlaybackProgressed(time, seekActive, item):
-                observer.playbackProgressed(withTime: time, seekActive: seekActive, onItem: item)
+            case let .showPlaybackProgressed(time, seekActive, item, startOffset):
+                observer.playbackProgressed(
+                    withTime: time,
+                    seekActive: seekActive,
+                    onItem: item,
+                    startOffset: startOffset
+                )
             }
         }
     }

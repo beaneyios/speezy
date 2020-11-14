@@ -524,7 +524,8 @@ extension AudioItemViewController: AudioPlayerObserver {
     func playbackProgressed(
         withTime time: TimeInterval,
         seekActive: Bool,
-        onItem item: AudioItem
+        onItem item: AudioItem,
+        startOffset: TimeInterval
     ) {
         lblTimer.text = TimeFormatter.formatTime(time: time)
     }

@@ -12,5 +12,10 @@ enum PlaybackAction {
     case showPlaybackStopped(AudioItem)
     case showPlaybackStarted(AudioItem)
     case showPlaybackPaused(AudioItem)
-    case showPlaybackProgressed(TimeInterval, seekActive: Bool, item: AudioItem)
+    case showPlaybackProgressed(
+            TimeInterval,
+            seekActive: Bool,
+            item: AudioItem,
+            timeOffset: TimeInterval
+         )
 }

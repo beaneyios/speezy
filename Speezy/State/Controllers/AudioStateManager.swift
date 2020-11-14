@@ -36,8 +36,13 @@ class AudioStateManager: AudioManagerObservationManaging {
             case .showPlaybackPaused(let item):
                 state = .pausedPlayback(item)
                 observer.playbackPaused(on: item)
-            case let .showPlaybackProgressed(time, seekActive, item):
-                observer.playbackProgressed(withTime: time, seekActive: seekActive, onItem: item)
+            case let .showPlaybackProgressed(time, seekActive, item, startOffset):
+                observer.playbackProgressed(
+                    withTime: time,
+                    seekActive: seekActive,
+                    onItem: item,
+                    startOffset: startOffset
+                )
             }
         }
     }

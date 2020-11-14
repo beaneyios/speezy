@@ -186,7 +186,7 @@ extension PlaybackView {
     
     private func advanceScrollViewForPlayback(waveSize: CGSize, audioData: AudioData) {
         let duration = audioData.duration
-        let currentTime = currentPlaybackTime + (manager?.startPosition ?? 0.0)
+        let currentTime = currentPlaybackTime + (manager?.startOffset ?? 0.0)
         let currentPercentage = currentTime / duration
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
@@ -235,11 +235,10 @@ extension PlaybackView: AudioPlayerObserver {
     func playbackProgressed(
         withTime time: TimeInterval,
         seekActive: Bool,
-        onItem item: AudioItem
+        onItem item: AudioItem,
+        startOffset: TimeInterval
     ) {
-        // TODO: When we refactor the crop view, we must use a different kind of playback view or view model
-        // To stop relying on the manager's start position like this.
-        // let time = time + manager.startPosition
+        let time = time + startOffset
         
         guard let audioData = audioData else {
             return
