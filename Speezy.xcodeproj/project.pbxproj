@@ -118,6 +118,12 @@
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
 		BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */; };
+		BEFDB50F255FF3D800362428 /* Observations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFDB50E255FF3D800362428 /* Observations.swift */; };
+		BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFDB517255FF44A00362428 /* PlayerObservationManaging.swift */; };
+		BEFDB51C255FF5E200362428 /* RecorderObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFDB51B255FF5E200362428 /* RecorderObservationManaging.swift */; };
+		BEFDB522255FF63400362428 /* CropperObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFDB521255FF63400362428 /* CropperObservationManaging.swift */; };
+		BEFDB528255FF6B000362428 /* TranscriptionJobObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFDB527255FF6B000362428 /* TranscriptionJobObservationManaging.swift */; };
+		BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFDB52B255FF6FE00362428 /* TranscriptObservationManaging.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +255,12 @@
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyButton.swift; sourceTree = "<group>"; };
+		BEFDB50E255FF3D800362428 /* Observations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observations.swift; sourceTree = "<group>"; };
+		BEFDB517255FF44A00362428 /* PlayerObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObservationManaging.swift; sourceTree = "<group>"; };
+		BEFDB51B255FF5E200362428 /* RecorderObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderObservationManaging.swift; sourceTree = "<group>"; };
+		BEFDB521255FF63400362428 /* CropperObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperObservationManaging.swift; sourceTree = "<group>"; };
+		BEFDB527255FF6B000362428 /* TranscriptionJobObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobObservationManaging.swift; sourceTree = "<group>"; };
+		BEFDB52B255FF6FE00362428 /* TranscriptObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptObservationManaging.swift; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -470,6 +482,7 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BEFDB4F5255FF35F00362428 /* Observation */,
 				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
@@ -497,9 +510,10 @@
 		BEAACE8324BA031A0074E4B9 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				BE0E53D024E9BDE8009BA1F9 /* Extensions */,
+				BEFDB4F4255FF34900362428 /* Enums */,
 				BEAACE8A24BA10400074E4B9 /* Controllers */,
 				BEBFD4C424C5BAA600200D87 /* Coordinators */,
+				BE0E53D024E9BDE8009BA1F9 /* Extensions */,
 				BE50346324BE02B100A414D1 /* Models */,
 				BE50346624BE02C600A414D1 /* Protocols */,
 				BEBFD4BD24C5B98200200D87 /* Storyboards */,
@@ -690,6 +704,50 @@
 				BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		BEFDB4F4255FF34900362428 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		BEFDB4F5255FF35F00362428 /* Observation */ = {
+			isa = PBXGroup;
+			children = (
+				BEFDB516255FF43300362428 /* Protocols */,
+				BEFDB50D255FF3D100362428 /* Models */,
+				BEFDB4F6255FF36700362428 /* Observations */,
+			);
+			path = Observation;
+			sourceTree = "<group>";
+		};
+		BEFDB4F6255FF36700362428 /* Observations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Observations;
+			sourceTree = "<group>";
+		};
+		BEFDB50D255FF3D100362428 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEFDB50E255FF3D800362428 /* Observations.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BEFDB516255FF43300362428 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BEFDB517255FF44A00362428 /* PlayerObservationManaging.swift */,
+				BEFDB51B255FF5E200362428 /* RecorderObservationManaging.swift */,
+				BEFDB521255FF63400362428 /* CropperObservationManaging.swift */,
+				BEFDB527255FF6B000362428 /* TranscriptionJobObservationManaging.swift */,
+				BEFDB52B255FF6FE00362428 /* TranscriptObservationManaging.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		E15487FD64A1D16053241EB9 /* Frameworks */ = {
@@ -925,6 +983,7 @@
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
+				BEFDB522255FF63400362428 /* CropperObservationManaging.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
@@ -939,6 +998,7 @@
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
+				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
@@ -948,6 +1008,8 @@
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,
 				BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */,
+				BEFDB528255FF6B000362428 /* TranscriptionJobObservationManaging.swift in Sources */,
+				BEFDB50F255FF3D800362428 /* Observations.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
@@ -955,6 +1017,7 @@
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
+				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */,
@@ -985,6 +1048,7 @@
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,
+				BEFDB51C255FF5E200362428 /* RecorderObservationManaging.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,

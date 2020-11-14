@@ -10,7 +10,13 @@ import Foundation
 import AVKit
 import UIKit
 
-class AudioManager: NSObject {
+typealias AudioManagerObservationManaging = PlayerObservationManaging &
+                                            RecorderObservationManaging &
+                                            TranscriptionJobObservationManaging &
+                                            TranscriptObservationManaging &
+                                            CropperObservationManaging
+
+class AudioManager: NSObject, AudioManagerObservationManaging {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
     private(set) var state = State.idle
@@ -21,11 +27,11 @@ class AudioManager: NSObject {
         item.title == ""
     }
     
-    private var playerObservatons = [ObjectIdentifier : AudioPlayerObservation]()
-    private var recorderObservatons = [ObjectIdentifier : AudioRecorderObservation]()
-    private var cropperObservatons = [ObjectIdentifier : AudioCropperObservation]()
-    private var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
-    private var transcriptObservations = [ObjectIdentifier : TranscriptObservation]()
+    var playerObservatons = [ObjectIdentifier : AudioPlayerObservation]()
+    var recorderObservatons = [ObjectIdentifier : AudioRecorderObservation]()
+    var cropperObservatons = [ObjectIdentifier : AudioCropperObservation]()
+    var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
+    var transcriptObservations = [ObjectIdentifier : TranscriptObservation]()
     
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
@@ -225,9 +231,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     var duration: TimeInterval {
-        let asset = AVAsset(url: item.url)
-        let duration = CMTimeGetSeconds(asset.duration)
-        return TimeInterval(duration)
+        item.duration
     }
     
     var currentPlaybackTime: TimeInterval {
@@ -381,79 +385,6 @@ extension AudioManager: AudioCropperDelegate {
         self.item = item
         performCroppingAction(action: .showCropCancelled(item))
         audioCropper = nil
-    }
-}
-
-// MARK: State management
-extension AudioManager {
-    struct AudioPlayerObservation {
-        weak var observer: AudioPlayerObserver?
-    }
-    
-    struct AudioRecorderObservation {
-        weak var observer: AudioRecorderObserver?
-    }
-    
-    struct AudioCropperObservation {
-        weak var observer: AudioCropperObserver?
-    }
-
-    struct TranscriptionJobObservation {
-        weak var observer: TranscriptionJobObserver?
-    }
-
-    struct TranscriptObservation {
-        weak var observer: TranscriptObserver?
-    }
-    
-    func addPlayerObserver(_ observer: AudioPlayerObserver) {
-        let id = ObjectIdentifier(observer)
-        playerObservatons[id] = AudioPlayerObservation(observer: observer)
-    }
-    
-    func addRecorderObserver(_ observer: AudioRecorderObserver) {
-        let id = ObjectIdentifier(observer)
-        recorderObservatons[id] = AudioRecorderObservation(observer: observer)
-    }
-    
-    func addCropperObserver(_ observer: AudioCropperObserver) {
-        let id = ObjectIdentifier(observer)
-        cropperObservatons[id] = AudioCropperObservation(observer: observer)
-    }
-    
-    func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
-        let id = ObjectIdentifier(observer)
-        transcriptionJobObservations[id] = TranscriptionJobObservation(observer: observer)
-    }
-    
-    func addTranscriptObserver(_ observer: TranscriptObserver) {
-        let id = ObjectIdentifier(observer)
-        transcriptObservations[id] = TranscriptObservation(observer: observer)
-    }
-
-    func removePlayerObserver(_ observer: AudioPlayerObserver) {
-        let id = ObjectIdentifier(observer)
-        playerObservatons.removeValue(forKey: id)
-    }
-    
-    func removeRecorderObserver(_ observer: AudioRecorderObserver) {
-        let id = ObjectIdentifier(observer)
-        recorderObservatons.removeValue(forKey: id)
-    }
-    
-    func removeCropperObserver(_ observer: AudioCropperObserver) {
-        let id = ObjectIdentifier(observer)
-        cropperObservatons.removeValue(forKey: id)
-    }
-    
-    func removeTranscriptionObserver(_ observer: TranscriptionJobObserver) {
-        let id = ObjectIdentifier(observer)
-        transcriptionJobObservations.removeValue(forKey: id)
-    }
-    
-    func removeTranscriptObserver(_ observer: TranscriptObserver) {
-        let id = ObjectIdentifier(observer)
-        transcriptObservations.removeValue(forKey: id)
     }
 }
 
