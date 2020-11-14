@@ -30,23 +30,11 @@ class PlaybackControlsView: UIView, NibLoadable {
     }
     
     @IBAction func skipBackward(_ sender: Any) {
-        var newTime = manager.currentPlaybackTime - 10
-        if newTime < 0 {
-            newTime = 0
-        }
-        
-        let percentage = Float(newTime / manager.currentItem.duration)
-        manager.seek(to: percentage)
+        manager.skipBackwards()
     }
     
     @IBAction func skipForward(_ sender: Any) {
-        var newTime = manager.currentPlaybackTime + 10
-        if newTime > manager.currentItem.duration {
-            newTime = manager.currentItem.duration
-        }
-        
-        let percentage = Float(newTime / manager.currentItem.duration)
-        manager.seek(to: percentage)
+        manager.skipForwards()
     }
     
     @IBAction func togglePlayback(_ sender: Any) {

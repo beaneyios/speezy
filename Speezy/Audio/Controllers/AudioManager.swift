@@ -198,7 +198,7 @@ extension AudioManager: AudioPlayerDelegate {
         item.duration
     }
     
-    var currentPlaybackTime: TimeInterval {
+    private var currentPlaybackTime: TimeInterval {
         audioPlayer?.currentPlaybackTime ?? 0.0
     }
     
@@ -235,6 +235,23 @@ extension AudioManager: AudioPlayerDelegate {
         default:
             break
         }
+    }
+    
+    func skipForwards() {
+        var newTime = currentPlaybackTime - 10
+        newTime = newTime < 0 ? 0 : newTime
+        let percentage = Float(newTime / currentItem.duration)
+        seek(to: percentage)
+    }
+    
+    func skipBackwards() {
+        var newTime = currentPlaybackTime + 10
+        if newTime > currentItem.duration {
+            newTime = currentItem.duration
+        }
+        
+        let percentage = Float(newTime / currentItem.duration)
+        seek(to: percentage)
     }
     
     func seek(to percentage: Float) {
@@ -373,13 +390,14 @@ extension AudioManager: AudioCropperDelegate {
         didApplyCroppedItem item: AudioItem,
         kind: CropKind
     ) {
-        
         FileManager.default.deleteExistingFile(with: self.item.path)
-        FileManager.default.renameFile(from: "\(item.id)\(kind.pathExtension)", to: self.item.path)
+        FileManager.default.renameFile(
+            from: "\(item.id)\(kind.pathExtension)",
+            to: self.item.path
+        )
         
         stateManager.performCroppingAction(action: .showCropFinished(item))
         audioCropper = nil
-        
         hasUnsavedChanges = true
     }
     
@@ -405,7 +423,10 @@ extension AudioManager: TranscriptionJobManagerDelegate {
     
     func startTranscriptionJob() {
         createTranscriptionJobManagerIfNoneExists()
-        transcriptionJobManager?.createTranscriptionJob(audioId: item.id, url: item.url)
+        transcriptionJobManager?.createTranscriptionJob(
+            audioId: item.id,
+            url: item.url
+        )
     }
     
     func checkTranscriptionJobs() {
@@ -439,15 +460,22 @@ extension AudioManager: TranscriptionJobManagerDelegate {
         }
     }
     
-    func transcriptionJobManager(_ manager: TranscriptionJobManager, didQueueItemWithId id: String) {
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didQueueItemWithId id: String
+    ) {
         if id == item.id {
-            stateManager.performTranscriptionAction(action: .transcriptionQueued(audioId: id))
+            stateManager.performTranscriptionAction(
+                action: .transcriptionQueued(audioId: id)
+            )
         }
     }
     
     private func createTranscriptionJobManagerIfNoneExists() {
         if transcriptionJobManager == nil {
-            transcriptionJobManager = TranscriptionJobManager(transcriber: SpeezySpeechTranscriber())
+            transcriptionJobManager = TranscriptionJobManager(
+                transcriber: SpeezySpeechTranscriber()
+            )
             transcriptionJobManager?.delegate = self
         }
     }
@@ -469,7 +497,10 @@ extension AudioManager: TranscriptManagerDelegate {
     ) {
         hasUnsavedChanges = true
         stateManager.performTranscriptAction(
-            action: .finishedEditingTranscript(transcript: transcript, audioId: item.id)
+            action: .finishedEditingTranscript(
+                transcript: transcript,
+                audioId: item.id
+            )
         )
     }
     

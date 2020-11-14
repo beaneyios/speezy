@@ -171,22 +171,30 @@ extension PlaybackView {
     }
     
     private func advanceScrollViewWithTimer(timeOffset: TimeInterval, playback: Bool) {
-        guard let manager = self.manager, let audioData = audioData else {
+        guard let audioData = audioData else {
             return
         }
         
         let waveSize = self.waveSize(audioData: audioData)
         
         if playback {
-            advanceScrollViewForPlayback(waveSize: waveSize, audioData: audioData, timeOffset: timeOffset)
+            advanceScrollViewForPlayback(
+                waveSize: waveSize,
+                audioData: audioData,
+                time: timeOffset
+            )
         } else {
             advanceScrollViewForRecording(waveSize: waveSize)
         }
     }
     
-    private func advanceScrollViewForPlayback(waveSize: CGSize, audioData: AudioData, timeOffset: TimeInterval) {
+    private func advanceScrollViewForPlayback(
+        waveSize: CGSize,
+        audioData: AudioData,
+        time: TimeInterval
+    ) {
         let duration = audioData.duration
-        let currentTime = timeOffset + (manager?.startOffset ?? 0.0)
+        let currentTime = time
         let currentPercentage = currentTime / duration
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
