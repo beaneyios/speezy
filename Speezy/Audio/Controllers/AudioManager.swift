@@ -206,7 +206,12 @@ extension AudioManager: AudioRecorderDelegate {
         stateManager.performRecordingAction(action: .showRecordingProcessing(item))
     }
     
-    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func audioRecorder(
+        _ recorder: AudioRecorder,
+        didRecordBarWithPower power: Float,
+        stepDuration: TimeInterval,
+        totalDuration: TimeInterval
+    ) {
         stateManager.performRecordingAction(
             action: .showRecordingProgressed(
                 power: power,
@@ -216,7 +221,11 @@ extension AudioManager: AudioRecorderDelegate {
         )
     }
     
-    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem, maxLimitReached: Bool) {
+    func audioRecorder(
+        _ recorder: AudioRecorder,
+        didFinishRecordingWithCompletedItem item: AudioItem,
+        maxLimitReached: Bool
+    ) {
         self.item = item
         
         stateManager.performRecordingAction(
@@ -302,7 +311,11 @@ extension AudioManager: AudioPlayerDelegate {
         stateManager.performPlaybackAction(action: .showPlaybackPaused(item))
     }
     
-    func audioPlayer(_ player: AudioPlayer, progressedPlaybackWithTime time: TimeInterval, seekActive: Bool) {
+    func audioPlayer(
+        _ player: AudioPlayer,
+        progressedPlaybackWithTime time: TimeInterval,
+        seekActive: Bool
+    ) {
         stateManager.performPlaybackAction(
             action: .showPlaybackProgressed(
                 time,
@@ -365,7 +378,11 @@ extension AudioManager: AudioCropperDelegate {
         stateManager.performCroppingAction(action: .showCrop(item, .cut))
     }
     
-    func crop(from: TimeInterval, to: TimeInterval, cropKind: CropKind) {
+    func crop(
+        from: TimeInterval,
+        to: TimeInterval,
+        cropKind: CropKind
+    ) {
         audioCropper?.crop(from: from, to: to, cropKind: cropKind)
     }
     
@@ -396,11 +413,18 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.cancelCrop()
     }
     
-    func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
+    func audioCropper(
+        _ cropper: AudioCropper,
+        didAdjustCroppedItem item: AudioItem
+    ) {
         stateManager.performCroppingAction(action: .showCropAdjusted(item))
     }
     
-    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem, kind: CropKind) {
+    func audioCropper(
+        _ cropper: AudioCropper,
+        didApplyCroppedItem item: AudioItem,
+        kind: CropKind
+    ) {
         
         FileManager.default.deleteExistingFile(with: self.item.path)
         FileManager.default.renameFile(from: "\(item.id)\(kind.pathExtension)", to: self.item.path)
@@ -411,7 +435,10 @@ extension AudioManager: AudioCropperDelegate {
         hasUnsavedChanges = true
     }
     
-    func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
+    func audioCropper(
+        _ cropper: AudioCropper,
+        didCancelCropReturningToItem item: AudioItem
+    ) {
         self.item = item
         stateManager.performCroppingAction(action: .showCropCancelled(item))
         audioCropper = nil
@@ -446,7 +473,11 @@ extension AudioManager: TranscriptionJobManagerDelegate {
         transcriptionJobManager?.jobExists(id: item.id) ?? false
     }
     
-    func transcriptionJobManager(_ manager: TranscriptionJobManager, didFinishTranscribingWithAudioItemId id: String, transcript: Transcript) {
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didFinishTranscribingWithAudioItemId id: String,
+        transcript: Transcript
+    ) {
         updateTranscript(transcript)
         if id == item.id {
             hasUnsavedChanges = true
@@ -484,14 +515,20 @@ extension AudioManager: TranscriptManagerDelegate {
         stateManager.removeTranscriptObserver(observer)
     }
     
-    func transcriptManager(_ manager: TranscriptManager, didFinishEditingTranscript transcript: Transcript) {
+    func transcriptManager(
+        _ manager: TranscriptManager,
+        didFinishEditingTranscript transcript: Transcript
+    ) {
         hasUnsavedChanges = true
         stateManager.performTranscriptAction(
             action: .finishedEditingTranscript(transcript: transcript, audioId: item.id)
         )
     }
     
-    func transcriptManager(_ manager: TranscriptManager, shouldCutItemWithRanges ranges: [CMTimeRange]) {
+    func transcriptManager(
+        _ manager: TranscriptManager,
+        shouldCutItemWithRanges ranges: [CMTimeRange]
+    ) {
         cut(timeRanges: ranges)
         transcriptManager.updateTranscriptRemovingSelectedWords()
     }
