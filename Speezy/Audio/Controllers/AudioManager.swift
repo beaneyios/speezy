@@ -15,9 +15,6 @@ class AudioManager: NSObject {
     private(set) var originalItem: AudioItem
     private(set) var hasUnsavedChanges: Bool = false
     
-    private(set) var stateManager: AudioStateManager
-    
-    private var firstRecord = true
     var noTitleSet: Bool {
         item.title == ""
     }
@@ -26,11 +23,7 @@ class AudioManager: NSObject {
         stateManager.state
     }
     
-    var recorderObservatons = [ObjectIdentifier : AudioRecorderObservation]()
-    var cropperObservatons = [ObjectIdentifier : AudioCropperObservation]()
-    var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
-    var transcriptObservations = [ObjectIdentifier : TranscriptObservation]()
-    
+    private(set) var stateManager: AudioStateManager
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
@@ -393,15 +386,15 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     func leftCropHandleMoved(to percentage: CGFloat) {
-        cropperObservatons.forEach {
-            $0.value.observer?.leftCropHandle(movedToPercentage: percentage)
-        }
+        stateManager.performCroppingAction(
+            action: .leftHandleMoved(percentage: percentage)
+        )
     }
     
     func rightCropHandleMoved(to percentage: CGFloat) {
-        cropperObservatons.forEach {
-            $0.value.observer?.rightCropHandle(movedToPercentage: percentage)
-        }
+        stateManager.performCroppingAction(
+            action: .rightHandleMoved(percentage: percentage)
+        )
     }
     
     func applyCrop() {

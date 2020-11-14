@@ -104,6 +104,12 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             case .showCropFinished(let item):
                 state = .idle
                 observer.croppingFinished(onItem: item)
+                
+            case .leftHandleMoved(let percentage):
+                observer.leftCropHandle(movedToPercentage: percentage)
+                
+            case .rightHandleMoved(let percentage):
+                observer.rightCropHandle(movedToPercentage: percentage)
             }
         }
     }
