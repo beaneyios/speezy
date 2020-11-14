@@ -14,6 +14,7 @@ class AudioManager: NSObject {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
     private(set) var hasUnsavedChanges: Bool = false
+    private(set) var currentImageAttachment: UIImage?
     
     var noTitleSet: Bool {
         item.title == ""
@@ -30,12 +31,10 @@ class AudioManager: NSObject {
     private var transcriptionJobManager: TranscriptionJobManager?
     private var transcriptManager: TranscriptManager
     private let audioAttachmentManager = AudioAttachmentManager()
-    
-    private(set) var currentImageAttachment: UIImage?
-    
+    private let audioSavingManager = AudioSavingManager()
+        
     init(item: AudioItem) {
         self.originalItem = item
-        
         self.item = AudioItem(
             id: item.id,
             path: "\(item.id)_staging.wav",
@@ -60,24 +59,18 @@ class AudioManager: NSObject {
     }
     
     func discard(completion: @escaping () -> Void) {
-        FileManager.default.deleteExistingURL(item.url)
-        FileManager.default.copy(original: originalItem.url, to: item.url)
-        completion()
+        audioSavingManager.discard(
+            item: item,
+            originalItem: originalItem,
+            completion: completion
+        )
     }
     
     private func saveItem(completion: @escaping (AudioItem) -> Void) {
-        FileManager.default.deleteExistingFile(with: originalItem.path)
-        FileManager.default.copy(original: item.url, to: originalItem.url)
-        
-        let newItem = AudioItem(
-            id: item.id,
-            path: "\(item.id).wav",
-            title: item.title,
-            date: item.date,
-            tags: item.tags
+        let newItem = audioSavingManager.saveItem(
+            item: item,
+            originalItem: originalItem
         )
-        
-        AudioStorage.saveItem(newItem)
         hasUnsavedChanges = false
         transcriptManager.saveTranscript()
         completion(newItem)
