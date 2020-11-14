@@ -36,6 +36,8 @@ class PlaybackView: UIView {
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
+        
+        render()
     }
     
     private func render() {
@@ -168,14 +170,14 @@ extension PlaybackView {
         scrollView.setContentOffset(.zero, animated: true)
     }
     
-    private func advanceScrollViewWithTimer(timeOffset: TimeInterval) {
+    private func advanceScrollViewWithTimer(timeOffset: TimeInterval, playback: Bool) {
         guard let manager = self.manager, let audioData = audioData else {
             return
         }
         
         let waveSize = self.waveSize(audioData: audioData)
         
-        if manager.state.isInPlayback {
+        if playback {
             advanceScrollViewForPlayback(waveSize: waveSize, audioData: audioData, timeOffset: timeOffset)
         } else if manager.state.isRecording {
             advanceScrollViewForRecording(waveSize: waveSize)
@@ -248,7 +250,7 @@ extension PlaybackView: AudioPlayerObserver {
         let centerPoint = waveSize.width * CGFloat(currentPercentage)
         
         if centerPoint >= center.x {
-            advanceScrollViewWithTimer(timeOffset: startOffset)
+            advanceScrollViewWithTimer(timeOffset: time, playback: true)
         } else {
             scrollView.setContentOffset(.zero, animated: false)
         }
@@ -285,7 +287,7 @@ extension PlaybackView: AudioRecorderObserver {
         
         waveWidth.update(offset: waveSize.width)
         wave.add(meteringLevel: percentageLevel)
-        advanceScrollViewWithTimer(timeOffset: 0.0)
+        advanceScrollViewWithTimer(timeOffset: 0.0, playback: false)
     }
     
     func recordingProcessing() {
