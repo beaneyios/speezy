@@ -222,14 +222,24 @@ extension PlaybackView {
 
 // MARK: PLAYBACK LISTENERS
 extension PlaybackView: AudioPlayerObserver {
-    // Playback
+    func playBackBegan(on item: AudioItem) {}
     
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
-        // no op
+    func playbackPaused(on item: AudioItem) {
+        
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        let time = time + manager.startPosition
+    func playbackStopped(on item: AudioItem) {
+        stop()
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem
+    ) {
+        // TODO: When we refactor the crop view, we must use a different kind of playback view or view model
+        // To stop relying on the manager's start position like this.
+        // let time = time + manager.startPosition
         
         guard let audioData = audioData else {
             return
@@ -248,15 +258,6 @@ extension PlaybackView: AudioPlayerObserver {
         
         let newPercentage = Float(time) / Float(audioData.duration)
         wave.advancePosition(percentage: newPercentage)
-    }
-    
-    
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
-        // no op
-    }
-    
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
-        stop()
     }
 }
 

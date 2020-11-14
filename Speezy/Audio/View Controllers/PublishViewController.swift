@@ -137,23 +137,29 @@ extension PublishViewController {
 }
 
 extension PublishViewController: AudioPlayerObserver {
-    private func configureAudioManager() {
-        audioManager.addPlayerObserver(self)
-    }
-    
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+    func playBackBegan(on item: AudioItem) {
         playbackBtn.setImage(UIImage(named: "pause-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func playbackPaused(on item: AudioItem) {
         playbackBtn.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
+    func playbackStopped(on item: AudioItem) {
         playbackBtn.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {}
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem
+    ) {
+        // no op
+    }
+    
+    private func configureAudioManager() {
+        audioManager.addPlayerObserver(self)
+    }
 }
 
 extension PublishViewController: TagsViewDelegate {

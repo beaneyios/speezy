@@ -148,7 +148,11 @@ extension TranscriptCollectionViewController: UICollectionViewDelegateFlowLayout
 }
 
 extension TranscriptCollectionViewController: AudioPlayerObserver {
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
+    func playBackBegan(on item: AudioItem) {}
+    func playbackPaused(on item: AudioItem) {}
+    func playbackStopped(on item: AudioItem) {}
+    
+    func playbackProgressed(withTime time: TimeInterval, seekActive: Bool, onItem item: AudioItem) {
         let cells = collectionView.visibleCells as! [WordCell]
                 
         if let currentWordIndex = audioManager.currentPlayingTranscribedWordIndex(at: time) {
@@ -170,10 +174,6 @@ extension TranscriptCollectionViewController: AudioPlayerObserver {
             }
         }
     }
-    
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {}
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {}
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {}
 }
 
 extension TranscriptCollectionViewController: TranscriptObserver {

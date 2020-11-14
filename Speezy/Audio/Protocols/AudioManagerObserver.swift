@@ -9,10 +9,14 @@
 import UIKit
 
 protocol AudioPlayerObserver: AnyObject {
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem)
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem)
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem)
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool)
+    func playBackBegan(on item: AudioItem)
+    func playbackPaused(on item: AudioItem)
+    func playbackStopped(on item: AudioItem)
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem
+    )
 }
 
 protocol AudioRecorderObserver: AnyObject {

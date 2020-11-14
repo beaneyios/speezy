@@ -494,17 +494,13 @@ extension AudioItemViewController: AudioRecorderObserver {
 
 // MARK: PLAYBACK
 extension AudioItemViewController: AudioPlayerObserver {
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+    func playBackBegan(on item: AudioItem) {
         playbackHidables.forEach {
             $0.disable()
         }
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        lblTimer.text = TimeFormatter.formatTime(time: time)
-    }
-    
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func playbackPaused(on item: AudioItem) {
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -515,7 +511,7 @@ extension AudioItemViewController: AudioPlayerObserver {
         btnCut.enable()
     }
     
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
+    func playbackStopped(on item: AudioItem) {
         if audioManager.isCropping == false {
             playbackHidables.forEach {
                 $0.enable()
@@ -523,6 +519,14 @@ extension AudioItemViewController: AudioPlayerObserver {
         }
         
         btnCrop.enable()
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem
+    ) {
+        lblTimer.text = TimeFormatter.formatTime(time: time)
     }
 }
 

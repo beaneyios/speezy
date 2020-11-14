@@ -202,17 +202,23 @@ extension TranscriptionViewController: AudioCropperObserver {
 }
 
 extension TranscriptionViewController: AudioPlayerObserver {
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
-        playButton.setImage(UIImage(named: "play-button"), for: .normal)
-    }
-    
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
-        playButton.setImage(UIImage(named: "play-button"), for: .normal)
-    }
-    
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+    func playBackBegan(on item: AudioItem) {
         playButton.setImage(UIImage(named: "pause-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {}
+    func playbackPaused(on item: AudioItem) {
+        playButton.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func playbackStopped(on item: AudioItem) {
+        playButton.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem
+    ) {
+        
+    }
 }

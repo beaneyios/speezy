@@ -19,7 +19,7 @@ typealias AudioManagerObservationManaging = PlayerObservationManaging &
 class AudioManager: NSObject, AudioManagerObservationManaging {
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
-    private(set) var state = State.idle
+    private(set) var state = AudioState.idle
     private(set) var hasUnsavedChanges: Bool = false
     
     private var firstRecord = true
@@ -288,7 +288,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        performPlaybackAction(action: .showPlaybackProgressed(time, seekActive: seekActive))
+        performPlaybackAction(action: .showPlaybackProgressed(time, seekActive: seekActive, item: item))
     }
     
     func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
@@ -388,78 +388,7 @@ extension AudioManager: AudioCropperDelegate {
     }
 }
 
-extension AudioManager {
-    enum CropAction {
-        case showCrop(AudioItem, CropKind)
-        case showCropAdjusted(AudioItem)
-        case showCropCancelled(AudioItem)
-        case showCropFinished(AudioItem)
-    }
-    
-    enum PlaybackAction {
-        case showPlaybackStopped(AudioItem)
-        case showPlaybackStarted(AudioItem)
-        case showPlaybackPaused(AudioItem)
-        case showPlaybackProgressed(TimeInterval, seekActive: Bool)
-    }
-    
-    enum RecordAction {
-        case showRecordingStarted(AudioItem)
-        case showRecordingProgressed(power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
-        case showRecordingProcessing(AudioItem)
-        case showRecordingStopped(AudioItem, maxLimitReached: Bool)
-    }
-    
-    enum TranscriptionJobAction {
-        case transcriptionComplete(transcript: Transcript, audioId: String)
-        case transcriptionQueued(audioId: String)
-    }
-    
-    enum TranscriptAction {
-        case finishedEditingTranscript(
-                transcript: Transcript,
-                audioId: String
-             )
-    }
-    
-    enum State {
-        case idle
-    
-        case stoppedPlayback(AudioItem)
-        case startedPlayback(AudioItem)
-        case pausedPlayback(AudioItem)
-        
-        case cropping
-        case recording
-        
-        var shouldRegeneratePlayer: Bool {
-            switch self {
-            case .pausedPlayback:
-                return false
-            default:
-                return true
-            }
-        }
-        
-        var isInPlayback: Bool {
-            switch self {
-            case .startedPlayback, .pausedPlayback, .stoppedPlayback:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        var isRecording: Bool {
-            switch self {
-            case .recording:
-                return true
-            default:
-                return false
-            }
-        }
-    }
-    
+extension AudioManager {    
     func performPlaybackAction(action: PlaybackAction) {
         playerObservatons.forEach {
             guard let observer = $0.value.observer else {
@@ -470,17 +399,17 @@ extension AudioManager {
             switch action {
             case .showPlaybackStopped(let item):
                 state = .stoppedPlayback(item)
-                observer.audioManager(self, didStopPlaying: item)
+                observer.playbackStopped(on: item)
                 
             case .showPlaybackStarted(let item):
                 state = .startedPlayback(item)
-                observer.audioManager(self, didStartPlaying: item)
+                observer.playBackBegan(on: item)
                 
             case .showPlaybackPaused(let item):
                 state = .pausedPlayback(item)
-                observer.audioManager(self, didPausePlaybackOf: item)
-            case let .showPlaybackProgressed(time, seekActive):
-                observer.audioManager(self, progressedWithTime: time, seekActive: seekActive)
+                observer.playbackPaused(on: item)
+            case let .showPlaybackProgressed(time, seekActive, item):
+                observer.playbackProgressed(withTime: time, seekActive: seekActive, onItem: item)
             }
         }
     }

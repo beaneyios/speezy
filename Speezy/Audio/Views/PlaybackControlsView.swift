@@ -62,7 +62,7 @@ class PlaybackControlsView: UIView, NibLoadable {
         if let touchEvent = event.allTouches?.first {
             switch touchEvent.phase {
             case .began:
-                if case AudioManager.State.startedPlayback = manager.state {
+                if case AudioState.startedPlayback = manager.state {
                     wasPlaying = true
                 } else {
                     wasPlaying = false
@@ -83,20 +83,24 @@ class PlaybackControlsView: UIView, NibLoadable {
 }
 
 extension PlaybackControlsView: AudioPlayerObserver {
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+    func playBackBegan(on item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
+    func playbackPaused(on item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
+    func playbackStopped(on item: AudioItem) {
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
         sliderPlayback.setValue(0.0, animated: true)
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem
+    ) {
         if seekActive {
             return
         }
