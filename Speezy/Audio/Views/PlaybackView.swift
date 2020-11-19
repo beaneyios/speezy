@@ -40,6 +40,10 @@ class PlaybackView: UIView {
         render()
     }
     
+    override func layoutSubviews() {
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: scrollView.frame.width / 2.0, bottom: 0, right: 0)
+    }
+    
     private func render() {
         scrollView.delegate = self
         AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
@@ -119,7 +123,7 @@ extension PlaybackView {
     
     private func waveSize(audioData: AudioData) -> CGSize {
         CGSize(
-            width: CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar,
+            width: (CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar) + (scrollView.frame.width / 2.0),
             height: self.frame.height - 24.0
         )
     }
@@ -246,25 +250,8 @@ extension PlaybackView: AudioPlayerObserver {
         onItem item: AudioItem,
         startOffset: TimeInterval
     ) {
-        let time = time + startOffset
-        
-        guard let audioData = audioData else {
-            return
-        }
-        
-        let duration = audioData.duration
-        let currentPercentage = time / duration
-        let waveSize = self.waveSize(audioData: audioData)
-        let centerPoint = waveSize.width * CGFloat(currentPercentage)
-        
-        if centerPoint >= center.x {
-            advanceScrollViewWithTimer(timeOffset: time, playback: true)
-        } else {
-            scrollView.setContentOffset(.zero, animated: false)
-        }
-        
-        let newPercentage = Float(time) / Float(audioData.duration)
-        wave.advancePosition(percentage: newPercentage)
+        let time = time + startOffset        
+        advanceScrollViewWithTimer(timeOffset: time, playback: true)
     }
 }
 

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -81,16 +83,26 @@
                         <constraint firstItem="ICs-PM-STR" firstAttribute="top" secondItem="IFb-kf-Gt1" secondAttribute="top" id="tTy-XC-wae"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sn-zz-HWR">
+                    <rect key="frame" x="389.5" y="0.0" width="1" height="188"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="Qjz-M8-QKR"/>
+                    </constraints>
+                </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="0sn-zz-HWR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1IO-aj-DFW"/>
+                <constraint firstItem="0sn-zz-HWR" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EH5-SA-OQN"/>
                 <constraint firstItem="IFb-kf-Gt1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JVv-vR-fYv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="IFb-kf-Gt1" secondAttribute="trailing" id="e6f-Ip-hIf"/>
                 <constraint firstItem="IFb-kf-Gt1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hve-fT-9b3"/>
+                <constraint firstAttribute="bottom" secondItem="0sn-zz-HWR" secondAttribute="bottom" id="mHl-FL-YKM"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="IFb-kf-Gt1" secondAttribute="bottom" id="wRr-BG-uo6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="contentView" destination="VN9-e4-pJ2" id="WLE-SH-DzC"/>
                 <outlet property="cropOverlayContainer" destination="Jui-3H-Oi0" id="blY-pg-2v9"/>
@@ -102,4 +114,9 @@
             <point key="canvasLocation" x="455.07246376811599" y="367.63392857142856"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
