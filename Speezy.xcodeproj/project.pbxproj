@@ -41,8 +41,8 @@
 		BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
-		BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* PlaybackView.xib */; };
-		BE50344F24BB25DA00A414D1 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* PlaybackView.swift */; };
+		BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* PlaybackWaveView.xib */; };
+		BE50344F24BB25DA00A414D1 /* PlaybackWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344E24BB25DA00A414D1 /* PlaybackWaveView.swift */; };
 		BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50345024BB9C6C00A414D1 /* CropView.xib */; };
 		BE50345324BB9C7600A414D1 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50345224BB9C7600A414D1 /* CropView.swift */; };
 		BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50346124BDFCA900A414D1 /* AudioManager.swift */; };
@@ -184,8 +184,8 @@
 		BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptCollectionViewController.swift; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
-		BE50344C24BB21FD00A414D1 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
-		BE50344E24BB25DA00A414D1 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
+		BE50344C24BB21FD00A414D1 /* PlaybackWaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackWaveView.xib; sourceTree = "<group>"; };
+		BE50344E24BB25DA00A414D1 /* PlaybackWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackWaveView.swift; sourceTree = "<group>"; };
 		BE50345024BB9C6C00A414D1 /* CropView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropView.xib; sourceTree = "<group>"; };
 		BE50345224BB9C7600A414D1 /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		BE50346124BDFCA900A414D1 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
@@ -567,8 +567,8 @@
 				BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */,
 				BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */,
 				BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */,
-				BE50344E24BB25DA00A414D1 /* PlaybackView.swift */,
-				BE50344C24BB21FD00A414D1 /* PlaybackView.xib */,
+				BE50344E24BB25DA00A414D1 /* PlaybackWaveView.swift */,
+				BE50344C24BB21FD00A414D1 /* PlaybackWaveView.xib */,
 				BEDC126024F1964400B53D1A /* ShareOptionCell.swift */,
 				BEDC126124F1964400B53D1A /* ShareOptionCell.xib */,
 				BE2B098324C732DC00317EB7 /* TagCell.swift */,
@@ -892,7 +892,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */,
-				BE50344D24BB21FD00A414D1 /* PlaybackView.xib in Resources */,
+				BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */,
 				BE6080B6250E8E57003CB318 /* transcription-test-file.m4a in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
@@ -1041,7 +1041,7 @@
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
 				BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */,
-				BE50344F24BB25DA00A414D1 /* PlaybackView.swift in Sources */,
+				BE50344F24BB25DA00A414D1 /* PlaybackWaveView.swift in Sources */,
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,

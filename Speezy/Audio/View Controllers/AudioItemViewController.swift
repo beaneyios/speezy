@@ -74,7 +74,7 @@ class AudioItemViewController: UIViewController {
     weak var delegate: AudioItemViewControllerDelegate?
     
     private var playbackControlsView: PlaybackControlsView?
-    private var mainWave: PlaybackView?
+    private var mainWave: PlaybackWaveView?
     private var cropView: CropView?
     
     private var transcriptionCropUpdatesPending = false
@@ -298,7 +298,7 @@ extension AudioItemViewController {
         mainWave?.removeFromSuperview()
         mainWave = nil
         
-        let soundWaveView = PlaybackView.instanceFromNib()
+        let soundWaveView = PlaybackWaveView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
         soundWaveView.snp.makeConstraints { (maker) in

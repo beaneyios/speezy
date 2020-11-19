@@ -360,6 +360,6 @@ extension PlaybackWaveView: UIScrollViewDelegate {
 
 extension PlaybackWaveView {
     class func instanceFromNib() -> PlaybackWaveView {
-        return UINib(nibName: "PlaybackView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! PlaybackWaveView
+        return UINib(nibName: "PlaybackWaveView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! PlaybackWaveView
     }
 }

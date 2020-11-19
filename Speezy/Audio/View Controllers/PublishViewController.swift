@@ -36,7 +36,7 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     weak var delegate: PublishViewControllerDelegate?
     
     var audioManager: AudioManager!
-    var waveView: PlaybackView!
+    var waveView: PlaybackWaveView!
     
     private var tagsView: TagsView?
     private var shareView: ShareViewController!

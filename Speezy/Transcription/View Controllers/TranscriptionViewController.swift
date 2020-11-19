@@ -28,7 +28,7 @@ class TranscriptionViewController: UIViewController, PreviewWavePresenting {
     
     @IBOutlet weak var collectionContainer: UIView!
     
-    var waveView: PlaybackView!
+    var waveView: PlaybackWaveView!
     private var collectionViewController: UIViewController!
     
     override func viewDidLoad() {

@@ -11,7 +11,7 @@ import UIKit
 protocol PreviewWavePresenting: AnyObject {
     var playbackContainer: UIView! { get }
     var waveContainer: UIView! { get }
-    var waveView: PlaybackView! { get set }
+    var waveView: PlaybackWaveView! { get set }
 }
 
 extension PreviewWavePresenting {
@@ -19,7 +19,7 @@ extension PreviewWavePresenting {
         waveView?.removeFromSuperview()
         waveView = nil
         
-        let soundWaveView = PlaybackView.instanceFromNib()
+        let soundWaveView = PlaybackWaveView.instanceFromNib()
         waveContainer.addSubview(soundWaveView)
         
         soundWaveView.snp.makeConstraints { (maker) in
