@@ -41,6 +41,17 @@ class AudioItemCoordinator: ViewCoordinator {
         viewController.audioManager = manager
         pushingViewController.navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    private func navigateToCutView(audioItem: AudioItem, on pushingViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Cut", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: "cut") as? CutViewController else {
+            return
+        }
+        
+        let manager = AudioManager(item: audioItem)
+        viewController.manager = manager
+        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 extension AudioItemCoordinator {
@@ -76,6 +87,10 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
+        navigateToCutView(audioItem: audioItem, on: viewController)
     }
     
     func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {

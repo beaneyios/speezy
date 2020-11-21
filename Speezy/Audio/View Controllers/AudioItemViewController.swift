@@ -31,6 +31,11 @@ protocol AudioItemViewControllerDelegate: AnyObject {
         didSelectTranscribeWithManager manager: AudioManager
     )
     
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentCutOnItem audioItem: AudioItem
+    )
+    
     func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool
 }
 
@@ -307,10 +312,18 @@ extension AudioItemViewController {
         
         soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
+        mainWave?.delegate = self
     }
     
     private func configureTitle() {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
+    }
+}
+
+extension AudioItemViewController: PlaybackWaveViewDelegate {
+    func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat) {
+        let floatPercentage = Float(percentage)
+        audioManager.seek(to: floatPercentage)
     }
 }
 
@@ -341,6 +354,9 @@ extension AudioItemViewController {
     }
     
     private func showCutView() {
+        delegate?.audioItemViewController(self, didPresentCutOnItem: audioManager.item)
+        return;
+        
         cutHidables.forEach {
             $0.disable()
         }

@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol PlaybackWaveViewDelegate: AnyObject {
+    func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat)
+}
+
 class PlaybackWaveView: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -17,6 +21,8 @@ class PlaybackWaveView: UIView {
     @IBOutlet weak var timelineContainer: UIView!
     @IBOutlet weak var waveContainer: UIView!
     @IBOutlet weak var cropOverlayContainer: UIView!
+    
+    weak var delegate: PlaybackWaveViewDelegate?
     
     private var waveWidth: Constraint!
     
@@ -250,8 +256,10 @@ extension PlaybackWaveView: AudioPlayerObserver {
         onItem item: AudioItem,
         startOffset: TimeInterval
     ) {
-        let time = time + startOffset
-        advanceScrollViewWithTimer(timeOffset: time, playback: true)
+        if seekActive == false {
+            let time = time + startOffset
+            advanceScrollViewWithTimer(timeOffset: time, playback: true)
+        }
     }
 }
 
@@ -353,6 +361,18 @@ extension PlaybackWaveView: AudioCropperObserver {
 }
 
 extension PlaybackWaveView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetX = scrollView.contentOffset.x + (scrollView.frame.width / 2.0)
+        let contentSizeWidth = scrollView.contentSize.width
+        let percentage = contentOffsetX / contentSizeWidth
+        
+        print(percentage)
+        
+        if scrollView.isTracking {
+            delegate?.playbackView(self, didScrollToPosition: percentage)
+        }
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         manager?.pause()
     }
