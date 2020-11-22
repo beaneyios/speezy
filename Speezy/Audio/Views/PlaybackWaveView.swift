@@ -126,7 +126,7 @@ extension PlaybackWaveView {
     
     private func waveSize(audioData: AudioData) -> CGSize {
         CGSize(
-            width: (CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar) + (scrollView.frame.width / 2.0),
+            width: (CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar),
             height: self.frame.height - 24.0
         )
     }
