@@ -101,7 +101,7 @@ extension TranscriptionViewController {
     }
     
     private func configureDependencies() {
-        audioManager.addCropperObserver(self)
+        audioManager.addCutterObserver(self)
         audioManager.addPlaybackObserver(self)
         audioManager.addTranscriptionObserver(self)
     }
@@ -183,16 +183,17 @@ extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
     }
 }
 
-extension TranscriptionViewController: AudioCropperObserver {
-    func croppingFinished(onItem item: AudioItem) {
+extension TranscriptionViewController: AudioCutterObserver {
+    func cuttingFinished(onItem item: AudioItem) {
         configurePreviewWave(audioManager: audioManager)
     }
     
-    func croppingStarted(onItem item: AudioItem) {}
-    func cropRangeAdjusted(onItem item: AudioItem) {}
+    func cuttingStarted(onItem item: AudioItem) {}
+    func cutRangeAdjusted(onItem item: AudioItem) {}
+    func cuttingCancelled() {}
+    
     func leftCropHandle(movedToPercentage percentage: CGFloat) {}
     func rightCropHandle(movedToPercentage percentage: CGFloat) {}
-    func croppingCancelled() {}
 }
 
 extension TranscriptionViewController: AudioPlayerObserver {

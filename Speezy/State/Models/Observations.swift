@@ -27,3 +27,7 @@ struct TranscriptionJobObservation {
 struct TranscriptObservation {
     weak var observer: TranscriptObserver?
 }
+
+struct AudioCutterObservation {
+    weak var observer: AudioCutterObserver?
+}

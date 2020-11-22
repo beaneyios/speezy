@@ -28,6 +28,7 @@ class AudioManager: NSObject {
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
+    private var audioCutter: AudioCutter?
     private var transcriptionJobManager: TranscriptionJobManager?
     private var transcriptManager: TranscriptManager
     private let audioAttachmentManager = AudioAttachmentManager()
@@ -187,7 +188,7 @@ extension AudioManager: AudioRecorderDelegate {
 // MARK: Playback
 extension AudioManager: AudioPlayerDelegate {
     var currentItem: AudioItem {
-        audioCropper?.croppedItem ?? item
+        audioCropper?.croppedItem ?? audioCutter?.stagedCutItem ?? item
     }
     
     var startOffset: TimeInterval {
@@ -297,6 +298,40 @@ extension AudioManager: AudioPlayerDelegate {
     }
 }
 
+// MARK: Crop/Cut crossover
+extension AudioManager {
+    var hasActiveEdit: Bool {
+        hasActiveCrop || hasActiveCut
+    }
+    
+    func applyEdit() {
+        if audioCropper != nil {
+            applyCrop()
+        } else {
+            applyCut()
+        }
+    }
+    
+    func cancelEdit() {
+        if audioCropper != nil {
+            cancelCrop()
+        } else if audioCutter != nil {
+            cancelCut()
+        }
+    }
+    
+    func edit(
+        from: TimeInterval,
+        to: TimeInterval
+    ) {
+        if audioCropper != nil {
+            crop(from: from, to: to)
+        } else if audioCutter != nil {
+            cut(from: from, to: to)
+        }
+    }
+}
+
 // MARK: CROPPING
 extension AudioManager: AudioCropperDelegate {
     var isCropping: Bool {
@@ -327,33 +362,17 @@ extension AudioManager: AudioCropperDelegate {
         startCropping()
     }
     
-    func toggleCut() {
-        startCutting()
-    }
-    
     func startCropping() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
         stateManager.performCroppingAction(action: .showCrop(item))
     }
-    
-    func startCutting() {
-        audioCropper = AudioCropper(item: item)
-        audioCropper?.delegate = self
-        stateManager.performCroppingAction(action: .showCrop(item))
-    }
-    
+        
     func crop(
         from: TimeInterval,
         to: TimeInterval
     ) {
         audioCropper?.crop(from: from, to: to)
-    }
-    
-    func cut(timeRanges: [CMTimeRange]) {
-        audioCropper = AudioCropper(item: item)
-        audioCropper?.delegate = self
-//        audioCropper?.cut(audioItem: self.item, timeRanges: timeRanges)
     }
     
     func leftCropHandleMoved(to percentage: CGFloat) {
@@ -388,12 +407,6 @@ extension AudioManager: AudioCropperDelegate {
         _ cropper: AudioCropper,
         didApplyCroppedItem item: AudioItem
     ) {
-        FileManager.default.deleteExistingFile(with: self.item.path)
-        FileManager.default.renameFile(
-            from: "\(item.id)_cropped.wav",
-            to: self.item.path
-        )
-        
         stateManager.performCroppingAction(action: .showCropFinished(item))
         audioCropper = nil
         hasUnsavedChanges = true
@@ -403,9 +416,77 @@ extension AudioManager: AudioCropperDelegate {
         _ cropper: AudioCropper,
         didCancelCropReturningToItem item: AudioItem
     ) {
-        self.item = item
         stateManager.performCroppingAction(action: .showCropCancelled(item))
         audioCropper = nil
+    }
+}
+
+// MARK: CUTTING
+extension AudioManager: AudioCutterDelegate {
+    var isCutting: Bool {
+        audioCutter != nil
+    }
+    
+    var canCut: Bool {
+        currentItem.duration > 3.0
+    }
+    
+    var hasActiveCut: Bool {
+        guard let cutItemDuration = audioCutter?.cutItem?.duration else {
+            return false
+        }
+        
+        return cutItemDuration != item.duration
+    }
+    
+    func addCutterObserver(_ observer: AudioCutterObserver) {
+        stateManager.addCutterObserver(observer)
+    }
+    
+    func removeCutterObserver(_ observer: AudioCutterObserver) {
+        stateManager.removeCutterObserver(observer)
+    }
+    
+    func cut(from: TimeInterval, to: TimeInterval) {
+        audioCutter?.cut(audioItem: item, from: from, to: to)
+    }
+    
+    func cut(timeRanges: [CMTimeRange]) {
+        audioCutter?.cut(audioItem: item, timeRanges: timeRanges)
+    }
+    
+    func applyCut() {
+        audioCutter?.applyCut()
+    }
+    
+    func toggleCut() {
+        startCutting()
+    }
+    
+    func cancelCut() {
+        stop()
+        audioCutter?.cancelCut()
+    }
+    
+    func startCutting() {
+        audioCutter = AudioCutter(item: item)
+        audioCutter?.delegate = self
+        stateManager.performCuttingAction(action: .showCut(item))
+    }
+    
+    func audioCutter(_ cropper: AudioCutter, didAdjustCutItem item: AudioItem) {
+        stateManager.performCuttingAction(action: .showCutAdjusted(item))
+    }
+    
+    func audioCutter(_ cropper: AudioCutter, didApplyCutItem item: AudioItem) {
+        stateManager.performCuttingAction(action: .showCutFinished(item))
+        audioCutter = nil
+        hasUnsavedChanges = true
+    }
+    
+    func audioCutter(_ cropper: AudioCutter, didCancelCutReturningToItem item: AudioItem) {
+        stateManager.performCuttingAction(action: .showCutCancelled(item))
+        audioCutter = nil
     }
 }
 

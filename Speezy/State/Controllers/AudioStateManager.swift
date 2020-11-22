@@ -12,9 +12,11 @@ typealias AudioStateManagerObservationManaging =    PlayerObservationManaging &
                                                     RecorderObservationManaging &
                                                     TranscriptionJobObservationManaging &
                                                     TranscriptObservationManaging &
-                                                    CropperObservationManaging
+                                                    CropperObservationManaging &
+                                                    CutterObservationManaging
 
 class AudioStateManager: AudioStateManagerObservationManaging {
+    
     var state = AudioState.idle
     
     var playerObservatons = [ObjectIdentifier : AudioPlayerObservation]()
@@ -22,11 +24,12 @@ class AudioStateManager: AudioStateManagerObservationManaging {
     var cropperObservatons = [ObjectIdentifier : AudioCropperObservation]()
     var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
     var transcriptObservations = [ObjectIdentifier : TranscriptObservation]()
+    var cutterObservations = [ObjectIdentifier : AudioCutterObservation]()
     
     func performPlaybackAction(action: PlaybackAction) {
         playerObservatons.forEach {
             guard let observer = $0.value.observer else {
-                recorderObservatons.removeValue(forKey: $0.key)
+                playerObservatons.removeValue(forKey: $0.key)
                 return
             }
             
@@ -85,7 +88,7 @@ class AudioStateManager: AudioStateManagerObservationManaging {
     func performCroppingAction(action: CropAction) {
         cropperObservatons.forEach {
             guard let observer = $0.value.observer else {
-                recorderObservatons.removeValue(forKey: $0.key)
+                cropperObservatons.removeValue(forKey: $0.key)
                 return
             }
             
@@ -108,6 +111,30 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             case .leftHandleMoved(let percentage):
                 observer.leftCropHandle(movedToPercentage: percentage)
                 
+            case .rightHandleMoved(let percentage):
+                observer.rightCropHandle(movedToPercentage: percentage)
+            }
+        }
+    }
+    
+    func performCuttingAction(action: CutNotification) {
+        cutterObservations.forEach {
+            guard let observer = $0.value.observer else {
+                cutterObservations.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case .showCut(let item):
+                observer.cuttingStarted(onItem: item)
+            case .showCutAdjusted(let item):
+                observer.cutRangeAdjusted(onItem: item)
+            case .showCutCancelled:
+                observer.cuttingCancelled()
+            case .showCutFinished(let item):
+                observer.cuttingFinished(onItem: item)
+            case .leftHandleMoved(let percentage):
+                observer.leftCropHandle(movedToPercentage: percentage)
             case .rightHandleMoved(let percentage):
                 observer.rightCropHandle(movedToPercentage: percentage)
             }

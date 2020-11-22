@@ -42,6 +42,7 @@ class PlaybackWaveView: UIView {
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
+        manager.addCutterObserver(self)
         
         render()
     }
@@ -358,6 +359,29 @@ extension PlaybackWaveView: AudioCropperObserver {
     }
     
     func cropRangeAdjusted(onItem item: AudioItem) {}
+}
+
+extension PlaybackWaveView: AudioCutterObserver {
+    func cuttingStarted(onItem item: AudioItem) {
+        guard let audioData = self.audioData else {
+            assertionFailure("Somehow audio data is nil")
+            return
+        }
+        
+        let waveSize = self.waveSize(audioData: audioData)
+        createCropOverlayView(waveSize: waveSize)
+    }
+    
+    func cuttingFinished(onItem item: AudioItem) {
+        configure(manager: manager)
+        removeCropOverlayView()
+    }
+    
+    func cuttingCancelled() {
+        removeCropOverlayView()
+    }
+    
+    func cutRangeAdjusted(onItem item: AudioItem) {}
 }
 
 extension PlaybackWaveView: UIScrollViewDelegate {

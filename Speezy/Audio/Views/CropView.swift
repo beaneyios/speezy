@@ -212,7 +212,7 @@ class CropView: UIView {
             let durationStart = manager.duration * TimeInterval(percentageStart)
             let durationEnd = manager.duration * TimeInterval(percentageEnd)
                         
-            manager.crop(from: durationStart, to: durationEnd)
+            manager.edit(from: durationStart, to: durationEnd)
         }
     }
 }

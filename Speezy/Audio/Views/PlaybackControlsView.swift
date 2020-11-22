@@ -21,6 +21,7 @@ class PlaybackControlsView: UIView, NibLoadable {
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
+        manager.addCropperObserver(self)
         
         sliderPlayback.addTarget(
             self,
@@ -143,6 +144,22 @@ extension PlaybackControlsView: AudioCropperObserver {
     func croppingStarted(onItem item: AudioItem) {}
     func leftCropHandle(movedToPercentage percentage: CGFloat) {}
     func rightCropHandle(movedToPercentage percentage: CGFloat) {}
+}
+
+extension PlaybackControlsView: AudioCutterObserver {
+    func cutRangeAdjusted(onItem item: AudioItem) {
+        resetSlider()
+    }
+    
+    func cuttingFinished(onItem item: AudioItem) {
+        resetSlider()
+    }
+    
+    func cuttingCancelled() {
+        resetSlider()
+    }
+    
+    func cuttingStarted(onItem item: AudioItem) {}
 }
 
 extension PlaybackControlsView {

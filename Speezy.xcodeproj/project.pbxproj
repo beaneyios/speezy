@@ -85,6 +85,9 @@
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
+		BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41D256AF6240034F921 /* AudioCropping.swift */; };
+		BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */; };
+		BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD427256AF9980034F921 /* CutNotification.swift */; };
 		BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8325178E490009ECCC /* test-transcribe.m4a */; };
 		BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */; };
 		BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */; };
@@ -234,6 +237,9 @@
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
+		BE9AD41D256AF6240034F921 /* AudioCropping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCropping.swift; sourceTree = "<group>"; };
+		BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterObservationManaging.swift; sourceTree = "<group>"; };
+		BE9AD427256AF9980034F921 /* CutNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutNotification.swift; sourceTree = "<group>"; };
 		BEA5AE8325178E490009ECCC /* test-transcribe.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.m4a"; sourceTree = "<group>"; };
 		BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.flac"; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileCombiner.swift; sourceTree = "<group>"; };
@@ -342,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */,
+				BE9AD41D256AF6240034F921 /* AudioCropping.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -772,11 +779,12 @@
 			isa = PBXGroup;
 			children = (
 				BEFDB521255FF63400362428 /* CropperObservationManaging.swift */,
+				BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */,
+				BE50346724BE02CE00A414D1 /* Observers.swift */,
 				BEFDB517255FF44A00362428 /* PlayerObservationManaging.swift */,
 				BEFDB51B255FF5E200362428 /* RecorderObservationManaging.swift */,
 				BEFDB527255FF6B000362428 /* TranscriptionJobObservationManaging.swift */,
 				BEFDB52B255FF6FE00362428 /* TranscriptObservationManaging.swift */,
-				BE50346724BE02CE00A414D1 /* Observers.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -798,6 +806,7 @@
 				BEFDB545255FF8BA00362428 /* RecordNotification.swift */,
 				BEFDB549255FF8C300362428 /* TranscriptionJobNotification.swift */,
 				BEFDB54D255FF8D100362428 /* TranscriptNotification.swift */,
+				BE9AD427256AF9980034F921 /* CutNotification.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1070,6 +1079,7 @@
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
+				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
@@ -1093,6 +1103,8 @@
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
+				BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */,
+				BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */,
 				BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */,
 				BEBFD4C024C5B9C700200D87 /* AppCoordinator.swift in Sources */,
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,

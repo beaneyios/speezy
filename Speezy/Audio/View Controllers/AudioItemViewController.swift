@@ -133,7 +133,6 @@ class AudioItemViewController: UIViewController {
     @IBAction func send(_ sender: Any) {
         audioManager.save(saveAttachment: false) { (item) in
             DispatchQueue.main.async {
-                NSLog("Going to call delegate \(self.delegate)")
                 self.delegate?.audioItemViewController(self, shouldSendItem: item)
             }
         }
@@ -188,14 +187,14 @@ class AudioItemViewController: UIViewController {
     @IBAction func applyCrop(_ sender: Any) {
         audioManager.stop()
         
-        if audioManager.hasActiveCrop == false {
-            audioManager.cancelCrop()
+        if audioManager.hasActiveEdit == false {
+            audioManager.cancelEdit()
             return
         }
         
-        let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
-        let cropAction = UIAlertAction(title: "Crop", style: .destructive) { (action) in
-            self.audioManager.applyCrop()
+        let alert = UIAlertController(title: "Confirm edit", message: "Are you sure you want to edit?", preferredStyle: .alert)
+        let cropAction = UIAlertAction(title: "Yes", style: .destructive) { (action) in
+            self.audioManager.applyEdit()
         }
         
         let cancelAction = UIAlertAction(title: "Not yet", style: .cancel, handler: nil)
@@ -205,11 +204,11 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func cancelCrop(_ sender: Any) {
-        audioManager.cancelCrop()
+        audioManager.cancelEdit()
     }
     
     @IBAction func toggleCut(_ sender: Any) {
-        if audioManager.canCrop {
+        if audioManager.canCut {
             audioManager.toggleCut()
         } else {
             let alert = SCLAlertView()
@@ -232,6 +231,7 @@ extension AudioItemViewController {
         audioManager.addPlaybackObserver(self)
         audioManager.addRecorderObserver(self)
         audioManager.addCropperObserver(self)
+        audioManager.addCutterObserver(self)
         audioManager.addTranscriptionObserver(self)
     }
     
@@ -573,6 +573,34 @@ extension AudioItemViewController: AudioCropperObserver {
     func rightCropHandle(movedToPercentage percentage: CGFloat) {}
     
     func croppingCancelled() {
+        lblTimer.text = "00:00:00"
+        hideCropView()
+        scrollView.isScrollEnabled = true
+    }
+}
+
+extension AudioItemViewController: AudioCutterObserver {
+    func cuttingStarted(onItem item: AudioItem) {
+        lblTimer.text = "00:00:00"
+        showCropView()
+        scrollView.isScrollEnabled = false
+    }
+    
+    func cutRangeAdjusted(onItem item: AudioItem) {
+        lblTimer.text = "00:00:00"
+    }
+    
+    func cuttingFinished(onItem item: AudioItem) {
+        if delegate?.audioItemViewControllerIsTopViewController(self) ?? false {
+            lblTimer.text = "00:00:00"
+            hideCropView()
+            scrollView.isScrollEnabled = true
+        } else {
+            transcriptionCropUpdatesPending = true
+        }
+    }
+    
+    func cuttingCancelled() {
         lblTimer.text = "00:00:00"
         hideCropView()
         scrollView.isScrollEnabled = true

@@ -15,12 +15,12 @@ protocol AudioCropperDelegate: AnyObject {
     func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem)
 }
 
-class AudioCropper {
+class AudioCropper: AudioCropping {
     private let item: AudioItem
     private(set) var croppedItem: AudioItem?
     private var cutItem: AudioItem?
     
-    private let cropExtension = "_cropped.wav"
+    let cropExtension = "_cropped.wav"
     
     private(set) var cropFrom: TimeInterval?
     private(set) var cropTo: TimeInterval?
@@ -54,54 +54,16 @@ class AudioCropper {
             return
         }
         
+        FileManager.default.deleteExistingFile(with: self.item.path)
+        FileManager.default.renameFile(
+            from: "\(item.id)\(cropExtension)",
+            to: item.path
+        )
+        
         delegate?.audioCropper(self, didApplyCroppedItem: croppedItem)
     }
     
     func cancelCrop() {
         delegate?.audioCropper(self, didCancelCropReturningToItem: item)
-    }
-}
-
-// MARK: Cropping private functions
-extension AudioCropper {
-    func crop(
-        audioItem: AudioItem,
-        startTime: Double,
-        stopTime: Double,
-        finished: @escaping (String) -> Void
-    ) {
-        let asset = AVAsset(url: audioItem.url)
-        let outputPath = "\(audioItem.id)\(cropExtension)"
-        
-        guard
-            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough),
-            let outputURL = FileManager.default.documentsURL(with: outputPath)
-        else {
-            return
-        }
-        
-        FileManager.default.deleteExistingFile(with: outputPath)
-        
-        exportSession.outputURL = outputURL
-        exportSession.outputFileType = AVFileType.wav
-        
-        let start: CMTime = CMTimeMakeWithSeconds(startTime, preferredTimescale: asset.duration.timescale)
-        let stop: CMTime = CMTimeMakeWithSeconds(stopTime, preferredTimescale: asset.duration.timescale)
-        let range: CMTimeRange = CMTimeRangeFromTimeToTime(start: start, end: stop)
-        exportSession.timeRange = range
-        
-        exportSession.exportAsynchronously() {
-            switch exportSession.status {
-            case .failed:
-                print("Export failed: \(String(describing: exportSession.error?.localizedDescription))")
-            case .cancelled:
-                print("Export canceled")
-            default:
-                print("Successfully cropped audio")
-                DispatchQueue.main.async(execute: {
-                    finished(outputPath)
-                })
-            }
-        }
     }
 }

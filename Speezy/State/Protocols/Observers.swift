@@ -31,6 +31,15 @@ protocol AudioRecorderObserver: AnyObject {
     func recordingStopped(maxLimitedReached: Bool)
 }
 
+protocol AudioCutterObserver: AnyObject {
+    func cuttingStarted(onItem item: AudioItem)
+    func cutRangeAdjusted(onItem item: AudioItem)
+    func cuttingFinished(onItem item: AudioItem)
+    func leftCropHandle(movedToPercentage percentage: CGFloat)
+    func rightCropHandle(movedToPercentage percentage: CGFloat)
+    func cuttingCancelled()
+}
+
 protocol AudioCropperObserver: AnyObject {
     func croppingStarted(onItem item: AudioItem)
     func cropRangeAdjusted(onItem item: AudioItem)

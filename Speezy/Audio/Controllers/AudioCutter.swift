@@ -18,12 +18,13 @@ protocol AudioCutterDelegate: AnyObject {
     )
 }
 
-class AudioCutter {
+class AudioCutter: AudioCropping {
     private let item: AudioItem
-    private var cutItem: AudioItem?
-    private var stagedCutItem: AudioItem?
+    private(set) var cutItem: AudioItem?
+    private(set) var stagedCutItem: AudioItem?
     
     private let cutExtension = "_cut.wav"
+    let cropExtension = "_cropped.wav"
     
     weak var delegate: AudioCutterDelegate?
     
@@ -40,9 +41,36 @@ class AudioCutter {
                 date: self.item.date,
                 tags: self.item.tags
             )
-
+            
             self.cutItem = cutItem
             self.delegate?.audioCutter(self, didApplyCutItem: cutItem)
+        }
+    }
+    
+    func cut(audioItem: AudioItem, from: TimeInterval, to: TimeInterval) {
+        crop(audioItem: audioItem, startTime: from, stopTime: to) { (croppedOutputPath) in
+            let croppedItem = AudioItem(
+                id: self.item.id,
+                path: croppedOutputPath,
+                title: self.item.title,
+                date: self.item.date,
+                tags: self.item.tags
+            )
+            
+            self.stagedCutItem = croppedItem
+            
+            self.cut(audioItem: audioItem, from: from, to: to) { (cutOutputPath) in
+                let cutItem = AudioItem(
+                    id: self.item.id,
+                    path: cutOutputPath,
+                    title: self.item.title,
+                    date: self.item.date,
+                    tags: self.item.tags
+                )
+                
+                self.cutItem = cutItem
+                self.delegate?.audioCutter(self, didAdjustCutItem: cutItem)
+            }
         }
     }
     
@@ -52,6 +80,11 @@ class AudioCutter {
             return
         }
         
+        FileManager.default.deleteExistingFile(with: self.item.path)
+        FileManager.default.renameFile(
+            from: "\(item.id)\(cutExtension)",
+            to: item.path
+        )
         delegate?.audioCutter(self, didApplyCutItem: cutItem)
     }
     
