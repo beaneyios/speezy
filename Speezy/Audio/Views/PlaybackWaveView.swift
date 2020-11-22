@@ -47,11 +47,7 @@ class PlaybackWaveView: UIView {
         render()
     }
     
-    override func layoutSubviews() {
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: scrollView.frame.width / 2.0, bottom: 0, right: 0)
-    }
-    
-    private func render() {
+    private func render() {        
         scrollView.delegate = self
         AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
@@ -177,7 +173,6 @@ extension PlaybackWaveView {
 // MARK: SCROLL VIEW HANDLING
 extension PlaybackWaveView {
     private func stop() {
-//        wave.stop()
         scrollView.setContentOffset(.zero, animated: true)
     }
     
@@ -211,7 +206,7 @@ extension PlaybackWaveView {
         
         scrollView.setContentOffset(
             CGPoint(
-                x: centerPoint - (frame.width / 2.0),
+                x: centerPoint,
                 y: 0.0
             ),
             animated: false
@@ -389,8 +384,6 @@ extension PlaybackWaveView: UIScrollViewDelegate {
         let contentOffsetX = scrollView.contentOffset.x + (scrollView.frame.width / 2.0)
         let contentSizeWidth = scrollView.contentSize.width
         let percentage = contentOffsetX / contentSizeWidth
-        
-        print(percentage)
         
         if scrollView.isTracking {
             delegate?.playbackView(self, didScrollToPosition: percentage)
