@@ -90,9 +90,9 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             }
             
             switch action {
-            case .showCrop(let item, let kind):
+            case .showCrop(let item):
                 state = .cropping
-                observer.croppingStarted(onItem: item, kind: kind)
+                observer.croppingStarted(onItem: item)
                 
             case .showCropAdjusted(let item):
                 observer.cropRangeAdjusted(onItem: item)

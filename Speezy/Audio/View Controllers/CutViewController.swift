@@ -28,5 +28,13 @@ class CutViewController: UIViewController {
         }
         
         playbackView.configure(manager: manager)
+        playbackView.delegate = self
+    }
+}
+
+extension CutViewController: PlaybackWaveViewDelegate {
+    func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat) {
+        let floatPercentage = Float(percentage)
+        manager.seek(to: floatPercentage)
     }
 }

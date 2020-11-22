@@ -188,7 +188,7 @@ extension TranscriptionViewController: AudioCropperObserver {
         configurePreviewWave(audioManager: audioManager)
     }
     
-    func croppingStarted(onItem item: AudioItem, kind: CropKind) {}
+    func croppingStarted(onItem item: AudioItem) {}
     func cropRangeAdjusted(onItem item: AudioItem) {}
     func leftCropHandle(movedToPercentage percentage: CGFloat) {}
     func rightCropHandle(movedToPercentage percentage: CGFloat) {}

@@ -9,20 +9,6 @@
 import Foundation
 import UIKit
 
-enum CropKind {
-    case trim
-    case cut
-    
-    var pathExtension: String {
-        switch self {
-        case .trim:
-            return "_cropped.wav"
-        case .cut:
-            return "_cut.wav"
-        }
-    }
-}
-
 class CropView: UIView {
     
     @IBOutlet weak var contentView: UIView!
@@ -49,11 +35,9 @@ class CropView: UIView {
     private var lastRightLocation: CGFloat = 0.0
     
     private var manager: AudioManager?
-    private var cropKind: CropKind?
     
-    func configure(manager: AudioManager, cropKind: CropKind) {
+    func configure(manager: AudioManager) {
         self.manager = manager
-        self.cropKind = cropKind
         setUpHandles()
         layoutIfNeeded()
         render()
@@ -228,7 +212,7 @@ class CropView: UIView {
             let durationStart = manager.duration * TimeInterval(percentageStart)
             let durationEnd = manager.duration * TimeInterval(percentageEnd)
                         
-            manager.crop(from: durationStart, to: durationEnd, cropKind: cropKind ?? .trim)
+            manager.crop(from: durationStart, to: durationEnd)
         }
     }
 }

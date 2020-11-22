@@ -334,27 +334,26 @@ extension AudioManager: AudioCropperDelegate {
     func startCropping() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        stateManager.performCroppingAction(action: .showCrop(item, .trim))
+        stateManager.performCroppingAction(action: .showCrop(item))
     }
     
     func startCutting() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        stateManager.performCroppingAction(action: .showCrop(item, .cut))
+        stateManager.performCroppingAction(action: .showCrop(item))
     }
     
     func crop(
         from: TimeInterval,
-        to: TimeInterval,
-        cropKind: CropKind
+        to: TimeInterval
     ) {
-        audioCropper?.crop(from: from, to: to, cropKind: cropKind)
+        audioCropper?.crop(from: from, to: to)
     }
     
     func cut(timeRanges: [CMTimeRange]) {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        audioCropper?.cut(audioItem: self.item, timeRanges: timeRanges)
+//        audioCropper?.cut(audioItem: self.item, timeRanges: timeRanges)
     }
     
     func leftCropHandleMoved(to percentage: CGFloat) {
@@ -387,12 +386,11 @@ extension AudioManager: AudioCropperDelegate {
     
     func audioCropper(
         _ cropper: AudioCropper,
-        didApplyCroppedItem item: AudioItem,
-        kind: CropKind
+        didApplyCroppedItem item: AudioItem
     ) {
         FileManager.default.deleteExistingFile(with: self.item.path)
         FileManager.default.renameFile(
-            from: "\(item.id)\(kind.pathExtension)",
+            from: "\(item.id)_cropped.wav",
             to: self.item.path
         )
         

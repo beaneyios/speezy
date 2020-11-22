@@ -304,7 +304,7 @@ extension PlaybackWaveView: AudioRecorderObserver {
 
 // MARK: CROPPING LISTENERS
 extension PlaybackWaveView: AudioCropperObserver {
-    func croppingStarted(onItem item: AudioItem, kind: CropKind) {
+    func croppingStarted(onItem item: AudioItem) {
         guard let audioData = self.audioData else {
             assertionFailure("Somehow audio data is nil")
             return

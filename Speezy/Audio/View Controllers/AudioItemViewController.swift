@@ -377,7 +377,7 @@ extension AudioItemViewController {
             }
             
             self.cropView = cropView
-            cropView.configure(manager: self.audioManager, cropKind: .cut)
+            cropView.configure(manager: self.audioManager)
             
             UIView.animate(withDuration: 0.3) {
                 cropView.alpha = 1.0
@@ -431,7 +431,7 @@ extension AudioItemViewController {
             }
             
             self.cropView = cropView
-            cropView.configure(manager: self.audioManager, cropKind: .trim)
+            cropView.configure(manager: self.audioManager)
             
             UIView.animate(withDuration: 0.3) {
                 cropView.alpha = 1.0
@@ -549,16 +549,9 @@ extension AudioItemViewController: AudioPlayerObserver {
 
 // MARK: CROPPING
 extension AudioItemViewController: AudioCropperObserver {
-    func croppingStarted(onItem item: AudioItem, kind: CropKind) {
+    func croppingStarted(onItem item: AudioItem) {
         lblTimer.text = "00:00:00"
-
-        switch kind {
-        case .cut:
-            showCutView()
-        case .trim:
-            showCropView()
-        }
-
+        showCropView()
         scrollView.isScrollEnabled = false
     }
     

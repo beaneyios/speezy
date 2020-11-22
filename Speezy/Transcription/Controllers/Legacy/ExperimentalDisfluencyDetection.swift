@@ -133,7 +133,7 @@ class ExperimentalDisfluencyDetection {
             let asset = AVURLAsset(url: audioItem.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
             let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
                     
-            FileManager.default.deleteExistingFile(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
+            FileManager.default.deleteExistingFile(with: "\(audioItem.id)_cut.wav")
             
             do {
                 let composition: AVMutableComposition = AVMutableComposition()
@@ -148,7 +148,7 @@ class ExperimentalDisfluencyDetection {
                 guard
                     compatiblePresets.contains(AVAssetExportPresetPassthrough),
                     let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough),
-                    let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)\(CropKind.cut.pathExtension)")
+                    let outputURL = FileManager.default.documentsURL(with: "\(audioItem.id)_cut.wav")
                 else {
                     return
                 }

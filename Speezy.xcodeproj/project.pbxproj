@@ -84,6 +84,7 @@
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
+		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
 		BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8325178E490009ECCC /* test-transcribe.m4a */; };
 		BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */; };
 		BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */; };
@@ -232,6 +233,7 @@
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
+		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
 		BEA5AE8325178E490009ECCC /* test-transcribe.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.m4a"; sourceTree = "<group>"; };
 		BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.flac"; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileCombiner.swift; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 				BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
 				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
+				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1050,6 +1053,7 @@
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
+				BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */,
 				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,

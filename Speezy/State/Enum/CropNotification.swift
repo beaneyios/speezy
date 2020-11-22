@@ -9,7 +9,7 @@
 import UIKit
 
 enum CropAction {
-    case showCrop(AudioItem, CropKind)
+    case showCrop(AudioItem)
     case showCropAdjusted(AudioItem)
     case showCropCancelled(AudioItem)
     case showCropFinished(AudioItem)
