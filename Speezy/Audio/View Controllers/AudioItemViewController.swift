@@ -208,6 +208,9 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func toggleCut(_ sender: Any) {
+        delegate?.audioItemViewController(self, didPresentCutOnItem: audioManager.item)
+        return;
+        
         if audioManager.canCut {
             audioManager.toggleCut()
         } else {
@@ -321,9 +324,15 @@ extension AudioItemViewController {
 }
 
 extension AudioItemViewController: PlaybackWaveViewDelegate {
-    func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat) {
-        let floatPercentage = Float(percentage)
-        audioManager.seek(to: floatPercentage)
+    func playbackView(
+        _ playbackView: PlaybackWaveView,
+        didScrollToPosition percentage: CGFloat,
+        userInitiated: Bool
+    ) {
+        if userInitiated {
+            let floatPercentage = Float(percentage)
+            audioManager.seek(to: floatPercentage)
+        }
     }
 }
 

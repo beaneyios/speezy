@@ -77,7 +77,6 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ICs-PM-STR" secondAttribute="bottom" id="D1d-ZJ-VBN"/>
-                        <constraint firstItem="VN9-e4-pJ2" firstAttribute="width" relation="greaterThanOrEqual" secondItem="IFb-kf-Gt1" secondAttribute="width" id="Zq0-XN-GBz"/>
                         <constraint firstAttribute="trailing" secondItem="ICs-PM-STR" secondAttribute="trailing" id="fo1-G4-Qan"/>
                         <constraint firstItem="ICs-PM-STR" firstAttribute="leading" secondItem="IFb-kf-Gt1" secondAttribute="leading" id="gtF-4C-yDF"/>
                         <constraint firstItem="ICs-PM-STR" firstAttribute="top" secondItem="IFb-kf-Gt1" secondAttribute="top" id="tTy-XC-wae"/>

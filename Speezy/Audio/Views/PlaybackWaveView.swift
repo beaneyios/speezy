@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol PlaybackWaveViewDelegate: AnyObject {
-    func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat)
+    func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat, userInitiated: Bool)
 }
 
 class PlaybackWaveView: UIView {
@@ -36,6 +36,8 @@ class PlaybackWaveView: UIView {
     
     private var manager: AudioManager!
     private var audioData: AudioData?
+    
+    private var userInitiatedSeeking: Bool = false
     
     func configure(manager: AudioManager) {
         self.manager = manager
@@ -112,6 +114,7 @@ extension PlaybackWaveView {
         timelineView = nil
         
         let timelineView = TimelineView()
+        timelineView.tag = 1
         timelineContainer.addSubview(timelineView)
         timelineView.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(timelineContainer)
@@ -150,6 +153,7 @@ extension PlaybackWaveView {
         wave.configure(with: levels)
         wave.backgroundColor = .clear
         wave.alpha = 0.0
+        wave.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.contentSize = waveSize
         waveContainer.addSubview(wave)
@@ -159,9 +163,19 @@ extension PlaybackWaveView {
             maker.leading.equalToSuperview()
             maker.top.equalToSuperview()
             maker.bottom.equalToSuperview()
-            
-            maker.trailing.lessThanOrEqualToSuperview()
             self.waveWidth = maker.width.equalTo(waveSize.width).constraint
+        }
+        
+        let spacer = UIView()
+        spacer.translatesAutoresizingMaskIntoConstraints = false
+        spacer.tag = 2
+        waveContainer.addSubview(spacer)
+        spacer.snp.makeConstraints { (maker) in
+            maker.width.equalTo(self.scrollView.frame.width / 2.0)
+            maker.trailing.lessThanOrEqualToSuperview()
+            maker.leading.equalTo(wave.snp.trailing)
+            maker.top.equalToSuperview()
+            maker.bottom.equalToSuperview()
         }
         
         UIView.animate(withDuration: 0.3) {
@@ -380,18 +394,33 @@ extension PlaybackWaveView: AudioCutterObserver {
 }
 
 extension PlaybackWaveView: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        manager?.pause()
+        
+        userInitiatedSeeking = true
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate == false {
+            userInitiatedSeeking = false
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if userInitiatedSeeking {
+            userInitiatedSeeking = false
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetX = scrollView.contentOffset.x + (scrollView.frame.width / 2.0)
         let contentSizeWidth = scrollView.contentSize.width
         let percentage = contentOffsetX / contentSizeWidth
-        
-        if scrollView.isTracking {
-            delegate?.playbackView(self, didScrollToPosition: percentage)
-        }
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        manager?.pause()
+        delegate?.playbackView(
+            self,
+            didScrollToPosition: percentage,
+            userInitiated: userInitiatedSeeking
+        )
     }
 }
 
