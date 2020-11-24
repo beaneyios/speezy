@@ -14,9 +14,28 @@ class CutViewController: UIViewController {
     
     var manager: AudioManager!
     
+    var waveView: PlaybackWaveView!
+    
+    enum State {
+        case none
+        case start
+        case end
+    }
+    
+    var state: State = .end
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configurePlaybackView()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+            if self.state == .end {
+                self.waveView.seek(to: 1)
+            }
+            
+            self.manager.startCutting()
+        }
+        
+        
     }
     
     private func configurePlaybackView() {
@@ -29,6 +48,7 @@ class CutViewController: UIViewController {
         
         playbackView.configure(manager: manager)
         playbackView.delegate = self
+        waveView = playbackView
     }
 }
 
@@ -39,8 +59,18 @@ extension CutViewController: PlaybackWaveViewDelegate {
         userInitiated: Bool
     ) {
         if userInitiated {
+            print(percentage)
             let floatPercentage = Float(percentage)
             manager.seek(to: floatPercentage)
+            
+            switch state {
+            case .none:
+                break
+            case .start:
+                waveView.leftCropHandle(movedToPercentage: percentage)
+            case .end:
+                waveView.rightCropHandle(movedToPercentage: percentage)
+            }
         }
     }
 }

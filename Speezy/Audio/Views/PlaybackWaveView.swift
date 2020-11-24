@@ -163,19 +163,8 @@ extension PlaybackWaveView {
             maker.leading.equalToSuperview()
             maker.top.equalToSuperview()
             maker.bottom.equalToSuperview()
+            maker.trailing.equalToSuperview().offset(-(self.scrollView.frame.width / 2.0))
             self.waveWidth = maker.width.equalTo(waveSize.width).constraint
-        }
-        
-        let spacer = UIView()
-        spacer.translatesAutoresizingMaskIntoConstraints = false
-        spacer.tag = 2
-        waveContainer.addSubview(spacer)
-        spacer.snp.makeConstraints { (maker) in
-            maker.width.equalTo(self.scrollView.frame.width / 2.0)
-            maker.trailing.lessThanOrEqualToSuperview()
-            maker.leading.equalTo(wave.snp.trailing)
-            maker.top.equalToSuperview()
-            maker.bottom.equalToSuperview()
         }
         
         UIView.animate(withDuration: 0.3) {
@@ -186,6 +175,19 @@ extension PlaybackWaveView {
 
 // MARK: SCROLL VIEW HANDLING
 extension PlaybackWaveView {
+    func seek(to percentage: Double) {
+        guard let audioData = audioData else {
+            return
+        }
+        
+        let waveSize = self.waveSize(audioData: audioData)
+        advanceScrollViewForPlayback(
+            waveSize: waveSize,
+            audioData: audioData,
+            time: audioData.duration / percentage
+        )
+    }
+    
     private func stop() {
         scrollView.setContentOffset(.zero, animated: true)
     }
@@ -230,13 +232,7 @@ extension PlaybackWaveView {
     private func advanceScrollViewForRecording(waveSize: CGSize) {
         let waveWidth = waveSize.width
         
-        let offset: CGFloat = {
-            if waveWidth < frame.width {
-                return 0.0
-            } else {
-                return waveWidth - frame.width
-            }
-        }()
+        let offset: CGFloat = waveWidth + (frame.width / 2.0)
                     
         scrollView.setContentOffset(
             CGPoint(
@@ -341,9 +337,6 @@ extension PlaybackWaveView: AudioCropperObserver {
         if waveWidth < frame.width {
             return
         }
-                
-        let scrollPosition = CGPoint(x: (waveWidth * percentage) - 32.0, y: 0.0)
-        scrollView.setContentOffset(scrollPosition, animated: false)
     }
     
     func rightCropHandle(movedToPercentage percentage: CGFloat) {
@@ -358,9 +351,6 @@ extension PlaybackWaveView: AudioCropperObserver {
         if waveWidth < frame.width {
             return
         }
-        
-        let scrollPosition = CGPoint(x: (waveWidth * percentage) - frame.width + 32.0, y: 0.0)
-        scrollView.setContentOffset(scrollPosition, animated: false)
     }
     
     func croppingCancelled() {
@@ -413,9 +403,12 @@ extension PlaybackWaveView: UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentOffsetX = scrollView.contentOffset.x + (scrollView.frame.width / 2.0)
-        let contentSizeWidth = scrollView.contentSize.width
+        let contentOffsetX = scrollView.contentOffset.x
+        let contentSizeWidth = scrollView.contentSize.width - frame.size.width
+        
         let percentage = contentOffsetX / contentSizeWidth
+        
+        print(percentage)
         delegate?.playbackView(
             self,
             didScrollToPosition: percentage,
