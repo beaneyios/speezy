@@ -64,7 +64,7 @@ class CutViewController: UIViewController {
     @IBAction func endTapped(_ sender: Any) {
         if state == .end {
             state = .none
-            btnStart.toggleOff()
+            btnEnd.toggleOff()
         } else {
             state = .end
             btnStart.toggleOff()
@@ -153,11 +153,27 @@ extension CutViewController: PlaybackWaveViewDelegate {
             
             switch state {
             case .none:
-                break
+                if floatPercentage <= startPercentage {
+                    waveView.seek(to: Double(startPercentage))
+                }
+                
+                if floatPercentage >= endPercentage {
+                    waveView.seek(to: Double(endPercentage))
+                }
             case .start:
+                if floatPercentage + 0.015 >= endPercentage {
+                    waveView.seek(to: Double(startPercentage))
+                    return
+                }
+                
                 startPercentage = floatPercentage
                 waveView.leftCropHandle(movedToPercentage: percentage)
             case .end:
+                if floatPercentage <= startPercentage + 0.015 {
+                    waveView.seek(to: Double(endPercentage))
+                    return
+                }
+                
                 endPercentage = floatPercentage
                 waveView.rightCropHandle(movedToPercentage: percentage)
             }

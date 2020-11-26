@@ -71,6 +71,10 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         
         let timePosition = player.duration * TimeInterval(percentage)
         player.currentTime = timePosition
+        print(" ")
+        print("Time position \(timePosition)")
+        print("Duration \(player.duration)")
+        print(" ")
         
         delegate?.audioPlayer(self, progressedPlaybackWithTime: player.currentTime, seekActive: true)
     }

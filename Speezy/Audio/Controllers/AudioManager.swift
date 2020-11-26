@@ -220,11 +220,7 @@ extension AudioManager: AudioPlayerDelegate {
         }
     }
     
-    func play() {
-        if stateManager.state.shouldRegeneratePlayer == true {
-            regeneratePlayer(withItem: currentItem)
-        }
-        
+    func play() {        
         audioPlayer?.play()
     }
     
@@ -238,6 +234,10 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func seek(to percentage: Float) {
+        if audioPlayer == nil {
+            regeneratePlayer(withItem: currentItem)
+        }
+        
         audioPlayer?.seek(to: percentage)
     }
 
@@ -269,7 +269,6 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func audioPlayerDidStopPlayback(_ player: AudioPlayer) {
-        audioPlayer = nil
         stateManager.performPlaybackAction(action: .showPlaybackStopped(item))
     }
     
@@ -457,21 +456,21 @@ extension AudioManager: AudioCutterDelegate {
     
     // DELEGATES
     func audioCutter(_ cropper: AudioCutter, didAdjustCutItem item: AudioItem) {
-        regeneratePlayer(withItem: item)
+        regeneratePlayer(withItem: currentItem)
         stateManager.performCuttingAction(action: .showCutAdjusted(item))
     }
     
     func audioCutter(_ cropper: AudioCutter, didApplyCutItem item: AudioItem) {
-        regeneratePlayer(withItem: item)
         stateManager.performCuttingAction(action: .showCutFinished(item))
         audioCutter = nil
         hasUnsavedChanges = true
+        regeneratePlayer(withItem: currentItem)
     }
     
     func audioCutter(_ cropper: AudioCutter, didCancelCutReturningToItem item: AudioItem) {
-        regeneratePlayer(withItem: item)
         stateManager.performCuttingAction(action: .showCutCancelled(item))
         audioCutter = nil
+        regeneratePlayer(withItem: currentItem)
     }
 }
 

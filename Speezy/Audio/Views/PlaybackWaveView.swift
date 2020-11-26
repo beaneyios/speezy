@@ -209,10 +209,14 @@ extension PlaybackWaveView {
     }
     
     private func stop() {
-        scrollView.setContentOffset(.zero, animated: true)
+        guard let audioData = self.audioData else {
+            return
+        }
+        
+        advanceScrollViewWithTime(time: manager.startOffset, playback: true)
     }
     
-    private func advanceScrollViewWithTimer(timeOffset: TimeInterval, playback: Bool) {
+    private func advanceScrollViewWithTime(time: TimeInterval, playback: Bool) {
         guard let audioData = audioData else {
             return
         }
@@ -223,7 +227,7 @@ extension PlaybackWaveView {
             advanceScrollViewForPlayback(
                 waveSize: waveSize,
                 audioData: audioData,
-                time: timeOffset
+                time: time
             )
         } else {
             advanceScrollViewForRecording(waveSize: waveSize)
@@ -286,7 +290,7 @@ extension PlaybackWaveView: AudioPlayerObserver {
             print("Start offset \(startOffset)")
             print("Time \(time)")
             let time = time + startOffset
-            advanceScrollViewWithTimer(timeOffset: time, playback: true)
+            advanceScrollViewWithTime(time: time, playback: true)
         }
     }
 }
@@ -318,7 +322,7 @@ extension PlaybackWaveView: AudioRecorderObserver {
         
         waveWidth.update(offset: waveSize.width)
         wave.add(meteringLevel: percentageLevel)
-        advanceScrollViewWithTimer(timeOffset: 0.0, playback: false)
+        advanceScrollViewWithTime(time: 0.0, playback: false)
     }
     
     func recordingProcessing() {
@@ -348,20 +352,10 @@ extension PlaybackWaveView: AudioCropperObserver {
     }
     
     func leftCropHandle(movedToPercentage percentage: CGFloat) {
-        if percentage + 0.015 >= cropOverlayView.rightHandlePositionPercentage() {
-            seek(to: Double(cropOverlayView.leftHandlePositionPercentage()))
-            return
-        }
-        
         cropOverlayView.changeStart(percentage: percentage)
     }
     
     func rightCropHandle(movedToPercentage percentage: CGFloat) {
-        if percentage <= cropOverlayView.leftHandlePositionPercentage() + 0.015 {
-            seek(to: Double(cropOverlayView.rightHandlePositionPercentage()))
-            return
-        }
-        
         cropOverlayView.changeEnd(percentage: percentage)
     }
     
