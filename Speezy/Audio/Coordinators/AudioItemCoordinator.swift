@@ -50,7 +50,8 @@ class AudioItemCoordinator: ViewCoordinator {
         
         let manager = AudioManager(item: audioItem)
         viewController.manager = manager
-        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
+        viewController.delegate = self
+        pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
     }
 }
 
@@ -59,6 +60,12 @@ extension AudioItemCoordinator {
         navigationController.viewControllers.first {
             $0 is AudioItemListViewController
         } as? AudioItemListViewController
+    }
+}
+
+extension AudioItemCoordinator: CutViewControllerDelegate {
+    func cutViewControllerDidTapClose(_ viewController: CutViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

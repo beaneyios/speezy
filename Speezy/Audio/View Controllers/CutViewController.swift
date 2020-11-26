@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CutViewControllerDelegate: AnyObject {
+    func cutViewControllerDidTapClose(_ viewController: CutViewController)
+}
+
 class CutViewController: UIViewController {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var playbackWaveContainer: UIView!
@@ -16,8 +20,9 @@ class CutViewController: UIViewController {
     @IBOutlet weak var btnEnd: UIButton!
     @IBOutlet weak var btnPlay: UIButton!
     
-    var manager: AudioManager!
+    weak var delegate: CutViewControllerDelegate?
     
+    var manager: AudioManager!
     var waveView: PlaybackWaveView!
     
     enum State {
@@ -42,6 +47,12 @@ class CutViewController: UIViewController {
         super.viewDidLoad()
         configurePlaybackView()
         configureButtons()
+        
+        manager.addPlaybackObserver(self)
+    }
+    
+    @IBAction func closeTapped(_ sender: Any) {
+        delegate?.cutViewControllerDidTapClose(self)
     }
     
     @IBAction func startTapped(_ sender: Any) {
@@ -130,7 +141,7 @@ extension CutViewController: AudioPlayerObserver {
         onItem item: AudioItem,
         startOffset: TimeInterval
     ) {
-        lblTime.text = TimeFormatter.formatTime(time: time)
+        lblTime.text = TimeFormatter.formatTime(time: time + startOffset)
     }
 }
 
