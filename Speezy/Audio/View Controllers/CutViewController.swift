@@ -26,15 +26,12 @@ class CutViewController: UIViewController {
         case end
     }
     
-    private var state: State = .none
+    private var state: State = .start
     private var startPercentage: Float = 0.0
     private var endPercentage: Float = 1.0
     
     private var startTime: TimeInterval {
-
-        let thingy = manager.duration * Double(startPercentage)
-        print(thingy)
-        return thingy
+        manager.duration * Double(startPercentage)
     }
 
     private var endTime: TimeInterval {
@@ -50,29 +47,25 @@ class CutViewController: UIViewController {
     @IBAction func startTapped(_ sender: Any) {
         if state == .start {
             state = .none
-            btnStart.toggleOff()
         } else {
             state = .start
-            btnEnd.toggleOff()
-            btnStart.toggleOn()
-            
             manager.seek(to: startPercentage)
             waveView.seekToLeftCropHandle()
         }
+        
+        configureButtons()
     }
     
     @IBAction func endTapped(_ sender: Any) {
         if state == .end {
             state = .none
-            btnEnd.toggleOff()
         } else {
             state = .end
-            btnStart.toggleOff()
-            btnEnd.toggleOn()
-            
             manager.seek(to: endPercentage)
             waveView.seekToRightCropHandle()
         }
+        
+        configureButtons()
     }
     
     @IBAction func playTapped(_ sender: Any) {
@@ -82,6 +75,18 @@ class CutViewController: UIViewController {
     private func configureButtons() {
         btnStart.configure()
         btnEnd.configure()
+        
+        switch state {
+        case .none:
+            btnStart.toggleOff()
+            btnEnd.toggleOff()
+        case .start:
+            btnStart.toggleOn()
+            btnEnd.toggleOff()
+        case .end:
+            btnStart.toggleOff()
+            btnEnd.toggleOn()
+        }
     }
     
     private func configurePlaybackView() {
@@ -183,12 +188,9 @@ extension CutViewController: PlaybackWaveViewDelegate {
 
 fileprivate extension UIButton {
     func configure() {
-        backgroundColor = .clear
         layer.borderWidth = 1.0
         layer.borderColor = UIColor.white.cgColor
         layer.cornerRadius = 4.0
-        setTitleColor(.white, for: .normal)
-        
     }
     
     func toggleOn() {
