@@ -126,6 +126,7 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             
             switch action {
             case .showCut(let item):
+//                state = .cutting
                 observer.cuttingStarted(onItem: item)
             case .showCutAdjusted(let item):
                 observer.cutRangeAdjusted(onItem: item)

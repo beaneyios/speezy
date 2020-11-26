@@ -324,6 +324,10 @@ extension AudioItemViewController {
 }
 
 extension AudioItemViewController: PlaybackWaveViewDelegate {
+    func playbackViewDidFinishScrolling(_ playbackView: PlaybackWaveView) {
+        
+    }
+    
     func playbackView(
         _ playbackView: PlaybackWaveView,
         didScrollToPosition percentage: CGFloat,

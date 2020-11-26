@@ -192,7 +192,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     var startOffset: TimeInterval {
-        audioCropper?.cropFrom ?? 0.0
+        audioCropper?.cropFrom ?? audioCutter?.cropFrom ?? 0.0
     }
     
     var duration: TimeInterval {
@@ -222,8 +222,7 @@ extension AudioManager: AudioPlayerDelegate {
     
     func play() {
         if stateManager.state.shouldRegeneratePlayer == true {
-            audioPlayer = AudioPlayer(item: currentItem)
-            audioPlayer?.delegate = self
+            regeneratePlayer(withItem: currentItem)
         }
         
         audioPlayer?.play()
@@ -238,30 +237,7 @@ extension AudioManager: AudioPlayerDelegate {
         }
     }
     
-    func skipForwards() {
-        var newTime = currentPlaybackTime - 10
-        newTime = newTime < 0 ? 0 : newTime
-        let percentage = Float(newTime / currentItem.duration)
-        seek(to: percentage)
-    }
-    
-    func skipBackwards() {
-        var newTime = currentPlaybackTime + 10
-        if newTime > currentItem.duration {
-            newTime = currentItem.duration
-        }
-        
-        let percentage = Float(newTime / currentItem.duration)
-        seek(to: percentage)
-    }
-    
     func seek(to percentage: Float) {
-        if audioPlayer == nil || isCropping {
-            audioPlayer = AudioPlayer(item: currentItem)
-            audioPlayer?.delegate = self
-            stateManager.state = .pausedPlayback(currentItem)
-        }
-        
         audioPlayer?.seek(to: percentage)
     }
 
@@ -295,6 +271,11 @@ extension AudioManager: AudioPlayerDelegate {
     func audioPlayerDidStopPlayback(_ player: AudioPlayer) {
         audioPlayer = nil
         stateManager.performPlaybackAction(action: .showPlaybackStopped(item))
+    }
+    
+    private func regeneratePlayer(withItem item: AudioItem) {
+        audioPlayer = AudioPlayer(item: item)
+        audioPlayer?.delegate = self
     }
 }
 
@@ -474,17 +455,21 @@ extension AudioManager: AudioCutterDelegate {
         stateManager.performCuttingAction(action: .showCut(item))
     }
     
+    // DELEGATES
     func audioCutter(_ cropper: AudioCutter, didAdjustCutItem item: AudioItem) {
+        regeneratePlayer(withItem: item)
         stateManager.performCuttingAction(action: .showCutAdjusted(item))
     }
     
     func audioCutter(_ cropper: AudioCutter, didApplyCutItem item: AudioItem) {
+        regeneratePlayer(withItem: item)
         stateManager.performCuttingAction(action: .showCutFinished(item))
         audioCutter = nil
         hasUnsavedChanges = true
     }
     
     func audioCutter(_ cropper: AudioCutter, didCancelCutReturningToItem item: AudioItem) {
+        regeneratePlayer(withItem: item)
         stateManager.performCuttingAction(action: .showCutCancelled(item))
         audioCutter = nil
     }

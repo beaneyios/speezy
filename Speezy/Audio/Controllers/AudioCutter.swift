@@ -23,6 +23,9 @@ class AudioCutter: AudioCropping {
     private(set) var cutItem: AudioItem?
     private(set) var stagedCutItem: AudioItem?
     
+    private(set) var cropFrom: TimeInterval?
+    private(set) var cropTo: TimeInterval?
+    
     private let cutExtension = "_cut.wav"
     let cropExtension = "_cropped.wav"
     
@@ -48,6 +51,9 @@ class AudioCutter: AudioCropping {
     }
     
     func cut(audioItem: AudioItem, from: TimeInterval, to: TimeInterval) {
+        cropFrom = from
+        cropTo = to
+        
         crop(audioItem: audioItem, startTime: from, stopTime: to) { (croppedOutputPath) in
             let croppedItem = AudioItem(
                 id: self.item.id,
@@ -85,7 +91,7 @@ class AudioCutter: AudioCropping {
             from: "\(item.id)\(cutExtension)",
             to: item.path
         )
-        delegate?.audioCutter(self, didApplyCutItem: cutItem)
+        delegate?.audioCutter(self, didApplyCutItem: item)
     }
     
     func cancelCut() {

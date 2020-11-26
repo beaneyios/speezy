@@ -31,11 +31,11 @@ class PlaybackControlsView: UIView, NibLoadable {
     }
     
     @IBAction func skipBackward(_ sender: Any) {
-        manager.skipBackwards()
+        
     }
     
     @IBAction func skipForward(_ sender: Any) {
-        manager.skipForwards()
+        
     }
     
     @IBAction func togglePlayback(_ sender: Any) {

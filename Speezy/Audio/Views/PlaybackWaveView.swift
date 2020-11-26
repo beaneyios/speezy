@@ -11,6 +11,7 @@ import SnapKit
 
 protocol PlaybackWaveViewDelegate: AnyObject {
     func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat, userInitiated: Bool)
+    func playbackViewDidFinishScrolling(_ playbackView: PlaybackWaveView)
 }
 
 class PlaybackWaveView: UIView {
@@ -39,17 +40,17 @@ class PlaybackWaveView: UIView {
     
     private var userInitiatedSeeking: Bool = false
     
-    func configure(manager: AudioManager) {
+    func configure(manager: AudioManager, completion: (() -> Void)? = nil) {
         self.manager = manager
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
         manager.addCutterObserver(self)
         
-        render()
+        render(completion: completion)
     }
     
-    private func render() {        
+    private func render(completion: (() -> Void)? = nil) {
         scrollView.delegate = self
         AudioLevelGenerator.render(fromAudioItem: manager.item, targetSamplesPolicy: .fitToDuration) { (audioData) in
             DispatchQueue.main.async {
@@ -71,6 +72,7 @@ class PlaybackWaveView: UIView {
                 self.audioData = audioData
                 self.createTimeLine(seconds: audioData.duration, width: waveSize.width)
                 self.createWaveView(with: audioData.percentageLevels, seconds: audioData.duration, waveSize: waveSize)
+                completion?()
             }
         }
     }
@@ -281,6 +283,8 @@ extension PlaybackWaveView: AudioPlayerObserver {
         startOffset: TimeInterval
     ) {
         if seekActive == false {
+            print("Start offset \(startOffset)")
+            print("Time \(time)")
             let time = time + startOffset
             advanceScrollViewWithTimer(timeOffset: time, playback: true)
         }
@@ -401,12 +405,14 @@ extension PlaybackWaveView: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate == false {
             userInitiatedSeeking = false
+            delegate?.playbackViewDidFinishScrolling(self)
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if userInitiatedSeeking {
             userInitiatedSeeking = false
+            delegate?.playbackViewDidFinishScrolling(self)
         }
     }
     
@@ -415,8 +421,6 @@ extension PlaybackWaveView: UIScrollViewDelegate {
         let contentSizeWidth = scrollView.contentSize.width - frame.size.width
         
         let percentage = contentOffsetX / contentSizeWidth
-        
-        print(percentage)
         delegate?.playbackView(
             self,
             didScrollToPosition: percentage,

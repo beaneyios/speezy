@@ -81,6 +81,9 @@
                                             <constraint firstAttribute="width" secondItem="eTU-Ou-5fD" secondAttribute="height" multiplier="1:1" id="2PB-5I-TF0"/>
                                         </constraints>
                                         <state key="normal" image="play-button"/>
+                                        <connections>
+                                            <action selector="playTapped:" destination="wx0-B1-l3Y" eventType="touchUpInside" id="DFQ-XA-6D8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -203,6 +206,7 @@
                     </view>
                     <connections>
                         <outlet property="btnEnd" destination="1PQ-F9-fG4" id="u44-09-9bG"/>
+                        <outlet property="btnPlay" destination="eTU-Ou-5fD" id="0ts-gP-EMz"/>
                         <outlet property="btnStart" destination="RWn-sj-eCh" id="KOQ-PI-oNt"/>
                         <outlet property="lblTime" destination="K8D-0M-ZUg" id="paH-yc-xF9"/>
                         <outlet property="playbackWaveContainer" destination="Yfg-F3-USr" id="UD5-Lb-ueP"/>

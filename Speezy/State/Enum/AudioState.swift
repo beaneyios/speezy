@@ -15,6 +15,7 @@ enum AudioState {
     case startedPlayback(AudioItem)
     case pausedPlayback(AudioItem)
     
+    case cutting
     case cropping
     case recording
     
