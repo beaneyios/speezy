@@ -175,16 +175,34 @@ extension PlaybackWaveView {
 
 // MARK: SCROLL VIEW HANDLING
 extension PlaybackWaveView {
+    func seekToLeftCropHandle() {
+        let percentage = cropOverlayView.leftHandlePositionPercentage()
+        seek(to: Double(percentage))
+    }
+    
+    func seekToRightCropHandle() {
+        let percentage = cropOverlayView.rightHandlePositionPercentage()
+        seek(to: Double(percentage))
+    }
+    
     func seek(to percentage: Double) {
         guard let audioData = audioData else {
             return
         }
         
+        let time: TimeInterval = {
+            if percentage == 0 {
+                return 0
+            } else {
+                return audioData.duration * percentage
+            }
+        }()
+        
         let waveSize = self.waveSize(audioData: audioData)
         advanceScrollViewForPlayback(
             waveSize: waveSize,
             audioData: audioData,
-            time: audioData.duration / percentage
+            time: time
         )
     }
     
@@ -326,31 +344,21 @@ extension PlaybackWaveView: AudioCropperObserver {
     }
     
     func leftCropHandle(movedToPercentage percentage: CGFloat) {
-        guard let audioData = self.audioData else {
-            assertionFailure("Somehow audio data is nil")
+        if percentage + 0.015 >= cropOverlayView.rightHandlePositionPercentage() {
+            seek(to: Double(cropOverlayView.leftHandlePositionPercentage()))
             return
         }
         
         cropOverlayView.changeStart(percentage: percentage)
-        
-        let waveWidth = waveSize(audioData: audioData).width
-        if waveWidth < frame.width {
-            return
-        }
     }
     
     func rightCropHandle(movedToPercentage percentage: CGFloat) {
-        guard let audioData = self.audioData else {
-            assertionFailure("Somehow audio data is nil")
+        if percentage <= cropOverlayView.leftHandlePositionPercentage() + 0.015 {
+            seek(to: Double(cropOverlayView.rightHandlePositionPercentage()))
             return
         }
         
         cropOverlayView.changeEnd(percentage: percentage)
-        
-        let waveWidth = waveSize(audioData: audioData).width
-        if waveWidth < frame.width {
-            return
-        }
     }
     
     func croppingCancelled() {
