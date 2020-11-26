@@ -11,7 +11,7 @@ import SnapKit
 
 protocol PlaybackWaveViewDelegate: AnyObject {
     func playbackView(_ playbackView: PlaybackWaveView, didScrollToPosition percentage: CGFloat, userInitiated: Bool)
-    func playbackViewDidFinishScrolling(_ playbackView: PlaybackWaveView)
+    func playbackView(_ playbackView: PlaybackWaveView, didFinishScrollingOnPosition percentage: CGFloat)
 }
 
 class PlaybackWaveView: UIView {
@@ -392,21 +392,28 @@ extension PlaybackWaveView: AudioCutterObserver {
 extension PlaybackWaveView: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         manager?.pause()
-        
         userInitiatedSeeking = true
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        // It's not going to slide any further, so the scroll view has finished moving.
         if decelerate == false {
             userInitiatedSeeking = false
-            delegate?.playbackViewDidFinishScrolling(self)
+            let contentOffsetX = scrollView.contentOffset.x
+            let contentSizeWidth = scrollView.contentSize.width - frame.size.width
+            let percentage = contentOffsetX / contentSizeWidth
+            delegate?.playbackView(self, didFinishScrollingOnPosition: percentage)
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // The scroll view is decelerating as a result of a user swipe (as opposed to a timer change).
         if userInitiatedSeeking {
             userInitiatedSeeking = false
-            delegate?.playbackViewDidFinishScrolling(self)
+            let contentOffsetX = scrollView.contentOffset.x
+            let contentSizeWidth = scrollView.contentSize.width - frame.size.width
+            let percentage = contentOffsetX / contentSizeWidth
+            delegate?.playbackView(self, didFinishScrollingOnPosition: percentage)
         }
     }
     

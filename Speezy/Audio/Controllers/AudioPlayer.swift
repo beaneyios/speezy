@@ -62,20 +62,14 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         delegate?.audioPlayerDidStopPlayback(self)
     }
     
-    func seek(to percentage: Float) {
+    func seek(to time: TimeInterval) {
         guard let player = self.player else {
             
             assertionFailure("Somehow the skip is getting called despite the player being nil")
             return
         }
         
-        let timePosition = player.duration * TimeInterval(percentage)
-        player.currentTime = timePosition
-        print(" ")
-        print("Time position \(timePosition)")
-        print("Duration \(player.duration)")
-        print(" ")
-        
+        player.currentTime = time
         delegate?.audioPlayer(self, progressedPlaybackWithTime: player.currentTime, seekActive: true)
     }
     

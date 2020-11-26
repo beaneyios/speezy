@@ -61,9 +61,21 @@ extension AudioItemCoordinator {
             $0 is AudioItemListViewController
         } as? AudioItemListViewController
     }
+    
+    var audioItemViewController: AudioItemViewController? {
+        navigationController.viewControllers.first {
+            $0 is AudioItemViewController
+        } as? AudioItemViewController
+    }
 }
 
 extension AudioItemCoordinator: CutViewControllerDelegate {
+    func cutViewControllerDidFinishCut(_ viewController: CutViewController) {
+        viewController.dismiss(animated: true) {
+            self.audioItemViewController?.configureSubviews()
+        }
+    }
+    
     func cutViewControllerDidTapClose(_ viewController: CutViewController) {
         viewController.dismiss(animated: true, completion: nil)
     }

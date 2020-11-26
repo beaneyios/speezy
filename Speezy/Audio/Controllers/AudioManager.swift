@@ -235,10 +235,13 @@ extension AudioManager: AudioPlayerDelegate {
     
     func seek(to percentage: Float) {
         if audioPlayer == nil {
+            print("Regenerating player")
             regeneratePlayer(withItem: currentItem)
         }
         
-        audioPlayer?.seek(to: percentage)
+        let seekTime = item.duration * Double(percentage)
+        
+        audioPlayer?.seek(to: seekTime - startOffset)
     }
 
     func stop() {

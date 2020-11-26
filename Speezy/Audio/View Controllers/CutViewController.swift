@@ -9,6 +9,7 @@
 import UIKit
 
 protocol CutViewControllerDelegate: AnyObject {
+    func cutViewControllerDidFinishCut(_ viewController: CutViewController)
     func cutViewControllerDidTapClose(_ viewController: CutViewController)
 }
 
@@ -83,6 +84,10 @@ class CutViewController: UIViewController {
         manager.togglePlayback()
     }
     
+    @IBAction func cutTapped(_ sender: Any) {
+        manager.applyCut()
+    }
+    
     private func configureButtons() {
         btnStart.configure()
         btnEnd.configure()
@@ -141,12 +146,34 @@ extension CutViewController: AudioPlayerObserver {
         onItem item: AudioItem,
         startOffset: TimeInterval
     ) {
-        lblTime.text = TimeFormatter.formatTime(time: time + startOffset)
+        switch state {
+        case .start:
+            lblTime.text = TimeFormatter.formatTime(time: startTime)
+        case .end:
+            lblTime.text = TimeFormatter.formatTime(time: endTime)
+        case .none:
+            lblTime.text = TimeFormatter.formatTime(time: time + startOffset)
+        }
     }
 }
 
+extension CutViewController: AudioCutterObserver {
+    func cuttingFinished(onItem item: AudioItem) {
+        delegate?.cutViewControllerDidFinishCut(self)
+    }
+    
+    func cuttingStarted(onItem item: AudioItem) {}
+    func cutRangeAdjusted(onItem item: AudioItem) {}
+    func leftCropHandle(movedToPercentage percentage: CGFloat) {}
+    func rightCropHandle(movedToPercentage percentage: CGFloat) {}
+    func cuttingCancelled() {}
+}
+
 extension CutViewController: PlaybackWaveViewDelegate {
-    func playbackViewDidFinishScrolling(_ playbackView: PlaybackWaveView) {
+    func playbackView(
+        _ playbackView: PlaybackWaveView,
+        didFinishScrollingOnPosition percentage: CGFloat
+    ) {
         switch state {
         case .start, .end:
             manager.cut(
@@ -171,10 +198,12 @@ extension CutViewController: PlaybackWaveViewDelegate {
             case .none:
                 if floatPercentage <= startPercentage {
                     waveView.seek(to: Double(startPercentage))
+                    return
                 }
                 
                 if floatPercentage >= endPercentage {
                     waveView.seek(to: Double(endPercentage))
+                    return
                 }
             case .start:
                 if floatPercentage + 0.015 >= endPercentage {
