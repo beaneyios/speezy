@@ -17,6 +17,7 @@ class TranscriptionButton: UIView, NibLoadable {
         case loading
         case successful
         case normal
+        case disabled
     }
     
     var action: (() -> Void)?
@@ -64,6 +65,12 @@ class TranscriptionButton: UIView, NibLoadable {
         loadingView?.stopAnimating()
         loadingContainer.isHidden = true
         image.image = UIImage(named: "transcription-button")
+    }
+    
+    func disable() {
+        alpha = 0.5
+        state = .disabled
+        buttonTapped.disable()
     }
     
     @IBAction func buttonTapped(_ sender: Any) {

@@ -88,7 +88,7 @@ extension AudioItemCoordinator: CutViewControllerDelegate {
             } as? AudioItemViewController
             
             audioItemViewController?.audioManager.hasUnsavedChanges = true
-            audioItemViewController?.configureSubviews()
+            audioItemViewController?.reset()
         }
     }
     
@@ -110,7 +110,7 @@ extension AudioItemCoordinator: CropViewControllerDelegate {
             } as? AudioItemViewController
             
             audioItemViewController?.audioManager.hasUnsavedChanges = true
-            audioItemViewController?.configureSubviews()
+            audioItemViewController?.reset()
         }
     }
     

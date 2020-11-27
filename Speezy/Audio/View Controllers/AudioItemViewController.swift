@@ -55,6 +55,7 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnTranscribeContainer: UIView!
     private var transcribeButton: TranscriptionButton?
     
+    @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
@@ -64,20 +65,13 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var bgGradient: UIImageView!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    @IBOutlet weak var controlButtonsHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var recordContainer: UIView!
     @IBOutlet weak var mainWaveContainer: UIView!
-    
-    @IBOutlet weak var playbackControlsContainer: UIView!
-    
+        
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnDone: UIButton!
     
     weak var delegate: AudioItemViewControllerDelegate?
     
-    private var playbackControlsView: PlaybackControlsView?
     private var mainWave: PlaybackWaveView?
     
     private var transcriptionCropUpdatesPending = false
@@ -173,6 +167,10 @@ class AudioItemViewController: UIViewController {
         audioManager.toggleRecording()
     }
     
+    @IBAction func togglePlayback(_ sender: Any) {
+        audioManager.togglePlayback()
+    }
+    
     @IBAction func toggleCrop(_ sender: Any) {
         if audioManager.canCrop {
             delegate?.audioItemViewController(self, didPresentCropOnItem: audioManager.item)
@@ -202,6 +200,11 @@ class AudioItemViewController: UIViewController {
 
 // MARK: Configuration
 extension AudioItemViewController {
+    func reset() {
+        audioManager.seek(to: 0.0)
+        configureSubviews()
+    }
+    
     func configureDependencies() {
         audioManager.addPlaybackObserver(self)
         audioManager.addRecorderObserver(self)
@@ -212,7 +215,6 @@ extension AudioItemViewController {
         configureTranscribeButton()
         configureNavButtons()
         configureMainSoundWave()
-        configurePlaybackControls()
         configureTitle()
         
         hero.isEnabled = true
@@ -224,6 +226,8 @@ extension AudioItemViewController {
     }
     
     private func configureTranscribeButton() {
+        transcribeButton?.removeFromSuperview()
+        
         let transcribeButton = TranscriptionButton.createFromNib()
         btnTranscribeContainer.addSubview(transcribeButton)
         transcribeButton.snp.makeConstraints { (maker) in
@@ -256,19 +260,6 @@ extension AudioItemViewController {
         
         btnDrafts.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
         btnDrafts.layer.borderWidth = 1.0
-    }
-    
-    private func configurePlaybackControls() {
-        playbackControlsContainer.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        let playbackControlsView = PlaybackControlsView.instanceFromNib()
-        playbackControlsView.configure(with: audioManager)
-        playbackControlsContainer.addSubview(playbackControlsView)
-        playbackControlsView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
     }
     
     private func configureMainSoundWave() {
@@ -344,6 +335,8 @@ extension AudioItemViewController: AudioRecorderObserver {
         recordHidables.forEach {
             $0.disable()
         }
+        
+        transcribeButton?.disable()
     }
     
     func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
@@ -367,6 +360,8 @@ extension AudioItemViewController: AudioRecorderObserver {
         recordHidables.forEach {
             $0.enable()
         }
+        
+        configureTranscribeButton()
     }
 }
 
@@ -376,6 +371,9 @@ extension AudioItemViewController: AudioPlayerObserver {
         playbackHidables.forEach {
             $0.disable()
         }
+        
+        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+        transcribeButton?.disable()
     }
     
     func playbackPaused(on item: AudioItem) {
@@ -385,6 +383,9 @@ extension AudioItemViewController: AudioPlayerObserver {
         
         btnCrop.enable()
         btnCut.enable()
+        configureTranscribeButton()
+        
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
     func playbackStopped(on item: AudioItem) {
@@ -393,6 +394,8 @@ extension AudioItemViewController: AudioPlayerObserver {
         }
         
         btnCrop.enable()
+        configureTranscribeButton()
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
     func playbackProgressed(
