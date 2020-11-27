@@ -294,7 +294,7 @@ extension AudioItemViewController: PlaybackWaveViewDelegate {
         userInitiated: Bool
     ) {
         if userInitiated {
-            let floatPercentage = Float(percentage)
+            let floatPercentage = percentage > 1.0 ? 1.0 : Float(percentage)
             audioManager.seek(to: floatPercentage)
         }
     }

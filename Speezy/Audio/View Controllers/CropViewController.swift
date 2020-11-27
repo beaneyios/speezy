@@ -151,7 +151,7 @@ extension CropViewController: AudioCropperObserver {
     }
     
     func leftCropHandle(movedToPercentage percentage: CGFloat) {
-        let floatPercentage = Float(percentage)
+        let floatPercentage = percentage > 1.0 ? 1.0 : Float(percentage)
         manager.seek(to: floatPercentage)
         state = .start
         startPercentage = Float(percentage)
@@ -160,7 +160,7 @@ extension CropViewController: AudioCropperObserver {
     }
     
     func rightCropHandle(movedToPercentage percentage: CGFloat) {
-        let floatPercentage = Float(percentage)
+        let floatPercentage = percentage > 1.0 ? 1.0 : Float(percentage)
         manager.seek(to: floatPercentage)
         state = .end
         endPercentage = Float(percentage)
@@ -187,7 +187,7 @@ extension CropViewController: PlaybackWaveViewDelegate {
         userInitiated: Bool
     ) {
         if userInitiated {
-            let floatPercentage = Float(percentage)
+            let floatPercentage = percentage > 1.0 ? 1.0 : Float(percentage)
             manager.seek(to: floatPercentage)
             
             switch state {
