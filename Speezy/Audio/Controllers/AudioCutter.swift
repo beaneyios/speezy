@@ -88,7 +88,7 @@ class AudioCutter: AudioCropping {
         
         FileManager.default.deleteExistingFile(with: self.item.path)
         FileManager.default.renameFile(
-            from: "\(item.id)\(cutExtension)",
+            from: cutItem.path,
             to: item.path
         )
         delegate?.audioCutter(self, didApplyCutItem: item)

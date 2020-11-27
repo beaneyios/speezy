@@ -11,9 +11,10 @@ import AVKit
 import UIKit
 
 class AudioManager: NSObject {
+    var hasUnsavedChanges: Bool = false
+    
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
-    private(set) var hasUnsavedChanges: Bool = false
     private(set) var currentImageAttachment: UIImage?
     
     var noTitleSet: Bool {
@@ -220,7 +221,11 @@ extension AudioManager: AudioPlayerDelegate {
         }
     }
     
-    func play() {        
+    func play() {
+        if audioPlayer == nil {
+            regeneratePlayer(withItem: currentItem)
+        }
+        
         audioPlayer?.play()
     }
     

@@ -61,18 +61,22 @@ extension AudioItemCoordinator {
             $0 is AudioItemListViewController
         } as? AudioItemListViewController
     }
-    
-    var audioItemViewController: AudioItemViewController? {
-        navigationController.viewControllers.first {
-            $0 is AudioItemViewController
-        } as? AudioItemViewController
-    }
 }
 
 extension AudioItemCoordinator: CutViewControllerDelegate {
     func cutViewControllerDidFinishCut(_ viewController: CutViewController) {
+        guard let navigationController = viewController.presentingViewController as? UINavigationController else {
+            assertionFailure("Expecting this to be a nav controller.")
+            return
+        }
+        
         viewController.dismiss(animated: true) {
-            self.audioItemViewController?.configureSubviews()
+            let audioItemViewController = navigationController.viewControllers.first {
+                $0 is AudioItemViewController
+            } as? AudioItemViewController
+            
+            audioItemViewController?.audioManager.hasUnsavedChanges = true
+            audioItemViewController?.configureSubviews()
         }
     }
     

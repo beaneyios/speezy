@@ -50,6 +50,7 @@ class CutViewController: UIViewController {
         configureButtons()
         
         manager.addPlaybackObserver(self)
+        manager.addCutterObserver(self)
     }
     
     @IBAction func closeTapped(_ sender: Any) {
