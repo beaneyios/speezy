@@ -62,6 +62,7 @@
 		BE6080C4250FFE8E003CB318 /* Speezy-35fb1cf24683.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6080C3250FFE8E003CB318 /* Speezy-35fb1cf24683.json */; };
 		BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */; };
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
+		BE684722257184C400981686 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE684721257184C400981686 /* CropViewController.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -210,6 +211,7 @@
 		BE6080C3250FFE8E003CB318 /* Speezy-35fb1cf24683.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speezy-35fb1cf24683.json"; sourceTree = "<group>"; };
 		BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AsImage.swift"; sourceTree = "<group>"; };
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
+		BE684721257184C400981686 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				BE088CE124EDC33C000FEE55 /* PublishViewController.swift */,
 				BEDC125E24F1960200B53D1A /* ShareViewController.swift */,
 				BE9AD4152566DE640034F921 /* CutViewController.swift */,
+				BE684721257184C400981686 /* CropViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1117,6 +1120,7 @@
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE6080B0250E86A3003CB318 /* WordCell.swift in Sources */,
+				BE684722257184C400981686 /* CropViewController.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,

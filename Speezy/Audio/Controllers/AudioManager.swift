@@ -388,6 +388,7 @@ extension AudioManager: AudioCropperDelegate {
         _ cropper: AudioCropper,
         didAdjustCroppedItem item: AudioItem
     ) {
+        regeneratePlayer(withItem: currentItem)
         stateManager.performCroppingAction(action: .showCropAdjusted(item))
     }
     
@@ -398,6 +399,7 @@ extension AudioManager: AudioCropperDelegate {
         stateManager.performCroppingAction(action: .showCropFinished(item))
         audioCropper = nil
         hasUnsavedChanges = true
+        regeneratePlayer(withItem: currentItem)
     }
     
     func audioCropper(

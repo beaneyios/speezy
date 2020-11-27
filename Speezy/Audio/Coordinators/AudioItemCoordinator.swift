@@ -53,6 +53,18 @@ class AudioItemCoordinator: ViewCoordinator {
         viewController.delegate = self
         pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
     }
+    
+    private func navigateToCropView(audioItem: AudioItem, on pushingViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Cut", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: "crop") as? CropViewController else {
+            return
+        }
+        
+        let manager = AudioManager(item: audioItem)
+        viewController.manager = manager
+        viewController.delegate = self
+        pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
+    }
 }
 
 extension AudioItemCoordinator {
@@ -81,6 +93,28 @@ extension AudioItemCoordinator: CutViewControllerDelegate {
     }
     
     func cutViewControllerDidTapClose(_ viewController: CutViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AudioItemCoordinator: CropViewControllerDelegate {
+    func cropViewControllerDidFinishCrop(_ viewController: CropViewController) {
+        guard let navigationController = viewController.presentingViewController as? UINavigationController else {
+            assertionFailure("Expecting this to be a nav controller.")
+            return
+        }
+        
+        viewController.dismiss(animated: true) {
+            let audioItemViewController = navigationController.viewControllers.first {
+                $0 is AudioItemViewController
+            } as? AudioItemViewController
+            
+            audioItemViewController?.audioManager.hasUnsavedChanges = true
+            audioItemViewController?.configureSubviews()
+        }
+    }
+    
+    func cropViewControllerDidTapClose(_ viewController: CropViewController) {
         viewController.dismiss(animated: true, completion: nil)
     }
 }
@@ -114,6 +148,10 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     
     func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
         navigateToCutView(audioItem: audioItem, on: viewController)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCropOnItem audioItem: AudioItem) {
+        navigateToCropView(audioItem: audioItem, on: viewController)
     }
     
     func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {

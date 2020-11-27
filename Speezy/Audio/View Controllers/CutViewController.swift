@@ -14,6 +14,12 @@ protocol CutViewControllerDelegate: AnyObject {
 }
 
 class CutViewController: UIViewController {
+    enum State {
+        case none
+        case start
+        case end
+    }
+    
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var playbackWaveContainer: UIView!
     
@@ -22,15 +28,9 @@ class CutViewController: UIViewController {
     @IBOutlet weak var btnPlay: UIButton!
     
     weak var delegate: CutViewControllerDelegate?
-    
     var manager: AudioManager!
-    var waveView: PlaybackWaveView!
     
-    enum State {
-        case none
-        case start
-        case end
-    }
+    private var waveView: PlaybackWaveView!
     
     private var state: State = .start
     private var startPercentage: Float = 0.0
@@ -54,7 +54,7 @@ class CutViewController: UIViewController {
     }
     
     @IBAction func closeTapped(_ sender: Any) {
-        delegate?.cutViewControllerDidTapClose(self)
+        manager.cancelCut()
     }
     
     @IBAction func startTapped(_ sender: Any) {
@@ -167,7 +167,9 @@ extension CutViewController: AudioCutterObserver {
     func cutRangeAdjusted(onItem item: AudioItem) {}
     func leftCropHandle(movedToPercentage percentage: CGFloat) {}
     func rightCropHandle(movedToPercentage percentage: CGFloat) {}
-    func cuttingCancelled() {}
+    func cuttingCancelled() {
+        delegate?.cutViewControllerDidTapClose(self)
+    }
 }
 
 extension CutViewController: PlaybackWaveViewDelegate {
