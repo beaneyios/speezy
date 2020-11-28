@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CutViewControllerDelegate: AnyObject {
-    func cutViewControllerDidFinishCut(_ viewController: CutViewController)
+    func cutViewController(_ viewController: CutViewController, didFinishCutFrom from: TimeInterval, to: TimeInterval)
     func cutViewControllerDidTapClose(_ viewController: CutViewController)
 }
 
@@ -159,17 +159,18 @@ extension CutViewController: AudioPlayerObserver {
 }
 
 extension CutViewController: AudioCutterObserver {
-    func cuttingFinished(onItem item: AudioItem) {
-        delegate?.cutViewControllerDidFinishCut(self)
+    func cuttingFinished(onItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
+        delegate?.cutViewController(self, didFinishCutFrom: from, to: to)
+    }
+    
+    func cuttingCancelled() {
+        delegate?.cutViewControllerDidTapClose(self)
     }
     
     func cuttingStarted(onItem item: AudioItem) {}
     func cutRangeAdjusted(onItem item: AudioItem) {}
     func leftCropHandle(movedToPercentage percentage: CGFloat) {}
     func rightCropHandle(movedToPercentage percentage: CGFloat) {}
-    func cuttingCancelled() {
-        delegate?.cutViewControllerDidTapClose(self)
-    }
 }
 
 extension CutViewController: PlaybackWaveViewDelegate {

@@ -132,8 +132,8 @@ class AudioStateManager: AudioStateManagerObservationManaging {
                 observer.cutRangeAdjusted(onItem: item)
             case .showCutCancelled:
                 observer.cuttingCancelled()
-            case .showCutFinished(let item):
-                observer.cuttingFinished(onItem: item)
+            case let .showCutFinished(item, from, to):
+                observer.cuttingFinished(onItem: item, from: from, to: to)
             case .leftHandleMoved(let percentage):
                 observer.leftCropHandle(movedToPercentage: percentage)
             case .rightHandleMoved(let percentage):

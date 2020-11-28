@@ -12,7 +12,7 @@ enum CutNotification {
     case showCut(AudioItem)
     case showCutAdjusted(AudioItem)
     case showCutCancelled(AudioItem)
-    case showCutFinished(AudioItem)
+    case showCutFinished(item: AudioItem, from: TimeInterval, to: TimeInterval)
     case leftHandleMoved(percentage: CGFloat)
     case rightHandleMoved(percentage: CGFloat)
 }

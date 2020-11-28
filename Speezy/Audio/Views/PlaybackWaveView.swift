@@ -382,7 +382,7 @@ extension PlaybackWaveView: AudioCutterObserver {
         createCropOverlayView(waveSize: waveSize)
     }
     
-    func cuttingFinished(onItem item: AudioItem) {
+    func cuttingFinished(onItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
         configure(manager: manager)
         removeCropOverlayView()
     }

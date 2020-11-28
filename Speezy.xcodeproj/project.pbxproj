@@ -14,8 +14,6 @@
 		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
-		BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */; };
-		BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
@@ -164,8 +162,6 @@
 		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackControlsView.xib; sourceTree = "<group>"; };
-		BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControlsView.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
@@ -583,8 +579,6 @@
 				BE50345024BB9C6C00A414D1 /* CropView.xib */,
 				BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */,
 				BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */,
-				BE0DDA9824DA9DB80063F97E /* PlaybackControlsView.swift */,
-				BE0DDA9624DA9CB20063F97E /* PlaybackControlsView.xib */,
 				BE50344E24BB25DA00A414D1 /* PlaybackWaveView.swift */,
 				BE50344C24BB21FD00A414D1 /* PlaybackWaveView.xib */,
 				BEDC126024F1964400B53D1A /* ShareOptionCell.swift */,
@@ -912,7 +906,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE0DDA9724DA9CB20063F97E /* PlaybackControlsView.xib in Resources */,
 				BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */,
 				BE6080B6250E8E57003CB318 /* transcription-test-file.m4a in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
@@ -1095,7 +1088,6 @@
 				BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
-				BE0DDA9924DA9DB80063F97E /* PlaybackControlsView.swift in Sources */,
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* Observers.swift in Sources */,
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,

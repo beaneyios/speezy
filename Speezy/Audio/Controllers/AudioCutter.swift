@@ -11,7 +11,7 @@ import AVKit
 
 protocol AudioCutterDelegate: AnyObject {
     func audioCutter(_ cropper: AudioCutter, didAdjustCutItem item: AudioItem)
-    func audioCutter(_ cropper: AudioCutter, didApplyCutItem item: AudioItem)
+    func audioCutter(_ cropper: AudioCutter, didApplyCutItem item: AudioItem, from: TimeInterval, to: TimeInterval)
     func audioCutter(
         _ cropper: AudioCutter,
         didCancelCutReturningToItem item: AudioItem
@@ -23,8 +23,8 @@ class AudioCutter: AudioCropping {
     private(set) var cutItem: AudioItem?
     private(set) var stagedCutItem: AudioItem?
     
-    private(set) var cropFrom: TimeInterval?
-    private(set) var cropTo: TimeInterval?
+    private(set) var cropFrom: TimeInterval = 0.0
+    private(set) var cropTo: TimeInterval = 0.0
     
     private let cutExtension = "_cut.wav"
     let cropExtension = "_cropped.wav"
@@ -46,7 +46,12 @@ class AudioCutter: AudioCropping {
             )
             
             self.cutItem = cutItem
-            self.delegate?.audioCutter(self, didApplyCutItem: cutItem)
+            self.delegate?.audioCutter(
+                self,
+                didApplyCutItem: cutItem,
+                from: self.cropFrom,
+                to: self.cropTo
+            )
         }
     }
     
@@ -91,7 +96,7 @@ class AudioCutter: AudioCropping {
             from: cutItem.path,
             to: item.path
         )
-        delegate?.audioCutter(self, didApplyCutItem: item)
+        delegate?.audioCutter(self, didApplyCutItem: item, from: cropFrom, to: cropTo)
     }
     
     func cancelCut() {

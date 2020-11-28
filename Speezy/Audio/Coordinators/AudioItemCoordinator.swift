@@ -76,7 +76,7 @@ extension AudioItemCoordinator {
 }
 
 extension AudioItemCoordinator: CutViewControllerDelegate {
-    func cutViewControllerDidFinishCut(_ viewController: CutViewController) {
+    func cutViewController(_ viewController: CutViewController, didFinishCutFrom from: TimeInterval, to: TimeInterval) {
         guard let navigationController = viewController.presentingViewController as? UINavigationController else {
             assertionFailure("Expecting this to be a nav controller.")
             return
@@ -88,6 +88,7 @@ extension AudioItemCoordinator: CutViewControllerDelegate {
             } as? AudioItemViewController
             
             audioItemViewController?.audioManager.hasUnsavedChanges = true
+            audioItemViewController?.audioManager.adjustTranscript(forCutRange: from, to: to)
             audioItemViewController?.reset()
         }
     }

@@ -446,7 +446,12 @@ extension AudioManager: AudioCutterDelegate {
     }
     
     func applyCut() {
-        audioCutter?.applyCut()
+        guard let audioCutter = self.audioCutter else {
+            assertionFailure("Audio cutter should not be nil")
+            return
+        }
+        
+        audioCutter.applyCut()
     }
     
     func toggleCut() {
@@ -465,19 +470,19 @@ extension AudioManager: AudioCutterDelegate {
     }
     
     // DELEGATES
-    func audioCutter(_ cropper: AudioCutter, didAdjustCutItem item: AudioItem) {
+    func audioCutter(_ cutter: AudioCutter, didAdjustCutItem item: AudioItem) {
         regeneratePlayer(withItem: currentItem)
         stateManager.performCuttingAction(action: .showCutAdjusted(item))
     }
     
-    func audioCutter(_ cropper: AudioCutter, didApplyCutItem item: AudioItem) {
-        stateManager.performCuttingAction(action: .showCutFinished(item))
+    func audioCutter(_ cutter: AudioCutter, didApplyCutItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
+        stateManager.performCuttingAction(action: .showCutFinished(item: item, from: from, to: to))
         audioCutter = nil
         hasUnsavedChanges = true
         regeneratePlayer(withItem: currentItem)
     }
     
-    func audioCutter(_ cropper: AudioCutter, didCancelCutReturningToItem item: AudioItem) {
+    func audioCutter(_ cutter: AudioCutter, didCancelCutReturningToItem item: AudioItem) {
         stateManager.performCuttingAction(action: .showCutCancelled(item))
         audioCutter = nil
         regeneratePlayer(withItem: currentItem)
@@ -562,6 +567,13 @@ extension AudioManager: TranscriptManagerDelegate {
     
     func removeTranscriptObserver(_ observer: TranscriptObserver) {
         stateManager.removeTranscriptObserver(observer)
+    }
+    
+    func adjustTranscript(forCutRange from: TimeInterval, to: TimeInterval) {
+        transcriptManager.adjustTranscript(
+            forCutOperationFromStartPoint: from,
+            end: to
+        )
     }
     
     func transcriptManager(

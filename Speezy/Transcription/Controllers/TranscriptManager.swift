@@ -39,6 +39,45 @@ class TranscriptManager {
         self.transcript = TranscriptStorage.fetchTranscript(id: audioItemId)
     }
     
+    func adjustTranscript(forCutOperationFromStartPoint start: TimeInterval, end: TimeInterval) {
+        guard let transcript = transcript else {
+            return
+        }
+        
+        let newWords: [Word] = transcript.words.compactMap {
+            // If the word exists within the manually cut duration, remove it altogether.
+            let wordIsWithinChoppedRange = $0.timestamp.start > start && $0.timestamp.end < end
+            
+            // If the start of the manually cut duration is inside a word, also remove the word.
+            let choppedRangeIsWithinWord = start > $0.timestamp.start && start < $0.timestamp.end
+            
+            if wordIsWithinChoppedRange || choppedRangeIsWithinWord {
+                return nil
+            }
+            
+            // If the words duration is after the cut with no overlaps,
+            // then we need to offset the words timestamp by the
+            // length of the cut duration
+            let duration = end - start
+            if $0.timestamp.start > end {
+                return Word(
+                    text: $0.text,
+                    timestamp: Timestamp(
+                        start: $0.timestamp.start - duration,
+                        end: $0.timestamp.end - duration
+                    )
+                )
+            }
+            
+            return $0
+        }
+        
+        updateTranscript(Transcript(words: newWords))
+        saveTranscript()
+        
+        print(transcript)
+    }
+    
     func removeUhms() {
         selectedWords = transcript?.words.compactMap {
             $0.text.contains("HESITATION") ? $0 : nil

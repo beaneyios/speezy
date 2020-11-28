@@ -184,7 +184,7 @@ extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
 }
 
 extension TranscriptionViewController: AudioCutterObserver {
-    func cuttingFinished(onItem item: AudioItem) {
+    func cuttingFinished(onItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
         configurePreviewWave(audioManager: audioManager)
     }
     
