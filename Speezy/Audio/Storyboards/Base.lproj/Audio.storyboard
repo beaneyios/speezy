@@ -914,6 +914,102 @@
             </objects>
             <point key="canvasLocation" x="2173.5999999999999" y="136.28185907046478"/>
         </scene>
+        <!--Quick Record View Controller-->
+        <scene sceneID="EPs-Xh-qiH">
+            <objects>
+                <viewController storyboardIdentifier="quick-record" id="Zfj-BC-XOV" customClass="QuickRecordViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tzG-ya-KEO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.20000000298023224" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUB-Xb-hcy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient-background" translatesAutoresizingMaskIntoConstraints="NO" id="P9A-4z-pbg">
+                                <rect key="frame" x="0.0" y="267" width="375" height="400"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfa-qX-6oy" userLabel="Recording Container">
+                                <rect key="frame" x="0.0" y="267" width="375" height="400"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqZ-Sr-MdN">
+                                        <rect key="frame" x="0.0" y="74" width="375" height="226"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QkC-zv-4Jp" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
+                                        <rect key="frame" x="155" y="319" width="65" height="65"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="65" id="77h-TD-igW"/>
+                                            <constraint firstAttribute="height" constant="65" id="C58-il-tOt"/>
+                                        </constraints>
+                                        <state key="normal" image="stop-recording-button"/>
+                                        <connections>
+                                            <action selector="stopRecording:" destination="Zfj-BC-XOV" eventType="touchUpInside" id="vy1-MF-zQi"/>
+                                            <action selector="toggleRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jtm-A4-0n4"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="430-bf-4TG">
+                                        <rect key="frame" x="0.0" y="300" width="375" height="3"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="3" id="RAB-vd-lBY"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3g2-H3-Dbh">
+                                        <rect key="frame" x="16" y="16" width="343" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="430-bf-4TG" firstAttribute="top" secondItem="yqZ-Sr-MdN" secondAttribute="bottom" id="2u6-NQ-5eZ"/>
+                                    <constraint firstItem="yqZ-Sr-MdN" firstAttribute="top" secondItem="3g2-H3-Dbh" secondAttribute="bottom" constant="16" id="8Gx-Y6-Oei"/>
+                                    <constraint firstAttribute="trailing" secondItem="430-bf-4TG" secondAttribute="trailing" id="8e9-IK-vEX"/>
+                                    <constraint firstAttribute="bottom" secondItem="QkC-zv-4Jp" secondAttribute="bottom" constant="16" id="AmU-xs-fL1"/>
+                                    <constraint firstAttribute="trailing" secondItem="3g2-H3-Dbh" secondAttribute="trailing" constant="16" id="M4Z-CO-3cN"/>
+                                    <constraint firstAttribute="trailing" secondItem="yqZ-Sr-MdN" secondAttribute="trailing" id="SMd-L4-a3a"/>
+                                    <constraint firstItem="yqZ-Sr-MdN" firstAttribute="leading" secondItem="gfa-qX-6oy" secondAttribute="leading" id="Y7Q-gI-htJ"/>
+                                    <constraint firstItem="430-bf-4TG" firstAttribute="leading" secondItem="gfa-qX-6oy" secondAttribute="leading" id="Ysa-D9-Ryd"/>
+                                    <constraint firstItem="QkC-zv-4Jp" firstAttribute="top" secondItem="430-bf-4TG" secondAttribute="bottom" constant="16" id="gxl-T1-Xin"/>
+                                    <constraint firstItem="QkC-zv-4Jp" firstAttribute="centerX" secondItem="gfa-qX-6oy" secondAttribute="centerX" id="gzZ-Qo-dSQ"/>
+                                    <constraint firstItem="3g2-H3-Dbh" firstAttribute="top" secondItem="gfa-qX-6oy" secondAttribute="top" constant="16" id="lYy-Ta-CTl"/>
+                                    <constraint firstItem="3g2-H3-Dbh" firstAttribute="leading" secondItem="gfa-qX-6oy" secondAttribute="leading" constant="16" id="pag-Cl-1Su"/>
+                                    <constraint firstAttribute="height" constant="400" id="tWz-2P-jpG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XXq-jy-LuZ"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dUB-Xb-hcy" firstAttribute="top" secondItem="tzG-ya-KEO" secondAttribute="top" id="7OX-G9-Xww"/>
+                            <constraint firstItem="gfa-qX-6oy" firstAttribute="leading" secondItem="XXq-jy-LuZ" secondAttribute="leading" id="DsC-dx-Goe"/>
+                            <constraint firstItem="dUB-Xb-hcy" firstAttribute="trailing" secondItem="XXq-jy-LuZ" secondAttribute="trailing" id="S5b-Uw-ERV"/>
+                            <constraint firstItem="P9A-4z-pbg" firstAttribute="trailing" secondItem="XXq-jy-LuZ" secondAttribute="trailing" id="Sh9-76-C98"/>
+                            <constraint firstItem="P9A-4z-pbg" firstAttribute="leading" secondItem="XXq-jy-LuZ" secondAttribute="leading" id="U26-ue-whx"/>
+                            <constraint firstItem="XXq-jy-LuZ" firstAttribute="bottom" secondItem="gfa-qX-6oy" secondAttribute="bottom" id="Z78-At-RWX"/>
+                            <constraint firstItem="dUB-Xb-hcy" firstAttribute="leading" secondItem="XXq-jy-LuZ" secondAttribute="leading" id="Z7D-v1-m8J"/>
+                            <constraint firstItem="P9A-4z-pbg" firstAttribute="top" secondItem="gfa-qX-6oy" secondAttribute="top" id="ZHx-ke-zrk"/>
+                            <constraint firstItem="dUB-Xb-hcy" firstAttribute="bottom" secondItem="XXq-jy-LuZ" secondAttribute="bottom" id="xC7-Id-9zc"/>
+                            <constraint firstItem="XXq-jy-LuZ" firstAttribute="trailing" secondItem="gfa-qX-6oy" secondAttribute="trailing" id="xma-qu-qoQ"/>
+                            <constraint firstAttribute="bottom" secondItem="P9A-4z-pbg" secondAttribute="bottom" id="yUR-b0-9Ec"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="dUB-Xb-hcy" id="ns5-QB-1of"/>
+                        <outlet property="btnRecord" destination="QkC-zv-4Jp" id="60Z-4D-pNa"/>
+                        <outlet property="lblTime" destination="3g2-H3-Dbh" id="fgY-Zf-p5h"/>
+                        <outlet property="mainWaveContainer" destination="yqZ-Sr-MdN" id="3Cm-3w-fdz"/>
+                        <outlet property="recordingContainer" destination="gfa-qX-6oy" id="AQR-h2-DLI"/>
+                        <outlet property="recordingContainerHeight" destination="tWz-2P-jpG" id="cXB-fR-acE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Noe-Rd-BeI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2824.8000000000002" y="136.28185907046478"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back-button" width="250" height="500"/>
@@ -929,6 +1025,7 @@
         <image name="settings-button" width="20" height="20"/>
         <image name="speezy" width="446" height="441"/>
         <image name="start-recording-button" width="120" height="120"/>
+        <image name="stop-recording-button" width="120" height="120"/>
         <image name="tag-icon" width="500" height="500"/>
         <image name="title-icon" width="500" height="500"/>
         <namedColor name="speezy-purple">

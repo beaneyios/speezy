@@ -40,12 +40,18 @@ class PlaybackWaveView: UIView {
     
     private var userInitiatedSeeking: Bool = false
     
-    func configure(manager: AudioManager, completion: (() -> Void)? = nil) {
+    private var padding: CGFloat {
+        frame.width / 2.0
+    }
+    
+    func configure(manager: AudioManager, scrollable: Bool = true, completion: (() -> Void)? = nil) {
         self.manager = manager
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
         manager.addCropperObserver(self)
         manager.addCutterObserver(self)
+        
+        scrollView.isUserInteractionEnabled = scrollable
         
         render(completion: completion)
     }
@@ -90,7 +96,7 @@ extension PlaybackWaveView {
         
         cropOverlayView.snp.makeConstraints { (maker) in
             maker.top.equalToSuperview()
-            maker.leading.equalToSuperview()
+            maker.leading.equalToSuperview().offset(padding)
             maker.bottom.equalToSuperview()
             maker.width.equalTo(waveSize.width)
         }
@@ -121,7 +127,7 @@ extension PlaybackWaveView {
         timelineView.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(timelineContainer)
             maker.trailing.equalTo(timelineContainer)
-            maker.leading.equalTo(timelineContainer)
+            maker.leading.equalTo(timelineContainer).offset(padding)
             maker.top.equalTo(timelineContainer)
         }
         
@@ -159,13 +165,14 @@ extension PlaybackWaveView {
         
         scrollView.contentSize = waveSize
         waveContainer.addSubview(wave)
+        waveContainer.tag = 1234
         self.wave = wave
         
         wave.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview()
+            maker.leading.equalToSuperview().offset(padding)
             maker.top.equalToSuperview()
             maker.bottom.equalToSuperview()
-            maker.trailing.equalToSuperview().offset(-(self.scrollView.frame.width / 2.0))
+            maker.trailing.equalToSuperview().offset(-padding)
             self.waveWidth = maker.width.equalTo(waveSize.width).constraint
         }
         
@@ -256,7 +263,7 @@ extension PlaybackWaveView {
     private func advanceScrollViewForRecording(waveSize: CGSize) {
         let waveWidth = waveSize.width
         
-        let offset: CGFloat = waveWidth + (frame.width / 2.0)
+        let offset: CGFloat = waveWidth + padding
                     
         scrollView.setContentOffset(
             CGPoint(

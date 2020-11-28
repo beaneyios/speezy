@@ -72,6 +72,39 @@ class AudioItemListViewController: UIViewController {
     
     @IBAction func speezyTapped(_ sender: Any) {
         delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
+        
+//        presentQuickRecordDialogue()
+    }
+    
+    private func presentQuickRecordDialogue() {
+        let storyboard = UIStoryboard(name: "Audio", bundle: nil)
+        let quickRecordViewController = storyboard.instantiateViewController(identifier: "quick-record") as! QuickRecordViewController
+        
+        let id = UUID().uuidString
+        let item = AudioItem(
+            id: id,
+            path: "\(id).wav",
+            title: "",
+            date: Date(),
+            tags: []
+        )
+        
+        let audioManager = AudioManager(item: item)
+        quickRecordViewController.audioManager = audioManager
+        
+        addChild(quickRecordViewController)
+        view.addSubview(quickRecordViewController.view)
+        
+        quickRecordViewController.view.layer.cornerRadius = 10.0
+        quickRecordViewController.view.clipsToBounds = true
+        quickRecordViewController.view.addShadow()
+        
+        quickRecordViewController.view.snp.makeConstraints { (make) in
+            make.top.equalTo(view.snp.top)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalTo(view.snp.bottom)
+        }
     }
     
     func reloadItem(_ item: AudioItem) {
