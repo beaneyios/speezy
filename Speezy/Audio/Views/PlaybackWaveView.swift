@@ -138,7 +138,7 @@ extension PlaybackWaveView {
     private func waveSize(audioData: AudioData) -> CGSize {
         CGSize(
             width: (CGFloat(audioData.percentageLevels.count) * self.totalSpacePerBar),
-            height: self.frame.height - 24.0
+            height: self.frame.height
         )
     }
     
@@ -163,9 +163,7 @@ extension PlaybackWaveView {
         wave.alpha = 0.0
         wave.translatesAutoresizingMaskIntoConstraints = false
         
-        scrollView.contentSize = waveSize
         waveContainer.addSubview(wave)
-        waveContainer.tag = 1234
         self.wave = wave
         
         wave.snp.makeConstraints { (maker) in
@@ -425,6 +423,11 @@ extension PlaybackWaveView: UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // There's a precision issue on iPhone 8 (and maybe others)
+        // that is causing the contentSize to be 0.5 pixels too high.
+        // This stops the bounce.
+        scrollView.contentOffset.y = 0.0
+        
         let contentOffsetX = scrollView.contentOffset.x
         let contentSizeWidth = scrollView.contentSize.width - frame.size.width
         

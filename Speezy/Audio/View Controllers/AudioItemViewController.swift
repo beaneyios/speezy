@@ -273,9 +273,12 @@ extension AudioItemViewController {
             maker.edges.equalTo(self.mainWaveContainer)
         }
         
-        soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
         mainWave?.delegate = self
+        
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        soundWaveView.configure(manager: audioManager)
     }
     
     private func configureTitle() {
