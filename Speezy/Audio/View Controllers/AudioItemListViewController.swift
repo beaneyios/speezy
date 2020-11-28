@@ -71,9 +71,9 @@ class AudioItemListViewController: UIViewController {
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
-        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
+//        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
         
-//        presentQuickRecordDialogue()
+        presentQuickRecordDialogue()
     }
     
     private func presentQuickRecordDialogue() {
@@ -91,6 +91,7 @@ class AudioItemListViewController: UIViewController {
         
         let audioManager = AudioManager(item: item)
         quickRecordViewController.audioManager = audioManager
+        quickRecordViewController.delegate = self
         
         addChild(quickRecordViewController)
         view.addSubview(quickRecordViewController.view)
@@ -174,7 +175,12 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     private func deleteItem(item: AudioItem, completion: @escaping () -> Void) {
-        let alert = UIAlertController(title: "Delete item", message: "Are you sure you want to delete this clip? You will not be able to undo this action.", preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "Delete item",
+            message: "Are you sure you want to delete this clip? You will not be able to undo this action.",
+            preferredStyle: .alert
+        )
+        
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
             FileManager.default.deleteExistingURL(item.url)
@@ -216,5 +222,52 @@ extension AudioItemListViewController: AudioItemCellDelegate {
     
     func share(item: AudioItem) {
         delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
+    }
+}
+
+extension AudioItemListViewController: QuickRecordViewControllerDelegate {
+    func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem) {
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
+        viewController.willMove(toParent: nil)
+        
+        let savingController = AudioSavingManager()
+        let originalItem = item.withPath(path: "\(item.id).wav")
+        
+        savingController.saveItem(item: item, originalItem: originalItem)
+        audioItems = AudioStorage.fetchItems()
+        tableView.reloadData()
+        
+        let alert = UIAlertController(
+            title: "What would you like to do with your recording?",
+            message: "You can either save, send, edit or delete, this clip",
+            preferredStyle: .alert
+        )
+        
+        let send = UIAlertAction(title: "Send", style: .default) { _ in
+            self.delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
+        }
+        
+        let edit = UIAlertAction(title: "Edit", style: .default) { _ in
+            self.delegate?.audioItemListViewController(self, didSelectAudioItem: item)
+        }
+        
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.deleteItem(item: item) {
+                self.audioItems = AudioStorage.fetchItems()
+                self.tableView.reloadData()
+            }
+        }
+        
+        alert.addAction(send)
+        alert.addAction(edit)
+        alert.addAction(delete)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
+        viewController.willMove(toParent: nil)
     }
 }

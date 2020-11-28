@@ -9,6 +9,7 @@
 import Foundation
 
 class AudioSavingManager {
+    @discardableResult
     func saveItem(
         item: AudioItem,
         originalItem: AudioItem

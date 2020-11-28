@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol QuickRecordViewControllerDelegate: AnyObject {
+    func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem)
+    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController)
+}
+
 class QuickRecordViewController: UIViewController {
     @IBOutlet weak var mainWaveContainer: UIView!
     @IBOutlet weak var btnRecord: SpeezyButton!
@@ -15,6 +20,8 @@ class QuickRecordViewController: UIViewController {
     @IBOutlet weak var recordingContainer: UIView!
     @IBOutlet weak var recordingContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var backgroundView: UIView!
+    
+    weak var delegate: QuickRecordViewControllerDelegate?
     var audioManager: AudioManager!
     
     private var mainWave: PlaybackWaveView!
@@ -45,7 +52,7 @@ class QuickRecordViewController: UIViewController {
                 self.recordingContainer.alpha = 1.0
             } completion: { _ in
                 self.configureMainSoundWave()
-            }            
+            }
         }
     }
     
@@ -93,7 +100,7 @@ extension QuickRecordViewController: AudioRecorderObserver {
     }
     
     func recordingStopped(maxLimitedReached: Bool) {
-        print("Done")
+        delegate?.quickRecordViewController(self, didFinishRecordingItem: audioManager.item)
     }
 }
 
@@ -138,7 +145,7 @@ extension QuickRecordViewController {
     
     private func discardAndClose() {
         audioManager.discard {
-            print("pop")
+            self.delegate?.quickRecordViewControllerDidClose(self)
         }
     }
 }

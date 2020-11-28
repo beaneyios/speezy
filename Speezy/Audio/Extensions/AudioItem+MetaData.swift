@@ -55,4 +55,14 @@ extension AudioItem {
         
         return newItem
     }
+    
+    func withPath(path: String) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: date,
+            tags: tags
+        )
+    }
 }
