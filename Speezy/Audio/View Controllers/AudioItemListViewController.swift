@@ -231,43 +231,50 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
         
-        let savingController = AudioSavingManager()
         let originalItem = item.withPath(path: "\(item.id).wav")
+        let audioManager = AudioManager(item: originalItem)
         
-        savingController.saveItem(item: item, originalItem: originalItem)
-        audioItems = AudioStorage.fetchItems()
-        tableView.reloadData()
-        
-        let alert = UIAlertController(
-            title: "What would you like to do with your recording?",
-            message: "You can either save, send, edit or delete, this clip",
-            preferredStyle: .alert
-        )
-        
-        let send = UIAlertAction(title: "Send", style: .default) { _ in
-            self.delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
-        }
-        
-        let edit = UIAlertAction(title: "Edit", style: .default) { _ in
-            self.delegate?.audioItemListViewController(self, didSelectAudioItem: item)
-        }
-        
-        let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.deleteItem(item: item) {
-                self.audioItems = AudioStorage.fetchItems()
-                self.tableView.reloadData()
+        showTitleAlert(audioManager: audioManager) {
+            audioManager.save(saveAttachment: false) { (item) in
+                DispatchQueue.main.async {
+                    self.loadItems()
+                }
             }
         }
-        
-        alert.addAction(send)
-        alert.addAction(edit)
-        alert.addAction(delete)
-        present(alert, animated: true, completion: nil)
     }
     
     func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
         viewController.view.removeFromSuperview()
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
+    }
+    
+    private func showTitleAlert(audioManager: AudioManager, completion: (() -> Void)? = nil) {
+        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
+        let alert = SCLAlertView(appearance: appearance)
+        let textField = alert.addTextField("Add a title")
+        textField.layer.cornerRadius = 12.0
+        alert.addButton("Add") {
+            guard let text = textField.text else {
+                return
+            }
+            
+            audioManager.updateTitle(title: text)
+            completion?()
+        }
+        
+        alert.addButton("Cancel") {
+            audioManager.discard {
+                completion?()
+            }
+        }
+        
+        alert.showEdit(
+            "Title",
+            subTitle: "Add the title for your audio file here",
+            closeButtonTitle: "Cancel",
+            colorStyle: 0x3B08A0,
+            animationStyle: .topToBottom
+        )
     }
 }

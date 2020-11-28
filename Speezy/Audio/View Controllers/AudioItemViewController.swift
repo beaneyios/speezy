@@ -176,7 +176,11 @@ class AudioItemViewController: UIViewController {
             delegate?.audioItemViewController(self, didPresentCropOnItem: audioManager.item)
         } else {
             let alert = SCLAlertView()
-            alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to crop - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
+            alert.showError(
+                "Clip not long enough",
+                subTitle: "Your recording wasn't long enough to crop - ensure the clip is at least 5 seconds",
+                closeButtonTitle: "OK"
+            )
         }
     }
     

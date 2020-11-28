@@ -30,6 +30,9 @@ class QuickRecordViewController: UIViewController {
         super.viewDidLoad()
         audioManager.addRecorderObserver(self)
         configureDialogue()
+        
+        btnRecord.disable()
+        btnRecord.startLoading()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,6 +95,11 @@ extension QuickRecordViewController: AudioRecorderObserver {
     func recordingBegan() {}
     
     func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+        btnRecord.stopLoading()
+        if totalDuration > 3.0 {
+            btnRecord.enable()
+        }
+        
         lblTime.text = TimeFormatter.formatTime(time: totalDuration)
     }
     
