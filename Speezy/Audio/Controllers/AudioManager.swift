@@ -36,15 +36,7 @@ class AudioManager: NSObject {
         
     init(item: AudioItem) {
         self.originalItem = item
-        self.item = AudioItem(
-            id: item.id,
-            path: "\(item.id)_staging.wav",
-            title: item.title,
-            date: item.date,
-            tags: item.tags,
-            url: item._url
-        )
-        
+        self.item = item.withStagingPath()        
         self.transcriptManager = TranscriptManager(audioItemId: item.id)
         self.stateManager = AudioStateManager()
     }

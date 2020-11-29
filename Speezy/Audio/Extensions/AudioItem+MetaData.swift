@@ -56,6 +56,10 @@ extension AudioItem {
         return newItem
     }
     
+    func withStagingPath() -> AudioItem {
+        withPath(path: "\(id)_staging.wav")
+    }
+    
     func withPath(path: String) -> AudioItem {
         AudioItem(
             id: id,

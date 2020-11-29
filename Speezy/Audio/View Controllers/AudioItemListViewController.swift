@@ -183,6 +183,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
+            FileManager.default.deleteExistingURL(item.withStagingPath().url)
             FileManager.default.deleteExistingURL(item.url)
             AudioStorage.deleteItem(item)
             completion()
