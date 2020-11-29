@@ -86,6 +86,10 @@ class AudioCutter: AudioCropping {
             return
         }
         
+        if let stagedPath = self.stagedCutItem?.path {
+            FileManager.default.deleteExistingFile(with: stagedPath)
+        }
+        
         FileManager.default.deleteExistingFile(with: self.item.path)
         FileManager.default.renameFile(
             from: cutItem.path,
