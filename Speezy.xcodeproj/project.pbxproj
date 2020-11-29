@@ -62,6 +62,7 @@
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
 		BE684722257184C400981686 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE684721257184C400981686 /* CropViewController.swift */; };
 		BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6847252572656300981686 /* QuickRecordViewController.swift */; };
+		BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -210,6 +211,7 @@
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
 		BE684721257184C400981686 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		BE6847252572656300981686 /* QuickRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordViewController.swift; sourceTree = "<group>"; };
+		BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemChangeManager.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -603,16 +605,17 @@
 				BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */,
 				BE50344824BA4D2C00A414D1 /* AudioContext.swift */,
 				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
+				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 				BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */,
+				BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */,
 				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
 				BEBFD4B924C5A23700200D87 /* AudioPlayer.swift */,
 				BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */,
+				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
 				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
 				BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
-				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
-				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1097,6 +1100,7 @@
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
+				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,

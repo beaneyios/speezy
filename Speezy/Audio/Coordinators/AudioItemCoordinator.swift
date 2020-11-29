@@ -87,7 +87,7 @@ extension AudioItemCoordinator: CutViewControllerDelegate {
                 $0 is AudioItemViewController
             } as? AudioItemViewController
             
-            audioItemViewController?.audioManager.hasUnsavedChanges = true
+            audioItemViewController?.audioManager.markAsDirty()
             audioItemViewController?.audioManager.adjustTranscript(forCutRange: from, to: to)
             audioItemViewController?.reset()
         }
@@ -110,7 +110,7 @@ extension AudioItemCoordinator: CropViewControllerDelegate {
                 $0 is AudioItemViewController
             } as? AudioItemViewController
             
-            audioItemViewController?.audioManager.hasUnsavedChanges = true
+            audioItemViewController?.audioManager.markAsDirty()
             audioItemViewController?.reset()
         }
     }
@@ -224,11 +224,6 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
     
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
         listViewController?.reloadItem(item)
-        
-        let audioViewController = viewController.navigationController?.viewControllers.first { $0 is AudioItemViewController } as? AudioItemViewController
-        audioViewController?.audioManager = AudioManager(item: item)
-        audioViewController?.configureDependencies()
-        audioViewController?.configureSubviews()
     }
     
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {

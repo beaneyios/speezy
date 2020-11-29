@@ -11,8 +11,7 @@ import AVKit
 import UIKit
 
 class AudioManager: NSObject {
-    var hasUnsavedChanges: Bool = false
-    
+    private(set) var hasUnsavedChanges = false
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
     private(set) var currentImageAttachment: UIImage?
@@ -61,11 +60,24 @@ class AudioManager: NSObject {
     }
     
     func discard(completion: @escaping () -> Void) {
-        audioSavingManager.discard(
-            item: item,
-            originalItem: originalItem,
-            completion: completion
-        )
+        audioSavingManager.discard(item: item, originalItem: originalItem) {
+            self.markAsClean()
+            completion()
+        }
+    }
+    
+    func toggleDirtiness() {
+        hasUnsavedChanges = AudioItemChangeManager.itemHasUnsavedChanges(item)
+    }
+    
+    func markAsDirty() {
+        hasUnsavedChanges = true
+        AudioItemChangeManager.storeUnsavedChange(for: item)
+    }
+    
+    func markAsClean() {
+        hasUnsavedChanges = false
+        AudioItemChangeManager.removeUnsavedChange(for: item)
     }
     
     private func saveItem(completion: @escaping (AudioItem) -> Void) {
@@ -73,7 +85,7 @@ class AudioManager: NSObject {
             item: item,
             originalItem: originalItem
         )
-        hasUnsavedChanges = false
+        markAsClean()
         transcriptManager.saveTranscript()
         completion(newItem)
     }
@@ -88,22 +100,22 @@ class AudioManager: NSObject {
     
     func updateTitle(title: String) {
         self.item = item.withUpdatedTitle(title)
-        hasUnsavedChanges = true
+        markAsDirty()
     }
     
     func addTag(title: String) {
         self.item = item.addingTag(withTitle: title)
-        hasUnsavedChanges = true
+        markAsDirty()
     }
     
     func deleteTag(tag: Tag) {
         self.item = item.removingTag(tag: tag)
-        hasUnsavedChanges = true
+        markAsDirty()
     }
     
     func setImageAttachment(_ attachment: UIImage?) {
         currentImageAttachment = attachment
-        hasUnsavedChanges = true
+        markAsDirty()
     }
     
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
@@ -182,7 +194,7 @@ extension AudioManager: AudioRecorderDelegate {
             action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
         )
         
-        hasUnsavedChanges = true
+        markAsDirty()
     }
 }
 
@@ -398,7 +410,7 @@ extension AudioManager: AudioCropperDelegate {
     ) {
         stateManager.performCroppingAction(action: .showCropFinished(item))
         audioCropper = nil
-        hasUnsavedChanges = true
+        markAsDirty()
         regeneratePlayer(withItem: currentItem)
     }
     
@@ -481,7 +493,7 @@ extension AudioManager: AudioCutterDelegate {
     func audioCutter(_ cutter: AudioCutter, didApplyCutItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
         stateManager.performCuttingAction(action: .showCutFinished(item: item, from: from, to: to))
         audioCutter = nil
-        hasUnsavedChanges = true
+        markAsDirty()
         regeneratePlayer(withItem: currentItem)
     }
     
@@ -535,7 +547,7 @@ extension AudioManager: TranscriptionJobManagerDelegate {
     ) {
         updateTranscript(transcript)
         if id == item.id {
-            hasUnsavedChanges = true
+            markAsDirty()
             
             stateManager.performTranscriptionAction(
                 action: .transcriptionComplete(
@@ -610,7 +622,7 @@ extension AudioManager: TranscriptManagerDelegate {
         _ manager: TranscriptManager,
         didFinishEditingTranscript transcript: Transcript
     ) {
-        hasUnsavedChanges = true
+        markAsDirty()
         stateManager.performTranscriptAction(
             action: .finishedEditingTranscript(
                 transcript: transcript,

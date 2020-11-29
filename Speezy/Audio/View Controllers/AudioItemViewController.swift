@@ -80,10 +80,13 @@ class AudioItemViewController: UIViewController {
     var documentInteractionController: UIDocumentInteractionController?
     
     var audioManager: AudioManager!
+    
+    private var shouldShowStagedFileAlreadyExistsAlert = false
                 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        prepareStagedFile()
         configureDependencies()
         configureSubviews()
     }
@@ -97,6 +100,7 @@ class AudioItemViewController: UIViewController {
         }
         
         audioManager.checkTranscriptionJobs()
+        showAlertForPreExistingStagedFile()
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -136,7 +140,11 @@ class AudioItemViewController: UIViewController {
     
     @IBAction func close(_ sender: Any) {
         if audioManager.hasUnsavedChanges {
-            let alert = UIAlertController(title: "Changes not saved", message: "You have unsaved changes, would you like to save or discard them?", preferredStyle: .actionSheet)
+            let alert = UIAlertController(
+                title: "Changes not saved",
+                message: "You have unsaved changes, would you like to save or discard them?",
+                preferredStyle: .actionSheet
+            )
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 self.audioManager.save(saveAttachment: false) { (item) in
                     DispatchQueue.main.async {
@@ -207,6 +215,42 @@ extension AudioItemViewController {
     func reset() {
         audioManager.seek(to: 0.0)
         configureSubviews()
+    }
+    
+    // If the user makes an edit, then force closes the app without saving
+    // we get left with a dangling staged file.
+    // We should do something about this, specifically - we should show the user an alert and allow them
+    // to continue editing or to discard back to the original form.
+    // That's what these two functions do.
+    private func prepareStagedFile() {
+        audioManager.toggleDirtiness()
+        if audioManager.hasUnsavedChanges {
+            shouldShowStagedFileAlreadyExistsAlert = true
+        }
+    }
+    
+    private func showAlertForPreExistingStagedFile() {
+        if shouldShowStagedFileAlreadyExistsAlert {
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Discard changes") {
+                self.audioManager.discard {
+                    self.prepareStagedFile()
+                    self.reset()
+                }
+            }
+            
+            alert.addButton("Continue with changes") {
+                self.audioManager.markAsDirty()
+            }
+            
+            alert.showEdit(
+                "You have unsaved changes from your last session",
+                subTitle: "You made some edits to this clip previously that weren't saved, would you like to discard these and return to the previous version?"
+            )
+            
+            shouldShowStagedFileAlreadyExistsAlert = false
+        }
     }
     
     func configureDependencies() {
