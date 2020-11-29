@@ -161,6 +161,7 @@ extension TranscriptionViewController {
     }
 }
 
+// MARK: Job observation
 extension TranscriptionViewController: TranscriptionJobObserver {
     func transcriptionFinished(on itemWithId: String, transcript: Transcript) {
         DispatchQueue.main.async {
@@ -172,6 +173,7 @@ extension TranscriptionViewController: TranscriptionJobObserver {
     func transcriptionQueued(on itemId: String) {}
 }
 
+// MARK: Job creation
 extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
     func transcribeActionViewControllerDidSelectTranscribe(_ viewController: TranscribeActionViewController) {
         createTranscriptionJob()
@@ -183,6 +185,7 @@ extension TranscriptionViewController: TranscribeActionViewControllerDelegate {
     }
 }
 
+// MARK: Cutter observation
 extension TranscriptionViewController: AudioCutterObserver {
     func cuttingFinished(onItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
         configurePreviewWave(audioManager: audioManager)

@@ -46,12 +46,7 @@ class AudioCutter: AudioCropping {
             )
             
             self.cutItem = cutItem
-            self.delegate?.audioCutter(
-                self,
-                didApplyCutItem: cutItem,
-                from: self.cropFrom,
-                to: self.cropTo
-            )
+            self.applyCut()
         }
     }
     

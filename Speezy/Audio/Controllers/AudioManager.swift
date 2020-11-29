@@ -442,6 +442,10 @@ extension AudioManager: AudioCutterDelegate {
     }
     
     func cut(timeRanges: [CMTimeRange]) {
+        if audioCutter == nil {
+            regenerateCutter()
+        }
+        
         audioCutter?.cut(audioItem: item, timeRanges: timeRanges)
     }
     
@@ -464,8 +468,7 @@ extension AudioManager: AudioCutterDelegate {
     }
     
     func startCutting() {
-        audioCutter = AudioCutter(item: item)
-        audioCutter?.delegate = self
+        regenerateCutter()
         stateManager.performCuttingAction(action: .showCut(item))
     }
     
@@ -486,6 +489,11 @@ extension AudioManager: AudioCutterDelegate {
         stateManager.performCuttingAction(action: .showCutCancelled(item))
         audioCutter = nil
         regeneratePlayer(withItem: currentItem)
+    }
+    
+    private func regenerateCutter() {
+        audioCutter = AudioCutter(item: item)
+        audioCutter?.delegate = self
     }
 }
 
@@ -561,12 +569,34 @@ extension AudioManager: TranscriptionJobManagerDelegate {
 
 // MARK: Transcript editing
 extension AudioManager: TranscriptManagerDelegate {
+    var numberOfWordsInTranscript: Int {
+        transcriptManager.numberOfWords
+    }
+    
+    var transcriptExists: Bool {
+        transcriptManager.transcriptExists
+    }
+    
     func addTranscriptObserver(_ observer: TranscriptObserver) {
         stateManager.addTranscriptObserver(observer)
     }
     
     func removeTranscriptObserver(_ observer: TranscriptObserver) {
         stateManager.removeTranscriptObserver(observer)
+    }
+    
+    func updateTranscript(_ transcript: Transcript) {
+        transcriptManager.updateTranscript(transcript)
+    }
+    
+    func removeTranscribedUhms() {
+        transcriptManager.delegate = self
+        transcriptManager.removeUhms()
+    }
+    
+    func removeSelectedTranscribedWords() {
+        transcriptManager.delegate = self
+        transcriptManager.removeSelectedWords()
     }
     
     func adjustTranscript(forCutRange from: TimeInterval, to: TimeInterval) {
@@ -597,14 +627,6 @@ extension AudioManager: TranscriptManagerDelegate {
         transcriptManager.updateTranscriptRemovingSelectedWords()
     }
     
-    var numberOfWordsInTranscript: Int {
-        transcriptManager.numberOfWords
-    }
-    
-    var transcriptExists: Bool {
-        transcriptManager.transcriptExists
-    }
-    
     func transcribedWord(for index: Int) -> Word? {
         transcriptManager.word(for: index)
     }
@@ -623,19 +645,5 @@ extension AudioManager: TranscriptManagerDelegate {
     
     func currentPlayingTranscribedWordIndex(at time: TimeInterval) -> Int? {
         transcriptManager.currentPlayingWordIndex(at: time)
-    }
-    
-    func updateTranscript(_ transcript: Transcript) {
-        transcriptManager.updateTranscript(transcript)
-    }
-    
-    func removeTranscribedUhms() {
-        transcriptManager.delegate = self
-        transcriptManager.removeUhms()
-    }
-    
-    func removeSelectedTranscribedWords() {
-        transcriptManager.delegate = self
-        transcriptManager.removeSelectedWords()
     }
 }
