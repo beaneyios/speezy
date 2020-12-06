@@ -10,10 +10,14 @@ import Foundation
 import AVKit
 
 protocol AudioPlayerDelegate: AnyObject {
-    func audioPlayerDidStartPlayback(_ player: AudioPlayer)
+    func audioPlayerDidBeginPlayback(_ player: AudioPlayer)
     func audioPlayerDidPausePlayback(_ player: AudioPlayer)
-    func audioPlayerDidFinishPlayback(_ player: AudioPlayer)
-    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool)
+    func audioPlayerDidStopPlayback(_ player: AudioPlayer)
+    func audioPlayer(
+        _ player: AudioPlayer,
+        progressedPlaybackWithTime time: TimeInterval,
+        seekActive: Bool
+    )
 }
 
 class AudioPlayer: NSObject, AVAudioPlayerDelegate {
@@ -41,7 +45,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         AVAudioSession.sharedInstance().prepareForPlayback()
         player.play()
         startPlaybackTimer()
-        delegate?.audioPlayerDidStartPlayback(self)
+        delegate?.audioPlayerDidBeginPlayback(self)
     }
     
     func pause() {
@@ -51,22 +55,22 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func stop() {
+        player?.stop()
+        player?.currentTime = 0.0
         playbackTimer?.invalidate()
         playbackTimer = nil
-        delegate?.audioPlayerDidFinishPlayback(self)
+        delegate?.audioPlayerDidStopPlayback(self)
     }
     
-    func seek(to percentage: Float) {
+    func seek(to time: TimeInterval) {
         guard let player = self.player else {
             
             assertionFailure("Somehow the skip is getting called despite the player being nil")
             return
         }
         
-        let timePosition = player.duration * TimeInterval(percentage)
-        player.currentTime = timePosition
-        
-        delegate?.audioPlayer(self, progressedWithTime: player.currentTime, seekActive: true)
+        player.currentTime = time
+        delegate?.audioPlayer(self, progressedPlaybackWithTime: player.currentTime, seekActive: true)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -80,7 +84,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
                 return
             }
             
-            self.delegate?.audioPlayer(self, progressedWithTime: player.currentTime, seekActive: false)
+            self.delegate?.audioPlayer(self, progressedPlaybackWithTime: player.currentTime, seekActive: false)
         }
     }
 }

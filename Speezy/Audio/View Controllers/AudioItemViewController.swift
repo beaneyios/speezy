@@ -12,21 +12,50 @@ import SCLAlertView
 import Hero
 
 protocol AudioItemViewControllerDelegate: AnyObject {
-    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem)
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem)
-    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldSendItem item: AudioItem
+    )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didSaveItemToDrafts item: AudioItem
+    )
+    
+    func audioItemViewControllerShouldPop(
+        _ viewController: AudioItemViewController
+    )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didSelectTranscribeWithManager manager: AudioManager
+    )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentCutOnItem audioItem: AudioItem
+    )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentCropOnItem audioItem: AudioItem
+    )
+    
+    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool
 }
 
-class AudioItemViewController: UIViewController, AudioManagerObserver {
+class AudioItemViewController: UIViewController {
     
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
-    @IBOutlet var cropHidables: [UIButton]!
-    @IBOutlet var cutHidables: [UIButton]!
         
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var btnDrafts: UIButton!
+        
+    @IBOutlet weak var btnTranscribeContainer: UIView!
+    private var transcribeButton: TranscriptionButton?
     
+    @IBOutlet weak var btnPlayback: UIButton!
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
@@ -36,41 +65,48 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     @IBOutlet weak var bgGradient: UIImageView!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    @IBOutlet weak var controlButtonsHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var recordContainer: UIView!
     @IBOutlet weak var mainWaveContainer: UIView!
-    
-    @IBOutlet weak var cropContainer: UIView!
-    @IBOutlet weak var cropWaveContainer: UIView!
-    @IBOutlet weak var cropContainerHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var playbackControlsContainer: UIView!
-    
+        
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnDone: UIButton!
     
     weak var delegate: AudioItemViewControllerDelegate?
     
-    private var playbackControlsView: PlaybackControlsView?
-    private var mainWave: PlaybackView?
-    private var cropView: CropView?
+    private var mainWave: PlaybackWaveView?
+    
+    private var transcriptionCropUpdatesPending = false
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
     
     var audioManager: AudioManager!
+    
+    private var shouldShowStagedFileAlreadyExistsAlert = false
                 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureAudioManager()
+        prepareStagedFile()
+        configureDependencies()
         configureSubviews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if transcriptionCropUpdatesPending {
+            configureSubviews()
+            transcriptionCropUpdatesPending = false
+        }
+        
+        audioManager.checkTranscriptionJobs()
+        showAlertForPreExistingStagedFile()
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            audioManager.stopTranscriptionChecks()
+        }
     }
     
     @IBAction func saveToDrafts(_ sender: Any) {
@@ -93,7 +129,6 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     @IBAction func send(_ sender: Any) {
         audioManager.save(saveAttachment: false) { (item) in
             DispatchQueue.main.async {
-                NSLog("Going to call delegate \(self.delegate)")
                 self.delegate?.audioItemViewController(self, shouldSendItem: item)
             }
         }
@@ -105,7 +140,11 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
     
     @IBAction func close(_ sender: Any) {
         if audioManager.hasUnsavedChanges {
-            let alert = UIAlertController(title: "Changes not saved", message: "You have unsaved changes, would you like to save or discard them?", preferredStyle: .actionSheet)
+            let alert = UIAlertController(
+                title: "Changes not saved",
+                message: "You have unsaved changes, would you like to save or discard them?",
+                preferredStyle: .actionSheet
+            )
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
                 self.audioManager.save(saveAttachment: false) { (item) in
                     DispatchQueue.main.async {
@@ -136,60 +175,95 @@ class AudioItemViewController: UIViewController, AudioManagerObserver {
         audioManager.toggleRecording()
     }
     
+    @IBAction func togglePlayback(_ sender: Any) {
+        audioManager.togglePlayback()
+    }
+    
     @IBAction func toggleCrop(_ sender: Any) {
         if audioManager.canCrop {
-            audioManager.toggleCrop()
+            delegate?.audioItemViewController(self, didPresentCropOnItem: audioManager.item)
         } else {
             let alert = SCLAlertView()
-            alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to crop - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
+            alert.showError(
+                "Clip not long enough",
+                subTitle: "Your recording wasn't long enough to crop - ensure the clip is at least 5 seconds",
+                closeButtonTitle: "OK"
+            )
         }
-    }
-    
-    @IBAction func applyCrop(_ sender: Any) {
-        audioManager.stop()
-        
-        if audioManager.hasActiveCrop == false {
-            audioManager.cancelCrop()
-            return
-        }
-        
-        let alert = UIAlertController(title: "Confirm crop", message: "Are you sure you want to crop?", preferredStyle: .alert)
-        let cropAction = UIAlertAction(title: "Crop", style: .destructive) { (action) in
-            self.audioManager.applyCrop()
-        }
-        
-        let cancelAction = UIAlertAction(title: "Not yet", style: .cancel, handler: nil)
-        alert.addAction(cropAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func cancelCrop(_ sender: Any) {
-        audioManager.cancelCrop()
     }
     
     @IBAction func toggleCut(_ sender: Any) {
-        if audioManager.canCrop {
-            audioManager.toggleCut()
+        if audioManager.canCut {
+            delegate?.audioItemViewController(self, didPresentCutOnItem: audioManager.item)
         } else {
             let alert = SCLAlertView()
-            alert.showError("Clip not long enough", subTitle: "Your recording wasn't long enough to cut - ensure the clip is at least 5 seconds", closeButtonTitle: "OK")
+            alert.showError(
+                "Clip not long enough",
+                subTitle: "Your recording wasn't long enough to cut - ensure the clip is at least 5 seconds",
+                closeButtonTitle: "OK"
+            )
         }
+    }
+    
+    func presentTranscription() {
+        delegate?.audioItemViewController(self, didSelectTranscribeWithManager: audioManager)
     }
 }
 
 // MARK: Configuration
 extension AudioItemViewController {
-    func configureAudioManager() {
-        audioManager.addObserver(self)
+    func reset() {
+        audioManager.seek(to: 0.0)
+        configureSubviews()
+    }
+    
+    // If the user makes an edit, then force closes the app without saving
+    // we get left with a dangling staged file.
+    // We should do something about this, specifically - we should show the user an alert and allow them
+    // to continue editing or to discard back to the original form.
+    // That's what these two functions do.
+    private func prepareStagedFile() {
+        audioManager.toggleDirtiness()
+        if audioManager.hasUnsavedChanges {
+            shouldShowStagedFileAlreadyExistsAlert = true
+        }
+    }
+    
+    private func showAlertForPreExistingStagedFile() {
+        if shouldShowStagedFileAlreadyExistsAlert {
+            let appearance = SCLAlertView.SCLAppearance(showCloseButton: false)
+            let alert = SCLAlertView(appearance: appearance)
+            alert.addButton("Discard changes") {
+                self.audioManager.discard {
+                    self.prepareStagedFile()
+                    self.reset()
+                }
+            }
+            
+            alert.addButton("Continue with changes") {
+                self.audioManager.markAsDirty()
+            }
+            
+            alert.showEdit(
+                "You have unsaved changes from your last session",
+                subTitle: "You made some edits to this clip previously that weren't saved, would you like to discard these and return to the previous version?"
+            )
+            
+            shouldShowStagedFileAlreadyExistsAlert = false
+        }
+    }
+    
+    func configureDependencies() {
+        audioManager.addPlaybackObserver(self)
+        audioManager.addRecorderObserver(self)
+        audioManager.addTranscriptionObserver(self)
     }
     
     func configureSubviews() {
+        configureTranscribeButton()
         configureNavButtons()
         configureMainSoundWave()
-        configurePlaybackControls()
         configureTitle()
-        hideCropView(animated: false)
         
         hero.isEnabled = true
         btnRecord.hero.id = "record"
@@ -197,6 +271,30 @@ extension AudioItemViewController {
         let presenting = HeroDefaultAnimationType.zoom
         let dismissing = HeroDefaultAnimationType.zoomOut
         hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
+    }
+    
+    private func configureTranscribeButton() {
+        transcribeButton?.removeFromSuperview()
+        
+        let transcribeButton = TranscriptionButton.createFromNib()
+        btnTranscribeContainer.addSubview(transcribeButton)
+        transcribeButton.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        if audioManager.transcriptExists {
+            transcribeButton.switchToSuccessful()
+        } else if audioManager.transcriptionJobExists {
+            transcribeButton.switchToLoading()
+        } else {
+            transcribeButton.switchToNormal()
+        }
+        
+        self.transcribeButton = transcribeButton
+        
+        transcribeButton.action = {
+            self.presentTranscription()
+        }
     }
     
     private func configureNavButtons() {
@@ -212,36 +310,44 @@ extension AudioItemViewController {
         btnDrafts.layer.borderWidth = 1.0
     }
     
-    private func configurePlaybackControls() {
-        playbackControlsContainer.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        let playbackControlsView = PlaybackControlsView.instanceFromNib()
-        playbackControlsView.configure(with: audioManager)
-        playbackControlsContainer.addSubview(playbackControlsView)
-        playbackControlsView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-    }
-    
     private func configureMainSoundWave() {
         mainWave?.removeFromSuperview()
         mainWave = nil
         
-        let soundWaveView = PlaybackView.instanceFromNib()
+        let soundWaveView = PlaybackWaveView.instanceFromNib()
         mainWaveContainer.addSubview(soundWaveView)
         
         soundWaveView.snp.makeConstraints { (maker) in
             maker.edges.equalTo(self.mainWaveContainer)
         }
         
-        soundWaveView.configure(manager: audioManager)
         mainWave = soundWaveView
+        mainWave?.delegate = self
+        
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        soundWaveView.configure(manager: audioManager)
     }
     
     private func configureTitle() {
         btnTitle.setTitle(audioManager.item.title, for: .normal)
+    }
+}
+
+extension AudioItemViewController: PlaybackWaveViewDelegate {
+    func playbackView(_ playbackView: PlaybackWaveView, didFinishScrollingOnPosition percentage: CGFloat) {
+        
+    }
+    
+    func playbackView(
+        _ playbackView: PlaybackWaveView,
+        didScrollToPosition percentage: CGFloat,
+        userInitiated: Bool
+    ) {
+        if userInitiated {
+            let floatPercentage = percentage > 1.0 ? 1.0 : Float(percentage)
+            audioManager.seek(to: floatPercentage)
+        }
     }
 }
 
@@ -270,144 +376,29 @@ extension AudioItemViewController {
             animationStyle: .topToBottom
         )
     }
-    
-    private func showCutView() {
-        cutHidables.forEach {
-            $0.disable()
-        }
-        
-        cropContainerHeight.constant = 100.0
-        controlButtonsHeight.constant = 0.0
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            self.view.layoutIfNeeded()
-            self.cropContainer.alpha = 1.0
-        }) { (finished) in
-            let cropView = CropView.instanceFromNib()
-            cropView.alpha = 0.0
-            self.cropWaveContainer.addSubview(cropView)
-            
-            cropView.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(self.cropWaveContainer)
-            }
-            
-            self.cropView = cropView
-            cropView.configure(manager: self.audioManager, cropKind: .cut)
-            
-            UIView.animate(withDuration: 0.3) {
-                cropView.alpha = 1.0
-            }
-            
-            self.scrollView.setContentOffset(
-                CGPoint(x: 0, y: 100.0),
-                animated: true
-            )
-        }
-    }
-    
-    private func hideCropView() {
-        cutHidables.forEach {
-            $0.enable()
-        }
-        
-        controlButtonsHeight.constant = 80.0
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
-            self.cropContainer.alpha = 0.0
-        }) { (finished) in
-            self.cropView?.removeFromSuperview()
-            self.cropView = nil
-            self.cropContainerHeight.constant = 0.0
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-    
-    private func showCropView() {
-        cropHidables.forEach {
-            $0.disable()
-        }
-        
-        cropContainerHeight.constant = 100.0
-        controlButtonsHeight.constant = 0.0
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            self.view.layoutIfNeeded()
-            self.cropContainer.alpha = 1.0
-        }) { (finished) in
-            let cropView = CropView.instanceFromNib()
-            cropView.alpha = 0.0
-            self.cropWaveContainer.addSubview(cropView)
-            
-            cropView.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(self.cropWaveContainer)
-            }
-            
-            self.cropView = cropView
-            cropView.configure(manager: self.audioManager, cropKind: .trim)
-            
-            UIView.animate(withDuration: 0.3) {
-                cropView.alpha = 1.0
-            }
-            
-            self.scrollView.setContentOffset(
-                CGPoint(x: 0, y: 100.0),
-                animated: true
-            )
-        }
-    }
-    
-    private func hideCropView(animated: Bool = true) {
-        guard animated else {
-            controlButtonsHeight.constant = 80.0
-            cropContainerHeight.constant = 0.0
-            cropContainer.alpha = 0.0
-            return
-        }
-        
-        btnCrop.setImage(UIImage(named: "crop-button"), for: .normal)
-        
-        cropHidables.forEach {
-            $0.enable()
-        }
-        
-        controlButtonsHeight.constant = 80.0
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
-            self.cropContainer.alpha = 0.0
-        }) { (finished) in
-            self.cropView?.removeFromSuperview()
-            self.cropView = nil
-            self.cropContainerHeight.constant = 0.0
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
 }
 
 // MARK: RECORDING
-extension AudioItemViewController {
-    func audioManagerDidStartRecording(_ player: AudioManager) {
+extension AudioItemViewController: AudioRecorderObserver {
+    func recordingBegan() {
         btnRecord.setImage(UIImage(named: "stop-recording-button"), for: .normal)
         
         recordHidables.forEach {
             $0.disable()
         }
+        
+        transcribeButton?.disable()
     }
     
-    func audioManager(_ manager: AudioManager, didRecordBarWithPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
+    func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         lblTimer.text = TimeFormatter.formatTime(time: totalDuration)
     }
     
-    func audioManagerProcessingRecording(_ player: AudioManager) {
+    func recordingProcessing() {
         btnRecord.startLoading()
     }
     
-    func audioManagerDidStopRecording(_ player: AudioManager, maxLimitedReached: Bool) {
+    func recordingStopped(maxLimitedReached: Bool) {
         if maxLimitedReached {
             let alert = SCLAlertView()
             alert.showWarning("Limit reached", subTitle: "You can only record a maximum of 2 minutes")
@@ -420,79 +411,60 @@ extension AudioItemViewController {
         recordHidables.forEach {
             $0.enable()
         }
+        
+        configureTranscribeButton()
     }
 }
 
 // MARK: PLAYBACK
-extension AudioItemViewController {
-    func audioManager(_ manager: AudioManager, didStartPlaying item: AudioItem) {
+extension AudioItemViewController: AudioPlayerObserver {
+    func playBackBegan(on item: AudioItem) {
         playbackHidables.forEach {
             $0.disable()
         }
+        
+        btnPlayback.setImage(UIImage(named: "pause-button"), for: .normal)
+        transcribeButton?.disable()
     }
     
-    func audioManager(_ manager: AudioManager, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        lblTimer.text = TimeFormatter.formatTime(time: time)
-    }
-    
-    func audioManager(_ manager: AudioManager, didPausePlaybackOf item: AudioItem) {
-        if audioManager.isCropping == false {
-            playbackHidables.forEach {
-                $0.enable()
-            }
+    func playbackPaused(on item: AudioItem) {
+        playbackHidables.forEach {
+            $0.enable()
         }
         
         btnCrop.enable()
         btnCut.enable()
+        configureTranscribeButton()
+        
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
-    func audioManager(_ manager: AudioManager, didStopPlaying item: AudioItem) {
-        if audioManager.isCropping == false {
-            playbackHidables.forEach {
-                $0.enable()
-            }
+    func playbackStopped(on item: AudioItem) {
+        playbackHidables.forEach {
+            $0.enable()
         }
         
         btnCrop.enable()
+        configureTranscribeButton()
+        btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem,
+        startOffset: TimeInterval
+    ) {
+        lblTimer.text = TimeFormatter.formatTime(time: time)
     }
 }
 
-// MARK: CROPPING
-extension AudioItemViewController {
-    func audioManager(_ manager: AudioManager, didStartCroppingItem item: AudioItem, kind: CropKind) {
-        lblTimer.text = "00:00:00"
-
-        switch kind {
-        case .cut:
-            showCutView()
-        case .trim:
-            showCropView()
-        }
-
-        scrollView.isScrollEnabled = false
+extension AudioItemViewController: TranscriptionJobObserver {
+    func transcriptionFinished(on itemWithId: String, transcript: Transcript) {
+        transcribeButton?.switchToSuccessful()
     }
     
-    func audioManager(_ manager: AudioManager, didMoveLeftCropHandleTo percentage: CGFloat) {
-        // no op
-    }
-    
-    func audioManager(_ manager: AudioManager, didMoveRightCropHandleTo percentage: CGFloat) {
-        // no op
-    }
-    
-    func audioManager(_ manager: AudioManager, didAdjustCropOnItem item: AudioItem) {
-        lblTimer.text = "00:00:00"
-    }
-    
-    func audioManager(_ manager: AudioManager, didFinishCroppingItem item: AudioItem) {
-        lblTimer.text = "00:00:00"
-        hideCropView()
-        scrollView.isScrollEnabled = true
-    }
-    
-    func audioManagerDidCancelCropping(_ player: AudioManager) {
-        lblTimer.text = "00:00:00"
-        hideCropView()
-        scrollView.isScrollEnabled = true
+    func transcriptionQueued(on itemId: String) {
+        transcribeButton?.switchToLoading()
     }
 }

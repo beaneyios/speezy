@@ -34,6 +34,7 @@ class AudioLevelGenerator {
     enum TargetSamples {
         case fitToWidth(width: CGFloat, barSpacing: CGFloat)
         case fitToDuration
+        case custom(Int)
     }
     
     typealias AudioLevelCompletion = (AudioData) -> Void
@@ -68,6 +69,8 @@ class AudioLevelGenerator {
                     
                 case let .fitToWidth(width, barSpacing):
                     return Int(width / barSpacing)
+                case let .custom(amount):
+                    return amount
                 }
             }()
             

@@ -21,8 +21,10 @@ struct AudioItem: Codable, Equatable, Identifiable {
     let date: Date
     let tags: [Tag]
     
+    let _url: URL?
+    
     var url: URL {
-        FileManager.default.documentsURL(with: path)!
+        _url ?? FileManager.default.documentsURL(with: path)!
     }
     
     var duration: TimeInterval {
@@ -34,12 +36,14 @@ struct AudioItem: Codable, Equatable, Identifiable {
         path: String,
         title: String,
         date: Date,
-        tags: [Tag]
+        tags: [Tag],
+        url: URL? = nil
     ) {
         self.id = id
         self.path = path
         self.title = title
         self.date = date
         self.tags = tags
+        self._url = url
     }
 }

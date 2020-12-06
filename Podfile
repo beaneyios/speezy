@@ -13,6 +13,8 @@ target 'Speezy' do
   pod 'Hero'
   pod 'DeviceKit', '~> 2.0'
   pod 'Firebase/Crashlytics'
+  pod 'Alamofire', '~> 5.2'
+  pod 'GhostTypewriter'
 
   target 'SpeezyTests' do
     inherit! :search_paths

@@ -1,5 +1,6 @@
 PODS:
   - AFDateHelper (4.3.0)
+  - Alamofire (5.2.2)
   - DeviceKit (2.3.0)
   - Firebase/CoreOnly (6.27.0):
     - FirebaseCore (= 6.8.0)
@@ -27,6 +28,7 @@ PODS:
     - GoogleUtilities/Environment (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.6)
     - PromisesObjC (~> 1.2)
+  - GhostTypewriter (2.1.0)
   - GoogleDataTransport (6.2.1)
   - GoogleDataTransportCCTSupport (3.2.0):
     - GoogleDataTransport (~> 6.1)
@@ -50,8 +52,10 @@ PODS:
 
 DEPENDENCIES:
   - AFDateHelper (~> 4.3.0)
+  - Alamofire (~> 5.2)
   - DeviceKit (~> 2.0)
   - Firebase/Crashlytics
+  - GhostTypewriter
   - Hero
   - SCLAlertView
   - SnapKit (~> 5.0.0)
@@ -60,12 +64,14 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFDateHelper
+    - Alamofire
     - DeviceKit
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - GhostTypewriter
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
@@ -78,12 +84,14 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFDateHelper: b769c07d3d4784ee9a74633285304261bb27dc52
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
   Firebase: fc4cbf6f1592636431821ef9a3c557e4dfd9f268
   FirebaseCore: feda061cb1ee6d8ad4824f4a4a8ffbcfe284f595
   FirebaseCoreDiagnostics: 4505e4d4009b1d93f605088ee7d7764d5f0d1c84
   FirebaseCrashlytics: 7d0fa02ea8842cc4b2ab07b0735edafde1ad77d6
   FirebaseInstallations: 293f567159b6d66d1c990f13bb868066096c94ec
+  GhostTypewriter: 62540772d227fbfe633bfa728d08fe8af5b4d805
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
@@ -94,6 +102,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
 
-PODFILE CHECKSUM: d24ea5c5a176fcbbed7adf4452d163f11a03c6ec
+PODFILE CHECKSUM: 6fe8788a56a953e513234d6272f43a5602edefbb
 
 COCOAPODS: 1.9.1

@@ -31,6 +31,40 @@ class AudioItemCoordinator: ViewCoordinator {
     override func finish() {
         delegate?.audioItemCoordinatorDidFinish(self)
     }
+    
+    private func navigateToTranscription(manager: AudioManager, on pushingViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Transcription", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: "transcription") as? TranscriptionViewController else {
+            return
+        }
+        
+        viewController.audioManager = manager
+        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    private func navigateToCutView(audioItem: AudioItem, on pushingViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Cut", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: "cut") as? CutViewController else {
+            return
+        }
+        
+        let manager = AudioManager(item: audioItem)
+        viewController.manager = manager
+        viewController.delegate = self
+        pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
+    }
+    
+    private func navigateToCropView(audioItem: AudioItem, on pushingViewController: UIViewController) {
+        let storyboard = UIStoryboard(name: "Cut", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: "crop") as? CropViewController else {
+            return
+        }
+        
+        let manager = AudioManager(item: audioItem)
+        viewController.manager = manager
+        viewController.delegate = self
+        pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
+    }
 }
 
 extension AudioItemCoordinator {
@@ -41,12 +75,57 @@ extension AudioItemCoordinator {
     }
 }
 
+extension AudioItemCoordinator: CutViewControllerDelegate {
+    func cutViewController(_ viewController: CutViewController, didFinishCutFrom from: TimeInterval, to: TimeInterval) {
+        guard let navigationController = viewController.presentingViewController as? UINavigationController else {
+            assertionFailure("Expecting this to be a nav controller.")
+            return
+        }
+        
+        viewController.dismiss(animated: true) {
+            let audioItemViewController = navigationController.viewControllers.first {
+                $0 is AudioItemViewController
+            } as? AudioItemViewController
+            
+            audioItemViewController?.audioManager.markAsDirty()
+            audioItemViewController?.audioManager.adjustTranscript(forCutRange: from, to: to)
+            audioItemViewController?.reset()
+        }
+    }
+    
+    func cutViewControllerDidTapClose(_ viewController: CutViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AudioItemCoordinator: CropViewControllerDelegate {
+    func cropViewControllerDidFinishCrop(_ viewController: CropViewController) {
+        guard let navigationController = viewController.presentingViewController as? UINavigationController else {
+            assertionFailure("Expecting this to be a nav controller.")
+            return
+        }
+        
+        viewController.dismiss(animated: true) {
+            let audioItemViewController = navigationController.viewControllers.first {
+                $0 is AudioItemViewController
+            } as? AudioItemViewController
+            
+            audioItemViewController?.audioManager.markAsDirty()
+            audioItemViewController?.reset()
+        }
+    }
+    
+    func cropViewControllerDidTapClose(_ viewController: CropViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+}
+
 extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     private func navigateToNewItem() {
         let id = UUID().uuidString
         let item = AudioItem(
             id: id,
-            path: "\(id).m4a",
+            path: "\(id).wav",
             title: "",
             date: Date(),
             tags: []
@@ -68,6 +147,14 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         self.navigationController.present(navigationController, animated: true, completion: nil)
     }
     
+    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
+        navigateToCutView(audioItem: audioItem, on: viewController)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCropOnItem audioItem: AudioItem) {
+        navigateToCropView(audioItem: audioItem, on: viewController)
+    }
+    
     func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {
         listViewController?.reloadItem(item)
     }
@@ -80,9 +167,17 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
         viewController.dismiss(animated: true, completion: nil)
     }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribeWithManager manager: AudioManager) {
+        navigateToTranscription(manager: manager, on: viewController)
+    }
+    
+    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool {
+        viewController.navigationController?.viewControllers.last == viewController
+    }
 }
 
-extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+extension AudioItemCoordinator: AudioItemListViewControllerDelegate {    
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
         add(settingsCoordinator)
@@ -120,7 +215,6 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
-        NSLog("Delegate called, presenting the view controller \(viewController) on navigation controller \(pushingViewController.navigationController)")
         pushingViewController.navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -130,11 +224,6 @@ extension AudioItemCoordinator: PublishViewControllerDelegate {
     
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
         listViewController?.reloadItem(item)
-        
-        let audioViewController = viewController.navigationController?.viewControllers.first { $0 is AudioItemViewController } as? AudioItemViewController
-        audioViewController?.audioManager = AudioManager(item: item)
-        audioViewController?.configureAudioManager()
-        audioViewController?.configureSubviews()
     }
     
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {

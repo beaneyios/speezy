@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "speezy",
+  "private_key_id": "35fb1cf2468354b5f0683e38c27d2c27d0551a34",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCeVf2/FGFoGHFT\nSx+5peH1Tvye1fLthMkqwdkrt73UYEB6ZreNcUjKTwR/ub0wqdoy3zdYnusYoowB\njolUTIL1y0EHkqhqfwfizyn97UPXyUsqpdruXbFbtLDTsX8Tx+hVR7aVXIiA+rX/\nrN1gKRj3FO2Mt6jdBn2Qa8xMrwUOYp5RS7u/LclHib5KlEJwT/ABe/2nUJJhnIXc\n67CFGylxmSREalCw/wvNFG5TYgR1TP2CLG1QVdOofook/XBBLUwF8ETnr88cbXVr\n324unkiVl50cJPtUWk5kre/fdtCxt3/J/k3ShRvooVHXAExOdTsr1J9cFiZ3EQVz\nkpY3yQDPAgMBAAECggEAMRBMdO2H0Y3hcAITbp+siStUtJNvl5JSE+HFvfpN5IV+\n9W7m6fl0qNwbdMjFi1LWvnTU3a1BBH06DTFx9KFQ44F8QTB856M9elbfmEPxhehm\nVmzWjo6R6uzu7mpOCn8jy2lRdq8ZzX3i77tNTgLuLYJaqgQvW24rcpk00X5afr4r\nO/WMSQx/unqavViHeOuXIqQ4R/rYlrZ0cY15dl181rsILqBGvDbsbLrjBF5ui/d9\n47lziy2cJakddUgTnLxlDTzcbChDYsk4ZgomMqKWHg7Xmdn1NcJLhVEH7V5XxATs\nKysRoL2zEYe8m2x+28kQTZBMqPxeD+shPY/892asgQKBgQDbcKrhgO1aNHZuxqQs\nD1UY2u1ICwHbP1o5+Vm54RB9PxpQvO9qTGET059CpxSP6bMfhzHr4LROVPI7fC+b\nVerSfY2ESNg94Pl8ERRyuMrYiUz8RLa3seSUaL0dMOseRKVRw+FA2OOHoGZGPFgj\nyJm1wPRamMlQ/EE8svPJgxzlfwKBgQC4tyudZlQW2KfXwp+Z6lhgEpkPT7moCZ0r\nkUE/dE3L3EXciLwhe7Cq7oZEcLvyX0DLvKnWV1zaP6pSAe7y3Du+8f+zJQKifTKV\nxxIGpPZFVMnTaFQBYbjsw/a087+ebbfEoz4eUrzpQWNbb2EvBiLEt1xiF9jsHcPr\niTB92eOssQKBgCTSWgou7SUGypy5/lBaXkgmbEx7dFtK3SP/QFwddPvfO9YybeYj\nXOLLztyLVrrzVxhCQlE3SmoefOsYYpCpMRcS9E0vQAHaH2L/JrQ9Z+Q/3cgy64oV\ncqqojJs6WymgETGQMdsEyeE3PBIrDAstHQXPk/Ej1Bwfx/6cdKXqt02XAoGATa4y\neGI1UNpSU6l0hz0HZ3fKyKallCZe45iVkQLvSKFc++7A92/WDzx6WMP0NmyailPQ\nNOTOlrYZgZ1wiM/XjGinOQaCgiUWpehvCz5Kl0OeEPsaAO7A30lWMikj15OaqeZg\n1E3FRm8KQsSnYSg6bPITtukCf+HQp/gs3XBJkDECgYEAx9hVc2WKeMAUuh+ln1BW\neD/I/vm4JVrnzPdhNiHgDdGYPhrazQWrpQ0RTyF2yLzERiYB2zmmU/b0t4BHdys0\nXAvPtjJ/UgDomh+S8my0iUsl4VrWxH5NWZtdJEA1bfN0pGEJCUtVCKgAy52aWx2M\nPqZraUnYNu4K+2C3rMonjEc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "speezy@speezy.iam.gserviceaccount.com",
+  "client_id": "109445938694456977253",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/speezy%40speezy.iam.gserviceaccount.com"
+}

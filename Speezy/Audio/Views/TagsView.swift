@@ -119,11 +119,13 @@ extension TagsView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
 class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attributes = super.layoutAttributesForElements(in: rect)
+        let attributes: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElements(in: rect)?.compactMap {
+            $0.copy() as? UICollectionViewLayoutAttributes
+        } ?? []
 
         var leftMargin = sectionInset.left
         var maxY: CGFloat = -1.0
-        attributes?.forEach { layoutAttribute in
+        attributes.forEach { layoutAttribute in
             if layoutAttribute.frame.origin.y >= maxY {
                 leftMargin = sectionInset.left
             }

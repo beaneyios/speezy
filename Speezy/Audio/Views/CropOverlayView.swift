@@ -27,6 +27,14 @@ class CropOverlayView: UIView, NibLoadable {
         endTag.layer.cornerRadius = 3.0
     }
     
+    func leftHandlePositionPercentage() -> CGFloat {
+        leadingConstraint.constant / frame.width
+    }
+    
+    func rightHandlePositionPercentage() -> CGFloat {
+        (frame.width + trailingConstraint.constant) / frame.width
+    }
+    
     func changeStart(percentage: CGFloat) {
         let startX = frame.width * percentage
         leadingConstraint.constant = startX

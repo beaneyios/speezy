@@ -17,7 +17,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     weak var delegate: AudioRecorderDelegate?
     private var totalTime: TimeInterval = 0.0
     
-    static let recordingThreshhold: TimeInterval = 120
+    static let recordingThreshhold: TimeInterval = 120.0
     
     let item: AudioItem
     
@@ -27,6 +27,16 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func record() {
+        if item.duration >= Self.recordingThreshhold {
+            self.delegate?.audioRecorder(
+                self,
+                didFinishRecordingWithCompletedItem: self.item,
+                maxLimitReached: true
+            )
+            
+            return
+        }
+        
         recordingSession = AVAudioSession.sharedInstance()
         recordingSession?.prepareForRecording()
         recordingSession?.requestRecordPermission({ (allowed) in
@@ -41,9 +51,9 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     private func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.m4a")
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.wav")
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVFormatIDKey: Int(kAudioFormatLinearPCM),
             AVSampleRateKey: 44100,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
@@ -86,7 +96,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        let newRecording = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.m4a")
+        let newRecording = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.wav")
         let currentFile = item.url
         let outputURL = item.url
         

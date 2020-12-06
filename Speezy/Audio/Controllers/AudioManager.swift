@@ -11,35 +11,34 @@ import AVKit
 import UIKit
 
 class AudioManager: NSObject {
+    private(set) var hasUnsavedChanges = false
     private(set) var item: AudioItem
     private(set) var originalItem: AudioItem
-    private(set) var state = State.idle
-    private(set) var hasUnsavedChanges: Bool = false
+    private(set) var currentImageAttachment: UIImage?
     
-    private var firstRecord = true
     var noTitleSet: Bool {
         item.title == ""
     }
     
-    private var observations = [ObjectIdentifier : Observation]()
+    var state: AudioState {
+        stateManager.state
+    }
     
+    private(set) var stateManager: AudioStateManager
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
     private var audioCropper: AudioCropper?
+    private var audioCutter: AudioCutter?
+    private var transcriptionJobManager: TranscriptionJobManager?
+    private var transcriptManager: TranscriptManager
     private let audioAttachmentManager = AudioAttachmentManager()
-    
-    private(set) var currentImageAttachment: UIImage?
-    
+    private let audioSavingManager = AudioSavingManager()
+        
     init(item: AudioItem) {
         self.originalItem = item
-        
-        self.item = AudioItem(
-            id: item.id,
-            path: "\(item.id)_staging.m4a",
-            title: item.title,
-            date: item.date,
-            tags: item.tags
-        )
+        self.item = item.withStagingPath()        
+        self.transcriptManager = TranscriptManager(audioItemId: item.id)
+        self.stateManager = AudioStateManager()
     }
     
     func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
@@ -53,25 +52,33 @@ class AudioManager: NSObject {
     }
     
     func discard(completion: @escaping () -> Void) {
-        FileManager.default.deleteExistingURL(item.url)
-        FileManager.default.copy(original: originalItem.url, to: item.url)
-        completion()
+        audioSavingManager.discard(item: item, originalItem: originalItem) {
+            self.markAsClean()
+            completion()
+        }
+    }
+    
+    func toggleDirtiness() {
+        hasUnsavedChanges = AudioItemChangeManager.itemHasUnsavedChanges(item)
+    }
+    
+    func markAsDirty() {
+        hasUnsavedChanges = true
+        AudioItemChangeManager.storeUnsavedChange(for: item)
+    }
+    
+    func markAsClean() {
+        hasUnsavedChanges = false
+        AudioItemChangeManager.removeUnsavedChange(for: item)
     }
     
     private func saveItem(completion: @escaping (AudioItem) -> Void) {
-        FileManager.default.deleteExistingFile(with: originalItem.path)
-        FileManager.default.copy(original: item.url, to: originalItem.url)
-        
-        let newItem = AudioItem(
-            id: item.id,
-            path: "\(item.id).m4a",
-            title: item.title,
-            date: item.date,
-            tags: item.tags
+        let newItem = audioSavingManager.saveItem(
+            item: item,
+            originalItem: originalItem
         )
-        
-        AudioStorage.saveItem(newItem)
-        self.hasUnsavedChanges = false
+        markAsClean()
+        transcriptManager.saveTranscript()
         completion(newItem)
     }
     
@@ -84,61 +91,23 @@ class AudioManager: NSObject {
     }
     
     func updateTitle(title: String) {
-        let audioItem = AudioItem(
-            id: item.id,
-            path: item.path,
-            title: title,
-            date: item.date,
-            tags: item.tags
-        )
-        
-        self.item = audioItem
-        hasUnsavedChanges = true
+        self.item = item.withUpdatedTitle(title)
+        markAsDirty()
     }
     
     func addTag(title: String) {
-        
-        let tagTitles = title.split(separator: ",")
-        
-        let tags = tagTitles.map {
-            Tag(id: UUID().uuidString, title: String($0))
-        }
-                
-        let newItem = AudioItem(
-            id: item.id,
-            path: item.path,
-            title: item.title,
-            date: item.date,
-            tags: item.tags + tags
-        )
-        
-        self.item = newItem
-        
-        hasUnsavedChanges = true
+        self.item = item.addingTag(withTitle: title)
+        markAsDirty()
     }
     
     func deleteTag(tag: Tag) {
-        let newTags = item.tags.filter {
-            $0.id != tag.id
-        }
-        
-        let newItem = AudioItem(
-            id: item.id,
-            path: item.path,
-            title: item.title,
-            date: item.date,
-            tags: newTags
-        )
-        
-        self.item = newItem
-        
-        hasUnsavedChanges = true
+        self.item = item.removingTag(tag: tag)
+        markAsDirty()
     }
     
     func setImageAttachment(_ attachment: UIImage?) {
         currentImageAttachment = attachment
-        
-        hasUnsavedChanges = true
+        markAsDirty()
     }
     
     func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
@@ -155,16 +124,20 @@ extension AudioManager: AudioRecorderDelegate {
         item.duration > 0
     }
     
+    func addRecorderObserver(_ observer: AudioRecorderObserver) {
+        stateManager.addRecorderObserver(observer)
+    }
+    
+    func removeRecorderObserver(_ observer: AudioRecorderObserver) {
+        stateManager.removeRecorderObserver(observer)
+    }
+    
     func toggleRecording() {
-        switch state {
+        switch stateManager.state {
         case .recording:
             stopRecording()
         default:
-            if duration < AudioRecorder.recordingThreshhold {
-                startRecording()
-            } else {
-                performAction(action: .showRecordingStopped(item, maxLimitReached: true))
-            }
+            startRecording()
         }
     }
     
@@ -180,15 +153,20 @@ extension AudioManager: AudioRecorderDelegate {
     }
     
     func audioRecorderDidStartRecording(_ recorder: AudioRecorder) {
-        performAction(action: .showRecordingStarted(item))
+        stateManager.performRecordingAction(action: .showRecordingStarted(item))
     }
     
     func audioRecorderDidStartProcessingRecording(_ recorder: AudioRecorder) {
-        performAction(action: .showRecordingProcessing(item))
+        stateManager.performRecordingAction(action: .showRecordingProcessing(item))
     }
     
-    func audioRecorder(_ recorder: AudioRecorder, didRecordBarWithPower power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
-        performAction(
+    func audioRecorder(
+        _ recorder: AudioRecorder,
+        didRecordBarWithPower power: Float,
+        stepDuration: TimeInterval,
+        totalDuration: TimeInterval
+    ) {
+        stateManager.performRecordingAction(
             action: .showRecordingProgressed(
                 power: power,
                 stepDuration: stepDuration,
@@ -197,39 +175,49 @@ extension AudioManager: AudioRecorderDelegate {
         )
     }
     
-    func audioRecorder(_ recorder: AudioRecorder, didFinishRecordingWithCompletedItem item: AudioItem, maxLimitReached: Bool) {
+    func audioRecorder(
+        _ recorder: AudioRecorder,
+        didFinishRecordingWithCompletedItem item: AudioItem,
+        maxLimitReached: Bool
+    ) {
         self.item = item
         
-        performAction(
+        stateManager.performRecordingAction(
             action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
         )
         
-        hasUnsavedChanges = true
+        markAsDirty()
     }
 }
 
 // MARK: Playback
 extension AudioManager: AudioPlayerDelegate {
     var currentItem: AudioItem {
-        audioCropper?.croppedItem ?? item
+        audioCropper?.croppedItem ?? audioCutter?.stagedCutItem ?? item
     }
     
-    var startPosition: TimeInterval {
-        audioCropper?.cropFrom ?? 0.0
+    var startOffset: TimeInterval {
+        audioCropper?.cropFrom ?? audioCutter?.cropFrom ?? 0.0
     }
     
     var duration: TimeInterval {
-        let asset = AVAsset(url: item.url)
-        let duration = CMTimeGetSeconds(asset.duration)
-        return TimeInterval(duration)
+        item.duration
     }
     
-    var currentPlaybackTime: TimeInterval {
+    private var currentPlaybackTime: TimeInterval {
         audioPlayer?.currentPlaybackTime ?? 0.0
     }
     
+    func addPlaybackObserver(_ observer: AudioPlayerObserver) {
+        stateManager.addPlaybackObserver(observer)
+    }
+    
+    func removePlaybackObserver(_ observer: AudioPlayerObserver) {
+        stateManager.removePlaybackObserver(observer)
+    }
+    
     func togglePlayback() {
-        switch state {
+        switch stateManager.state {
         case .startedPlayback:
             pause()
         default:
@@ -238,16 +226,15 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func play() {
-        if state.shouldRegeneratePlayer == true {
-            audioPlayer = AudioPlayer(item: currentItem)
-            audioPlayer?.delegate = self
+        if audioPlayer == nil {
+            regeneratePlayer(withItem: currentItem)
         }
         
         audioPlayer?.play()
     }
     
     func pause() {
-        switch state {
+        switch stateManager.state {
         case .startedPlayback:
             audioPlayer?.pause()
         default:
@@ -256,34 +243,84 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     func seek(to percentage: Float) {
-        if audioPlayer == nil || isCropping {
-            audioPlayer = AudioPlayer(item: currentItem)
-            audioPlayer?.delegate = self
-            state = .pausedPlayback(currentItem)
+        if audioPlayer == nil {
+            print("Regenerating player")
+            regeneratePlayer(withItem: currentItem)
         }
         
-        audioPlayer?.seek(to: percentage)
+        let seekTime = item.duration * Double(percentage)
+        
+        audioPlayer?.seek(to: seekTime - startOffset)
     }
 
     func stop() {
         audioPlayer?.stop()
     }
     
-    func audioPlayerDidStartPlayback(_ player: AudioPlayer) {
-        performAction(action: .showPlaybackStarted(item))
+    func audioPlayerDidBeginPlayback(_ player: AudioPlayer) {
+        stateManager.performPlaybackAction(action: .showPlaybackStarted(item))
     }
     
     func audioPlayerDidPausePlayback(_ player: AudioPlayer) {
-        performAction(action: .showPlaybackPaused(item))
+        stateManager.performPlaybackAction(action: .showPlaybackPaused(item))
     }
     
-    func audioPlayer(_ player: AudioPlayer, progressedWithTime time: TimeInterval, seekActive: Bool) {
-        performAction(action: .showPlaybackProgressed(time, seekActive: seekActive))
+    func audioPlayer(
+        _ player: AudioPlayer,
+        progressedPlaybackWithTime time: TimeInterval,
+        seekActive: Bool
+    ) {
+        stateManager.performPlaybackAction(
+            action: .showPlaybackProgressed(
+                time,
+                seekActive: seekActive,
+                item: item,
+                timeOffset: startOffset
+            )
+        )
     }
     
-    func audioPlayerDidFinishPlayback(_ player: AudioPlayer) {
-        audioPlayer = nil
-        performAction(action: .showPlaybackStopped(item))
+    func audioPlayerDidStopPlayback(_ player: AudioPlayer) {
+        stateManager.performPlaybackAction(action: .showPlaybackStopped(item))
+    }
+    
+    private func regeneratePlayer(withItem item: AudioItem) {
+        audioPlayer = AudioPlayer(item: item)
+        audioPlayer?.delegate = self
+    }
+}
+
+// MARK: Crop/Cut crossover
+extension AudioManager {
+    var hasActiveEdit: Bool {
+        hasActiveCrop || hasActiveCut
+    }
+    
+    func applyEdit() {
+        if audioCropper != nil {
+            applyCrop()
+        } else {
+            applyCut()
+        }
+    }
+    
+    func cancelEdit() {
+        if audioCropper != nil {
+            cancelCrop()
+        } else if audioCutter != nil {
+            cancelCut()
+        }
+    }
+    
+    func edit(
+        from: TimeInterval,
+        to: TimeInterval
+    ) {
+        if audioCropper != nil {
+            crop(from: from, to: to)
+        } else if audioCutter != nil {
+            cut(from: from, to: to)
+        }
     }
 }
 
@@ -305,40 +342,41 @@ extension AudioManager: AudioCropperDelegate {
         return croppedItemDuration != item.duration
     }
     
-    func toggleCrop() {
-        startCropping()
+    func addCropperObserver(_ observer: AudioCropperObserver) {
+        stateManager.addCropperObserver(observer)
     }
     
-    func toggleCut() {
-        startCutting()
+    func removeCropperObserver(_ observer: AudioCropperObserver) {
+        stateManager.removeCropperObserver(observer)
+    }
+    
+    func toggleCrop() {
+        startCropping()
     }
     
     func startCropping() {
         audioCropper = AudioCropper(item: item)
         audioCropper?.delegate = self
-        performAction(action: .showCrop(item, .trim))
+        stateManager.performCroppingAction(action: .showCrop(item))
     }
-    
-    func startCutting() {
-        audioCropper = AudioCropper(item: item)
-        audioCropper?.delegate = self
-        performAction(action: .showCrop(item, .cut))
-    }
-    
-    func crop(from: TimeInterval, to: TimeInterval, cropKind: CropKind) {
-        audioCropper?.crop(from: from, to: to, cropKind: cropKind)
+        
+    func crop(
+        from: TimeInterval,
+        to: TimeInterval
+    ) {
+        audioCropper?.crop(from: from, to: to)
     }
     
     func leftCropHandleMoved(to percentage: CGFloat) {
-        observations.forEach {
-            $0.value.observer?.audioManager(self, didMoveLeftCropHandleTo: percentage)
-        }
+        stateManager.performCroppingAction(
+            action: .leftHandleMoved(percentage: percentage)
+        )
     }
     
     func rightCropHandleMoved(to percentage: CGFloat) {
-        observations.forEach {
-            $0.value.observer?.audioManager(self, didMoveRightCropHandleTo: percentage)
-        }
+        stateManager.performCroppingAction(
+            action: .rightHandleMoved(percentage: percentage)
+        )
     }
     
     func applyCrop() {
@@ -350,156 +388,266 @@ extension AudioManager: AudioCropperDelegate {
         audioCropper?.cancelCrop()
     }
     
-    func audioCropper(_ cropper: AudioCropper, didAdjustCroppedItem item: AudioItem) {
-        performAction(action: .showCropAdjusted(item))
+    func audioCropper(
+        _ cropper: AudioCropper,
+        didAdjustCroppedItem item: AudioItem
+    ) {
+        regeneratePlayer(withItem: currentItem)
+        stateManager.performCroppingAction(action: .showCropAdjusted(item))
     }
     
-    func audioCropper(_ cropper: AudioCropper, didApplyCroppedItem item: AudioItem, kind: CropKind) {
-        
-        FileManager.default.deleteExistingFile(with: self.item.path)
-        FileManager.default.renameFile(from: "\(item.id)\(kind.pathExtension)", to: self.item.path)
-        
-        performAction(action: .showCropFinished(item))
+    func audioCropper(
+        _ cropper: AudioCropper,
+        didApplyCroppedItem item: AudioItem
+    ) {
+        stateManager.performCroppingAction(action: .showCropFinished(item))
         audioCropper = nil
-        
-        hasUnsavedChanges = true
+        markAsDirty()
+        regeneratePlayer(withItem: currentItem)
     }
     
-    func audioCropper(_ cropper: AudioCropper, didCancelCropReturningToItem item: AudioItem) {
-        self.item = item
-        performAction(action: .showCropCancelled(item))
+    func audioCropper(
+        _ cropper: AudioCropper,
+        didCancelCropReturningToItem item: AudioItem
+    ) {
+        stateManager.performCroppingAction(action: .showCropCancelled(item))
         audioCropper = nil
     }
 }
 
-// MARK: State management
-extension AudioManager {
-    struct Observation {
-        weak var observer: AudioManagerObserver?
+// MARK: CUTTING
+extension AudioManager: AudioCutterDelegate {
+    var isCutting: Bool {
+        audioCutter != nil
     }
     
-    func addObserver(_ observer: AudioManagerObserver) {
-        let id = ObjectIdentifier(observer)
-        observations[id] = Observation(observer: observer)
+    var canCut: Bool {
+        currentItem.duration > 3.0
     }
-
-    func removeObserver(_ observer: AudioManagerObserver) {
-        let id = ObjectIdentifier(observer)
-        observations.removeValue(forKey: id)
+    
+    var hasActiveCut: Bool {
+        guard let cutItemDuration = audioCutter?.cutItem?.duration else {
+            return false
+        }
+        
+        return cutItemDuration != item.duration
+    }
+    
+    func addCutterObserver(_ observer: AudioCutterObserver) {
+        stateManager.addCutterObserver(observer)
+    }
+    
+    func removeCutterObserver(_ observer: AudioCutterObserver) {
+        stateManager.removeCutterObserver(observer)
+    }
+    
+    func cut(from: TimeInterval, to: TimeInterval) {
+        audioCutter?.cut(audioItem: item, from: from, to: to)
+    }
+    
+    func cut(timeRanges: [CMTimeRange]) {
+        if audioCutter == nil {
+            regenerateCutter()
+        }
+        
+        audioCutter?.cut(audioItem: item, timeRanges: timeRanges)
+    }
+    
+    func applyCut() {
+        guard let audioCutter = self.audioCutter else {
+            assertionFailure("Audio cutter should not be nil")
+            return
+        }
+        
+        audioCutter.applyCut()
+    }
+    
+    func toggleCut() {
+        startCutting()
+    }
+    
+    func cancelCut() {
+        stop()
+        audioCutter?.cancelCut()
+    }
+    
+    func startCutting() {
+        regenerateCutter()
+        stateManager.performCuttingAction(action: .showCut(item))
+    }
+    
+    // DELEGATES
+    func audioCutter(_ cutter: AudioCutter, didAdjustCutItem item: AudioItem) {
+        regeneratePlayer(withItem: currentItem)
+        stateManager.performCuttingAction(action: .showCutAdjusted(item))
+    }
+    
+    func audioCutter(_ cutter: AudioCutter, didApplyCutItem item: AudioItem, from: TimeInterval, to: TimeInterval) {
+        stateManager.performCuttingAction(action: .showCutFinished(item: item, from: from, to: to))
+        audioCutter = nil
+        markAsDirty()
+        regeneratePlayer(withItem: currentItem)
+    }
+    
+    func audioCutter(_ cutter: AudioCutter, didCancelCutReturningToItem item: AudioItem) {
+        stateManager.performCuttingAction(action: .showCutCancelled(item))
+        audioCutter = nil
+        regeneratePlayer(withItem: currentItem)
+    }
+    
+    private func regenerateCutter() {
+        audioCutter = AudioCutter(item: item)
+        audioCutter?.delegate = self
     }
 }
 
-extension AudioManager {
-    enum Action {
-        case showCrop(AudioItem, CropKind)
-        case showCropAdjusted(AudioItem)
-        case showCropCancelled(AudioItem)
-        case showCropFinished(AudioItem)
-        
-        case showPlaybackStopped(AudioItem)
-        case showPlaybackStarted(AudioItem)
-        case showPlaybackPaused(AudioItem)
-        case showPlaybackProgressed(TimeInterval, seekActive: Bool)
-        
-        case showRecordingStarted(AudioItem)
-        case showRecordingProgressed(power: Float, stepDuration: TimeInterval, totalDuration: TimeInterval)
-        case showRecordingProcessing(AudioItem)
-        case showRecordingStopped(AudioItem, maxLimitReached: Bool)
+// MARK: Transcription jobs
+extension AudioManager: TranscriptionJobManagerDelegate {
+    func addTranscriptionObserver(_ observer: TranscriptionJobObserver) {
+        stateManager.addTranscriptionObserver(observer)
     }
     
-    enum State {
-        case idle
-    
-        case stoppedPlayback(AudioItem)
-        case startedPlayback(AudioItem)
-        case pausedPlayback(AudioItem)
-        
-        case cropping
-        case recording
-        
-        var shouldRegeneratePlayer: Bool {
-            switch self {
-            case .pausedPlayback:
-                return false
-            default:
-                return true
-            }
-        }
-        
-        var isInPlayback: Bool {
-            switch self {
-            case .startedPlayback, .pausedPlayback, .stoppedPlayback:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        var isRecording: Bool {
-            switch self {
-            case .recording:
-                return true
-            default:
-                return false
-            }
-        }
+    func removeTranscriptionObserver(_ observer: TranscriptionJobObserver) {
+        stateManager.removeTranscriptionObserver(observer)
     }
     
-    func performAction(action: Action) {
-        observations.forEach {
-            guard let observer = $0.value.observer else {
-                observations.removeValue(forKey: $0.key)
-                return
-            }
+    func startTranscriptionJob() {
+        createTranscriptionJobManagerIfNoneExists()
+        transcriptionJobManager?.createTranscriptionJob(
+            audioId: item.id,
+            url: item.url
+        )
+    }
+    
+    func checkTranscriptionJobs() {
+        createTranscriptionJobManagerIfNoneExists()
+        transcriptionJobManager?.startCheckJobs()
+    }
+    
+    func stopTranscriptionChecks() {
+        transcriptionJobManager?.stopChecks()
+    }
+    
+    var transcriptionJobExists: Bool {
+        transcriptionJobManager?.jobExists(id: item.id) ?? false
+    }
+    
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didFinishTranscribingWithAudioItemId id: String,
+        transcript: Transcript
+    ) {
+        updateTranscript(transcript)
+        if id == item.id {
+            markAsDirty()
             
-            switch action {
-            case .showCrop(let item, let kind):
-                state = .cropping
-                observer.audioManager(self, didStartCroppingItem: item, kind: kind)
-                
-            case .showCropAdjusted(let item):
-                observer.audioManager(self, didAdjustCropOnItem: item)
-                
-            case .showCropCancelled:
-                state = .idle
-                observer.audioManagerDidCancelCropping(self)
-                
-            case .showCropFinished(let item):
-                state = .idle
-                observer.audioManager(self, didFinishCroppingItem: item)
-                
-            case .showPlaybackStopped(let item):
-                state = .stoppedPlayback(item)
-                observer.audioManager(self, didStopPlaying: item)
-                
-            case .showPlaybackStarted(let item):
-                state = .startedPlayback(item)
-                observer.audioManager(self, didStartPlaying: item)
-                
-            case .showPlaybackPaused(let item):
-                state = .pausedPlayback(item)
-                observer.audioManager(self, didPausePlaybackOf: item)
-            case let .showPlaybackProgressed(time, seekActive):
-                observer.audioManager(self, progressedWithTime: time, seekActive: seekActive)
-            case .showRecordingStarted:
-                state = .recording
-                observer.audioManagerDidStartRecording(self)
-            
-            case let .showRecordingProgressed(power, stepDuration, totalDuration):
-                observer.audioManager(
-                    self,
-                    didRecordBarWithPower: power,
-                    stepDuration: stepDuration,
-                    totalDuration: totalDuration
+            stateManager.performTranscriptionAction(
+                action: .transcriptionComplete(
+                    transcript: transcript,
+                    audioId: id
                 )
-                
-            case .showRecordingProcessing:
-                observer.audioManagerProcessingRecording(self)
-                
-            case let .showRecordingStopped(_, maxLimitReached):
-                state = .idle
-                observer.audioManagerDidStopRecording(self, maxLimitedReached: maxLimitReached)
-            }
+            )
         }
+    }
+    
+    func transcriptionJobManager(
+        _ manager: TranscriptionJobManager,
+        didQueueItemWithId id: String
+    ) {
+        if id == item.id {
+            stateManager.performTranscriptionAction(
+                action: .transcriptionQueued(audioId: id)
+            )
+        }
+    }
+    
+    private func createTranscriptionJobManagerIfNoneExists() {
+        if transcriptionJobManager == nil {
+            transcriptionJobManager = TranscriptionJobManager(
+                transcriber: SpeezySpeechTranscriber()
+            )
+            transcriptionJobManager?.delegate = self
+        }
+    }
+}
+
+// MARK: Transcript editing
+extension AudioManager: TranscriptManagerDelegate {
+    var numberOfWordsInTranscript: Int {
+        transcriptManager.numberOfWords
+    }
+    
+    var transcriptExists: Bool {
+        transcriptManager.transcriptExists
+    }
+    
+    func addTranscriptObserver(_ observer: TranscriptObserver) {
+        stateManager.addTranscriptObserver(observer)
+    }
+    
+    func removeTranscriptObserver(_ observer: TranscriptObserver) {
+        stateManager.removeTranscriptObserver(observer)
+    }
+    
+    func updateTranscript(_ transcript: Transcript) {
+        transcriptManager.updateTranscript(transcript)
+    }
+    
+    func removeTranscribedUhms() {
+        transcriptManager.delegate = self
+        transcriptManager.removeUhms()
+    }
+    
+    func removeSelectedTranscribedWords() {
+        transcriptManager.delegate = self
+        transcriptManager.removeSelectedWords()
+    }
+    
+    func adjustTranscript(forCutRange from: TimeInterval, to: TimeInterval) {
+        transcriptManager.adjustTranscript(
+            forCutOperationFromStartPoint: from,
+            end: to
+        )
+    }
+    
+    func transcriptManager(
+        _ manager: TranscriptManager,
+        didFinishEditingTranscript transcript: Transcript
+    ) {
+        markAsDirty()
+        stateManager.performTranscriptAction(
+            action: .finishedEditingTranscript(
+                transcript: transcript,
+                audioId: item.id
+            )
+        )
+    }
+    
+    func transcriptManager(
+        _ manager: TranscriptManager,
+        shouldCutItemWithRanges ranges: [CMTimeRange]
+    ) {
+        cut(timeRanges: ranges)
+        transcriptManager.updateTranscriptRemovingSelectedWords()
+    }
+    
+    func transcribedWord(for index: Int) -> Word? {
+        transcriptManager.word(for: index)
+    }
+    
+    func transcribedWordIsSelected(word: Word) -> Bool {
+        transcriptManager.isSelected(word: word)
+    }
+    
+    func selectTranscribedWord(at indexPath: IndexPath) {
+        transcriptManager.toggleSelection(at: indexPath)
+    }
+    
+    func currentPlayingTranscribedWord(at time: TimeInterval) -> Word? {
+        transcriptManager.currentPlayingWord(at: time)
+    }
+    
+    func currentPlayingTranscribedWordIndex(at time: TimeInterval) -> Int? {
+        transcriptManager.currentPlayingWordIndex(at: time)
     }
 }

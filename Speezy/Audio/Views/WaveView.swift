@@ -56,22 +56,4 @@ class WaveView: UIView {
         
         meteringViews.append(meteringView)
     }
-    
-    func advancePosition(percentage: Float) {
-        if position == nil {
-            position = UIView()
-            position.backgroundColor = .white
-            addSubview(position)
-            position.snp.makeConstraints { (make) in
-                make.width.equalTo(1.0)
-                make.top.equalToSuperview()
-                make.bottom.equalToSuperview()
-                make.leading.equalToSuperview()
-            }
-        }
-        
-        position.snp.updateConstraints { (make) in
-            make.leading.equalToSuperview().offset(self.frame.width * CGFloat(percentage))
-        }
-    }
 }
