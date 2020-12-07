@@ -108,6 +108,7 @@
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
+		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
 		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
 		BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126124F1964400B53D1A /* ShareOptionCell.xib */; };
@@ -261,6 +262,7 @@
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
+		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
 		BEDC126124F1964400B53D1A /* ShareOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOptionCell.xib; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BEC825B4257D53010037F007 /* Auth */,
 				BEFDB4F5255FF35F00362428 /* State */,
 				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BEF0ECB024BF948D00B9D554 /* App */,
@@ -679,6 +682,22 @@
 				BEBFD4CA24C5DB8700200D87 /* Storage.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEC825B4257D53010037F007 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				BEC825B5257D530D0037F007 /* Storyboards */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		BEC825B5257D530D0037F007 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				BEC825B6257D53190037F007 /* Auth.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		BEDC126C24F2D2A900B53D1A /* Resources */ = {
@@ -931,6 +950,7 @@
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
+				BEC825B7257D53190037F007 /* Auth.storyboard in Resources */,
 				BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */,
 				BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */,
 				BEF3B72C254867AC009308A4 /* TranscriptionButton.xib in Resources */,
