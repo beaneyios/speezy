@@ -26,8 +26,8 @@ class AudioCutter: AudioCropping {
     private(set) var cropFrom: TimeInterval = 0.0
     private(set) var cropTo: TimeInterval = 0.0
     
-    private let cutExtension = "_cut.wav"
-    let cropExtension = "_cropped.wav"
+    private let cutExtension = "_cut.\(AudioConstants.fileExtension)"
+    let cropExtension = "_cropped.\(AudioConstants.fileExtension)"
     
     weak var delegate: AudioCutterDelegate?
     
@@ -194,14 +194,14 @@ extension AudioCutter {
         finished: @escaping (String) -> Void
     ) {
         guard
-            let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough),
+            let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A),
             let outputURL = FileManager.default.documentsURL(with: outputPath)
         else {
             return
         }
         
         exportSession.outputURL = outputURL
-        exportSession.outputFileType = AVFileType.wav
+        exportSession.outputFileType = AudioConstants.outputFileType
         
         exportSession.exportAsynchronously() {
             switch exportSession.status {

@@ -125,7 +125,7 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         let id = UUID().uuidString
         let item = AudioItem(
             id: id,
-            path: "\(id).wav",
+            path: "\(id).\(AudioConstants.fileExtension)",
             title: "",
             date: Date(),
             tags: []

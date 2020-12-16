@@ -21,14 +21,16 @@ class AudioFileCombiner {
             compositionAudioTrack?.append(url: $0)
         }
 
-        guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough) else {
+        guard
+            let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A)
+        else {
             assertionFailure("Can't create export session")
             return
         }
         
         FileManager.default.deleteExistingURL(audioURLs.first!)
         
-        exportSession.outputFileType = AVFileType.wav
+        exportSession.outputFileType = AudioConstants.outputFileType
         exportSession.outputURL = outputURL
         exportSession.exportAsynchronously {
             switch exportSession.status {

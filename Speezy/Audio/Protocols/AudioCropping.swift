@@ -31,7 +31,7 @@ extension AudioCropping {
         let outputPath = "\(audioItem.id)\(cropExtension)"
         
         guard
-            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough),
+            let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A),
             let outputURL = FileManager.default.documentsURL(with: outputPath)
         else {
             return
@@ -40,7 +40,7 @@ extension AudioCropping {
         FileManager.default.deleteExistingFile(with: outputPath)
         
         exportSession.outputURL = outputURL
-        exportSession.outputFileType = AVFileType.wav
+        exportSession.outputFileType = AudioConstants.outputFileType
         
         let start: CMTime = CMTimeMakeWithSeconds(startTime, preferredTimescale: asset.duration.timescale)
         let stop: CMTime = CMTimeMakeWithSeconds(stopTime, preferredTimescale: asset.duration.timescale)
