@@ -41,6 +41,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         guard let player = player else {
             return
         }
+        //karl added - reenable sleep function
+        UIApplication.shared.isIdleTimerDisabled = true
         
         AVAudioSession.sharedInstance().prepareForPlayback()
         player.play()
@@ -74,6 +76,10 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
+        //karl added - reenable sleep function
+        UIApplication.shared.isIdleTimerDisabled = false
+        
         stop()
     }
     

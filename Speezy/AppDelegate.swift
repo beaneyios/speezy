@@ -15,6 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        //karl added - but too strong for full app
+        //UIApplication.shared.isIdleTimerDisabled = true
+        // I have placed:
+        // in QuickRecordVC
+        // and AudioPlayer.swift
+        
         return true
     }
 
@@ -30,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+        
+        //karl added - but too strong for full player
+        //UIApplication.shared.isIdleTimerDisabled = false
     }
 
 

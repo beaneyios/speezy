@@ -39,6 +39,9 @@ class AudioManager: NSObject {
         self.item = item.withStagingPath()        
         self.transcriptManager = TranscriptManager(audioItemId: item.id)
         self.stateManager = AudioStateManager()
+        
+        //Karl addedd
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {

@@ -206,7 +206,8 @@ extension AudioCutter {
         exportSession.exportAsynchronously() {
             switch exportSession.status {
             case .failed:
-                assertionFailure("Export failed: \(exportSession.error?.localizedDescription)")
+//                assertionFailure("Export failed: \(exportSession.error?.localizedDescription)")
+                assertionFailure("Export failed: " + String(describing: exportSession.error?.localizedDescription))
             case .cancelled:
                 assertionFailure("Export canceled")
             default:
@@ -214,6 +215,7 @@ extension AudioCutter {
                     finished(outputPath)
                 })
             }
+            
         }
     }
 }

@@ -218,6 +218,6 @@ extension TranscriptionViewController: AudioPlayerObserver {
         onItem item: AudioItem,
         startOffset: TimeInterval
     ) {
-        
+        //more goes here
     }
 }
