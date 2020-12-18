@@ -93,9 +93,6 @@ class QuickRecordViewController: UIViewController {
 
 extension QuickRecordViewController: AudioRecorderObserver {
     func recordingBegan() {
-        
-        //karl added - disable sleep function while recording
-        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
@@ -113,9 +110,6 @@ extension QuickRecordViewController: AudioRecorderObserver {
     
     func recordingStopped(maxLimitedReached: Bool) {
         delegate?.quickRecordViewController(self, didFinishRecordingItem: audioManager.item)
-        //karl added - NOT Sure if here or dismissRecording below
-        //reenable sleep function
-        UIApplication.shared.isIdleTimerDisabled = false
     }
 }
 

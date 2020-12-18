@@ -15,13 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        
-        //karl added - but too strong for full app
-        //UIApplication.shared.isIdleTimerDisabled = true
-        // I have placed:
-        // in QuickRecordVC
-        // and AudioPlayer.swift
-        
         return true
     }
 
