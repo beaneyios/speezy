@@ -81,9 +81,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
                 withTimeInterval: stepDuration,
                 repeats: true
             ) { [weak self] (timer) in
-                
-                print("Wooooo")
-                
+                                
                 guard let self = self else {
                     return
                 }
