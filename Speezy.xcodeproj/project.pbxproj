@@ -18,6 +18,7 @@
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
+		BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE222CC4258A2D1A007144FD /* AudioConstants.swift */; };
 		BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */; };
 		BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351A2252F9DD100067BA2 /* TranscriptionJob.swift */; };
 		BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351A6252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift */; };
@@ -168,6 +169,7 @@
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
+		BE222CC4258A2D1A007144FD /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
 		BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobStorage.swift; sourceTree = "<group>"; };
 		BE2351A2252F9DD100067BA2 /* TranscriptionJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJob.swift; sourceTree = "<group>"; };
 		BE2351A6252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalDisfluencyDetection.swift; sourceTree = "<group>"; };
@@ -337,6 +339,14 @@
 				BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BE222CC3258A2D0C007144FD /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				BE222CC4258A2D1A007144FD /* AudioConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		BE50346324BE02B100A414D1 /* Models */ = {
@@ -517,19 +527,19 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
-				BEC825B4257D53010037F007 /* Auth */,
-				BEFDB4F5255FF35F00362428 /* State */,
-				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
+				BEC825B4257D53010037F007 /* Auth */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
+				BEFDB4F5255FF35F00362428 /* State */,
 				BE6080A0250E84A9003CB318 /* Transcription */,
 				BE792706247EE55F0079652C /* AppDelegate.swift */,
-				BE792708247EE55F0079652C /* SceneDelegate.swift */,
 				BE79270F247EE5610079652C /* Assets.xcassets */,
-				BE792711247EE5610079652C /* LaunchScreen.storyboard */,
+				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BE792714247EE5610079652C /* Info.plist */,
+				BE792711247EE5610079652C /* LaunchScreen.storyboard */,
+				BE792708247EE55F0079652C /* SceneDelegate.swift */,
 			);
 			path = Speezy;
 			sourceTree = "<group>";
@@ -546,6 +556,7 @@
 		BEAACE8324BA031A0074E4B9 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				BE222CC3258A2D0C007144FD /* Constants */,
 				BEFDB4F4255FF34900362428 /* Enums */,
 				BEAACE8A24BA10400074E4B9 /* Controllers */,
 				BEBFD4C424C5BAA600200D87 /* Coordinators */,
@@ -1156,6 +1167,7 @@
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
+				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
 				BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */,
 				BEBFD4C324C5B9DC00200D87 /* ViewCoordinator.swift in Sources */,

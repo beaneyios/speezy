@@ -19,7 +19,7 @@ class AudioSavingManager {
         
         let newItem = AudioItem(
             id: item.id,
-            path: "\(item.id).wav",
+            path: "\(item.id).\(AudioConstants.fileExtension)",
             title: item.title,
             date: item.date,
             tags: item.tags

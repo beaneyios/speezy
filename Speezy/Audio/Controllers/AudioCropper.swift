@@ -20,7 +20,7 @@ class AudioCropper: AudioCropping {
     private(set) var croppedItem: AudioItem?
     private var cutItem: AudioItem?
     
-    let cropExtension = "_cropped.wav"
+    let cropExtension = "_cropped.\(AudioConstants.audioFormatKey)"
     
     private(set) var cropFrom: TimeInterval?
     private(set) var cropTo: TimeInterval?

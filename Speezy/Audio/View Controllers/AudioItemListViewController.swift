@@ -83,7 +83,7 @@ class AudioItemListViewController: UIViewController {
         let id = UUID().uuidString
         let item = AudioItem(
             id: id,
-            path: "\(id).wav",
+            path: "\(id).\(AudioConstants.fileExtension)",
             title: "",
             date: Date(),
             tags: []
@@ -232,13 +232,18 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
         
-        let originalItem = item.withPath(path: "\(item.id).wav")
+        let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
         
-        showTitleAlert(audioManager: audioManager) {
-            audioManager.save(saveAttachment: false) { (item) in
-                DispatchQueue.main.async {
-                    self.loadItems()
+        // The recording is done, save the file first.
+        // Then we're going to offer the user the chance to
+        // update the title and save it again.
+        audioManager.save(saveAttachment: false) { (item) in
+            self.showTitleAlert(audioManager: audioManager) {
+                audioManager.save(saveAttachment: false) { (item) in
+                    DispatchQueue.main.async {
+                        self.loadItems()
+                    }
                 }
             }
         }
@@ -253,7 +258,7 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
     private func showTitleAlert(audioManager: AudioManager, completion: (() -> Void)? = nil) {
         let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
         let alert = SCLAlertView(appearance: appearance)
-        let textField = alert.addTextField("Add a title")
+        let textField = alert.addTextField("Add a title?")
         textField.layer.cornerRadius = 12.0
         alert.addButton("Add") {
             guard let text = textField.text else {
@@ -264,7 +269,7 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
             completion?()
         }
         
-        alert.addButton("Cancel") {
+        alert.addButton("Not right now") {
             audioManager.discard {
                 completion?()
             }

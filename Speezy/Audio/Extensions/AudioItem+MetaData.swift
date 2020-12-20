@@ -57,7 +57,7 @@ extension AudioItem {
     }
     
     func withStagingPath() -> AudioItem {
-        withPath(path: "\(id)_staging.wav")
+        withPath(path: "\(id)_staging.\(AudioConstants.fileExtension)")
     }
     
     func withPath(path: String) -> AudioItem {
