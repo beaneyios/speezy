@@ -21,6 +21,12 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     
     let item: AudioItem
     
+    var recordingUrl: URL {
+        getDocumentsDirectory().appendingPathComponent(
+            "\(item.id)_recording.\(AudioConstants.fileExtension)"
+        )
+    }
+    
     init(item: AudioItem) {
         self.item = item
         self.totalTime = item.duration
@@ -71,7 +77,17 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             audioRecorder?.record()
             delegate?.audioRecorderDidStartRecording(self)
                         
-            recordingTimer = Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { (timer) in
+            recordingTimer = Timer.scheduledTimer(
+                withTimeInterval: stepDuration,
+                repeats: true
+            ) { [weak self] (timer) in
+                
+                print("Wooooo")
+                
+                guard let self = self else {
+                    return
+                }
+                
                 guard let recorder = self.audioRecorder else {
                     assertionFailure("Somehow recorder is nil.")
                     return
@@ -99,13 +115,31 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         recordingTimer = nil
     }
     
+    func cancelRecording() {
+        // We don't want any callbacks being made here.
+        // We just want to cancel the recording and remove any
+        // remnants of it. So we set the delegate to nil to stop any
+        // post-recording processing.
+        audioRecorder?.delegate = nil
+        audioRecorder?.stop()
+        recordingTimer?.invalidate()
+        recordingTimer = nil
+        
+        FileManager.default.deleteExistingURL(recordingUrl)
+        
+        //Prevent sleep function after 45sec - This is the enable after record
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        let newRecording = getDocumentsDirectory().appendingPathComponent("\(item.id)_recording.\(AudioConstants.fileExtension)")
         let currentFile = item.url
         let outputURL = item.url
         
-        AudioFileCombiner.combineAudioFiles(audioURLs: [currentFile, newRecording], outputURL: outputURL) { (url) in
-            FileManager.default.deleteExistingURL(newRecording)
+        AudioFileCombiner.combineAudioFiles(
+            audioURLs: [currentFile, recordingUrl],
+            outputURL: outputURL
+        ) { (url) in
+            FileManager.default.deleteExistingURL(self.recordingUrl)
             self.delegate?.audioRecorder(
                 self,
                 didFinishRecordingWithCompletedItem: self.item,

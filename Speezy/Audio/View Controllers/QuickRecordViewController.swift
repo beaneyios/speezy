@@ -115,16 +115,14 @@ extension QuickRecordViewController: AudioRecorderObserver {
 
 extension QuickRecordViewController {
     @objc func dismissRecording() {
+        audioManager.cancelRecording()
         recordingContainer.isUserInteractionEnabled = false
-        self.recordingContainerHeight.constant = 0.0
-        
-        //karl added - reenable sleep function
-        UIApplication.shared.isIdleTimerDisabled = false
-        
+        recordingContainerHeight.constant = 0.0
+
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
-            self.discardAndClose()
+            self.delegate?.quickRecordViewControllerDidClose(self)
         }
     }
     
@@ -136,8 +134,8 @@ extension QuickRecordViewController {
             recordingContainerHeight.constant = 400.0 - translation.y
             view.layoutIfNeeded()
             
-            if translation.y > 230.0 {
-                self.discardAndClose()
+            if recordingContainerHeight.constant < 230.0 {
+                recordingContainerHeight.constant = 230.0
             }
         case .ended:
             if translation.y > 125.0 {
@@ -154,11 +152,5 @@ extension QuickRecordViewController {
         }
         
         view.layoutIfNeeded()
-    }
-    
-    private func discardAndClose() {
-        audioManager.discard {
-            self.delegate?.quickRecordViewControllerDidClose(self)
-        }
     }
 }
