@@ -92,7 +92,8 @@ class QuickRecordViewController: UIViewController {
 }
 
 extension QuickRecordViewController: AudioRecorderObserver {
-    func recordingBegan() {}
+    func recordingBegan() {
+    }
     
     func recordedBar(withPower decibel: Float, stepDuration: TimeInterval, totalDuration: TimeInterval) {
         btnRecord.stopLoading()
@@ -116,6 +117,10 @@ extension QuickRecordViewController {
     @objc func dismissRecording() {
         recordingContainer.isUserInteractionEnabled = false
         self.recordingContainerHeight.constant = 0.0
+        
+        //karl added - reenable sleep function
+        UIApplication.shared.isIdleTimerDisabled = false
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in

@@ -27,6 +27,10 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func record() {
+        
+        //Prevent sleep function after 45sec - will be enabled again after record
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         if item.duration >= Self.recordingThreshhold {
             self.delegate?.audioRecorder(
                 self,
@@ -108,6 +112,9 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
                 maxLimitReached: self.item.duration >= Self.recordingThreshhold
             )
         }
+        
+        //Prevent sleep function after 45sec - This is the enable after record
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     private func getDocumentsDirectory() -> URL {
