@@ -1,7 +1,7 @@
 PODS:
   - AFDateHelper (4.3.0)
   - Alamofire (5.2.2)
-  - DeviceKit (2.3.0)
+  - DeviceKit (4.2.1)
   - Firebase/CoreOnly (6.27.0):
     - FirebaseCore (= 6.8.0)
   - Firebase/Crashlytics (6.27.0):
@@ -39,7 +39,6 @@ PODS:
     - GoogleUtilities/Environment
   - GoogleUtilities/UserDefaults (6.6.0):
     - GoogleUtilities/Logger
-  - Hero (1.5.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -53,13 +52,12 @@ PODS:
 DEPENDENCIES:
   - AFDateHelper (~> 4.3.0)
   - Alamofire (~> 5.2)
-  - DeviceKit (~> 2.0)
-  - Firebase/Crashlytics
-  - GhostTypewriter
-  - Hero
-  - SCLAlertView
+  - DeviceKit (~> 4.2.1)
+  - Firebase/Crashlytics (~> 6.27.0)
+  - GhostTypewriter (~> 2.1.0)
+  - SCLAlertView (~> 0.8)
   - SnapKit (~> 5.0.0)
-  - SwiftVideoGenerator
+  - SwiftVideoGenerator (~> 1.4.0)
 
 SPEC REPOS:
   trunk:
@@ -75,7 +73,6 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
-    - Hero
     - nanopb
     - PromisesObjC
     - SCLAlertView
@@ -85,7 +82,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFDateHelper: b769c07d3d4784ee9a74633285304261bb27dc52
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
+  DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   Firebase: fc4cbf6f1592636431821ef9a3c557e4dfd9f268
   FirebaseCore: feda061cb1ee6d8ad4824f4a4a8ffbcfe284f595
   FirebaseCoreDiagnostics: 4505e4d4009b1d93f605088ee7d7764d5f0d1c84
@@ -95,13 +92,12 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
-  Hero: b7385b75e7259da62f4f85462f59a5082d66b058
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
 
-PODFILE CHECKSUM: efece64d4c8b11415d570983d778dfa61cfd554d
+PODFILE CHECKSUM: 0715aa510f525ed5880016eb9a5683e3f86aa346
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SCLAlertView
-import Hero
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
@@ -43,9 +42,6 @@ class AudioItemListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        
-        hero.isEnabled = true
-        btnRecord.hero.id = "record"
         
         loadItems()
     }

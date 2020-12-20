@@ -9,7 +9,6 @@
 import UIKit
 import SnapKit
 import SCLAlertView
-import Hero
 
 protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewController(
@@ -264,13 +263,6 @@ extension AudioItemViewController {
         configureNavButtons()
         configureMainSoundWave()
         configureTitle()
-        
-        hero.isEnabled = true
-        btnRecord.hero.id = "record"
-        
-        let presenting = HeroDefaultAnimationType.zoom
-        let dismissing = HeroDefaultAnimationType.zoomOut
-        hero.modalAnimationType = .selectBy(presenting: presenting, dismissing: dismissing)
     }
     
     private func configureTranscribeButton() {

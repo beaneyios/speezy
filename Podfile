@@ -6,15 +6,14 @@ target 'Speezy' do
   use_frameworks!
 
   # Pods for Speezy
-  pod 'SwiftVideoGenerator'
+  pod 'SwiftVideoGenerator', '~> 1.4.0'
   pod 'SnapKit', '~> 5.0.0'
   pod 'AFDateHelper', '~> 4.3.0'
-  pod 'SCLAlertView'
-  pod 'Hero'
-  pod 'DeviceKit', '~> 2.0'
-  pod 'Firebase/Crashlytics'
+  pod 'SCLAlertView', '~> 0.8'
+  pod 'DeviceKit', '~> 4.2.1'
+  pod 'Firebase/Crashlytics', '~> 6.27.0'
   pod 'Alamofire', '~> 5.2'
-  pod 'GhostTypewriter'
+  pod 'GhostTypewriter', '~> 2.1.0'
 
   target 'SpeezyTests' do
     inherit! :search_paths
