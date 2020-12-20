@@ -152,6 +152,10 @@ extension AudioManager: AudioRecorderDelegate {
         audioRecorder?.stopRecording()
     }
     
+    func cancelRecording() {
+        audioRecorder?.cancelRecording()
+    }
+    
     func audioRecorderDidStartRecording(_ recorder: AudioRecorder) {
         stateManager.performRecordingAction(action: .showRecordingStarted(item))
     }
