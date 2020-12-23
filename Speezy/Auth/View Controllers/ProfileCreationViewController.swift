@@ -19,13 +19,14 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var nameTxtField: UITextField!
     @IBOutlet weak var aboutYouTxtField: UITextView!
     @IBOutlet weak var completeSignupBtn: UIButton!
+    @IBOutlet weak var completeSignupBtnContainer: UIView!
     
     weak var delegate: ProfileCreationViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
-        completeSignupBtn.addShadow()
+        completeSignupBtnContainer.addShadow()
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,7 +34,8 @@ class ProfileCreationViewController: UIViewController {
         
         profileImg.layer.cornerRadius = profileImg.frame.width / 2.0
         attachBtn.layer.cornerRadius = attachBtn.frame.width / 2.0
-        completeSignupBtn.layer.cornerRadius = completeSignupBtn.frame.height / 2.0
+        completeSignupBtnContainer.layer.cornerRadius = completeSignupBtnContainer.frame.height / 2.0
+        completeSignupBtnContainer.clipsToBounds = true
     }
     
     @IBAction func completeSignup(_ sender: Any) {

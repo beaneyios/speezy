@@ -15,12 +15,14 @@ protocol AuthViewControllerDelegate: AnyObject {
 class AuthViewController: UIViewController {
     
     @IBOutlet weak var btnSignupWithEmail: UIButton!
+    @IBOutlet weak var btnSignupWithEmailContainer: UIView!
     
     weak var delegate: AuthViewControllerDelegate?
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        btnSignupWithEmail.layer.cornerRadius = btnSignupWithEmail.frame.height / 2.0
+        btnSignupWithEmailContainer.layer.cornerRadius = btnSignupWithEmailContainer.frame.height / 2.0
+        btnSignupWithEmailContainer.clipsToBounds = true
     }
     
     @IBAction func signUpWithEmail(_ sender: Any) {

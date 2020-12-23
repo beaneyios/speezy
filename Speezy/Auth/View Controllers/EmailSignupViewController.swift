@@ -19,18 +19,20 @@ class EmailSignupViewController: UIViewController {
     @IBOutlet weak var passwordTxtField: UITextField!
     @IBOutlet weak var passwordValidateTxtField: UITextField!
     @IBOutlet weak var moveOnBtn: UIButton!
+    @IBOutlet weak var moveOnBtnContainer: UIView!
     
     weak var delegate: EmailSignupViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
-        moveOnBtn.addShadow()
+        moveOnBtnContainer.addShadow()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        moveOnBtn.layer.cornerRadius = moveOnBtn.frame.height / 2.0
+        moveOnBtnContainer.layer.cornerRadius = moveOnBtnContainer.frame.height / 2.0
+        moveOnBtnContainer.clipsToBounds = true
     }
     
     @IBAction func moveOnToProfile(_ sender: Any) {
