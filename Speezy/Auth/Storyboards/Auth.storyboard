@@ -371,6 +371,7 @@
                         <outlet property="moveOnBtnContainer" destination="LvM-oH-mVc" id="9UC-OJ-zTQ"/>
                         <outlet property="passwordTxtField" destination="MiP-71-bEV" id="ZbV-Q1-3oT"/>
                         <outlet property="passwordValidateTxtField" destination="OC6-K7-yzX" id="kof-28-Cb0"/>
+                        <outlet property="scrollView" destination="jxb-OG-AO3" id="Jrn-DL-0Ta"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NL5-ei-Ljy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -579,6 +580,7 @@
                         <outlet property="completeSignupBtnContainer" destination="POf-Im-vzJ" id="Oyn-KF-NMC"/>
                         <outlet property="nameTxtField" destination="Foi-sU-9Ad" id="nou-6M-miP"/>
                         <outlet property="profileImg" destination="OmK-LZ-6D4" id="bee-ab-zgD"/>
+                        <outlet property="scrollView" destination="5HW-89-H0J" id="uGc-Jk-y2z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QvN-IM-TGK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

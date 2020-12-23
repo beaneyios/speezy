@@ -14,6 +14,8 @@ protocol ProfileCreationViewControllerDelegate: AnyObject {
 }
 
 class ProfileCreationViewController: UIViewController {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var attachBtn: UIButton!
     @IBOutlet weak var nameTxtField: UITextField!
@@ -24,12 +26,14 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var completeSignupBtnContainer: UIView!
     
     weak var delegate: ProfileCreationViewControllerDelegate?
+    private var insetManager: KeyboardInsetManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
         configureTextView()
         completeSignupBtnContainer.addShadow()
+        configureInsetManager()
     }
     
     override func viewDidLayoutSubviews() {
@@ -39,6 +43,14 @@ class ProfileCreationViewController: UIViewController {
         attachBtn.layer.cornerRadius = attachBtn.frame.width / 2.0
         completeSignupBtnContainer.layer.cornerRadius = completeSignupBtnContainer.frame.height / 2.0
         completeSignupBtnContainer.clipsToBounds = true
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        
+        if parent == nil {
+            insetManager.stopListening()
+        }
     }
     
     @IBAction func completeSignup(_ sender: Any) {
@@ -51,6 +63,16 @@ class ProfileCreationViewController: UIViewController {
     
     private func configureTextFields() {
         nameTxtField.makePlaceholderGrey()
+        nameTxtField.delegate = self
+    }
+    
+    private func configureInsetManager() {
+        self.insetManager = KeyboardInsetManager(
+            view: view,
+            scrollView: scrollView
+        )
+        
+        self.insetManager.startListening()
     }
 }
 
@@ -63,6 +85,10 @@ extension ProfileCreationViewController: UITextViewDelegate {
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        scrollView.scrollRectToVisible(textView.frame, animated: true)
     }
     
     func textView(
@@ -83,5 +109,11 @@ extension ProfileCreationViewController: UITextViewDelegate {
         }
         
         return true
+    }
+}
+
+extension ProfileCreationViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.scrollRectToVisible(textField.frame, animated: true)
     }
 }
