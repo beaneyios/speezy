@@ -25,6 +25,7 @@ class EmailSignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
+        moveOnBtn.addShadow()
     }
     
     override func viewDidLayoutSubviews() {

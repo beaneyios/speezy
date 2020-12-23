@@ -25,6 +25,7 @@ class ProfileCreationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
+        completeSignupBtn.addShadow()
     }
     
     override func viewDidLayoutSubviews() {
