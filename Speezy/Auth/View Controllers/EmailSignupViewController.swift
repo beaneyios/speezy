@@ -103,13 +103,23 @@ extension EmailSignupViewController: UITextFieldDelegate {
         replacementString string: String
     ) -> Bool {
         
+        guard let textFieldText = textField.text else {
+            return true
+        }
+        
+        let nsText = textFieldText as NSString
+        let newString = nsText.replacingCharacters(
+            in: range,
+            with: string
+        )
+        
         switch textField {
         case emailTxtField:
-            viewModel.email = string
+            viewModel.email = newString
         case passwordTxtField:
-            viewModel.password = string
+            viewModel.password = newString
         case passwordValidateTxtField:
-            viewModel.verifyPassword = string
+            viewModel.verifyPassword = newString
         default:
             break
         }

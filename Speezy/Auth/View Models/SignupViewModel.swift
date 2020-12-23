@@ -32,6 +32,13 @@ extension SignupViewModel {
             )
         }
         
+        if !isValidEmail(email) {
+            return ValidationError(
+                title: "Email address invalid",
+                message: "Please ensure you enter a valid email address"
+            )
+        }
+        
         if password.isEmpty {
             return ValidationError(
                 title: "No password supplied",
@@ -47,5 +54,12 @@ extension SignupViewModel {
         }
         
         return nil
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
 }
