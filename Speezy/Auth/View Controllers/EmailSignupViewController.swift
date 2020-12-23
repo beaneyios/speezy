@@ -9,7 +9,10 @@
 import UIKit
 
 protocol EmailSignupViewControllerDelegate: AnyObject {
-    func emailSignupViewControllerDidMoveOnToProfile(_ viewController: EmailSignupViewController)
+    func emailSignupViewController(
+        _ viewController: EmailSignupViewController,
+        didMoveOnToProfileWithViewModel viewModel: SignupViewModel
+    )
     func emailSignupViewControllerDidGoBack(_ viewController: EmailSignupViewController)
 }
 
@@ -23,6 +26,7 @@ class EmailSignupViewController: UIViewController {
     @IBOutlet weak var moveOnBtnContainer: UIView!
     
     weak var delegate: EmailSignupViewControllerDelegate?
+    var viewModel: SignupViewModel!
     private var insetManager: KeyboardInsetManager!
     
     override func viewDidLoad() {
@@ -47,26 +51,84 @@ class EmailSignupViewController: UIViewController {
     }
     
     @IBAction func moveOnToProfile(_ sender: Any) {
-        view.endEditing(true)
-        delegate?.emailSignupViewControllerDidMoveOnToProfile(self)
+        submit()
     }
     
     @IBAction func goBack(_ sender: Any) {
         delegate?.emailSignupViewControllerDidGoBack(self)
     }
     
+    private func submit() {
+        if let error = viewModel.validatonError() {
+            let alert = UIAlertController(
+                title: error.title,
+                message: error.message,
+                preferredStyle: .alert
+            )
+            
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        view.endEditing(true)
+        delegate?.emailSignupViewController(
+            self,
+            didMoveOnToProfileWithViewModel: viewModel
+        )
+    }
+    
     private func configureTextFields() {
-        emailTxtField.makePlaceholderGrey()
-        passwordTxtField.makePlaceholderGrey()
-        passwordValidateTxtField.makePlaceholderGrey()
+        [emailTxtField, passwordTxtField, passwordValidateTxtField].forEach {
+            $0?.makePlaceholderGrey()
+            $0?.delegate = self
+        }
     }
     
     private func configureInsetManager() {
-        self.insetManager = KeyboardInsetManager(
+        insetManager = KeyboardInsetManager(
             view: view,
             scrollView: scrollView
         )
         
-        self.insetManager.startListening()
+        insetManager.startListening()
+    }
+}
+
+extension EmailSignupViewController: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        
+        switch textField {
+        case emailTxtField:
+            viewModel.email = string
+        case passwordTxtField:
+            viewModel.password = string
+        case passwordValidateTxtField:
+            viewModel.verifyPassword = string
+        default:
+            break
+        }
+        
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case emailTxtField:
+            passwordTxtField.becomeFirstResponder()
+        case passwordTxtField:
+            passwordValidateTxtField.becomeFirstResponder()
+        case passwordValidateTxtField:
+            submit()
+        default:
+            break
+        }
+        
+        return false
     }
 }

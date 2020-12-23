@@ -26,6 +26,7 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var completeSignupBtnContainer: UIView!
     
     weak var delegate: ProfileCreationViewControllerDelegate?
+    var viewModel: SignupViewModel!
     private var insetManager: KeyboardInsetManager!
     
     override func viewDidLoad() {
