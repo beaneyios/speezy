@@ -17,7 +17,9 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var attachBtn: UIButton!
     @IBOutlet weak var nameTxtField: UITextField!
+    @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
+    
     @IBOutlet weak var completeSignupBtn: UIButton!
     @IBOutlet weak var completeSignupBtnContainer: UIView!
     
@@ -26,6 +28,7 @@ class ProfileCreationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextFields()
+        configureTextView()
         completeSignupBtnContainer.addShadow()
     }
     
@@ -48,5 +51,37 @@ class ProfileCreationViewController: UIViewController {
     
     private func configureTextFields() {
         nameTxtField.makePlaceholderGrey()
+    }
+}
+
+extension ProfileCreationViewController: UITextViewDelegate {
+    private func configureTextView() {
+        aboutYouTxtField.delegate = self
+        aboutYouPlaceholder.isHidden = false
+        aboutYouPlaceholder.text = "About you"
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+        
+        let updatedText = (textView.text as NSString).replacingCharacters(
+            in: range,
+            with: text
+        )
+
+        if updatedText.isEmpty {
+            aboutYouPlaceholder.isHidden = false
+        } else {
+            aboutYouPlaceholder.isHidden = true
+        }
+        
+        return true
     }
 }

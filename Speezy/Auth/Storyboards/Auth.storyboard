@@ -465,7 +465,7 @@
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="camera-button"/>
                                             </button>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="About you" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tiy-6Q-1Px">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tiy-6Q-1Px">
                                                 <rect key="frame" x="20" y="288" width="374" height="64"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -512,6 +512,12 @@
                                                     <constraint firstAttribute="height" constant="45" id="xRq-8e-Cef"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myp-ya-bjL">
+                                                <rect key="frame" x="25" y="296" width="66" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" name="speezy-grey-text"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -521,6 +527,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Foi-sU-9Ad" secondAttribute="trailing" constant="24" id="5Sl-63-W1a"/>
                                             <constraint firstAttribute="trailing" secondItem="Tiy-6Q-1Px" secondAttribute="trailing" constant="20" id="7cL-R7-Tzx"/>
                                             <constraint firstAttribute="trailing" secondItem="wlp-9G-efx" secondAttribute="trailing" constant="24" id="BzN-e9-buD"/>
+                                            <constraint firstItem="Tiy-6Q-1Px" firstAttribute="leading" secondItem="myp-ya-bjL" secondAttribute="trailing" constant="-71" id="C5z-iu-Nap"/>
                                             <constraint firstItem="Tiy-6Q-1Px" firstAttribute="top" secondItem="N4i-8o-IVp" secondAttribute="bottom" constant="16" id="FY4-cX-pS0"/>
                                             <constraint firstItem="OmK-LZ-6D4" firstAttribute="centerX" secondItem="etR-n9-MwR" secondAttribute="centerX" id="Fv4-Bc-EJl"/>
                                             <constraint firstAttribute="trailing" secondItem="N4i-8o-IVp" secondAttribute="trailing" constant="24" id="Txm-PB-zZl"/>
@@ -535,6 +542,7 @@
                                             <constraint firstAttribute="trailing" secondItem="POf-Im-vzJ" secondAttribute="trailing" constant="20" id="h2c-i4-jUr"/>
                                             <constraint firstItem="vLt-1j-478" firstAttribute="bottom" secondItem="OmK-LZ-6D4" secondAttribute="bottom" id="hjB-I3-DM0"/>
                                             <constraint firstItem="Tiy-6Q-1Px" firstAttribute="leading" secondItem="etR-n9-MwR" secondAttribute="leading" constant="20" id="knB-y1-tIk"/>
+                                            <constraint firstItem="Tiy-6Q-1Px" firstAttribute="top" secondItem="myp-ya-bjL" secondAttribute="bottom" constant="-25" id="qiq-ue-9gs"/>
                                             <constraint firstItem="vLt-1j-478" firstAttribute="trailing" secondItem="OmK-LZ-6D4" secondAttribute="trailing" id="uE2-uf-YvQ"/>
                                             <constraint firstItem="FFV-w2-3lY" firstAttribute="top" secondItem="Tiy-6Q-1Px" secondAttribute="bottom" constant="16" id="vEY-Ko-tOf"/>
                                         </constraints>
@@ -564,6 +572,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="aboutYouPlaceholder" destination="myp-ya-bjL" id="chu-qJ-RbH"/>
                         <outlet property="aboutYouTxtField" destination="Tiy-6Q-1Px" id="0ra-GM-cIR"/>
                         <outlet property="attachBtn" destination="vLt-1j-478" id="ohz-MX-Nmf"/>
                         <outlet property="completeSignupBtn" destination="5gv-9x-5AK" id="TCP-6d-h7T"/>
