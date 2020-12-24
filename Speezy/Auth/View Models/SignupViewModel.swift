@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class SignupViewModel {
     var email: String = ""
@@ -15,7 +16,22 @@ class SignupViewModel {
     var name: String = ""
     var aboutYou: String = ""
     
-    
+    func signup(completion: @escaping (Result<User, Error>) -> Void) {
+        guard !email.isEmpty && !password.isEmpty else {
+            assertionFailure("These should have been validated earlier on")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let user = result?.user {
+                completion(.success(user))
+            } else if let error = error {
+                completion(.failure(error))
+            } else {
+                // TODO: Handle no error
+            }            
+        }
+    }
 }
 
 extension SignupViewModel {

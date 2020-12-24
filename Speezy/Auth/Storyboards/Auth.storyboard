@@ -239,7 +239,7 @@
                                                 <rect key="frame" x="24" y="121" width="366" height="18.5"/>
                                                 <color key="tintColor" name="speezy-grey-text"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="email"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rd2-sR-QOx" userLabel="email-separator">
                                                 <rect key="frame" x="24" y="155.5" width="366" height="0.5"/>
@@ -252,7 +252,7 @@
                                                 <rect key="frame" x="24" y="188" width="366" height="17"/>
                                                 <color key="tintColor" name="speezy-grey-text"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7X8-bV-3cb" userLabel="password-separator">
                                                 <rect key="frame" x="24" y="221" width="366" height="0.5"/>
@@ -265,7 +265,7 @@
                                                 <rect key="frame" x="24" y="253.5" width="366" height="17"/>
                                                 <color key="tintColor" name="speezy-grey-text"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkg-XC-AQ6" userLabel="password-separator">
                                                 <rect key="frame" x="24" y="286.5" width="366" height="0.5"/>
@@ -432,7 +432,7 @@
                                                 <color key="tintColor" name="speezy-grey-text"/>
                                                 <color key="textColor" name="speezy-grey-text"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N4i-8o-IVp" userLabel="name-separator">
                                                 <rect key="frame" x="24" y="271.5" width="366" height="0.5"/>
@@ -474,7 +474,7 @@
                                                 </constraints>
                                                 <color key="textColor" name="speezy-grey-text"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="go"/>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POf-Im-vzJ">
                                                 <rect key="frame" x="20" y="400.5" width="374" height="45"/>

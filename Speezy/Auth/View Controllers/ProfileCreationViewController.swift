@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
-    func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
+    func profileCreationViewController(
+        _ viewController: ProfileCreationViewController,
+        didCompleteSignupWithUser user: User
+    )
     func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
 }
 
@@ -55,7 +59,17 @@ class ProfileCreationViewController: UIViewController {
     }
     
     @IBAction func completeSignup(_ sender: Any) {
-        delegate?.profileCreationViewControllerDidCompleteSignup(self)
+        viewModel.signup { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(user):
+                    self.delegate?.profileCreationViewController(self, didCompleteSignupWithUser: user)
+                case let .failure(error):
+                    // TODO: Handle sign up failures here.
+                    break
+                }
+            }
+        }
     }
     
     @IBAction func goBack(_ sender: Any) {

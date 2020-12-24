@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 protocol AuthCoordinatorDelegate: AnyObject {
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator)
@@ -74,7 +75,10 @@ extension AuthCoordinator: EmailSignupViewControllerDelegate {
 }
 
 extension AuthCoordinator: ProfileCreationViewControllerDelegate {
-    func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController) {
+    func profileCreationViewController(
+        _ viewController: ProfileCreationViewController,
+        didCompleteSignupWithUser user: User
+    ) {
         delegate?.authCoordinatorDidCompleteSignup(self)
     }
     
