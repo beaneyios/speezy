@@ -56,6 +56,10 @@ class AuthCoordinator: ViewCoordinator {
 }
 
 extension AuthCoordinator: AuthViewControllerDelegate {
+    func authViewController(_ viewController: AuthViewController, didCompleteSignupWithUser user: User) {
+        delegate?.authCoordinatorDidCompleteSignup(self)
+    }
+    
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController) {
         navigateToEmailSignupView()
     }

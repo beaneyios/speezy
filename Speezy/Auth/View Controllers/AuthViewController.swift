@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol AuthViewControllerDelegate: AnyObject {
+    func authViewController(
+        _ viewController: AuthViewController,
+        didCompleteSignupWithUser user: User
+    )
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController)
 }
 
@@ -30,6 +35,17 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func signUpWithFacebook(_ sender: Any) {
+        let viewModel = FacebookSignupViewModel()
+        viewModel.login(viewController: self) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(user):
+                    self.delegate?.authViewController(self, didCompleteSignupWithUser: user)
+                case let .failure(error):
+                    break
+                }
+            }
+        }
     }
     
     @IBAction func signupWithLinkedIn(_ sender: Any) {
