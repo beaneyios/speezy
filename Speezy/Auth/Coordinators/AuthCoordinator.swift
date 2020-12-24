@@ -43,11 +43,11 @@ class AuthCoordinator: ViewCoordinator {
     private func navigateToEmailSignupView() {
         let viewController = storyboard.instantiateViewController(identifier: "EmailSignupViewController") as! EmailSignupViewController
         viewController.delegate = self
-        viewController.viewModel = SignupViewModel()
+        viewController.viewModel = EmailSignupViewModel()
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    private func navigateToProfileView(viewModel: SignupViewModel) {
+    private func navigateToProfileView(viewModel: EmailSignupViewModel) {
         let viewController = storyboard.instantiateViewController(identifier: "ProfileCreationViewController") as! ProfileCreationViewController
         viewController.delegate = self
         viewController.viewModel = viewModel
@@ -64,7 +64,7 @@ extension AuthCoordinator: AuthViewControllerDelegate {
 extension AuthCoordinator: EmailSignupViewControllerDelegate {
     func emailSignupViewController(
         _ viewController: EmailSignupViewController,
-        didMoveOnToProfileWithViewModel viewModel: SignupViewModel
+        didMoveOnToProfileWithViewModel viewModel: EmailSignupViewModel
     ) {
         navigateToProfileView(viewModel: viewModel)
     }

@@ -11,7 +11,7 @@ import UIKit
 protocol EmailSignupViewControllerDelegate: AnyObject {
     func emailSignupViewController(
         _ viewController: EmailSignupViewController,
-        didMoveOnToProfileWithViewModel viewModel: SignupViewModel
+        didMoveOnToProfileWithViewModel viewModel: EmailSignupViewModel
     )
     func emailSignupViewControllerDidGoBack(_ viewController: EmailSignupViewController)
 }
@@ -26,7 +26,7 @@ class EmailSignupViewController: UIViewController {
     @IBOutlet weak var moveOnBtnContainer: UIView!
     
     weak var delegate: EmailSignupViewControllerDelegate?
-    var viewModel: SignupViewModel!
+    var viewModel: EmailSignupViewModel!
     private var insetManager: KeyboardInsetManager!
     
     override func viewDidLoad() {

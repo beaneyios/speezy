@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseAuth
 
-class SignupViewModel {
+class EmailSignupViewModel {
     var email: String = ""
     var password: String = ""
     var verifyPassword: String = ""
@@ -34,7 +34,7 @@ class SignupViewModel {
     }
 }
 
-extension SignupViewModel {
+extension EmailSignupViewModel {
     struct ValidationError {
         var title: String
         var message: String
