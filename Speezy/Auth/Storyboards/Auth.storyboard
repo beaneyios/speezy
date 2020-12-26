@@ -103,9 +103,9 @@
                                     <constraint firstAttribute="height" constant="50" id="MWc-hG-iko"/>
                                     <constraint firstAttribute="width" constant="50" id="nRQ-7g-Z2V"/>
                                 </constraints>
-                                <state key="normal" image="linkedin-button"/>
+                                <state key="normal" image="apple-signin-button"/>
                                 <connections>
-                                    <action selector="signupWithLinkedIn:" destination="FDk-qk-5YN" eventType="touchUpInside" id="pxj-ih-8rW"/>
+                                    <action selector="signUpWithApple:" destination="FDk-qk-5YN" eventType="touchUpInside" id="FbX-9j-4vN"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1z-ER-5A8">
@@ -589,10 +589,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="apple-signin-button" width="500" height="500"/>
         <image name="back-button" width="250" height="500"/>
         <image name="camera-button" width="500" height="500"/>
         <image name="facebook-button" width="500" height="500"/>
-        <image name="linkedin-button" width="500" height="500"/>
         <image name="red-gradient" width="500" height="70"/>
         <image name="signup-background" width="375" height="667"/>
         <namedColor name="speezy-grey-text">

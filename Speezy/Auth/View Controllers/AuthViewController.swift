@@ -40,7 +40,10 @@ class AuthViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case let .success(user):
-                    self.delegate?.authViewController(self, didCompleteSignupWithUser: user)
+                    self.delegate?.authViewController(
+                        self,
+                        didCompleteSignupWithUser: user
+                    )
                 case let .failure(error):
                     break
                 }
@@ -48,7 +51,26 @@ class AuthViewController: UIViewController {
         }
     }
     
-    @IBAction func signupWithLinkedIn(_ sender: Any) {
+    @IBAction func signUpWithApple(_ sender: Any) {
+        guard let window = view.window else {
+            assertionFailure("No window to anchor.")
+            return
+        }
+        
+        let viewModel = AppleSignupViewModel(anchor: window)
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case let .loggedIn(user):
+                    self.delegate?.authViewController(
+                        self,
+                        didCompleteSignupWithUser: user
+                    )
+                }
+            }
+        }
+        
+        viewModel.startSignInWithAppleFlow()
     }
     
     @IBAction func signIn(_ sender: Any) {
