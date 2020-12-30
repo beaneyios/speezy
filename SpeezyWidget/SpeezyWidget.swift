@@ -54,16 +54,20 @@ struct SpeezyWidgetEntryView : View {
             .font(widgetFamily == .systemSmall ? Font.body.bold() : Font.title3.bold())
             .lineLimit(1)
             .minimumScaleFactor(0.1)
+            .foregroundColor(.white)
     }
     
     var description: some View {
-        Text("dedscrioption text goes here")
+        Text("Record a re[play]able message.")
             .font(.subheadline)
+            .lineLimit(2)
+            .foregroundColor(.white)
     }
     
     var image: some View {
         Rectangle()
             //.overlay()
+            
             .imageScale(/*@START_MENU_TOKEN@*/.medium/*@END_MENU_TOKEN@*/)
             .aspectRatio(1, contentMode: .fit)
             .clipShape(ContainerRelativeShape())
@@ -77,13 +81,20 @@ struct SpeezyWidgetEntryView : View {
                 .resizable()
                 //.edgesIgnoringSafeArea(.all)
             VStack {
-                title
+                HStack {
+                    title
+                    Image("Buttons/speezy")
+                        .resizable()
+                        .frame(width: 28.0, height: 28.0, alignment: .center)
+                        .aspectRatio(1, contentMode: .fit)
+                        //.scaleEffect(0.5)
+                }
                 description
-                Image("assets/speezy")
-                    .aspectRatio(1, contentMode: .fit)
                 //Spacer()
-                Image("start-recording-button")
-                    .aspectRatio(1, contentMode: .fit)
+//                Image("Buttons/start-recording-button")
+//                    .resizable()
+//                    .frame(width: 32.0, height: 32.0, alignment: .center)
+//                    .aspectRatio(0.7, contentMode: .fit)
                 //HStack {
                     //DiceView(n: leftDiceNumber)
                     //DiceView(n: rightDiceNumber)
@@ -95,15 +106,19 @@ struct SpeezyWidgetEntryView : View {
                     //self.leftDiceNumber = Int.random(in: 1...6)
                     //self.rightDiceNumber = Int.random(in: 1...6)
                 }) {
-                    Image("start-recording-button")
-                        .padding(.horizontal)
                     Text("Record")
-                        .font(.system(size: 4))
+                        .font(.system(size: 12))
                         .fontWeight(.medium)
                         .foregroundColor(.white)
                         .padding(.horizontal)
+                    Image("Buttons/start-recording-button")
+                        .resizable()
+                        .frame(width: 50.0, height: 50.0, alignment: .center)
+                        .aspectRatio(0.5, contentMode: .fit)
+                        .padding(.horizontal)
+                    
                 }
-                .background(Color.gray)
+                //.background(Color.gray)
             }
         }
     }
@@ -118,7 +133,7 @@ struct SpeezyWidget: Widget {
             SpeezyWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Speezy Record Widget")
-        .description("This is an example widget.")
+        .description("This is the Speezy recording widget.")
     }
 }
 
