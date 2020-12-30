@@ -10,10 +10,7 @@ import UIKit
 import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
-    func profileCreationViewController(
-        _ viewController: ProfileCreationViewController,
-        didCompleteSignupWithUser user: User
-    )
+    func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
     func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
 }
 
@@ -66,6 +63,7 @@ class ProfileCreationViewController: UIViewController {
     @IBAction func completeSignup(_ sender: Any) {
         viewModel.createProfile {
             DispatchQueue.main.async {
+                self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
                 // TODO: Handle profile creation.
             }
         }

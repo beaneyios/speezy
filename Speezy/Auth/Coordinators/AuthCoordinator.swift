@@ -86,10 +86,7 @@ extension AuthCoordinator: EmailSignupViewControllerDelegate {
 }
 
 extension AuthCoordinator: ProfileCreationViewControllerDelegate {
-    func profileCreationViewController(
-        _ viewController: ProfileCreationViewController,
-        didCompleteSignupWithUser user: User
-    ) {
+    func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController) {
         delegate?.authCoordinatorDidCompleteSignup(self)
     }
     

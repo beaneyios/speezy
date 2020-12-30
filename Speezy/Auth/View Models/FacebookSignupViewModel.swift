@@ -46,6 +46,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     }
     
     func createProfile(completion: @escaping () -> Void) {
-        
+        // TODO: Once DB is created, create a profile
+        completion()
     }
 }

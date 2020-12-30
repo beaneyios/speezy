@@ -41,7 +41,8 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     }
     
     func createProfile(completion: @escaping () -> Void) {
-        
+        // TODO: Once DB is created, create a profile
+        completion()
     }
 }
 
@@ -97,6 +98,10 @@ extension AppleSignupViewModel: ASAuthorizationControllerDelegate {
                 // your request to Apple.
                 print(error.localizedDescription)
             } else if let result = authResult {
+                if let displayName = result.user.displayName {
+                    self.profile.name = displayName
+                }
+                
                 self.didChange?(.loggedIn(result.user))
             }
         }
