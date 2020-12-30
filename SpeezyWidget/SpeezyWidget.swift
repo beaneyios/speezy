@@ -85,7 +85,7 @@ struct SpeezyWidgetEntryView : View {
                     title
                     Image("Buttons/speezy")
                         .resizable()
-                        .frame(width: 28.0, height: 28.0, alignment: .center)
+                        .frame(width: 32.0, height: 32.0, alignment: .center)
                         .aspectRatio(1, contentMode: .fit)
                         //.scaleEffect(0.5)
                 }
@@ -107,7 +107,7 @@ struct SpeezyWidgetEntryView : View {
                     //self.rightDiceNumber = Int.random(in: 1...6)
                 }) {
                     Text("Record")
-                        .font(.system(size: 12))
+                        .font(.system(size: 14))
                         .fontWeight(.medium)
                         .foregroundColor(.white)
                         .padding(.horizontal)
