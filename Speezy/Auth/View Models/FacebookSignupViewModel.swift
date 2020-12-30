@@ -11,7 +11,9 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FirebaseAuth
 
-class FacebookSignupViewModel {
+class FacebookSignupViewModel: FirebaseSignupViewModel {
+    var profile: Profile = Profile()
+    
     func login(
         viewController: UIViewController,
         completion: @escaping (Result<User, Error>) -> Void
@@ -30,6 +32,10 @@ class FacebookSignupViewModel {
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
                 Auth.auth().signIn(with: credential) { (result, error) in
                     if let user = result?.user {
+                        if let displayName = user.displayName {
+                            self.profile.name = displayName
+                        }
+                        
                         completion(.success(user))
                     }
                     
@@ -37,5 +43,9 @@ class FacebookSignupViewModel {
                 }
             }
         }
+    }
+    
+    func createProfile(completion: @escaping () -> Void) {
+        
     }
 }

@@ -12,6 +12,11 @@ import FirebaseAuth
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(
         _ viewController: AuthViewController,
+        didMoveOnToProfileWithViewModel viewModel: FirebaseSignupViewModel
+    )
+    
+    func authViewController(
+        _ viewController: AuthViewController,
         didCompleteSignupWithUser user: User
     )
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController)
@@ -42,7 +47,7 @@ class AuthViewController: UIViewController {
                 case let .success(user):
                     self.delegate?.authViewController(
                         self,
-                        didCompleteSignupWithUser: user
+                        didMoveOnToProfileWithViewModel: viewModel
                     )
                 case let .failure(error):
                     break
@@ -64,7 +69,7 @@ class AuthViewController: UIViewController {
                 case let .loggedIn(user):
                     self.delegate?.authViewController(
                         self,
-                        didCompleteSignupWithUser: user
+                        didMoveOnToProfileWithViewModel: viewModel
                     )
                 }
             }

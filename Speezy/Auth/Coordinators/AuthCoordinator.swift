@@ -47,7 +47,7 @@ class AuthCoordinator: ViewCoordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    private func navigateToProfileView(viewModel: EmailSignupViewModel) {
+    private func navigateToProfileView(viewModel: FirebaseSignupViewModel) {
         let viewController = storyboard.instantiateViewController(identifier: "ProfileCreationViewController") as! ProfileCreationViewController
         viewController.delegate = self
         viewController.viewModel = viewModel
@@ -56,6 +56,13 @@ class AuthCoordinator: ViewCoordinator {
 }
 
 extension AuthCoordinator: AuthViewControllerDelegate {
+    func authViewController(
+        _ viewController: AuthViewController,
+        didMoveOnToProfileWithViewModel viewModel: FirebaseSignupViewModel
+    ) {
+        navigateToProfileView(viewModel: viewModel)
+    }
+    
     func authViewController(_ viewController: AuthViewController, didCompleteSignupWithUser user: User) {
         delegate?.authCoordinatorDidCompleteSignup(self)
     }

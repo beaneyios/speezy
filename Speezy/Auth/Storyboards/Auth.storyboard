@@ -235,12 +235,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqS-pn-FtB">
-                                                <rect key="frame" x="24" y="121" width="366" height="18.5"/>
-                                                <color key="tintColor" name="speezy-grey-text"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="email"/>
-                                            </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rd2-sR-QOx" userLabel="email-separator">
                                                 <rect key="frame" x="24" y="155.5" width="366" height="0.5"/>
                                                 <color key="backgroundColor" name="speezy-grey-text"/>
@@ -248,12 +242,6 @@
                                                     <constraint firstAttribute="height" constant="0.5" id="Hxs-1c-vla"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MiP-71-bEV">
-                                                <rect key="frame" x="24" y="188" width="366" height="17"/>
-                                                <color key="tintColor" name="speezy-grey-text"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
-                                            </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7X8-bV-3cb" userLabel="password-separator">
                                                 <rect key="frame" x="24" y="221" width="366" height="0.5"/>
                                                 <color key="backgroundColor" name="speezy-grey-text"/>
@@ -261,9 +249,10 @@
                                                     <constraint firstAttribute="height" constant="0.5" id="8K9-Gq-ATy"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Re-enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OC6-K7-yzX">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Re-enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OC6-K7-yzX">
                                                 <rect key="frame" x="24" y="253.5" width="366" height="17"/>
                                                 <color key="tintColor" name="speezy-grey-text"/>
+                                                <color key="textColor" name="speezy-purple"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES"/>
                                             </textField>
@@ -312,6 +301,20 @@
                                                     <constraint firstItem="mJe-zU-9kb" firstAttribute="leading" secondItem="LvM-oH-mVc" secondAttribute="leading" id="orh-C2-lb7"/>
                                                 </constraints>
                                             </view>
+                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aqS-pn-FtB">
+                                                <rect key="frame" x="23" y="120" width="366" height="18.5"/>
+                                                <color key="tintColor" name="speezy-grey-text"/>
+                                                <color key="textColor" name="speezy-purple"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="email"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MiP-71-bEV">
+                                                <rect key="frame" x="23" y="187" width="366" height="17"/>
+                                                <color key="tintColor" name="speezy-grey-text"/>
+                                                <color key="textColor" name="speezy-purple"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -430,7 +433,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Foi-sU-9Ad">
                                                 <rect key="frame" x="24" y="237" width="366" height="18.5"/>
                                                 <color key="tintColor" name="speezy-grey-text"/>
-                                                <color key="textColor" name="speezy-grey-text"/>
+                                                <color key="textColor" name="speezy-purple"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                             </textField>
@@ -456,7 +459,7 @@
                                                     <constraint firstAttribute="width" constant="100" id="gQV-Fu-3TK"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLt-1j-478">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLt-1j-478" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                                 <rect key="frame" x="212" y="160" width="45" height="45"/>
                                                 <color key="backgroundColor" name="speezy-purple"/>
                                                 <constraints>
@@ -465,6 +468,9 @@
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="camera-button"/>
+                                                <connections>
+                                                    <action selector="attachProfileImage:" destination="Z6Y-HK-xZ8" eventType="touchUpInside" id="0ec-j8-AJc"/>
+                                                </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tiy-6Q-1Px">
                                                 <rect key="frame" x="20" y="288" width="374" height="64"/>
@@ -472,7 +478,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="64" id="yO2-J8-ZtD"/>
                                                 </constraints>
-                                                <color key="textColor" name="speezy-grey-text"/>
+                                                <color key="textColor" name="speezy-purple"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="go"/>
                                             </textView>
@@ -575,7 +581,7 @@
                     <connections>
                         <outlet property="aboutYouPlaceholder" destination="myp-ya-bjL" id="chu-qJ-RbH"/>
                         <outlet property="aboutYouTxtField" destination="Tiy-6Q-1Px" id="0ra-GM-cIR"/>
-                        <outlet property="attachBtn" destination="vLt-1j-478" id="ohz-MX-Nmf"/>
+                        <outlet property="attachBtn" destination="vLt-1j-478" id="MBU-aJ-cuA"/>
                         <outlet property="completeSignupBtn" destination="5gv-9x-5AK" id="TCP-6d-h7T"/>
                         <outlet property="completeSignupBtnContainer" destination="POf-Im-vzJ" id="Oyn-KF-NMC"/>
                         <outlet property="nameTxtField" destination="Foi-sU-9Ad" id="nou-6M-miP"/>

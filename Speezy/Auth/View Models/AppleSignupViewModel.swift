@@ -10,7 +10,7 @@ import Foundation
 import AuthenticationServices
 import FirebaseAuth
 
-class AppleSignupViewModel: NSObject {
+class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     
     enum Change {
         case loggedIn(User)
@@ -18,6 +18,7 @@ class AppleSignupViewModel: NSObject {
     
     weak var anchor: UIWindow!
     
+    var profile: Profile = Profile()
     var didChange: ((Change) -> Void)?
     private var currentNonce: String?
     
@@ -37,6 +38,10 @@ class AppleSignupViewModel: NSObject {
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
+    }
+    
+    func createProfile(completion: @escaping () -> Void) {
+        
     }
 }
 

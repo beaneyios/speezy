@@ -73,10 +73,20 @@ class EmailSignupViewController: UIViewController {
         }
         
         view.endEditing(true)
-        delegate?.emailSignupViewController(
-            self,
-            didMoveOnToProfileWithViewModel: viewModel
-        )
+        
+        viewModel.signup { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self.delegate?.emailSignupViewController(
+                        self,
+                        didMoveOnToProfileWithViewModel: self.viewModel
+                    )
+                case .failure:
+                    break
+                }
+            }
+        }
     }
     
     private func configureTextFields() {

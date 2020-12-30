@@ -9,12 +9,11 @@
 import Foundation
 import FirebaseAuth
 
-class EmailSignupViewModel {
+class EmailSignupViewModel: FirebaseSignupViewModel {
     var email: String = ""
     var password: String = ""
-    var verifyPassword: String = ""
-    var name: String = ""
-    var aboutYou: String = ""
+    var verifyPassword: String = ""    
+    var profile: Profile = Profile()
     
     func signup(completion: @escaping (Result<User, Error>) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
@@ -31,6 +30,10 @@ class EmailSignupViewModel {
                 // TODO: Handle no error
             }            
         }
+    }
+    
+    func createProfile(completion: @escaping () -> Void) {
+        
     }
 }
 

@@ -21,7 +21,8 @@ class ProfileCreationViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
-    @IBOutlet weak var attachBtn: UIButton!
+    @IBOutlet weak var attachBtn: SpeezyButton!
+    
     @IBOutlet weak var nameTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
@@ -30,7 +31,7 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var completeSignupBtnContainer: UIView!
     
     weak var delegate: ProfileCreationViewControllerDelegate?
-    var viewModel: EmailSignupViewModel!
+    var viewModel: FirebaseSignupViewModel!
     private var insetManager: KeyboardInsetManager!
     
     override func viewDidLoad() {
@@ -58,16 +59,14 @@ class ProfileCreationViewController: UIViewController {
         }
     }
     
+    @IBAction func attachProfileImage(_ sender: Any) {
+        showAttachmentAlert()
+    }
+    
     @IBAction func completeSignup(_ sender: Any) {
-        viewModel.signup { (result) in
+        viewModel.createProfile {
             DispatchQueue.main.async {
-                switch result {
-                case let .success(user):
-                    self.delegate?.profileCreationViewController(self, didCompleteSignupWithUser: user)
-                case let .failure(error):
-                    // TODO: Handle sign up failures here.
-                    break
-                }
+                // TODO: Handle profile creation.
             }
         }
     }
@@ -79,6 +78,17 @@ class ProfileCreationViewController: UIViewController {
     private func configureTextFields() {
         nameTxtField.makePlaceholderGrey()
         nameTxtField.delegate = self
+        nameTxtField.text = viewModel.profile.name
+        
+        configureAboutYouPlaceholder()
+    }
+    
+    private func configureAboutYouPlaceholder() {
+        if viewModel.profile.aboutYou.isEmpty {
+            aboutYouPlaceholder.isHidden = false
+        } else {
+            aboutYouPlaceholder.isHidden = true
+        }
     }
     
     private func configureInsetManager() {
@@ -116,11 +126,10 @@ extension ProfileCreationViewController: UITextViewDelegate {
             in: range,
             with: text
         )
-
-        if updatedText.isEmpty {
-            aboutYouPlaceholder.isHidden = false
-        } else {
-            aboutYouPlaceholder.isHidden = true
+        
+        if textView == aboutYouTxtField {
+            viewModel.profile.aboutYou = updatedText
+            configureAboutYouPlaceholder()
         }
         
         return true
@@ -130,5 +139,77 @@ extension ProfileCreationViewController: UITextViewDelegate {
 extension ProfileCreationViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         scrollView.scrollRectToVisible(textField.frame, animated: true)
+    }
+}
+
+extension ProfileCreationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func configureProfileImage() {
+        attachBtn.startLoading(color: .lightGray)
+        attachBtn.imageView?.contentMode = .scaleAspectFill
+        
+        let imageApplication: (UIImage?) -> Void = { image in
+            self.attachBtn.stopLoading()
+            self.profileImg.layer.cornerRadius = 10.0
+            self.attachBtn.setImage(UIImage(named: "camera-button"), for: .normal)
+            self.profileImg.image = image
+        }
+        
+        // TODO: Fetch image attachment and apply it somehow.
+    }
+    
+    private func showAttachmentAlert() {
+        let alert = UIAlertController(
+            title: "Select your photo",
+            message: "From where you want to pick this image?",
+            preferredStyle: .actionSheet
+        )
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+            self.getImage(fromSourceType: .camera)
+        }
+        
+        let photoAlbumAction = UIAlertAction(title: "Photo Album", style: .default) { action in
+            self.getImage(fromSourceType: .photoLibrary)
+        }
+        
+        alert.addAction(cameraAction)
+        alert.addAction(photoAlbumAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        //Check is source type available
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            attachBtn.startLoading(color: .lightGray)
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+                return
+            }
+            
+            
+            // TODO: Set downloaded image.
+            self.configureProfileImage()
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        attachBtn.stopLoading()
+        picker.dismiss(animated: true, completion: nil)
     }
 }
