@@ -23,9 +23,7 @@ class AppCoordinator: ViewCoordinator {
     override func finish() {
         
     }
-}
-
-extension AppCoordinator: AudioItemCoordinatorDelegate {
+    
     private func navigateToAudioItems() {
         let coordinator = AudioItemCoordinator(navigationController: navigationController)
         coordinator.delegate = self
@@ -33,6 +31,25 @@ extension AppCoordinator: AudioItemCoordinatorDelegate {
         coordinator.start()
     }
     
+    private func navigateToAuth() {
+        let coordinator = AuthCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        add(coordinator)
+        coordinator.start()
+    }
+}
+
+extension AppCoordinator: AuthCoordinatorDelegate {
+    func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
+        navigateToAudioItems()
+    }
+    
+    func authCoordinatorDidFinish(_ coordinator: AuthCoordinator) {
+        remove(coordinator)
+    }
+}
+
+extension AppCoordinator: AudioItemCoordinatorDelegate {
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
         remove(coordinator)
     }

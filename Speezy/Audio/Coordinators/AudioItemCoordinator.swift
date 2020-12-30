@@ -202,7 +202,7 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
         }
 
         viewController.delegate = self
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.setViewControllers([viewController], animated: true)
     }
 }
 

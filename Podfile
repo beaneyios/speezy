@@ -12,8 +12,10 @@ target 'Speezy' do
   pod 'SCLAlertView', '~> 0.8'
   pod 'DeviceKit', '~> 4.2.1'
   pod 'Firebase/Crashlytics', '~> 6.27.0'
+  pod 'Firebase/Auth', '~> 6.27.0'
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
+  pod 'FacebookLogin'
 
   target 'SpeezyTests' do
     inherit! :search_paths
