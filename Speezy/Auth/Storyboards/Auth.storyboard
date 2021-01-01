@@ -78,7 +78,7 @@
                                     <constraint firstAttribute="height" constant="0.5" id="IVg-cE-KIf"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFD-1W-ftk">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFD-1W-ftk" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                 <rect key="frame" x="141" y="571" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="a3d-Hd-mp2"/>
@@ -97,7 +97,7 @@
                                     <constraint firstAttribute="height" constant="100" id="ASm-Im-aGQ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sya-SU-8Os">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sya-SU-8Os" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                 <rect key="frame" x="223" y="571" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MWc-hG-iko"/>
@@ -178,8 +178,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="appleSignupBtn" destination="Sya-SU-8Os" id="gqY-fC-b4T"/>
                         <outlet property="btnSignupWithEmail" destination="QMs-lY-t9S" id="zcc-6b-yG3"/>
                         <outlet property="btnSignupWithEmailContainer" destination="T3y-Hz-EB6" id="7I4-74-h7u"/>
+                        <outlet property="facebookSignupBtn" destination="KFD-1W-ftk" id="WEU-LZ-C64"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9u3-Gg-3gB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

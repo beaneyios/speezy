@@ -38,6 +38,7 @@ class ProfileCreationViewController: UIViewController {
         configureTextView()
         completeSignupBtnContainer.addShadow()
         configureInsetManager()
+        configureLoadingSpinner()
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,6 +74,10 @@ class ProfileCreationViewController: UIViewController {
     
     @IBAction func goBack(_ sender: Any) {
         delegate?.profileCreationViewControllerDidGoBack(self)
+    }
+    
+    private func configureLoadingSpinner() {
+        loadingSpinner.isHidden = true
     }
     
     private func startLoading() {

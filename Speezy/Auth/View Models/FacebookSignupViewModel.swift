@@ -13,6 +13,7 @@ import FirebaseAuth
 
 class FacebookSignupViewModel: FirebaseSignupViewModel {
     var profile: Profile = Profile()
+    var userId: String?
     
     func login(
         viewController: UIViewController,
@@ -23,30 +24,42 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
             permissions: ["public_profile", "email"],
             from: viewController
         ) { (result, error) in
+            guard
+                result != nil,
+                let accessTokenString = AccessToken.current?.tokenString
+            else {
+                return
+            }
             
-            if result != nil {
-                guard let accessTokenString = AccessToken.current?.tokenString else {
-                    return
-                }
-                
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
-                Auth.auth().signIn(with: credential) { (result, error) in
-                    if let user = result?.user {
-                        if let displayName = user.displayName {
-                            self.profile.name = displayName
-                        }
-                        
-                        completion(.success(user))
+            let credential = FacebookAuthProvider.credential(
+                withAccessToken: accessTokenString
+            )
+            
+            Auth.auth().signIn(with: credential) { (result, error) in
+                if let user = result?.user {
+                    if let displayName = user.displayName {
+                        self.profile.name = displayName
                     }
                     
-                    // TODO: Catch pre-existing accounts.
+                    self.userId = user.uid
+                    completion(.success(user))
                 }
+                
+                // TODO: Catch pre-existing accounts.
             }
         }
     }
     
     func createProfile(completion: @escaping () -> Void) {
-        // TODO: Once DB is created, create a profile
-        completion()
+        guard let userId = self.userId else {
+            assertionFailure("No user ID found")
+            return
+        }
+        
+        FirebaseUserProfileEditor().updateUserProfile(
+            userId: userId,
+            profile: profile,
+            completion: completion
+        )
     }
 }

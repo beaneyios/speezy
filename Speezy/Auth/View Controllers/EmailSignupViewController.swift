@@ -36,6 +36,7 @@ class EmailSignupViewController: UIViewController {
         configureTextFields()
         moveOnBtnContainer.addShadow()
         configureInsetManager()
+        configureLoadingSpinner()
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,6 +92,10 @@ class EmailSignupViewController: UIViewController {
                 self.stopLoading()
             }
         }
+    }
+    
+    private func configureLoadingSpinner() {
+        loadingSpinner.isHidden = true
     }
     
     private func startLoading() {
