@@ -76,6 +76,13 @@ extension EmailSignupViewModel {
             )
         }
         
+        if password.count < 6 {
+            return ValidationError(
+                title: "Password too short",
+                message: "Password must be at least 6 characters"
+            )
+        }
+        
         if password != verifyPassword {
             return ValidationError(
                 title: "Passwords do not match",
