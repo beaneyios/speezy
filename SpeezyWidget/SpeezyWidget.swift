@@ -74,7 +74,7 @@ struct SpeezyWidgetEntryView : View {
     }
     
     var body: some View {
-        //Text(entry.date, style: .time)
+        //Text(entry.date, style: .time) 
         
         ZStack {
             Image("Backgrounds/gradient-background")
@@ -85,7 +85,7 @@ struct SpeezyWidgetEntryView : View {
                     title
                     Image("Buttons/speezy")
                         .resizable()
-                        .frame(width: 32.0, height: 32.0, alignment: .center)
+                        .frame(width: 42.0, height: 42.0, alignment: .center)
                         .aspectRatio(1, contentMode: .fit)
                         //.scaleEffect(0.5)
                 }
