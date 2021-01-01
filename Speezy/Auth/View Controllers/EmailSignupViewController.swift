@@ -22,10 +22,9 @@ class EmailSignupViewController: UIViewController {
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
     @IBOutlet weak var passwordValidateTxtField: UITextField!
-    @IBOutlet weak var moveOnBtn: UIButton!
     @IBOutlet weak var moveOnBtnContainer: UIView!
-    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     
+    private var moveOnBtn: GradientButton?
     
     weak var delegate: EmailSignupViewControllerDelegate?
     var viewModel: EmailSignupViewModel!
@@ -36,7 +35,7 @@ class EmailSignupViewController: UIViewController {
         configureTextFields()
         moveOnBtnContainer.addShadow()
         configureInsetManager()
-        configureLoadingSpinner()
+        configureButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -53,7 +52,7 @@ class EmailSignupViewController: UIViewController {
         }
     }
     
-    @IBAction func moveOnToProfile(_ sender: Any) {
+    func moveOnToProfile() {
         submit()
     }
     
@@ -76,7 +75,7 @@ class EmailSignupViewController: UIViewController {
         }
         
         view.endEditing(true)
-        startLoading()
+        moveOnBtn?.startLoading()
         viewModel.signup { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -89,25 +88,23 @@ class EmailSignupViewController: UIViewController {
                     break
                 }
                 
-                self.stopLoading()
+                self.moveOnBtn?.stopLoading()
             }
         }
     }
     
-    private func configureLoadingSpinner() {
-        loadingSpinner.isHidden = true
-    }
-    
-    private func startLoading() {
-        moveOnBtn.isHidden = true
-        loadingSpinner.isHidden = false
-        loadingSpinner.startAnimating()
-    }
-    
-    private func stopLoading() {
-        moveOnBtn.isHidden = false
-        loadingSpinner.isHidden = true
-        loadingSpinner.stopAnimating()
+    private func configureButton() {
+        let button = GradientButton.createFromNib()
+        moveOnBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "SIGN UP") {
+            self.moveOnToProfile()
+        }
+        
+        self.moveOnBtn = button
     }
     
     private func configureTextFields() {

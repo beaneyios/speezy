@@ -24,9 +24,9 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
-    @IBOutlet weak var completeSignupBtn: UIButton!
     @IBOutlet weak var completeSignupBtnContainer: UIView!
-    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
+    
+    private var completeSignupBtn: GradientButton?
     
     weak var delegate: ProfileCreationViewControllerDelegate?
     var viewModel: FirebaseSignupViewModel!
@@ -38,7 +38,7 @@ class ProfileCreationViewController: UIViewController {
         configureTextView()
         completeSignupBtnContainer.addShadow()
         configureInsetManager()
-        configureLoadingSpinner()
+        configureButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,11 +62,11 @@ class ProfileCreationViewController: UIViewController {
         showAttachmentAlert()
     }
     
-    @IBAction func completeSignup(_ sender: Any) {
-        startLoading()
+    func completeSignup() {
+        completeSignupBtn?.startLoading()
         viewModel.createProfile {
             DispatchQueue.main.async {
-                self.stopLoading()
+                self.completeSignupBtn?.stopLoading()
                 self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
             }
         }
@@ -74,22 +74,6 @@ class ProfileCreationViewController: UIViewController {
     
     @IBAction func goBack(_ sender: Any) {
         delegate?.profileCreationViewControllerDidGoBack(self)
-    }
-    
-    private func configureLoadingSpinner() {
-        loadingSpinner.isHidden = true
-    }
-    
-    private func startLoading() {
-        completeSignupBtn.isHidden = true
-        loadingSpinner.isHidden = false
-        loadingSpinner.startAnimating()
-    }
-    
-    private func stopLoading() {
-        completeSignupBtn.isHidden = false
-        loadingSpinner.isHidden = true
-        loadingSpinner.stopAnimating()
     }
     
     private func configureTextFields() {
@@ -115,6 +99,20 @@ class ProfileCreationViewController: UIViewController {
         )
         
         self.insetManager.startListening()
+    }
+    
+    private func configureButton() {
+        let button = GradientButton.createFromNib()
+        completeSignupBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "COMPLETE SIGN UP") {
+            self.completeSignup()
+        }
+        
+        self.completeSignupBtn = button
     }
 }
 

@@ -90,6 +90,8 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
+		BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */; };
+		BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8BA7E8259FB9160071B57A /* GradientButton.xib */; };
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
@@ -259,6 +261,8 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		BE8BA7E8259FB9160071B57A /* GradientButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradientButton.xib; sourceTree = "<group>"; };
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
@@ -867,6 +871,8 @@
 				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
 				BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */,
 				BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */,
+				BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */,
+				BE8BA7E8259FB9160071B57A /* GradientButton.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1045,6 +1051,7 @@
 				BE2351AF252FA1A800067BA2 /* transcription-test-file-trimmed.flac in Resources */,
 				BE6080BE250EB455003CB318 /* transcription-test-file.flac in Resources */,
 				BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */,
+				BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */,
 				BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */,
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
@@ -1275,6 +1282,7 @@
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
+				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
