@@ -119,6 +119,7 @@
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
 		BEDC11F5259CA6C500BB0064 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */; };
+		BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */; };
 		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
 		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
 		BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126124F1964400B53D1A /* ShareOptionCell.xib */; };
@@ -287,6 +288,7 @@
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEditor.swift; sourceTree = "<group>"; };
 		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
 		BEDC126124F1964400B53D1A /* ShareOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOptionCell.xib; sourceTree = "<group>"; };
@@ -751,10 +753,11 @@
 		BEC825B4257D53010037F007 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				BEDC11F3259CA6B900BB0064 /* Protocols */,
-				BEDC11EA259CA64100BB0064 /* Models */,
+				BEDC1220259D161A00BB0064 /* Controllers */,
 				BE5429662593796B007EEAD1 /* Coordinators */,
 				BE5429722593AF2D007EEAD1 /* Extensions */,
+				BEDC11EA259CA64100BB0064 /* Models */,
+				BEDC11F3259CA6B900BB0064 /* Protocols */,
 				BEC825B5257D530D0037F007 /* Storyboards */,
 				BE54295925937139007EEAD1 /* View Controllers */,
 				BEF4DB6E2593D6C7002B403A /* View Models */,
@@ -784,6 +787,14 @@
 				BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		BEDC1220259D161A00BB0064 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		BEDC126C24F2D2A900B53D1A /* Resources */ = {
@@ -1205,6 +1216,7 @@
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
+				BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,

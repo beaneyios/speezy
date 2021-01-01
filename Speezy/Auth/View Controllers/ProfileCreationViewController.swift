@@ -26,6 +26,7 @@ class ProfileCreationViewController: UIViewController {
     
     @IBOutlet weak var completeSignupBtn: UIButton!
     @IBOutlet weak var completeSignupBtnContainer: UIView!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     
     weak var delegate: ProfileCreationViewControllerDelegate?
     var viewModel: FirebaseSignupViewModel!
@@ -61,16 +62,29 @@ class ProfileCreationViewController: UIViewController {
     }
     
     @IBAction func completeSignup(_ sender: Any) {
+        startLoading()
         viewModel.createProfile {
             DispatchQueue.main.async {
+                self.stopLoading()
                 self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
-                // TODO: Handle profile creation.
             }
         }
     }
     
     @IBAction func goBack(_ sender: Any) {
         delegate?.profileCreationViewControllerDidGoBack(self)
+    }
+    
+    private func startLoading() {
+        completeSignupBtn.isHidden = true
+        loadingSpinner.isHidden = false
+        loadingSpinner.startAnimating()
+    }
+    
+    private func stopLoading() {
+        completeSignupBtn.isHidden = false
+        loadingSpinner.isHidden = true
+        loadingSpinner.stopAnimating()
     }
     
     private func configureTextFields() {
@@ -96,6 +110,30 @@ class ProfileCreationViewController: UIViewController {
         )
         
         self.insetManager.startListening()
+    }
+}
+
+extension ProfileCreationViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.scrollRectToVisible(textField.frame, animated: true)
+    }
+    
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(
+            in: range,
+            with: string
+        )
+        
+        if textField == nameTxtField {
+            viewModel.profile.name = updatedText
+        }
+        
+        return true
     }
 }
 
@@ -131,12 +169,6 @@ extension ProfileCreationViewController: UITextViewDelegate {
         }
         
         return true
-    }
-}
-
-extension ProfileCreationViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        scrollView.scrollRectToVisible(textField.frame, animated: true)
     }
 }
 

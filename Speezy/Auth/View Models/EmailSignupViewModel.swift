@@ -14,6 +14,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     var password: String = ""
     var verifyPassword: String = ""    
     var profile: Profile = Profile()
+    var userId: String?
     
     func signup(completion: @escaping (Result<User, Error>) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
@@ -23,6 +24,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
+                self.userId = user.uid
                 completion(.success(user))
             } else if let error = error {
                 completion(.failure(error))
@@ -33,8 +35,16 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     }
     
     func createProfile(completion: @escaping () -> Void) {
-        // TODO: Once DB is created, create a profile
-        completion()
+        guard let userId = self.userId else {
+            assertionFailure("No user ID found")
+            return
+        }
+        
+        FirebaseUserProfileEditor().updateUserProfile(
+            userId: userId,
+            profile: profile,
+            completion: completion
+        )
     }
 }
 

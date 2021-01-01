@@ -24,6 +24,8 @@ class EmailSignupViewController: UIViewController {
     @IBOutlet weak var passwordValidateTxtField: UITextField!
     @IBOutlet weak var moveOnBtn: UIButton!
     @IBOutlet weak var moveOnBtnContainer: UIView!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
+    
     
     weak var delegate: EmailSignupViewControllerDelegate?
     var viewModel: EmailSignupViewModel!
@@ -73,7 +75,7 @@ class EmailSignupViewController: UIViewController {
         }
         
         view.endEditing(true)
-        
+        startLoading()
         viewModel.signup { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -85,8 +87,22 @@ class EmailSignupViewController: UIViewController {
                 case .failure:
                     break
                 }
+                
+                self.stopLoading()
             }
         }
+    }
+    
+    private func startLoading() {
+        moveOnBtn.isHidden = true
+        loadingSpinner.isHidden = false
+        loadingSpinner.startAnimating()
+    }
+    
+    private func stopLoading() {
+        moveOnBtn.isHidden = false
+        loadingSpinner.isHidden = true
+        loadingSpinner.stopAnimating()
     }
     
     private func configureTextFields() {

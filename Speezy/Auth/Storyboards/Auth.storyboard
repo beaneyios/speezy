@@ -283,12 +283,18 @@
                                                             <action selector="moveOnToProfile:" destination="jpn-CG-aeG" eventType="touchUpInside" id="cqB-WD-cE6"/>
                                                         </connections>
                                                     </button>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="CFv-xC-Smv">
+                                                        <rect key="frame" x="177" y="12.5" width="20" height="20"/>
+                                                        <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="mJe-zU-9kb" secondAttribute="bottom" id="3FV-GA-oaK"/>
+                                                    <constraint firstItem="CFv-xC-Smv" firstAttribute="centerX" secondItem="LvM-oH-mVc" secondAttribute="centerX" id="4kb-oP-dlH"/>
                                                     <constraint firstItem="mJe-zU-9kb" firstAttribute="top" secondItem="LvM-oH-mVc" secondAttribute="top" id="5b5-KD-gXS"/>
                                                     <constraint firstAttribute="trailing" secondItem="mJe-zU-9kb" secondAttribute="trailing" id="8Gl-mF-4rp"/>
+                                                    <constraint firstItem="CFv-xC-Smv" firstAttribute="centerY" secondItem="LvM-oH-mVc" secondAttribute="centerY" id="Beh-Vn-YxV"/>
                                                     <constraint firstAttribute="trailing" secondItem="mJe-zU-9kb" secondAttribute="trailing" id="CIf-hB-24e"/>
                                                     <constraint firstAttribute="top" secondItem="mJe-zU-9kb" secondAttribute="bottom" constant="-45" id="Frs-eJ-0tI"/>
                                                     <constraint firstAttribute="bottom" secondItem="mJe-zU-9kb" secondAttribute="bottom" id="JJO-rD-PcC"/>
@@ -370,6 +376,7 @@
                     </view>
                     <connections>
                         <outlet property="emailTxtField" destination="aqS-pn-FtB" id="iYg-ar-3MS"/>
+                        <outlet property="loadingSpinner" destination="CFv-xC-Smv" id="w7h-EL-nqu"/>
                         <outlet property="moveOnBtn" destination="mJe-zU-9kb" id="o27-Ts-aeu"/>
                         <outlet property="moveOnBtnContainer" destination="LvM-oH-mVc" id="9UC-OJ-zTQ"/>
                         <outlet property="passwordTxtField" destination="MiP-71-bEV" id="ZbV-Q1-3oT"/>
@@ -502,11 +509,16 @@
                                                             <action selector="completeSignup:" destination="Z6Y-HK-xZ8" eventType="touchUpInside" id="rdr-XO-LON"/>
                                                         </connections>
                                                     </button>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="V9s-dF-eRo">
+                                                        <rect key="frame" x="177" y="12.5" width="20" height="20"/>
+                                                        <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5gv-9x-5AK" secondAttribute="bottom" id="3g1-Af-jGU"/>
                                                     <constraint firstAttribute="trailing" secondItem="5gv-9x-5AK" secondAttribute="trailing" id="BUW-Wx-HtD"/>
+                                                    <constraint firstItem="V9s-dF-eRo" firstAttribute="centerY" secondItem="POf-Im-vzJ" secondAttribute="centerY" id="C2M-kT-ps1"/>
                                                     <constraint firstAttribute="top" secondItem="5gv-9x-5AK" secondAttribute="bottom" constant="-45" id="COE-Ov-BH0"/>
                                                     <constraint firstItem="nso-kW-Udg" firstAttribute="leading" secondItem="POf-Im-vzJ" secondAttribute="leading" id="Diu-Fs-zXe"/>
                                                     <constraint firstItem="5gv-9x-5AK" firstAttribute="leading" secondItem="POf-Im-vzJ" secondAttribute="leading" id="EJQ-BB-1pM"/>
@@ -514,6 +526,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="nso-kW-Udg" secondAttribute="bottom" id="NbT-Kf-Ey0"/>
                                                     <constraint firstAttribute="trailing" secondItem="nso-kW-Udg" secondAttribute="trailing" id="UQl-aY-Pip"/>
                                                     <constraint firstItem="nso-kW-Udg" firstAttribute="top" secondItem="POf-Im-vzJ" secondAttribute="top" id="enm-zy-hr0"/>
+                                                    <constraint firstItem="V9s-dF-eRo" firstAttribute="centerX" secondItem="POf-Im-vzJ" secondAttribute="centerX" id="fls-pa-KSq"/>
                                                     <constraint firstItem="5gv-9x-5AK" firstAttribute="leading" secondItem="POf-Im-vzJ" secondAttribute="leading" id="h4I-8g-3l9"/>
                                                     <constraint firstAttribute="bottom" secondItem="5gv-9x-5AK" secondAttribute="bottom" id="lzS-Ve-e0m"/>
                                                     <constraint firstAttribute="height" constant="45" id="xRq-8e-Cef"/>
@@ -584,6 +597,7 @@
                         <outlet property="attachBtn" destination="vLt-1j-478" id="MBU-aJ-cuA"/>
                         <outlet property="completeSignupBtn" destination="5gv-9x-5AK" id="TCP-6d-h7T"/>
                         <outlet property="completeSignupBtnContainer" destination="POf-Im-vzJ" id="Oyn-KF-NMC"/>
+                        <outlet property="loadingSpinner" destination="V9s-dF-eRo" id="NgH-Lj-AOu"/>
                         <outlet property="nameTxtField" destination="Foi-sU-9Ad" id="nou-6M-miP"/>
                         <outlet property="profileImg" destination="OmK-LZ-6D4" id="bee-ab-zgD"/>
                         <outlet property="scrollView" destination="5HW-89-H0J" id="uGc-Jk-y2z"/>
