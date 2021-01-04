@@ -11,7 +11,6 @@ import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
-    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
 }
 
 class ProfileCreationViewController: UIViewController {
@@ -72,8 +71,8 @@ class ProfileCreationViewController: UIViewController {
         }
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        delegate?.profileCreationViewControllerDidGoBack(self)
+    @IBAction func skip(_ sender: Any) {
+        completeSignup()
     }
     
     private func configureTextFields() {
@@ -187,7 +186,7 @@ extension ProfileCreationViewController: UIImagePickerControllerDelegate, UINavi
             self.profileImg.image = image
         }
         
-        // TODO: Fetch image attachment and apply it somehow.
+        imageApplication(viewModel.profileImageAttachment)
     }
     
     private func showAttachmentAlert() {
@@ -235,8 +234,7 @@ extension ProfileCreationViewController: UIImagePickerControllerDelegate, UINavi
                 return
             }
             
-            
-            // TODO: Set downloaded image.
+            self.viewModel.profileImageAttachment = image
             self.configureProfileImage()
         }
     }

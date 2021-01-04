@@ -120,7 +120,7 @@
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
-		BEDC11F5259CA6C500BB0064 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */; };
+		BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */; };
 		BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */; };
 		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
 		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
@@ -132,6 +132,8 @@
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
+		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
+		BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A1025A3A84F0045ABFF /* Data+Size.swift */; };
 		BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */; };
 		BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B7162546081B009308A4 /* supertrimmed.flac */; };
 		BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */; };
@@ -291,7 +293,7 @@
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignupViewModel.swift; sourceTree = "<group>"; };
 		BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEditor.swift; sourceTree = "<group>"; };
 		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
@@ -303,6 +305,8 @@
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
+		BEF28A1025A3A84F0045ABFF /* Data+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Size.swift"; sourceTree = "<group>"; };
 		BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobManager.swift; sourceTree = "<group>"; };
 		BEF3B7162546081B009308A4 /* supertrimmed.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = supertrimmed.flac; sourceTree = "<group>"; };
 		BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribeActionViewController.swift; sourceTree = "<group>"; };
@@ -788,7 +792,7 @@
 		BEDC11F3259CA6B900BB0064 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */,
+				BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -826,9 +830,11 @@
 			isa = PBXGroup;
 			children = (
 				BEF0ECB224BF949800B9D554 /* UI */,
-				BEBFD4C724C5BD1E00200D87 /* FileManager+Helpers.swift */,
 				BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */,
+				BEF28A1025A3A84F0045ABFF /* Data+Size.swift */,
+				BEBFD4C724C5BD1E00200D87 /* FileManager+Helpers.swift */,
 				BEE792B92597B1BA008C4E14 /* String+Crypto.swift */,
+				BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1178,8 +1184,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEDC11F5259CA6C500BB0064 /* SignupViewModel.swift in Sources */,
+				BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */,
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
+				BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
 				BEFDB53E255FF8A900362428 /* PlaybackNotification.swift in Sources */,
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
@@ -1270,6 +1277,7 @@
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
+				BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BE268B37256086BF009C5D3D /* AudioSavingManager.swift in Sources */,

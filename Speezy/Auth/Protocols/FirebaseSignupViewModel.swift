@@ -8,8 +8,10 @@
 
 import Foundation
 import FirebaseAuth
+import UIKit
 
-protocol FirebaseSignupViewModel {
+protocol FirebaseSignupViewModel: AnyObject {
     var profile: Profile { get set }
+    var profileImageAttachment: UIImage? { get set }
     func createProfile(completion: @escaping () -> Void)
 }

@@ -89,8 +89,4 @@ extension AuthCoordinator: ProfileCreationViewControllerDelegate {
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController) {
         delegate?.authCoordinatorDidCompleteSignup(self)
     }
-    
-    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController) {
-        navigationController.popViewController(animated: true)
-    }
 }

@@ -16,6 +16,8 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     var profile: Profile = Profile()
     var userId: String?
     
+    var profileImageAttachment: UIImage?
+    
     func signup(completion: @escaping (Result<User, Error>) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
@@ -43,6 +45,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         FirebaseUserProfileEditor().updateUserProfile(
             userId: userId,
             profile: profile,
+            profileImage: profileImageAttachment,
             completion: completion
         )
     }

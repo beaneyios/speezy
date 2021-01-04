@@ -15,6 +15,8 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     var profile: Profile = Profile()
     var userId: String?
     
+    var profileImageAttachment: UIImage?
+    
     func login(
         viewController: UIViewController,
         completion: @escaping (Result<User, Error>) -> Void
@@ -59,6 +61,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         FirebaseUserProfileEditor().updateUserProfile(
             userId: userId,
             profile: profile,
+            profileImage: nil,
             completion: completion
         )
     }

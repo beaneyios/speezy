@@ -11,4 +11,5 @@ import Foundation
 struct Profile {
     var name: String = ""
     var aboutYou: String = ""
+    var profileImageUrl: URL?
 }
