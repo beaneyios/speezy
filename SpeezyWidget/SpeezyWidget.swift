@@ -58,8 +58,10 @@ struct SpeezyWidgetEntryView : View {
     }
     
     var description: some View {
-        Text("Record a re[play]able message.")
-            .font(.subheadline)
+        Text("Create a re[play]able audio message.")
+            //.font(.subheadline)
+            .font(.system(size: 10))
+            .fontWeight(.medium)
             .lineLimit(2)
             .foregroundColor(.white)
     }
@@ -77,15 +79,15 @@ struct SpeezyWidgetEntryView : View {
         //Text(entry.date, style: .time) 
         
         ZStack {
-            Image("Backgrounds/gradient-background")
+            Image("background-gradient widget")
                 .resizable()
                 //.edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
                     title
-                    Image("Buttons/speezy")
+                    Image("start-recording-button- widget")
                         .resizable()
-                        .frame(width: 42.0, height: 42.0, alignment: .center)
+                        .frame(width: 20.0, height: 20.0, alignment: .center)
                         .aspectRatio(1, contentMode: .fit)
                         //.scaleEffect(0.5)
                 }
@@ -103,17 +105,18 @@ struct SpeezyWidgetEntryView : View {
                 //Spacer()
                 Button(action: {
                     print("start Recording")
+                    print("deep link goes here")
                     //self.leftDiceNumber = Int.random(in: 1...6)
                     //self.rightDiceNumber = Int.random(in: 1...6)
                 }) {
-                    Text("Record")
-                        .font(.system(size: 14))
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                    Image("Buttons/start-recording-button")
+                    //Text("Record")
+                      //  .font(.system(size: 14))
+                       // .fontWeight(.medium)
+                        //.foregroundColor(.white)
+                        //.padding(.horizontal)
+                    Image("start-recording-button- widget")
                         .resizable()
-                        .frame(width: 50.0, height: 50.0, alignment: .center)
+                        .frame(width: 65.0, height: 65.0, alignment: .center)
                         .aspectRatio(0.5, contentMode: .fit)
                         .padding(.horizontal)
                     

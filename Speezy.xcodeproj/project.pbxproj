@@ -896,9 +896,17 @@
 				DB0A4CF7259CC87400255E1D /* SpeezyWidget.swift */,
 				DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */,
 				DB0A4CFA259CC87500255E1D /* Assets.xcassets */,
+				DB0A4D0925A35F6300255E1D /* WidgetBackground */,
 				DB0A4CFC259CC87500255E1D /* Info.plist */,
 			);
 			path = SpeezyWidget;
+			sourceTree = "<group>";
+		};
+		DB0A4D0925A35F6300255E1D /* WidgetBackground */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WidgetBackground;
 			sourceTree = "<group>";
 		};
 		E15487FD64A1D16053241EB9 /* Frameworks */ = {
