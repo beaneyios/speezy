@@ -119,6 +119,8 @@
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
 		BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */; };
+		BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */; };
+		BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */; };
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
 		BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */; };
@@ -293,6 +295,8 @@
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
 		BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewModel.swift; sourceTree = "<group>"; };
+		BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewController.swift; sourceTree = "<group>"; };
+		BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewModel.swift; sourceTree = "<group>"; };
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignupViewModel.swift; sourceTree = "<group>"; };
@@ -410,6 +414,7 @@
 				BE54295E25937732007EEAD1 /* AuthViewController.swift */,
 				BE54295A2593714B007EEAD1 /* EmailSignupViewController.swift */,
 				BE54296225937745007EEAD1 /* ProfileCreationViewController.swift */,
+				BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -877,6 +882,7 @@
 				BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */,
 				BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */,
 				BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */,
+				BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1248,6 +1254,7 @@
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
+				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
@@ -1262,6 +1269,7 @@
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
+				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,

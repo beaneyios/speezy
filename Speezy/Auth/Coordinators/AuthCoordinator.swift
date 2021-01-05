@@ -26,11 +26,23 @@ class AuthCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToAuthView()
+        navigateToAuthLoadingView()
     }
     
     override func finish() {
         delegate?.authCoordinatorDidFinish(self)
+    }
+    
+    private func navigateToAuthLoadingView() {
+        let viewController = storyboard.instantiateViewController(
+            identifier: "AuthLoadingViewController"
+        ) as! AuthLoadingViewController
+        viewController.delegate = self
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.pushViewController(
+            viewController,
+            animated: true
+        )
     }
     
     private func navigateToAuthView() {
@@ -52,6 +64,21 @@ class AuthCoordinator: ViewCoordinator {
         viewController.delegate = self
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AuthCoordinator: AuthLoadingViewControllerDelegate {
+    func authLoadingViewControllerNotSignedIn(
+        _ viewController: AuthLoadingViewController
+    ) {
+        navigateToAuthView()
+    }
+    
+    func authLoadingViewController(
+        _ viewController: AuthLoadingViewController,
+        signedInWithUser: User
+    ) {
+        delegate?.authCoordinatorDidCompleteSignup(self)
     }
 }
 

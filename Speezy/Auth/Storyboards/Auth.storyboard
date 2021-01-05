@@ -10,6 +10,41 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Auth Loading View Controller-->
+        <scene sceneID="e8l-Bh-dNi">
+            <objects>
+                <viewController storyboardIdentifier="AuthLoadingViewController" id="AID-48-djW" customClass="AuthLoadingViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pxk-nb-8MZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signup-background" translatesAutoresizingMaskIntoConstraints="NO" id="kae-f7-Ynl">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="qAr-fe-hS4">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LRb-wY-Ngt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="kae-f7-Ynl" secondAttribute="bottom" id="6Ju-4I-kpX"/>
+                            <constraint firstItem="qAr-fe-hS4" firstAttribute="centerY" secondItem="Pxk-nb-8MZ" secondAttribute="centerY" id="8Zf-b2-hdp"/>
+                            <constraint firstItem="LRb-wY-Ngt" firstAttribute="trailing" secondItem="kae-f7-Ynl" secondAttribute="trailing" id="XhC-Bc-s7O"/>
+                            <constraint firstItem="kae-f7-Ynl" firstAttribute="leading" secondItem="Pxk-nb-8MZ" secondAttribute="leading" id="eel-GY-Tou"/>
+                            <constraint firstItem="qAr-fe-hS4" firstAttribute="centerX" secondItem="Pxk-nb-8MZ" secondAttribute="centerX" id="hsZ-Ak-2NE"/>
+                            <constraint firstItem="kae-f7-Ynl" firstAttribute="top" secondItem="Pxk-nb-8MZ" secondAttribute="top" id="mi4-AT-CsJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loadingSpinner" destination="qAr-fe-hS4" id="j7y-yf-97o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bi4-IV-UzC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="-598.66071428571422"/>
+        </scene>
         <!--Auth View Controller-->
         <scene sceneID="hRG-kZ-vuM">
             <objects>
