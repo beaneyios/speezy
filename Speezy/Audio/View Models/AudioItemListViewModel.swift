@@ -7,11 +7,15 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import FirebaseStorage
+import FirebaseAuth
 
 class AudioItemListViewModel {
     
     enum Change {
         case itemsLoaded
+        case profileImageLoaded(UIImage)
     }
     
     var didChange: ((Change) -> Void)?
@@ -53,6 +57,26 @@ class AudioItemListViewModel {
         AudioStorage.deleteItem(item)
         audioItems = audioItems.removing(item)
         didChange?(.itemsLoaded)
+    }
+}
+
+extension AudioItemListViewModel {
+    func loadProfileImage() {
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        
+        let storage = FirebaseStorage.Storage.storage()
+        let storageRef = storage.reference()
+        let profileImagesRef = storageRef.child("profile_images/\(currentUser.uid).jpg")
+        
+        profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            guard let data = data, let image = UIImage(data: data) else {
+                return
+            }
+            
+            self.didChange?(.profileImageLoaded(image))
+        }
     }
 }
 

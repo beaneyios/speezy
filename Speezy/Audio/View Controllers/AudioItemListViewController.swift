@@ -22,7 +22,7 @@ class AudioItemListViewController: UIViewController {
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileButton: SpeezyButton!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -35,9 +35,17 @@ class AudioItemListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        observeViewModelChanges()        
+        observeViewModelChanges()
         configureTableView()
         loadItems()
+        loadProfileImage()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        profileButton.layer.cornerRadius = profileButton.frame.width / 2.0
+        profileButton.clipsToBounds = true
     }
     
     private func configureTableView() {
@@ -56,6 +64,8 @@ class AudioItemListViewController: UIViewController {
                 case .itemsLoaded:
                     self.toggleEmptyView()
                     self.tableView.reloadData()
+                case let .profileImageLoaded(image):
+                    self.profileButton.stopLoading(image: image)
                 }
             }
         }
@@ -63,6 +73,14 @@ class AudioItemListViewController: UIViewController {
     
     private func loadItems() {
         viewModel.loadItems()
+    }
+    
+    private func loadProfileImage() {
+        profileButton.startLoading(
+            color: UIColor(named: "speezy-purple") ?? .black,
+            style: .medium
+        )
+        viewModel.loadProfileImage()
     }
     
     private func toggleEmptyView() {
