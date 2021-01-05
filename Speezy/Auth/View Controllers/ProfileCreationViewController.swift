@@ -18,6 +18,8 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var attachBtn: SpeezyButton!
+    @IBOutlet weak var attachBtnWidth: NSLayoutConstraint!
+    @IBOutlet weak var attachBtnHeight: NSLayoutConstraint!
     
     @IBOutlet weak var nameTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
@@ -37,7 +39,7 @@ class ProfileCreationViewController: UIViewController {
         configureTextView()
         completeSignupBtnContainer.addShadow()
         configureInsetManager()
-        configureButton()
+        configureSignupButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -45,6 +47,8 @@ class ProfileCreationViewController: UIViewController {
         
         profileImg.layer.cornerRadius = profileImg.frame.width / 2.0
         attachBtn.layer.cornerRadius = attachBtn.frame.width / 2.0
+        attachBtn.layer.borderWidth = 2.0
+        attachBtn.layer.borderColor = UIColor.white.cgColor
         completeSignupBtnContainer.layer.cornerRadius = completeSignupBtnContainer.frame.height / 2.0
         completeSignupBtnContainer.clipsToBounds = true
     }
@@ -100,7 +104,7 @@ class ProfileCreationViewController: UIViewController {
         self.insetManager.startListening()
     }
     
-    private func configureButton() {
+    private func configureSignupButton() {
         let button = GradientButton.createFromNib()
         completeSignupBtnContainer.addSubview(button)
         button.snp.makeConstraints { (maker) in
@@ -112,6 +116,34 @@ class ProfileCreationViewController: UIViewController {
         }
         
         self.completeSignupBtn = button
+    }
+    
+    private func configureTextView() {
+        aboutYouTxtField.delegate = self
+        aboutYouPlaceholder.isHidden = false
+        aboutYouPlaceholder.text = "About you"
+    }
+    
+    private func configureProfileImage() {
+        attachBtn.startLoading(color: .lightGray)
+        attachBtn.imageView?.contentMode = .scaleAspectFill
+        
+        let imageApplication: (UIImage?) -> Void = { image in
+            self.attachBtn.stopLoading()
+            self.profileImg.layer.cornerRadius = 10.0
+            self.attachBtn.setImage(UIImage(named: "camera-button"), for: .normal)
+            self.profileImg.image = image
+            
+            self.attachBtnWidth.constant = 40.0
+            self.attachBtnHeight.constant = 40.0
+            
+            UIView.animate(withDuration: 0.6) {
+                self.attachBtn.setNeedsLayout()
+                self.attachBtn.layoutIfNeeded()
+            }
+        }
+        
+        imageApplication(viewModel.profileImageAttachment)
     }
 }
 
@@ -140,12 +172,6 @@ extension ProfileCreationViewController: UITextFieldDelegate {
 }
 
 extension ProfileCreationViewController: UITextViewDelegate {
-    private func configureTextView() {
-        aboutYouTxtField.delegate = self
-        aboutYouPlaceholder.isHidden = false
-        aboutYouPlaceholder.text = "About you"
-    }
-    
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -175,19 +201,6 @@ extension ProfileCreationViewController: UITextViewDelegate {
 }
 
 extension ProfileCreationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func configureProfileImage() {
-        attachBtn.startLoading(color: .lightGray)
-        attachBtn.imageView?.contentMode = .scaleAspectFill
-        
-        let imageApplication: (UIImage?) -> Void = { image in
-            self.attachBtn.stopLoading()
-            self.profileImg.layer.cornerRadius = 10.0
-            self.attachBtn.setImage(UIImage(named: "camera-button"), for: .normal)
-            self.profileImg.image = image
-        }
-        
-        imageApplication(viewModel.profileImageAttachment)
-    }
     
     private func showAttachmentAlert() {
         let alert = UIAlertController(

@@ -22,16 +22,15 @@ class AudioItemListViewController: UIViewController {
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var profileImage: UIImageView!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
     
     lazy var shareController = AudioShareController(parentViewController: self)
+    let viewModel = AudioItemListViewModel()
     
     weak var delegate: AudioItemListViewControllerDelegate?
-    var audioItems: [AudioItem] = []
-    
-    private var audioAttachmentManager = AudioAttachmentManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,16 +45,25 @@ class AudioItemListViewController: UIViewController {
         loadItems()
     }
     
+    private func observeViewModelChanges() {
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case .itemsLoaded:
+                    self.toggleEmptyView()
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }
+    }
+    
     private func loadItems() {
-        audioItems = AudioStorage.fetchItems()
-        DispatchQueue.main.async {
-            self.toggleEmptyView()
-            self.tableView.reloadData()
-        }        
+        viewModel.loadItems()
     }
     
     private func toggleEmptyView() {
-        if audioItems.count == 0 {
+        if viewModel.shouldShowEmptyView {
             emptyView.isHidden = false
         } else {
             emptyView.isHidden = true
@@ -67,8 +75,6 @@ class AudioItemListViewController: UIViewController {
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
-//        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
-        
         presentQuickRecordDialogue()
     }
     
@@ -76,16 +82,9 @@ class AudioItemListViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Audio", bundle: nil)
         let quickRecordViewController = storyboard.instantiateViewController(identifier: "quick-record") as! QuickRecordViewController
         
-        let id = UUID().uuidString
-        let item = AudioItem(
-            id: id,
-            path: "\(id).\(AudioConstants.fileExtension)",
-            title: "",
-            date: Date(),
-            tags: []
-        )
+        let newItem = viewModel.newItem
         
-        let audioManager = AudioManager(item: item)
+        let audioManager = AudioManager(item: newItem)
         quickRecordViewController.audioManager = audioManager
         quickRecordViewController.delegate = self
         
@@ -105,18 +104,7 @@ class AudioItemListViewController: UIViewController {
     }
     
     func reloadItem(_ item: AudioItem) {
-        if audioItems.contains(item) {
-            audioItems = audioItems.replacing(item)
-        } else {
-            audioItems.append(item)
-        }
-        
-        audioAttachmentManager.resetCache()
-        
-        DispatchQueue.main.async {
-            self.toggleEmptyView()
-            self.tableView.reloadData()
-        }
+        viewModel.reloadItem(item)
     }
 }
 
@@ -126,69 +114,66 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        audioItems.count
+        viewModel.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let audioItem = audioItems[indexPath.row]
+        let audioItem = viewModel.item(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AudioItemCell
-        cell.configure(with: audioItem, audioAttachmentManager: audioAttachmentManager)
+        cell.configure(
+            with: audioItem,
+            audioAttachmentManager: viewModel.audioAttachmentManager
+        )
         cell.delegate = self
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // transcription-test-file-trimmed
-        // supertrimmed
-//        let url = Bundle.main.url(forResource: "supertrimmed", withExtension: "flac")
-//        let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
-//        delegate?.audioItemListViewControllerDidSelectTestSpeechItem(self, item: audioItem)
-        
-        let audioItem = audioItems[indexPath.row]
+        let audioItem = viewModel.item(at: indexPath)
         delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let share = UIContextualAction(style: .normal, title: "Send") { (action, view, completionHandler) in
-            self.delegate?.audioItemListViewController(self, didSelectSendOnItem: self.audioItems[indexPath.row])
+            self.delegate?.audioItemListViewController(
+                self,
+                didSelectSendOnItem: self.viewModel.item(at: indexPath)
+            )
             completionHandler(true)
         }
         
         share.backgroundColor = UIColor(named: "speezy-purple")
         
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            let item = self.audioItems[indexPath.row]
-            self.deleteItem(item: item) {
-                self.audioItems.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                self.toggleEmptyView()
-            }
+            let item = self.viewModel.item(at: indexPath)
+            self.deleteItem(item: item)
             completionHandler(true)
         }
         
         return UISwipeActionsConfiguration(actions: [share, delete])
     }
     
-    private func deleteItem(item: AudioItem, completion: @escaping () -> Void) {
+    private func deleteItem(item: AudioItem) {
         let alert = UIAlertController(
             title: "Delete item",
             message: "Are you sure you want to delete this clip? You will not be able to undo this action.",
             preferredStyle: .alert
         )
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
-            FileManager.default.deleteExistingURL(item.withStagingPath().url)
-            FileManager.default.deleteExistingURL(item.url)
-            AudioStorage.deleteItem(item)
-            completion()
+        let deleteAction = UIAlertAction(
+            title: "Delete",
+            style: .destructive
+        ) { _ in
+            self.viewModel.deleteItem(item)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            
-        }
-        
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
+
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
@@ -202,11 +187,11 @@ extension AudioItemListViewController: AudioItemCellDelegate {
             self.share(item: item)
         }
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            self.deleteItem(item: item, completion: {
-                self.audioItems = self.audioItems.removing(item)
-                self.tableView.reloadData()
-            })
+        let deleteAction = UIAlertAction(
+            title: "Delete",
+            style: .destructive
+        ) { (action) in
+            self.deleteItem(item: item)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

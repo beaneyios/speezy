@@ -118,6 +118,7 @@
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
+		BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */; };
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
 		BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */; };
@@ -291,6 +292,7 @@
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
+		BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewModel.swift; sourceTree = "<group>"; };
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignupViewModel.swift; sourceTree = "<group>"; };
@@ -619,14 +621,15 @@
 			isa = PBXGroup;
 			children = (
 				BE222CC3258A2D0C007144FD /* Constants */,
-				BEFDB4F4255FF34900362428 /* Enums */,
 				BEAACE8A24BA10400074E4B9 /* Controllers */,
 				BEBFD4C424C5BAA600200D87 /* Coordinators */,
+				BEFDB4F4255FF34900362428 /* Enums */,
 				BE0E53D024E9BDE8009BA1F9 /* Extensions */,
 				BE50346324BE02B100A414D1 /* Models */,
 				BE50346624BE02C600A414D1 /* Protocols */,
 				BEBFD4BD24C5B98200200D87 /* Storyboards */,
 				BEAACE8424BA04D70074E4B9 /* View Controllers */,
+				BEC6431B25A4F5C90090F189 /* View Models */,
 				BEAACE8924BA08710074E4B9 /* Views */,
 			);
 			path = Audio;
@@ -756,6 +759,14 @@
 				BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEC6431B25A4F5C90090F189 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */,
+			);
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		BEC825B4257D53010037F007 /* Auth */ = {
@@ -1226,6 +1237,7 @@
 				BEFDB54E255FF8D100362428 /* TranscriptNotification.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
+				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,

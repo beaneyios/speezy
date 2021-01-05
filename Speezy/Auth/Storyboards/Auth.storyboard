@@ -401,11 +401,11 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLt-1j-478" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                                <rect key="frame" x="212" y="160" width="45" height="45"/>
+                                                <rect key="frame" x="157" y="105" width="100" height="100"/>
                                                 <color key="backgroundColor" name="speezy-purple"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="45" id="5dh-os-ibh"/>
-                                                    <constraint firstAttribute="width" constant="45" id="aWw-fq-TYq"/>
+                                                    <constraint firstAttribute="height" constant="100" id="5dh-os-ibh"/>
+                                                    <constraint firstAttribute="width" constant="100" id="aWw-fq-TYq"/>
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="camera-button"/>
@@ -516,6 +516,8 @@
                         <outlet property="aboutYouPlaceholder" destination="myp-ya-bjL" id="chu-qJ-RbH"/>
                         <outlet property="aboutYouTxtField" destination="Tiy-6Q-1Px" id="0ra-GM-cIR"/>
                         <outlet property="attachBtn" destination="vLt-1j-478" id="MBU-aJ-cuA"/>
+                        <outlet property="attachBtnHeight" destination="aWw-fq-TYq" id="Ndh-ky-Hbd"/>
+                        <outlet property="attachBtnWidth" destination="5dh-os-ibh" id="wVg-Qz-pOJ"/>
                         <outlet property="completeSignupBtnContainer" destination="POf-Im-vzJ" id="Oyn-KF-NMC"/>
                         <outlet property="nameTxtField" destination="Foi-sU-9Ad" id="nou-6M-miP"/>
                         <outlet property="profileImg" destination="OmK-LZ-6D4" id="bee-ab-zgD"/>
