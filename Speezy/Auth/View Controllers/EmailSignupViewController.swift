@@ -22,8 +22,9 @@ class EmailSignupViewController: UIViewController {
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
     @IBOutlet weak var passwordValidateTxtField: UITextField!
-    @IBOutlet weak var moveOnBtn: UIButton!
     @IBOutlet weak var moveOnBtnContainer: UIView!
+    
+    private var moveOnBtn: GradientButton?
     
     weak var delegate: EmailSignupViewControllerDelegate?
     var viewModel: EmailSignupViewModel!
@@ -34,6 +35,7 @@ class EmailSignupViewController: UIViewController {
         configureTextFields()
         moveOnBtnContainer.addShadow()
         configureInsetManager()
+        configureButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -50,7 +52,7 @@ class EmailSignupViewController: UIViewController {
         }
     }
     
-    @IBAction func moveOnToProfile(_ sender: Any) {
+    func moveOnToProfile() {
         submit()
     }
     
@@ -73,7 +75,7 @@ class EmailSignupViewController: UIViewController {
         }
         
         view.endEditing(true)
-        
+        moveOnBtn?.startLoading()
         viewModel.signup { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -85,8 +87,24 @@ class EmailSignupViewController: UIViewController {
                 case .failure:
                     break
                 }
+                
+                self.moveOnBtn?.stopLoading()
             }
         }
+    }
+    
+    private func configureButton() {
+        let button = GradientButton.createFromNib()
+        moveOnBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "SIGN UP") {
+            self.moveOnToProfile()
+        }
+        
+        self.moveOnBtn = button
     }
     
     private func configureTextFields() {

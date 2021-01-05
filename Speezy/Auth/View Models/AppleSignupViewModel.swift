@@ -22,6 +22,8 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     var didChange: ((Change) -> Void)?
     private var currentNonce: String?
     
+    var profileImageAttachment: UIImage?
+    
     init(anchor: UIWindow) {
         self.anchor = anchor
     }

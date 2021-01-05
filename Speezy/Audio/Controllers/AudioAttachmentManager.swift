@@ -19,7 +19,7 @@ class AudioAttachmentManager {
     func storeAttachment(
         _ image: UIImage?,
         forItem item: AudioItem,
-        completion: @escaping () -> Void
+        completion: (() -> Void)? = nil
     ) {
         if let image = image {
             imageAttachmentCache[item.id] = image
@@ -36,7 +36,7 @@ class AudioAttachmentManager {
             
             guard let imageData = image?.jpegData(compressionQuality: 1.0) else {
                 FileManager.default.deleteExistingURL(url)
-                completion()
+                completion?()
                 return
             }
             
@@ -46,7 +46,7 @@ class AudioAttachmentManager {
                 assertionFailure("Write failed")
             }
             
-            completion()
+            completion?()
         }
     }
     

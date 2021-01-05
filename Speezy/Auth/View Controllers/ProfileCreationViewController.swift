@@ -11,7 +11,6 @@ import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
-    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
 }
 
 class ProfileCreationViewController: UIViewController {
@@ -19,13 +18,16 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var attachBtn: SpeezyButton!
+    @IBOutlet weak var attachBtnWidth: NSLayoutConstraint!
+    @IBOutlet weak var attachBtnHeight: NSLayoutConstraint!
     
     @IBOutlet weak var nameTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
-    @IBOutlet weak var completeSignupBtn: UIButton!
     @IBOutlet weak var completeSignupBtnContainer: UIView!
+    
+    private var completeSignupBtn: GradientButton?
     
     weak var delegate: ProfileCreationViewControllerDelegate?
     var viewModel: FirebaseSignupViewModel!
@@ -37,6 +39,7 @@ class ProfileCreationViewController: UIViewController {
         configureTextView()
         completeSignupBtnContainer.addShadow()
         configureInsetManager()
+        configureSignupButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -44,6 +47,8 @@ class ProfileCreationViewController: UIViewController {
         
         profileImg.layer.cornerRadius = profileImg.frame.width / 2.0
         attachBtn.layer.cornerRadius = attachBtn.frame.width / 2.0
+        attachBtn.layer.borderWidth = 2.0
+        attachBtn.layer.borderColor = UIColor.white.cgColor
         completeSignupBtnContainer.layer.cornerRadius = completeSignupBtnContainer.frame.height / 2.0
         completeSignupBtnContainer.clipsToBounds = true
     }
@@ -60,17 +65,18 @@ class ProfileCreationViewController: UIViewController {
         showAttachmentAlert()
     }
     
-    @IBAction func completeSignup(_ sender: Any) {
+    func completeSignup() {
+        completeSignupBtn?.startLoading()
         viewModel.createProfile {
             DispatchQueue.main.async {
+                self.completeSignupBtn?.stopLoading()
                 self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
-                // TODO: Handle profile creation.
             }
         }
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        delegate?.profileCreationViewControllerDidGoBack(self)
+    @IBAction func skip(_ sender: Any) {
+        completeSignup()
     }
     
     private func configureTextFields() {
@@ -97,15 +103,75 @@ class ProfileCreationViewController: UIViewController {
         
         self.insetManager.startListening()
     }
-}
-
-extension ProfileCreationViewController: UITextViewDelegate {
+    
+    private func configureSignupButton() {
+        let button = GradientButton.createFromNib()
+        completeSignupBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "COMPLETE SIGN UP") {
+            self.completeSignup()
+        }
+        
+        self.completeSignupBtn = button
+    }
+    
     private func configureTextView() {
         aboutYouTxtField.delegate = self
         aboutYouPlaceholder.isHidden = false
         aboutYouPlaceholder.text = "About you"
     }
     
+    private func configureProfileImage() {
+        attachBtn.startLoading(color: .lightGray)
+        attachBtn.imageView?.contentMode = .scaleAspectFill
+        
+        let imageApplication: (UIImage?) -> Void = { image in
+            self.attachBtn.stopLoading()
+            self.profileImg.layer.cornerRadius = 10.0
+            self.attachBtn.setImage(UIImage(named: "camera-button"), for: .normal)
+            self.profileImg.image = image
+            
+            self.attachBtnWidth.constant = 40.0
+            self.attachBtnHeight.constant = 40.0
+            
+            UIView.animate(withDuration: 0.6) {
+                self.attachBtn.setNeedsLayout()
+                self.attachBtn.layoutIfNeeded()
+            }
+        }
+        
+        imageApplication(viewModel.profileImageAttachment)
+    }
+}
+
+extension ProfileCreationViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.scrollRectToVisible(textField.frame, animated: true)
+    }
+    
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(
+            in: range,
+            with: string
+        )
+        
+        if textField == nameTxtField {
+            viewModel.profile.name = updatedText
+        }
+        
+        return true
+    }
+}
+
+extension ProfileCreationViewController: UITextViewDelegate {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -134,26 +200,7 @@ extension ProfileCreationViewController: UITextViewDelegate {
     }
 }
 
-extension ProfileCreationViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        scrollView.scrollRectToVisible(textField.frame, animated: true)
-    }
-}
-
 extension ProfileCreationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func configureProfileImage() {
-        attachBtn.startLoading(color: .lightGray)
-        attachBtn.imageView?.contentMode = .scaleAspectFill
-        
-        let imageApplication: (UIImage?) -> Void = { image in
-            self.attachBtn.stopLoading()
-            self.profileImg.layer.cornerRadius = 10.0
-            self.attachBtn.setImage(UIImage(named: "camera-button"), for: .normal)
-            self.profileImg.image = image
-        }
-        
-        // TODO: Fetch image attachment and apply it somehow.
-    }
     
     private func showAttachmentAlert() {
         let alert = UIAlertController(
@@ -200,8 +247,7 @@ extension ProfileCreationViewController: UIImagePickerControllerDelegate, UINavi
                 return
             }
             
-            
-            // TODO: Set downloaded image.
+            self.viewModel.profileImageAttachment = image
             self.configureProfileImage()
         }
     }

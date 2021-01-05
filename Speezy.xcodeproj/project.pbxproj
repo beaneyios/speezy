@@ -90,6 +90,8 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
+		BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */; };
+		BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8BA7E8259FB9160071B57A /* GradientButton.xib */; };
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
@@ -116,9 +118,11 @@
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
+		BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */; };
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
-		BEDC11F5259CA6C500BB0064 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */; };
+		BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */; };
+		BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */; };
 		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
 		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
 		BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126124F1964400B53D1A /* ShareOptionCell.xib */; };
@@ -129,6 +133,8 @@
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
+		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
+		BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A1025A3A84F0045ABFF /* Data+Size.swift */; };
 		BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */; };
 		BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B7162546081B009308A4 /* supertrimmed.flac */; };
 		BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */; };
@@ -258,6 +264,8 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		BE8BA7E8259FB9160071B57A /* GradientButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradientButton.xib; sourceTree = "<group>"; };
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
@@ -284,9 +292,11 @@
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
+		BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewModel.swift; sourceTree = "<group>"; };
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignupViewModel.swift; sourceTree = "<group>"; };
+		BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEditor.swift; sourceTree = "<group>"; };
 		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
 		BEDC126124F1964400B53D1A /* ShareOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOptionCell.xib; sourceTree = "<group>"; };
@@ -297,6 +307,8 @@
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
+		BEF28A1025A3A84F0045ABFF /* Data+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Size.swift"; sourceTree = "<group>"; };
 		BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobManager.swift; sourceTree = "<group>"; };
 		BEF3B7162546081B009308A4 /* supertrimmed.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = supertrimmed.flac; sourceTree = "<group>"; };
 		BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribeActionViewController.swift; sourceTree = "<group>"; };
@@ -609,14 +621,15 @@
 			isa = PBXGroup;
 			children = (
 				BE222CC3258A2D0C007144FD /* Constants */,
-				BEFDB4F4255FF34900362428 /* Enums */,
 				BEAACE8A24BA10400074E4B9 /* Controllers */,
 				BEBFD4C424C5BAA600200D87 /* Coordinators */,
+				BEFDB4F4255FF34900362428 /* Enums */,
 				BE0E53D024E9BDE8009BA1F9 /* Extensions */,
 				BE50346324BE02B100A414D1 /* Models */,
 				BE50346624BE02C600A414D1 /* Protocols */,
 				BEBFD4BD24C5B98200200D87 /* Storyboards */,
 				BEAACE8424BA04D70074E4B9 /* View Controllers */,
+				BEC6431B25A4F5C90090F189 /* View Models */,
 				BEAACE8924BA08710074E4B9 /* Views */,
 			);
 			path = Audio;
@@ -748,13 +761,22 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		BEC6431B25A4F5C90090F189 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
 		BEC825B4257D53010037F007 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				BEDC11F3259CA6B900BB0064 /* Protocols */,
-				BEDC11EA259CA64100BB0064 /* Models */,
+				BEDC1220259D161A00BB0064 /* Controllers */,
 				BE5429662593796B007EEAD1 /* Coordinators */,
 				BE5429722593AF2D007EEAD1 /* Extensions */,
+				BEDC11EA259CA64100BB0064 /* Models */,
+				BEDC11F3259CA6B900BB0064 /* Protocols */,
 				BEC825B5257D530D0037F007 /* Storyboards */,
 				BE54295925937139007EEAD1 /* View Controllers */,
 				BEF4DB6E2593D6C7002B403A /* View Models */,
@@ -781,9 +803,17 @@
 		BEDC11F3259CA6B900BB0064 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				BEDC11F4259CA6C500BB0064 /* SignupViewModel.swift */,
+				BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		BEDC1220259D161A00BB0064 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		BEDC126C24F2D2A900B53D1A /* Resources */ = {
@@ -811,9 +841,11 @@
 			isa = PBXGroup;
 			children = (
 				BEF0ECB224BF949800B9D554 /* UI */,
-				BEBFD4C724C5BD1E00200D87 /* FileManager+Helpers.swift */,
 				BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */,
+				BEF28A1025A3A84F0045ABFF /* Data+Size.swift */,
+				BEBFD4C724C5BD1E00200D87 /* FileManager+Helpers.swift */,
 				BEE792B92597B1BA008C4E14 /* String+Crypto.swift */,
+				BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -856,6 +888,8 @@
 				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
 				BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */,
 				BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */,
+				BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */,
+				BE8BA7E8259FB9160071B57A /* GradientButton.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1034,6 +1068,7 @@
 				BE2351AF252FA1A800067BA2 /* transcription-test-file-trimmed.flac in Resources */,
 				BE6080BE250EB455003CB318 /* transcription-test-file.flac in Resources */,
 				BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */,
+				BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */,
 				BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */,
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
@@ -1160,8 +1195,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEDC11F5259CA6C500BB0064 /* SignupViewModel.swift in Sources */,
+				BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */,
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
+				BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
 				BEFDB53E255FF8A900362428 /* PlaybackNotification.swift in Sources */,
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
@@ -1201,10 +1237,12 @@
 				BEFDB54E255FF8D100362428 /* TranscriptNotification.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
+				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
+				BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
@@ -1251,6 +1289,7 @@
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
+				BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BE268B37256086BF009C5D3D /* AudioSavingManager.swift in Sources */,
@@ -1263,6 +1302,7 @@
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
+				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,

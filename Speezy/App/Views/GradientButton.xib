@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GradientButton" customModule="Speezy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="381" height="111"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4c-E7-PAU">
+                    <rect key="frame" x="0.0" y="0.0" width="381" height="111"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="d08-s5-dHf">
+                            <rect key="frame" x="0.0" y="0.0" width="381" height="111"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fiK-4c-uH9">
+                            <rect key="frame" x="0.0" y="0.0" width="381" height="111"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <state key="normal" title="SET UP PROFILE">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="nHJ-qQ-xS7">
+                            <rect key="frame" x="180.5" y="45.5" width="20" height="20"/>
+                            <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="fiK-4c-uH9" firstAttribute="top" secondItem="E4c-E7-PAU" secondAttribute="top" id="2Op-ip-pOS"/>
+                        <constraint firstItem="d08-s5-dHf" firstAttribute="top" secondItem="E4c-E7-PAU" secondAttribute="top" id="5tW-2g-B2b"/>
+                        <constraint firstAttribute="trailing" secondItem="fiK-4c-uH9" secondAttribute="trailing" id="DHr-Ky-r2i"/>
+                        <constraint firstItem="nHJ-qQ-xS7" firstAttribute="centerX" secondItem="E4c-E7-PAU" secondAttribute="centerX" id="I7F-FH-K3v"/>
+                        <constraint firstAttribute="trailing" secondItem="d08-s5-dHf" secondAttribute="trailing" id="Mmn-mQ-WXk"/>
+                        <constraint firstItem="fiK-4c-uH9" firstAttribute="leading" secondItem="E4c-E7-PAU" secondAttribute="leading" id="O2b-H0-IEO"/>
+                        <constraint firstAttribute="trailing" secondItem="fiK-4c-uH9" secondAttribute="trailing" id="QbF-va-BBW"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fiK-4c-uH9" secondAttribute="bottom" id="eSb-kN-4Ce"/>
+                        <constraint firstItem="fiK-4c-uH9" firstAttribute="leading" secondItem="E4c-E7-PAU" secondAttribute="leading" id="gA4-kF-l1g"/>
+                        <constraint firstItem="d08-s5-dHf" firstAttribute="leading" secondItem="E4c-E7-PAU" secondAttribute="leading" id="nAs-ef-iKp"/>
+                        <constraint firstAttribute="bottom" secondItem="d08-s5-dHf" secondAttribute="bottom" id="nlZ-FU-e0r"/>
+                        <constraint firstItem="nHJ-qQ-xS7" firstAttribute="centerY" secondItem="E4c-E7-PAU" secondAttribute="centerY" id="pbt-49-dxb"/>
+                        <constraint firstAttribute="bottom" secondItem="fiK-4c-uH9" secondAttribute="bottom" id="pmq-e7-430"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="E4c-E7-PAU" secondAttribute="trailing" id="1Q3-5j-Y5e"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="E4c-E7-PAU" secondAttribute="bottom" id="8NE-eI-9fz"/>
+                <constraint firstItem="E4c-E7-PAU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bE4-jD-dLt"/>
+                <constraint firstItem="E4c-E7-PAU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vqu-at-nHz"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="button" destination="fiK-4c-uH9" id="3Xn-pe-AIN"/>
+                <outlet property="spinner" destination="nHJ-qQ-xS7" id="7Ib-1a-bc2"/>
+            </connections>
+            <point key="canvasLocation" x="-134.05797101449275" y="328.45982142857139"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="red-gradient" width="500" height="70"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

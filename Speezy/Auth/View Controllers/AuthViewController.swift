@@ -26,6 +26,8 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var btnSignupWithEmail: UIButton!
     @IBOutlet weak var btnSignupWithEmailContainer: UIView!
+    @IBOutlet weak var facebookSignupBtn: SpeezyButton!
+    @IBOutlet weak var appleSignupBtn: SpeezyButton!
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -40,11 +42,14 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func signUpWithFacebook(_ sender: Any) {
+        facebookSignupBtn.startLoading()
+        
         let viewModel = FacebookSignupViewModel()
         viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(user):
+                    self.facebookSignupBtn.stopLoading()
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel
@@ -62,11 +67,14 @@ class AuthViewController: UIViewController {
             return
         }
         
+        appleSignupBtn.startLoading()
+        
         let viewModel = AppleSignupViewModel(anchor: window)
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
                 case let .loggedIn(user):
+                    self.appleSignupBtn.stopLoading()
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel
