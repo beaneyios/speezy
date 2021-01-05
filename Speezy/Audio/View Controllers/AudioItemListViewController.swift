@@ -35,14 +35,18 @@ class AudioItemListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        observeViewModelChanges()        
+        configureTableView()
+        loadItems()
+    }
+    
+    private func configureTableView() {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
         tableView.estimatedRowHeight = 100.0
         tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        
-        loadItems()
     }
     
     private func observeViewModelChanges() {
@@ -54,7 +58,6 @@ class AudioItemListViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             }
-            
         }
     }
     
