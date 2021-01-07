@@ -25,16 +25,5 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.Speezy</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>widget-SpeezyWidget</string>
-			</array>
-		</dict>
-	</array>
 </dict>
 </plist>

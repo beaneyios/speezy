@@ -65,12 +65,12 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.speezy</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>widget-SpeezyWidget</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>com.speezy</string>
 		</dict>
 	</array>
 </dict>

@@ -14,7 +14,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
     var appCoordinator: AppCoordinator!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
@@ -22,11 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         print("option 1")
         maybeOpenedFromWidget(urlContexts: connectionOptions.urlContexts)
         
+        
         let navigationController = UINavigationController()
         self.appCoordinator = AppCoordinator(navigationController: navigationController)
         self.appCoordinator.start()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        
+        
     }
     
     
@@ -66,6 +71,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
     
     //Widget handling (Stephen Karl)
     private func maybeOpenedFromWidget(urlContexts: Set<UIOpenURLContext>) {
+        //print("widget handling")
+        //print("\(urlContexts.first)")
         guard let _: UIOpenURLContext = urlContexts.first(where: { $0.url.scheme == "widget-SpeezyWidget" }) else { return }
         print("🚀 Launched from widget")
     }

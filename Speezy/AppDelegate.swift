@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     //MARK: - Widget URL handling
-    //private asdded to silence a warning
+    //private added to silence a warning
     //func application(_ application: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         print("URL received")
