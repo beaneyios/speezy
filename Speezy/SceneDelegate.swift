@@ -18,13 +18,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
+        //widget handling in scene (Stephen Karl)
+        print("option 1")
+        maybeOpenedFromWidget(urlContexts: connectionOptions.urlContexts)
+        
         let navigationController = UINavigationController()
         self.appCoordinator = AppCoordinator(navigationController: navigationController)
         self.appCoordinator.start()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
-
+    
+    
+    // App opened from background
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        print("option 2")
+        maybeOpenedFromWidget(urlContexts: URLContexts)
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -52,6 +63,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
+    
+    //Widget handling (Stephen Karl)
+    private func maybeOpenedFromWidget(urlContexts: Set<UIOpenURLContext>) {
+        guard let _: UIOpenURLContext = urlContexts.first(where: { $0.url.scheme == "widget-SpeezyWidget" }) else { return }
+        print("🚀 Launched from widget")
+    }
 
 }

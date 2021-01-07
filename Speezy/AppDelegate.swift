@@ -35,6 +35,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.shared.isIdleTimerDisabled = false
     }
 
+    //MARK: - Widget URL handling
+    //private asdded to silence a warning
+    //func application(_ application: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("URL received")
+        let message = url.host?.removingPercentEncoding // foobarmessage
+        //return true
+        
+        if url.scheme == "widget-SpeezyWidget" {
+            //let title = // get the title out of the URL's query using a method of your choice
+            //let body = // get the title out of the URL's query using a method of your choice
+            print ("Go with URL")
+            //self.rootViewController.createTaskWithTitle(title, body: body)
+            return true
+        }
 
+        return false
+    }
+    
+    /*func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+       let message = url.host?.removingPercentEncoding // foobarmessage
+       return true
+    }
+   */
+    
 }
 

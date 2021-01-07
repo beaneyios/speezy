@@ -75,6 +75,11 @@ struct SpeezyWidgetEntryView : View {
             .clipShape(ContainerRelativeShape())
     }
     
+    //Widget Deep Link functionality
+    var deeplinkURL: URL {
+        URL(string: "widget-SpeezyWidget://widgetFamily/\(widgetFamily)")!
+    }
+    
     var body: some View {
         //Text(entry.date, style: .time) 
         
@@ -84,14 +89,16 @@ struct SpeezyWidgetEntryView : View {
                 //.edgesIgnoringSafeArea(.all)
             VStack {
                 HStack {
-                    title
-                    Image("start-recording-button- widget")
+                    //title
+                    Image("speezyLogo-widget")
                         .resizable()
-                        .frame(width: 20.0, height: 20.0, alignment: .center)
+                        .frame(width: 30.0, height: 30.0, alignment: .center)
                         .aspectRatio(1, contentMode: .fit)
                         //.scaleEffect(0.5)
+                    
                 }
                 description
+                
                 //Spacer()
 //                Image("Buttons/start-recording-button")
 //                    .resizable()
@@ -116,11 +123,13 @@ struct SpeezyWidgetEntryView : View {
                         //.padding(.horizontal)
                     Image("start-recording-button- widget")
                         .resizable()
-                        .frame(width: 65.0, height: 65.0, alignment: .center)
+                        .frame(width: 75.0, height: 75.0, alignment: .center)
                         .aspectRatio(0.5, contentMode: .fit)
                         .padding(.horizontal)
+                        .widgetURL(deeplinkURL)
                     
                 }
+                //.padding(.vertical)
                 //.background(Color.gray)
             }
         }
