@@ -82,8 +82,9 @@ struct SpeezyWidgetEntryView : View {
                 .resizable()
                 //.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: 8) {
+                Spacer(minLength:1)
                 HStack {
-                    //title
+                    //Speezy Logo - left aligned
                     Image("speezyLogo-widget")
                         .resizable()
                         .frame(width: 30.0, height: 30.0, alignment: .center)
@@ -96,7 +97,6 @@ struct SpeezyWidgetEntryView : View {
                     
                     description
                     
-                    
                     Button(action: {
                         print("start Recording")
                         
@@ -108,8 +108,8 @@ struct SpeezyWidgetEntryView : View {
                         .padding(.horizontal)
                         .widgetURL(deeplinkURL)
                     
-                }
-                
+                    }
+                    Spacer(minLength:4)
              } // end VStack2
             } // end ZStack
         }

@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //karl added - but too strong for full player
         //UIApplication.shared.isIdleTimerDisabled = false
     }
-
+    
+    /*
     //MARK: - Widget URL handling
     //private added to silence a warning
     //func application(_ application: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
@@ -53,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return false
     }
+    */
     
     /*func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
        let message = url.host?.removingPercentEncoding // foobarmessage
