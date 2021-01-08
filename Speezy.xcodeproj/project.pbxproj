@@ -149,6 +149,7 @@
 		DB0A4CFD259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */; };
 		DB0A4CFE259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */; };
 		DB0A4D01259CC87500255E1D /* SpeezyWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB0A4CF1259CC87400255E1D /* SpeezyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBE18C1B25A8773B00504CA1 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE18C1A25A8773B00504CA1 /* Provider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,6 +333,7 @@
 		DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = SpeezyWidget.intentdefinition; sourceTree = "<group>"; };
 		DB0A4CFA259CC87500255E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB0A4CFC259CC87500255E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBE18C1A25A8773B00504CA1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -896,17 +898,10 @@
 				DB0A4CF7259CC87400255E1D /* SpeezyWidget.swift */,
 				DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */,
 				DB0A4CFA259CC87500255E1D /* Assets.xcassets */,
-				DB0A4D0925A35F6300255E1D /* WidgetBackground */,
 				DB0A4CFC259CC87500255E1D /* Info.plist */,
+				DBE18C1A25A8773B00504CA1 /* Provider.swift */,
 			);
 			path = SpeezyWidget;
-			sourceTree = "<group>";
-		};
-		DB0A4D0925A35F6300255E1D /* WidgetBackground */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = WidgetBackground;
 			sourceTree = "<group>";
 		};
 		E15487FD64A1D16053241EB9 /* Frameworks */ = {
@@ -1212,6 +1207,7 @@
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
+				DBE18C1B25A8773B00504CA1 /* Provider.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,

@@ -20,6 +20,7 @@ struct Provider: IntentTimelineProvider {
         completion(entry)
     }
 
+    @available(iOS 14.0, *)
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
 
@@ -41,10 +42,10 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 }
 
+
 struct SpeezyWidgetEntryView : View {
     var entry: Provider.Entry
     
-    //var thisImage: UIImage = UIImage(contentsOfFile: "KarlFace1") ?? (UIImage(named: "KarlFace1")
     
     @Environment(\.widgetFamily) private var widgetFamily
     
@@ -58,22 +59,15 @@ struct SpeezyWidgetEntryView : View {
     }
     
     var description: some View {
-        Text("Create a re[play]able audio message.")
+        Text("Create an audio message.")
             //.font(.subheadline)
-            .font(.system(size: 10))
+            .font(.system(size: 12))
             .fontWeight(.medium)
             .lineLimit(2)
             .foregroundColor(.white)
+            .padding(4)
     }
     
-    var image: some View {
-        Rectangle()
-            //.overlay()
-            
-            .imageScale(/*@START_MENU_TOKEN@*/.medium/*@END_MENU_TOKEN@*/)
-            .aspectRatio(1, contentMode: .fit)
-            .clipShape(ContainerRelativeShape())
-    }
     
     //Widget Deep Link functionality
     var deeplinkURL: URL {
@@ -87,41 +81,27 @@ struct SpeezyWidgetEntryView : View {
             Image("background-gradient widget")
                 .resizable()
                 //.edgesIgnoringSafeArea(.all)
-            VStack {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     //title
                     Image("speezyLogo-widget")
                         .resizable()
                         .frame(width: 30.0, height: 30.0, alignment: .center)
                         .aspectRatio(1, contentMode: .fit)
+                        .padding(4)
                         //.scaleEffect(0.5)
                     
                 }
-                description
-                
-                //Spacer()
-//                Image("Buttons/start-recording-button")
-//                    .resizable()
-//                    .frame(width: 32.0, height: 32.0, alignment: .center)
-//                    .aspectRatio(0.7, contentMode: .fit)
-                //HStack {
-                    //DiceView(n: leftDiceNumber)
-                    //DiceView(n: rightDiceNumber)
-                //}
-                //.padding(.horizontal)
-                //Spacer()
-                Button(action: {
-                    print("start Recording")
-                    print("deep link goes here")
-                    //self.leftDiceNumber = Int.random(in: 1...6)
-                    //self.rightDiceNumber = Int.random(in: 1...6)
-                }) {
-                    //Text("Record")
-                      //  .font(.system(size: 14))
-                       // .fontWeight(.medium)
-                        //.foregroundColor(.white)
-                        //.padding(.horizontal)
-                    Image("start-recording-button- widget")
+                VStack {
+                    
+                    description
+                    
+                    
+                    Button(action: {
+                        print("start Recording")
+                        
+                    }) {
+                        Image("start-recording-button- widget")
                         .resizable()
                         .frame(width: 75.0, height: 75.0, alignment: .center)
                         .aspectRatio(0.5, contentMode: .fit)
@@ -129,9 +109,9 @@ struct SpeezyWidgetEntryView : View {
                         .widgetURL(deeplinkURL)
                     
                 }
-                //.padding(.vertical)
-                //.background(Color.gray)
-            }
+                
+             } // end VStack2
+            } // end ZStack
         }
     }
 }
