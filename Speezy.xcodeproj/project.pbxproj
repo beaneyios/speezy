@@ -17,6 +17,8 @@
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
+		BE18D0D225A8D49C0013CED5 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE18C1A25A8773B00504CA1 /* Provider.swift */; };
+		BE18D0D725A8D50D0013CED5 /* SimpleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18D0D625A8D50D0013CED5 /* SimpleEntry.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE222CC4258A2D1A007144FD /* AudioConstants.swift */; };
 		BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */; };
@@ -149,7 +151,6 @@
 		DB0A4CFD259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */; };
 		DB0A4CFE259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */; };
 		DB0A4D01259CC87500255E1D /* SpeezyWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB0A4CF1259CC87400255E1D /* SpeezyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DBE18C1B25A8773B00504CA1 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE18C1A25A8773B00504CA1 /* Provider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +198,7 @@
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
+		BE18D0D625A8D50D0013CED5 /* SimpleEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEntry.swift; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE222CC4258A2D1A007144FD /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
 		BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobStorage.swift; sourceTree = "<group>"; };
@@ -900,6 +902,7 @@
 				DB0A4CFA259CC87500255E1D /* Assets.xcassets */,
 				DB0A4CFC259CC87500255E1D /* Info.plist */,
 				DBE18C1A25A8773B00504CA1 /* Provider.swift */,
+				BE18D0D625A8D50D0013CED5 /* SimpleEntry.swift */,
 			);
 			path = SpeezyWidget;
 			sourceTree = "<group>";
@@ -1207,7 +1210,6 @@
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
-				DBE18C1B25A8773B00504CA1 /* Provider.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
@@ -1281,7 +1283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE18D0D725A8D50D0013CED5 /* SimpleEntry.swift in Sources */,
 				DB0A4CFD259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */,
+				BE18D0D225A8D49C0013CED5 /* Provider.swift in Sources */,
 				DB0A4CF8259CC87400255E1D /* SpeezyWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
