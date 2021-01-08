@@ -19,6 +19,7 @@
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
+		BE18D10225A8EA580013CED5 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18D10125A8EA580013CED5 /* EmailLoginViewController.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE222CC4258A2D1A007144FD /* AudioConstants.swift */; };
 		BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */; };
@@ -191,6 +192,7 @@
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
+		BE18D10125A8EA580013CED5 /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE222CC4258A2D1A007144FD /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
 		BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobStorage.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				BE54295A2593714B007EEAD1 /* EmailSignupViewController.swift */,
 				BE54296225937745007EEAD1 /* ProfileCreationViewController.swift */,
 				BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */,
+				BE18D10125A8EA580013CED5 /* EmailLoginViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1289,6 +1292,7 @@
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
+				BE18D10225A8EA580013CED5 /* EmailLoginViewController.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
