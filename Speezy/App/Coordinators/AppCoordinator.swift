@@ -23,6 +23,15 @@ class AppCoordinator: ViewCoordinator {
     override func finish() {
         
     }
+    
+    func showSuccess(message: String) {
+        let alert = UIAlertController(title: "Success!", message: message, preferredStyle: .alert)
+        navigationController.present(alert, animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 extension AppCoordinator: AudioItemCoordinatorDelegate {

@@ -20,25 +20,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        //widget handling in scene (Stephen Karl)
-        print("option 1")
-        maybeOpenedFromWidget(urlContexts: connectionOptions.urlContexts)
-        
-        
         let navigationController = UINavigationController()
         self.appCoordinator = AppCoordinator(navigationController: navigationController)
         self.appCoordinator.start()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-        
+        //widget handling in scene (Stephen Karl)
+        print("option 1")
+        maybeOpenedFromWidget(urlContexts: connectionOptions.urlContexts, message: "Cold launch")
     }
     
     
     // App opened from background
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         print("option 2")
-        maybeOpenedFromWidget(urlContexts: URLContexts)
+        maybeOpenedFromWidget(urlContexts: URLContexts, message: "Warm launch")
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -70,10 +67,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
     }
     
     //Widget handling (Stephen Karl)
-    private func maybeOpenedFromWidget(urlContexts: Set<UIOpenURLContext>) {
+    private func maybeOpenedFromWidget(urlContexts: Set<UIOpenURLContext>, message: String) {
         //print("widget handling")
         //print("\(urlContexts.first)")
         guard let _: UIOpenURLContext = urlContexts.first(where: { $0.url.scheme == "widget-SpeezyWidget" }) else { return }
+        appCoordinator.showSuccess(message: message)
         print("🚀 Launched from widget")
     }
 
