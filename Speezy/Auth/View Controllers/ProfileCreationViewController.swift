@@ -42,6 +42,10 @@ class ProfileCreationViewController: UIViewController {
         completeSignupBtnContainer.addShadow()
         configureInsetManager()
         configureSignupButton()
+        
+        if viewModel.profileImageAttachment != nil {
+            self.configureProfileImage()
+        }
     }
     
     override func viewDidLayoutSubviews() {

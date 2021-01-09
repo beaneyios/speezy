@@ -50,18 +50,13 @@ class AuthViewController: UIViewController {
         facebookSignupBtn.startLoading()
         
         let viewModel = FacebookSignupViewModel()
-        viewModel.login(viewController: self) { result in
+        viewModel.login(viewController: self) {
             DispatchQueue.main.async {
-                switch result {
-                case let .success(user):
-                    self.facebookSignupBtn.stopLoading()
-                    self.delegate?.authViewController(
-                        self,
-                        didMoveOnToProfileWithViewModel: viewModel
-                    )
-                case let .failure(error):
-                    break
-                }
+                self.facebookSignupBtn.stopLoading()
+                self.delegate?.authViewController(
+                    self,
+                    didMoveOnToProfileWithViewModel: viewModel
+                )
             }
         }
     }
