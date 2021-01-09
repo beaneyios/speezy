@@ -19,7 +19,12 @@ protocol AuthViewControllerDelegate: AnyObject {
         _ viewController: AuthViewController,
         didCompleteSignupWithUser user: User
     )
+    
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController)
+    
+    func authViewControllerDidSelectLogin(
+        _ viewController: AuthViewController
+    )
 }
 
 class AuthViewController: UIViewController {
@@ -87,5 +92,6 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func signIn(_ sender: Any) {
+        delegate?.authViewControllerDidSelectLogin(self)
     }
 }

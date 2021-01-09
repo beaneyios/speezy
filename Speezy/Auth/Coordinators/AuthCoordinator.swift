@@ -12,6 +12,7 @@ import FirebaseAuth
 
 protocol AuthCoordinatorDelegate: AnyObject {
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator)
+    func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator)
     func authCoordinatorDidFinish(_ coordinator: AuthCoordinator)
 }
 
@@ -49,7 +50,7 @@ class AuthCoordinator: ViewCoordinator {
         let viewController = storyboard.instantiateViewController(identifier: "AuthViewController") as! AuthViewController
         viewController.delegate = self
         navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.setViewControllers([viewController], animated: true)
     }
     
     private func navigateToEmailSignupView() {
@@ -63,6 +64,12 @@ class AuthCoordinator: ViewCoordinator {
         let viewController = storyboard.instantiateViewController(identifier: "ProfileCreationViewController") as! ProfileCreationViewController
         viewController.delegate = self
         viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func navigateToLoginView() {
+        let viewController = storyboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
     }
 }
@@ -83,6 +90,10 @@ extension AuthCoordinator: AuthLoadingViewControllerDelegate {
 }
 
 extension AuthCoordinator: AuthViewControllerDelegate {
+    func authViewControllerDidSelectLogin(_ viewController: AuthViewController) {
+        navigateToLoginView()
+    }
+    
     func authViewController(
         _ viewController: AuthViewController,
         didMoveOnToProfileWithViewModel viewModel: FirebaseSignupViewModel
@@ -108,6 +119,16 @@ extension AuthCoordinator: EmailSignupViewControllerDelegate {
     }
     
     func emailSignupViewControllerDidGoBack(_ viewController: EmailSignupViewController) {
+        navigationController.popViewController(animated: true)
+    }
+}
+
+extension AuthCoordinator: LoginViewControllerDelegate {
+    func loginViewControllerDidLogIn(_ viewController: LoginViewController) {
+        delegate?.authCoordinatorDidCompleteLogin(self)
+    }
+    
+    func loginViewControllerDidGoBack(_ viewController: LoginViewController) {
         navigationController.popViewController(animated: true)
     }
 }

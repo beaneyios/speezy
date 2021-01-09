@@ -75,22 +75,10 @@ class EmailSignupViewController: UIViewController {
         }
         
         view.endEditing(true)
-        moveOnBtn?.startLoading()
-        viewModel.signup { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    self.delegate?.emailSignupViewController(
-                        self,
-                        didMoveOnToProfileWithViewModel: self.viewModel
-                    )
-                case .failure:
-                    break
-                }
-                
-                self.moveOnBtn?.stopLoading()
-            }
-        }
+        delegate?.emailSignupViewController(
+            self,
+            didMoveOnToProfileWithViewModel: viewModel
+        )
     }
     
     private func configureButton() {

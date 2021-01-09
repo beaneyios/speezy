@@ -28,7 +28,11 @@ class AuthLoadingViewController: UIViewController {
         super.viewDidLoad()
         
         loadingSpinner.startAnimating()
-        viewModel.checkAuthStatus { (user) in
+        viewModel.checkAuthStatus { [weak self] (user) in
+            guard let self = self else {
+                return
+            }
+            
             DispatchQueue.main.async {
                 if let user = user {
                     self.delegate?.authLoadingViewController(
@@ -40,5 +44,10 @@ class AuthLoadingViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.stopListening()
     }
 }

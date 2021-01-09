@@ -9,6 +9,9 @@
 import FirebaseAuth
 
 class AuthLoadingViewModel {
+    
+    private var listener: AuthStateDidChangeListenerHandle?
+    
     func checkAuthStatus(completion: @escaping (User?) -> Void) {
         
         var timerCompleted = false
@@ -23,7 +26,7 @@ class AuthLoadingViewModel {
             }
         }
         
-        Auth.auth().addStateDidChangeListener { (auth, user) in
+        listener = Auth.auth().addStateDidChangeListener { (auth, user) in
             authCompleted = true
             
             if timerCompleted {
@@ -32,5 +35,13 @@ class AuthLoadingViewModel {
                 storedUser = user
             }
         }
+    }
+    
+    func stopListening() {
+        guard let listener = self.listener else {
+            return
+        }
+        
+        Auth.auth().removeStateDidChangeListener(listener)
     }
 }
