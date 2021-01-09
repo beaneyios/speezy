@@ -59,7 +59,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                 FirebaseUserProfileEditor().updateUserProfile(
                     userId: user.uid,
                     profile: self.profile,
-                    profileImage: nil,
+                    profileImage: self.profileImageAttachment,
                     completion: completion
                 )
             }
