@@ -151,6 +151,7 @@
 		DB0A4CFD259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */; };
 		DB0A4CFE259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0A4CF9259CC87400255E1D /* SpeezyWidget.intentdefinition */; };
 		DB0A4D01259CC87500255E1D /* SpeezyWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB0A4CF1259CC87400255E1D /* SpeezyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBE18C2625A9C36500504CA1 /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE18C2525A9C36500504CA1 /* Previews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,6 +337,7 @@
 		DB0A4CFA259CC87500255E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB0A4CFC259CC87500255E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBE18C1A25A8773B00504CA1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		DBE18C2525A9C36500504CA1 /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -903,6 +905,7 @@
 				DB0A4CFC259CC87500255E1D /* Info.plist */,
 				DBE18C1A25A8773B00504CA1 /* Provider.swift */,
 				BE18D0D625A8D50D0013CED5 /* SimpleEntry.swift */,
+				DBE18C2525A9C36500504CA1 /* Previews.swift */,
 			);
 			path = SpeezyWidget;
 			sourceTree = "<group>";
@@ -1286,6 +1289,7 @@
 				BE18D0D725A8D50D0013CED5 /* SimpleEntry.swift in Sources */,
 				DB0A4CFD259CC87500255E1D /* SpeezyWidget.intentdefinition in Sources */,
 				BE18D0D225A8D49C0013CED5 /* Provider.swift in Sources */,
+				DBE18C2625A9C36500504CA1 /* Previews.swift in Sources */,
 				DB0A4CF8259CC87400255E1D /* SpeezyWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

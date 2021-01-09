@@ -97,9 +97,3 @@ struct SpeezyWidget: Widget {
     }
 }
 
-struct SpeezyWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        SpeezyWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
-    }
-}
