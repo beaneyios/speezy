@@ -31,12 +31,7 @@ class EmailLoginViewModel {
     }
 }
 
-extension EmailLoginViewModel {
-    struct ValidationError {
-        var title: String
-        var message: String
-    }
-    
+extension EmailLoginViewModel {    
     func validatonError() -> ValidationError? {
         if email.isEmpty {
             return ValidationError(

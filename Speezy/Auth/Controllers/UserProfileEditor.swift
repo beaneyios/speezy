@@ -68,7 +68,9 @@ class FirebaseUserProfileEditor {
         
         var dataDictionary: [String: Any] = [
             "name": profile.name,
-            "about": profile.aboutYou
+            "about": profile.aboutYou,
+            "username": profile.userName,
+            "occupation": profile.occupation
         ]
         
         if let profileImage = profile.profileImageUrl {

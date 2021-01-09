@@ -137,6 +137,7 @@
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
+		BEEEB88025AA09B500E07CD0 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87F25AA09B500E07CD0 /* ValidationError.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
 		BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A1025A3A84F0045ABFF /* Data+Size.swift */; };
@@ -316,6 +317,7 @@
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
+		BEEEB87F25AA09B500E07CD0 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		BEF28A1025A3A84F0045ABFF /* Data+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Size.swift"; sourceTree = "<group>"; };
@@ -827,6 +829,7 @@
 			isa = PBXGroup;
 			children = (
 				BEDC11EB259CA64C00BB0064 /* Profile.swift */,
+				BEEEB87F25AA09B500E07CD0 /* ValidationError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1327,6 +1330,7 @@
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
 				BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
+				BEEEB88025AA09B500E07CD0 /* ValidationError.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BE268B37256086BF009C5D3D /* AudioSavingManager.swift in Sources */,
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,

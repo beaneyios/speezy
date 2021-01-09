@@ -47,13 +47,8 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     }
 }
 
-extension EmailSignupViewModel {
-    struct ValidationError {
-        var title: String
-        var message: String
-    }
-    
-    func validatonError() -> ValidationError? {
+extension EmailSignupViewModel {    
+    func validationError() -> ValidationError? {
         if email.isEmpty {
             return ValidationError(
                 title: "No email address supplied",

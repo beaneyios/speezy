@@ -61,7 +61,7 @@ class EmailSignupViewController: UIViewController {
     }
     
     private func submit() {
-        if let error = viewModel.validatonError() {
+        if let error = viewModel.validationError() {
             let alert = UIAlertController(
                 title: error.title,
                 message: error.message,

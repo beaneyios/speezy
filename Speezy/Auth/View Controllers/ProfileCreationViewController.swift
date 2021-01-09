@@ -21,7 +21,9 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var attachBtnWidth: NSLayoutConstraint!
     @IBOutlet weak var attachBtnHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var usernameTxtField: UITextField!
     @IBOutlet weak var nameTxtField: UITextField!
+    @IBOutlet weak var occupationTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
@@ -66,6 +68,19 @@ class ProfileCreationViewController: UIViewController {
     }
     
     func completeSignup() {
+        if let error = viewModel.profileValidationError() {
+            let alert = UIAlertController(
+                title: error.title,
+                message: error.message,
+                preferredStyle: .alert
+            )
+            
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
         completeSignupBtn?.startLoading()
         viewModel.createProfile {
             DispatchQueue.main.async {
@@ -75,14 +90,16 @@ class ProfileCreationViewController: UIViewController {
         }
     }
     
-    @IBAction func skip(_ sender: Any) {
-        completeSignup()
-    }
-    
     private func configureTextFields() {
         nameTxtField.makePlaceholderGrey()
         nameTxtField.delegate = self
         nameTxtField.text = viewModel.profile.name
+        
+        usernameTxtField.makePlaceholderGrey()
+        usernameTxtField.delegate = self
+        
+        occupationTxtField.makePlaceholderGrey()
+        occupationTxtField.delegate = self
         
         configureAboutYouPlaceholder()
     }
@@ -163,8 +180,15 @@ extension ProfileCreationViewController: UITextFieldDelegate {
             with: string
         )
         
-        if textField == nameTxtField {
+        switch textField {
+        case nameTxtField:
             viewModel.profile.name = updatedText
+        case occupationTxtField:
+            viewModel.profile.occupation = updatedText
+        case usernameTxtField:
+            viewModel.profile.userName = updatedText
+        default:
+            break
         }
         
         return true
