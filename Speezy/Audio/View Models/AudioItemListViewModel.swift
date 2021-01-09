@@ -16,6 +16,7 @@ class AudioItemListViewModel {
     enum Change {
         case itemsLoaded
         case profileImageLoaded(UIImage)
+        case userSignedOut
     }
     
     var didChange: ((Change) -> Void)?
@@ -72,11 +73,19 @@ extension AudioItemListViewModel {
         
         profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             guard let data = data, let image = UIImage(data: data) else {
+                if let defaultImage = UIImage(named: "account-btn") {
+                    self.didChange?(.profileImageLoaded(defaultImage))
+                }
                 return
             }
             
             self.didChange?(.profileImageLoaded(image))
         }
+    }
+    
+    func signOut() {
+        try? Auth.auth().signOut()
+        didChange?(.userSignedOut)
     }
 }
 

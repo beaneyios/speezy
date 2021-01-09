@@ -40,10 +40,7 @@ class AuthCoordinator: ViewCoordinator {
         ) as! AuthLoadingViewController
         viewController.delegate = self
         navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(
-            viewController,
-            animated: true
-        )
+        navigationController.setViewControllers([viewController], animated: true)
     }
     
     private func navigateToAuthView() {

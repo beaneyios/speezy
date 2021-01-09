@@ -54,6 +54,11 @@ extension AppCoordinator: AuthCoordinatorDelegate {
 }
 
 extension AppCoordinator: AudioItemCoordinatorDelegate {
+    func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator) {
+        remove(coordinator)
+        navigateToAuth()
+    }
+    
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
         remove(coordinator)
     }

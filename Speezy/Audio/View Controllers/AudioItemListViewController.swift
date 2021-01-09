@@ -11,10 +11,17 @@ import UIKit
 import SCLAlertView
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectAudioItem item: AudioItem
+    )
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectSendOnItem item: AudioItem
+    )
+    func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController {
@@ -39,6 +46,7 @@ class AudioItemListViewController: UIViewController {
         configureTableView()
         loadItems()
         loadProfileImage()
+        configureProfileButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -46,6 +54,14 @@ class AudioItemListViewController: UIViewController {
         
         profileButton.layer.cornerRadius = profileButton.frame.width / 2.0
         profileButton.clipsToBounds = true
+    }
+    
+    private func configureProfileButton() {
+        profileButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+    }
+    
+    @objc private func signOut() {
+        viewModel.signOut()
     }
     
     private func configureTableView() {
@@ -66,6 +82,8 @@ class AudioItemListViewController: UIViewController {
                     self.tableView.reloadData()
                 case let .profileImageLoaded(image):
                     self.profileButton.stopLoading(image: image)
+                case .userSignedOut:
+                    self.delegate?.audioItemListViewControllerDidSelectSignOut(self)
                 }
             }
         }
