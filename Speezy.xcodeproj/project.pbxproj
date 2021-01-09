@@ -136,6 +136,7 @@
 		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
+		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
 		BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A1025A3A84F0045ABFF /* Data+Size.swift */; };
@@ -314,6 +315,7 @@
 		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
+		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		BEF28A1025A3A84F0045ABFF /* Data+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Size.swift"; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */,
+				BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1314,6 +1317,7 @@
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
 				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
+				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,

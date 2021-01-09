@@ -132,7 +132,7 @@
                                     <constraint firstAttribute="height" constant="100" id="ASm-Im-aGQ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sya-SU-8Os" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sya-SU-8Os" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
                                 <rect key="frame" x="223" y="571" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MWc-hG-iko"/>
@@ -693,17 +693,6 @@
                                                     <constraint firstAttribute="height" constant="100" id="qx9-zJ-Qvm"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whp-bk-Lgo" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                                <rect key="frame" x="223" y="515.5" width="60" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="4gQ-4x-zFr"/>
-                                                    <constraint firstAttribute="width" constant="60" id="Tdo-yE-wj1"/>
-                                                </constraints>
-                                                <state key="normal" image="apple-signin-button-2"/>
-                                                <connections>
-                                                    <action selector="signInWithApple:" destination="JXt-Sy-0Rm" eventType="touchUpInside" id="ZE7-Ic-prJ"/>
-                                                </connections>
-                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCo-fb-aBx">
                                                 <rect key="frame" x="81.5" y="723" width="251" height="33"/>
                                                 <subviews>
@@ -735,6 +724,17 @@
                                                     <constraint firstItem="cFu-zg-L4X" firstAttribute="leading" secondItem="5tY-2Y-PYZ" secondAttribute="trailing" constant="4" id="pcY-NR-R3O"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whp-bk-Lgo" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
+                                                <rect key="frame" x="223" y="515.5" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="4gQ-4x-zFr"/>
+                                                    <constraint firstAttribute="width" constant="60" id="Tdo-yE-wj1"/>
+                                                </constraints>
+                                                <state key="normal" image="apple-signin-button-2"/>
+                                                <connections>
+                                                    <action selector="signInWithApple:" destination="JXt-Sy-0Rm" eventType="touchUpInside" id="ZE7-Ic-prJ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>

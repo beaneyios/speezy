@@ -46,6 +46,12 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signInWithFacebook(_ sender: Any) {
+        let viewModel = FacebookLoginViewModel()
+        viewModel.login(viewController: self) {
+            DispatchQueue.main.async {
+                self.delegate?.loginViewControllerDidLogIn(self)
+            }
+        }
     }
     
     @IBAction func signInWithApple(_ sender: Any) {
