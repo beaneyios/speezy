@@ -13,14 +13,16 @@ import FirebaseAuth
 class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     
     enum Change {
-        case loggedIn(User)
+        case loggedIn
     }
     
     weak var anchor: UIWindow!
     
     var profile: Profile = Profile()
     var didChange: ((Change) -> Void)?
+    
     private var currentNonce: String?
+    private var appleIdToken: String?
     
     var profileImageAttachment: UIImage?
     
@@ -43,8 +45,38 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     }
     
     func createProfile(completion: @escaping () -> Void) {
-        // TODO: Once DB is created, create a profile
-        completion()
+        guard let idTokenString = appleIdToken, let nonce = currentNonce else {
+            return
+        }
+        
+        // Initialize a Firebase credential.
+        let credential = OAuthProvider.credential(
+            withProviderID: "apple.com",
+            idToken: idTokenString,
+            rawNonce: nonce
+        )
+        
+        // Sign in with Firebase.
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let user = authResult?.user {
+                if let displayName = user.displayName {
+                    self.profile.name = displayName
+                }
+                
+                FirebaseUserProfileEditor().updateUserProfile(
+                    userId: user.uid,
+                    profile: self.profile,
+                    profileImage: self.profileImageAttachment,
+                    completion: completion
+                )
+                
+                completion()
+            } else if let error = error {
+                // TODO: Handle error
+            } else {
+                // TODO: Handle no error.
+            }
+        }
     }
 }
 
@@ -61,52 +93,28 @@ extension AppleSignupViewModel: ASAuthorizationControllerDelegate {
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
         guard
-            let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential
+            let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+            let appleIDToken = appleIDCredential.identityToken,
+            let idTokenString = String(data: appleIDToken, encoding: .utf8)
         else {
+            assertionFailure("Unable to fetch token")
             return
         }
         
-        guard let nonce = currentNonce else {
-            assertionFailure(
-                "Invalid state: A login callback was received, but no login request was sent."
-            )
-            return
-        }
-        
-        guard let appleIDToken = appleIDCredential.identityToken else {
-            assertionFailure("Unable to fetch identity token")
-            return
-        }
-        
-        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-            assertionFailure(
-                "Unable to serialize token string from data: \(appleIDToken.debugDescription)"
-            )
-            return
-        }
-        
-        // Initialize a Firebase credential.
-        let credential = OAuthProvider.credential(
-            withProviderID: "apple.com",
-            idToken: idTokenString,
-            rawNonce: nonce
-        )
-        
-        // Sign in with Firebase.
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error = error {
-                // Error. If error.code == .MissingOrInvalidNonce, make sure
-                // you're sending the SHA256-hashed nonce as a hex string with
-                // your request to Apple.
-                print(error.localizedDescription)
-            } else if let result = authResult {
-                if let displayName = result.user.displayName {
-                    self.profile.name = displayName
+        self.profile.name = {
+            if let name = appleIDCredential.fullName {
+                if let firstName = name.givenName, let surname = name.familyName {
+                    return "\(firstName) \(surname)"
+                } else if let firstName = name.givenName {
+                    return "\(firstName)"
                 }
-                
-                self.didChange?(.loggedIn(result.user))
             }
-        }
+            
+            return ""
+        }()
+        
+        self.appleIdToken = idTokenString
+        self.didChange?(.loggedIn)
     }
 }
 
