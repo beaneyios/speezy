@@ -18,7 +18,7 @@ class AuthLoadingViewModel {
         var authCompleted = false
         var storedUser: User?
         
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1.5) {
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1.0) {
             timerCompleted = true
             
             if authCompleted {

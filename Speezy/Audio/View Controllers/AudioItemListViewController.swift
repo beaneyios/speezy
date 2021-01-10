@@ -109,6 +109,10 @@ class AudioItemListViewController: UIViewController {
         }
     }
     
+    @IBAction func signOutTapped(_ sender: Any) {
+        signOut()
+    }
+    
     @IBAction func settingsTapped(_ sender: Any) {
         delegate?.audioItemListViewControllerDidSelectSettings(self)
     }
