@@ -14,6 +14,7 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     
     enum Change {
         case loggedIn
+        case errored(AuthError)
     }
     
     weak var anchor: UIWindow!
@@ -44,7 +45,7 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
         authorizationController.performRequests()
     }
     
-    func createProfile(completion: @escaping () -> Void) {
+    func createProfile(completion: @escaping (AuthResult) -> Void) {
         guard let idTokenString = appleIdToken, let nonce = currentNonce else {
             return
         }
@@ -69,12 +70,9 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
                     profileImage: self.profileImageAttachment,
                     completion: completion
                 )
-                
-                completion()
-            } else if let error = error {
-                // TODO: Handle error
             } else {
-                // TODO: Handle no error.
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
             }
         }
     }
@@ -85,7 +83,8 @@ extension AppleSignupViewModel: ASAuthorizationControllerDelegate {
         controller: ASAuthorizationController,
         didCompleteWithError error: Error
     ) {
-        
+        let error = AuthErrorFactory.authError(for: error)
+        didChange?(.errored(error))
     }
     
     func authorizationController(

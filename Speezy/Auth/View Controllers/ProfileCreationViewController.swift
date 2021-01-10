@@ -11,6 +11,7 @@ import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
+    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
 }
 
 class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
@@ -84,19 +85,30 @@ class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
         showAttachmentAlert()
     }
     
+    @IBAction func goBack(_ sender: Any) {
+        delegate?.profileCreationViewControllerDidGoBack(self)
+    }
+    
     func completeSignup() {
         clearHighlightedFields()
         
         if let error = viewModel.profileValidationError() {
-            lblErrorMessage.text = error.message
+            highlightErroredFields(error: error)
             return
         }
         
         completeSignupBtn?.startLoading()
-        viewModel.createProfile {
+        viewModel.createProfile { result in
             DispatchQueue.main.async {
+                switch result {
+                case let .failure(error):
+                    self.highlightErroredFields(error: error)
+                case .success:
+                    self.completeSignupBtn?.stopLoading()
+                    self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
+                }
+                
                 self.completeSignupBtn?.stopLoading()
-                self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
             }
         }
     }

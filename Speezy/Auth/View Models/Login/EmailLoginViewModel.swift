@@ -13,7 +13,7 @@ class EmailLoginViewModel {
     var email: String = ""
     var password: String = ""
     
-    func login(completion: @escaping (Result<User, Error>) -> Void) {
+    func login(completion: @escaping (AuthResult) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
             return
@@ -21,29 +21,28 @@ class EmailLoginViewModel {
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
-                completion(.success(user))
-            } else if let error = error {
-                completion(.failure(error))
+                completion(.success)
             } else {
-                // TODO: Handle no error
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
             }
         }
     }
 }
 
 extension EmailLoginViewModel {    
-    func validatonError() -> ValidationError? {
+    func validationError() -> AuthError? {
         if email.isEmpty {
-            return ValidationError(
-                title: "No email address supplied",
-                message: "Please ensure you enter a valid email address"
+            return AuthError(
+                message: "No email address supplied",
+                field: .email
             )
         }
         
         if password.isEmpty {
-            return ValidationError(
-                title: "No password supplied",
-                message: "Please ensure you enter a password"
+            return AuthError(
+                message: "Please ensure you enter a password",
+                field: .password
             )
         }
         

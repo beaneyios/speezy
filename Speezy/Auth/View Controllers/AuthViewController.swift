@@ -50,13 +50,20 @@ class AuthViewController: UIViewController {
         facebookSignupBtn.startLoading()
         
         let viewModel = FacebookSignupViewModel()
-        viewModel.login(viewController: self) {
+        viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self.facebookSignupBtn.stopLoading()
+                    self.delegate?.authViewController(
+                        self,
+                        didMoveOnToProfileWithViewModel: viewModel
+                    )
+                case let .failure(error):
+                    self.presentError(error: error)
+                }
+                
                 self.facebookSignupBtn.stopLoading()
-                self.delegate?.authViewController(
-                    self,
-                    didMoveOnToProfileWithViewModel: viewModel
-                )
             }
         }
     }
@@ -79,6 +86,8 @@ class AuthViewController: UIViewController {
                         self,
                         didMoveOnToProfileWithViewModel: viewModel
                     )
+                case let .errored(error):
+                    self.presentError(error: error)
                 }
             }
         }
@@ -88,5 +97,17 @@ class AuthViewController: UIViewController {
     
     @IBAction func signIn(_ sender: Any) {
         delegate?.authViewControllerDidSelectLogin(self)
+    }
+    
+    private func presentError(error: AuthError) {
+        let alert = UIAlertController(
+            title: "Something went wrong, please try again",
+            message: error.message,
+            preferredStyle: .alert
+        )
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }

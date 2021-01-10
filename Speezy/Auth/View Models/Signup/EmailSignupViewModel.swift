@@ -17,7 +17,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     
     var profileImageAttachment: UIImage?
     
-    func createProfile(completion: @escaping () -> Void) {
+    func createProfile(completion: @escaping (AuthResult) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
             return
@@ -29,15 +29,14 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
                     userId: user.uid,
                     completion: completion
                 )
-            } else if let error = error {
-                // TODO: Handle error
             } else {
-                // TODO: Handle no error
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
             }
         }  
     }
     
-    private func createProfileInFireStore(userId: String, completion: @escaping () -> Void) {
+    private func createProfileInFireStore(userId: String, completion: @escaping (AuthResult) -> Void) {
         FirebaseUserProfileEditor().updateUserProfile(
             userId: userId,
             profile: profile,

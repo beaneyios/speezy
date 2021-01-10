@@ -16,7 +16,7 @@ class FirebaseUserProfileEditor {
         userId: String,
         profile: Profile,
         profileImage: UIImage?,
-        completion: @escaping () -> Void
+        completion: @escaping (AuthResult) -> Void
     ) {
         if let profileImage = profileImage {
             uploadImageAndCreateProfile(
@@ -38,7 +38,7 @@ class FirebaseUserProfileEditor {
         userId: String,
         profile: Profile,
         profileImage: UIImage,
-        completion: @escaping () -> Void
+        completion: @escaping (AuthResult) -> Void
     ) {
         DispatchQueue.global().async {
             self.uploadUserImage(userId: userId, image: profileImage) { (result) in
@@ -62,7 +62,7 @@ class FirebaseUserProfileEditor {
     private func createUserProfile(
         userId: String,
         profile: Profile,
-        completion: @escaping () -> Void
+        completion: @escaping (AuthResult) -> Void
     ) {
         let db = Firestore.firestore()
         
@@ -78,7 +78,16 @@ class FirebaseUserProfileEditor {
         }
         
         db.collection("users").document(userId).setData(dataDictionary) { (error) in
-            completion()
+            if let error = error {
+                let error = AuthError(
+                    message: "Unable to set profile, please try again\nReason: \(error.localizedDescription)",
+                    field: nil
+                )
+                
+                completion(.failure(error))
+            } else {
+                completion(.success)
+            }
         }
     }
     

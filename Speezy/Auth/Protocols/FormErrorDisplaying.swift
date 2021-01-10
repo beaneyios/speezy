@@ -31,6 +31,7 @@ extension FormErrorDisplaying {
     }
     
     func highlightErroredFields(error: AuthError) {
+        lblErrorMessage.text = error.message
         if let field = error.field, let separator = fieldDict[field] {
             separator.constraints.forEach {
                 if $0.firstAttribute == .height {
@@ -38,6 +39,12 @@ extension FormErrorDisplaying {
                 }
             }
             separator.backgroundColor = .red
+        }
+        
+        lblErrorMessage.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.lblErrorMessage.transform = CGAffineTransform.identity
         }
     }
 }

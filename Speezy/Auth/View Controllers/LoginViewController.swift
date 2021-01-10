@@ -18,17 +18,32 @@ protocol LoginViewControllerDelegate: AnyObject {
     )
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var txtFieldEmail: UITextField!
+    @IBOutlet weak var emailSeparator: UIView!
     @IBOutlet weak var txtFieldPassword: UITextField!
+    @IBOutlet weak var passwordSeparator: UIView!
     @IBOutlet weak var loginBtnContainer: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var lblErrorMessage: UILabel!
     
     weak var delegate: LoginViewControllerDelegate?
     private var loginBtn: GradientButton?
     private var insetManager: KeyboardInsetManager!
     
     private let emailViewModel = EmailLoginViewModel()
+    
+    var fieldDict: [Field : UIView] {
+        [
+            Field.email: emailSeparator,
+            Field.password: passwordSeparator
+        ]
+    }
+    
+    var separators: [UIView] {
+        [emailSeparator, passwordSeparator]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +62,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInWithFacebook(_ sender: Any) {
         let viewModel = FacebookLoginViewModel()
-        viewModel.login(viewController: self) {
+        viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
-                self.delegate?.loginViewControllerDidLogIn(self)
+                switch result {
+                case .success:
+                    self.delegate?.loginViewControllerDidLogIn(self)
+                case let .failure(error):
+                    self.presentError(error: error)
+                }
             }
         }
     }
@@ -79,16 +99,9 @@ class LoginViewController: UIViewController {
     }
     
     private func submit() {
-        if let error = emailViewModel.validatonError() {
-            let alert = UIAlertController(
-                title: error.title,
-                message: error.message,
-                preferredStyle: .alert
-            )
-            
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
+        clearHighlightedFields()
+        if let error = emailViewModel.validationError() {
+            highlightErroredFields(error: error)
             return
         }
         
@@ -98,8 +111,8 @@ class LoginViewController: UIViewController {
                 switch result {
                 case .success:
                     self.delegate?.loginViewControllerDidLogIn(self)
-                case .failure:
-                    break
+                case let .failure(error):
+                    self.highlightErroredFields(error: error)
                 }
                 
                 self.loginBtn?.stopLoading()
@@ -121,6 +134,18 @@ class LoginViewController: UIViewController {
         )
         
         insetManager.startListening()
+    }
+    
+    private func presentError(error: AuthError) {
+        let alert = UIAlertController(
+            title: "Something went wrong, please try again",
+            message: error.message,
+            preferredStyle: .alert
+        )
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }
 

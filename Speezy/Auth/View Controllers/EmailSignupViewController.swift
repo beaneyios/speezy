@@ -91,7 +91,6 @@ class EmailSignupViewController: UIViewController, FormErrorDisplaying {
         }
         
         if let error = viewModel.validationError() {
-            lblErrorMessage.text = error.message
             highlightErroredFields(error: error)
             return
         }

@@ -131,6 +131,10 @@ extension AuthCoordinator: LoginViewControllerDelegate {
 }
 
 extension AuthCoordinator: ProfileCreationViewControllerDelegate {
+    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController) {
         delegate?.authCoordinatorDidCompleteSignup(self)
     }

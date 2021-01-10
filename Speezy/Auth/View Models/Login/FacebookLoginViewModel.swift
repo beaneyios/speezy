@@ -14,7 +14,7 @@ import FirebaseAuth
 class FacebookLoginViewModel {        
     func login(
         viewController: UIViewController,
-        completion: @escaping () -> Void
+        completion: @escaping (AuthResult) -> Void
     ) {
         let manager = LoginManager()
         manager.logIn(
@@ -33,11 +33,13 @@ class FacebookLoginViewModel {
             )
             
             Auth.auth().signIn(with: credential) { (result, error) in
+                let error = AuthErrorFactory.authError(for: error)
+
                 if let user = result?.user {
-                    completion()
+                    completion(.success)
+                } else {
+                    completion(.failure(error))
                 }
-                
-                // TODO: Handle error
             }
         }
     }
