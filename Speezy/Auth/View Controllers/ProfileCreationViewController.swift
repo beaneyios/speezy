@@ -33,6 +33,8 @@ class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var completeSignupBtnContainer: UIView!
     @IBOutlet weak var lblErrorMessage: UILabel!
     
+    @IBOutlet weak var testoutlet: NSLayoutConstraint!
+    
     private var completeSignupBtn: GradientButton?
     
     weak var delegate: ProfileCreationViewControllerDelegate?
@@ -41,7 +43,7 @@ class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
     
     var fieldDict: [Field: UIView] {
         [
-            Field.username: usernameTxtField
+            Field.username: usernameSeparator
         ]
     }
     
@@ -94,6 +96,8 @@ class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
         
         if let error = viewModel.profileValidationError() {
             highlightErroredFields(error: error)
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
             return
         }
         

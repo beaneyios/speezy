@@ -25,6 +25,13 @@ class FacebookLoginViewModel {
                 result != nil,
                 let accessTokenString = AccessToken.current?.tokenString
             else {
+                if result?.isCancelled == true {
+                    completion(.failure(nil))
+                    return
+                }
+                
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
                 return
             }
             
@@ -35,7 +42,7 @@ class FacebookLoginViewModel {
             Auth.auth().signIn(with: credential) { (result, error) in
                 let error = AuthErrorFactory.authError(for: error)
 
-                if let user = result?.user {
+                if result?.user != nil {
                     completion(.success)
                 } else {
                     completion(.failure(error))

@@ -11,5 +11,5 @@ import FirebaseAuth
 
 enum AuthResult {
     case success
-    case failure(AuthError)
+    case failure(AuthError?)
 }

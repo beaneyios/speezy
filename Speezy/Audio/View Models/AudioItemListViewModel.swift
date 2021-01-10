@@ -10,6 +10,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
+import FBSDKLoginKit
 
 class AudioItemListViewModel {
     
@@ -84,6 +85,7 @@ extension AudioItemListViewModel {
     }
     
     func signOut() {
+        LoginManager().logOut()
         try? Auth.auth().signOut()
         didChange?(.userSignedOut)
     }

@@ -22,7 +22,7 @@ extension FirebaseSignupViewModel {
         if profile.userName.isEmpty {
             return AuthError(
                 message: "Please ensure you enter a username, you'll need it for adding contacts.",
-                field: Field.passwordVerifier
+                field: Field.username
             )
         }
         

@@ -99,7 +99,11 @@ class AuthViewController: UIViewController {
         delegate?.authViewControllerDidSelectLogin(self)
     }
     
-    private func presentError(error: AuthError) {
+    private func presentError(error: AuthError?) {
+        guard let error = error else {
+            return
+        }
+        
         let alert = UIAlertController(
             title: "Something went wrong, please try again",
             message: error.message,

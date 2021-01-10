@@ -31,6 +31,11 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                 result != nil,
                 let accessTokenString = AccessToken.current?.tokenString
             else {
+                if result?.isCancelled == true {
+                    completion(.failure(nil))
+                    return
+                }
+                
                 let error = AuthErrorFactory.authError(for: error)
                 completion(.failure(error))
                 return

@@ -19,6 +19,7 @@ protocol LoginViewControllerDelegate: AnyObject {
 }
 
 class LoginViewController: UIViewController, FormErrorDisplaying {
+    @IBOutlet weak var facebookLoginBtn: SpeezyButton!
     @IBOutlet weak var txtFieldEmail: UITextField!
     @IBOutlet weak var emailSeparator: UIView!
     @IBOutlet weak var txtFieldPassword: UITextField!
@@ -61,6 +62,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     @IBAction func signInWithFacebook(_ sender: Any) {
+        facebookLoginBtn.startLoading(color: UIColor(named: "speezy-purple")!)
         let viewModel = FacebookLoginViewModel()
         viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
@@ -70,6 +72,8 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
                 case let .failure(error):
                     self.presentError(error: error)
                 }
+                
+                self.facebookLoginBtn.stopLoading()
             }
         }
     }
@@ -91,7 +95,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "SIGN UP") {
+        button.configure(title: "SIGN IN") {
             self.submit()
         }
         
@@ -136,7 +140,11 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
         insetManager.startListening()
     }
     
-    private func presentError(error: AuthError) {
+    private func presentError(error: AuthError?) {
+        guard let error = error else {
+            return
+        }
+        
         let alert = UIAlertController(
             title: "Something went wrong, please try again",
             message: error.message,

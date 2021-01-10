@@ -14,7 +14,7 @@ protocol FormErrorDisplaying {
     var lblErrorMessage: UILabel! { get }
     
     func clearHighlightedFields()
-    func highlightErroredFields(error: AuthError)
+    func highlightErroredFields(error: AuthError?)
 }
 
 extension FormErrorDisplaying {
@@ -30,7 +30,11 @@ extension FormErrorDisplaying {
         }
     }
     
-    func highlightErroredFields(error: AuthError) {
+    func highlightErroredFields(error: AuthError?) {
+        guard let error = error else {
+            return
+        }
+        
         lblErrorMessage.text = error.message
         if let field = error.field, let separator = fieldDict[field] {
             separator.constraints.forEach {
