@@ -16,6 +16,9 @@ protocol LoginViewControllerDelegate: AnyObject {
     func loginViewControllerDidGoBack(
         _ viewController: LoginViewController
     )
+    func loginViewControllerDidSelectSignUp(
+        _ viewController: LoginViewController
+    )
 }
 
 class LoginViewController: UIViewController, FormErrorDisplaying {
@@ -82,6 +85,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     @IBAction func joinNowTapped(_ sender: Any) {
+        delegate?.loginViewControllerDidSelectSignUp(self)
     }
     
     @IBAction func goBack(_ sender: Any) {

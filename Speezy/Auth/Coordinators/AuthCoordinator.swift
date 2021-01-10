@@ -121,6 +121,10 @@ extension AuthCoordinator: EmailSignupViewControllerDelegate {
 }
 
 extension AuthCoordinator: LoginViewControllerDelegate {
+    func loginViewControllerDidSelectSignUp(_ viewController: LoginViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
     func loginViewControllerDidLogIn(_ viewController: LoginViewController) {
         delegate?.authCoordinatorDidCompleteLogin(self)
     }

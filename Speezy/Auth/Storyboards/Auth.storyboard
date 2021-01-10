@@ -94,27 +94,27 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y87-gP-d61">
-                                <rect key="frame" x="195.5" y="493" width="23.5" height="21"/>
+                                <rect key="frame" x="195.5" y="502.5" width="23.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruw-nk-iY2" userLabel="separator-left">
-                                <rect key="frame" x="16" y="503.5" width="163.5" height="0.5"/>
+                                <rect key="frame" x="16" y="513" width="163.5" height="0.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="KMr-RS-a4V"/>
                                 </constraints>
                             </view>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sg-Kg-dp7" userLabel="separator-right">
-                                <rect key="frame" x="235" y="503.5" width="163" height="0.5"/>
+                                <rect key="frame" x="235" y="513" width="163" height="0.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="IVg-cE-KIf"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFD-1W-ftk" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                <rect key="frame" x="141" y="571" width="50" height="50"/>
+                                <rect key="frame" x="141" y="548.5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="a3d-Hd-mp2"/>
                                     <constraint firstAttribute="height" constant="50" id="nmD-GM-6x4"/>
@@ -125,7 +125,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPv-yk-VhV">
-                                <rect key="frame" x="191" y="546" width="32" height="100"/>
+                                <rect key="frame" x="191" y="523.5" width="32" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="5Dw-KN-E5u"/>
@@ -133,7 +133,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sya-SU-8Os" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                <rect key="frame" x="223" y="571" width="50" height="50"/>
+                                <rect key="frame" x="223" y="548.5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MWc-hG-iko"/>
                                     <constraint firstAttribute="width" constant="50" id="nRQ-7g-Z2V"/>
@@ -197,8 +197,8 @@
                             <constraint firstItem="dor-8P-dsb" firstAttribute="leading" secondItem="0IY-Wg-9k3" secondAttribute="leading" constant="32" id="HSW-HO-atE"/>
                             <constraint firstItem="Q1z-ER-5A8" firstAttribute="centerX" secondItem="HwL-xm-RbV" secondAttribute="centerX" id="PNb-mo-Ien"/>
                             <constraint firstItem="0IY-Wg-9k3" firstAttribute="trailing" secondItem="3F7-fo-ekh" secondAttribute="trailing" id="PcI-KT-jZz"/>
-                            <constraint firstItem="XPv-yk-VhV" firstAttribute="top" secondItem="Y87-gP-d61" secondAttribute="bottom" constant="32" id="Q4N-FA-dUO"/>
-                            <constraint firstItem="Y87-gP-d61" firstAttribute="top" secondItem="T3y-Hz-EB6" secondAttribute="bottom" constant="22.5" id="UuR-hu-68l"/>
+                            <constraint firstItem="XPv-yk-VhV" firstAttribute="top" secondItem="Y87-gP-d61" secondAttribute="bottom" id="Q4N-FA-dUO"/>
+                            <constraint firstItem="Y87-gP-d61" firstAttribute="top" secondItem="T3y-Hz-EB6" secondAttribute="bottom" constant="32" id="UuR-hu-68l"/>
                             <constraint firstItem="XPv-yk-VhV" firstAttribute="leading" secondItem="KFD-1W-ftk" secondAttribute="trailing" id="WBI-du-QLh"/>
                             <constraint firstItem="Ruw-nk-iY2" firstAttribute="centerY" secondItem="Y87-gP-d61" secondAttribute="centerY" id="eLZ-j1-oZ3"/>
                             <constraint firstItem="T3y-Hz-EB6" firstAttribute="leading" secondItem="0IY-Wg-9k3" secondAttribute="leading" constant="20" id="eZ3-uM-1Bf"/>
