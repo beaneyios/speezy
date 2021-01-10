@@ -11,10 +11,17 @@ import UIKit
 import SCLAlertView
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectAudioItem item: AudioItem
+    )
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectSendOnItem item: AudioItem
+    )
+    func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController {
@@ -22,7 +29,7 @@ class AudioItemListViewController: UIViewController {
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileButton: SpeezyButton!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -35,14 +42,35 @@ class AudioItemListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        observeViewModelChanges()
+        configureTableView()
+        loadItems()
+        loadProfileImage()
+        configureProfileButton()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        profileButton.layer.cornerRadius = profileButton.frame.width / 2.0
+        profileButton.clipsToBounds = true
+    }
+    
+    private func configureProfileButton() {
+        profileButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+    }
+    
+    @objc private func signOut() {
+        viewModel.signOut()
+    }
+    
+    private func configureTableView() {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
         tableView.estimatedRowHeight = 100.0
         tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        
-        loadItems()
     }
     
     private func observeViewModelChanges() {
@@ -52,14 +80,25 @@ class AudioItemListViewController: UIViewController {
                 case .itemsLoaded:
                     self.toggleEmptyView()
                     self.tableView.reloadData()
+                case let .profileImageLoaded(image):
+                    self.profileButton.stopLoading(image: image)
+                case .userSignedOut:
+                    self.delegate?.audioItemListViewControllerDidSelectSignOut(self)
                 }
             }
-            
         }
     }
     
     private func loadItems() {
         viewModel.loadItems()
+    }
+    
+    private func loadProfileImage() {
+        profileButton.startLoading(
+            color: UIColor(named: "speezy-purple") ?? .black,
+            style: .medium
+        )
+        viewModel.loadProfileImage()
     }
     
     private func toggleEmptyView() {

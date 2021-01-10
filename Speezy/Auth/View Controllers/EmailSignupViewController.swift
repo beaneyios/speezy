@@ -16,19 +16,38 @@ protocol EmailSignupViewControllerDelegate: AnyObject {
     func emailSignupViewControllerDidGoBack(_ viewController: EmailSignupViewController)
 }
 
-class EmailSignupViewController: UIViewController {
+class EmailSignupViewController: UIViewController, FormErrorDisplaying {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var emailTxtField: UITextField!
+    @IBOutlet weak var emailSeparator: UIView!
+    
     @IBOutlet weak var passwordTxtField: UITextField!
+    @IBOutlet weak var passwordSeparator: UIView!
+    
     @IBOutlet weak var passwordValidateTxtField: UITextField!
+    @IBOutlet weak var passwordValidateSeparator: UIView!
+    
     @IBOutlet weak var moveOnBtnContainer: UIView!
+    @IBOutlet weak var lblErrorMessage: UILabel!
     
     private var moveOnBtn: GradientButton?
     
     weak var delegate: EmailSignupViewControllerDelegate?
     var viewModel: EmailSignupViewModel!
     private var insetManager: KeyboardInsetManager!
+    
+    var fieldDict: [Field: UIView] {
+        [
+            Field.email: emailSeparator,
+            Field.password: passwordSeparator,
+            Field.passwordVerifier: passwordValidateSeparator
+        ]
+    }
+    
+    var separators: [UIView] {
+        [emailSeparator, passwordSeparator, passwordValidateSeparator]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,36 +80,26 @@ class EmailSignupViewController: UIViewController {
     }
     
     private func submit() {
-        if let error = viewModel.validatonError() {
-            let alert = UIAlertController(
-                title: error.title,
-                message: error.message,
-                preferredStyle: .alert
-            )
-            
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
+        lblErrorMessage.text = nil
+        [passwordSeparator, passwordValidateSeparator, emailSeparator].forEach {
+            $0?.backgroundColor = UIColor(named: "speezy-grey-text")
+            $0?.constraints.forEach {
+                if $0.firstAttribute == .height {
+                    $0.constant = 0.5
+                }
+            }
+        }
+        
+        if let error = viewModel.validationError() {
+            highlightErroredFields(error: error)
             return
         }
         
         view.endEditing(true)
-        moveOnBtn?.startLoading()
-        viewModel.signup { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    self.delegate?.emailSignupViewController(
-                        self,
-                        didMoveOnToProfileWithViewModel: self.viewModel
-                    )
-                case .failure:
-                    break
-                }
-                
-                self.moveOnBtn?.stopLoading()
-            }
-        }
+        delegate?.emailSignupViewController(
+            self,
+            didMoveOnToProfileWithViewModel: viewModel
+        )
     }
     
     private func configureButton() {

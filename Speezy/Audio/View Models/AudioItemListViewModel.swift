@@ -7,11 +7,17 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import FirebaseStorage
+import FirebaseAuth
+import FBSDKLoginKit
 
 class AudioItemListViewModel {
     
     enum Change {
         case itemsLoaded
+        case profileImageLoaded(UIImage)
+        case userSignedOut
     }
     
     var didChange: ((Change) -> Void)?
@@ -53,6 +59,35 @@ class AudioItemListViewModel {
         AudioStorage.deleteItem(item)
         audioItems = audioItems.removing(item)
         didChange?(.itemsLoaded)
+    }
+}
+
+extension AudioItemListViewModel {
+    func loadProfileImage() {
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        
+        let storage = FirebaseStorage.Storage.storage()
+        let storageRef = storage.reference()
+        let profileImagesRef = storageRef.child("profile_images/\(currentUser.uid).jpg")
+        
+        profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            guard let data = data, let image = UIImage(data: data) else {
+                if let defaultImage = UIImage(named: "account-btn") {
+                    self.didChange?(.profileImageLoaded(defaultImage))
+                }
+                return
+            }
+            
+            self.didChange?(.profileImageLoaded(image))
+        }
+    }
+    
+    func signOut() {
+        LoginManager().logOut()
+        try? Auth.auth().signOut()
+        didChange?(.userSignedOut)
     }
 }
 

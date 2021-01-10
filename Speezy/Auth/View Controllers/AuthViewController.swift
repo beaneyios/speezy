@@ -19,7 +19,12 @@ protocol AuthViewControllerDelegate: AnyObject {
         _ viewController: AuthViewController,
         didCompleteSignupWithUser user: User
     )
+    
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController)
+    
+    func authViewControllerDidSelectLogin(
+        _ viewController: AuthViewController
+    )
 }
 
 class AuthViewController: UIViewController {
@@ -48,15 +53,17 @@ class AuthViewController: UIViewController {
         viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
                 switch result {
-                case let .success(user):
+                case .success:
                     self.facebookSignupBtn.stopLoading()
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel
                     )
                 case let .failure(error):
-                    break
+                    self.presentError(error: error)
                 }
+                
+                self.facebookSignupBtn.stopLoading()
             }
         }
     }
@@ -73,12 +80,14 @@ class AuthViewController: UIViewController {
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
-                case let .loggedIn(user):
+                case .loggedIn:
                     self.appleSignupBtn.stopLoading()
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel
                     )
+                case let .errored(error):
+                    self.presentError(error: error)
                 }
             }
         }
@@ -87,5 +96,22 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func signIn(_ sender: Any) {
+        delegate?.authViewControllerDidSelectLogin(self)
+    }
+    
+    private func presentError(error: AuthError?) {
+        guard let error = error else {
+            return
+        }
+        
+        let alert = UIAlertController(
+            title: "Something went wrong, please try again",
+            message: error.message,
+            preferredStyle: .alert
+        )
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }

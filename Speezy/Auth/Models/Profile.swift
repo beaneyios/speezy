@@ -10,6 +10,8 @@ import Foundation
 
 struct Profile {
     var name: String = ""
+    var userName: String = ""
+    var occupation: String = ""
     var aboutYou: String = ""
     var profileImageUrl: URL?
 }

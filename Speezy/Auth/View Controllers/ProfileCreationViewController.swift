@@ -11,9 +11,10 @@ import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
+    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
 }
 
-class ProfileCreationViewController: UIViewController {
+class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
@@ -21,17 +22,34 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var attachBtnWidth: NSLayoutConstraint!
     @IBOutlet weak var attachBtnHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var usernameTxtField: UITextField!
+    @IBOutlet weak var usernameSeparator: UIView!
+    
     @IBOutlet weak var nameTxtField: UITextField!
+    @IBOutlet weak var occupationTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
     @IBOutlet weak var completeSignupBtnContainer: UIView!
+    @IBOutlet weak var lblErrorMessage: UILabel!
+    
+    @IBOutlet weak var testoutlet: NSLayoutConstraint!
     
     private var completeSignupBtn: GradientButton?
     
     weak var delegate: ProfileCreationViewControllerDelegate?
     var viewModel: FirebaseSignupViewModel!
     private var insetManager: KeyboardInsetManager!
+    
+    var fieldDict: [Field: UIView] {
+        [
+            Field.username: usernameSeparator
+        ]
+    }
+    
+    var separators: [UIView] {
+        [usernameSeparator]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +58,10 @@ class ProfileCreationViewController: UIViewController {
         completeSignupBtnContainer.addShadow()
         configureInsetManager()
         configureSignupButton()
+        
+        if viewModel.profileImageAttachment != nil {
+            configureProfileImage()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -65,24 +87,46 @@ class ProfileCreationViewController: UIViewController {
         showAttachmentAlert()
     }
     
-    func completeSignup() {
-        completeSignupBtn?.startLoading()
-        viewModel.createProfile {
-            DispatchQueue.main.async {
-                self.completeSignupBtn?.stopLoading()
-                self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
-            }
-        }
+    @IBAction func goBack(_ sender: Any) {
+        delegate?.profileCreationViewControllerDidGoBack(self)
     }
     
-    @IBAction func skip(_ sender: Any) {
-        completeSignup()
+    func completeSignup() {
+        clearHighlightedFields()
+        
+        if let error = viewModel.profileValidationError() {
+            highlightErroredFields(error: error)
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+            return
+        }
+        
+        completeSignupBtn?.startLoading()
+        viewModel.createProfile { result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .failure(error):
+                    self.highlightErroredFields(error: error)
+                case .success:
+                    self.completeSignupBtn?.stopLoading()
+                    self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
+                }
+                
+                self.completeSignupBtn?.stopLoading()
+            }
+        }
     }
     
     private func configureTextFields() {
         nameTxtField.makePlaceholderGrey()
         nameTxtField.delegate = self
         nameTxtField.text = viewModel.profile.name
+        
+        usernameTxtField.makePlaceholderGrey()
+        usernameTxtField.delegate = self
+        
+        occupationTxtField.makePlaceholderGrey()
+        occupationTxtField.delegate = self
         
         configureAboutYouPlaceholder()
     }
@@ -163,8 +207,15 @@ extension ProfileCreationViewController: UITextFieldDelegate {
             with: string
         )
         
-        if textField == nameTxtField {
+        switch textField {
+        case nameTxtField:
             viewModel.profile.name = updatedText
+        case occupationTxtField:
+            viewModel.profile.occupation = updatedText
+        case usernameTxtField:
+            viewModel.profile.userName = updatedText
+        default:
+            break
         }
         
         return true

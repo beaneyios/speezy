@@ -19,6 +19,7 @@
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
+		BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18D10125A8EA580013CED5 /* LoginViewController.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE222CC4258A2D1A007144FD /* AudioConstants.swift */; };
 		BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */; };
@@ -40,6 +41,7 @@
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
 		BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */; };
 		BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */; };
+		BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */; };
 		BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344824BA4D2C00A414D1 /* AudioContext.swift */; };
 		BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */; };
 		BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE50344C24BB21FD00A414D1 /* PlaybackWaveView.xib */; };
@@ -119,6 +121,8 @@
 		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
 		BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */; };
+		BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */; };
+		BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */; };
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
 		BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */; };
@@ -132,6 +136,7 @@
 		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
+		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
 		BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A1025A3A84F0045ABFF /* Data+Size.swift */; };
@@ -142,6 +147,10 @@
 		BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B72725481C31009308A4 /* TranscriptManager.swift */; };
 		BEF3B72C254867AC009308A4 /* TranscriptionButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B72B254867AC009308A4 /* TranscriptionButton.xib */; };
 		BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B72F254867B5009308A4 /* TranscriptionButton.swift */; };
+		BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425B625AB285A00DC8E3D /* AuthError.swift */; };
+		BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */; };
+		BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BE25AB512200DC8E3D /* AuthResult.swift */; };
+		BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */; };
 		BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */; };
 		BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
@@ -189,6 +198,7 @@
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
+		BE18D10125A8EA580013CED5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE222CC4258A2D1A007144FD /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
 		BE23519E252F9B6E00067BA2 /* TranscriptionJobStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobStorage.swift; sourceTree = "<group>"; };
@@ -210,6 +220,7 @@
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
 		BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionLoadingViewController.swift; sourceTree = "<group>"; };
 		BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptCollectionViewController.swift; sourceTree = "<group>"; };
+		BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		BE50344824BA4D2C00A414D1 /* AudioContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContext.swift; sourceTree = "<group>"; };
 		BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLevelGenerator.swift; sourceTree = "<group>"; };
 		BE50344C24BB21FD00A414D1 /* PlaybackWaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackWaveView.xib; sourceTree = "<group>"; };
@@ -293,6 +304,8 @@
 		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
 		BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewModel.swift; sourceTree = "<group>"; };
+		BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewController.swift; sourceTree = "<group>"; };
+		BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewModel.swift; sourceTree = "<group>"; };
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignupViewModel.swift; sourceTree = "<group>"; };
@@ -306,6 +319,7 @@
 		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
+		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		BEF28A1025A3A84F0045ABFF /* Data+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Size.swift"; sourceTree = "<group>"; };
@@ -316,6 +330,10 @@
 		BEF3B72725481C31009308A4 /* TranscriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptManager.swift; sourceTree = "<group>"; };
 		BEF3B72B254867AC009308A4 /* TranscriptionButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscriptionButton.xib; sourceTree = "<group>"; };
 		BEF3B72F254867B5009308A4 /* TranscriptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionButton.swift; sourceTree = "<group>"; };
+		BEF425B625AB285A00DC8E3D /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormErrorDisplaying.swift; sourceTree = "<group>"; };
+		BEF425BE25AB512200DC8E3D /* AuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResult.swift; sourceTree = "<group>"; };
+		BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorFactory.swift; sourceTree = "<group>"; };
 		BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInsetManager.swift; sourceTree = "<group>"; };
 		BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignupViewModel.swift; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
@@ -386,6 +404,25 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		BE4CCD9325A9F6D4007C21A6 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */,
+				BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */,
+				BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		BE4CCD9425A9F6E3007C21A6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */,
+				BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		BE50346324BE02B100A414D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +447,8 @@
 				BE54295E25937732007EEAD1 /* AuthViewController.swift */,
 				BE54295A2593714B007EEAD1 /* EmailSignupViewController.swift */,
 				BE54296225937745007EEAD1 /* ProfileCreationViewController.swift */,
+				BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */,
+				BE18D10125A8EA580013CED5 /* LoginViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -796,6 +835,8 @@
 			isa = PBXGroup;
 			children = (
 				BEDC11EB259CA64C00BB0064 /* Profile.swift */,
+				BEF425B625AB285A00DC8E3D /* AuthError.swift */,
+				BEF425BE25AB512200DC8E3D /* AuthResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -804,6 +845,7 @@
 			isa = PBXGroup;
 			children = (
 				BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */,
+				BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -812,6 +854,7 @@
 			isa = PBXGroup;
 			children = (
 				BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */,
+				BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -874,9 +917,9 @@
 		BEF4DB6E2593D6C7002B403A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */,
-				BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */,
-				BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */,
+				BE4CCD9425A9F6E3007C21A6 /* Login */,
+				BE4CCD9325A9F6D4007C21A6 /* Signup */,
+				BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1203,6 +1246,7 @@
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BEFDB522255FF63400362428 /* CropperObservationManaging.swift in Sources */,
+				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
@@ -1248,6 +1292,7 @@
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
+				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
@@ -1262,12 +1307,16 @@
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
+				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
+				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
+				BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
+				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
 				BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */,
 				BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */,
@@ -1281,7 +1330,9 @@
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
+				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
+				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
@@ -1306,6 +1357,7 @@
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
+				BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
 				BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */,
 				BEBFD4C324C5B9DC00200D87 /* ViewCoordinator.swift in Sources */,

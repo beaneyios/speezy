@@ -14,11 +14,10 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     var password: String = ""
     var verifyPassword: String = ""    
     var profile: Profile = Profile()
-    var userId: String?
     
     var profileImageAttachment: UIImage?
     
-    func signup(completion: @escaping (Result<User, Error>) -> Void) {
+    func createProfile(completion: @escaping (AuthResult) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
             return
@@ -26,22 +25,18 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
-                self.userId = user.uid
-                completion(.success(user))
-            } else if let error = error {
-                completion(.failure(error))
+                self.createProfileInFireStore(
+                    userId: user.uid,
+                    completion: completion
+                )
             } else {
-                // TODO: Handle no error
-            }            
-        }
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
+            }
+        }  
     }
     
-    func createProfile(completion: @escaping () -> Void) {
-        guard let userId = self.userId else {
-            assertionFailure("No user ID found")
-            return
-        }
-        
+    private func createProfileInFireStore(userId: String, completion: @escaping (AuthResult) -> Void) {
         FirebaseUserProfileEditor().updateUserProfile(
             userId: userId,
             profile: profile,
@@ -51,45 +46,40 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     }
 }
 
-extension EmailSignupViewModel {
-    struct ValidationError {
-        var title: String
-        var message: String
-    }
-    
-    func validatonError() -> ValidationError? {
+extension EmailSignupViewModel {    
+    func validationError() -> AuthError? {
         if email.isEmpty {
-            return ValidationError(
-                title: "No email address supplied",
-                message: "Please ensure you enter a valid email address"
+            return AuthError(
+                message: "Please ensure you enter a valid email address",
+                field: Field.email
             )
         }
         
         if !isValidEmail(email) {
-            return ValidationError(
-                title: "Email address invalid",
-                message: "Please ensure you enter a valid email address"
+            return AuthError(
+                message: "Please ensure you enter a valid email address",
+                field: Field.email
             )
         }
         
         if password.isEmpty {
-            return ValidationError(
-                title: "No password supplied",
-                message: "Please ensure you enter a password"
+            return AuthError(
+                message: "Please ensure you enter a password",
+                field: Field.password
             )
         }
         
         if password.count < 6 {
-            return ValidationError(
-                title: "Password too short",
-                message: "Password must be at least 6 characters"
+            return AuthError(
+                message: "Password must be at least 6 characters",
+                field: Field.password
             )
         }
         
         if password != verifyPassword {
-            return ValidationError(
-                title: "Passwords do not match",
-                message: "Please check your passwords."
+            return AuthError(
+                message: "Passwords do not match",
+                field: Field.passwordVerifier
             )
         }
         

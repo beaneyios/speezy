@@ -40,6 +40,10 @@ class AppCoordinator: ViewCoordinator {
 }
 
 extension AppCoordinator: AuthCoordinatorDelegate {
+    func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator) {
+        navigateToAudioItems()
+    }
+    
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
         navigateToAudioItems()
     }
@@ -50,6 +54,11 @@ extension AppCoordinator: AuthCoordinatorDelegate {
 }
 
 extension AppCoordinator: AudioItemCoordinatorDelegate {
+    func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator) {
+        remove(coordinator)
+        navigateToAuth()
+    }
+    
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
         remove(coordinator)
     }

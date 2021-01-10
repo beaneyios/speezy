@@ -11,6 +11,7 @@ import UIKit
 
 protocol AudioItemCoordinatorDelegate: AnyObject {
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator)
+    func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator)
 }
 
 class AudioItemCoordinator: ViewCoordinator {
@@ -177,7 +178,11 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     }
 }
 
-extension AudioItemCoordinator: AudioItemListViewControllerDelegate {    
+extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController) {
+        delegate?.audioItemCoordinatorDidSignOut(self)
+    }
+    
     func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
         let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
         add(settingsCoordinator)

@@ -12,6 +12,7 @@ import FirebaseAuth
 
 protocol AuthCoordinatorDelegate: AnyObject {
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator)
+    func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator)
     func authCoordinatorDidFinish(_ coordinator: AuthCoordinator)
 }
 
@@ -26,18 +27,27 @@ class AuthCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToAuthView()
+        navigateToAuthLoadingView()
     }
     
     override func finish() {
         delegate?.authCoordinatorDidFinish(self)
     }
     
+    private func navigateToAuthLoadingView() {
+        let viewController = storyboard.instantiateViewController(
+            identifier: "AuthLoadingViewController"
+        ) as! AuthLoadingViewController
+        viewController.delegate = self
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.setViewControllers([viewController], animated: true)
+    }
+    
     private func navigateToAuthView() {
         let viewController = storyboard.instantiateViewController(identifier: "AuthViewController") as! AuthViewController
         viewController.delegate = self
         navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.setViewControllers([viewController], animated: true)
     }
     
     private func navigateToEmailSignupView() {
@@ -53,9 +63,34 @@ class AuthCoordinator: ViewCoordinator {
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    private func navigateToLoginView() {
+        let viewController = storyboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+        viewController.delegate = self
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AuthCoordinator: AuthLoadingViewControllerDelegate {
+    func authLoadingViewControllerNotSignedIn(
+        _ viewController: AuthLoadingViewController
+    ) {
+        navigateToAuthView()
+    }
+    
+    func authLoadingViewController(
+        _ viewController: AuthLoadingViewController,
+        signedInWithUser: User
+    ) {
+        delegate?.authCoordinatorDidCompleteSignup(self)
+    }
 }
 
 extension AuthCoordinator: AuthViewControllerDelegate {
+    func authViewControllerDidSelectLogin(_ viewController: AuthViewController) {
+        navigateToLoginView()
+    }
+    
     func authViewController(
         _ viewController: AuthViewController,
         didMoveOnToProfileWithViewModel viewModel: FirebaseSignupViewModel
@@ -85,7 +120,21 @@ extension AuthCoordinator: EmailSignupViewControllerDelegate {
     }
 }
 
+extension AuthCoordinator: LoginViewControllerDelegate {
+    func loginViewControllerDidLogIn(_ viewController: LoginViewController) {
+        delegate?.authCoordinatorDidCompleteLogin(self)
+    }
+    
+    func loginViewControllerDidGoBack(_ viewController: LoginViewController) {
+        navigationController.popViewController(animated: true)
+    }
+}
+
 extension AuthCoordinator: ProfileCreationViewControllerDelegate {
+    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController) {
         delegate?.authCoordinatorDidCompleteSignup(self)
     }
