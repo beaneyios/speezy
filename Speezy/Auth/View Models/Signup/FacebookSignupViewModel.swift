@@ -15,6 +15,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     var profile: Profile = Profile()
     
     private var facebookAccessToken: String?
+    private var email: String?
     
     var profileImageAttachment: UIImage?
     
@@ -50,6 +51,20 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
             withAccessToken: accessToken
         )
         
+        if let email = email {
+            Auth.auth().fetchSignInMethods(forEmail: email) { (providers, error) in
+                if let providers = providers, providers.contains(credential.provider) {
+                    // TODO: Account already exists.
+                } else {
+                    self.signIn(credential: credential, completion: completion)
+                }
+            }
+        } else {
+            signIn(credential: credential, completion: completion)
+        }
+    }
+    
+    private func signIn(credential: AuthCredential, completion: @escaping () -> Void) {
         Auth.auth().signIn(with: credential) { (result, error) in
             if let user = result?.user {
                 if let displayName = user.displayName {
@@ -63,8 +78,6 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                     completion: completion
                 )
             }
-            
-            // TODO: Catch pre-existing accounts.
         }
     }
     
@@ -81,6 +94,10 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                 let lastName = dict["last_name"] as? String
             {
                 self.profile.name = "\(firstName) \(lastName)"
+            }
+            
+            if let email = dict["email"] as? String {
+                self.email = email
             }
             
             if

@@ -148,6 +148,8 @@
 		BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B72725481C31009308A4 /* TranscriptManager.swift */; };
 		BEF3B72C254867AC009308A4 /* TranscriptionButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B72B254867AC009308A4 /* TranscriptionButton.xib */; };
 		BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B72F254867B5009308A4 /* TranscriptionButton.swift */; };
+		BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425B625AB285A00DC8E3D /* AuthError.swift */; };
+		BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */; };
 		BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */; };
 		BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
@@ -328,6 +330,8 @@
 		BEF3B72725481C31009308A4 /* TranscriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptManager.swift; sourceTree = "<group>"; };
 		BEF3B72B254867AC009308A4 /* TranscriptionButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscriptionButton.xib; sourceTree = "<group>"; };
 		BEF3B72F254867B5009308A4 /* TranscriptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionButton.swift; sourceTree = "<group>"; };
+		BEF425B625AB285A00DC8E3D /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormErrorDisplaying.swift; sourceTree = "<group>"; };
 		BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInsetManager.swift; sourceTree = "<group>"; };
 		BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignupViewModel.swift; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
@@ -830,6 +834,7 @@
 			children = (
 				BEDC11EB259CA64C00BB0064 /* Profile.swift */,
 				BEEEB87F25AA09B500E07CD0 /* ValidationError.swift */,
+				BEF425B625AB285A00DC8E3D /* AuthError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -838,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */,
+				BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1299,7 +1305,9 @@
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
 				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
+				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
+				BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,

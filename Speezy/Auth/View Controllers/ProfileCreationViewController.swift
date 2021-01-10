@@ -13,7 +13,7 @@ protocol ProfileCreationViewControllerDelegate: AnyObject {
     func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
 }
 
-class ProfileCreationViewController: UIViewController {
+class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImg: UIImageView!
@@ -22,18 +22,31 @@ class ProfileCreationViewController: UIViewController {
     @IBOutlet weak var attachBtnHeight: NSLayoutConstraint!
     
     @IBOutlet weak var usernameTxtField: UITextField!
+    @IBOutlet weak var usernameSeparator: UIView!
+    
     @IBOutlet weak var nameTxtField: UITextField!
     @IBOutlet weak var occupationTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
     @IBOutlet weak var completeSignupBtnContainer: UIView!
+    @IBOutlet weak var lblErrorMessage: UILabel!
     
     private var completeSignupBtn: GradientButton?
     
     weak var delegate: ProfileCreationViewControllerDelegate?
     var viewModel: FirebaseSignupViewModel!
     private var insetManager: KeyboardInsetManager!
+    
+    var fieldDict: [Field: UIView] {
+        [
+            Field.username: usernameTxtField
+        ]
+    }
+    
+    var separators: [UIView] {
+        [usernameSeparator]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +57,7 @@ class ProfileCreationViewController: UIViewController {
         configureSignupButton()
         
         if viewModel.profileImageAttachment != nil {
-            self.configureProfileImage()
+            configureProfileImage()
         }
     }
     
@@ -72,16 +85,10 @@ class ProfileCreationViewController: UIViewController {
     }
     
     func completeSignup() {
+        clearHighlightedFields()
+        
         if let error = viewModel.profileValidationError() {
-            let alert = UIAlertController(
-                title: error.title,
-                message: error.message,
-                preferredStyle: .alert
-            )
-            
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
+            lblErrorMessage.text = error.message
             return
         }
         

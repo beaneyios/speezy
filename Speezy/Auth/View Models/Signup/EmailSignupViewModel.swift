@@ -48,39 +48,39 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
 }
 
 extension EmailSignupViewModel {    
-    func validationError() -> ValidationError? {
+    func validationError() -> AuthError? {
         if email.isEmpty {
-            return ValidationError(
-                title: "No email address supplied",
-                message: "Please ensure you enter a valid email address"
+            return AuthError(
+                message: "Please ensure you enter a valid email address",
+                field: Field.email
             )
         }
         
         if !isValidEmail(email) {
-            return ValidationError(
-                title: "Email address invalid",
-                message: "Please ensure you enter a valid email address"
+            return AuthError(
+                message: "Please ensure you enter a valid email address",
+                field: Field.email
             )
         }
         
         if password.isEmpty {
-            return ValidationError(
-                title: "No password supplied",
-                message: "Please ensure you enter a password"
+            return AuthError(
+                message: "Please ensure you enter a password",
+                field: Field.password
             )
         }
         
         if password.count < 6 {
-            return ValidationError(
-                title: "Password too short",
-                message: "Password must be at least 6 characters"
+            return AuthError(
+                message: "Password must be at least 6 characters",
+                field: Field.password
             )
         }
         
         if password != verifyPassword {
-            return ValidationError(
-                title: "Passwords do not match",
-                message: "Please check your passwords."
+            return AuthError(
+                message: "Passwords do not match",
+                field: Field.passwordVerifier
             )
         }
         

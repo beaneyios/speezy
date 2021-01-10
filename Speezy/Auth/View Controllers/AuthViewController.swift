@@ -73,7 +73,7 @@ class AuthViewController: UIViewController {
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
-                case let .loggedIn:
+                case .loggedIn:
                     self.appleSignupBtn.stopLoading()
                     self.delegate?.authViewController(
                         self,
