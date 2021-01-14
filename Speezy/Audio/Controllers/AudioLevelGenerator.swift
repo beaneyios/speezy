@@ -38,7 +38,11 @@ class AudioLevelGenerator {
     }
     
     typealias AudioLevelCompletion = (AudioData) -> Void
-    static func render(fromAudioItem item: AudioItem, targetSamplesPolicy: TargetSamples, completion: @escaping AudioLevelCompletion) {
+    static func render(
+        fromAudioItem item: AudioItem,
+        targetSamplesPolicy: TargetSamples,
+        completion: @escaping AudioLevelCompletion
+    ) {
         self.load(fromAudioURL: item.url) { (context) in
             guard let context = context else {
                 completion(

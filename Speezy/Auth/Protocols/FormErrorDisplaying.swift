@@ -21,7 +21,7 @@ extension FormErrorDisplaying {
     func clearHighlightedFields() {
         lblErrorMessage.text = nil
         separators.forEach {
-            $0.backgroundColor = UIColor(named: "speezy-grey-text")
+            $0.backgroundColor = UIColor.speezyDarkGrey
             $0.constraints.forEach {
                 if $0.firstAttribute == .height {
                     $0.constant = 0.5

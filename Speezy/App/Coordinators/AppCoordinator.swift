@@ -17,7 +17,7 @@ class AppCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToAuth()
+        navigateToChat()
     }
     
     override func finish() {
@@ -36,6 +36,19 @@ class AppCoordinator: ViewCoordinator {
         coordinator.delegate = self
         add(coordinator)
         coordinator.start()
+    }
+    
+    private func navigateToChat() {
+        let coordinator = ChatCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        add(coordinator)
+        coordinator.start()
+    }
+}
+
+extension AppCoordinator: ChatCoordinatorDelegate {
+    func chatCoordinatorDidFinish(_ coordinator: ChatCoordinator) {
+        remove(coordinator)
     }
 }
 

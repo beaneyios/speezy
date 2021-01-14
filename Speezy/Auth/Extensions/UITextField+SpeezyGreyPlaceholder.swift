@@ -17,9 +17,7 @@ extension UITextField {
         let attributedPlaceholderText = NSAttributedString(
             string: placeholder,
             attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor(
-                    named: "speezy-grey-text"
-                )!
+                NSAttributedString.Key.foregroundColor: UIColor.speezyDarkGrey
             ]
         )
         

@@ -103,6 +103,9 @@
 		BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD427256AF9980034F921 /* CutNotification.swift */; };
 		BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8325178E490009ECCC /* test-transcribe.m4a */; };
 		BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */; };
+		BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13525B0C623000888A7 /* ChatViewModel.swift */; };
+		BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */; };
+		BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */; };
 		BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */; };
 		BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */; };
 		BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */; };
@@ -136,6 +139,13 @@
 		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
+		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
+		BEECD89725ACD61200AD7AC3 /* AudioChatItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* AudioChatItemCell.swift */; };
+		BEECD89825ACD61200AD7AC3 /* AudioChatItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* AudioChatItemCell.xib */; };
+		BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */; };
+		BEECD8A125ACD7F500AD7AC3 /* ChatItemCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A025ACD7F500AD7AC3 /* ChatItemCellModel.swift */; };
+		BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */; };
+		BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
@@ -286,6 +296,9 @@
 		BE9AD427256AF9980034F921 /* CutNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutNotification.swift; sourceTree = "<group>"; };
 		BEA5AE8325178E490009ECCC /* test-transcribe.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.m4a"; sourceTree = "<group>"; };
 		BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.flac"; sourceTree = "<group>"; };
+		BEA9D13525B0C623000888A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileCombiner.swift; sourceTree = "<group>"; };
 		BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizationView.swift; sourceTree = "<group>"; };
 		BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioVisualizationView.xib; sourceTree = "<group>"; };
@@ -319,6 +332,13 @@
 		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
+		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		BEECD89525ACD61200AD7AC3 /* AudioChatItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChatItemCell.swift; sourceTree = "<group>"; };
+		BEECD89625ACD61200AD7AC3 /* AudioChatItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioChatItemCell.xib; sourceTree = "<group>"; };
+		BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Constants.swift"; sourceTree = "<group>"; };
+		BEECD8A025ACD7F500AD7AC3 /* ChatItemCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatItemCellModel.swift; sourceTree = "<group>"; };
+		BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavePreview.swift; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
@@ -633,6 +653,7 @@
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
 				BEC825B4257D53010037F007 /* Auth */,
+				BEECD88F25ACCF4100AD7AC3 /* Chat */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BEFDB4F5255FF35F00362428 /* State */,
@@ -654,6 +675,14 @@
 				BE79271F247EE5610079652C /* Info.plist */,
 			);
 			path = SpeezyTests;
+			sourceTree = "<group>";
+		};
+		BEA9D13425B0C615000888A7 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEA9D13525B0C623000888A7 /* ChatViewModel.swift */,
+			);
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		BEAACE8324BA031A0074E4B9 /* Audio */ = {
@@ -868,6 +897,46 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		BEECD88F25ACCF4100AD7AC3 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */,
+				BEECD89F25ACD7ED00AD7AC3 /* Models */,
+				BEECD8A825ACDE2000AD7AC3 /* View Controllers */,
+				BEA9D13425B0C615000888A7 /* View Models */,
+				BEECD89425ACD5F300AD7AC3 /* Views */,
+				BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		BEECD89425ACD5F300AD7AC3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BEECD89525ACD61200AD7AC3 /* AudioChatItemCell.swift */,
+				BEECD89625ACD61200AD7AC3 /* AudioChatItemCell.xib */,
+				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
+				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BEECD89F25ACD7ED00AD7AC3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEECD8A025ACD7F500AD7AC3 /* ChatItemCellModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BEECD8A825ACDE2000AD7AC3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		BEF0ECB024BF948D00B9D554 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +969,7 @@
 				BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */,
 				BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */,
 				BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */,
+				BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1116,10 +1186,12 @@
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
+				BEECD89825ACD61200AD7AC3 /* AudioChatItemCell.xib in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
 				BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */,
+				BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */,
 				BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */,
 				BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
@@ -1249,10 +1321,13 @@
 				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
+				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
+				BEECD89725ACD61200AD7AC3 /* AudioChatItemCell.swift in Sources */,
+				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
@@ -1281,6 +1356,7 @@
 				BEFDB54E255FF8D100362428 /* TranscriptNotification.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
+				BEECD8A125ACD7F500AD7AC3 /* ChatItemCellModel.swift in Sources */,
 				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
@@ -1315,6 +1391,7 @@
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
+				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
@@ -1331,6 +1408,8 @@
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
 				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,
+				BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */,
+				BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
 				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
@@ -1348,6 +1427,7 @@
 				BEFDB51C255FF5E200362428 /* RecorderObservationManaging.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
+				BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */,
 				BE54295F25937732007EEAD1 /* AuthViewController.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
