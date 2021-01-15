@@ -28,6 +28,7 @@ class ChatViewController: UIViewController {
             }
         }
         
+        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         collectionView.register(AudioChatItemCell.nib, forCellWithReuseIdentifier: "cell")
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -45,6 +46,7 @@ extension ChatViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AudioChatItemCell
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
+        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
     }
 }

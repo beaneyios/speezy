@@ -36,12 +36,101 @@ class ChatViewModel {
                 profileImage: UIImage(named: ""),
                 timeStamp: "10:15 pm",
                 isSender: true,
-                received: true,
+                received: false,
                 message: "Test message",
                 audioUrl: nil,
                 attachmentUrl: nil,
                 duration: 10.0
-            )
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+            ChatItemCellModel(
+                displayName: "James",
+                profileImage: UIImage(named: ""),
+                timeStamp: "10:11 pm",
+                isSender: false,
+                received: nil,
+                message: "Test message",
+                audioUrl: nil,
+                attachmentUrl: nil,
+                duration: 15.0
+            ),
+
         ]
         
         didChange?(.loaded)
