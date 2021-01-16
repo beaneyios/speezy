@@ -20,7 +20,7 @@ class AudioItemListViewModel {
     }
     
     var didChange: ((Change) -> Void)?
-    var audioItems: [AudioItem] = []
+    var audioItems: [RemoteAudioItem] = []
     
     private(set) var audioAttachmentManager = AudioAttachmentManager()
     
@@ -29,16 +29,24 @@ class AudioItemListViewModel {
     }
     
     func loadItems() {
-        audioItems = AudioStorage.fetchItems()
-        didChange?(.itemsLoaded)
+        AudioStorage.fetchItems { result in
+            switch result {
+            case let .success(items):
+                self.audioItems = items
+                self.didChange?(.itemsLoaded)
+            case let .failure(error):
+                // TODO: Handle error
+                assertionFailure("Errored with error \(error.localizedDescription)")
+            }
+        }
     }
     
     func reloadItem(_ item: AudioItem) {
-        if audioItems.contains(item) {
-            audioItems = audioItems.replacing(item)
-        } else {
-            audioItems.append(item)
-        }
+//        if audioItems.contains(item) {
+//            audioItems = audioItems.replacing(item)
+//        } else {
+//            audioItems.append(item)
+//        }
         
         audioAttachmentManager.resetCache()
         
@@ -46,18 +54,18 @@ class AudioItemListViewModel {
     }
     
     func deleteItem(_ item: AudioItem) {
-        audioAttachmentManager.storeAttachment(
-            nil,
-            forItem: item
-        )
-        
-        FileManager.default.deleteExistingURL(
-            item.withStagingPath().fileUrl
-        )
-        FileManager.default.deleteExistingURL(item.fileUrl)
-        AudioStorage.deleteItem(item)
-        audioItems = audioItems.removing(item)
-        didChange?(.itemsLoaded)
+//        audioAttachmentManager.storeAttachment(
+//            nil,
+//            forItem: item
+//        )
+//
+//        FileManager.default.deleteExistingURL(
+//            item.withStagingPath().fileUrl
+//        )
+//        FileManager.default.deleteExistingURL(item.fileUrl)
+//        AudioStorage.deleteItem(item)
+//        audioItems = audioItems.removing(item)
+//        didChange?(.itemsLoaded)
     }
 }
 
@@ -95,7 +103,7 @@ extension AudioItemListViewModel {
         audioItems.count
     }
     
-    func item(at indexPath: IndexPath) -> AudioItem {
+    func item(at indexPath: IndexPath) -> RemoteAudioItem {
         audioItems[indexPath.row]
     }
 }

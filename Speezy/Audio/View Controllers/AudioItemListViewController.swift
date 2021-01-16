@@ -174,15 +174,15 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let audioItem = viewModel.item(at: indexPath)
-        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
+//        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let share = UIContextualAction(style: .normal, title: "Send") { (action, view, completionHandler) in
-            self.delegate?.audioItemListViewController(
-                self,
-                didSelectSendOnItem: self.viewModel.item(at: indexPath)
-            )
+//            self.delegate?.audioItemListViewController(
+//                self,
+//                didSelectSendOnItem: self.viewModel.item(at: indexPath)
+//            )
             completionHandler(true)
         }
         
@@ -190,7 +190,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let item = self.viewModel.item(at: indexPath)
-            self.deleteItem(item: item)
+//            self.deleteItem(item: item)
             completionHandler(true)
         }
         
@@ -224,7 +224,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension AudioItemListViewController: AudioItemCellDelegate {
-    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: AudioItem) {
+    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: RemoteAudioItem) {
         let alert = UIAlertController(title: "More options", message: nil, preferredStyle: .actionSheet)
         let shareAction = UIAlertAction(title: "Send", style: .default) { (action) in
             self.share(item: item)
@@ -234,7 +234,7 @@ extension AudioItemListViewController: AudioItemCellDelegate {
             title: "Delete",
             style: .destructive
         ) { (action) in
-            self.deleteItem(item: item)
+//            self.deleteItem(item: item)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -245,8 +245,8 @@ extension AudioItemListViewController: AudioItemCellDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    func share(item: AudioItem) {
-        delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
+    func share(item: RemoteAudioItem) {
+//        delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
     }
 }
 

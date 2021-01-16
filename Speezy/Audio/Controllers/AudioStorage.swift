@@ -81,7 +81,8 @@ class AudioStorage {
             "id": item.id,
             "duration": item.duration,
             "title": item.title,
-            "url": itemUrl.absoluteString
+            "url": itemUrl.absoluteString,
+            "date": item.date.toString()
         ]
         
         let clipChild: DatabaseReference = {
@@ -115,21 +116,61 @@ class AudioStorage {
         Storage.store(itemList, to: .documents, as: audioItemsKey)
     }
     
-    static func fetchItems() -> [AudioItem] {
-//        return [
-//            AudioItem(
-//                id: "test",
-//                path: "test",
-//                title: "TEST TRANSCRIBED ITEM",
-//                date: Date(),
-//                tags: []
-//            )
-//        ]
+    static func fetchItems(completion: @escaping (Result<[RemoteAudioItem], Error>) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
         
-        Storage.retrieve(audioItemsKey, from: .documents, as: [AudioItem].self) ?? []
+        let ref = Database.database().reference()
+        let clipsChild: DatabaseReference = ref.child("users/\(userId)/audio_clips")
+        
+        
+        clipsChild.observeSingleEvent(of: .value) { (snapshot) in
+            guard let result = snapshot.value as? NSDictionary else {
+                // TODO: Handle error here
+                assertionFailure("Something went wrong with snapshot")
+                return
+            }
+            
+            let audioItems: [RemoteAudioItem] = result.allKeys.compactMap {
+                guard
+                    let key = $0 as? String,
+                    let dict = result[key] as? NSDictionary,
+                    let duration = dict["duration"] as? TimeInterval,
+                    let id = dict["id"] as? String,
+                    let title = dict["title"] as? String,
+                    let urlString = dict["url"] as? String,
+                    let url = URL(string: urlString)
+                else {
+                    return nil
+                }
+                
+                return RemoteAudioItem(
+                    duration: duration,
+                    id: id,
+                    title: title,
+                    url: url,
+                    databaseKey: key,
+                    date: nil,
+                    tags: nil
+                )
+            }
+            
+            completion(.success(audioItems))
+        }
     }
     
     static func url(for id: String) -> URL {
         FileManager.default.documentsURL(with: id)!
     }
+}
+
+struct RemoteAudioItem {
+    let duration: TimeInterval
+    let id: String
+    let title: String
+    let url: URL
+    let databaseKey: String
+    let date: Date?
+    let tags: [Tag]?
 }

@@ -10,7 +10,7 @@ import UIKit
 import AFDateHelper
 
 protocol AudioItemCellDelegate: AnyObject {
-    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: AudioItem)
+    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: RemoteAudioItem)
 }
 
 class AudioItemCell: UITableViewCell {
@@ -29,52 +29,52 @@ class AudioItemCell: UITableViewCell {
     weak var delegate: AudioItemCellDelegate?
     
     private var tagsView: TagsView?
-    private var audioItem: AudioItem?
+    private var audioItem: RemoteAudioItem?
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         containerView.backgroundColor = highlighted ? .systemGray5 : .white
     }
     
-    func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
+    func configure(with audioItem: RemoteAudioItem, audioAttachmentManager: AudioAttachmentManager) {
         self.audioItem = audioItem
         lblTitle.text = audioItem.title != "" ? audioItem.title : "No title"
         
-        if audioItem.tags.count > 0 {
+        if let tags = audioItem.tags, tags.count > 0 {
             tagContainerHeight.constant = 36.5
-            configureTags(item: audioItem)
+            configureTags(tags: tags)
         } else {
             tagContainerHeight.constant = 0.0
             tagsView?.removeFromSuperview()
             tagsView = nil
         }
         
-        lblDate.text = audioItem.date.toStringWithRelativeTime(
+        lblDate.text = audioItem.date?.toStringWithRelativeTime(
             strings: [
                 RelativeTimeStringType.nowPast: "Just now"
             ]
-        )
+        ) ?? ""
         
         imgAttachment.layer.cornerRadius = 20.0
         
-        audioAttachmentManager.fetchAttachment(forItem: audioItem) { (image) in
-            DispatchQueue.main.async {
-                if image == nil {
-                    self.imgAttachmentWidth.constant = 0.0
-                } else {
-                    self.imgAttachmentWidth.constant = 40.0
-                }
-                
-                UIView.animate(withDuration: 0.3) {
-                    self.layoutIfNeeded()
-                }
-                
-                self.imgAttachment.image = image
-            }
-        }
+//        audioAttachmentManager.fetchAttachment(forItem: audioItem) { (image) in
+//            DispatchQueue.main.async {
+//                if image == nil {
+//                    self.imgAttachmentWidth.constant = 0.0
+//                } else {
+//                    self.imgAttachmentWidth.constant = 40.0
+//                }
+//                
+//                UIView.animate(withDuration: 0.3) {
+//                    self.layoutIfNeeded()
+//                }
+//                
+//                self.imgAttachment.image = image
+//            }
+//        }
     }
     
-    func configureTags(item: AudioItem) {
+    func configureTags(tags: [Tag]) {
         tagsView?.removeFromSuperview()
         tagsView = nil
         
@@ -86,7 +86,7 @@ class AudioItemCell: UITableViewCell {
         }
         
         tagsView.configure(
-            with: item.tags,
+            with: tags,
             foreColor: UIColor(named: "speezy-purple")!,
             backColor: .clear,
             scrollDirection: .horizontal,
