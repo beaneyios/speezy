@@ -130,8 +130,8 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        let currentFile = item.url
-        let outputURL = item.url
+        let currentFile = item.fileUrl
+        let outputURL = item.fileUrl
         
         AudioFileCombiner.combineAudioFiles(
             audioURLs: [currentFile, recordingUrl],

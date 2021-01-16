@@ -15,7 +15,8 @@ extension AudioItem {
             path: path,
             title: title,
             date: date,
-            tags: tags
+            tags: tags,
+            databaseKey: databaseKey
         )
         
         return newItem
@@ -34,7 +35,8 @@ extension AudioItem {
             path: path,
             title: title,
             date: date,
-            tags: tags + tags
+            tags: tags + tags,
+            databaseKey: databaseKey
         )
         
         return newItem
@@ -50,7 +52,8 @@ extension AudioItem {
             path: path,
             title: title,
             date: date,
-            tags: newTags
+            tags: newTags,
+            databaseKey: databaseKey
         )
         
         return newItem
@@ -67,6 +70,29 @@ extension AudioItem {
             title: title,
             date: date,
             tags: tags
+        )
+    }
+    
+    func withNewDatabaseKey(_ key: String) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: date,
+            tags: tags,
+            databaseKey: key
+        )
+    }
+    
+    func withRemoteUrl(_ url: URL) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: date,
+            tags: tags,
+            databaseKey: databaseKey,
+            remoteUrl: url
         )
     }
 }

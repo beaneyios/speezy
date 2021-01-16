@@ -111,7 +111,7 @@ extension AudioCutter {
         finished: @escaping (String) -> Void
     ) {
         let asset = AVURLAsset(
-            url: audioItem.url,
+            url: audioItem.fileUrl,
             options: [AVURLAssetPreferPreciseDurationAndTimingKey: true]
         )
         
@@ -155,7 +155,7 @@ extension AudioCutter {
         finished: @escaping (String) -> Void
     ) {
         let asset = AVURLAsset(
-            url: audioItem.url,
+            url: audioItem.fileUrl,
             options: [AVURLAssetPreferPreciseDurationAndTimingKey: true]
         )
         let outputPath = "\(audioItem.id)\(cutExtension)"

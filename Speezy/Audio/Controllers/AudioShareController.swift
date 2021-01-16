@@ -77,7 +77,7 @@ extension AudioShareController: ShareViewControllerDelegate {
 
 extension AudioShareController {
     func generateAudioAndPresentShareOption(item: AudioItem, option: ShareOption) {
-        presentShareOption(url: item.url, option: option)
+        presentShareOption(url: item.fileUrl, option: option)
     }
     
     func generateVideoAndPresentShareOption(item: AudioItem, option: ShareOption, config: ShareConfig) {
@@ -147,7 +147,7 @@ extension AudioShareController {
             }
         }
         
-        let audioURL = item.url
+        let audioURL = item.fileUrl
         VideoGenerator.fileName = "Speezy Audio File"
         VideoGenerator.shouldOptimiseImageForVideo = true
         VideoGenerator.current.generate(withImages: images, andAudios: [audioURL], andType: .singleAudioMultipleImage, { (progress) in

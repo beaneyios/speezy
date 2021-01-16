@@ -52,9 +52,9 @@ class AudioItemListViewModel {
         )
         
         FileManager.default.deleteExistingURL(
-            item.withStagingPath().url
+            item.withStagingPath().fileUrl
         )
-        FileManager.default.deleteExistingURL(item.url)
+        FileManager.default.deleteExistingURL(item.fileUrl)
         AudioStorage.deleteItem(item)
         audioItems = audioItems.removing(item)
         didChange?(.itemsLoaded)

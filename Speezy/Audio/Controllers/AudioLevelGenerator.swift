@@ -43,7 +43,7 @@ class AudioLevelGenerator {
         targetSamplesPolicy: TargetSamples,
         completion: @escaping AudioLevelCompletion
     ) {
-        self.load(fromAudioURL: item.url) { (context) in
+        self.load(fromAudioURL: item.fileUrl) { (context) in
             guard let context = context else {
                 completion(
                     AudioData(
@@ -58,8 +58,8 @@ class AudioLevelGenerator {
             let targetSamples: Int = {
                 switch targetSamplesPolicy {
                 case .fitToDuration:
-                    guard let audioFile = try? AVAudioFile(forReading: item.url) else {
-                        assertionFailure("Couldn't load URL \(item.url.absoluteString)")
+                    guard let audioFile = try? AVAudioFile(forReading: item.fileUrl) else {
+                        assertionFailure("Couldn't load URL \(item.fileUrl.absoluteString)")
                         return 100
                     }
                     

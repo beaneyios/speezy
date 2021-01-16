@@ -32,7 +32,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     init(item: AudioItem) {
         print("initting player")
-        player = try? AVAudioPlayer(contentsOf: item.url)
+        player = try? AVAudioPlayer(contentsOf: item.fileUrl)
         super.init()
         player?.delegate = self
     }

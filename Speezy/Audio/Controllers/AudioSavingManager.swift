@@ -12,10 +12,16 @@ class AudioSavingManager {
     @discardableResult
     func saveItem(
         item: AudioItem,
-        originalItem: AudioItem
-    ) -> AudioItem {
-        FileManager.default.deleteExistingFile(with: originalItem.path)
-        FileManager.default.copy(original: item.url, to: originalItem.url)
+        originalItem: AudioItem,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
+        FileManager.default.deleteExistingFile(
+            with: originalItem.path
+        )
+        FileManager.default.copy(
+            original: item.fileUrl,
+            to: originalItem.fileUrl
+        )
         
         let newItem = AudioItem(
             id: item.id,
@@ -25,8 +31,7 @@ class AudioSavingManager {
             tags: item.tags
         )
         
-        AudioStorage.saveItem(newItem)
-        return newItem
+        AudioStorage.saveItem(item, completion: completion)
     }
     
     func discard(
@@ -34,8 +39,8 @@ class AudioSavingManager {
         originalItem: AudioItem,
         completion: @escaping () -> Void
     ) {
-        FileManager.default.deleteExistingURL(item.url)
-        FileManager.default.copy(original: originalItem.url, to: item.url)
+        FileManager.default.deleteExistingURL(item.fileUrl)
+        FileManager.default.copy(original: originalItem.fileUrl, to: item.fileUrl)
         completion()
     }
 }

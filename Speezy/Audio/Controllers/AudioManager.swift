@@ -41,7 +41,7 @@ class AudioManager: NSObject {
         self.stateManager = AudioStateManager()
     }
     
-    func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
+    func save(saveAttachment: Bool, completion: @escaping (Result<AudioItem, Error>) -> Void) {
         if saveAttachment {
             commitImageAttachment {
                 self.saveItem(completion: completion)
@@ -72,14 +72,19 @@ class AudioManager: NSObject {
         AudioItemChangeManager.removeUnsavedChange(for: item)
     }
     
-    private func saveItem(completion: @escaping (AudioItem) -> Void) {
-        let newItem = audioSavingManager.saveItem(
+    private func saveItem(completion: @escaping (Result<AudioItem, Error>) -> Void) {
+        audioSavingManager.saveItem(
             item: item,
             originalItem: originalItem
-        )
-        markAsClean()
-        transcriptManager.saveTranscript()
-        completion(newItem)
+        ) { result in
+            if case let .success(item) = result {
+                self.item = item
+            }
+            
+            self.markAsClean()
+            self.transcriptManager.saveTranscript()
+            completion(result)
+        }
     }
     
     private func commitImageAttachment(completion: @escaping () -> Void) {
@@ -519,7 +524,7 @@ extension AudioManager: TranscriptionJobManagerDelegate {
         createTranscriptionJobManagerIfNoneExists()
         transcriptionJobManager?.createTranscriptionJob(
             audioId: item.id,
-            url: item.url
+            url: item.fileUrl
         )
     }
     

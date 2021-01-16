@@ -259,15 +259,10 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
         
-        // The recording is done, save the file first.
-        // Then we're going to offer the user the chance to
-        // update the title and save it again.
-        audioManager.save(saveAttachment: false) { (item) in
-            self.showTitleAlert(audioManager: audioManager) {
-                audioManager.save(saveAttachment: false) { (item) in
-                    DispatchQueue.main.async {
-                        self.loadItems()
-                    }
+        self.showTitleAlert(audioManager: audioManager) {
+            audioManager.save(saveAttachment: false) { (item) in
+                DispatchQueue.main.async {
+                    self.loadItems()
                 }
             }
         }
@@ -294,9 +289,7 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         }
         
         alert.addButton("Not right now") {
-            audioManager.discard {
-                completion?()
-            }
+            completion?()
         }
         
         alert.showEdit(

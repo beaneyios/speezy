@@ -110,9 +110,16 @@ class AudioItemViewController: UIViewController {
     
     @IBAction func saveToDrafts(_ sender: Any) {
         let saveAction = {
-            self.audioManager.save(saveAttachment: false) { (item) in
-                self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                self.delegate?.audioItemViewControllerShouldPop(self)
+            self.audioManager.save(saveAttachment: false) { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case let .success(item):
+                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                        self.delegate?.audioItemViewControllerShouldPop(self)
+                    case let .failure(error):
+                        assertionFailure("Errored with error \(error.localizedDescription)")
+                    }
+                }
             }
         }
         
@@ -126,9 +133,15 @@ class AudioItemViewController: UIViewController {
     }
     
     @IBAction func send(_ sender: Any) {
-        audioManager.save(saveAttachment: false) { (item) in
+        audioManager.save(saveAttachment: false) { (result) in
             DispatchQueue.main.async {
-                self.delegate?.audioItemViewController(self, shouldSendItem: item)
+                switch result {
+                case let .success(item):
+                    self.delegate?.audioItemViewController(self, shouldSendItem: item)
+                case let .failure(error):
+                    // TODO: Handle error gracefully.
+                    assertionFailure("Errored with error \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -145,10 +158,17 @@ class AudioItemViewController: UIViewController {
                 preferredStyle: .actionSheet
             )
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                self.audioManager.save(saveAttachment: false) { (item) in
+                self.audioManager.save(saveAttachment: false) { (result) in
                     DispatchQueue.main.async {
-                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                        self.delegate?.audioItemViewControllerShouldPop(self)
+                        switch result {
+                        case let .success(item):
+                            self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                            self.delegate?.audioItemViewControllerShouldPop(self)
+                        case let .failure(error):
+                            // TODO: Handle error
+                            assertionFailure("Errored with error \(error.localizedDescription)")
+                        }
+                        
                     }
                 }
             }

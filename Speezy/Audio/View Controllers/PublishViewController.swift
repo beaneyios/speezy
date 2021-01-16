@@ -79,10 +79,16 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     }
     
     @IBAction func didTapDraft(_ sender: Any) {
-        audioManager.save(saveAttachment: true) { (item) in
+        audioManager.save(saveAttachment: true) { (result) in
             DispatchQueue.main.async {
-                self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
-                self.delegate?.publishViewControllerShouldNavigateHome(self)
+                switch result {
+                case let .success(item):
+                    self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
+                    self.delegate?.publishViewControllerShouldNavigateHome(self)
+                case let .failure(error):
+                    assertionFailure("Error: \(error.localizedDescription)")
+                }
+                
             }
         }
     }
@@ -95,10 +101,16 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
         if audioManager.hasUnsavedChanges {
             let alert = UIAlertController(title: "Changes not saved", message: "You have unsaved changes, would you like to save or discard them?", preferredStyle: .actionSheet)
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                self.audioManager.save(saveAttachment: true) { (item) in
+                self.audioManager.save(saveAttachment: true) { (result) in
                     DispatchQueue.main.async {
-                        self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
-                        self.delegate?.publishViewControllerShouldNavigateBack(self)
+                        switch result {
+                        case let .success(item):
+                            self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
+                            self.delegate?.publishViewControllerShouldNavigateBack(self)
+                        case let .failure(error):
+                            assertionFailure("Error: \(error.localizedDescription)")
+                        }
+                        
                     }
                 }
             }
