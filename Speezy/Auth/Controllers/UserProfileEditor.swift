@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-import FirebaseFirestore
+import FirebaseDatabase
 import FirebaseStorage
 
 class FirebaseUserProfileEditor {
@@ -64,7 +64,7 @@ class FirebaseUserProfileEditor {
         profile: Profile,
         completion: @escaping (AuthResult) -> Void
     ) {
-        let db = Firestore.firestore()
+        let ref = Database.database().reference()
         
         var dataDictionary: [String: Any] = [
             "name": profile.name,
@@ -77,7 +77,7 @@ class FirebaseUserProfileEditor {
             dataDictionary["profile_image"] = profileImage.absoluteString
         }
         
-        db.collection("users").document(userId).setData(dataDictionary) { (error) in
+        ref.child("users").child(userId).child("profile").setValue(dataDictionary) { (error, _) in
             if let error = error {
                 let error = AuthError(
                     message: "Unable to set profile, please try again\nReason: \(error.localizedDescription)",

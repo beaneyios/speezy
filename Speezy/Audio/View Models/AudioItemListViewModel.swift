@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 import FBSDKLoginKit
