@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uFe-N0-lZO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="698"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CVy-7W-bhV">
                                     <size key="itemSize" width="128" height="128"/>
@@ -28,14 +28,42 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xm3-1c-OOy">
+                                <rect key="frame" x="0.0" y="742" width="207" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Y3N-3n-kfs"/>
+                                </constraints>
+                                <state key="normal" title="Add item from friend"/>
+                                <connections>
+                                    <action selector="addChatItem:" destination="2pp-Oq-boV" eventType="touchUpInside" id="gag-zz-ek5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwU-UM-8Sa">
+                                <rect key="frame" x="207" y="742" width="207" height="120"/>
+                                <color key="backgroundColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Jto-pG-aDr"/>
+                                </constraints>
+                                <state key="normal" title="Add item from you"/>
+                                <connections>
+                                    <action selector="addYouItem:" destination="2pp-Oq-boV" eventType="touchUpInside" id="P8y-0T-1IM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BhX-mg-MhH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="uFe-N0-lZO" firstAttribute="top" secondItem="BhX-mg-MhH" secondAttribute="top" id="PgW-6Z-3fc"/>
                             <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="uFe-N0-lZO" secondAttribute="trailing" id="Q3f-mW-5lN"/>
-                            <constraint firstItem="BhX-mg-MhH" firstAttribute="bottom" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="QO6-k7-3Hk"/>
+                            <constraint firstItem="xm3-1c-OOy" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="QRZ-JC-zkT"/>
+                            <constraint firstItem="xm3-1c-OOy" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="T3S-Wr-1Tt"/>
+                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="leading" secondItem="xm3-1c-OOy" secondAttribute="trailing" id="Zz1-pY-rzr"/>
                             <constraint firstItem="uFe-N0-lZO" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="aO0-YD-rKx"/>
+                            <constraint firstItem="uFe-N0-lZO" firstAttribute="top" secondItem="BhX-mg-MhH" secondAttribute="top" id="eaN-IG-RtG"/>
+                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="bottom" secondItem="BhX-mg-MhH" secondAttribute="bottom" id="gNp-nq-kvK"/>
+                            <constraint firstItem="xm3-1c-OOy" firstAttribute="bottom" secondItem="BhX-mg-MhH" secondAttribute="bottom" id="mne-of-uHB"/>
+                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="nFw-h1-NtJ"/>
+                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="width" secondItem="xm3-1c-OOy" secondAttribute="width" id="uUP-Hd-6hq"/>
+                            <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="dwU-UM-8Sa" secondAttribute="trailing" id="ubH-Yl-mVu"/>
                         </constraints>
                     </view>
                     <connections>

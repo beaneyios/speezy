@@ -23,7 +23,7 @@ class ChatViewController: UIViewController {
                 case .loaded:
                     self.collectionView.reloadData()
                 case .itemInserted(_):
-                    self.collectionView.reloadData()
+                    self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
                 }
             }
         }
@@ -34,6 +34,14 @@ class ChatViewController: UIViewController {
         collectionView.dataSource = self
         
         viewModel.listenForData()
+    }
+    
+    @IBAction func addChatItem(_ sender: Any) {
+        viewModel.addChatItem(you: false)
+    }
+    
+    @IBAction func addYouItem(_ sender: Any) {
+        
     }
 }
 

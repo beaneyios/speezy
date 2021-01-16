@@ -135,4 +135,21 @@ class ChatViewModel {
         
         didChange?(.loaded)
     }
+    
+    func addChatItem(you: Bool) {
+        let newChatItem = ChatItemCellModel(
+            displayName: "James",
+            profileImage: UIImage(named: ""),
+            timeStamp: "10:11 pm",
+            isSender: you,
+            received: you ? true : nil,
+            message: "Test message",
+            audioUrl: nil,
+            attachmentUrl: nil,
+            duration: 15.0
+        )
+        
+        items.insert(newChatItem, at: 0)
+        didChange?(.itemInserted(newChatItem))
+    }
 }
