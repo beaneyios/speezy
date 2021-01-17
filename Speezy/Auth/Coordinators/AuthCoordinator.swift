@@ -82,7 +82,7 @@ extension AuthCoordinator: AuthLoadingViewControllerDelegate {
         _ viewController: AuthLoadingViewController,
         signedInWithUser: User
     ) {
-        delegate?.authCoordinatorDidCompleteSignup(self)
+        delegate?.authCoordinatorDidCompleteLogin(self)
     }
 }
 

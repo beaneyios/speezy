@@ -54,7 +54,7 @@ extension AppCoordinator: ChatCoordinatorDelegate {
 
 extension AppCoordinator: AuthCoordinatorDelegate {
     func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator) {
-        navigateToAudioItems()
+        navigateToChat()
     }
     
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
