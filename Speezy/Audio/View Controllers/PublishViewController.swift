@@ -66,25 +66,33 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     }
     
     func didTapShare() {
-        view.isUserInteractionEnabled = false
-        shareBtn.startLoading()
-        audioManager.save(saveAttachment: true) { (item) in
-            DispatchQueue.main.async {
-                let shareConfig = ShareConfig(
-                    includeTags: self.tagsToggle.isOn,
-                    includeTitle: self.titleToggle.isOn,
-                    attachment: self.imageToggle.isOn ? self.audioManager.currentImageAttachment : nil
-                )
-                
-                self.shareController.share(
-                    self.audioManager.item,
-                    config: shareConfig,
-                    completion: nil
-                )
-                
-                self.shareBtn.stopLoading()
-                self.view.isUserInteractionEnabled = true
+        if audioManager.hasUnsavedChanges {
+            view.isUserInteractionEnabled = false
+            shareBtn.startLoading()
+            audioManager.save(saveAttachment: true) { (item) in
+                self.share()
             }
+        } else {
+            share()
+        }
+    }
+    
+    private func share() {
+        DispatchQueue.main.async {
+            let shareConfig = ShareConfig(
+                includeTags: self.tagsToggle.isOn,
+                includeTitle: self.titleToggle.isOn,
+                attachment: self.imageToggle.isOn ? self.audioManager.currentImageAttachment : nil
+            )
+            
+            self.shareController.share(
+                self.audioManager.item,
+                config: shareConfig,
+                completion: nil
+            )
+            
+            self.shareBtn.stopLoading()
+            self.view.isUserInteractionEnabled = true
         }
     }
     
