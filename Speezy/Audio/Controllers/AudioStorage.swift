@@ -21,7 +21,7 @@ class AudioStorage {
         uploadItem(item) { (result) in
             switch result {
             case let .success(item):
-                self.createDatabaseReference(
+                AudioItemDatabaseController.updateDatabaseReference(
                     item,
                     completion: completion
                 )
@@ -65,46 +65,6 @@ class AudioStorage {
         }
     }
     
-    private static func createDatabaseReference(
-        _ item: AudioItem,
-        completion: @escaping (Result<AudioItem, Error>) -> Void
-    ) {
-        guard
-            let userId = Auth.auth().currentUser?.uid,
-            let itemUrl = item.remoteUrl
-        else {
-            return
-        }
-        
-        let ref = Database.database().reference()
-        let audioItemDict: [String: Any] = [
-            "id": item.id,
-            "duration": item.duration,
-            "title": item.title,
-            "url": itemUrl.absoluteString,
-            "date": item.date.toString()
-        ]
-        
-        let clipChild: DatabaseReference = {
-            let audioClipsChild = ref.child("users/\(userId)/audio_clips")
-            if let existingKey = item.databaseKey {
-                return audioClipsChild.child(existingKey)
-            } else {
-                return audioClipsChild.childByAutoId()
-            }
-        }()
-        
-        clipChild.setValue(audioItemDict) { (error, newRef) in
-            guard let newKey = newRef.key else {
-                assertionFailure("There was an error")
-                return
-            }
-            
-            let itemWithNewKey = item.withNewDatabaseKey(newKey)
-            completion(.success(itemWithNewKey))
-        }
-    }
-    
     static func deleteItem(_ item: AudioItem) {
         var itemList = Storage.retrieve(
             audioItemsKey,
@@ -116,7 +76,7 @@ class AudioStorage {
         Storage.store(itemList, to: .documents, as: audioItemsKey)
     }
     
-    static func fetchItems(completion: @escaping (Result<[RemoteAudioItem], Error>) -> Void) {
+    static func fetchItems(completion: @escaping (Result<[AudioItem], Error>) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
@@ -132,7 +92,7 @@ class AudioStorage {
                 return
             }
             
-            let audioItems: [RemoteAudioItem] = result.allKeys.compactMap {
+            let audioItems: [AudioItem] = result.allKeys.compactMap {
                 guard
                     let key = $0 as? String,
                     let dict = result[key] as? NSDictionary,
@@ -140,19 +100,19 @@ class AudioStorage {
                     let id = dict["id"] as? String,
                     let title = dict["title"] as? String,
                     let urlString = dict["url"] as? String,
-                    let url = URL(string: urlString)
+                    let url = URL(string: urlString),
+                    let timestamp = dict["date"] as? TimeInterval
                 else {
                     return nil
                 }
                 
-                return RemoteAudioItem(
-                    duration: duration,
-                    id: id,
+                return AudioItem(
+                    id: key,
+                    path: "\(key).m4a",
                     title: title,
-                    url: url,
-                    databaseKey: key,
-                    date: nil,
-                    tags: nil
+                    date: Date(timeIntervalSince1970: timestamp),
+                    tags: [],
+                    remoteUrl: url
                 )
             }
             
@@ -163,14 +123,4 @@ class AudioStorage {
     static func url(for id: String) -> URL {
         FileManager.default.documentsURL(with: id)!
     }
-}
-
-struct RemoteAudioItem {
-    let duration: TimeInterval
-    let id: String
-    let title: String
-    let url: URL
-    let databaseKey: String
-    let date: Date?
-    let tags: [Tag]?
 }

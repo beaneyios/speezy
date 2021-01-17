@@ -275,9 +275,15 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
                 imageApplication(image)
             }
         } else {
-            audioManager.fetchImageAttachment { (image) in
+            audioManager.fetchImageAttachment { (result) in
                 DispatchQueue.main.async {
-                    imageApplication(image)
+                    switch result {
+                    case let .success(image):
+                        imageApplication(image)
+                    case let .failure(error):
+                        // TODO: Handle error
+                        assertionFailure("Image failed to download with error \(error?.localizedDescription)")
+                    }
                 }
             }
         }

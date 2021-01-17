@@ -10,7 +10,7 @@ import UIKit
 import AFDateHelper
 
 protocol AudioItemCellDelegate: AnyObject {
-    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: RemoteAudioItem)
+    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: AudioItem)
 }
 
 class AudioItemCell: UITableViewCell {
@@ -29,27 +29,27 @@ class AudioItemCell: UITableViewCell {
     weak var delegate: AudioItemCellDelegate?
     
     private var tagsView: TagsView?
-    private var audioItem: RemoteAudioItem?
+    private var audioItem: AudioItem?
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         containerView.backgroundColor = highlighted ? .systemGray5 : .white
     }
     
-    func configure(with audioItem: RemoteAudioItem, audioAttachmentManager: AudioAttachmentManager) {
+    func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
         self.audioItem = audioItem
         lblTitle.text = audioItem.title != "" ? audioItem.title : "No title"
         
-        if let tags = audioItem.tags, tags.count > 0 {
+        if audioItem.tags.count > 0 {
             tagContainerHeight.constant = 36.5
-            configureTags(tags: tags)
+            configureTags(tags: audioItem.tags)
         } else {
             tagContainerHeight.constant = 0.0
             tagsView?.removeFromSuperview()
             tagsView = nil
         }
         
-        lblDate.text = audioItem.date?.toStringWithRelativeTime(
+        lblDate.text = audioItem.date.toStringWithRelativeTime(
             strings: [
                 RelativeTimeStringType.nowPast: "Just now"
             ]

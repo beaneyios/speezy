@@ -20,8 +20,8 @@ struct AudioItem: Codable, Equatable, Identifiable {
     let path: String
     let date: Date
     let tags: [Tag]
-    let databaseKey: String?
-        
+    
+    var attachmentUrl: URL?
     var remoteUrl: URL?
     
     var fileUrl: URL {
@@ -38,15 +38,14 @@ struct AudioItem: Codable, Equatable, Identifiable {
         title: String,
         date: Date,
         tags: [Tag],
-        databaseKey: String? = nil,
-        remoteUrl: URL? = nil
+        remoteUrl: URL? = nil,
+        attachmentUrl: URL? = nil
     ) {
         self.id = id
         self.path = path
         self.title = title
         self.date = date
         self.tags = tags
-        self.databaseKey = databaseKey
         self.remoteUrl = remoteUrl
     }
 }

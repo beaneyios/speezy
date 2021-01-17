@@ -41,10 +41,21 @@ class AudioManager: NSObject {
         self.stateManager = AudioStateManager()
     }
     
-    func save(saveAttachment: Bool, completion: @escaping (Result<AudioItem, Error>) -> Void) {
+    func save(
+        saveAttachment: Bool,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
         if saveAttachment {
-            commitImageAttachment {
-                self.saveItem(completion: completion)
+            commitImageAttachment { result in
+                switch result {
+                case let .success(item):
+                    self.item = item
+                    self.saveItem(completion: completion)
+                case let .failure(error):
+                    //completion(.failure(error))
+                    // TODO: Handle nil error here.
+                    break
+                }
             }
         } else {
             saveItem(completion: completion)
@@ -87,12 +98,19 @@ class AudioManager: NSObject {
         }
     }
     
-    private func commitImageAttachment(completion: @escaping () -> Void) {
-        audioAttachmentManager.storeAttachment(
-            currentImageAttachment,
-            forItem: item,
-            completion: completion
-        )
+    private func commitImageAttachment(completion: @escaping AttachmentChangeHandler) {
+        if let image = currentImageAttachment {
+            audioAttachmentManager.storeAttachment(
+                image,
+                forItem: item,
+                completion: completion
+            )
+        } else {
+            audioAttachmentManager.removeAttachment(
+                forItem: item,
+                completion: completion
+            )
+        }
     }
     
     func updateTitle(title: String) {
@@ -115,10 +133,15 @@ class AudioManager: NSObject {
         markAsDirty()
     }
     
-    func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
-        audioAttachmentManager.fetchAttachment(forItem: item) { (image) in
-            self.currentImageAttachment = image
-            completion(image)
+    func fetchImageAttachment(completion: @escaping (AttachmentFetchHandler)) {
+        audioAttachmentManager.fetchAttachment(forItem: item) { (result) in
+            switch result {
+            case let .success(image):
+                self.currentImageAttachment = image
+                completion(.success(image))
+            case let .failure(error):
+                completion(.failure(error))
+            }
         }
     }
 }

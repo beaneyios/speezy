@@ -224,7 +224,7 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension AudioItemListViewController: AudioItemCellDelegate {
-    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: RemoteAudioItem) {
+    func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: AudioItem) {
         let alert = UIAlertController(title: "More options", message: nil, preferredStyle: .actionSheet)
         let shareAction = UIAlertAction(title: "Send", style: .default) { (action) in
             self.share(item: item)
@@ -245,7 +245,7 @@ extension AudioItemListViewController: AudioItemCellDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    func share(item: RemoteAudioItem) {
+    func share(item: AudioItem) {
 //        delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
     }
 }

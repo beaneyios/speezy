@@ -20,7 +20,7 @@ class AudioItemListViewModel {
     }
     
     var didChange: ((Change) -> Void)?
-    var audioItems: [RemoteAudioItem] = []
+    var audioItems: [AudioItem] = []
     
     private(set) var audioAttachmentManager = AudioAttachmentManager()
     
@@ -75,19 +75,15 @@ extension AudioItemListViewModel {
             return
         }
         
-        let storage = FirebaseStorage.Storage.storage()
-        let storageRef = storage.reference()
-        let profileImagesRef = storageRef.child("profile_images/\(currentUser.uid).jpg")
-        
-        profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            guard let data = data, let image = UIImage(data: data) else {
+        CloudImageManager.fetchImage(at: "profile_images/\(currentUser.uid).jpg") { (result) in
+            switch result {
+            case let .success(image):
+                self.didChange?(.profileImageLoaded(image))
+            case let .failure:
                 if let defaultImage = UIImage(named: "account-btn") {
                     self.didChange?(.profileImageLoaded(defaultImage))
                 }
-                return
             }
-            
-            self.didChange?(.profileImageLoaded(image))
         }
     }
     
@@ -103,7 +99,7 @@ extension AudioItemListViewModel {
         audioItems.count
     }
     
-    func item(at indexPath: IndexPath) -> RemoteAudioItem {
+    func item(at indexPath: IndexPath) -> AudioItem {
         audioItems[indexPath.row]
     }
 }

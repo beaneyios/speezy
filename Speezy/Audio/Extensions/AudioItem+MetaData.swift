@@ -16,7 +16,8 @@ extension AudioItem {
             title: title,
             date: date,
             tags: tags,
-            databaseKey: databaseKey
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl
         )
         
         return newItem
@@ -36,7 +37,8 @@ extension AudioItem {
             title: title,
             date: date,
             tags: tags + tags,
-            databaseKey: databaseKey
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl
         )
         
         return newItem
@@ -53,7 +55,8 @@ extension AudioItem {
             title: title,
             date: date,
             tags: newTags,
-            databaseKey: databaseKey
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl
         )
         
         return newItem
@@ -69,18 +72,9 @@ extension AudioItem {
             path: path,
             title: title,
             date: date,
-            tags: tags
-        )
-    }
-    
-    func withNewDatabaseKey(_ key: String) -> AudioItem {
-        AudioItem(
-            id: id,
-            path: path,
-            title: title,
-            date: date,
             tags: tags,
-            databaseKey: key
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl
         )
     }
     
@@ -91,8 +85,20 @@ extension AudioItem {
             title: title,
             date: date,
             tags: tags,
-            databaseKey: databaseKey,
-            remoteUrl: url
+            remoteUrl: url,
+            attachmentUrl: attachmentUrl
+        )
+    }
+    
+    func withAttachmentUrl(_ url: URL?) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: date,
+            tags: tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: url
         )
     }
 }
