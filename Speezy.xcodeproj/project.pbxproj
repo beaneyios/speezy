@@ -107,7 +107,7 @@
 		BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13525B0C623000888A7 /* ChatViewModel.swift */; };
 		BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */; };
 		BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */; };
-		BEA9D1C625B45CA9000888A7 /* DatabaseAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C525B45CA9000888A7 /* DatabaseAudioController.swift */; };
+		BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */; };
 		BEA9D1CA25B45D2F000888A7 /* CloudImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */; };
 		BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */; };
 		BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */; };
@@ -128,7 +128,6 @@
 		BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CA24C5DB8700200D87 /* Storage.swift */; };
 		BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */; };
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
-		BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
 		BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */; };
 		BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */; };
@@ -307,7 +306,7 @@
 		BEA9D13525B0C623000888A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		BEA9D1C525B45CA9000888A7 /* DatabaseAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAudioController.swift; sourceTree = "<group>"; };
+		BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAudioManager.swift; sourceTree = "<group>"; };
 		BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudImageManager.swift; sourceTree = "<group>"; };
 		BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAudioManager.swift; sourceTree = "<group>"; };
 		BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUploadResult.swift; sourceTree = "<group>"; };
@@ -328,7 +327,6 @@
 		BEBFD4CA24C5DB8700200D87 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
-		BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStorage.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
 		BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewModel.swift; sourceTree = "<group>"; };
 		BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewController.swift; sourceTree = "<group>"; };
@@ -721,7 +719,7 @@
 		BEA9D1E125B46989000888A7 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				BEA9D1C525B45CA9000888A7 /* DatabaseAudioController.swift */,
+				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
 				BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */,
 				BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */,
 				BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */,
@@ -806,7 +804,6 @@
 				BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */,
 				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
 				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
-				BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
 			);
 			path = Controllers;
@@ -1392,7 +1389,7 @@
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
-				BEA9D1C625B45CA9000888A7 /* DatabaseAudioController.swift in Sources */,
+				BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
@@ -1438,7 +1435,6 @@
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */,
-				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,

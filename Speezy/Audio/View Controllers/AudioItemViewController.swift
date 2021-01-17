@@ -85,9 +85,13 @@ class AudioItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        prepareStagedFile()
-        configureDependencies()
-        configureSubviews()
+        audioManager.downloadFile {
+            DispatchQueue.main.async {
+                self.prepareStagedFile()
+                self.configureDependencies()
+                self.configureSubviews()
+            }
+        }        
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -41,6 +41,26 @@ class AudioManager: NSObject {
         self.stateManager = AudioStateManager()
     }
     
+    func downloadFile(completion: @escaping () -> Void) {
+        let fileData = try? Data(contentsOf: item.fileUrl)
+        if fileData == nil {
+            CloudAudioManager.fetchAudioClip(
+                at: "audio_clips/\(item.id).m4a"
+            ) { (result) in
+                switch result {
+                case let .success(data):
+                    try? data.write(to: self.item.fileUrl)
+                case let .failure(error):
+                    break
+                }
+                
+                completion()
+            }
+        } else {
+            completion()
+        }
+    }
+    
     func save(
         saveAttachment: Bool,
         completion: @escaping (Result<AudioItem, Error>) -> Void

@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-class DatabaseAudioController {
+class DatabaseAudioManager {
     static func fetchItems(completion: @escaping (Result<[AudioItem], Error>) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             return

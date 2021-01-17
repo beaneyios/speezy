@@ -30,14 +30,14 @@ class AudioSavingManager {
             id: item.id,
             path: "\(item.id).\(AudioConstants.fileExtension)",
             title: item.title,
-            date: item.lastUpdated,
+            date: Date(),
             tags: item.tags
         )
         
         uploadItem(newItem) { (result) in
             switch result {
             case let .success(item):
-                DatabaseAudioController.updateDatabaseReference(
+                DatabaseAudioManager.updateDatabaseReference(
                     item,
                     completion: completion
                 )
@@ -59,13 +59,27 @@ class AudioSavingManager {
     
     func deleteItem(
         _ item: AudioItem,
-        completion: @escaping (Result<AudioItem, Error>) -> Void
+        completion: @escaping (StorageDeleteResult) -> Void
     ) {
         FileManager.default.deleteExistingURL(
             item.withStagingPath().fileUrl
         )
         FileManager.default.deleteExistingURL(item.fileUrl)
-        
+        CloudAudioManager.deleteAudioClip(at: "audio_clips/\(item.id).m4a") { (result) in
+            switch result {
+            case .success:
+                DatabaseAudioManager.removeDatabaseReference(item) { (result) in
+                    switch result {
+                    case .success:
+                        completion(.success)
+                    case let .failure(error):
+                        completion(.failure(error))
+                    }
+                }
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
     
     private func uploadItem(

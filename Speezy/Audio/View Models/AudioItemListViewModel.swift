@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import FirebaseStorage
 import FirebaseAuth
 import FBSDKLoginKit
 
@@ -29,7 +28,7 @@ class AudioItemListViewModel {
     }
     
     func loadItems() {
-        AudioStorage.fetchItems { result in
+        DatabaseAudioManager.fetchItems { (result) in
             switch result {
             case let .success(items):
                 self.audioItems = items
@@ -57,7 +56,7 @@ class AudioItemListViewModel {
 
         AudioSavingManager().deleteItem(item) { (result) in
             switch result {
-            case let .success(item):
+            case .success:
                 self.audioItems = self.audioItems.removing(item)
                 self.didChange?(.itemsLoaded)
             case let .failure(error):
