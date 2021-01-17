@@ -21,7 +21,7 @@ class AudioStorage {
         uploadItem(item) { (result) in
             switch result {
             case let .success(item):
-                AudioItemDatabaseController.updateDatabaseReference(
+                DatabaseAudioController.updateDatabaseReference(
                     item,
                     completion: completion
                 )
@@ -38,8 +38,6 @@ class AudioStorage {
         // Create a root reference
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
-        
-        // Create a reference to "mountains.jpg"
         let audioClipRef = storageRef.child("audio_clips/\(item.id).m4a")
 
         guard let data = try? Data(contentsOf: item.fileUrl) else {
@@ -84,40 +82,46 @@ class AudioStorage {
         let ref = Database.database().reference()
         let clipsChild: DatabaseReference = ref.child("users/\(userId)/audio_clips")
         
-        
         clipsChild.observeSingleEvent(of: .value) { (snapshot) in
             guard let result = snapshot.value as? NSDictionary else {
-                // TODO: Handle error here
-                assertionFailure("Something went wrong with snapshot")
+                completion(.success([]))
                 return
             }
             
-            let audioItems: [AudioItem] = result.allKeys.compactMap {
-                guard
-                    let key = $0 as? String,
-                    let dict = result[key] as? NSDictionary,
-                    let duration = dict["duration"] as? TimeInterval,
-                    let id = dict["id"] as? String,
-                    let title = dict["title"] as? String,
-                    let urlString = dict["url"] as? String,
-                    let url = URL(string: urlString),
-                    let timestamp = dict["date"] as? TimeInterval
-                else {
-                    return nil
-                }
-                
-                return AudioItem(
-                    id: key,
-                    path: "\(key).m4a",
-                    title: title,
-                    date: Date(timeIntervalSince1970: timestamp),
-                    tags: [],
-                    remoteUrl: url
-                )
+            self.handleSuccess(result: result, completion: completion)
+        } withCancel: { (error) in
+            completion(.failure(error))
+        }
+    }
+    
+    private static func handleSuccess(
+        result: NSDictionary,
+        completion: @escaping (Result<[AudioItem], Error>) -> Void
+    ) {
+        let audioItems: [AudioItem] = result.allKeys.compactMap {
+            guard
+                let key = $0 as? String,
+                let dict = result[key] as? NSDictionary,
+                let duration = dict["duration"] as? TimeInterval,
+                let title = dict["title"] as? String,
+                let urlString = dict["url"] as? String,
+                let url = URL(string: urlString),
+                let timestamp = dict["date"] as? TimeInterval
+            else {
+                return nil
             }
             
-            completion(.success(audioItems))
+            return AudioItem(
+                id: key,
+                path: "\(key).m4a",
+                title: title,
+                date: Date(timeIntervalSince1970: timestamp),
+                tags: [],
+                remoteUrl: url
+            )
         }
+        
+        completion(.success(audioItems))
     }
     
     static func url(for id: String) -> URL {

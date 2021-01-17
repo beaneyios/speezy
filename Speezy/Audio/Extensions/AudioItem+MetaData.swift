@@ -14,10 +14,11 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
+            date: lastUpdated,
             tags: tags,
             remoteUrl: remoteUrl,
-            attachmentUrl: attachmentUrl
+            attachmentUrl: attachmentUrl,
+            duration: duration
         )
         
         return newItem
@@ -35,10 +36,11 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
+            date: lastUpdated,
             tags: tags + tags,
             remoteUrl: remoteUrl,
-            attachmentUrl: attachmentUrl
+            attachmentUrl: attachmentUrl,
+            duration: duration
         )
         
         return newItem
@@ -53,10 +55,11 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
+            date: lastUpdated,
             tags: newTags,
             remoteUrl: remoteUrl,
-            attachmentUrl: attachmentUrl
+            attachmentUrl: attachmentUrl,
+            duration: duration
         )
         
         return newItem
@@ -71,10 +74,11 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
+            date: lastUpdated,
             tags: tags,
             remoteUrl: remoteUrl,
-            attachmentUrl: attachmentUrl
+            attachmentUrl: attachmentUrl,
+            duration: duration
         )
     }
     
@@ -83,10 +87,11 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
+            date: lastUpdated,
             tags: tags,
             remoteUrl: url,
-            attachmentUrl: attachmentUrl
+            attachmentUrl: attachmentUrl,
+            duration: duration
         )
     }
     
@@ -95,10 +100,11 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
+            date: lastUpdated,
             tags: tags,
             remoteUrl: remoteUrl,
-            attachmentUrl: url
+            attachmentUrl: url,
+            duration: duration
         )
     }
 }

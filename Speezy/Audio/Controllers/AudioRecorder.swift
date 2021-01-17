@@ -29,7 +29,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
     
     init(item: AudioItem) {
         self.item = item
-        self.totalTime = item.duration
+        self.totalTime = item.calculatedDuration
     }
     
     func record() {
@@ -37,7 +37,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         //Prevent sleep function after 45sec - will be enabled again after record
         UIApplication.shared.isIdleTimerDisabled = true
         
-        if item.duration >= Self.recordingThreshhold {
+        if item.calculatedDuration >= Self.recordingThreshhold {
             self.delegate?.audioRecorder(
                 self,
                 didFinishRecordingWithCompletedItem: self.item,
@@ -141,7 +141,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             self.delegate?.audioRecorder(
                 self,
                 didFinishRecordingWithCompletedItem: self.item,
-                maxLimitReached: self.item.duration >= Self.recordingThreshhold
+                maxLimitReached: self.item.calculatedDuration >= Self.recordingThreshhold
             )
         }
         

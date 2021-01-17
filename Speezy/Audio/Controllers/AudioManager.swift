@@ -149,7 +149,7 @@ class AudioManager: NSObject {
 // MARK: Recording
 extension AudioManager: AudioRecorderDelegate {
     var hasRecorded: Bool {
-        item.duration > 0
+        item.calculatedDuration > 0
     }
     
     func addRecorderObserver(_ observer: AudioRecorderObserver) {
@@ -233,7 +233,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     var duration: TimeInterval {
-        item.duration
+        item.calculatedDuration
     }
     
     private var currentPlaybackTime: TimeInterval {
@@ -280,7 +280,7 @@ extension AudioManager: AudioPlayerDelegate {
             regeneratePlayer(withItem: currentItem)
         }
         
-        let seekTime = item.duration * Double(percentage)
+        let seekTime = item.calculatedDuration * Double(percentage)
         
         audioPlayer?.seek(to: seekTime - startOffset)
     }
@@ -363,15 +363,15 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     var canCrop: Bool {
-        currentItem.duration > 3.0
+        currentItem.calculatedDuration > 3.0
     }
     
     var hasActiveCrop: Bool {
-        guard let croppedItemDuration = audioCropper?.croppedItem?.duration else {
+        guard let croppedItemDuration = audioCropper?.croppedItem?.calculatedDuration else {
             return false
         }
         
-        return croppedItemDuration != item.duration
+        return croppedItemDuration != item.calculatedDuration
     }
     
     func addCropperObserver(_ observer: AudioCropperObserver) {
@@ -454,15 +454,15 @@ extension AudioManager: AudioCutterDelegate {
     }
     
     var canCut: Bool {
-        currentItem.duration > 3.0
+        currentItem.calculatedDuration > 3.0
     }
     
     var hasActiveCut: Bool {
-        guard let cutItemDuration = audioCutter?.cutItem?.duration else {
+        guard let cutItemDuration = audioCutter?.cutItem?.calculatedDuration else {
             return false
         }
         
-        return cutItemDuration != item.duration
+        return cutItemDuration != item.calculatedDuration
     }
     
     func addCutterObserver(_ observer: AudioCutterObserver) {

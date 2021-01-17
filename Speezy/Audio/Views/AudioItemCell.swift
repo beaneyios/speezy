@@ -49,29 +49,41 @@ class AudioItemCell: UITableViewCell {
             tagsView = nil
         }
         
-        lblDate.text = audioItem.date.toStringWithRelativeTime(
+        lblDate.text = audioItem.lastUpdated.toStringWithRelativeTime(
             strings: [
                 RelativeTimeStringType.nowPast: "Just now"
             ]
-        ) ?? ""
+        )
         
         imgAttachment.layer.cornerRadius = 20.0
         
-//        audioAttachmentManager.fetchAttachment(forItem: audioItem) { (image) in
-//            DispatchQueue.main.async {
-//                if image == nil {
-//                    self.imgAttachmentWidth.constant = 0.0
-//                } else {
-//                    self.imgAttachmentWidth.constant = 40.0
-//                }
-//                
-//                UIView.animate(withDuration: 0.3) {
-//                    self.layoutIfNeeded()
-//                }
-//                
-//                self.imgAttachment.image = image
-//            }
-//        }
+        if audioItem.attachmentUrl != nil {
+            fetchAttachment(
+                item: audioItem,
+                audioAttachmentManager: audioAttachmentManager
+            )
+        } else {
+            self.imgAttachmentWidth.constant = 0.0
+        }
+    }
+    
+    private func fetchAttachment(item: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
+        audioAttachmentManager.fetchAttachment(forItem: item) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(image):
+                    self.imgAttachmentWidth.constant = 40.0
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        self.layoutIfNeeded()
+                    }
+                    
+                    self.imgAttachment.image = image
+                case let .failure(error):
+                    self.imgAttachmentWidth.constant = 0.0
+                }
+            }
+        }
     }
     
     func configureTags(tags: [Tag]) {

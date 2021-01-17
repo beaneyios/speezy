@@ -35,8 +35,8 @@ class ExperimentalDisfluencyDetection {
             let startIndexPercentage = Double(startIndex) / Double(totalLevels.count)
             let endIndexPercentage = Double(index) / Double(totalLevels.count)
             
-            self.startSeconds = audioItem.duration * startIndexPercentage
-            self.endSeconds = audioItem.duration * endIndexPercentage
+            self.startSeconds = audioItem.calculatedDuration * startIndexPercentage
+            self.endSeconds = audioItem.calculatedDuration * endIndexPercentage
         }
     }
     

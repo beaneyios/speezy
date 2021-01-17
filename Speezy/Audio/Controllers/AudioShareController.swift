@@ -99,7 +99,7 @@ extension AudioShareController {
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
             
-            let changeFrequency = Int(item.duration / 10.0)
+            let changeFrequency = Int(item.calculatedDuration / 10.0)
             
             if changeFrequency > 0 {
                 images = (1...changeFrequency).map {
@@ -125,7 +125,7 @@ extension AudioShareController {
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
             
-            let changeFrequency = Int(item.duration / 10.0)
+            let changeFrequency = Int(item.calculatedDuration / 10.0)
             
             if changeFrequency > 0 {
                 images = (1...changeFrequency).map {

@@ -20,7 +20,7 @@ enum AttachmentFetchResult {
 }
 
 typealias AttachmentChangeHandler = (AttachmentChangeResult) -> Void
-typealias AttachmentFetchHandler = (AttachmentFetchResult) -> Void
+typealias AttachmentFetchHandler = (Result<UIImage, Error>) -> Void
 
 class AudioAttachmentManager {
 
@@ -81,7 +81,7 @@ class AudioAttachmentManager {
             switch result {
             case let .success(image):
                 completion(.success(image))
-            case let .failure(error):
+            case let .failure(error):                
                 completion(.failure(error))
             }
         }

@@ -79,7 +79,7 @@ class AudioLevelGenerator {
             }()
             
             let levels = self.render(audioContext: context, targetSamples: targetSamples)
-            let seconds = item.duration
+            let seconds = item.calculatedDuration
             let percentageLevels = self.generatePercentageLevels(from: levels)
             
             completion(

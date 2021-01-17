@@ -256,33 +256,24 @@ extension PublishViewController: TagsViewDelegate {
 
 extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func configureImageAttachment() {
-        imgBtn.startLoading(color: .lightGray)
         imgBtn.imageView?.contentMode = .scaleAspectFill
-        
-        let imageApplication: (UIImage?) -> Void = { image in
-            self.imgBtn.stopLoading()
-            self.imgBtn.layer.cornerRadius = 10.0
-            guard let image = image else {
-                self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
-                return
-            }
-            
-            self.imgBtn.setImage(image, for: .normal)
-        }
         
         if let image = audioManager.currentImageAttachment {
             DispatchQueue.main.async {
-                imageApplication(image)
+                self.imgBtn.setImage(image, for: .normal)
             }
         } else {
+            imgBtn.startLoading(color: .lightGray)
             audioManager.fetchImageAttachment { (result) in
                 DispatchQueue.main.async {
+                    self.imgBtn.stopLoading()
+                    self.imgBtn.layer.cornerRadius = 10.0
+                    
                     switch result {
                     case let .success(image):
-                        imageApplication(image)
-                    case let .failure(error):
-                        // TODO: Handle error
-                        assertionFailure("Image failed to download with error \(error?.localizedDescription)")
+                        self.imgBtn.setImage(image, for: .normal)
+                    case .failure:
+                        self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
                     }
                 }
             }

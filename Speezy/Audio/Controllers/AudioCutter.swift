@@ -41,7 +41,7 @@ class AudioCutter: AudioCropping {
                 id: self.item.id,
                 path: url,
                 title: self.item.title,
-                date: self.item.date,
+                date: self.item.lastUpdated,
                 tags: self.item.tags
             )
             
@@ -59,7 +59,7 @@ class AudioCutter: AudioCropping {
                 id: self.item.id,
                 path: croppedOutputPath,
                 title: self.item.title,
-                date: self.item.date,
+                date: self.item.lastUpdated,
                 tags: self.item.tags
             )
             
@@ -70,7 +70,7 @@ class AudioCutter: AudioCropping {
                     id: self.item.id,
                     path: cutOutputPath,
                     title: self.item.title,
-                    date: self.item.date,
+                    date: self.item.lastUpdated,
                     tags: self.item.tags
                 )
                 

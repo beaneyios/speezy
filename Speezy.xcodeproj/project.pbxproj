@@ -73,6 +73,7 @@
 		BE684722257184C400981686 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE684721257184C400981686 /* CropViewController.swift */; };
 		BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6847252572656300981686 /* QuickRecordViewController.swift */; };
 		BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */; };
+		BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -106,8 +107,12 @@
 		BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13525B0C623000888A7 /* ChatViewModel.swift */; };
 		BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */; };
 		BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */; };
-		BEA9D1C625B45CA9000888A7 /* AudioItemDatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C525B45CA9000888A7 /* AudioItemDatabaseController.swift */; };
+		BEA9D1C625B45CA9000888A7 /* DatabaseAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C525B45CA9000888A7 /* DatabaseAudioController.swift */; };
 		BEA9D1CA25B45D2F000888A7 /* CloudImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */; };
+		BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */; };
+		BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */; };
+		BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */; };
+		BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */; };
 		BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */; };
 		BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */; };
 		BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */; };
@@ -264,6 +269,7 @@
 		BE684721257184C400981686 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		BE6847252572656300981686 /* QuickRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordViewController.swift; sourceTree = "<group>"; };
 		BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemChangeManager.swift; sourceTree = "<group>"; };
+		BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAudioItemParser.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -301,8 +307,12 @@
 		BEA9D13525B0C623000888A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		BEA9D1C525B45CA9000888A7 /* AudioItemDatabaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemDatabaseController.swift; sourceTree = "<group>"; };
+		BEA9D1C525B45CA9000888A7 /* DatabaseAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAudioController.swift; sourceTree = "<group>"; };
 		BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudImageManager.swift; sourceTree = "<group>"; };
+		BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAudioManager.swift; sourceTree = "<group>"; };
+		BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUploadResult.swift; sourceTree = "<group>"; };
+		BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDeleteResult.swift; sourceTree = "<group>"; };
+		BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseDeleteResult.swift; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileCombiner.swift; sourceTree = "<group>"; };
 		BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizationView.swift; sourceTree = "<group>"; };
 		BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioVisualizationView.xib; sourceTree = "<group>"; };
@@ -658,6 +668,7 @@
 				BEAACE8324BA031A0074E4B9 /* Audio */,
 				BEC825B4257D53010037F007 /* Auth */,
 				BEECD88F25ACCF4100AD7AC3 /* Chat */,
+				BEA9D1DF25B46951000888A7 /* Cloud */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BEFDB4F5255FF35F00362428 /* State */,
@@ -687,6 +698,36 @@
 				BEA9D13525B0C623000888A7 /* ChatViewModel.swift */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		BEA9D1DF25B46951000888A7 /* Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				BEA9D1E125B46989000888A7 /* Enums */,
+				BEA9D1E025B4695E000888A7 /* Controllers */,
+			);
+			path = Cloud;
+			sourceTree = "<group>";
+		};
+		BEA9D1E025B4695E000888A7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */,
+				BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEA9D1E125B46989000888A7 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				BEA9D1C525B45CA9000888A7 /* DatabaseAudioController.swift */,
+				BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */,
+				BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */,
+				BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */,
+				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		BEAACE8324BA031A0074E4B9 /* Audio */ = {
@@ -759,7 +800,6 @@
 				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 				BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */,
 				BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */,
-				BEA9D1C525B45CA9000888A7 /* AudioItemDatabaseController.swift */,
 				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
 				BEBFD4B924C5A23700200D87 /* AudioPlayer.swift */,
@@ -767,7 +807,6 @@
 				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
 				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
 				BEBFD4D024C5DC9600200D87 /* AudioStorage.swift */,
-				BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
 			);
 			path = Controllers;
@@ -1330,11 +1369,14 @@
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
+				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BEECD89725ACD61200AD7AC3 /* AudioChatItemCell.swift in Sources */,
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
+				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
+				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
 				BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */,
@@ -1350,7 +1392,7 @@
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
-				BEA9D1C625B45CA9000888A7 /* AudioItemDatabaseController.swift in Sources */,
+				BEA9D1C625B45CA9000888A7 /* DatabaseAudioController.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
@@ -1398,6 +1440,7 @@
 				BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */,
 				BEBFD4D124C5DC9600200D87 /* AudioStorage.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
+				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
@@ -1421,6 +1464,7 @@
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
 				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
+				BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE6080B0250E86A3003CB318 /* WordCell.swift in Sources */,

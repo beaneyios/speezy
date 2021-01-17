@@ -9,29 +9,42 @@
 import Foundation
 
 class AudioSavingManager {
-    @discardableResult
     func saveItem(
         item: AudioItem,
         originalItem: AudioItem,
         completion: @escaping (Result<AudioItem, Error>) -> Void
     ) {
+        // Remove the original item (that was downloaded from the cloud).
         FileManager.default.deleteExistingFile(
             with: originalItem.path
         )
+        
+        // Commit the changed item to local disk space (so we don't need to keep downloading it).
         FileManager.default.copy(
             original: item.fileUrl,
             to: originalItem.fileUrl
         )
         
+        // Save the new clip to the cloud.
         let newItem = AudioItem(
             id: item.id,
             path: "\(item.id).\(AudioConstants.fileExtension)",
             title: item.title,
-            date: item.date,
+            date: item.lastUpdated,
             tags: item.tags
         )
         
-        AudioStorage.saveItem(item, completion: completion)
+        uploadItem(newItem) { (result) in
+            switch result {
+            case let .success(item):
+                DatabaseAudioController.updateDatabaseReference(
+                    item,
+                    completion: completion
+                )
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
     
     func discard(
@@ -42,5 +55,35 @@ class AudioSavingManager {
         FileManager.default.deleteExistingURL(item.fileUrl)
         FileManager.default.copy(original: originalItem.fileUrl, to: item.fileUrl)
         completion()
+    }
+    
+    func deleteItem(
+        _ item: AudioItem,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
+        FileManager.default.deleteExistingURL(
+            item.withStagingPath().fileUrl
+        )
+        FileManager.default.deleteExistingURL(item.fileUrl)
+        
+    }
+    
+    private func uploadItem(
+        _ item: AudioItem,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
+        guard let data = try? Data(contentsOf: item.fileUrl) else {
+            return
+        }
+        
+        CloudAudioManager.uploadAudioClip(data, path: "audio_clips/\(item.id).m4a") { (result) in
+            switch result {
+            case let .success(url):
+                let audioItemWithUpdatedUrl = item.withRemoteUrl(url)
+                completion(.success(audioItemWithUpdatedUrl))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
 }

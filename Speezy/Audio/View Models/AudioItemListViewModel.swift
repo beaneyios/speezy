@@ -42,30 +42,30 @@ class AudioItemListViewModel {
     }
     
     func reloadItem(_ item: AudioItem) {
-//        if audioItems.contains(item) {
-//            audioItems = audioItems.replacing(item)
-//        } else {
-//            audioItems.append(item)
-//        }
+        if audioItems.contains(item) {
+            audioItems = audioItems.replacing(item)
+        } else {
+            audioItems.append(item)
+        }
         
         audioAttachmentManager.resetCache()
-        
         didChange?(.itemsLoaded)
     }
     
     func deleteItem(_ item: AudioItem) {
-//        audioAttachmentManager.storeAttachment(
-//            nil,
-//            forItem: item
-//        )
-//
-//        FileManager.default.deleteExistingURL(
-//            item.withStagingPath().fileUrl
-//        )
-//        FileManager.default.deleteExistingURL(item.fileUrl)
-//        AudioStorage.deleteItem(item)
-//        audioItems = audioItems.removing(item)
-//        didChange?(.itemsLoaded)
+        audioAttachmentManager.removeAttachment(forItem: item)
+
+        AudioSavingManager().deleteItem(item) { (result) in
+            switch result {
+            case let .success(item):
+                self.audioItems = self.audioItems.removing(item)
+                self.didChange?(.itemsLoaded)
+            case let .failure(error):
+                // TODO: Handle error
+                assertionFailure("Deletion failed with error \(error.localizedDescription)")
+                break
+            }
+        }
     }
 }
 
@@ -79,7 +79,7 @@ extension AudioItemListViewModel {
             switch result {
             case let .success(image):
                 self.didChange?(.profileImageLoaded(image))
-            case let .failure:
+            case .failure:
                 if let defaultImage = UIImage(named: "account-btn") {
                     self.didChange?(.profileImageLoaded(defaultImage))
                 }

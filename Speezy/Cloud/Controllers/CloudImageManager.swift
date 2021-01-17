@@ -9,25 +9,10 @@
 import UIKit
 import FirebaseStorage
 
-enum DownloadResult {
-    case success(UIImage)
-    case failure(Error?)
-}
-
-enum StorageUploadResult {
-    case success(URL)
-    case failure(Error)
-}
-
-enum StorageDeleteResult {
-    case success
-    case failure(Error)
-}
-
 class CloudImageManager {
     static func fetchImage(
         at path: String,
-        completion: @escaping (DownloadResult) -> Void
+        completion: @escaping (Result<UIImage, Error>) -> Void
     ) {
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
@@ -35,7 +20,9 @@ class CloudImageManager {
         
         profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             guard let data = data, let image = UIImage(data: data) else {
-                completion(.failure(error))
+                // TODO: Handle error.
+                assertionFailure("Errored with error \(error?.localizedDescription)")
+//                completion(.failure(error))
                 return
             }
             
@@ -48,25 +35,22 @@ class CloudImageManager {
         path: String,
         completion: @escaping (StorageUploadResult) -> Void
     ) {
-        // Create a root reference
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
-        
-        // Create a reference to "mountains.jpg"
-        let audioClipRef = storageRef.child(path)
+        let imageRef = storageRef.child(path)
 
         guard let data = image.compress(to: 0.5) else {
             assertionFailure("Could not compress")
             return
         }
         
-        audioClipRef.putData(data, metadata: nil) { (metadata, error) in
+        imageRef.putData(data, metadata: nil) { (metadata, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
             
-            audioClipRef.downloadURL { (url, error) in
+            imageRef.downloadURL { (url, error) in
                 if let error = error {
                     completion(.failure(error))
                 } else if let url = url {
