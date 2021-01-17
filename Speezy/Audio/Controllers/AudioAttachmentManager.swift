@@ -58,6 +58,11 @@ class AudioAttachmentManager {
         forItem item: AudioItem,
         completion: AttachmentChangeHandler? = nil
     ) {
+        if imageAttachmentCache[item.id] == nil {
+            completion?(.success(item))
+            return
+        }
+        
         imageAttachmentCache[item.id] = nil
         
         CloudImageManager.deleteImage(

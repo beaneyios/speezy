@@ -87,6 +87,7 @@ class AudioManager: NSObject {
                 case let .failure(error):
                     //completion(.failure(error))
                     // TODO: Handle nil error here.
+                    assertionFailure("Errored with error \(error?.localizedDescription)")
                     break
                 }
             }
