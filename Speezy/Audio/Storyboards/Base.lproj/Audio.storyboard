@@ -190,20 +190,6 @@
                                             <action selector="close:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tY9-XI-tJq"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dS4-sh-ukM">
-                                        <rect key="frame" x="292" y="14.5" width="67" height="35"/>
-                                        <color key="backgroundColor" name="speezy-red"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="CqI-pR-Ezz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                        <state key="normal" title="   SEND   ">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="send:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Jj-vi-clV"/>
-                                        </connections>
-                                    </button>
                                     <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6y-oZ-8mP">
                                         <rect key="frame" x="0.0" y="63" width="375" height="1"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -211,35 +197,37 @@
                                             <constraint firstAttribute="height" constant="1" id="TyO-l0-Wnh"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6t1-NN-t0O">
-                                        <rect key="frame" x="193" y="14.5" width="87" height="35"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frS-4F-W6u">
+                                        <rect key="frame" x="259" y="14" width="100" height="35"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="R00-H2-GzN"/>
+                                            <constraint firstAttribute="width" constant="100" id="mO1-qf-gT9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                        <state key="normal" title="   DRAFTS   ">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveToDrafts:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sDT-6f-K3G"/>
-                                        </connections>
-                                    </button>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvn-tY-gJd">
+                                        <rect key="frame" x="147" y="14" width="100" height="35"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="p5X-cR-dNs"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dS4-sh-ukM" secondAttribute="trailing" constant="16" id="11x-3e-R0r"/>
+                                    <constraint firstItem="o6y-oZ-8mP" firstAttribute="top" secondItem="frS-4F-W6u" secondAttribute="bottom" constant="14" id="0Cw-PV-TGQ"/>
                                     <constraint firstItem="o6y-oZ-8mP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IYG-qo-4mv" secondAttribute="bottom" id="3D7-YM-SfI"/>
                                     <constraint firstAttribute="bottom" secondItem="o6y-oZ-8mP" secondAttribute="bottom" id="3pZ-x6-e2D"/>
+                                    <constraint firstItem="jvn-tY-gJd" firstAttribute="top" secondItem="fdI-M0-UXU" secondAttribute="top" constant="14" id="7Rs-pU-FQl"/>
                                     <constraint firstItem="IYG-qo-4mv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fdI-M0-UXU" secondAttribute="top" id="BAW-Aq-xK0"/>
-                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="leading" secondItem="6t1-NN-t0O" secondAttribute="trailing" constant="12" id="Bfs-pr-2Vk"/>
                                     <constraint firstAttribute="trailing" secondItem="o6y-oZ-8mP" secondAttribute="trailing" id="KI3-m3-7Sj"/>
+                                    <constraint firstItem="frS-4F-W6u" firstAttribute="leading" secondItem="jvn-tY-gJd" secondAttribute="trailing" constant="12" id="Nrh-Rx-4iO"/>
                                     <constraint firstItem="IYG-qo-4mv" firstAttribute="leading" secondItem="fdI-M0-UXU" secondAttribute="leading" constant="16" id="QTN-Nj-H42"/>
                                     <constraint firstAttribute="height" constant="64" id="SxP-vs-3uq"/>
                                     <constraint firstItem="IYG-qo-4mv" firstAttribute="centerY" secondItem="fdI-M0-UXU" secondAttribute="centerY" id="dTT-c0-dDG"/>
-                                    <constraint firstItem="6t1-NN-t0O" firstAttribute="centerY" secondItem="dS4-sh-ukM" secondAttribute="centerY" id="iqF-dc-YkK"/>
+                                    <constraint firstItem="frS-4F-W6u" firstAttribute="top" secondItem="fdI-M0-UXU" secondAttribute="top" constant="14" id="kEy-jU-TkT"/>
+                                    <constraint firstAttribute="trailing" secondItem="frS-4F-W6u" secondAttribute="trailing" constant="16" id="n0n-WX-VIx"/>
                                     <constraint firstItem="o6y-oZ-8mP" firstAttribute="leading" secondItem="fdI-M0-UXU" secondAttribute="leading" id="pz2-Ba-ilu"/>
-                                    <constraint firstItem="dS4-sh-ukM" firstAttribute="centerY" secondItem="fdI-M0-UXU" secondAttribute="centerY" id="yKg-dY-eBf"/>
+                                    <constraint firstItem="o6y-oZ-8mP" firstAttribute="top" secondItem="jvn-tY-gJd" secondAttribute="bottom" constant="14" id="tp5-0E-XGa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -265,22 +253,17 @@
                         <outlet property="btnCrop" destination="lqf-bC-Bmq" id="dgY-iO-hQs"/>
                         <outlet property="btnCut" destination="YjA-7i-Qk8" id="L1P-Ux-HbZ"/>
                         <outlet property="btnDone" destination="IYG-qo-4mv" id="R6g-qb-Fsg"/>
-                        <outlet property="btnDrafts" destination="6t1-NN-t0O" id="QkZ-SB-igw"/>
                         <outlet property="btnPlayback" destination="Hck-qY-b0S" id="ydF-66-40q"/>
                         <outlet property="btnRecord" destination="tp7-Oy-Ge7" id="m84-2O-lLe"/>
-                        <outlet property="btnSend" destination="dS4-sh-ukM" id="yNU-tP-8Wo"/>
-                        <outlet property="btnShare" destination="dS4-sh-ukM" id="jGR-FV-oIE"/>
                         <outlet property="btnTitle" destination="QDO-J8-gZl" id="OER-AL-Ijm"/>
                         <outlet property="btnTranscribeContainer" destination="NED-OI-hTW" id="FPK-y5-qtc"/>
+                        <outlet property="draftBtnContainer" destination="jvn-tY-gJd" id="Zia-VF-cRr"/>
                         <outlet property="lblTimer" destination="BHa-y7-Fyu" id="8YV-wv-N99"/>
                         <outlet property="mainWaveContainer" destination="aD4-iy-Eyt" id="RiN-lJ-Mwd"/>
                         <outlet property="scrollView" destination="L5y-n3-5AW" id="ciw-ki-fFG"/>
+                        <outlet property="sendBtnContainer" destination="frS-4F-W6u" id="Twh-Eq-xGJ"/>
                         <outletCollection property="recordHidables" destination="IYG-qo-4mv" collectionClass="NSMutableArray" id="27a-kj-JN2"/>
-                        <outletCollection property="recordHidables" destination="dS4-sh-ukM" collectionClass="NSMutableArray" id="TJp-Iv-gpf"/>
                         <outletCollection property="playbackHidables" destination="IYG-qo-4mv" collectionClass="NSMutableArray" id="2Ty-ee-GpJ"/>
-                        <outletCollection property="playbackHidables" destination="dS4-sh-ukM" collectionClass="NSMutableArray" id="wwB-uc-teM"/>
-                        <outletCollection property="recordHidables" destination="6t1-NN-t0O" collectionClass="NSMutableArray" id="1JU-82-Ve9"/>
-                        <outletCollection property="playbackHidables" destination="6t1-NN-t0O" collectionClass="NSMutableArray" id="7HF-6o-Dma"/>
                         <outletCollection property="playbackHidables" destination="YjA-7i-Qk8" collectionClass="NSMutableArray" id="Kcd-K5-6YH"/>
                         <outletCollection property="recordHidables" destination="lqf-bC-Bmq" collectionClass="NSMutableArray" id="hjv-t1-BuC"/>
                         <outletCollection property="recordHidables" destination="QDO-J8-gZl" collectionClass="NSMutableArray" id="S0d-q2-JDa"/>
@@ -292,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.40000000000001" y="137.6311844077961"/>
+            <point key="canvasLocation" x="129.71014492753625" y="136.60714285714286"/>
         </scene>
         <!--Audio Item List View Controller-->
         <scene sceneID="co9-jQ-0gB">
@@ -1052,9 +1035,6 @@
         <image name="title-icon" width="500" height="500"/>
         <namedColor name="speezy-purple">
             <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="speezy-red">
-            <color red="0.9137254901960784" green="0.20392156862745098" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
