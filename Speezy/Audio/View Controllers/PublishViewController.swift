@@ -31,7 +31,12 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     @IBOutlet weak var imageToggle: UISwitch!
     @IBOutlet weak var tagsToggle: UISwitch!
     @IBOutlet weak var playbackBtn: UIButton!
-    @IBOutlet weak var sendBtn: UIButton!
+    
+    @IBOutlet weak var shareBtnContainer: UIView!
+    @IBOutlet weak var draftBtnContainer: UIView!
+    
+    private var shareBtn: GradientButton!
+    private var draftBtn: GradientButton!
     
     weak var delegate: PublishViewControllerDelegate?
     
@@ -46,21 +51,23 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSLog("Configuring publish view controller")
-        configureAudioManager()
-        
-        NSLog("Finished configuring manager")
-        
-        configureSubviews()
-        
-        NSLog("Finished configuring subviews")
+        view.isUserInteractionEnabled = false
+        audioManager.downloadFile {
+            DispatchQueue.main.async {
+                self.configureAudioManager()
+                self.configureSubviews()
+                self.view.isUserInteractionEnabled = true
+            }
+        }
     }
     
     @IBAction func didTapPlay(_ sender: Any) {
         audioManager.togglePlayback()
     }
     
-    @IBAction func didTapSend(_ sender: Any) {
+    func didTapShare() {
+        view.isUserInteractionEnabled = false
+        shareBtn.startLoading()
         audioManager.save(saveAttachment: true) { (item) in
             DispatchQueue.main.async {
                 let shareConfig = ShareConfig(
@@ -74,11 +81,16 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
                     config: shareConfig,
                     completion: nil
                 )
+                
+                self.shareBtn.stopLoading()
+                self.view.isUserInteractionEnabled = true
             }
         }
     }
     
-    @IBAction func didTapDraft(_ sender: Any) {
+    func didTapDraft() {
+        view.isUserInteractionEnabled = false
+        draftBtn.startLoading()
         audioManager.save(saveAttachment: true) { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -89,6 +101,8 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
                     assertionFailure("Error: \(error.localizedDescription)")
                 }
                 
+                self.draftBtn.stopLoading()
+                self.view.isUserInteractionEnabled = true
             }
         }
     }
@@ -137,14 +151,39 @@ extension PublishViewController {
     private func configureSubviews() {
         configureScrollView()
         configureTextView()
-        configureImageAttachment()
+        configureImageAttachment(downloadIfNil: true)
         configureTags()
         configurePreviewWave(audioManager: audioManager)
-        configureSendButtons()
+        configureShareButton()
+        configureDraftButton()
     }
     
-    private func configureSendButtons() {
-        sendBtn.layer.cornerRadius = 10.0
+    private func configureShareButton() {
+        let button = GradientButton.createFromNib()
+        shareBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "SHARE") {
+            self.didTapShare()
+        }
+        
+        self.shareBtn = button
+    }
+    
+    private func configureDraftButton() {
+        let button = GradientButton.createFromNib()
+        draftBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "DRAFTS", titleColor: .darkGray, backgroundImage: nil) {
+            self.didTapDraft()
+        }
+        
+        self.draftBtn = button
     }
 }
 
@@ -255,27 +294,39 @@ extension PublishViewController: TagsViewDelegate {
 }
 
 extension PublishViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func configureImageAttachment() {
+    private func configureImageAttachment(downloadIfNil: Bool) {
         imgBtn.imageView?.contentMode = .scaleAspectFill
         
         if let image = audioManager.currentImageAttachment {
             DispatchQueue.main.async {
-                self.imgBtn.setImage(image, for: .normal)
+                self.imgBtn.stopLoading(image: image)
             }
+        } else if downloadIfNil {
+            downloadImageAttachment()
         } else {
-            imgBtn.startLoading(color: .lightGray)
-            audioManager.fetchImageAttachment { (result) in
-                DispatchQueue.main.async {
-                    self.imgBtn.stopLoading()
-                    self.imgBtn.layer.cornerRadius = 10.0
-                    
-                    switch result {
-                    case let .success(image):
-                        self.imgBtn.setImage(image, for: .normal)
-                    case .failure:
-                        self.imgBtn.setImage(UIImage(named: "camera-button"), for: .normal)
-                    }
+            imgBtn.stopLoading(image: UIImage(named: "camera-button"))
+        }
+    }
+    
+    private func downloadImageAttachment() {
+        guard audioManager.item.attachmentUrl != nil else {
+            return
+        }
+        
+        imgBtn.startLoading(color: .lightGray)
+        audioManager.fetchImageAttachment { (result) in
+            DispatchQueue.main.async {
+                self.imgBtn.stopLoading()
+                self.imgBtn.layer.cornerRadius = 10.0
+                
+                switch result {
+                case let .success(image):
+                    self.imgBtn.stopLoading(image: image)
+                case .failure:
+                    self.imgBtn.stopLoading(image: UIImage(named: "camera-button"))
                 }
+                
+                self.imgBtn.stopLoading()
             }
         }
     }
@@ -293,7 +344,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         let clearPhotoAction = UIAlertAction(title: "Remove Photo", style: .destructive) { action in
             self.audioManager.setImageAttachment(nil)
-            self.configureImageAttachment()
+            self.configureImageAttachment(downloadIfNil: false)
         }
         
         alert.addAction(cameraAction)
@@ -329,7 +380,7 @@ extension PublishViewController: UIImagePickerControllerDelegate, UINavigationCo
             
             
             self.audioManager.setImageAttachment(image)
-            self.configureImageAttachment()
+            self.configureImageAttachment(downloadIfNil: false)
         }
     }
 

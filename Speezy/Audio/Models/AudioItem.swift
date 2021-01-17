@@ -50,5 +50,6 @@ struct AudioItem: Codable, Equatable, Identifiable {
         self.tags = tags
         self.remoteUrl = remoteUrl
         self.duration = duration
+        self.attachmentUrl = attachmentUrl
     }
 }

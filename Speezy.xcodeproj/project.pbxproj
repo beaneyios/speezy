@@ -74,6 +74,8 @@
 		BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6847252572656300981686 /* QuickRecordViewController.swift */; };
 		BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */; };
 		BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */; };
+		BE6FD90C25B49BD800723732 /* URL+LastModified.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD90B25B49BD800723732 /* URL+LastModified.swift */; };
+		BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -269,6 +271,8 @@
 		BE6847252572656300981686 /* QuickRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordViewController.swift; sourceTree = "<group>"; };
 		BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemChangeManager.swift; sourceTree = "<group>"; };
 		BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAudioItemParser.swift; sourceTree = "<group>"; };
+		BE6FD90B25B49BD800723732 /* URL+LastModified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+LastModified.swift"; sourceTree = "<group>"; };
+		BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAudioManager.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -797,6 +801,7 @@
 				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
 				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 				BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */,
+				BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */,
 				BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */,
 				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
@@ -1000,6 +1005,7 @@
 				BEBFD4C724C5BD1E00200D87 /* FileManager+Helpers.swift */,
 				BEE792B92597B1BA008C4E14 /* String+Crypto.swift */,
 				BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */,
+				BE6FD90B25B49BD800723732 /* URL+LastModified.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1370,6 +1376,7 @@
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BEECD89725ACD61200AD7AC3 /* AudioChatItemCell.swift in Sources */,
+				BE6FD90C25B49BD800723732 /* URL+LastModified.swift in Sources */,
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
@@ -1441,6 +1448,7 @@
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
+				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
 				BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */,
 				BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */,

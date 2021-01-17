@@ -63,6 +63,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="button" destination="fiK-4c-uH9" id="3Xn-pe-AIN"/>
+                <outlet property="gradientImg" destination="d08-s5-dHf" id="b2M-s2-ytR"/>
                 <outlet property="spinner" destination="nHJ-qQ-xS7" id="7Ib-1a-bc2"/>
             </connections>
             <point key="canvasLocation" x="-134.05797101449275" y="328.45982142857139"/>

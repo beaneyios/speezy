@@ -10,15 +10,25 @@ import UIKit
 
 class GradientButton: UIView, NibLoadable {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var gradientImg: UIImageView!
     @IBOutlet weak var button: UIButton!
     
     typealias Action = () -> Void
     var action: Action?
     
-    func configure(title: String, action: @escaping Action) {
+    func configure(
+        title: String,
+        titleColor: UIColor = .white,
+        backgroundImage: UIImage? = UIImage(named: "red-gradient"),
+        action: @escaping Action
+    ) {
         self.button.setTitle(title, for: .normal)
         self.action = action
         self.spinner.isHidden = true
+        self.gradientImg.image = backgroundImage
+        self.button.setTitleColor(titleColor, for: .normal)
+        self.spinner.color = titleColor
+        self.spinner.tintColor = titleColor
         
         button.addTarget(
             self,

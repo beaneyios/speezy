@@ -26,6 +26,10 @@ class AudioAttachmentManager {
 
     private(set) var imageAttachmentCache = [String: UIImage]()
     
+    private func cloudPath(forId id: String) -> String {
+        "attachments/\(id).jpg"
+    }
+    
     func resetCache() {
         imageAttachmentCache = [:]
     }
@@ -39,7 +43,7 @@ class AudioAttachmentManager {
         
         CloudImageManager.uploadImage(
             image,
-            path: "attachments/\(item.id).m4a"
+            path: cloudPath(forId: item.id)
         ) { (result) in
             switch result {
             case let .success(url):
@@ -57,7 +61,7 @@ class AudioAttachmentManager {
         imageAttachmentCache[item.id] = nil
         
         CloudImageManager.deleteImage(
-            at: "attachments/\(item.id).m4a"
+            at: cloudPath(forId: item.id)
         ) { (result) in
             switch result {
             case .success:
@@ -77,7 +81,7 @@ class AudioAttachmentManager {
             return
         }
         
-        CloudImageManager.fetchImage(at: "attachments/\(item.id).m4a") { (result) in
+        CloudImageManager.fetchImage(at: cloudPath(forId: item.id)) { (result) in
             switch result {
             case let .success(image):
                 completion(.success(image))

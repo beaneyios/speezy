@@ -42,21 +42,34 @@ class AudioManager: NSObject {
     }
     
     func downloadFile(completion: @escaping () -> Void) {
-        let fileData = try? Data(contentsOf: item.fileUrl)
-        if fileData == nil {
-            CloudAudioManager.fetchAudioClip(
-                at: "audio_clips/\(item.id).m4a"
-            ) { (result) in
-                switch result {
-                case let .success(data):
-                    try? data.write(to: self.item.fileUrl)
-                case let .failure(error):
-                    break
-                }
-                
-                completion()
+        guard (try? Data(contentsOf: item.fileUrl)) != nil else {
+            downloadAudioFile(completion: completion)
+            return
+        }
+        
+        // If the actual file on disk is older than the remote object,
+        // we should download the remote object.
+        if let lastModified = item.fileUrl.lastModified, lastModified < item.lastUpdated {
+            downloadAudioFile(completion: completion)
+            return
+        }
+        
+        // Else, we just carry on with the local file.
+        completion()
+    }
+    
+    private func downloadAudioFile(completion: @escaping () -> Void) {
+        CloudAudioManager.fetchAudioClip(
+            at: "audio_clips/\(item.id).m4a"
+        ) { (result) in
+            switch result {
+            case let .success(data):
+                try? data.write(to: self.item.fileUrl)
+                try? data.write(to: self.originalItem.fileUrl)
+            case let .failure(error):
+                break
             }
-        } else {
+            
             completion()
         }
     }

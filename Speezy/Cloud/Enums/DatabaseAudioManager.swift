@@ -54,13 +54,17 @@ class DatabaseAudioManager {
         }
         
         let ref = Database.database().reference()
-        let audioItemDict: [String: Any] = [
+        var audioItemDict: [String: Any] = [
             "id": item.id,
             "duration": item.calculatedDuration,
             "title": item.title,
             "url": itemUrl.absoluteString,
             "last_updated": item.lastUpdated.timeIntervalSince1970
         ]
+        
+        if let attachmentUrl = item.attachmentUrl {
+            audioItemDict["attachment_url"] = attachmentUrl.absoluteString
+        }
         
         let clipChild = ref.child("users/\(userId)/audio_clips/\(item.id)")
         
