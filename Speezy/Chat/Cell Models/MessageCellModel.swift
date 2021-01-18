@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFDateHelper
 
 struct MessageCellModel {
     let message: Message
@@ -30,11 +31,24 @@ extension MessageCellModel {
     }
     
     var received: Bool? {
-        isSender ? nil : message.readBy == chat.chatters
+        isSender ? message.readBy == chat.chatters : nil
     }
 }
 
 extension MessageCellModel {
+    // Duration
+    var durationText: String? {
+        guard let duration = message.duration else {
+            return nil
+        }
+        
+        return duration.formattedString
+    }
+    
+    var durationTint: UIColor {
+        .white
+    }
+    
     // User info
     var profileImage: UIImage? {
         message.chatter.profileImage
@@ -46,14 +60,23 @@ extension MessageCellModel {
     
     // Timestamp
     var timestampText: String {
-        message.sent.toStringWithRelativeTime()
+        let hoursString = message.sent.toString(format: DateFormatType.custom("HH:mm"))
+        let monthString = message.sent.toString(format: DateFormatType.custom("EEE dd MMM"))
+        let yearString = message.sent.toString(format: DateFormatType.custom("EEE dd MMM yyyy"))
+        return message.sent.toStringWithRelativeTime(
+            strings: [
+                RelativeTimeStringType.nowPast: "Just now",
+                RelativeTimeStringType.secondsPast: "Just now",
+                RelativeTimeStringType.minutesPast: hoursString,
+                RelativeTimeStringType.hoursPast: hoursString,
+                RelativeTimeStringType.daysPast: monthString,
+                RelativeTimeStringType.monthsPast: monthString,
+                RelativeTimeStringType.yearsPast: yearString
+            ]
+        )
     }
     
     var timestampTint: UIColor {
-        isSender ? .white : .darkGray
-    }
-    
-    var durationTint: UIColor {
         isSender ? .white : .darkGray
     }
     

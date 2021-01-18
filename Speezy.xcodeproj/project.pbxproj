@@ -81,6 +81,7 @@
 		BE6FD94325B6106200723732 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94225B6106200723732 /* Message.swift */; };
 		BE6FD94925B6106900723732 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94825B6106900723732 /* Chat.swift */; };
 		BE6FD94D25B6107200723732 /* Chatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94C25B6107200723732 /* Chatter.swift */; };
+		BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -283,6 +284,7 @@
 		BE6FD94225B6106200723732 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		BE6FD94825B6106900723732 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		BE6FD94C25B6107200723732 /* Chatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chatter.swift; sourceTree = "<group>"; };
+		BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+ToString.swift"; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -1029,6 +1031,7 @@
 				BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */,
 				BE6FD90B25B49BD800723732 /* URL+LastModified.swift */,
 				BE6FD93725B4D42D00723732 /* URL+ConvenienceInit.swift */,
+				BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1446,6 +1449,7 @@
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
+				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */,

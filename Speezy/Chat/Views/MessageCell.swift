@@ -56,6 +56,8 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         
         messageContainer.layer.cornerRadius = 30.0
         messageBackgroundImage.image = item.backgroundImage
+        
+        durationLabel.text = item.durationText
         durationLabel.textColor = item.durationTint
         
         sendStatusImage.alpha = item.tickOpacity

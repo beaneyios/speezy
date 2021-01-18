@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uFe-N0-lZO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="698"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="706"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CVy-7W-bhV">
                                     <size key="itemSize" width="128" height="128"/>
@@ -28,46 +28,48 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xm3-1c-OOy">
-                                <rect key="frame" x="0.0" y="742" width="207" height="120"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9p-r0-YqM">
+                                <rect key="frame" x="0.0" y="766" width="414" height="130"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient-background" translatesAutoresizingMaskIntoConstraints="NO" id="QQP-8X-q6g">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpY-LV-S9q">
+                                        <rect key="frame" x="177" y="35" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="9aq-ch-efU"/>
+                                            <constraint firstAttribute="height" constant="60" id="HCa-IB-q8D"/>
+                                        </constraints>
+                                        <state key="normal" image="chat-record-button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Y3N-3n-kfs"/>
+                                    <constraint firstItem="QQP-8X-q6g" firstAttribute="leading" secondItem="u9p-r0-YqM" secondAttribute="leading" id="N0J-WI-J5a"/>
+                                    <constraint firstAttribute="bottom" secondItem="QQP-8X-q6g" secondAttribute="bottom" id="Oj2-6F-abA"/>
+                                    <constraint firstItem="QQP-8X-q6g" firstAttribute="top" secondItem="u9p-r0-YqM" secondAttribute="top" id="Q47-BS-n7z"/>
+                                    <constraint firstItem="xpY-LV-S9q" firstAttribute="centerY" secondItem="u9p-r0-YqM" secondAttribute="centerY" id="S7f-hu-boJ"/>
+                                    <constraint firstAttribute="height" constant="130" id="YF2-Rn-Fth"/>
+                                    <constraint firstAttribute="trailing" secondItem="QQP-8X-q6g" secondAttribute="trailing" id="sRB-P6-sTc"/>
+                                    <constraint firstItem="xpY-LV-S9q" firstAttribute="centerX" secondItem="u9p-r0-YqM" secondAttribute="centerX" id="uEP-c5-X6z"/>
                                 </constraints>
-                                <state key="normal" title="Add item from friend"/>
-                                <connections>
-                                    <action selector="addChatItem:" destination="2pp-Oq-boV" eventType="touchUpInside" id="gag-zz-ek5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwU-UM-8Sa">
-                                <rect key="frame" x="207" y="742" width="207" height="120"/>
-                                <color key="backgroundColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Jto-pG-aDr"/>
-                                </constraints>
-                                <state key="normal" title="Add item from you"/>
-                                <connections>
-                                    <action selector="addYouItem:" destination="2pp-Oq-boV" eventType="touchUpInside" id="P8y-0T-1IM"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BhX-mg-MhH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="u9p-r0-YqM" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" constant="16" id="4Id-rM-4rK"/>
                             <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="uFe-N0-lZO" secondAttribute="trailing" id="Q3f-mW-5lN"/>
-                            <constraint firstItem="xm3-1c-OOy" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="QRZ-JC-zkT"/>
-                            <constraint firstItem="xm3-1c-OOy" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="T3S-Wr-1Tt"/>
-                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="leading" secondItem="xm3-1c-OOy" secondAttribute="trailing" id="Zz1-pY-rzr"/>
+                            <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="u9p-r0-YqM" secondAttribute="trailing" id="Qlq-YZ-gpl"/>
                             <constraint firstItem="uFe-N0-lZO" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="aO0-YD-rKx"/>
+                            <constraint firstAttribute="bottom" secondItem="u9p-r0-YqM" secondAttribute="bottom" id="eCj-cW-NAd"/>
                             <constraint firstItem="uFe-N0-lZO" firstAttribute="top" secondItem="BhX-mg-MhH" secondAttribute="top" id="eaN-IG-RtG"/>
-                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="bottom" secondItem="BhX-mg-MhH" secondAttribute="bottom" id="gNp-nq-kvK"/>
-                            <constraint firstItem="xm3-1c-OOy" firstAttribute="bottom" secondItem="BhX-mg-MhH" secondAttribute="bottom" id="mne-of-uHB"/>
-                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="nFw-h1-NtJ"/>
-                            <constraint firstItem="dwU-UM-8Sa" firstAttribute="width" secondItem="xm3-1c-OOy" secondAttribute="width" id="uUP-Hd-6hq"/>
-                            <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="dwU-UM-8Sa" secondAttribute="trailing" id="ubH-Yl-mVu"/>
+                            <constraint firstItem="u9p-r0-YqM" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="jGu-3g-eyU"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="uFe-N0-lZO" id="gD6-BJ-qWG"/>
+                        <outlet property="recordButtonContainer" destination="u9p-r0-YqM" id="CC1-Ug-vlU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWC-bn-X3Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -76,6 +78,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chat-record-button" width="120" height="120"/>
+        <image name="gradient-background" width="1063" height="1891"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

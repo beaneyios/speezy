@@ -11,12 +11,27 @@ import UIKit
 class ChatViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var recordButtonContainer: UIView!
     
     let viewModel = ChatViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureSubviews()
+        configureCollectionView()
+        listenForChanges()
+    }
+    
+    private func configureSubviews() {
+        recordButtonContainer.clipsToBounds = true
+        recordButtonContainer.layer.cornerRadius = 20.0
+        recordButtonContainer.layer.maskedCorners = [
+            .layerMinXMinYCorner, .layerMaxXMinYCorner
+        ]
+    }
+    
+    private func listenForChanges() {
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
@@ -28,20 +43,20 @@ class ChatViewController: UIViewController {
             }
         }
         
-        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
-        collectionView.register(MessageCell.nib, forCellWithReuseIdentifier: "cell")
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
         viewModel.listenForData()
     }
     
-    @IBAction func addChatItem(_ sender: Any) {
-        
-    }
-    
-    @IBAction func addYouItem(_ sender: Any) {
-        
+    private func configureCollectionView() {
+        collectionView.transform = CGAffineTransform(
+            scaleX: 1,
+            y: -1
+        )
+        collectionView.register(
+            MessageCell.nib,
+            forCellWithReuseIdentifier: "cell"
+        )
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 }
 
