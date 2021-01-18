@@ -46,12 +46,13 @@ extension MessageCellModel {
     }
     
     var durationTint: UIColor {
-        .white
+        isSender ? .white : .speezyPurple
     }
     
     // User info
     var profileImage: UIImage? {
-        message.chatter.profileImage
+        if isSender { return nil }
+        return message.chatter.profileImage ?? UIImage(named: "account-btn")
     }
     
     var displayNameText: String {
@@ -77,7 +78,7 @@ extension MessageCellModel {
     }
     
     var timestampTint: UIColor {
-        isSender ? .white : .darkGray
+        isSender ? .white : .speezyPurple
     }
     
     var playButtonTint: UIColor {

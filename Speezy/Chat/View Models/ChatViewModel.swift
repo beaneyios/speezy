@@ -26,7 +26,8 @@ class ChatViewModel {
         let chat = Chat(
             id: "chat_1",
             chatters: [
-                Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil)
+                Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil),
+                Chatter(id: "12345", displayName: "Terry", profileImage: nil),
             ],
             title: "Chat 1"
         )
