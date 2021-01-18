@@ -29,7 +29,7 @@ class ChatViewController: UIViewController {
         }
         
         collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
-        collectionView.register(AudioChatItemCell.nib, forCellWithReuseIdentifier: "cell")
+        collectionView.register(MessageCell.nib, forCellWithReuseIdentifier: "cell")
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -37,7 +37,7 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func addChatItem(_ sender: Any) {
-        viewModel.addChatItem(you: false)
+        
     }
     
     @IBAction func addYouItem(_ sender: Any) {
@@ -51,7 +51,7 @@ extension ChatViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AudioChatItemCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MessageCell
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
@@ -71,7 +71,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         let preferredWidth = collectionView.frame.width
         let cellModel = viewModel.items[indexPath.row]
-        let cell = AudioChatItemCell.createFromNib()
+        let cell = MessageCell.createFromNib()
         
         cell.frame.size.width = preferredWidth
         cell.configure(item: cellModel)

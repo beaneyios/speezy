@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AudioChatItemCell: UICollectionViewCell, NibLoadable {
+class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var slider: CustomSlider!
     
     @IBOutlet weak var messageLabel: UILabel!
@@ -25,15 +25,15 @@ class AudioChatItemCell: UICollectionViewCell, NibLoadable {
     
     @IBOutlet weak var playButtonImage: UIImageView!
         
-    func configure(item: ChatItemCellModel) {
+    func configure(item: MessageCellModel) {
         playButtonImage.tintColor = item.playButtonTint
         
-        messageLabel.text = item.message
+        messageLabel.text = item.messageText
         messageLabel.textColor = item.messageTint
         
-//        profileImage.image = item.profileImage
+        profileImage.image = item.profileImage
         
-        timestampLabel.text = item.timeStamp
+        timestampLabel.text = item.timestampText
         timestampLabel.textColor = item.timestampTint
         
         sendStatusImage.tintColor = item.tickTint

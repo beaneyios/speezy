@@ -78,6 +78,9 @@
 		BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */; };
 		BE6FD91625B4D07600723732 /* DatabaseChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */; };
 		BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD93725B4D42D00723732 /* URL+ConvenienceInit.swift */; };
+		BE6FD94325B6106200723732 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94225B6106200723732 /* Message.swift */; };
+		BE6FD94925B6106900723732 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94825B6106900723732 /* Chat.swift */; };
+		BE6FD94D25B6107200723732 /* Chatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94C25B6107200723732 /* Chatter.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -150,10 +153,10 @@
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
-		BEECD89725ACD61200AD7AC3 /* AudioChatItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* AudioChatItemCell.swift */; };
-		BEECD89825ACD61200AD7AC3 /* AudioChatItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* AudioChatItemCell.xib */; };
+		BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* MessageCell.swift */; };
+		BEECD89825ACD61200AD7AC3 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* MessageCell.xib */; };
 		BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */; };
-		BEECD8A125ACD7F500AD7AC3 /* ChatItemCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A025ACD7F500AD7AC3 /* ChatItemCellModel.swift */; };
+		BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */; };
 		BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */; };
 		BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
@@ -277,6 +280,9 @@
 		BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAudioManager.swift; sourceTree = "<group>"; };
 		BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseChatManager.swift; sourceTree = "<group>"; };
 		BE6FD93725B4D42D00723732 /* URL+ConvenienceInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ConvenienceInit.swift"; sourceTree = "<group>"; };
+		BE6FD94225B6106200723732 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		BE6FD94825B6106900723732 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		BE6FD94C25B6107200723732 /* Chatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chatter.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -353,10 +359,10 @@
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
-		BEECD89525ACD61200AD7AC3 /* AudioChatItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioChatItemCell.swift; sourceTree = "<group>"; };
-		BEECD89625ACD61200AD7AC3 /* AudioChatItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioChatItemCell.xib; sourceTree = "<group>"; };
+		BEECD89525ACD61200AD7AC3 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		BEECD89625ACD61200AD7AC3 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Constants.swift"; sourceTree = "<group>"; };
-		BEECD8A025ACD7F500AD7AC3 /* ChatItemCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatItemCellModel.swift; sourceTree = "<group>"; };
+		BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellModel.swift; sourceTree = "<group>"; };
 		BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavePreview.swift; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
@@ -587,6 +593,16 @@
 				BE6080B3250E8713003CB318 /* Transcription.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		BE6FD94125B6105500723732 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BE6FD94225B6106200723732 /* Message.swift */,
+				BE6FD94825B6106900723732 /* Chat.swift */,
+				BE6FD94C25B6107200723732 /* Chatter.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		BE77766224D6CB440009BE63 /* Settings */ = {
@@ -952,8 +968,9 @@
 		BEECD88F25ACCF4100AD7AC3 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				BE6FD94125B6105500723732 /* Models */,
 				BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */,
-				BEECD89F25ACD7ED00AD7AC3 /* Models */,
+				BEECD89F25ACD7ED00AD7AC3 /* Cell Models */,
 				BEECD8A825ACDE2000AD7AC3 /* View Controllers */,
 				BEA9D13425B0C615000888A7 /* View Models */,
 				BEECD89425ACD5F300AD7AC3 /* Views */,
@@ -965,20 +982,20 @@
 		BEECD89425ACD5F300AD7AC3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BEECD89525ACD61200AD7AC3 /* AudioChatItemCell.swift */,
-				BEECD89625ACD61200AD7AC3 /* AudioChatItemCell.xib */,
+				BEECD89525ACD61200AD7AC3 /* MessageCell.swift */,
+				BEECD89625ACD61200AD7AC3 /* MessageCell.xib */,
 				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
 				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		BEECD89F25ACD7ED00AD7AC3 /* Models */ = {
+		BEECD89F25ACD7ED00AD7AC3 /* Cell Models */ = {
 			isa = PBXGroup;
 			children = (
-				BEECD8A025ACD7F500AD7AC3 /* ChatItemCellModel.swift */,
+				BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */,
 			);
-			path = Models;
+			path = "Cell Models";
 			sourceTree = "<group>";
 		};
 		BEECD8A825ACDE2000AD7AC3 /* View Controllers */ = {
@@ -1240,7 +1257,7 @@
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
-				BEECD89825ACD61200AD7AC3 /* AudioChatItemCell.xib in Resources */,
+				BEECD89825ACD61200AD7AC3 /* MessageCell.xib in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
@@ -1382,7 +1399,7 @@
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
-				BEECD89725ACD61200AD7AC3 /* AudioChatItemCell.swift in Sources */,
+				BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */,
 				BE6FD90C25B49BD800723732 /* URL+LastModified.swift in Sources */,
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
@@ -1403,6 +1420,7 @@
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
+				BE6FD94925B6106900723732 /* Chat.swift in Sources */,
 				BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
@@ -1417,7 +1435,7 @@
 				BEFDB54E255FF8D100362428 /* TranscriptNotification.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
-				BEECD8A125ACD7F500AD7AC3 /* ChatItemCellModel.swift in Sources */,
+				BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */,
 				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
@@ -1493,6 +1511,8 @@
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */,
 				BE54295F25937732007EEAD1 /* AuthViewController.swift in Sources */,
+				BE6FD94325B6106200723732 /* Message.swift in Sources */,
+				BE6FD94D25B6107200723732 /* Chatter.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,

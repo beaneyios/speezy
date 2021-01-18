@@ -10,36 +10,6 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-struct Chatter {
-    let id: String
-    let displayName: String
-    let profileImage: UIImage
-}
-
-struct Chat {
-    let id: String
-    let chatters: [Chatter]
-    let title: String
-}
-
-extension Array where Element == Chatter {
-    func chatter(for id: String) -> Chatter? {
-        first { $0.id == id }
-    }
-}
-
-struct Message {
-    let chatter: Chatter
-    let sent: Date
-    
-    let message: String?
-    let audioUrl: URL?
-    let attachmentUrl: URL?
-    let duration: TimeInterval?
-    
-    let readBy: [Chatter]
-}
-
 class DatabaseChatManager {
     func fetchMessages(
         chat: Chat,

@@ -7,149 +7,47 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ChatViewModel {
     enum Change {
         case loaded
-        case itemInserted(ChatItemCellModel)
+        case itemInserted(MessageCellModel)
     }
     
     typealias ChangeBlock = (Change) -> Void
     var didChange: ChangeBlock?
-    private(set) var items = [ChatItemCellModel]()
+    private(set) var items = [MessageCellModel]()
+    
+    let chatManager = DatabaseChatManager()
     
     func listenForData() {
-        items = [
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "Matt",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:15 pm",
-                isSender: true,
-                received: false,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 10.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-            ChatItemCellModel(
-                displayName: "James",
-                profileImage: UIImage(named: ""),
-                timeStamp: "10:11 pm",
-                isSender: false,
-                received: nil,
-                message: "Test message",
-                audioUrl: nil,
-                attachmentUrl: nil,
-                duration: 15.0
-            ),
-
-        ]
         
-        didChange?(.loaded)
-    }
-    
-    func addChatItem(you: Bool) {
-        let newChatItem = ChatItemCellModel(
-            displayName: "James",
-            profileImage: UIImage(named: ""),
-            timeStamp: "10:11 pm",
-            isSender: you,
-            received: you ? true : nil,
-            message: "Test message",
-            audioUrl: nil,
-            attachmentUrl: nil,
-            duration: 15.0
+        let chat = Chat(
+            id: "chat_1",
+            chatters: [
+                Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil)
+            ],
+            title: "Chat 1"
         )
         
-        items.insert(newChatItem, at: 0)
-        didChange?(.itemInserted(newChatItem))
+        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        
+        chatManager.fetchMessages(chat: chat) { (result) in
+            switch result {
+            case let .success(messages):
+                self.items = messages.map {
+                    MessageCellModel(
+                        message: $0,
+                        chat: chat,
+                        currentUserId: currentUserId
+                    )
+                }
+                
+                self.didChange?(.loaded)
+            case let .failure(error):
+                break
+            }
+        }
     }
 }
