@@ -17,7 +17,7 @@ class AppCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToAudioItems()
+        navigateToChat()
     }
     
     override func finish() {

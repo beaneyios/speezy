@@ -84,6 +84,10 @@
 		BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */; };
 		BE6FD95525B7511300723732 /* NewItemGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95425B7511300723732 /* NewItemGenerating.swift */; };
 		BE6FD95925B7512900723732 /* QuickRecordPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95825B7512900723732 /* QuickRecordPresenting.swift */; };
+		BE6FD95F25B75CFF00723732 /* ChatRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */; };
+		BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96225B75D2400723732 /* ChatRecordView.swift */; };
+		BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */; };
+		BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -289,6 +293,10 @@
 		BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+ToString.swift"; sourceTree = "<group>"; };
 		BE6FD95425B7511300723732 /* NewItemGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemGenerating.swift; sourceTree = "<group>"; };
 		BE6FD95825B7512900723732 /* QuickRecordPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordPresenting.swift; sourceTree = "<group>"; };
+		BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRecordView.xib; sourceTree = "<group>"; };
+		BE6FD96225B75D2400723732 /* ChatRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRecordView.swift; sourceTree = "<group>"; };
+		BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatPlaybackView.xib; sourceTree = "<group>"; };
+		BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPlaybackView.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -994,6 +1002,10 @@
 				BEECD89625ACD61200AD7AC3 /* MessageCell.xib */,
 				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
 				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
+				BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */,
+				BE6FD96225B75D2400723732 /* ChatRecordView.swift */,
+				BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */,
+				BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1271,12 +1283,14 @@
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
 				BE50345124BB9C6C00A414D1 /* CropView.xib in Resources */,
+				BE6FD95F25B75CFF00723732 /* ChatRecordView.xib in Resources */,
 				BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */,
 				BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */,
 				BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
+				BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */,
 				BEC825B7257D53190037F007 /* Auth.storyboard in Resources */,
 				BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */,
 				BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */,
@@ -1403,6 +1417,7 @@
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
+				BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
@@ -1487,6 +1502,7 @@
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
 				BE6FD91625B4D07600723732 /* DatabaseChatManager.swift in Sources */,
+				BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */,
 				BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */,
 				BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */,
 				BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */,

@@ -84,7 +84,7 @@ class QuickRecordViewController: UIViewController {
         recordingContainer.addGestureRecognizer(panTop)
         recordingContainer.isUserInteractionEnabled = true
         
-        recordingContainerHeight.constant = 0.0
+        recordingContainerHeight.constant = 130.0
     }
     
     private func configureMainSoundWave() {

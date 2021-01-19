@@ -13,26 +13,62 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordButtonContainer: UIView!
     
+    var activeControl: UIView?
+    
     let viewModel = ChatViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureSubviews()
+        configureRecordContainer()
         configureCollectionView()
         listenForChanges()
+        addRecordButtonView()
     }
     
-    @IBAction func didTapRecord(_ sender: Any) {
+    func didTapRecord() {
         presentQuickRecordDialogue(item: viewModel.newItem)
     }
     
-    private func configureSubviews() {
+    private func configureRecordContainer() {
         recordButtonContainer.clipsToBounds = true
         recordButtonContainer.layer.cornerRadius = 20.0
         recordButtonContainer.layer.maskedCorners = [
             .layerMinXMinYCorner, .layerMaxXMinYCorner
         ]
+    }
+    
+    private func addRecordButtonView() {
+        activeControl?.removeFromSuperview()
+        activeControl = nil
+        
+        let recordView = ChatRecordView.createFromNib()
+        recordView.recordAction = {
+            self.didTapRecord()
+        }
+
+        recordButtonContainer.addSubview(recordView)
+        recordView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    
+        activeControl = recordView
+        recordView.animateIn()
+    }
+    
+    private func addPlaybackView() {
+        activeControl?.removeFromSuperview()
+        activeControl = nil
+        
+        let playbackView = ChatPlaybackView.createFromNib()
+        recordButtonContainer.addSubview(playbackView)
+        playbackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        activeControl = playbackView
+        
+        playbackView.animateIn()
     }
     
     private func listenForChanges() {
@@ -72,6 +108,8 @@ extension ChatViewController {
         
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
+        
+        addPlaybackView()
         
         // TODO: We've recorded the file, now what?
     }
