@@ -82,6 +82,8 @@
 		BE6FD94925B6106900723732 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94825B6106900723732 /* Chat.swift */; };
 		BE6FD94D25B6107200723732 /* Chatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD94C25B6107200723732 /* Chatter.swift */; };
 		BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */; };
+		BE6FD95525B7511300723732 /* NewItemGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95425B7511300723732 /* NewItemGenerating.swift */; };
+		BE6FD95925B7512900723732 /* QuickRecordPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD95825B7512900723732 /* QuickRecordPresenting.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -285,6 +287,8 @@
 		BE6FD94825B6106900723732 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		BE6FD94C25B6107200723732 /* Chatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chatter.swift; sourceTree = "<group>"; };
 		BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+ToString.swift"; sourceTree = "<group>"; };
+		BE6FD95425B7511300723732 /* NewItemGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemGenerating.swift; sourceTree = "<group>"; };
+		BE6FD95825B7512900723732 /* QuickRecordPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordPresenting.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -483,8 +487,10 @@
 		BE50346624BE02C600A414D1 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */,
 				BE9AD41D256AF6240034F921 /* AudioCropping.swift */,
+				BE6FD95425B7511300723732 /* NewItemGenerating.swift */,
+				BE2351DC253C9B4900067BA2 /* PreviewWavePresenting.swift */,
+				BE6FD95825B7512900723732 /* QuickRecordPresenting.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1440,6 +1446,7 @@
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */,
 				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
+				BE6FD95925B7512900723732 /* QuickRecordPresenting.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
@@ -1515,6 +1522,7 @@
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */,
 				BE54295F25937732007EEAD1 /* AuthViewController.swift in Sources */,
+				BE6FD95525B7511300723732 /* NewItemGenerating.swift in Sources */,
 				BE6FD94325B6106200723732 /* Message.swift in Sources */,
 				BE6FD94D25B6107200723732 /* Chatter.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,

@@ -24,7 +24,7 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController)
 }
 
-class AudioItemListViewController: UIViewController {
+class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
@@ -118,32 +118,7 @@ class AudioItemListViewController: UIViewController {
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
-        presentQuickRecordDialogue()
-    }
-    
-    private func presentQuickRecordDialogue() {
-        let storyboard = UIStoryboard(name: "Audio", bundle: nil)
-        let quickRecordViewController = storyboard.instantiateViewController(identifier: "quick-record") as! QuickRecordViewController
-        
-        let newItem = viewModel.newItem
-        
-        let audioManager = AudioManager(item: newItem)
-        quickRecordViewController.audioManager = audioManager
-        quickRecordViewController.delegate = self
-        
-        addChild(quickRecordViewController)
-        view.addSubview(quickRecordViewController.view)
-        
-        quickRecordViewController.view.layer.cornerRadius = 10.0
-        quickRecordViewController.view.clipsToBounds = true
-        quickRecordViewController.view.addShadow()
-        
-        quickRecordViewController.view.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalTo(view.snp.bottom)
-        }
+        presentQuickRecordDialogue(item: viewModel.newItem)
     }
     
     func reloadItem(_ item: AudioItem) {

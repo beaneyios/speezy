@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, QuickRecordPresenting {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordButtonContainer: UIView!
@@ -21,6 +21,10 @@ class ChatViewController: UIViewController {
         configureSubviews()
         configureCollectionView()
         listenForChanges()
+    }
+    
+    @IBAction func didTapRecord(_ sender: Any) {
+        presentQuickRecordDialogue(item: viewModel.newItem)
     }
     
     private func configureSubviews() {
@@ -57,6 +61,25 @@ class ChatViewController: UIViewController {
         )
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+}
+
+extension ChatViewController {
+    func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem) {
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
+        viewController.willMove(toParent: nil)
+        
+        let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
+        let audioManager = AudioManager(item: originalItem)
+        
+        // TODO: We've recorded the file, now what?
+    }
+    
+    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
+        viewController.willMove(toParent: nil)
     }
 }
 

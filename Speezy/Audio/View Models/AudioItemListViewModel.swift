@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import FBSDKLoginKit
 
-class AudioItemListViewModel {
+class AudioItemListViewModel: NewItemGenerating {
     
     enum Change {
         case itemsLoaded
@@ -100,18 +100,5 @@ extension AudioItemListViewModel {
     
     func item(at indexPath: IndexPath) -> AudioItem {
         audioItems[indexPath.row]
-    }
-}
-
-extension AudioItemListViewModel {
-    var newItem: AudioItem {
-        let id = UUID().uuidString
-        return AudioItem(
-            id: id,
-            path: "\(id).\(AudioConstants.fileExtension)",
-            title: "",
-            date: Date(),
-            tags: []
-        )
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class ChatViewModel {
+class ChatViewModel: NewItemGenerating {
     enum Change {
         case loaded
         case itemInserted(MessageCellModel)

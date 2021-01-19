@@ -41,6 +41,9 @@
                                             <constraint firstAttribute="height" constant="60" id="HCa-IB-q8D"/>
                                         </constraints>
                                         <state key="normal" image="chat-record-button"/>
+                                        <connections>
+                                            <action selector="didTapRecord:" destination="2pp-Oq-boV" eventType="touchUpInside" id="e4e-p0-bVc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
