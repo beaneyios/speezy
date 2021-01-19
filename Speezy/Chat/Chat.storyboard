@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uFe-N0-lZO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="706"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="676"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CVy-7W-bhV">
                                     <size key="itemSize" width="128" height="128"/>
@@ -29,10 +29,19 @@
                                 <cells/>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9p-r0-YqM">
-                                <rect key="frame" x="0.0" y="766" width="414" height="130"/>
+                                <rect key="frame" x="0.0" y="736" width="414" height="160"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient-background" translatesAutoresizingMaskIntoConstraints="NO" id="XUI-J5-WYE">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="YF2-Rn-Fth"/>
+                                    <constraint firstItem="XUI-J5-WYE" firstAttribute="leading" secondItem="u9p-r0-YqM" secondAttribute="leading" id="5VC-6N-Ggu"/>
+                                    <constraint firstItem="XUI-J5-WYE" firstAttribute="top" secondItem="u9p-r0-YqM" secondAttribute="top" id="5aP-Pe-Hsi"/>
+                                    <constraint firstAttribute="trailing" secondItem="XUI-J5-WYE" secondAttribute="trailing" id="TRE-eO-Q6I"/>
+                                    <constraint firstAttribute="height" constant="160" id="YF2-Rn-Fth"/>
+                                    <constraint firstAttribute="bottom" secondItem="XUI-J5-WYE" secondAttribute="bottom" id="vCx-yq-Snz"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -59,6 +68,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gradient-background" width="1063" height="1891"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

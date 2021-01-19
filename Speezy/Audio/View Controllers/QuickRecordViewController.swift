@@ -65,7 +65,7 @@ class QuickRecordViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.recordingControlsContainer.alpha = 0.0
         } completion: { _ in
-            self.recordingContainerHeight.constant = 1.0
+            self.recordingContainerHeight.constant = 160.0
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             } completion: { _ in
@@ -81,10 +81,18 @@ class QuickRecordViewController: UIViewController {
         
         let panTop = UIPanGestureRecognizer(target: self, action: #selector(topPan(sender:)))
         panTop.cancelsTouchesInView = false
+        
+        recordingContainer.layer.cornerRadius = 20.0
+        recordingContainer.clipsToBounds = true
+        recordingContainer.layer.cornerRadius = 20.0
+        recordingContainer.layer.maskedCorners = [
+            .layerMinXMinYCorner, .layerMaxXMinYCorner
+        ]
+        
         recordingContainer.addGestureRecognizer(panTop)
         recordingContainer.isUserInteractionEnabled = true
         
-        recordingContainerHeight.constant = 130.0
+        recordingContainerHeight.constant = 160.0
     }
     
     private func configureMainSoundWave() {

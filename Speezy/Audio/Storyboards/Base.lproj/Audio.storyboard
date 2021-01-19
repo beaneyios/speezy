@@ -928,11 +928,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view alpha="0.20000000298023224" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUB-Xb-hcy">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfa-qX-6oy" userLabel="Recording Container">
-                                <rect key="frame" x="0.0" y="462" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="496" width="414" height="400"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient-background" translatesAutoresizingMaskIntoConstraints="NO" id="P9A-4z-pbg">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
@@ -947,18 +947,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="430-bf-4TG">
-                                                <rect key="frame" x="0.0" y="300" width="414" height="3"/>
+                                                <rect key="frame" x="0.0" y="284" width="414" height="3"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="3" id="RAB-vd-lBY"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqZ-Sr-MdN">
-                                                <rect key="frame" x="0.0" y="74" width="414" height="222"/>
+                                                <rect key="frame" x="0.0" y="74" width="414" height="206"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QkC-zv-4Jp" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                                <rect key="frame" x="174.5" y="319" width="65" height="65"/>
+                                                <rect key="frame" x="174.5" y="303" width="65" height="65"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="65" id="77h-TD-igW"/>
@@ -973,7 +973,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="QkC-zv-4Jp" secondAttribute="bottom" priority="999" constant="16" id="9fO-T1-W1s"/>
+                                            <constraint firstAttribute="bottom" secondItem="QkC-zv-4Jp" secondAttribute="bottom" priority="999" constant="32" id="9fO-T1-W1s"/>
                                             <constraint firstAttribute="trailing" secondItem="3g2-H3-Dbh" secondAttribute="trailing" constant="16" id="B9o-mL-9Kp"/>
                                             <constraint firstAttribute="trailing" secondItem="430-bf-4TG" secondAttribute="trailing" id="F3M-0l-eUI"/>
                                             <constraint firstItem="QkC-zv-4Jp" firstAttribute="centerX" secondItem="usz-Cf-k8R" secondAttribute="centerX" id="GkK-CH-9kq"/>
@@ -1008,9 +1008,9 @@
                             <constraint firstItem="dUB-Xb-hcy" firstAttribute="top" secondItem="tzG-ya-KEO" secondAttribute="top" id="7OX-G9-Xww"/>
                             <constraint firstItem="gfa-qX-6oy" firstAttribute="leading" secondItem="XXq-jy-LuZ" secondAttribute="leading" id="DsC-dx-Goe"/>
                             <constraint firstItem="dUB-Xb-hcy" firstAttribute="trailing" secondItem="XXq-jy-LuZ" secondAttribute="trailing" id="S5b-Uw-ERV"/>
-                            <constraint firstItem="XXq-jy-LuZ" firstAttribute="bottom" secondItem="gfa-qX-6oy" secondAttribute="bottom" id="Z78-At-RWX"/>
                             <constraint firstItem="dUB-Xb-hcy" firstAttribute="leading" secondItem="XXq-jy-LuZ" secondAttribute="leading" id="Z7D-v1-m8J"/>
-                            <constraint firstItem="dUB-Xb-hcy" firstAttribute="bottom" secondItem="XXq-jy-LuZ" secondAttribute="bottom" id="xC7-Id-9zc"/>
+                            <constraint firstAttribute="bottom" secondItem="gfa-qX-6oy" secondAttribute="bottom" id="wd7-OX-LZd"/>
+                            <constraint firstItem="dUB-Xb-hcy" firstAttribute="bottom" secondItem="tzG-ya-KEO" secondAttribute="bottom" id="xC7-Id-9zc"/>
                             <constraint firstItem="XXq-jy-LuZ" firstAttribute="trailing" secondItem="gfa-qX-6oy" secondAttribute="trailing" id="xma-qu-qoQ"/>
                         </constraints>
                     </view>

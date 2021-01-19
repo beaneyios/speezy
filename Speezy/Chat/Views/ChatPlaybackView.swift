@@ -16,6 +16,8 @@ class ChatPlaybackView: UIView, NibLoadable {
     @IBOutlet var firstWaveAnimations: [UIView]!
     @IBOutlet var secondWaveAnimations: [UIView]!
     
+    @IBOutlet weak var slider: CustomSlider!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -27,6 +29,14 @@ class ChatPlaybackView: UIView, NibLoadable {
         editAudioContainer.layer.borderColor = UIColor.speezyPurple.cgColor
         addMessageContainer.layer.borderColor = UIColor.speezyPurple.cgColor
         sendContainer.layer.borderColor = UIColor.speezyDarkRed.cgColor
+        
+        slider.thumbColour = .white
+        slider.minimumTrackTintColor = .white
+        slider.maximumTrackTintColor = UIColor.white.withAlphaComponent(0.3)
+        slider.borderColor = .white
+        slider.thumbRadius = 12
+        slider.depressedThumbRadius = 15
+        slider.configure()
     }
     
     @IBAction func editAudioTapped(_ sender: Any) {
