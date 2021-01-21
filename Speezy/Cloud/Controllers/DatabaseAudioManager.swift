@@ -66,12 +66,43 @@ class DatabaseAudioManager {
             audioItemDict["attachment_url"] = attachmentUrl.absoluteString
         }
         
-        let clipChild = ref.child("users/\(userId)/audio_clips/\(item.id)")
+        audioItemDict = updatedAudioFileWithNewOccurrences(
+            item: item,
+            audioItemDict: audioItemDict
+        )
         
+        let clipChild = ref.child("users/\(userId)/audio_clips/\(item.id)")
         clipChild.setValue(audioItemDict) { (error, newRef) in
             completion(.success(item))
         }
     }
+    
+    static func updatedAudioFileWithNewOccurrences(item: AudioItem, audioItemDict: [String: Any]) -> [String: Any] {
+        var audioItemDict = audioItemDict
+        guard !item.attachedMessageIds.isEmpty else {
+            return audioItemDict
+        }
+        
+        let occurrencesDict = item.attachedMessageIds.enumerated().reduce([Int: String]()) { (dict, messageId) -> [Int: String] in
+            var dict = dict
+            dict[messageId.offset] = messageId.element
+            return dict
+        }
+
+        audioItemDict["occurrences"] = occurrencesDict
+        return audioItemDict
+    }
+  
+    // TODO: Finish association
+//    static func updateOccurrencesWithNewAudioFile(messageIds: [String], item: AudioItem) {
+//        var updateDict: [String: [String]]
+//        let keyValuePairs: [(String, String)] = messageIds.compactMap {
+//            let substrings = $0.components(separatedBy: "_")
+//            if substrings.count == 2 {
+//                return (substrings[0], substrings[1])
+//            }
+//        }
+//    }
     
     static func removeDatabaseReference(
         _ item: AudioItem,

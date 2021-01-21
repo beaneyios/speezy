@@ -22,6 +22,8 @@ struct AudioItem: Codable, Equatable, Identifiable {
     let tags: [Tag]
     let duration: TimeInterval
     
+    let attachedMessageIds: [String]
+    
     var attachmentUrl: URL?
     var remoteUrl: URL?
     
@@ -41,7 +43,8 @@ struct AudioItem: Codable, Equatable, Identifiable {
         tags: [Tag],
         remoteUrl: URL? = nil,
         attachmentUrl: URL? = nil,
-        duration: TimeInterval = 0.0
+        duration: TimeInterval = 0.0,
+        attachedMessageIds: [String] = []
     ) {
         self.id = id
         self.path = path
@@ -51,5 +54,6 @@ struct AudioItem: Codable, Equatable, Identifiable {
         self.remoteUrl = remoteUrl
         self.duration = duration
         self.attachmentUrl = attachmentUrl
+        self.attachedMessageIds = attachedMessageIds
     }
 }

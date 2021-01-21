@@ -28,7 +28,8 @@ class DatabaseAudioItemParser {
             tags: [],
             remoteUrl: url,
             attachmentUrl: self.attachmentUrl(from: dict),
-            duration: duration
+            duration: duration,
+            attachedMessageIds: self.attachedMessageIds(from: dict["occurrences"] as? NSDictionary)
         )
     }
     
@@ -41,5 +42,13 @@ class DatabaseAudioItemParser {
         }
         
         return attachmentUrl
+    }
+    
+    private static func attachedMessageIds(from occurrences: NSDictionary?) -> [String] {
+        guard let occurrences = occurrences else {
+            return []
+        }
+        
+        return (occurrences.allValues as? [String]) ?? []
     }
 }

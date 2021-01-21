@@ -60,6 +60,7 @@
                     <connections>
                         <outlet property="collectionView" destination="uFe-N0-lZO" id="gD6-BJ-qWG"/>
                         <outlet property="recordButtonContainer" destination="u9p-r0-YqM" id="CC1-Ug-vlU"/>
+                        <outlet property="recordButtonContainerHeight" destination="YF2-Rn-Fth" id="Are-Lt-dBE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWC-bn-X3Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

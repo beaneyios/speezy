@@ -9,6 +9,7 @@
 import Foundation
 
 struct Message {
+    let id: String
     let chatter: Chatter
     let sent: Date
     

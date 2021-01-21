@@ -18,7 +18,8 @@ extension AudioItem {
             tags: tags,
             remoteUrl: remoteUrl,
             attachmentUrl: attachmentUrl,
-            duration: duration
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
         
         return newItem
@@ -40,7 +41,8 @@ extension AudioItem {
             tags: tags + tags,
             remoteUrl: remoteUrl,
             attachmentUrl: attachmentUrl,
-            duration: duration
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
         
         return newItem
@@ -59,7 +61,8 @@ extension AudioItem {
             tags: newTags,
             remoteUrl: remoteUrl,
             attachmentUrl: attachmentUrl,
-            duration: duration
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
         
         return newItem
@@ -78,7 +81,8 @@ extension AudioItem {
             tags: tags,
             remoteUrl: remoteUrl,
             attachmentUrl: attachmentUrl,
-            duration: duration
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
     }
     
@@ -91,7 +95,8 @@ extension AudioItem {
             tags: tags,
             remoteUrl: url,
             attachmentUrl: attachmentUrl,
-            duration: duration
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
     }
     
@@ -104,7 +109,8 @@ extension AudioItem {
             tags: tags,
             remoteUrl: remoteUrl,
             attachmentUrl: url,
-            duration: duration
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
     }
 }

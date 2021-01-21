@@ -36,6 +36,7 @@ class DatabaseChatManager {
                 }
                 
                 return Message(
+                    id: key,
                     chatter: chatter,
                     sent: Date(timeIntervalSince1970: sentDateSeconds),
                     message: dict["message"] as? String,
@@ -49,6 +50,41 @@ class DatabaseChatManager {
             completion(.success(messages))
         } withCancel: { (error) in
             completion(.failure(error))
+        }
+    }
+    
+    func insertMessage(
+        item: AudioItem,
+        message: Message,
+        chat: Chat,
+        completion: @escaping (Result<Message, Error>) -> Void
+    ) {
+        var messageDict: [String: Any] = [
+            "audio_id": item.id,
+            "duration": item.calculatedDuration,
+            "sent_date": message.sent.timeIntervalSince1970
+        ]
+        
+        if let messageText = message.message {
+            messageDict["message"] = messageText
+        }
+        
+        if let remoteUrl = item.remoteUrl {
+            messageDict["audio_url"] = remoteUrl.absoluteString
+        }
+        
+        if let attachmentUrl = item.attachmentUrl {
+            messageDict["attachment_url"] = attachmentUrl
+        }
+        
+        if let userId = Auth.auth().currentUser?.uid {
+            messageDict["user_id"] = userId
+        }
+        
+        let ref = Database.database().reference()
+        let clipChild = ref.child("messages/\(chat.id)/\(message.id)")
+        clipChild.setValue(messageDict) { (error, newRef) in
+            completion(.success(message))
         }
     }
 }

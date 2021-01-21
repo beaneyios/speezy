@@ -37,14 +37,7 @@ class AudioCutter: AudioCropping {
     
     func cut(audioItem: AudioItem, timeRanges: [CMTimeRange]) {
         cut(audioItem: audioItem, timeRanges: timeRanges) { (url) in
-            let cutItem = AudioItem(
-                id: self.item.id,
-                path: url,
-                title: self.item.title,
-                date: self.item.lastUpdated,
-                tags: self.item.tags
-            )
-            
+            let cutItem = self.item.withPath(path: url)
             self.cutItem = cutItem
             self.applyCut()
         }
@@ -55,25 +48,11 @@ class AudioCutter: AudioCropping {
         cropTo = to
         
         crop(audioItem: audioItem, startTime: from, stopTime: to) { (croppedOutputPath) in
-            let croppedItem = AudioItem(
-                id: self.item.id,
-                path: croppedOutputPath,
-                title: self.item.title,
-                date: self.item.lastUpdated,
-                tags: self.item.tags
-            )
-            
+            let croppedItem = self.item.withPath(path: croppedOutputPath)
             self.stagedCutItem = croppedItem
             
             self.cut(audioItem: audioItem, from: from, to: to) { (cutOutputPath) in
-                let cutItem = AudioItem(
-                    id: self.item.id,
-                    path: cutOutputPath,
-                    title: self.item.title,
-                    date: self.item.lastUpdated,
-                    tags: self.item.tags
-                )
-                
+                let cutItem = self.item.withPath(path: cutOutputPath)                
                 self.cutItem = cutItem
                 self.delegate?.audioCutter(self, didAdjustCutItem: cutItem)
             }

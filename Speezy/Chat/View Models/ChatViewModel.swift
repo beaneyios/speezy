@@ -12,7 +12,7 @@ import FirebaseAuth
 class ChatViewModel: NewItemGenerating {
     enum Change {
         case loaded
-        case itemInserted(MessageCellModel)
+        case itemInserted(index: Int)
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -20,18 +20,18 @@ class ChatViewModel: NewItemGenerating {
     private(set) var items = [MessageCellModel]()
     
     let chatManager = DatabaseChatManager()
+    let audioClipManager = DatabaseAudioManager()
+    let audioCloudManager = CloudAudioManager()
+    
+    private var chat: Chat
+    private var stagedAudioFile: AudioItem?
+    private var stagedText: String?
+    
+    init(chat: Chat) {
+        self.chat = chat
+    }
     
     func listenForData() {
-        
-        let chat = Chat(
-            id: "chat_1",
-            chatters: [
-                Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil),
-                Chatter(id: "12345", displayName: "Terry", profileImage: nil),
-            ],
-            title: "Chat 1"
-        )
-        
         let currentUserId = Auth.auth().currentUser?.uid ?? ""
         
         chatManager.fetchMessages(chat: chat) { (result) in
@@ -40,12 +40,92 @@ class ChatViewModel: NewItemGenerating {
                 self.items = messages.map {
                     MessageCellModel(
                         message: $0,
-                        chat: chat,
+                        chat: self.chat,
                         currentUserId: currentUserId
                     )
                 }
                 
                 self.didChange?(.loaded)
+            case let .failure(error):
+                break
+            }
+        }
+    }    
+    
+    func setAudioItem(_ item: AudioItem) {
+        self.stagedAudioFile = item
+    }
+    
+    func setMessageText(_ text: String) {
+        self.stagedText = text
+    }
+}
+
+extension ChatViewModel {
+    func sendStagedItem() {
+        guard let item = stagedAudioFile, let data = try? Data(contentsOf: item.fileUrl) else {
+            return
+        }
+        
+        CloudAudioManager.uploadAudioClip(
+            data,
+            path: "audio_clips/\(item.id).m4a"
+        ) { (result) in
+            switch result {
+            case let .success(url):
+                self.updateDatabaseRecords(item: item.withRemoteUrl(url))
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func updateDatabaseRecords(item: AudioItem) {
+        guard
+            let id = Auth.auth().currentUser?.uid,
+            let chatter = chat.chatters.chatter(for: id)
+        else {
+            // TODO: Handle error here.
+            assertionFailure("User not found")
+            return
+        }
+        
+        let message = Message(
+            id: UUID().uuidString,
+            chatter: chatter,
+            sent: Date(),
+            message: self.stagedText,
+            audioUrl: item.remoteUrl,
+            attachmentUrl: nil,
+            duration: nil,
+            readBy: []
+        )
+        
+        chatManager.insertMessage(
+            item: item,
+            message: message,
+            chat: chat
+        ) { (result) in
+            switch result {
+            case let .success(message):
+                self.updateAudioDatabaseRecords(item: item, message: message)
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func updateAudioDatabaseRecords(item: AudioItem, message: Message) {
+        DatabaseAudioManager.updateDatabaseReference(item) { (result) in
+            switch result {
+            case .success:
+                let cellModel = MessageCellModel(
+                    message: message,
+                    chat: self.chat,
+                    currentUserId: Auth.auth().currentUser?.uid ?? ""
+                )
+                self.items.insert(cellModel, at: 0)
+                self.didChange?(.itemInserted(index: 0))
             case let .failure(error):
                 break
             }

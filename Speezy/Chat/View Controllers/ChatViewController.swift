@@ -12,10 +12,20 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordButtonContainer: UIView!
+    @IBOutlet weak var recordButtonContainerHeight: NSLayoutConstraint!
     
     var activeControl: UIView?
     
-    let viewModel = ChatViewModel()
+    let viewModel = ChatViewModel(
+        chat: Chat(
+            id: "chat_1",
+            chatters: [
+                Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil),
+                Chatter(id: "12345", displayName: "Terry", profileImage: nil),
+            ],
+            title: "Chat 1"
+        )
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +48,16 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         ]
     }
     
+    private func animateToRecordButtonView() {
+        recordButtonContainerHeight.constant = 160.0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.addRecordButtonView()
+        }
+    }
+    
     private func addRecordButtonView() {
         activeControl?.removeFromSuperview()
         activeControl = nil
@@ -56,6 +76,16 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         recordView.animateIn()
     }
     
+    private func animateToPlaybackView() {
+        recordButtonContainerHeight.constant = 200.0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.addPlaybackView()
+        }
+    }
+    
     private func addPlaybackView() {
         activeControl?.removeFromSuperview()
         activeControl = nil
@@ -64,6 +94,14 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         recordButtonContainer.addSubview(playbackView)
         playbackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        playbackView.sendAction = {
+            self.viewModel.sendStagedItem()
+        }
+        
+        playbackView.textChangeAction = { text in
+            self.viewModel.setMessageText(text)
         }
         
         activeControl = playbackView
@@ -77,8 +115,15 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                 switch change {
                 case .loaded:
                     self.collectionView.reloadData()
-                case .itemInserted(_):
-                    self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+                case let .itemInserted(index):
+                    self.collectionView.insertItems(
+                        at: [
+                            IndexPath(
+                                item: index,
+                                section: 0
+                            )
+                        ]
+                    )
                 }
             }
         }
@@ -106,12 +151,8 @@ extension ChatViewController {
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
         
-        let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
-        let audioManager = AudioManager(item: originalItem)
-        
-        addPlaybackView()
-        
-        // TODO: We've recorded the file, now what?
+        viewModel.setAudioItem(item)
+        animateToPlaybackView()
     }
     
     func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
@@ -121,7 +162,7 @@ extension ChatViewController {
     }
 }
 
-extension ChatViewController: UICollectionViewDataSource {
+extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.items.count
     }
@@ -133,10 +174,6 @@ extension ChatViewController: UICollectionViewDataSource {
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
     }
-}
-
-extension ChatViewController: UICollectionViewDelegate {
-    
 }
 
 extension ChatViewController: UICollectionViewDelegateFlowLayout {

@@ -10,24 +10,26 @@ import UIKit
 
 class ChatPlaybackView: UIView, NibLoadable {
     @IBOutlet weak var editAudioContainer: UIView!
-    @IBOutlet weak var addMessageContainer: UIView!
     @IBOutlet weak var sendContainer: UIView!
     
     @IBOutlet var firstWaveAnimations: [UIView]!
     @IBOutlet var secondWaveAnimations: [UIView]!
     
     @IBOutlet weak var slider: CustomSlider!
+    @IBOutlet weak var titleField: UITextField!
+    
+    var sendAction: (() -> Void)?
+    var textChangeAction: ((String) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        [editAudioContainer, addMessageContainer, sendContainer].forEach {
+        [editAudioContainer, sendContainer].forEach {
             $0?.layer.cornerRadius = 10.0
             $0?.layer.borderWidth = 1.0
         }
         
         editAudioContainer.layer.borderColor = UIColor.speezyPurple.cgColor
-        addMessageContainer.layer.borderColor = UIColor.speezyPurple.cgColor
         sendContainer.layer.borderColor = UIColor.speezyDarkRed.cgColor
         
         slider.thumbColour = .white
@@ -37,18 +39,17 @@ class ChatPlaybackView: UIView, NibLoadable {
         slider.thumbRadius = 12
         slider.depressedThumbRadius = 15
         slider.configure()
+        
+        titleField.delegate = self
     }
     
     @IBAction func editAudioTapped(_ sender: Any) {
         editAudioContainer.alpha = 1.0
     }
     
-    @IBAction func addMessageTapped(_ sender: Any) {
-        addMessageContainer.alpha = 1.0
-    }
-    
     @IBAction func sendTapped(_ sender: Any) {
         sendContainer.alpha = 1.0
+        sendAction?()
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
@@ -88,5 +89,27 @@ class ChatPlaybackView: UIView, NibLoadable {
                 
             }
         }
+    }
+}
+
+extension ChatPlaybackView: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        
+        guard let textFieldText = textField.text else {
+            return true
+        }
+        
+        let nsText = textFieldText as NSString
+        let newString = nsText.replacingCharacters(
+            in: range,
+            with: string
+        )
+        
+        textChangeAction?(newString)        
+        return true
     }
 }

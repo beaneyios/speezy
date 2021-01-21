@@ -17,7 +17,7 @@ class AppCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToChat()
+        navigateToAuth()
     }
     
     override func finish() {
