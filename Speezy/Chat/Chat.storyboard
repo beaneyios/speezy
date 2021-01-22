@@ -59,6 +59,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="uFe-N0-lZO" id="gD6-BJ-qWG"/>
+                        <outlet property="recordBottomConstraint" destination="eCj-cW-NAd" id="Viu-Xd-b5M"/>
                         <outlet property="recordButtonContainer" destination="u9p-r0-YqM" id="CC1-Ug-vlU"/>
                         <outlet property="recordButtonContainerHeight" destination="YF2-Rn-Fth" id="Are-Lt-dBE"/>
                     </connections>

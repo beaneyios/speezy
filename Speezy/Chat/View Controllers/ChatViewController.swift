@@ -13,6 +13,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordButtonContainer: UIView!
     @IBOutlet weak var recordButtonContainerHeight: NSLayoutConstraint!
+    @IBOutlet weak var recordBottomConstraint: NSLayoutConstraint!
     
     var activeControl: UIView?
     
@@ -34,6 +35,16 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         configureCollectionView()
         listenForChanges()
         addRecordButtonView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startListeningForKeyboardChanges()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopListeningForKeyboardChanges()
     }
     
     func didTapRecord() {
@@ -76,17 +87,17 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         recordView.animateIn()
     }
     
-    private func animateToPlaybackView() {
+    private func animateToPlaybackView(item: AudioItem) {
         recordButtonContainerHeight.constant = 200.0
         
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         } completion: { _ in
-            self.addPlaybackView()
+            self.addPlaybackView(item: item)
         }
     }
     
-    private func addPlaybackView() {
+    private func addPlaybackView(item: AudioItem) {
         activeControl?.removeFromSuperview()
         activeControl = nil
         
@@ -113,9 +124,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
             }            
         }
         
-        activeControl = playbackView
-        
+        playbackView.configure(audioItem: item)
         playbackView.animateIn()
+        
+        activeControl = playbackView
     }
     
     private func listenForChanges() {
@@ -169,7 +181,7 @@ extension ChatViewController {
         viewController.willMove(toParent: nil)
         
         viewModel.setAudioItem(item)
-        animateToPlaybackView()
+        animateToPlaybackView(item: item)
     }
     
     func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
@@ -216,5 +228,56 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         )
         
         return CGSize(width: preferredWidth, height: size.height)
+    }
+}
+
+extension ChatViewController {
+    func startListeningForKeyboardChanges() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(adjustForKeyboard),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(adjustForKeyboard),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+        
+        let dismissGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        
+        view.addGestureRecognizer(dismissGesture)
+    }
+    
+    func stopListeningForKeyboardChanges() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self)
+    }
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            recordBottomConstraint.constant = 0.0
+        } else {
+            recordBottomConstraint.constant = keyboardViewEndFrame.height
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.setNeedsLayout()
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

@@ -18,14 +18,6 @@
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wr2-0b-bDN" customClass="CustomSlider" customModule="Speezy" customModuleProvider="target">
                     <rect key="frame" x="58" y="77" width="410" height="31"/>
                 </slider>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plain-play-button" translatesAutoresizingMaskIntoConstraints="NO" id="Ycp-hD-yVF">
-                    <rect key="frame" x="24" y="79.5" width="20" height="25"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="20" id="Dc2-gk-J6S"/>
-                        <constraint firstAttribute="height" constant="25" id="JWr-Ty-7Wv"/>
-                    </constraints>
-                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzj-H0-3WA">
                     <rect key="frame" x="16" y="16" width="53" height="32"/>
                     <subviews>
@@ -158,16 +150,29 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4R-UC-gw6">
+                    <rect key="frame" x="24" y="79.5" width="20" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="QQq-Ik-rDR"/>
+                        <constraint firstAttribute="height" constant="25" id="arq-BH-VTZ"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="plain-play-button"/>
+                    <connections>
+                        <action selector="playbackTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="i4H-g5-P6c"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="wr2-0b-bDN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H4z-QX-lcB" secondAttribute="bottom" constant="16" id="5Mz-3j-w3N"/>
+                <constraint firstItem="l4R-UC-gw6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="6lM-eZ-wUb"/>
                 <constraint firstItem="H4z-QX-lcB" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="8Wv-lq-t6a"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6ZZ-MI-mCV" secondAttribute="trailing" constant="16" id="8r8-RP-vWI"/>
-                <constraint firstItem="Ycp-hD-yVF" firstAttribute="centerY" secondItem="wr2-0b-bDN" secondAttribute="centerY" id="A1Q-Hj-JnD"/>
+                <constraint firstItem="l4R-UC-gw6" firstAttribute="centerY" secondItem="wr2-0b-bDN" secondAttribute="centerY" id="Ci3-nv-c8d"/>
+                <constraint firstItem="wr2-0b-bDN" firstAttribute="leading" secondItem="l4R-UC-gw6" secondAttribute="trailing" constant="16" id="HaG-aT-KHk"/>
                 <constraint firstItem="gzj-H0-3WA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="LZS-gA-Udd"/>
-                <constraint firstItem="wr2-0b-bDN" firstAttribute="leading" secondItem="Ycp-hD-yVF" secondAttribute="trailing" constant="16" id="Nlx-g3-Lxz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jKF-B8-TUK" secondAttribute="trailing" constant="24" id="Ovv-XV-RtE"/>
                 <constraint firstItem="jKF-B8-TUK" firstAttribute="centerY" secondItem="wr2-0b-bDN" secondAttribute="centerY" id="Qc0-NP-WEZ"/>
                 <constraint firstItem="6ZZ-MI-mCV" firstAttribute="leading" secondItem="H4z-QX-lcB" secondAttribute="trailing" constant="8" id="YSO-6D-afg"/>
@@ -176,14 +181,14 @@
                 <constraint firstItem="jKF-B8-TUK" firstAttribute="leading" secondItem="wr2-0b-bDN" secondAttribute="trailing" constant="8" id="lNw-R6-zGY"/>
                 <constraint firstItem="gzj-H0-3WA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="lZC-IL-iTd"/>
                 <constraint firstItem="BKw-zp-yfF" firstAttribute="top" secondItem="wr2-0b-bDN" secondAttribute="bottom" constant="24" id="npa-RY-YzU"/>
-                <constraint firstItem="wr2-0b-bDN" firstAttribute="leading" secondItem="Ycp-hD-yVF" secondAttribute="trailing" constant="16" id="qiP-WM-3aa"/>
-                <constraint firstItem="Ycp-hD-yVF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="wnE-21-kYN"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BKw-zp-yfF" secondAttribute="trailing" constant="24" id="ynY-kc-mIY"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="BKw-zp-yfF" secondAttribute="bottom" constant="24" id="zqM-sG-Pdf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="durationLabel" destination="jKF-B8-TUK" id="XDX-j1-BlQ"/>
                 <outlet property="editAudioContainer" destination="H4z-QX-lcB" id="7dg-V7-bbq"/>
+                <outlet property="playbackButton" destination="l4R-UC-gw6" id="1O7-9i-B3c"/>
                 <outlet property="sendButtonIcon" destination="DVq-ZF-xcA" id="A38-Cf-iLI"/>
                 <outlet property="sendButtonText" destination="CkL-4J-aob" id="0wb-lq-pcw"/>
                 <outlet property="sendContainer" destination="6ZZ-MI-mCV" id="kPm-O4-m4E"/>
@@ -192,10 +197,11 @@
                 <outlet property="titleField" destination="BKw-zp-yfF" id="FHI-fS-eV9"/>
                 <outletCollection property="firstWaveAnimations" destination="H4z-QX-lcB" collectionClass="NSMutableArray" id="B0a-II-JmU"/>
                 <outletCollection property="firstWaveAnimations" destination="6ZZ-MI-mCV" collectionClass="NSMutableArray" id="hUC-F9-5Gk"/>
-                <outletCollection property="secondWaveAnimations" destination="Ycp-hD-yVF" collectionClass="NSMutableArray" id="3zo-Yk-5kZ"/>
                 <outletCollection property="secondWaveAnimations" destination="wr2-0b-bDN" collectionClass="NSMutableArray" id="GtP-Vk-T5z"/>
                 <outletCollection property="firstWaveAnimations" destination="gzj-H0-3WA" collectionClass="NSMutableArray" id="2Ls-KT-5Rg"/>
                 <outletCollection property="secondWaveAnimations" destination="BKw-zp-yfF" collectionClass="NSMutableArray" id="tU7-Gd-Oft"/>
+                <outletCollection property="secondWaveAnimations" destination="jKF-B8-TUK" collectionClass="NSMutableArray" id="xLa-Z8-DaD"/>
+                <outletCollection property="secondWaveAnimations" destination="l4R-UC-gw6" collectionClass="NSMutableArray" id="RZl-ge-d3d"/>
             </connections>
             <point key="canvasLocation" x="249.59999999999999" y="396.25187406296857"/>
         </view>

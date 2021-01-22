@@ -23,9 +23,14 @@ class ChatPlaybackView: UIView, NibLoadable {
     @IBOutlet weak var sendButtonIcon: UIButton!
     @IBOutlet weak var sendButtonText: UIButton!
     
+    @IBOutlet weak var playbackButton: UIButton!
+    @IBOutlet weak var durationLabel: UILabel!
+    
     var sendAction: (() -> Void)?
     var textChangeAction: ((String) -> Void)?
     var cancelAction: (() -> Void)?
+    
+    private var audioManager: AudioManager?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,6 +56,11 @@ class ChatPlaybackView: UIView, NibLoadable {
         titleField.delegate = self
     }
     
+    func configure(audioItem: AudioItem) {
+        audioManager = AudioManager(item: audioItem)
+        audioManager?.addPlaybackObserver(self)
+    }
+    
     @IBAction func editAudioTapped(_ sender: Any) {
         editAudioContainer.alpha = 1.0
     }
@@ -73,6 +83,67 @@ class ChatPlaybackView: UIView, NibLoadable {
         sender.superview?.alpha = 0.9
     }
     
+    @IBAction func playbackTapped(_ sender: Any) {
+        audioManager?.togglePlayback()
+    }
+    
+    @objc private func onSliderValChanged(
+        slider: UISlider,
+        forEvent event: UIEvent
+    ) {
+        guard let touchEvent = event.allTouches?.first else {
+            return
+        }
+        
+        switch touchEvent.phase {
+        case UITouch.Phase.began:
+            audioManager?.pause()
+        case UITouch.Phase.moved:
+            audioManager?.seek(to: slider.value)
+        case UITouch.Phase.ended:
+            audioManager?.play()
+        default:
+            break
+        }
+    }
+}
+
+// MARK: Playback
+extension ChatPlaybackView: AudioPlayerObserver {
+    func playBackBegan(on item: AudioItem) {
+        playbackButton.setImage(UIImage(named: "plain-pause-button"), for: .normal)
+    }
+    
+    func playbackPaused(on item: AudioItem) {
+        playbackButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+    }
+    
+    func playbackStopped(on item: AudioItem) {
+        playbackButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+        durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: audioManager?.duration ?? 0.0)
+        slider.value = 0.0
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem,
+        startOffset: TimeInterval
+    ) {
+        
+        let percentageTime = time / item.calculatedDuration
+        durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: time)
+        
+        if seekActive {
+            return
+        }
+        
+        slider.value = Float(percentageTime)
+    }
+}
+
+// MARK: Animations
+extension ChatPlaybackView {
     func animateIn() {
         (firstWaveAnimations + secondWaveAnimations).forEach {
             $0.alpha = 0.0
