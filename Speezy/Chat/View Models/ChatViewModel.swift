@@ -65,14 +65,12 @@ class ChatViewModel: NewItemGenerating {
             let mostRecentMessage = items.last?.message,
             !noMoreMessages
         else {
-            print("DEBUG: FINISHED - No messages left")
             return
         }
         
         chatManager.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { (result) in
             switch result {
             case let .success(newMessages):
-                print("DEBUG: 2. Called for new messages")
                 let newMessageModels = newMessages.map {
                     MessageCellModel(
                         message: $0,
@@ -82,10 +80,8 @@ class ChatViewModel: NewItemGenerating {
                 }
                 
                 if newMessageModels.isEmpty {
-                    print("DEBUG: 3.a. There are no new messages.")
                     self.noMoreMessages = true
                 } else {
-                    print("DEBUG: 3.b. There are new messages, apply them.")
                     self.items.append(contentsOf: newMessageModels)
                     self.didChange?(.loaded)
                 }

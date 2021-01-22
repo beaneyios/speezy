@@ -79,6 +79,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         slider.configure()
         
         spinner.isHidden = true
+        spinner.color = item.spinnerTint
         
         slider.alpha = 0.6
         slider.isUserInteractionEnabled = false

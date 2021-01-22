@@ -85,6 +85,10 @@ extension MessageCellModel {
         isSender ? .white : .speezyPurple
     }
     
+    var spinnerTint: UIColor {
+        isSender ? .white : .speezyPurple
+    }
+    
     // Message
     var messageText: String? {
         message.message

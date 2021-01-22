@@ -169,6 +169,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
             MessageCell.nib,
             forCellWithReuseIdentifier: "cell"
         )
+        
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -249,7 +250,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {        
+    ) -> CGSize {
         let preferredWidth = collectionView.frame.width
         let cellModel = viewModel.items[indexPath.row]
         let cell = MessageCell.createFromNib()
@@ -267,6 +268,14 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         )
         
         return CGSize(width: preferredWidth, height: size.height)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 16.0, left: 0, bottom: 16.0, right: 0)
     }
 }
 
