@@ -23,6 +23,8 @@ class ChatViewModel: NewItemGenerating {
     let audioClipManager = DatabaseAudioManager()
     let audioCloudManager = CloudAudioManager()
     
+    private var activeAudioManager: AudioManager?
+    
     private var chat: Chat
     private var stagedAudioFile: AudioItem?
     private var stagedText: String?
@@ -58,6 +60,12 @@ class ChatViewModel: NewItemGenerating {
     
     func setMessageText(_ text: String) {
         self.stagedText = text
+    }
+    
+    func startPlaying(audioManager: AudioManager) {
+        self.activeAudioManager?.stop()
+        
+        audioManager.play()
     }
 }
 
@@ -95,9 +103,10 @@ extension ChatViewModel {
             chatter: chatter,
             sent: Date(),
             message: self.stagedText,
+            audioId: item.id,
             audioUrl: item.remoteUrl,
             attachmentUrl: nil,
-            duration: nil,
+            duration: item.calculatedDuration,
             readBy: []
         )
         

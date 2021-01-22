@@ -14,6 +14,7 @@ struct Message {
     let sent: Date
     
     let message: String?
+    let audioId: String?
     let audioUrl: URL?
     let attachmentUrl: URL?
     let duration: TimeInterval?

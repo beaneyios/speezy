@@ -16,4 +16,12 @@ struct TimeFormatter {
         formatter.zeroFormattingBehavior = [ .pad ]
         return formatter.string(from: time) ?? "\(time)"
     }
+    
+    static func formatTimeMinutesAndSeconds(time: TimeInterval) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [ .minute, .second ]
+        formatter.zeroFormattingBehavior = [ .pad ]
+        return formatter.string(from: time) ?? "\(time)"
+    }
 }

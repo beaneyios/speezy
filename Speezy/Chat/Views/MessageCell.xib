@@ -66,16 +66,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plain-play-button" translatesAutoresizingMaskIntoConstraints="NO" id="shv-a0-eIy">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeY-VD-Mcy">
                                         <rect key="frame" x="24" y="56.5" width="13" height="15"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="13" id="OC3-9O-u8F"/>
-                                            <constraint firstAttribute="height" constant="15" id="sd7-db-C3w"/>
+                                            <constraint firstAttribute="width" constant="13" id="EIV-sW-SIs"/>
+                                            <constraint firstAttribute="height" constant="15" id="GIv-CH-CKO"/>
                                         </constraints>
-                                    </imageView>
+                                        <state key="normal" image="plain-play-button"/>
+                                        <connections>
+                                            <action selector="didTapPlay:" destination="gTV-IL-0wX" eventType="touchUpInside" id="IzP-1m-wJc"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="nS3-yw-9Uq">
+                                        <rect key="frame" x="20.5" y="54" width="20" height="20"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" name="chat-bubble-sender"/>
                                 <constraints>
+                                    <constraint firstItem="HcO-yk-p5g" firstAttribute="leading" secondItem="eeY-VD-Mcy" secondAttribute="trailing" constant="16" id="03d-H0-wVo"/>
+                                    <constraint firstItem="nS3-yw-9Uq" firstAttribute="centerY" secondItem="eeY-VD-Mcy" secondAttribute="centerY" id="0vS-VA-FaE"/>
                                     <constraint firstItem="kio-MT-Ihq" firstAttribute="centerY" secondItem="JsA-yO-RWG" secondAttribute="centerY" id="1W8-hr-F9q"/>
                                     <constraint firstItem="KKY-EB-1ns" firstAttribute="top" secondItem="HcO-yk-p5g" secondAttribute="bottom" constant="10.5" id="4gs-Xm-C87"/>
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" constant="24" id="51c-Q2-CrZ"/>
@@ -84,14 +94,14 @@
                                     <constraint firstItem="KKY-EB-1ns" firstAttribute="leading" secondItem="HcO-yk-p5g" secondAttribute="leading" id="9wK-4g-mdv"/>
                                     <constraint firstAttribute="trailing" secondItem="9qa-c6-0V4" secondAttribute="trailing" constant="16" id="Deg-Ha-O4O"/>
                                     <constraint firstItem="HcO-yk-p5g" firstAttribute="top" secondItem="9qa-c6-0V4" secondAttribute="bottom" constant="16" id="FWr-Lf-qb5"/>
+                                    <constraint firstItem="nS3-yw-9Uq" firstAttribute="centerX" secondItem="eeY-VD-Mcy" secondAttribute="centerX" id="Ftm-TN-HHi"/>
                                     <constraint firstItem="zCB-2M-cOJ" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" id="LRL-V2-MzL"/>
-                                    <constraint firstItem="shv-a0-eIy" firstAttribute="centerY" secondItem="HcO-yk-p5g" secondAttribute="centerY" id="Lap-Tj-0ug"/>
                                     <constraint firstItem="JsA-yO-RWG" firstAttribute="leading" secondItem="KKY-EB-1ns" secondAttribute="trailing" id="SHm-jx-jge"/>
                                     <constraint firstAttribute="trailing" secondItem="kio-MT-Ihq" secondAttribute="trailing" constant="24" id="dU4-KY-YmR"/>
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="top" secondItem="BUq-vR-o3i" secondAttribute="top" constant="16" id="drg-zt-mdX"/>
+                                    <constraint firstItem="eeY-VD-Mcy" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" constant="24" id="lM7-6t-ctX"/>
                                     <constraint firstAttribute="bottom" secondItem="zCB-2M-cOJ" secondAttribute="bottom" id="mh0-ly-KMP"/>
-                                    <constraint firstItem="shv-a0-eIy" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" constant="24" id="muQ-F6-rvH"/>
-                                    <constraint firstItem="HcO-yk-p5g" firstAttribute="leading" secondItem="shv-a0-eIy" secondAttribute="trailing" constant="16" id="oCI-cg-4PU"/>
+                                    <constraint firstItem="eeY-VD-Mcy" firstAttribute="centerY" secondItem="HcO-yk-p5g" secondAttribute="centerY" id="o3v-rz-an6"/>
                                     <constraint firstItem="kio-MT-Ihq" firstAttribute="leading" secondItem="JsA-yO-RWG" secondAttribute="trailing" constant="4" id="qDm-jg-GGV"/>
                                     <constraint firstAttribute="bottom" secondItem="JsA-yO-RWG" secondAttribute="bottom" constant="16" id="vEQ-Sh-0Pd"/>
                                     <constraint firstAttribute="bottom" secondItem="KKY-EB-1ns" secondAttribute="bottom" constant="16" id="wt0-C8-sGH"/>
@@ -124,14 +134,15 @@
                 <outlet property="messageBackgroundImage" destination="zCB-2M-cOJ" id="ja0-yy-m5O"/>
                 <outlet property="messageContainer" destination="BUq-vR-o3i" id="V7g-Du-1Wb"/>
                 <outlet property="messageLabel" destination="9qa-c6-0V4" id="w8D-jr-B8g"/>
-                <outlet property="playButtonImage" destination="shv-a0-eIy" id="ABP-1Q-ArR"/>
+                <outlet property="playButton" destination="eeY-VD-Mcy" id="0Sh-Ke-Hvv"/>
                 <outlet property="profileImage" destination="6mj-Sq-EML" id="Kcc-GX-6BY"/>
                 <outlet property="sendStatusImage" destination="kio-MT-Ihq" id="9VI-e2-o5g"/>
                 <outlet property="sendStatusImageWidth" destination="SY1-bU-ePS" id="ET2-OD-BZ8"/>
                 <outlet property="slider" destination="HcO-yk-p5g" id="neq-ix-xvO"/>
+                <outlet property="spinner" destination="nS3-yw-9Uq" id="AfH-BN-bpg"/>
                 <outlet property="timestampLabel" destination="JsA-yO-RWG" id="ctQ-5L-QTP"/>
             </connections>
-            <point key="canvasLocation" x="177.536231884058" y="101.45089285714285"/>
+            <point key="canvasLocation" x="177.536231884058" y="101.11607142857143"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -23,10 +23,18 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var messageContainer: UIView!
     @IBOutlet weak var messageBackgroundImage: UIImageView!
     
-    @IBOutlet weak var playButtonImage: UIImageView!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    var didTapPlay: (() -> Void)?
+    
+    private var audioManager: AudioManager?
+    private var message: Message?
         
     func configure(item: MessageCellModel) {
-        playButtonImage.tintColor = item.playButtonTint
+        self.message = item.message
+        
+        playButton.tintColor = item.playButtonTint
         
         messageLabel.text = item.messageText
         messageLabel.textColor = item.messageTint
@@ -68,5 +76,125 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         slider.maximumTrackTintColor = item.maxSliderColour
         slider.borderColor = item.sliderBorderColor        
         slider.configure()
+        
+        spinner.isHidden = true
+        
+        slider.alpha = 0.6
+        slider.isUserInteractionEnabled = false
+//        slider.addTarget(
+//            self,
+//            action: #selector(onSliderValChanged:forEvent:),
+//        for: .valueChanged
+//        )
+        
+        slider.addTarget(
+            self,
+            action: #selector(onSliderValChanged(slider:forEvent:)),
+            for: .valueChanged
+        )
+    }
+    
+    @objc private func onSliderValChanged(
+        slider: UISlider,
+        forEvent event: UIEvent
+    ) {
+        guard let touchEvent = event.allTouches?.first else {
+            return
+        }
+        
+        switch touchEvent.phase {
+        case UITouch.Phase.began:
+            audioManager?.pause()
+        case UITouch.Phase.moved:
+            audioManager?.seek(to: slider.value)
+        case UITouch.Phase.ended:
+            audioManager?.play()
+        default:
+            break
+        }
+    }
+    
+    @IBAction func didTapPlay(_ sender: Any) {
+        guard let message = self.message, let audioId = message.audioId else {
+            return
+        }
+        
+        if let audioManager = self.audioManager {
+            audioManager.togglePlayback()
+            slider.alpha = 1.0
+            slider.isUserInteractionEnabled = true
+            return
+        }
+        
+        spinner.isHidden = false
+        spinner.startAnimating()
+        
+        playButton.isHidden = true
+        CloudAudioManager.fetchAudioClip(at: "audio_clips/\(audioId).m4a") { (result) in
+            let item = AudioItem(
+                id: audioId,
+                path: "\(audioId).m4a",
+                title: "",
+                date: Date(),
+                tags: []
+            )
+            
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(data):
+                    do {
+                        try data.write(to: item.fileUrl)
+                        self.audioManager = AudioManager(item: item)
+                        self.audioManager?.addPlaybackObserver(self)
+                        self.audioManager?.play()
+                    } catch {
+                        assertionFailure("Errored with error \(error)")
+                        // TODO: handle error here.
+                    }
+                case let .failure(error):
+                    assertionFailure("Errored with error \(error)")
+                    // TODO: handle failure here.
+                }
+                
+                self.spinner.isHidden = true
+                self.spinner.stopAnimating()
+                self.playButton.isHidden = false
+                self.slider.alpha = 1.0
+                self.slider.isUserInteractionEnabled = true
+            }
+        }
+    }
+}
+
+extension MessageCell: AudioPlayerObserver {
+    func playBackBegan(on item: AudioItem) {
+        playButton.setImage(UIImage(named: "plain-pause-button"), for: .normal)
+    }
+    
+    func playbackPaused(on item: AudioItem) {
+        playButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+    }
+    
+    func playbackStopped(on item: AudioItem) {
+        playButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+        durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: audioManager?.duration ?? 0.0)
+        slider.value = 0.0
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem,
+        startOffset: TimeInterval
+    ) {
+        
+        let percentageTime = time / item.calculatedDuration
+        durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: time)
+        
+        if seekActive {
+            return
+        }
+        
+        slider.value = Float(percentageTime)
     }
 }

@@ -18,7 +18,8 @@ class DatabaseChatManager {
         let ref = Database.database().reference()
         let messagesChild: DatabaseReference = ref.child("messages/\(chat.id)")
         
-        messagesChild.observeSingleEvent(of: .value) { (snapshot) in
+        let query = messagesChild.queryOrdered(byChild: "sent_date").queryLimited(toLast: 8)
+        query.observeSingleEvent(of: .value) { (snapshot) in
             guard let result = snapshot.value as? NSDictionary else {
                 completion(.success([]))
                 return
@@ -40,11 +41,14 @@ class DatabaseChatManager {
                     chatter: chatter,
                     sent: Date(timeIntervalSince1970: sentDateSeconds),
                     message: dict["message"] as? String,
+                    audioId: dict["audio_id"] as? String,
                     audioUrl: URL(key: "audio_url", dict: dict),
                     attachmentUrl: URL(key: "attachment_url", dict: dict),
                     duration: dict["duration"] as? TimeInterval,
                     readBy: []
                 )
+            }.sorted {
+                $0.sent > $1.sent
             }
             
             completion(.success(messages))
