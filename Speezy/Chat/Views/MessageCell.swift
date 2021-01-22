@@ -26,7 +26,8 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    var didTapPlay: (() -> Void)?
+    var messageDidStartPlaying: ((MessageCell) -> Void)?
+    var messageDidStopPlaying: ((MessageCell) -> Void)?
     
     private var audioManager: AudioManager?
     private var message: Message?
@@ -81,11 +82,6 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         
         slider.alpha = 0.6
         slider.isUserInteractionEnabled = false
-//        slider.addTarget(
-//            self,
-//            action: #selector(onSliderValChanged:forEvent:),
-//        for: .valueChanged
-//        )
         
         slider.addTarget(
             self,
@@ -169,17 +165,22 @@ class MessageCell: UICollectionViewCell, NibLoadable {
 
 extension MessageCell: AudioPlayerObserver {
     func playBackBegan(on item: AudioItem) {
+        messageDidStartPlaying?(self)
         playButton.setImage(UIImage(named: "plain-pause-button"), for: .normal)
     }
     
     func playbackPaused(on item: AudioItem) {
         playButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+        
+        messageDidStopPlaying?(self)
     }
     
     func playbackStopped(on item: AudioItem) {
         playButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
         durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: audioManager?.duration ?? 0.0)
         slider.value = 0.0
+        
+        messageDidStopPlaying?(self)
     }
     
     func playbackProgressed(

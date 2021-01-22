@@ -200,8 +200,46 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MessageCell
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
+        cell.messageDidStartPlaying = { playingCell in
+            self.cellStartedPlaying(cell: playingCell, collectionView: collectionView)
+        }
+        
+        cell.messageDidStopPlaying = { stoppingCell in
+            self.cellStoppedPlaying(cell: stoppingCell, collectionView: collectionView)
+        }
+        
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
+    }
+    
+    private func cellStartedPlaying(cell: UICollectionViewCell, collectionView: UICollectionView) {
+        UIView.animate(withDuration: 0.2) {
+            self.activeControl?.alpha = 0.5
+            self.activeControl?.isUserInteractionEnabled = false
+            cell.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+            collectionView.visibleCells.forEach {
+                if $0 != cell {
+                    $0.alpha = 0.5
+                    $0.isUserInteractionEnabled = false
+                }
+            }
+        }
+                    
+        collectionView.isScrollEnabled = false
+    }
+    
+    private func cellStoppedPlaying(cell: UICollectionViewCell, collectionView: UICollectionView) {
+        UIView.animate(withDuration: 0.2) {
+            self.activeControl?.alpha = 1.0
+            self.activeControl?.isUserInteractionEnabled = true
+            cell.transform = CGAffineTransform.identity
+            collectionView.visibleCells.forEach {
+                $0.alpha = 1.0
+                $0.isUserInteractionEnabled = true
+            }
+        }
+        
+        collectionView.isScrollEnabled = true
     }
 }
 
