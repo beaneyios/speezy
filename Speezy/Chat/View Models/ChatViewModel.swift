@@ -46,13 +46,31 @@ class ChatViewModel: NewItemGenerating {
                         currentUserId: currentUserId
                     )
                 }
-                
+
                 self.didChange?(.loaded)
+                self.listenForNewMessages(mostRecentMessage: messages.first)
             case let .failure(error):
                 break
             }
         }
-    }    
+    }
+    
+    private func listenForNewMessages(mostRecentMessage: Message?) {
+        chatManager.listenForNewMessages(mostRecentMessage: mostRecentMessage, chat: chat) { (result) in
+            switch result {
+            case let .success(message):
+                let cellModel = MessageCellModel(
+                    message: message,
+                    chat: self.chat,
+                    currentUserId: Auth.auth().currentUser?.uid ?? ""
+                )
+                self.items.insert(cellModel, at: 0)
+                self.didChange?(.itemInserted(index: 0))
+            case let .failure(error):
+                break
+            }
+        }
+    }
     
     func setAudioItem(_ item: AudioItem) {
         stagedAudioFile = item
@@ -137,13 +155,8 @@ extension ChatViewModel {
         DatabaseAudioManager.updateDatabaseReference(item) { (result) in
             switch result {
             case .success:
-                let cellModel = MessageCellModel(
-                    message: message,
-                    chat: self.chat,
-                    currentUserId: Auth.auth().currentUser?.uid ?? ""
-                )
-                self.items.insert(cellModel, at: 0)
-                self.didChange?(.itemInserted(index: 0))
+                // TODO: Not sure how to handle success, we're listening for new chat items automatically.
+                break
             case let .failure(error):
                 break
             }

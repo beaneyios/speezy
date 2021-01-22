@@ -88,6 +88,7 @@
 		BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96225B75D2400723732 /* ChatRecordView.swift */; };
 		BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */; };
 		BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */; };
+		BE6FD96F25BB076F00723732 /* DatabaseMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96E25BB076F00723732 /* DatabaseMessageParser.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -297,6 +298,7 @@
 		BE6FD96225B75D2400723732 /* ChatRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRecordView.swift; sourceTree = "<group>"; };
 		BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatPlaybackView.xib; sourceTree = "<group>"; };
 		BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPlaybackView.swift; sourceTree = "<group>"; };
+		BE6FD96E25BB076F00723732 /* DatabaseMessageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMessageParser.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
 				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
 				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
+				BE6FD96E25BB076F00723732 /* DatabaseMessageParser.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1439,6 +1442,7 @@
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
+				BE6FD96F25BB076F00723732 /* DatabaseMessageParser.swift in Sources */,
 				BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */,
 				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,

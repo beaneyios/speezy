@@ -11,6 +11,8 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class DatabaseChatManager {
+    var currentQuery: DatabaseQuery?
+    
     func fetchMessages(
         chat: Chat,
         completion: @escaping (Result<[Message], Error>) -> Void
@@ -28,25 +30,12 @@ class DatabaseChatManager {
             let messages: [Message] = result.allKeys.compactMap {
                 guard
                     let key = $0 as? String,
-                    let dict = result[key] as? NSDictionary,
-                    let userId = dict["user_id"] as? String,
-                    let chatter = chat.chatters.chatter(for: userId),
-                    let sentDateSeconds = dict["sent_date"] as? TimeInterval
+                    let dict = result[key] as? NSDictionary
                 else {
                     return nil
                 }
                 
-                return Message(
-                    id: key,
-                    chatter: chatter,
-                    sent: Date(timeIntervalSince1970: sentDateSeconds),
-                    message: dict["message"] as? String,
-                    audioId: dict["audio_id"] as? String,
-                    audioUrl: URL(key: "audio_url", dict: dict),
-                    attachmentUrl: URL(key: "attachment_url", dict: dict),
-                    duration: dict["duration"] as? TimeInterval,
-                    readBy: []
-                )
+                return DatabaseMessageParser.parseMessage(chat: chat, key: key, dict: dict)
             }.sorted {
                 $0.sent > $1.sent
             }
@@ -54,6 +43,50 @@ class DatabaseChatManager {
             completion(.success(messages))
         } withCancel: { (error) in
             completion(.failure(error))
+        }
+    }
+    
+    func listenForNewMessages(
+        mostRecentMessage: Message?,
+        chat: Chat,
+        completion: @escaping (Result<Message, Error>) -> Void
+    ) {
+        currentQuery?.removeAllObservers()
+        
+        let ref = Database.database().reference()
+        let messagesChild: DatabaseReference = ref.child("messages/\(chat.id)")
+        currentQuery = {
+            if let message = mostRecentMessage {
+                return messagesChild.queryStarting(
+                    atValue: message.sent.timeIntervalSince1970,
+                    childKey: "sent_date"
+                )
+                .queryOrdered(byChild: "sent_date")
+                .queryLimited(toLast: 1)
+            } else {
+                return messagesChild.queryOrdered(byChild: "sent_date").queryLimited(toLast: 1)
+            }
+        }()
+
+        currentQuery?.observe(.childAdded) { (snapshot) in
+            guard let result = snapshot.value as? NSDictionary else {
+                // TODO: handle error
+                assertionFailure("Snapshot not dictionary")
+                return
+            }
+            
+            let message = DatabaseMessageParser.parseMessage(
+                chat: chat,
+                key: snapshot.key,
+                dict: result
+            )
+            
+            if let message = message {
+                completion(.success(message))
+            } else {
+                // TODO: Handle parse failure
+                assertionFailure("Parsing failed")
+            }
         }
     }
     
