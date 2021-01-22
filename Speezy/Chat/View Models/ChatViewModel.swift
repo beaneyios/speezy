@@ -29,13 +29,17 @@ class ChatViewModel: NewItemGenerating {
     private var stagedAudioFile: AudioItem?
     private var stagedText: String?
     
+    private var noMoreMessages = false
+    
+    var currentUserId: String {
+        Auth.auth().currentUser?.uid ?? ""
+    }
+    
     init(chat: Chat) {
         self.chat = chat
     }
     
     func listenForData() {
-        let currentUserId = Auth.auth().currentUser?.uid ?? ""
-        
         chatManager.fetchMessages(chat: chat) { (result) in
             switch result {
             case let .success(messages):
@@ -43,7 +47,7 @@ class ChatViewModel: NewItemGenerating {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
-                        currentUserId: currentUserId
+                        currentUserId: self.currentUserId
                     )
                 }
 
@@ -51,6 +55,43 @@ class ChatViewModel: NewItemGenerating {
                 self.listenForNewMessages(mostRecentMessage: messages.first)
             case let .failure(error):
                 break
+            }
+        }
+    }
+    
+    func loadMoreMessages(index: Int) {        
+        guard
+            index == items.count - 1,
+            let mostRecentMessage = items.last?.message,
+            !noMoreMessages
+        else {
+            print("DEBUG: FINISHED - No messages left")
+            return
+        }
+        
+        chatManager.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { (result) in
+            switch result {
+            case let .success(newMessages):
+                print("DEBUG: 2. Called for new messages")
+                let newMessageModels = newMessages.map {
+                    MessageCellModel(
+                        message: $0,
+                        chat: self.chat,
+                        currentUserId: self.currentUserId
+                    )
+                }
+                
+                if newMessageModels.isEmpty {
+                    print("DEBUG: 3.a. There are no new messages.")
+                    self.noMoreMessages = true
+                } else {
+                    print("DEBUG: 3.b. There are new messages, apply them.")
+                    self.items.append(contentsOf: newMessageModels)
+                    self.didChange?(.loaded)
+                }
+            case let .failure(error):
+                assertionFailure("Errored with error \(error)")
+                // TODO: Handle errors.
             }
         }
     }

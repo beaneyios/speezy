@@ -209,6 +209,7 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        viewModel.loadMoreMessages(index: indexPath.row)
         return cell
     }
     
@@ -248,7 +249,7 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    ) -> CGSize {        
         let preferredWidth = collectionView.frame.width
         let cellModel = viewModel.items[indexPath.row]
         let cell = MessageCell.createFromNib()

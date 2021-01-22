@@ -15,12 +15,22 @@ class DatabaseChatManager {
     
     func fetchMessages(
         chat: Chat,
+        mostRecentMessage: Message? = nil,
         completion: @escaping (Result<[Message], Error>) -> Void
     ) {
         let ref = Database.database().reference()
         let messagesChild: DatabaseReference = ref.child("messages/\(chat.id)")
         
-        let query = messagesChild.queryOrdered(byChild: "sent_date").queryLimited(toLast: 8)
+        let query: DatabaseQuery = {
+            if let message = mostRecentMessage {
+                return messagesChild
+                    .queryOrderedByKey()
+                    .queryEnding(atValue: message.id)
+                    .queryLimited(toLast: 5)
+            } else {
+                return messagesChild.queryOrderedByKey().queryLimited(toLast: 5)
+            }
+        }()
         query.observeSingleEvent(of: .value) { (snapshot) in
             guard let result = snapshot.value as? NSDictionary else {
                 completion(.success([]))
@@ -38,6 +48,8 @@ class DatabaseChatManager {
                 return DatabaseMessageParser.parseMessage(chat: chat, key: key, dict: dict)
             }.sorted {
                 $0.sent > $1.sent
+            }.filter {
+                $0 != mostRecentMessage
             }
             
             completion(.success(messages))
@@ -55,18 +67,7 @@ class DatabaseChatManager {
         
         let ref = Database.database().reference()
         let messagesChild: DatabaseReference = ref.child("messages/\(chat.id)")
-        currentQuery = {
-            if let message = mostRecentMessage {
-                return messagesChild.queryStarting(
-                    atValue: message.sent.timeIntervalSince1970,
-                    childKey: "sent_date"
-                )
-                .queryOrdered(byChild: "sent_date")
-                .queryLimited(toLast: 1)
-            } else {
-                return messagesChild.queryOrdered(byChild: "sent_date").queryLimited(toLast: 1)
-            }
-        }()
+        currentQuery = messagesChild.queryOrderedByKey().queryLimited(toLast: 1)
 
         currentQuery?.observe(.childAdded) { (snapshot) in
             guard let result = snapshot.value as? NSDictionary else {
@@ -82,7 +83,11 @@ class DatabaseChatManager {
             )
             
             if let message = message {
-                completion(.success(message))
+                if message != mostRecentMessage {
+                    completion(.success(message))
+                } else {
+                    // Do nothing, we don't want to have duplicated messages.
+                }
             } else {
                 // TODO: Handle parse failure
                 assertionFailure("Parsing failed")
@@ -119,8 +124,9 @@ class DatabaseChatManager {
         }
         
         let ref = Database.database().reference()
-        let clipChild = ref.child("messages/\(chat.id)/\(message.id)")
-        clipChild.setValue(messageDict) { (error, newRef) in
+        let chatChild = ref.child("messages/\(chat.id)")
+        let newMessageChild = chatChild.childByAutoId()
+        newMessageChild.setValue(messageDict) { (error, newRef) in
             completion(.success(message))
         }
     }
