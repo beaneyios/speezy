@@ -22,7 +22,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
             id: "chat_1",
             chatters: [
                 Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil),
-                Chatter(id: "12345", displayName: "Terry", profileImage: nil),
+                Chatter(id: "TtQ4YnmqUYXdKUAeUYydRlvyMx63", displayName: "Matt 2", profileImage: nil),
             ],
             title: "Chat 1"
         )

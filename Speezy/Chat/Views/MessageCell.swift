@@ -143,6 +143,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
                 switch result {
                 case let .success(data):
                     do {
+                        try data.write(to: item.withStagingPath().fileUrl)
                         try data.write(to: item.fileUrl)
                         self.audioManager = AudioManager(item: item)
                         self.audioManager?.addPlaybackObserver(self)
