@@ -104,6 +104,15 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
             self.viewModel.setMessageText(text)
         }
         
+        playbackView.cancelAction = {
+            self.viewModel.cancelAudioItem()
+            self.viewModel.setMessageText("")
+            
+            playbackView.animateOut {
+                self.animateToRecordButtonView()
+            }            
+        }
+        
         activeControl = playbackView
         
         playbackView.animateIn()
@@ -124,6 +133,14 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                             )
                         ]
                     )
+                    
+                    if let playbackView = self.activeControl as? ChatPlaybackView {
+                        playbackView.animateOut {
+                            self.animateToRecordButtonView()
+                        }
+                    } else {
+                        self.animateToRecordButtonView()
+                    }
                 }
             }
         }

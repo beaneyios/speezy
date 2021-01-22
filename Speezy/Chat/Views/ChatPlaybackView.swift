@@ -18,8 +18,14 @@ class ChatPlaybackView: UIView, NibLoadable {
     @IBOutlet weak var slider: CustomSlider!
     @IBOutlet weak var titleField: UITextField!
     
+    @IBOutlet weak var sendSpinner: UIActivityIndicatorView!
+    
+    @IBOutlet weak var sendButtonIcon: UIButton!
+    @IBOutlet weak var sendButtonText: UIButton!
+    
     var sendAction: (() -> Void)?
     var textChangeAction: ((String) -> Void)?
+    var cancelAction: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,6 +46,8 @@ class ChatPlaybackView: UIView, NibLoadable {
         slider.depressedThumbRadius = 15
         slider.configure()
         
+        sendSpinner.isHidden = true
+        
         titleField.delegate = self
     }
     
@@ -49,7 +57,16 @@ class ChatPlaybackView: UIView, NibLoadable {
     
     @IBAction func sendTapped(_ sender: Any) {
         sendContainer.alpha = 1.0
+        sendSpinner.isHidden = false
+        sendSpinner.startAnimating()
+        sendButtonIcon.isHidden = true
+        sendButtonText.isHidden = true
+        
         sendAction?()
+    }
+    
+    @IBAction func cancelTapped(_ sender: Any) {
+        cancelAction?()
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
@@ -88,6 +105,44 @@ class ChatPlaybackView: UIView, NibLoadable {
             } completion: { _ in
                 
             }
+        }
+    }
+    
+    func animateOut(completion: @escaping () -> Void) {
+        
+        let group = DispatchGroup()
+        firstWaveAnimations.enumerated().forEach {
+            group.enter()
+            let viewToAnimate = $0.element
+            UIView.animate(
+                withDuration: 0.3,
+                delay: Double($0.offset) / 10.0,
+                options: []
+            ) {
+                viewToAnimate.transform = CGAffineTransform(translationX: -30.0, y: 1.0)
+                viewToAnimate.alpha = 0.0
+            } completion: { _ in
+                group.leave()
+            }
+        }
+        
+        secondWaveAnimations.enumerated().forEach {
+            group.enter()
+            let viewToAnimate = $0.element
+            UIView.animate(
+                withDuration: 0.3,
+                delay: Double($0.offset) / 10.0,
+                options: []
+            ) {
+                viewToAnimate.transform = CGAffineTransform(translationX: -30.0, y: 1.0)
+                viewToAnimate.alpha = 0.0
+            } completion: { _ in
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
+            completion()
         }
     }
 }

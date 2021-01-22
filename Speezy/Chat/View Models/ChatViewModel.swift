@@ -55,7 +55,16 @@ class ChatViewModel: NewItemGenerating {
     }    
     
     func setAudioItem(_ item: AudioItem) {
-        self.stagedAudioFile = item
+        stagedAudioFile = item
+    }
+    
+    func cancelAudioItem() {
+        guard let item = stagedAudioFile else {
+            return
+        }
+        
+        FileManager.default.deleteExistingURL(item.fileUrl)
+        stagedAudioFile = nil
     }
     
     func setMessageText(_ text: String) {
