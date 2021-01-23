@@ -16,10 +16,14 @@ class NewChatViewModel {
     }
     
     private(set) var selectedContacts = [Contact]()
+    private(set) var title: String?
+    
     private(set) var items = [ContactCellModel]()
+    
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
     let chatManager = DatabaseChatManager()
+    let profileManager = DatabaseProfileManager()
     
     func listenForData() {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -41,6 +45,10 @@ class NewChatViewModel {
         }
     }
     
+    func setTitle(_ title: String) {
+        self.title = title
+    }
+    
     func selectContact(contact: Contact) {
         if let contactIndex = selectedContacts.firstIndex(of: contact) {
             selectedContacts.remove(at: contactIndex)
@@ -50,9 +58,35 @@ class NewChatViewModel {
     }
     
     func createChat() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            assertionFailure("No user id")
+            return
+        }
+        
+        profileManager.fetchProfile(userId: userId) { (result) in
+            switch result {
+            case let .success(profile):
+                let chatter = Chatter(
+                    id: userId,
+                    displayName: profile.name,
+                    profileImageUrl: profile.profileImageUrl
+                )
+                
+                self.createChat(with: chatter)
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func createChat(with chatter: Chatter) {
+        guard let title = self.title else {
+            return
+        }
+        
         chatManager.createChat(
-            title: "",
-            currentChatter: Chatter(id: "", displayName: "", profileImageUrl: nil),
+            title: title,
+            currentChatter: chatter,
             contacts: selectedContacts
         ) { (result) in
             switch result {
@@ -62,5 +96,25 @@ class NewChatViewModel {
                 break
             }
         }
+    }
+}
+
+extension NewChatViewModel {
+    func validationError() -> FormError? {
+        if title == nil || title?.isEmpty == true {
+            return FormError(
+                message: "Please choose a title",
+                field: .chatTitle
+            )
+        }
+        
+        if selectedContacts.isEmpty {
+            return FormError(
+                message: "Please select at least one contact",
+                field: nil
+            )
+        }
+        
+        return nil
     }
 }

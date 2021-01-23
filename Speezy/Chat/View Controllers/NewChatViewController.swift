@@ -12,11 +12,25 @@ protocol NewChatViewControllerDelegate: AnyObject {
     func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat)
 }
 
-class NewChatViewController: UIViewController {
+class NewChatViewController: UIViewController, FormErrorDisplaying {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var titleTextFieldSeparator: UIView!
+    @IBOutlet weak var lblErrorMessage: UILabel?
+    
+    @IBOutlet weak var createSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var createButton: UIButton!
     
     weak var delegate: NewChatViewControllerDelegate?
+    
+    var fieldDict: [Field : UIView] {
+        [Field.chatTitle: titleTextFieldSeparator]
+    }
+    
+    var separators: [UIView] {
+        [titleTextFieldSeparator]
+    }
     
     let viewModel = NewChatViewModel()
     
@@ -24,9 +38,20 @@ class NewChatViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         listenForChanges()
+        
+        titleTextField.delegate = self
+        createSpinner.isHidden = true
     }
     
     @IBAction func createChat(_ sender: Any) {
+        if let error = viewModel.validationError() {
+            highlightErroredFields(error: error)
+            return
+        }
+        
+        createButton.isHidden = true
+        createSpinner.isHidden = false
+        createSpinner.startAnimating()
         viewModel.createChat()
     }
     
@@ -36,6 +61,10 @@ class NewChatViewController: UIViewController {
                 switch change {
                 case .loaded:
                     self.collectionView.reloadData()
+                case let .chatCreated(chat):
+                    self.delegate?.newChatViewController(self, didCreateChat: chat)
+                default:
+                    break
                 }
             }
         }
@@ -52,6 +81,28 @@ class NewChatViewController: UIViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+}
+
+extension NewChatViewController: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        
+        guard let textFieldText = textField.text else {
+            return true
+        }
+        
+        let nsText = textFieldText as NSString
+        let newString = nsText.replacingCharacters(
+            in: range,
+            with: string
+        )
+        
+        viewModel.setTitle(newString)        
+        return true
     }
 }
 

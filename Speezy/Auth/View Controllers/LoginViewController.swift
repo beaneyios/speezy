@@ -30,7 +30,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var loginBtnContainer: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var lblErrorMessage: UILabel!
+    @IBOutlet weak var lblErrorMessage: UILabel?
     
     weak var delegate: LoginViewControllerDelegate?
     private var loginBtn: GradientButton?
@@ -144,7 +144,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
         insetManager.startListening()
     }
     
-    private func presentError(error: AuthError?) {
+    private func presentError(error: FormError?) {
         guard let error = error else {
             return
         }

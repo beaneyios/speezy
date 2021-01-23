@@ -29,7 +29,7 @@ class EmailSignupViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var passwordValidateSeparator: UIView!
     
     @IBOutlet weak var moveOnBtnContainer: UIView!
-    @IBOutlet weak var lblErrorMessage: UILabel!
+    @IBOutlet weak var lblErrorMessage: UILabel?
     
     private var moveOnBtn: GradientButton?
     
@@ -80,7 +80,7 @@ class EmailSignupViewController: UIViewController, FormErrorDisplaying {
     }
     
     private func submit() {
-        lblErrorMessage.text = nil
+        lblErrorMessage?.text = nil
         [passwordSeparator, passwordValidateSeparator, emailSeparator].forEach {
             $0?.backgroundColor = UIColor.speezyDarkGrey
             $0?.constraints.forEach {

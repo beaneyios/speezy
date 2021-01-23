@@ -11,7 +11,25 @@ import Foundation
 import FirebaseDatabase
 import FirebaseStorage
 
-class FirebaseUserProfileEditor {
+class DatabaseProfileManager {
+    func fetchProfile(
+        userId: String,
+        completion: @escaping (Result<Profile, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        ref.child("users").child(userId).child("profile").observeSingleEvent(of: .value) { (snapshot) in
+            guard
+                let result = snapshot.value as? NSDictionary,
+                let profile = Profile(dict: result)
+            else {
+                assertionFailure("Something went wrong here")
+                return
+            }
+            
+            completion(.success(profile))
+        }
+    }
+    
     func updateUserProfile(
         userId: String,
         profile: Profile,
@@ -79,7 +97,7 @@ class FirebaseUserProfileEditor {
         
         ref.child("users").child(userId).child("profile").setValue(dataDictionary) { (error, _) in
             if let error = error {
-                let error = AuthError(
+                let error = FormError(
                     message: "Unable to set profile, please try again\nReason: \(error.localizedDescription)",
                     field: nil
                 )

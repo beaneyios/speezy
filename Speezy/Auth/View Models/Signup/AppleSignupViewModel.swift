@@ -14,7 +14,7 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     
     enum Change {
         case loggedIn
-        case errored(AuthError)
+        case errored(FormError)
     }
     
     weak var anchor: UIWindow!
@@ -64,7 +64,7 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
                     self.profile.name = displayName
                 }
                 
-                FirebaseUserProfileEditor().updateUserProfile(
+                DatabaseProfileManager().updateUserProfile(
                     userId: user.uid,
                     profile: self.profile,
                     profileImage: self.profileImageAttachment,

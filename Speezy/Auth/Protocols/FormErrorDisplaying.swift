@@ -11,15 +11,15 @@ import UIKit
 protocol FormErrorDisplaying {
     var fieldDict: [Field: UIView] { get }
     var separators: [UIView] { get }
-    var lblErrorMessage: UILabel! { get }
+    var lblErrorMessage: UILabel? { get }
     
     func clearHighlightedFields()
-    func highlightErroredFields(error: AuthError?)
+    func highlightErroredFields(error: FormError?)
 }
 
 extension FormErrorDisplaying {
     func clearHighlightedFields() {
-        lblErrorMessage.text = nil
+        lblErrorMessage?.text = nil
         separators.forEach {
             $0.backgroundColor = UIColor.speezyDarkGrey
             $0.constraints.forEach {
@@ -30,12 +30,12 @@ extension FormErrorDisplaying {
         }
     }
     
-    func highlightErroredFields(error: AuthError?) {
+    func highlightErroredFields(error: FormError?) {
         guard let error = error else {
             return
         }
         
-        lblErrorMessage.text = error.message
+        lblErrorMessage?.text = error.message
         if let field = error.field, let separator = fieldDict[field] {
             separator.constraints.forEach {
                 if $0.firstAttribute == .height {
@@ -45,10 +45,10 @@ extension FormErrorDisplaying {
             separator.backgroundColor = .red
         }
         
-        lblErrorMessage.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        lblErrorMessage?.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         
         UIView.animate(withDuration: 0.3) {
-            self.lblErrorMessage.transform = CGAffineTransform.identity
+            self.lblErrorMessage?.transform = CGAffineTransform.identity
         }
     }
 }

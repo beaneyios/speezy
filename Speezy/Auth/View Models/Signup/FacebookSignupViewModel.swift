@@ -67,7 +67,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                     self.profile.name = displayName
                 }
                 
-                FirebaseUserProfileEditor().updateUserProfile(
+                DatabaseProfileManager().updateUserProfile(
                     userId: user.uid,
                     profile: self.profile,
                     profileImage: self.profileImageAttachment,
@@ -127,7 +127,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         
         Auth.auth().fetchSignInMethods(forEmail: email) { (providers, error) in
             if let providers = providers, providers.contains(credential.provider) {
-                let accountAlreadyExists = AuthError(
+                let accountAlreadyExists = FormError(
                     message: "This account already exists, tap sign in below",
                     field: nil
                 )

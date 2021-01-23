@@ -37,4 +37,15 @@ class ChatListViewModel {
             }
         }
     }
+    
+    func insertNewChatItem(chat: Chat) {
+        let newCellModel = ChatCellModel(chat: chat)
+        if items.isEmpty {
+            items.append(newCellModel)
+        } else {
+            items.insert(newCellModel, at: 0)
+        }
+        
+        didChange?(.loaded)
+    }
 }

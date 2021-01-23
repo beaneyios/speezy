@@ -152,7 +152,7 @@
 		BEC825B7257D53190037F007 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEC825B6257D53190037F007 /* Auth.storyboard */; };
 		BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11EB259CA64C00BB0064 /* Profile.swift */; };
 		BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */; };
-		BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */; };
+		BEDC1222259D1A1100BB0064 /* DatabaseProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC1221259D1A1100BB0064 /* DatabaseProfileManager.swift */; };
 		BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC125E24F1960200B53D1A /* ShareViewController.swift */; };
 		BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126024F1964400B53D1A /* ShareOptionCell.swift */; };
 		BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126124F1964400B53D1A /* ShareOptionCell.xib */; };
@@ -196,7 +196,7 @@
 		BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B72725481C31009308A4 /* TranscriptManager.swift */; };
 		BEF3B72C254867AC009308A4 /* TranscriptionButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B72B254867AC009308A4 /* TranscriptionButton.xib */; };
 		BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B72F254867B5009308A4 /* TranscriptionButton.swift */; };
-		BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425B625AB285A00DC8E3D /* AuthError.swift */; };
+		BEF425B725AB285A00DC8E3D /* FormError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425B625AB285A00DC8E3D /* FormError.swift */; };
 		BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */; };
 		BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BE25AB512200DC8E3D /* AuthResult.swift */; };
 		BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */; };
@@ -384,7 +384,7 @@
 		BEC825B6257D53190037F007 /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		BEDC11EB259CA64C00BB0064 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BEDC11F4259CA6C500BB0064 /* FirebaseSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignupViewModel.swift; sourceTree = "<group>"; };
-		BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEditor.swift; sourceTree = "<group>"; };
+		BEDC1221259D1A1100BB0064 /* DatabaseProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProfileManager.swift; sourceTree = "<group>"; };
 		BEDC125E24F1960200B53D1A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		BEDC126024F1964400B53D1A /* ShareOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionCell.swift; sourceTree = "<group>"; };
 		BEDC126124F1964400B53D1A /* ShareOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareOptionCell.xib; sourceTree = "<group>"; };
@@ -428,7 +428,7 @@
 		BEF3B72725481C31009308A4 /* TranscriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptManager.swift; sourceTree = "<group>"; };
 		BEF3B72B254867AC009308A4 /* TranscriptionButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TranscriptionButton.xib; sourceTree = "<group>"; };
 		BEF3B72F254867B5009308A4 /* TranscriptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionButton.swift; sourceTree = "<group>"; };
-		BEF425B625AB285A00DC8E3D /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		BEF425B625AB285A00DC8E3D /* FormError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormError.swift; sourceTree = "<group>"; };
 		BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormErrorDisplaying.swift; sourceTree = "<group>"; };
 		BEF425BE25AB512200DC8E3D /* AuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResult.swift; sourceTree = "<group>"; };
 		BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorFactory.swift; sourceTree = "<group>"; };
@@ -988,7 +988,7 @@
 			isa = PBXGroup;
 			children = (
 				BEDC11EB259CA64C00BB0064 /* Profile.swift */,
-				BEF425B625AB285A00DC8E3D /* AuthError.swift */,
+				BEF425B625AB285A00DC8E3D /* FormError.swift */,
 				BEF425BE25AB512200DC8E3D /* AuthResult.swift */,
 			);
 			path = Models;
@@ -1006,7 +1006,7 @@
 		BEDC1220259D161A00BB0064 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BEDC1221259D1A1100BB0064 /* UserProfileEditor.swift */,
+				BEDC1221259D1A1100BB0064 /* DatabaseProfileManager.swift */,
 				BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */,
 			);
 			path = Controllers;
@@ -1595,7 +1595,7 @@
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
 				BEE47EF025BC415D00AF47FA /* ChatCellModel.swift in Sources */,
-				BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */,
+				BEDC1222259D1A1100BB0064 /* DatabaseProfileManager.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
@@ -1622,7 +1622,7 @@
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEE47F0F25BC55B000AF47FA /* ContactListViewModel.swift in Sources */,
-				BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */,
+				BEF425B725AB285A00DC8E3D /* FormError.swift in Sources */,
 				BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,

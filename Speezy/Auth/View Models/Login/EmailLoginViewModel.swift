@@ -31,16 +31,16 @@ class EmailLoginViewModel {
 }
 
 extension EmailLoginViewModel {    
-    func validationError() -> AuthError? {
+    func validationError() -> FormError? {
         if email.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "No email address supplied",
                 field: .email
             )
         }
         
         if password.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a password",
                 field: .password
             )

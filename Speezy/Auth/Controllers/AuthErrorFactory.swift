@@ -9,9 +9,9 @@
 import Foundation
 
 class AuthErrorFactory {
-    static func authError(for error: Error?) -> AuthError {
+    static func authError(for error: Error?) -> FormError {
         guard let error = error else {
-            return AuthError(
+            return FormError(
                 message: "Something went wrong, please try again",
                 field: nil
             )
@@ -19,12 +19,12 @@ class AuthErrorFactory {
         
         let userInfo = (error as NSError).userInfo
         guard let description = userInfo[NSLocalizedDescriptionKey] as? String else {
-            return AuthError(
+            return FormError(
                 message: "Something went wrong, please try again",
                 field: nil
             )
         }
         
-        return AuthError(message: description, field: nil)
+        return FormError(message: description, field: nil)
     }
 }

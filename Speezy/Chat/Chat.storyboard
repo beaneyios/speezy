@@ -240,7 +240,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eOY-eh-jUP">
-                                <rect key="frame" x="0.0" y="108" width="414" height="788"/>
+                                <rect key="frame" x="0.0" y="167" width="414" height="729"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uy9-Ki-AYj">
                                     <size key="itemSize" width="128" height="128"/>
@@ -302,6 +302,10 @@
                                             <action selector="createChat:" destination="OE9-KN-pzB" eventType="touchUpInside" id="Dho-nZ-zXZ"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="eo3-su-39Z">
+                                        <rect key="frame" x="353" y="22" width="20" height="20"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -309,9 +313,11 @@
                                     <constraint firstItem="5Sm-3E-7G9" firstAttribute="top" secondItem="kwm-7K-Ui0" secondAttribute="top" constant="20" id="2Yf-15-Iej"/>
                                     <constraint firstItem="5Sm-3E-7G9" firstAttribute="centerX" secondItem="kwm-7K-Ui0" secondAttribute="centerX" id="3Ab-jc-AhN"/>
                                     <constraint firstItem="q27-GH-eiy" firstAttribute="top" secondItem="5Sm-3E-7G9" secondAttribute="bottom" constant="19" id="4nc-fT-7wm"/>
+                                    <constraint firstItem="eo3-su-39Z" firstAttribute="centerY" secondItem="5r5-gw-esj" secondAttribute="centerY" id="F3y-f8-7NU"/>
                                     <constraint firstItem="tmr-Ic-YpB" firstAttribute="top" secondItem="kwm-7K-Ui0" secondAttribute="top" id="J7U-g0-DjE"/>
                                     <constraint firstAttribute="bottom" secondItem="q27-GH-eiy" secondAttribute="bottom" id="KQ0-SJ-QIZ"/>
                                     <constraint firstAttribute="height" constant="64" id="Rq9-R3-t06"/>
+                                    <constraint firstItem="eo3-su-39Z" firstAttribute="centerX" secondItem="5r5-gw-esj" secondAttribute="centerX" id="WED-rD-oph"/>
                                     <constraint firstItem="tmr-Ic-YpB" firstAttribute="leading" secondItem="kwm-7K-Ui0" secondAttribute="leading" id="aVX-MV-1ct"/>
                                     <constraint firstAttribute="bottom" secondItem="tmr-Ic-YpB" secondAttribute="bottom" id="hNA-d8-1yg"/>
                                     <constraint firstItem="kXh-Sr-8Tq" firstAttribute="centerY" secondItem="5Sm-3E-7G9" secondAttribute="centerY" id="kft-lR-hjB"/>
@@ -321,30 +327,65 @@
                                     <constraint firstAttribute="trailing" secondItem="5r5-gw-esj" secondAttribute="trailing" constant="24" id="tRq-N4-6Ud"/>
                                 </constraints>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Choose a title for your chat" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="riZ-M9-AOl">
+                                <rect key="frame" x="16" y="116" width="398" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5ui-Y9-vnL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EWe-Lb-auN">
+                                <rect key="frame" x="0.0" y="166" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Ik9-jr-WAJ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxc-TU-2jO">
+                                <rect key="frame" x="0.0" y="116" width="414" height="0.0"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qra-pw-WiQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Qra-pw-WiQ" firstAttribute="trailing" secondItem="EWe-Lb-auN" secondAttribute="trailing" id="GaV-vH-GJQ"/>
+                            <constraint firstItem="riZ-M9-AOl" firstAttribute="leading" secondItem="Qra-pw-WiQ" secondAttribute="leading" constant="16" id="HxE-QB-tIt"/>
                             <constraint firstAttribute="bottom" secondItem="eOY-eh-jUP" secondAttribute="bottom" id="QNS-Fj-QIv"/>
                             <constraint firstItem="eOY-eh-jUP" firstAttribute="leading" secondItem="H2r-DU-laO" secondAttribute="leading" id="QgB-JS-LjK"/>
+                            <constraint firstItem="riZ-M9-AOl" firstAttribute="top" secondItem="Mxc-TU-2jO" secondAttribute="bottom" id="QjA-db-jMf"/>
                             <constraint firstItem="Qra-pw-WiQ" firstAttribute="trailing" secondItem="kwm-7K-Ui0" secondAttribute="trailing" id="atl-gc-XDf"/>
                             <constraint firstItem="3HY-41-yzf" firstAttribute="top" secondItem="H2r-DU-laO" secondAttribute="top" id="av4-VI-02o"/>
+                            <constraint firstItem="Qra-pw-WiQ" firstAttribute="trailing" secondItem="Mxc-TU-2jO" secondAttribute="trailing" id="ban-pj-3aC"/>
                             <constraint firstItem="Qra-pw-WiQ" firstAttribute="trailing" secondItem="eOY-eh-jUP" secondAttribute="trailing" id="gh4-Gh-m1z"/>
+                            <constraint firstItem="Mxc-TU-2jO" firstAttribute="top" secondItem="3HY-41-yzf" secondAttribute="bottom" constant="8" id="hOm-oh-GZQ"/>
                             <constraint firstItem="3HY-41-yzf" firstAttribute="trailing" secondItem="Qra-pw-WiQ" secondAttribute="trailing" id="hvA-If-VWA"/>
+                            <constraint firstItem="Qra-pw-WiQ" firstAttribute="trailing" secondItem="riZ-M9-AOl" secondAttribute="trailing" id="jea-HI-xEx"/>
                             <constraint firstItem="kwm-7K-Ui0" firstAttribute="top" secondItem="Qra-pw-WiQ" secondAttribute="top" id="jma-cl-O5F"/>
-                            <constraint firstItem="eOY-eh-jUP" firstAttribute="top" secondItem="kwm-7K-Ui0" secondAttribute="bottom" id="nx1-He-inV"/>
                             <constraint firstItem="kwm-7K-Ui0" firstAttribute="leading" secondItem="Qra-pw-WiQ" secondAttribute="leading" id="oYK-SZ-3aG"/>
+                            <constraint firstItem="Mxc-TU-2jO" firstAttribute="leading" secondItem="Qra-pw-WiQ" secondAttribute="leading" id="olK-rH-SYI"/>
                             <constraint firstItem="3HY-41-yzf" firstAttribute="bottom" secondItem="kwm-7K-Ui0" secondAttribute="bottom" id="rFd-hn-U45"/>
+                            <constraint firstItem="eOY-eh-jUP" firstAttribute="top" secondItem="EWe-Lb-auN" secondAttribute="bottom" id="rlf-9e-dyk"/>
                             <constraint firstItem="3HY-41-yzf" firstAttribute="leading" secondItem="Qra-pw-WiQ" secondAttribute="leading" id="sn9-Jq-y4t"/>
+                            <constraint firstItem="EWe-Lb-auN" firstAttribute="leading" secondItem="Qra-pw-WiQ" secondAttribute="leading" id="t24-By-MgB"/>
+                            <constraint firstItem="EWe-Lb-auN" firstAttribute="top" secondItem="riZ-M9-AOl" secondAttribute="bottom" id="tby-MC-OSb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="eOY-eh-jUP" id="j0R-vf-Z49"/>
+                        <outlet property="createButton" destination="5r5-gw-esj" id="RT3-32-5o0"/>
+                        <outlet property="createSpinner" destination="eo3-su-39Z" id="9Xg-BC-dGf"/>
+                        <outlet property="lblErrorMessage" destination="Mxc-TU-2jO" id="FHs-Xa-Nlx"/>
+                        <outlet property="titleTextField" destination="riZ-M9-AOl" id="qll-ve-CsH"/>
+                        <outlet property="titleTextFieldSeparator" destination="EWe-Lb-auN" id="I56-Lo-KBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyW-gq-ezl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1314" y="56"/>
+            <point key="canvasLocation" x="1313.0434782608697" y="55.580357142857139"/>
         </scene>
     </scenes>
     <resources>
@@ -358,6 +399,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

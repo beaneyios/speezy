@@ -57,7 +57,7 @@ class ChatCoordinator: ViewCoordinator {
         ) as! NewChatViewController
         
         viewController.delegate = self
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.present(viewController, animated: true, completion: nil)
     }
 }
 
@@ -78,7 +78,18 @@ extension ChatCoordinator: ChatViewControllerDelegate {
 }
 
 extension ChatCoordinator: NewChatViewControllerDelegate {
+    var chatListViewController: ChatListViewController? {
+        navigationController.viewControllers.compactMap {
+            $0 as? ChatListViewController
+        }.first
+    }
     func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat) {
-        
+        viewController.dismiss(animated: true) {
+            guard let chatListViewController = self.chatListViewController else {
+                return
+            }
+            
+            chatListViewController.insertNewChatItem(chat: chat)
+        }
     }    
 }

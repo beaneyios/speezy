@@ -31,6 +31,10 @@ class ChatListViewController: UIViewController {
         delegate?.chatListViewControllerDidSelectCreateNewChat(self)
     }
     
+    func insertNewChatItem(chat: Chat) {
+        viewModel.insertNewChatItem(chat: chat)
+    }
+    
     private func listenForChanges() {
         viewModel.didChange = { change in
             DispatchQueue.main.async {

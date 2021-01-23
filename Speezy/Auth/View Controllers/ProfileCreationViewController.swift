@@ -31,7 +31,7 @@ class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
     @IBOutlet weak var completeSignupBtnContainer: UIView!
-    @IBOutlet weak var lblErrorMessage: UILabel!
+    @IBOutlet weak var lblErrorMessage: UILabel?
     
     @IBOutlet weak var testoutlet: NSLayoutConstraint!
     

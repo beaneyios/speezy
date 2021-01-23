@@ -37,7 +37,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     }
     
     private func createProfileInFireStore(userId: String, completion: @escaping (AuthResult) -> Void) {
-        FirebaseUserProfileEditor().updateUserProfile(
+        DatabaseProfileManager().updateUserProfile(
             userId: userId,
             profile: profile,
             profileImage: profileImageAttachment,
@@ -47,37 +47,37 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
 }
 
 extension EmailSignupViewModel {    
-    func validationError() -> AuthError? {
+    func validationError() -> FormError? {
         if email.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a valid email address",
                 field: Field.email
             )
         }
         
         if !isValidEmail(email) {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a valid email address",
                 field: Field.email
             )
         }
         
         if password.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a password",
                 field: Field.password
             )
         }
         
         if password.count < 6 {
-            return AuthError(
+            return FormError(
                 message: "Password must be at least 6 characters",
                 field: Field.password
             )
         }
         
         if password != verifyPassword {
-            return AuthError(
+            return FormError(
                 message: "Passwords do not match",
                 field: Field.passwordVerifier
             )
