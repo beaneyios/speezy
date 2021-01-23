@@ -11,7 +11,7 @@ import UIKit
 struct Chatter: Equatable {
     let id: String
     let displayName: String
-    let profileImage: UIImage?
+    let profileImageUrl: URL?
 }
 
 extension Array where Element == Chatter {

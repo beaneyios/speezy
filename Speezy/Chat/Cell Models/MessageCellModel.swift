@@ -52,29 +52,20 @@ extension MessageCellModel {
     // User info
     var profileImage: UIImage? {
         if isSender { return nil }
-        return message.chatter.profileImage ?? UIImage(named: "account-btn")
+        return UIImage(named: "account-btn")
     }
     
-    var displayNameText: String {
-        message.chatter.displayName
+    var displayNameText: String? {
+        isSender ? nil : message.chatter.displayName
+    }
+    
+    var displayNameTint: UIColor {
+        .speezyPurple
     }
     
     // Timestamp
     var timestampText: String {
-        let hoursString = message.sent.toString(format: DateFormatType.custom("HH:mm"))
-        let monthString = message.sent.toString(format: DateFormatType.custom("EEE dd MMM"))
-        let yearString = message.sent.toString(format: DateFormatType.custom("EEE dd MMM yyyy"))
-        return message.sent.toStringWithRelativeTime(
-            strings: [
-                RelativeTimeStringType.nowPast: "Just now",
-                RelativeTimeStringType.secondsPast: "Just now",
-                RelativeTimeStringType.minutesPast: hoursString,
-                RelativeTimeStringType.hoursPast: hoursString,
-                RelativeTimeStringType.daysPast: monthString,
-                RelativeTimeStringType.monthsPast: monthString,
-                RelativeTimeStringType.yearsPast: yearString
-            ]
-        )
+        return message.sent.relativeTimeString
     }
     
     var timestampTint: UIColor {

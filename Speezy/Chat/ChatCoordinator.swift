@@ -25,18 +25,41 @@ class ChatCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigateToChatView()
+        navigateToChatListView()
     }
     
     override func finish() {
         delegate?.chatCoordinatorDidFinish(self)
     }
     
-    private func navigateToChatView() {
+    private func navigateToChatView(chat: Chat) {
         let viewController = storyboard.instantiateViewController(
             identifier: "ChatViewController"
         ) as! ChatViewController
         
+        viewController.delegate = self
+        viewController.viewModel = ChatViewModel(chat: chat)        
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func navigateToChatListView() {
+        let viewController = storyboard.instantiateViewController(
+            identifier: "ChatListViewController"
+        ) as! ChatListViewController
+        
+        viewController.delegate = self
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension ChatCoordinator: ChatListViewControllerDelegate {
+    func chatListViewController(_ viewController: ChatListViewController, didSelectChat chat: Chat) {
+        navigateToChatView(chat: chat)
+    }
+}
+
+extension ChatCoordinator: ChatViewControllerDelegate {
+    func chatViewControllerDidTapBack(_ viewController: ChatViewController) {
+        navigationController.popViewController(animated: true)
     }
 }

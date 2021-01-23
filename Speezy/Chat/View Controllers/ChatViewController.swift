@@ -8,25 +8,23 @@
 
 import UIKit
 
+protocol ChatViewControllerDelegate: AnyObject {
+    func chatViewControllerDidTapBack(_ viewController: ChatViewController)
+}
+
 class ChatViewController: UIViewController, QuickRecordPresenting {
     
+    @IBOutlet weak var groupTitleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordButtonContainer: UIView!
     @IBOutlet weak var recordButtonContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var recordBottomConstraint: NSLayoutConstraint!
     
-    var activeControl: UIView?
     
-    let viewModel = ChatViewModel(
-        chat: Chat(
-            id: "chat_1",
-            chatters: [
-                Chatter(id: "3ewM8SgRjJZz3me76vlEzvz1fKH3", displayName: "Matt", profileImage: nil),
-                Chatter(id: "TtQ4YnmqUYXdKUAeUYydRlvyMx63", displayName: "Matt 2", profileImage: nil),
-            ],
-            title: "Chat 1"
-        )
-    )
+    weak var delegate: ChatViewControllerDelegate?
+    
+    var activeControl: UIView?
+    var viewModel: ChatViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +33,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         configureCollectionView()
         listenForChanges()
         addRecordButtonView()
+        
+        groupTitleLabel.text = viewModel.groupTitleText
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,6 +49,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     
     func didTapRecord() {
         presentQuickRecordDialogue(item: viewModel.newItem)
+    }
+    
+    @IBAction func didTapBack(_ sender: Any) {
+        delegate?.chatViewControllerDidTapBack(self)
     }
     
     private func configureRecordContainer() {

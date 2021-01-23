@@ -13,24 +13,55 @@ import FirebaseDatabase
 class DatabaseChatManager {
     var currentQuery: DatabaseQuery?
     
+    func fetchChatters(
+        chat: Chat,
+        completion: @escaping (Result<[Chatter], Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        let chattersChild: DatabaseReference = ref.child("chatters/\(chat.id)")
+        
+        chattersChild.observeSingleEvent(of: .value) { (snapshot) in
+            guard let result = snapshot.value as? NSDictionary else {
+                completion(.success([]))
+                return
+            }
+            
+            let chatters: [Chatter] = result.allKeys.compactMap {
+                guard
+                    let key = $0 as? String,
+                    let dict = result[key] as? NSDictionary
+                else {
+                    return nil
+                }
+                
+                return DatabaseChatParser.parseChatter(key: key, dict: dict)
+            }
+            
+            completion(.success(chatters))
+        } withCancel: { (error) in
+            completion(.failure(error))
+        }
+    }
+    
     func fetchMessages(
         chat: Chat,
         mostRecentMessage: Message? = nil,
         completion: @escaping (Result<[Message], Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        let messagesChild: DatabaseReference = ref.child("messages/\(chat.id)")
+        let chatChild: DatabaseReference = ref.child("messages/\(chat.id)")
         
         let query: DatabaseQuery = {
             if let message = mostRecentMessage {
-                return messagesChild
+                return chatChild
                     .queryOrderedByKey()
                     .queryEnding(atValue: message.id)
                     .queryLimited(toLast: 5)
             } else {
-                return messagesChild.queryOrderedByKey().queryLimited(toLast: 5)
+                return chatChild.queryOrderedByKey().queryLimited(toLast: 5)
             }
         }()
+        
         query.observeSingleEvent(of: .value) { (snapshot) in
             guard let result = snapshot.value as? NSDictionary else {
                 completion(.success([]))
@@ -45,7 +76,7 @@ class DatabaseChatManager {
                     return nil
                 }
                 
-                return DatabaseMessageParser.parseMessage(chat: chat, key: key, dict: dict)
+                return DatabaseChatParser.parseMessage(chat: chat, key: key, dict: dict)
             }.sorted {
                 $0.sent > $1.sent
             }.filter {
@@ -76,7 +107,7 @@ class DatabaseChatManager {
                 return
             }
             
-            let message = DatabaseMessageParser.parseMessage(
+            let message = DatabaseChatParser.parseMessage(
                 chat: chat,
                 key: snapshot.key,
                 dict: result

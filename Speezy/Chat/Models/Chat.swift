@@ -12,4 +12,18 @@ struct Chat {
     let id: String
     let chatters: [Chatter]
     let title: String
+    let lastUpdated: TimeInterval
+    let lastMessage: String
+}
+
+extension Chat {
+    func withChatters(chatters: [Chatter]) -> Chat {
+        Chat(
+            id: id,
+            chatters: chatters,
+            title: title,
+            lastUpdated: lastUpdated,
+            lastMessage: lastMessage
+        )
+    }
 }

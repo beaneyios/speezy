@@ -88,7 +88,10 @@
 		BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96225B75D2400723732 /* ChatRecordView.swift */; };
 		BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */; };
 		BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */; };
-		BE6FD96F25BB076F00723732 /* DatabaseMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96E25BB076F00723732 /* DatabaseMessageParser.swift */; };
+		BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97225BC397300723732 /* ChatListViewController.swift */; };
+		BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97625BC398200723732 /* ChatListViewModel.swift */; };
+		BE6FD97C25BC399D00723732 /* DatabaseChatListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */; };
+		BE6FD98025BC3C6600723732 /* DatabaseChatParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -159,6 +162,10 @@
 		BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126824F2657C00B53D1A /* ShareConfig.swift */; };
 		BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */; };
 		BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = BEDC126D24F2D2B800B53D1A /* acknowledgements.html */; };
+		BEE47EF025BC415D00AF47FA /* ChatCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47EEF25BC415D00AF47FA /* ChatCellModel.swift */; };
+		BEE47EF425BC42A000AF47FA /* Date+RelativeTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47EF325BC42A000AF47FA /* Date+RelativeTime.swift */; };
+		BEE47EFB25BC433200AF47FA /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47EF925BC433200AF47FA /* ChatCell.swift */; };
+		BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE47EFA25BC433200AF47FA /* ChatCell.xib */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
 		BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* MessageCell.swift */; };
@@ -298,7 +305,10 @@
 		BE6FD96225B75D2400723732 /* ChatRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRecordView.swift; sourceTree = "<group>"; };
 		BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatPlaybackView.xib; sourceTree = "<group>"; };
 		BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPlaybackView.swift; sourceTree = "<group>"; };
-		BE6FD96E25BB076F00723732 /* DatabaseMessageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMessageParser.swift; sourceTree = "<group>"; };
+		BE6FD97225BC397300723732 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		BE6FD97625BC398200723732 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
+		BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseChatListManager.swift; sourceTree = "<group>"; };
+		BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseChatParser.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -373,6 +383,10 @@
 		BEDC126824F2657C00B53D1A /* ShareConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfig.swift; sourceTree = "<group>"; };
 		BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Pop.swift"; sourceTree = "<group>"; };
 		BEDC126D24F2D2B800B53D1A /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
+		BEE47EEF25BC415D00AF47FA /* ChatCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCellModel.swift; sourceTree = "<group>"; };
+		BEE47EF325BC42A000AF47FA /* Date+RelativeTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RelativeTime.swift"; sourceTree = "<group>"; };
+		BEE47EF925BC433200AF47FA /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		BEE47EFA25BC433200AF47FA /* ChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BEECD89525ACD61200AD7AC3 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -623,6 +637,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		BE6FD97A25BC398800723732 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
+				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
+				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
+				BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */,
+				BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				BEA9D13525B0C623000888A7 /* ChatViewModel.swift */,
+				BE6FD97625BC398200723732 /* ChatListViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -752,12 +779,9 @@
 		BEA9D1E025B4695E000888A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE6FD97A25BC398800723732 /* Database */,
 				BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */,
 				BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */,
-				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
-				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
-				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
-				BE6FD96E25BB076F00723732 /* DatabaseMessageParser.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1009,6 +1033,8 @@
 				BE6FD96225B75D2400723732 /* ChatRecordView.swift */,
 				BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */,
 				BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */,
+				BEE47EF925BC433200AF47FA /* ChatCell.swift */,
+				BEE47EFA25BC433200AF47FA /* ChatCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1017,6 +1043,7 @@
 			isa = PBXGroup;
 			children = (
 				BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */,
+				BEE47EEF25BC415D00AF47FA /* ChatCellModel.swift */,
 			);
 			path = "Cell Models";
 			sourceTree = "<group>";
@@ -1025,6 +1052,7 @@
 			isa = PBXGroup;
 			children = (
 				BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */,
+				BE6FD97225BC397300723732 /* ChatListViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1053,6 +1081,7 @@
 				BE6FD90B25B49BD800723732 /* URL+LastModified.swift */,
 				BE6FD93725B4D42D00723732 /* URL+ConvenienceInit.swift */,
 				BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */,
+				BEE47EF325BC42A000AF47FA /* Date+RelativeTime.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1304,6 +1333,7 @@
 				BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */,
 				BE6080BA250E90A0003CB318 /* transcription-test-file-trimmed.m4a in Resources */,
 				BE6080B1250E86A3003CB318 /* WordCell.xib in Resources */,
+				BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
 				BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */,
 			);
@@ -1426,6 +1456,8 @@
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
+				BEE47EFB25BC433200AF47FA /* ChatCell.swift in Sources */,
+				BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */,
 				BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */,
 				BE6FD90C25B49BD800723732 /* URL+LastModified.swift in Sources */,
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
@@ -1442,7 +1474,6 @@
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
-				BE6FD96F25BB076F00723732 /* DatabaseMessageParser.swift in Sources */,
 				BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */,
 				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
@@ -1451,6 +1482,7 @@
 				BE6FD94925B6106900723732 /* Chat.swift in Sources */,
 				BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
+				BEE47EF425BC42A000AF47FA /* Date+RelativeTime.swift in Sources */,
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
@@ -1470,6 +1502,7 @@
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
+				BEE47EF025BC415D00AF47FA /* ChatCellModel.swift in Sources */,
 				BEDC1222259D1A1100BB0064 /* UserProfileEditor.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
@@ -1488,6 +1521,7 @@
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
 				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
 				BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */,
+				BE6FD97C25BC399D00723732 /* DatabaseChatListManager.swift in Sources */,
 				BE2351DD253C9B4900067BA2 /* PreviewWavePresenting.swift in Sources */,
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
@@ -1524,6 +1558,7 @@
 				BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
 				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
+				BE6FD98025BC3C6600723732 /* DatabaseChatParser.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
@@ -1552,6 +1587,7 @@
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
+				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,

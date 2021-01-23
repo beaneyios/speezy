@@ -31,6 +31,10 @@ class ChatViewModel: NewItemGenerating {
     
     private var noMoreMessages = false
     
+    var groupTitleText: String {
+        chat.title
+    }
+
     var currentUserId: String {
         Auth.auth().currentUser?.uid ?? ""
     }
@@ -40,6 +44,18 @@ class ChatViewModel: NewItemGenerating {
     }
     
     func listenForData() {
+        chatManager.fetchChatters(chat: chat) { (result) in
+            switch result {
+            case let .success(chatters):
+                self.chat = self.chat.withChatters(chatters: chatters)
+                self.fetchMessages()
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func fetchMessages() {
         chatManager.fetchMessages(chat: chat) { (result) in
             switch result {
             case let .success(messages):

@@ -13,6 +13,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var displayName: UILabel!
     
     @IBOutlet weak var durationLabel: UILabel!
     
@@ -46,6 +47,9 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         timestampLabel.textColor = item.timestampTint
         
         sendStatusImage.tintColor = item.tickTint
+        
+        displayName.text = item.displayNameText
+        displayName.textColor = item.displayNameTint
         
         messageContainer.layer.maskedCorners = {
             if item.isSender {
