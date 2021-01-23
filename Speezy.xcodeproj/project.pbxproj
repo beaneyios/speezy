@@ -166,6 +166,16 @@
 		BEE47EF425BC42A000AF47FA /* Date+RelativeTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47EF325BC42A000AF47FA /* Date+RelativeTime.swift */; };
 		BEE47EFB25BC433200AF47FA /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47EF925BC433200AF47FA /* ChatCell.swift */; };
 		BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE47EFA25BC433200AF47FA /* ChatCell.xib */; };
+		BEE47F0325BC558500AF47FA /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE47F0225BC558500AF47FA /* Contacts.storyboard */; };
+		BEE47F0725BC558D00AF47FA /* ContactsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F0625BC558D00AF47FA /* ContactsCoordinator.swift */; };
+		BEE47F0B25BC55A900AF47FA /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F0A25BC55A900AF47FA /* ContactListViewController.swift */; };
+		BEE47F0F25BC55B000AF47FA /* ContactListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F0E25BC55B000AF47FA /* ContactListViewModel.swift */; };
+		BEE47F1425BC55C500AF47FA /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F1225BC55C500AF47FA /* ContactCell.swift */; };
+		BEE47F1525BC55C500AF47FA /* ContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEE47F1325BC55C500AF47FA /* ContactCell.xib */; };
+		BEE47F1C25BC55FA00AF47FA /* ContactCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F1B25BC55FA00AF47FA /* ContactCellModel.swift */; };
+		BEE47F2625BC5D6F00AF47FA /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F2525BC5D6F00AF47FA /* Contact.swift */; };
+		BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F2F25BC5E1B00AF47FA /* DatabaseContactManager.swift */; };
+		BEE47F3625BC5E5700AF47FA /* DatabaseContactParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3525BC5E5700AF47FA /* DatabaseContactParser.swift */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
 		BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* MessageCell.swift */; };
@@ -387,6 +397,16 @@
 		BEE47EF325BC42A000AF47FA /* Date+RelativeTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RelativeTime.swift"; sourceTree = "<group>"; };
 		BEE47EF925BC433200AF47FA /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		BEE47EFA25BC433200AF47FA /* ChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
+		BEE47F0225BC558500AF47FA /* Contacts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
+		BEE47F0625BC558D00AF47FA /* ContactsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCoordinator.swift; sourceTree = "<group>"; };
+		BEE47F0A25BC55A900AF47FA /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
+		BEE47F0E25BC55B000AF47FA /* ContactListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewModel.swift; sourceTree = "<group>"; };
+		BEE47F1225BC55C500AF47FA /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		BEE47F1325BC55C500AF47FA /* ContactCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactCell.xib; sourceTree = "<group>"; };
+		BEE47F1B25BC55FA00AF47FA /* ContactCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCellModel.swift; sourceTree = "<group>"; };
+		BEE47F2525BC5D6F00AF47FA /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		BEE47F2F25BC5E1B00AF47FA /* DatabaseContactManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseContactManager.swift; sourceTree = "<group>"; };
+		BEE47F3525BC5E5700AF47FA /* DatabaseContactParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseContactParser.swift; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BEECD89525ACD61200AD7AC3 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -637,18 +657,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		BE6FD97A25BC398800723732 /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
-				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
-				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
-				BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */,
-				BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */,
-			);
-			path = Database;
-			sourceTree = "<group>";
-		};
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,6 +743,7 @@
 				BEC825B4257D53010037F007 /* Auth */,
 				BEECD88F25ACCF4100AD7AC3 /* Chat */,
 				BEA9D1DF25B46951000888A7 /* Cloud */,
+				BEE47F0125BC557600AF47FA /* Contacts */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BEFDB4F5255FF35F00362428 /* State */,
@@ -779,7 +788,6 @@
 		BEA9D1E025B4695E000888A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BE6FD97A25BC398800723732 /* Database */,
 				BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */,
 				BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */,
 			);
@@ -865,7 +873,6 @@
 				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
 				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 				BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */,
-				BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */,
 				BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */,
 				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
@@ -873,6 +880,9 @@
 				BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */,
 				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
 				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
+				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
+				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
+				BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
 			);
 			path = Controllers;
@@ -1008,16 +1018,92 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		BEE47F0125BC557600AF47FA /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F0225BC558500AF47FA /* Contacts.storyboard */,
+				BEE47F0625BC558D00AF47FA /* ContactsCoordinator.swift */,
+				BEE47F1A25BC55EC00AF47FA /* Cell Models */,
+				BEE47F2E25BC5E0D00AF47FA /* Controllers */,
+				BEE47F2425BC5D6500AF47FA /* Models */,
+				BEE47F1825BC55DE00AF47FA /* View Controllers */,
+				BEE47F1925BC55E500AF47FA /* View Models */,
+				BEE47F1F25BC55FE00AF47FA /* Views */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		BEE47F1825BC55DE00AF47FA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F0A25BC55A900AF47FA /* ContactListViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BEE47F1925BC55E500AF47FA /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F0E25BC55B000AF47FA /* ContactListViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		BEE47F1A25BC55EC00AF47FA /* Cell Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F1B25BC55FA00AF47FA /* ContactCellModel.swift */,
+			);
+			path = "Cell Models";
+			sourceTree = "<group>";
+		};
+		BEE47F1F25BC55FE00AF47FA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F1225BC55C500AF47FA /* ContactCell.swift */,
+				BEE47F1325BC55C500AF47FA /* ContactCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BEE47F2425BC5D6500AF47FA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F2525BC5D6F00AF47FA /* Contact.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BEE47F2B25BC5DCE00AF47FA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
+				BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */,
+				BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEE47F2E25BC5E0D00AF47FA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEE47F2F25BC5E1B00AF47FA /* DatabaseContactManager.swift */,
+				BEE47F3525BC5E5700AF47FA /* DatabaseContactParser.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		BEECD88F25ACCF4100AD7AC3 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				BE6FD94125B6105500723732 /* Models */,
 				BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */,
+				BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */,
+				BEE47F2B25BC5DCE00AF47FA /* Controllers */,
+				BE6FD94125B6105500723732 /* Models */,
 				BEECD89F25ACD7ED00AD7AC3 /* Cell Models */,
 				BEECD8A825ACDE2000AD7AC3 /* View Controllers */,
 				BEA9D13425B0C615000888A7 /* View Models */,
 				BEECD89425ACD5F300AD7AC3 /* Views */,
-				BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1302,6 +1388,7 @@
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
 				BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */,
 				BE2351AB252FA15500067BA2 /* transcription-test-file-trimmed.m4a in Resources */,
+				BEE47F1525BC55C500AF47FA /* ContactCell.xib in Resources */,
 				BE2351AF252FA1A800067BA2 /* transcription-test-file-trimmed.flac in Resources */,
 				BE6080BE250EB455003CB318 /* transcription-test-file.flac in Resources */,
 				BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */,
@@ -1322,6 +1409,7 @@
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
+				BEE47F0325BC558500AF47FA /* Contacts.storyboard in Resources */,
 				BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */,
 				BEC825B7257D53190037F007 /* Auth.storyboard in Resources */,
 				BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */,
@@ -1437,6 +1525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEE47F2625BC5D6F00AF47FA /* Contact.swift in Sources */,
 				BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */,
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
 				BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */,
@@ -1530,7 +1619,9 @@
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
+				BEE47F0F25BC55B000AF47FA /* ContactListViewModel.swift in Sources */,
 				BEF425B725AB285A00DC8E3D /* AuthError.swift in Sources */,
+				BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
@@ -1538,8 +1629,10 @@
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
+				BEE47F3625BC5E5700AF47FA /* DatabaseContactParser.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
 				BE6FD91625B4D07600723732 /* DatabaseChatManager.swift in Sources */,
+				BEE47F1C25BC55FA00AF47FA /* ContactCellModel.swift in Sources */,
 				BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */,
 				BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */,
 				BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */,
@@ -1555,6 +1648,8 @@
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
 				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,
 				BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */,
+				BEE47F0725BC558D00AF47FA /* ContactsCoordinator.swift in Sources */,
+				BEE47F1425BC55C500AF47FA /* ContactCell.swift in Sources */,
 				BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
 				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
@@ -1591,6 +1686,7 @@
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
+				BEE47F0B25BC55A900AF47FA /* ContactListViewController.swift in Sources */,
 				BE77767724D6D3390009BE63 /* SettingsFooterView.swift in Sources */,
 				BEBFD4C324C5B9DC00200D87 /* ViewCoordinator.swift in Sources */,
 			);

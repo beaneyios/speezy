@@ -44,6 +44,13 @@ class AppCoordinator: ViewCoordinator {
         add(coordinator)
         coordinator.start()
     }
+    
+    private func navigateToContacts() {
+        let coordinator = ContactsCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        add(coordinator)
+        coordinator.start()
+    }
 }
 
 extension AppCoordinator: ChatCoordinatorDelegate {
@@ -54,7 +61,7 @@ extension AppCoordinator: ChatCoordinatorDelegate {
 
 extension AppCoordinator: AuthCoordinatorDelegate {
     func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator) {
-        navigateToChat()
+        navigateToContacts()
     }
     
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
@@ -73,6 +80,12 @@ extension AppCoordinator: AudioItemCoordinatorDelegate {
     }
     
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
+        remove(coordinator)
+    }
+}
+
+extension AppCoordinator: ContactsCoordinatorDelegate {
+    func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
         remove(coordinator)
     }
 }
