@@ -41,10 +41,28 @@
                                     <constraint firstAttribute="width" constant="25" id="ecV-FP-tZc"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gw3-5j-zz6">
+                                <rect key="frame" x="311" y="28" width="25" height="25"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unticked-contact" translatesAutoresizingMaskIntoConstraints="NO" id="062-wJ-7QJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="062-wJ-7QJ" firstAttribute="top" secondItem="Gw3-5j-zz6" secondAttribute="top" id="Che-Bo-jZm"/>
+                                    <constraint firstAttribute="bottom" secondItem="062-wJ-7QJ" secondAttribute="bottom" id="DhQ-4z-HzX"/>
+                                    <constraint firstAttribute="trailing" secondItem="062-wJ-7QJ" secondAttribute="trailing" id="EnO-jT-RZy"/>
+                                    <constraint firstAttribute="height" constant="25" id="GMX-6N-9pa"/>
+                                    <constraint firstAttribute="width" constant="25" id="Kg7-09-b5u"/>
+                                    <constraint firstItem="062-wJ-7QJ" firstAttribute="leading" secondItem="Gw3-5j-zz6" secondAttribute="leading" id="V9w-FY-xbc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VLA-8e-iq1" firstAttribute="leading" secondItem="PBH-Qc-sDh" secondAttribute="trailing" constant="16" id="34R-vU-hrs"/>
+                            <constraint firstAttribute="trailing" secondItem="Gw3-5j-zz6" secondAttribute="trailing" constant="24" id="4LP-5s-QRd"/>
                             <constraint firstAttribute="trailing" secondItem="pFy-OP-QDA" secondAttribute="trailing" id="AYM-0t-6sg"/>
                             <constraint firstItem="pFy-OP-QDA" firstAttribute="top" secondItem="VLA-8e-iq1" secondAttribute="bottom" constant="16" id="CJr-PH-prj"/>
                             <constraint firstAttribute="bottom" secondItem="pFy-OP-QDA" secondAttribute="bottom" id="G5U-ot-txH"/>
@@ -52,6 +70,7 @@
                             <constraint firstItem="PBH-Qc-sDh" firstAttribute="leading" secondItem="wpr-Ty-I8h" secondAttribute="leading" constant="24" id="HEJ-kJ-rSr"/>
                             <constraint firstAttribute="trailing" secondItem="VLA-8e-iq1" secondAttribute="trailing" constant="24" id="Ofd-D6-Z1v"/>
                             <constraint firstItem="PBH-Qc-sDh" firstAttribute="centerY" secondItem="VLA-8e-iq1" secondAttribute="centerY" id="Thg-gb-yuL"/>
+                            <constraint firstItem="Gw3-5j-zz6" firstAttribute="centerY" secondItem="wpr-Ty-I8h" secondAttribute="centerY" id="eBr-9g-kYc"/>
                             <constraint firstItem="VLA-8e-iq1" firstAttribute="top" secondItem="wpr-Ty-I8h" secondAttribute="top" constant="16" id="kJ3-uF-90j"/>
                         </constraints>
                     </view>
@@ -67,12 +86,14 @@
             <size key="customSize" width="360" height="81"/>
             <connections>
                 <outlet property="profileImage" destination="PBH-Qc-sDh" id="rCB-zq-rG1"/>
+                <outlet property="tickIcon" destination="062-wJ-7QJ" id="NgD-od-qLJ"/>
                 <outlet property="titleLabel" destination="VLA-8e-iq1" id="T5v-Ri-B8d"/>
             </connections>
             <point key="canvasLocation" x="-449" y="148"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="unticked-contact" width="500" height="500"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -28,7 +28,7 @@ class ContactListViewModel {
             switch result {
             case let .success(contacts):
                 self.items = contacts.map {
-                    ContactCellModel(contact: $0)
+                    ContactCellModel(contact: $0, selected: nil)
                 }
                 
                 self.didChange?(.loaded)

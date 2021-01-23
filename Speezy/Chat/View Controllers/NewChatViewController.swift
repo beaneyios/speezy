@@ -1,5 +1,5 @@
 //
-//  ChatListViewController.swift
+//  NewChatViewController.swift
 //  Speezy
 //
 //  Created by Matt Beaney on 23/01/2021.
@@ -8,18 +8,17 @@
 
 import UIKit
 
-protocol ChatListViewControllerDelegate: AnyObject {
-    func chatListViewController(_ viewController: ChatListViewController, didSelectChat chat: Chat)
-    func chatListViewControllerDidSelectCreateNewChat(_ viewController: ChatListViewController)
+protocol NewChatViewControllerDelegate: AnyObject {
+    func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat)
 }
 
-class ChatListViewController: UIViewController {
+class NewChatViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    weak var delegate: ChatListViewControllerDelegate?
+    weak var delegate: NewChatViewControllerDelegate?
     
-    let viewModel = ChatListViewModel()
+    let viewModel = NewChatViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +26,8 @@ class ChatListViewController: UIViewController {
         listenForChanges()
     }
     
-    @IBAction func createNewChat(_ sender: Any) {
-        delegate?.chatListViewControllerDidSelectCreateNewChat(self)
+    @IBAction func createChat(_ sender: Any) {
+        viewModel.createChat()
     }
     
     private func listenForChanges() {
@@ -46,22 +45,23 @@ class ChatListViewController: UIViewController {
     
     private func configureCollectionView() {
         collectionView.register(
-            ChatCell.nib,
+            ContactCell.nib,
             forCellWithReuseIdentifier: "cell"
         )
         
+        collectionView.allowsMultipleSelection = true
         collectionView.delegate = self
         collectionView.dataSource = self
     }
 }
 
-extension ChatListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension NewChatViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ChatCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ContactCell
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
         return cell
@@ -69,11 +69,16 @@ extension ChatListViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = viewModel.items[indexPath.row]
-        delegate?.chatListViewController(self, didSelectChat: item.chat)
+        viewModel.selectContact(contact: item.contact)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let item = viewModel.items[indexPath.row]
+        viewModel.selectContact(contact: item.contact)
     }
 }
 
-extension ChatListViewController: UICollectionViewDelegateFlowLayout {
+extension NewChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -82,4 +87,3 @@ extension ChatListViewController: UICollectionViewDelegateFlowLayout {
         CGSize(width: collectionView.frame.width, height: 80.0)
     }
 }
-

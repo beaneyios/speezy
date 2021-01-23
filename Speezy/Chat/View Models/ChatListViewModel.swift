@@ -16,7 +16,7 @@ class ChatListViewModel {
     
     private(set) var items = [ChatCellModel]()
     var didChange: ((Change) -> Void)?
-    let chatListManager = DatabaseChatListManager()
+    let chatListManager = DatabaseChatManager()
     
     func listenForData() {
         guard let userId = Auth.auth().currentUser?.uid else {

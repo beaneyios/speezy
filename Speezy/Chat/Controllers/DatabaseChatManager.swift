@@ -162,3 +162,174 @@ class DatabaseChatManager {
         }
     }
 }
+
+// MARK: Chats
+extension DatabaseChatManager {
+    func createChat(
+        title: String,
+        currentChatter: Chatter,
+        contacts: [Contact],
+        completion: @escaping (Result<Chat, Error>) -> Void
+    ) {
+        // Convert contacts to chatters and create a group
+        var chatters = contacts.map {
+            Chatter(
+                id: $0.userId,
+                displayName: $0.displayName,
+                profileImageUrl: $0.profilePhotoUrl
+            )
+        }
+        
+        chatters.append(currentChatter)
+        
+        self.createChatters(chatters: chatters) { (result) in
+            switch result {
+            case let .success(chatId):
+                self.createChat(
+                    chatId: chatId,
+                    chatters: chatters,
+                    title: title,
+                    completion: completion
+                )
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func createChatters(
+        chatters: [Chatter],
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        let groupChild = ref.child("chatters").childByAutoId()
+        let group = DispatchGroup()
+        
+        chatters.forEach {
+            group.enter()
+            let chatterChild = groupChild.child($0.id)
+            chatterChild.setValue($0.toDict) { (error, ref) in
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.global()) {
+            guard let key = groupChild.key else {
+                // TODO: Handle errors
+                assertionFailure("Key not available")
+                return
+            }
+            
+            completion(.success(key))
+        }
+    }
+    
+    private func createChat(
+        chatId: String,
+        chatters: [Chatter],
+        title: String,
+        completion: @escaping (Result<Chat, Error>) -> Void
+    ) {
+        let chat = Chat(
+            id: chatId,
+            chatters: chatters,
+            title: title,
+            lastUpdated: Date().timeIntervalSince1970,
+            lastMessage: "New chat started"
+        )
+        
+        let ref = Database.database().reference()
+        let groupChild = ref.child("chats/\(chat.id)")
+        groupChild.setValue(chat.toDict) { (error, ref) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            self.addChatToUsersLists(
+                chat: chat,
+                chatters: chatters,
+                completion: completion
+            )
+        }
+    }
+    
+    private func addChatToUsersLists(
+        chat: Chat,
+        chatters: [Chatter],
+        completion: @escaping (Result<Chat, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        let group = DispatchGroup()
+        chatters.forEach {
+            group.enter()
+            
+            let userChild = ref.child("users/\($0.id)/chats/\(chat.id)")
+            userChild.setValue(true) { (error, ref) in
+                // TODO: Consider how to handle errors here.
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.global()) {
+            completion(.success(chat))
+        }
+    }
+    
+    func fetchChats(
+        userId: String,
+        completion: @escaping (Result<[Chat], Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        let chatsChild: DatabaseReference = ref.child("users/\(userId)/chats")
+        let query = chatsChild.queryOrderedByKey()
+        query.observeSingleEvent(of: .value) { (snapshot) in
+            guard let result = snapshot.value as? NSDictionary else {
+                completion(.success([]))
+                return
+            }
+            
+            let chatIds: [String] = result.allKeys.compactMap {
+                $0 as? String
+            }
+            
+            let chats = self.fetchChats(forChatIds: chatIds) { chats in
+                completion(.success(chats))
+            }
+        } withCancel: { (error) in
+            completion(.failure(error))
+        }
+    }
+    
+    private func fetchChats(
+        forChatIds ids: [String],
+        completion: @escaping ([Chat]) -> Void
+    ) {
+        var chats = [Chat]()
+        let group = DispatchGroup()
+        
+        ids.forEach {
+            group.enter()
+            let ref = Database.database().reference()
+            let chatChild: DatabaseReference = ref.child("chats/\($0)")
+            chatChild.observeSingleEvent(of: .value) { (snapshot) in
+                guard let result = snapshot.value as? NSDictionary else {
+                    group.leave()
+                    return
+                }
+                
+                guard let chat = DatabaseChatParser.parseChat(key: snapshot.key, dict: result) else {
+                    group.leave()
+                    return
+                }
+                
+                chats.append(chat)
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.global()) {
+            completion(chats)
+        }
+    }
+}

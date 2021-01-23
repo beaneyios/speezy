@@ -27,3 +27,13 @@ extension Chat {
         )
     }
 }
+
+extension Chat {
+    var toDict: [String: Any] {
+        [
+            "last_message": lastMessage,
+            "last_updated": lastUpdated,
+            "title": title
+        ]
+    }
+}

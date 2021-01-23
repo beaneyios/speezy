@@ -90,7 +90,6 @@
 		BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */; };
 		BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97225BC397300723732 /* ChatListViewController.swift */; };
 		BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97625BC398200723732 /* ChatListViewModel.swift */; };
-		BE6FD97C25BC399D00723732 /* DatabaseChatListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */; };
 		BE6FD98025BC3C6600723732 /* DatabaseChatParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
@@ -176,6 +175,8 @@
 		BEE47F2625BC5D6F00AF47FA /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F2525BC5D6F00AF47FA /* Contact.swift */; };
 		BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F2F25BC5E1B00AF47FA /* DatabaseContactManager.swift */; };
 		BEE47F3625BC5E5700AF47FA /* DatabaseContactParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3525BC5E5700AF47FA /* DatabaseContactParser.swift */; };
+		BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */; };
+		BEE47F3E25BC67D100AF47FA /* NewChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
 		BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* MessageCell.swift */; };
@@ -317,7 +318,6 @@
 		BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPlaybackView.swift; sourceTree = "<group>"; };
 		BE6FD97225BC397300723732 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		BE6FD97625BC398200723732 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
-		BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseChatListManager.swift; sourceTree = "<group>"; };
 		BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseChatParser.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -407,6 +407,8 @@
 		BEE47F2525BC5D6F00AF47FA /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		BEE47F2F25BC5E1B00AF47FA /* DatabaseContactManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseContactManager.swift; sourceTree = "<group>"; };
 		BEE47F3525BC5E5700AF47FA /* DatabaseContactParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseContactParser.swift; sourceTree = "<group>"; };
+		BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewController.swift; sourceTree = "<group>"; };
+		BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewModel.swift; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BEECD89525ACD61200AD7AC3 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -772,6 +774,7 @@
 			children = (
 				BEA9D13525B0C623000888A7 /* ChatViewModel.swift */,
 				BE6FD97625BC398200723732 /* ChatListViewModel.swift */,
+				BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1078,7 +1081,6 @@
 			isa = PBXGroup;
 			children = (
 				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
-				BE6FD97B25BC399D00723732 /* DatabaseChatListManager.swift */,
 				BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */,
 			);
 			path = Controllers;
@@ -1139,6 +1141,7 @@
 			children = (
 				BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */,
 				BE6FD97225BC397300723732 /* ChatListViewController.swift */,
+				BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1610,7 +1613,6 @@
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
 				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
 				BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */,
-				BE6FD97C25BC399D00723732 /* DatabaseChatListManager.swift in Sources */,
 				BE2351DD253C9B4900067BA2 /* PreviewWavePresenting.swift in Sources */,
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
@@ -1642,6 +1644,7 @@
 				BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */,
 				BEFDB542255FF8B000362428 /* CropNotification.swift in Sources */,
 				BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */,
+				BEE47F3E25BC67D100AF47FA /* NewChatViewModel.swift in Sources */,
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
@@ -1679,6 +1682,7 @@
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
+				BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */,
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,

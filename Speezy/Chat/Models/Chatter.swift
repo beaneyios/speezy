@@ -19,3 +19,17 @@ extension Array where Element == Chatter {
         first { $0.id == id }
     }
 }
+
+extension Chatter {
+    var toDict: [String: Any] {
+        var dict: [String: Any] = [
+            "display_name": displayName
+        ]
+        
+        if let profileImageUrl = profileImageUrl {
+            dict["profile_image_url"] = profileImageUrl
+        }
+        
+        return dict
+    }    
+}

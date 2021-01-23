@@ -61,7 +61,7 @@ extension AppCoordinator: ChatCoordinatorDelegate {
 
 extension AppCoordinator: AuthCoordinatorDelegate {
     func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator) {
-        navigateToContacts()
+        navigateToChat()
     }
     
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
