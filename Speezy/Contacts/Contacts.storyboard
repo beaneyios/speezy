@@ -52,6 +52,9 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNZ-Jf-g8R">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                        <connections>
+                                            <action selector="goBack:" destination="cOF-HD-6O1" eventType="touchUpInside" id="Zq7-ag-DY3"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26J-qW-kan">
                                         <rect key="frame" x="164" y="20" width="86" height="24"/>
@@ -164,6 +167,9 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUm-yD-Vt6">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                        <connections>
+                                            <action selector="goBack:" destination="sGz-9n-8qs" eventType="touchUpInside" id="XiR-kX-o4A"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add new contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0le-kZ-tzA">
                                         <rect key="frame" x="128" y="20" width="158.5" height="24"/>

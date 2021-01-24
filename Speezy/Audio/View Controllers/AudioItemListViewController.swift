@@ -22,6 +22,7 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
         didSelectSendOnItem item: AudioItem
     )
     func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController)
+    func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController, QuickRecordPresenting {
@@ -45,7 +46,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
         observeViewModelChanges()
         configureTableView()
         loadItems()
-        loadProfileImage()
+//        loadProfileImage()
         configureProfileButton()
     }
     
@@ -110,7 +111,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     }
     
     @IBAction func signOutTapped(_ sender: Any) {
-        signOut()
+        delegate?.audioItemListViewControllerDidSelectBack(self)
     }
     
     @IBAction func settingsTapped(_ sender: Any) {

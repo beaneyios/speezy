@@ -10,6 +10,7 @@ import UIKit
 
 protocol NewContactViewControllerDelegate: AnyObject {
     func newContactViewController(_ viewController: NewContactViewController, didCreateContact contact: Contact)
+    func newContactViewControllerDidSelectBack(_ viewController: NewContactViewController)
 }
 
 class NewContactViewController: UIViewController {
@@ -31,6 +32,10 @@ class NewContactViewController: UIViewController {
         titleTextField.delegate = self
     
         viewModel.loadData()
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        delegate?.newContactViewControllerDidSelectBack(self)
     }
     
     private func listenForChanges() {

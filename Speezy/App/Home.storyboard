@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="l9t-Zq-3CH">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="lRa-3b-zTd" customClass="HomeViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cbm-Az-vzu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0J-oL-apy">
+                                <rect key="frame" x="24" y="108" width="366" height="124.5"/>
+                                <color key="backgroundColor" name="speezy-purple"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Audio">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToAudio:" destination="lRa-3b-zTd" eventType="touchUpInside" id="4I2-r0-P0r"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="epu-3D-5fD">
+                                <rect key="frame" x="24" y="296.5" width="366" height="124.5"/>
+                                <color key="backgroundColor" name="speezy-purple"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Chats">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToChat:" destination="lRa-3b-zTd" eventType="touchUpInside" id="YU5-cU-bV6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeD-Dw-7fo">
+                                <rect key="frame" x="24" y="485" width="366" height="124.5"/>
+                                <color key="backgroundColor" name="speezy-purple"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Contacts">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToContacts:" destination="lRa-3b-zTd" eventType="touchUpInside" id="as7-zI-FFU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-sg-XxU">
+                                <rect key="frame" x="24" y="673.5" width="366" height="124.5"/>
+                                <color key="backgroundColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout:" destination="lRa-3b-zTd" eventType="touchUpInside" id="xzp-Q2-MCZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pcP-GS-KXf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pcP-GS-KXf" firstAttribute="trailing" secondItem="qeD-Dw-7fo" secondAttribute="trailing" constant="24" id="1ZO-Cu-Lr9"/>
+                            <constraint firstItem="qeD-Dw-7fo" firstAttribute="leading" secondItem="pcP-GS-KXf" secondAttribute="leading" constant="24" id="3bB-f8-LO8"/>
+                            <constraint firstItem="epu-3D-5fD" firstAttribute="height" secondItem="qeD-Dw-7fo" secondAttribute="height" id="5Jp-7u-fB0"/>
+                            <constraint firstItem="pcP-GS-KXf" firstAttribute="trailing" secondItem="epu-3D-5fD" secondAttribute="trailing" constant="24" id="5VG-5F-IPl"/>
+                            <constraint firstItem="P0J-oL-apy" firstAttribute="top" secondItem="pcP-GS-KXf" secondAttribute="top" constant="64" id="6a8-Ko-uEp"/>
+                            <constraint firstItem="epu-3D-5fD" firstAttribute="top" secondItem="P0J-oL-apy" secondAttribute="bottom" constant="64" id="7Yj-x2-7Vm"/>
+                            <constraint firstItem="pcP-GS-KXf" firstAttribute="bottom" secondItem="4kf-sg-XxU" secondAttribute="bottom" constant="64" id="AwD-jE-1OU"/>
+                            <constraint firstItem="epu-3D-5fD" firstAttribute="leading" secondItem="pcP-GS-KXf" secondAttribute="leading" constant="24" id="ObR-TM-GE7"/>
+                            <constraint firstItem="pcP-GS-KXf" firstAttribute="trailing" secondItem="P0J-oL-apy" secondAttribute="trailing" constant="24" id="QGv-Tb-hkE"/>
+                            <constraint firstItem="qeD-Dw-7fo" firstAttribute="top" secondItem="epu-3D-5fD" secondAttribute="bottom" constant="64" id="Sms-Wd-72j"/>
+                            <constraint firstItem="4kf-sg-XxU" firstAttribute="leading" secondItem="pcP-GS-KXf" secondAttribute="leading" constant="24" id="ThA-SK-99u"/>
+                            <constraint firstItem="pcP-GS-KXf" firstAttribute="trailing" secondItem="4kf-sg-XxU" secondAttribute="trailing" constant="24" id="lc3-cI-bB9"/>
+                            <constraint firstItem="P0J-oL-apy" firstAttribute="height" secondItem="epu-3D-5fD" secondAttribute="height" id="lgq-ET-A9H"/>
+                            <constraint firstItem="qeD-Dw-7fo" firstAttribute="height" secondItem="4kf-sg-XxU" secondAttribute="height" id="re6-NY-cXT"/>
+                            <constraint firstItem="4kf-sg-XxU" firstAttribute="top" secondItem="qeD-Dw-7fo" secondAttribute="bottom" constant="64" id="uKN-JU-dMZ"/>
+                            <constraint firstItem="P0J-oL-apy" firstAttribute="leading" secondItem="pcP-GS-KXf" secondAttribute="leading" constant="24" id="wn2-7c-3Uw"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1LP-ba-RU0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="195"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="speezy-purple">
+            <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

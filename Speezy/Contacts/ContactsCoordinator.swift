@@ -64,11 +64,15 @@ extension ContactsCoordinator: ContactListViewControllerDelegate {
     }
 }
 
-extension ContactsCoordinator: NewContactViewControllerDelegate {    
+extension ContactsCoordinator: NewContactViewControllerDelegate {
     var contactListViewController: ContactListViewController? {
         navigationController.viewControllers.compactMap {
             $0 as? ContactListViewController
         }.first
+    }
+    
+    func newContactViewControllerDidSelectBack(_ viewController: NewContactViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
     
     func newContactViewController(_ viewController: NewContactViewController, didCreateContact contact: Contact) {

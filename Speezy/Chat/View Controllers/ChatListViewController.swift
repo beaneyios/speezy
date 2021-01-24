@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ChatListViewControllerDelegate: AnyObject {
+    func chatListViewControllerDidSelectBack(_ viewController: ChatListViewController)
     func chatListViewController(_ viewController: ChatListViewController, didSelectChat chat: Chat)
     func chatListViewControllerDidSelectCreateNewChat(_ viewController: ChatListViewController)
 }
@@ -29,6 +30,10 @@ class ChatListViewController: UIViewController {
     
     @IBAction func createNewChat(_ sender: Any) {
         delegate?.chatListViewControllerDidSelectCreateNewChat(self)
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        delegate?.chatListViewControllerDidSelectBack(self)
     }
     
     func insertNewChatItem(chat: Chat) {

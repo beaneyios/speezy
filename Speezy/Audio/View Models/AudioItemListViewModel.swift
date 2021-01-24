@@ -78,11 +78,13 @@ extension AudioItemListViewModel {
         CloudImageManager.fetchImage(at: "profile_images/\(currentUser.uid).jpg") { (result) in
             switch result {
             case let .success(image):
-                self.didChange?(.profileImageLoaded(image))
+                break
+//                self.didChange?(.profileImageLoaded(image))
             case .failure:
-                if let defaultImage = UIImage(named: "account-btn") {
-                    self.didChange?(.profileImageLoaded(defaultImage))
-                }
+                break
+//                if let defaultImage = UIImage(named: "account-btn") {
+//                    self.didChange?(.profileImageLoaded(defaultImage))
+//                }
             }
         }
     }

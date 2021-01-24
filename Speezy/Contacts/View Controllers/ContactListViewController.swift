@@ -36,6 +36,10 @@ class ContactListViewController: UIViewController {
         delegate?.contactListViewControllerDidSelectNewContact(self)
     }
     
+    @IBAction func goBack(_ sender: Any) {
+        delegate?.contactListViewControllerDidSelectBack(self)
+    }
+    
     private func listenForChanges() {
         viewModel.didChange = { change in
             DispatchQueue.main.async {

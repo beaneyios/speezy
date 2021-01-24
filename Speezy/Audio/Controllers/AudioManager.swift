@@ -252,6 +252,7 @@ extension AudioManager: AudioRecorderDelegate {
             action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
         )
         
+        regeneratePlayer(withItem: item)        
         markAsDirty()
     }
 }

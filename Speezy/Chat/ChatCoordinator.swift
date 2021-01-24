@@ -62,6 +62,10 @@ class ChatCoordinator: ViewCoordinator {
 }
 
 extension ChatCoordinator: ChatListViewControllerDelegate {
+    func chatListViewControllerDidSelectBack(_ viewController: ChatListViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
     func chatListViewControllerDidSelectCreateNewChat(_ viewController: ChatListViewController) {
         navigateToNewChat()
     }
@@ -83,6 +87,11 @@ extension ChatCoordinator: NewChatViewControllerDelegate {
             $0 as? ChatListViewController
         }.first
     }
+    
+    func newChatViewControllerDidSelectBack(_ viewController: NewChatViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
     func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat) {
         viewController.dismiss(animated: true) {
             guard let chatListViewController = self.chatListViewController else {

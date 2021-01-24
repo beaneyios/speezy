@@ -10,6 +10,7 @@ import UIKit
 
 protocol NewChatViewControllerDelegate: AnyObject {
     func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat)
+    func newChatViewControllerDidSelectBack(_ viewController: NewChatViewController)
 }
 
 class NewChatViewController: UIViewController, FormErrorDisplaying {
@@ -53,6 +54,10 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
         createSpinner.isHidden = false
         createSpinner.startAnimating()
         viewModel.createChat()
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        delegate?.newChatViewControllerDidSelectBack(self)
     }
     
     private func listenForChanges() {
