@@ -129,11 +129,12 @@ class DatabaseProfileManager {
             "occupation": profile.occupation
         ]
         
-        if let profileImage = profile.profileImageUrl {
-            dataDictionary["profile_image"] = profileImage.absoluteString
+        if let profileImageUrl = profile.profileImageUrl {
+            dataDictionary["profile_image"] = profileImageUrl.absoluteString
         }
         
-        ref.child("users").child(userId).child("profile").setValue(dataDictionary) { (error, _) in
+        let profileChild = ref.child("users").child(userId).child("profile")
+        profileChild.setValue(dataDictionary) { (error, _) in
             if let error = error {
                 let error = FormError(
                     message: "Unable to set profile, please try again\nReason: \(error.localizedDescription)",

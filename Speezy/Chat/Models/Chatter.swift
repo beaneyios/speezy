@@ -27,7 +27,7 @@ extension Chatter {
         ]
         
         if let profileImageUrl = profileImageUrl {
-            dict["profile_image_url"] = profileImageUrl
+            dict["profile_image_url"] = profileImageUrl.absoluteString
         }
         
         return dict
