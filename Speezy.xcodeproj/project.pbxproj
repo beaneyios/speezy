@@ -526,6 +526,13 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		BE3C5DE525BDA26F005E34BB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		BE4CCD9325A9F6D4007C21A6 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -1177,6 +1184,7 @@
 		BEF0ECB024BF948D00B9D554 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				BE3C5DE525BDA26F005E34BB /* View Controllers */,
 				BEBFD4C924C5DB7C00200D87 /* Controllers */,
 				BEBFD4BE24C5B9B600200D87 /* Coordinators */,
 				BEF0ECB124BF949400B9D554 /* Extensions */,

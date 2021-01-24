@@ -195,7 +195,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jZX-L4-msz">
-                                <rect key="frame" x="0.0" y="158" width="414" height="738"/>
+                                <rect key="frame" x="0.0" y="184" width="414" height="712"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qVn-x1-z55">
                                     <size key="itemSize" width="128" height="128"/>
@@ -206,30 +206,40 @@
                                 <cells/>
                             </collectionView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What is your contact's username?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9WK-S3-zfJ">
-                                <rect key="frame" x="16" y="108" width="398" height="50"/>
+                                <rect key="frame" x="16" y="108" width="398" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="qXj-Ze-416"/>
+                                    <constraint firstAttribute="height" constant="75" id="qXj-Ze-416"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLG-O0-95d">
+                                <rect key="frame" x="0.0" y="183" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="VI4-5H-2tO"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="APs-bp-yYg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jZX-L4-msz" firstAttribute="top" secondItem="PLG-O0-95d" secondAttribute="bottom" id="1eB-UK-ulM"/>
                             <constraint firstItem="jZX-L4-msz" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" id="4Vv-q7-dTE"/>
                             <constraint firstItem="VgP-zE-bDc" firstAttribute="leading" secondItem="Jgh-Go-25E" secondAttribute="leading" id="5cJ-UY-pxy"/>
+                            <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="PLG-O0-95d" secondAttribute="trailing" id="IZ6-3A-hPl"/>
                             <constraint firstItem="BlW-bi-4Pn" firstAttribute="top" secondItem="APs-bp-yYg" secondAttribute="top" id="PXi-Pg-uH2"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="VgP-zE-bDc" secondAttribute="trailing" id="PmX-18-47N"/>
                             <constraint firstItem="9WK-S3-zfJ" firstAttribute="top" secondItem="VgP-zE-bDc" secondAttribute="bottom" id="Rat-qP-ScS"/>
-                            <constraint firstItem="jZX-L4-msz" firstAttribute="top" secondItem="9WK-S3-zfJ" secondAttribute="bottom" id="Tt7-jB-sDO"/>
                             <constraint firstItem="9WK-S3-zfJ" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" constant="16" id="VHt-Zb-IiS"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="BlW-bi-4Pn" secondAttribute="trailing" id="Wfo-bY-qBy"/>
+                            <constraint firstItem="PLG-O0-95d" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" id="Xz3-1G-2Bu"/>
                             <constraint firstItem="VgP-zE-bDc" firstAttribute="top" secondItem="Jgh-Go-25E" secondAttribute="top" id="fPW-s3-jH0"/>
                             <constraint firstItem="BlW-bi-4Pn" firstAttribute="leading" secondItem="Jgh-Go-25E" secondAttribute="leading" id="lqr-yZ-Fdc"/>
                             <constraint firstAttribute="bottom" secondItem="jZX-L4-msz" secondAttribute="bottom" id="mVF-18-JGi"/>
                             <constraint firstItem="VgP-zE-bDc" firstAttribute="bottom" secondItem="BlW-bi-4Pn" secondAttribute="bottom" id="r0M-gF-071"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="jZX-L4-msz" secondAttribute="trailing" id="tLL-rW-mMN"/>
+                            <constraint firstItem="PLG-O0-95d" firstAttribute="top" secondItem="9WK-S3-zfJ" secondAttribute="bottom" id="yJL-8z-XKk"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="9WK-S3-zfJ" secondAttribute="trailing" id="yid-3b-2e3"/>
                         </constraints>
                     </view>
@@ -241,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZf-KI-lW1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1038" y="157"/>
+            <point key="canvasLocation" x="1037.68115942029" y="156.69642857142856"/>
         </scene>
     </scenes>
     <resources>
@@ -252,6 +262,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
