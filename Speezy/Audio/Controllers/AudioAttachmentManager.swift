@@ -20,7 +20,7 @@ enum AttachmentFetchResult {
 }
 
 typealias AttachmentChangeHandler = (AttachmentChangeResult) -> Void
-typealias AttachmentFetchHandler = (Result<UIImage, Error>) -> Void
+typealias AttachmentFetchHandler = (StorageFetchResult<UIImage>) -> Void
 
 class AudioAttachmentManager {
 

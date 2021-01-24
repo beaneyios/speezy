@@ -23,9 +23,26 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
             return
         }
         
+        DatabaseProfileManager().checkUsernameExists(userName: profile.userName) { (result) in
+            switch result {
+            case let .success(exists):
+                if exists {
+                    let error = FormError(message: "Username already exists", field: .username)
+                    completion(.failure(error))
+                } else {
+                    self.createUserInFirebase(completion: completion)
+                }
+            case let .failure(error):
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func createUserInFirebase(completion: @escaping (AuthResult) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
-                self.createProfileInFireStore(
+                self.createProfileInRealtimeDatabase(
                     userId: user.uid,
                     completion: completion
                 )
@@ -33,10 +50,10 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
                 let error = AuthErrorFactory.authError(for: error)
                 completion(.failure(error))
             }
-        }  
+        }
     }
     
-    private func createProfileInFireStore(userId: String, completion: @escaping (AuthResult) -> Void) {
+    private func createProfileInRealtimeDatabase(userId: String, completion: @escaping (AuthResult) -> Void) {
         DatabaseProfileManager().updateUserProfile(
             userId: userId,
             profile: profile,

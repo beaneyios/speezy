@@ -12,7 +12,7 @@ import FirebaseStorage
 class CloudImageManager {
     static func fetchImage(
         at path: String,
-        completion: @escaping (Result<UIImage, Error>) -> Void
+        completion: @escaping (StorageFetchResult<UIImage>) -> Void
     ) {
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
@@ -21,8 +21,7 @@ class CloudImageManager {
         profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             guard let data = data, let image = UIImage(data: data) else {
                 // TODO: Handle error.
-                assertionFailure("Errored with error \(error?.localizedDescription)")
-//                completion(.failure(error))
+                completion(.failure(error))
                 return
             }
             

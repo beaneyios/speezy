@@ -30,6 +30,21 @@ class DatabaseProfileManager {
         }
     }
     
+    func checkUsernameExists(
+        userName: String,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
+            if let exists = snapshot.value as? Bool {
+                completion(.success(exists))
+                return
+            }
+            
+            completion(.success(false))
+        }
+    }
+    
     func updateUserProfile(
         userId: String,
         profile: Profile,
@@ -104,7 +119,16 @@ class DatabaseProfileManager {
                 
                 completion(.failure(error))
             } else {
-                completion(.success)
+                // Make sure to update the usernames table so we can check if a user exists or not.
+                let usernamesChild = ref.child("usernames/\(profile.userName)")
+                usernamesChild.setValue(true) { (error, ref) in
+                    if let error = error {
+                        let error = AuthErrorFactory.authError(for: error)
+                        completion(.failure(error))
+                    } else {
+                        completion(.success)
+                    }
+                }
             }
         }
     }

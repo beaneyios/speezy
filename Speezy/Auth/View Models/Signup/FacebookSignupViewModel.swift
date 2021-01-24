@@ -52,15 +52,27 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
             return
         }
         
-        let credential = FacebookAuthProvider.credential(
-            withAccessToken: accessToken
-        )
-        
-        
-        signIn(credential: credential, completion: completion)
+        DatabaseProfileManager().checkUsernameExists(userName: profile.userName) { (result) in
+            switch result {
+            case let .success(exists):
+                if exists {
+                    let error = FormError(message: "Username already exists", field: .username)
+                    completion(.failure(error))
+                } else {
+                    self.createUserInFirebase(token: accessToken, completion: completion)
+                }
+            case let .failure(error):
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
+            }
+        }
     }
     
-    private func signIn(credential: AuthCredential, completion: @escaping (AuthResult) -> Void) {
+    private func createUserInFirebase(token: String, completion: @escaping (AuthResult) -> Void) {
+        let credential = FacebookAuthProvider.credential(
+            withAccessToken: token
+        )
+        
         Auth.auth().signIn(with: credential) { (result, error) in
             if let user = result?.user {
                 if let displayName = user.displayName {
@@ -73,6 +85,9 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                     profileImage: self.profileImageAttachment,
                     completion: completion
                 )
+            } else {
+                let formError = AuthErrorFactory.authError(for: error)
+                completion(.failure(formError))
             }
         }
     }

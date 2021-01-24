@@ -39,6 +39,7 @@
 		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
+		BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */; };
 		BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */; };
 		BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */; };
 		BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */; };
@@ -267,6 +268,7 @@
 		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
+		BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFetchResult.swift; sourceTree = "<group>"; };
 		BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionLoadingViewController.swift; sourceTree = "<group>"; };
 		BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptCollectionViewController.swift; sourceTree = "<group>"; };
 		BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */,
 				BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */,
 				BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */,
+				BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1623,6 +1626,7 @@
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEE47F0F25BC55B000AF47FA /* ContactListViewModel.swift in Sources */,
 				BEF425B725AB285A00DC8E3D /* FormError.swift in Sources */,
+				BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */,
 				BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
