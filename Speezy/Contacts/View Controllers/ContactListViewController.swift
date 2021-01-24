@@ -9,7 +9,9 @@
 import UIKit
 
 protocol ContactListViewControllerDelegate: AnyObject {
+    func contactListViewControllerDidSelectBack(_ viewController: ContactListViewController)
     func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact)
+    func contactListViewControllerDidSelectNewContact(_ viewController: ContactListViewController)
 }
 
 class ContactListViewController: UIViewController {
@@ -24,6 +26,14 @@ class ContactListViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         listenForChanges()
+    }
+    
+    func insertNewContactItem(contact: Contact) {
+        viewModel.insertNewContactItem(contact: contact)
+    }
+    
+    @IBAction func newContactTapped(_ sender: Any) {
+        delegate?.contactListViewControllerDidSelectNewContact(self)
     }
     
     private func listenForChanges() {

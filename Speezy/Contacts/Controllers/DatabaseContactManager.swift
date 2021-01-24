@@ -12,6 +12,21 @@ import FirebaseDatabase
 class DatabaseContactManager {
     var currentQuery: DatabaseQuery?
     
+    func addContact(
+        userContact: Contact,
+        contact: Contact,
+        completion: @escaping (Result<Contact, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        let contactChild = ref.child("users/\(userContact.userId)/contacts/\(contact.userId)")
+        contactChild.setValue(contact.toDict) { (error, _) in
+            let secondContactChild = ref.child("users/\(contact.userId)/contacts/\(userContact.userId)")
+            secondContactChild.setValue(userContact.toDict) { (error, ref) in
+                completion(.success(contact))
+            }
+        }
+    }
+    
     func fetchContacts(
         userId: String,
         completion: @escaping (Result<[Contact], Error>) -> Void

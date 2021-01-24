@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="360" height="81"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Alex Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLA-8e-iq1">
-                                <rect key="frame" x="65" y="16" width="271" height="48"/>
+                                <rect key="frame" x="65" y="16" width="83" height="48"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -58,9 +58,16 @@
                                     <constraint firstItem="062-wJ-7QJ" firstAttribute="leading" secondItem="Gw3-5j-zz6" secondAttribute="leading" id="V9w-FY-xbc"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTf-99-TKG">
+                                <rect key="frame" x="164" y="30" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Gw3-5j-zz6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eTf-99-TKG" secondAttribute="trailing" constant="16" id="1Jw-Ye-C1F"/>
                             <constraint firstItem="VLA-8e-iq1" firstAttribute="leading" secondItem="PBH-Qc-sDh" secondAttribute="trailing" constant="16" id="34R-vU-hrs"/>
                             <constraint firstAttribute="trailing" secondItem="Gw3-5j-zz6" secondAttribute="trailing" constant="24" id="4LP-5s-QRd"/>
                             <constraint firstAttribute="trailing" secondItem="pFy-OP-QDA" secondAttribute="trailing" id="AYM-0t-6sg"/>
@@ -68,10 +75,11 @@
                             <constraint firstAttribute="bottom" secondItem="pFy-OP-QDA" secondAttribute="bottom" id="G5U-ot-txH"/>
                             <constraint firstItem="pFy-OP-QDA" firstAttribute="leading" secondItem="wpr-Ty-I8h" secondAttribute="leading" constant="24" id="Glg-lj-y8s"/>
                             <constraint firstItem="PBH-Qc-sDh" firstAttribute="leading" secondItem="wpr-Ty-I8h" secondAttribute="leading" constant="24" id="HEJ-kJ-rSr"/>
-                            <constraint firstAttribute="trailing" secondItem="VLA-8e-iq1" secondAttribute="trailing" constant="24" id="Ofd-D6-Z1v"/>
+                            <constraint firstItem="eTf-99-TKG" firstAttribute="leading" secondItem="VLA-8e-iq1" secondAttribute="trailing" constant="16" id="JE6-xS-xGY"/>
                             <constraint firstItem="PBH-Qc-sDh" firstAttribute="centerY" secondItem="VLA-8e-iq1" secondAttribute="centerY" id="Thg-gb-yuL"/>
                             <constraint firstItem="Gw3-5j-zz6" firstAttribute="centerY" secondItem="wpr-Ty-I8h" secondAttribute="centerY" id="eBr-9g-kYc"/>
                             <constraint firstItem="VLA-8e-iq1" firstAttribute="top" secondItem="wpr-Ty-I8h" secondAttribute="top" constant="16" id="kJ3-uF-90j"/>
+                            <constraint firstItem="eTf-99-TKG" firstAttribute="centerY" secondItem="VLA-8e-iq1" secondAttribute="centerY" id="neM-SZ-REO"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -88,6 +96,7 @@
                 <outlet property="profileImage" destination="PBH-Qc-sDh" id="rCB-zq-rG1"/>
                 <outlet property="tickIcon" destination="062-wJ-7QJ" id="NgD-od-qLJ"/>
                 <outlet property="titleLabel" destination="VLA-8e-iq1" id="T5v-Ri-B8d"/>
+                <outlet property="userNameLabel" destination="eTf-99-TKG" id="eL6-HH-JOF"/>
             </connections>
             <point key="canvasLocation" x="-449" y="148"/>
         </collectionViewCell>

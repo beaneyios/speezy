@@ -40,6 +40,9 @@
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
 		BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */; };
+		BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */; };
+		BE3C5DD825BD8AFD005E34BB /* NewContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */; };
+		BE3C5DDE25BD8B81005E34BB /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DDD25BD8B81005E34BB /* Debouncer.swift */; };
 		BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */; };
 		BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */; };
 		BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */; };
@@ -269,6 +272,9 @@
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
 		BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFetchResult.swift; sourceTree = "<group>"; };
+		BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
+		BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewModel.swift; sourceTree = "<group>"; };
+		BE3C5DDD25BD8B81005E34BB /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionLoadingViewController.swift; sourceTree = "<group>"; };
 		BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptCollectionViewController.swift; sourceTree = "<group>"; };
 		BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
@@ -502,6 +508,22 @@
 				BE222CC4258A2D1A007144FD /* AudioConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		BE3C5DDB25BD8B70005E34BB /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BE3C5DDC25BD8B76005E34BB /* Controllers */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BE3C5DDC25BD8B76005E34BB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE3C5DDD25BD8B81005E34BB /* Debouncer.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		BE4CCD9325A9F6D4007C21A6 /* Signup */ = {
@@ -748,6 +770,7 @@
 				BEECD88F25ACCF4100AD7AC3 /* Chat */,
 				BEA9D1DF25B46951000888A7 /* Cloud */,
 				BEE47F0125BC557600AF47FA /* Contacts */,
+				BE3C5DDB25BD8B70005E34BB /* Search */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BEFDB4F5255FF35F00362428 /* State */,
@@ -1043,6 +1066,7 @@
 			isa = PBXGroup;
 			children = (
 				BEE47F0A25BC55A900AF47FA /* ContactListViewController.swift */,
+				BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1051,6 +1075,7 @@
 			isa = PBXGroup;
 			children = (
 				BEE47F0E25BC55B000AF47FA /* ContactListViewModel.swift */,
+				BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1554,6 +1579,7 @@
 				BEE47EFB25BC433200AF47FA /* ChatCell.swift in Sources */,
 				BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */,
 				BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */,
+				BE3C5DDE25BD8B81005E34BB /* Debouncer.swift in Sources */,
 				BE6FD90C25B49BD800723732 /* URL+LastModified.swift in Sources */,
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
@@ -1561,6 +1587,7 @@
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
+				BE3C5DD825BD8AFD005E34BB /* NewContactViewModel.swift in Sources */,
 				BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */,
 				BE50344F24BB25DA00A414D1 /* PlaybackWaveView.swift in Sources */,
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
@@ -1622,6 +1649,7 @@
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
 				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
+				BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */,
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEE47F0F25BC55B000AF47FA /* ContactListViewModel.swift in Sources */,

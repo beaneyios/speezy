@@ -10,13 +10,17 @@ import Foundation
 
 class DatabaseContactParser {
     static func parseContact(key: String, dict: NSDictionary) -> Contact? {
-        guard let displayName = dict["display_name"] as? String else {
+        guard
+            let displayName = dict["display_name"] as? String,
+            let userName = dict["user_name"] as? String
+        else {
             return nil
         }
         
         return Contact(
             userId: key,
             displayName: displayName,
+            userName: userName,
             profilePhotoUrl: URL(key: "profile_photo_url", dict: dict)
         )
     }

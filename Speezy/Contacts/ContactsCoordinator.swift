@@ -37,7 +37,43 @@ class ContactsCoordinator: ViewCoordinator {
             identifier: "ContactListViewController"
         ) as! ContactListViewController
         
-        
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func navigateToNewContact() {
+        let viewController = storyboard.instantiateViewController(
+            identifier: "NewContactViewController"
+        ) as! NewContactViewController
+        viewController.delegate = self
+        navigationController.present(viewController, animated: true, completion: nil)
+    }
+}
+
+extension ContactsCoordinator: ContactListViewControllerDelegate {
+    func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact) {
+        
+    }
+    
+    func contactListViewControllerDidSelectBack(_ viewController: ContactListViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func contactListViewControllerDidSelectNewContact(_ viewController: ContactListViewController) {
+        navigateToNewContact()
+    }
+}
+
+extension ContactsCoordinator: NewContactViewControllerDelegate {    
+    var contactListViewController: ContactListViewController? {
+        navigationController.viewControllers.compactMap {
+            $0 as? ContactListViewController
+        }.first
+    }
+    
+    func newContactViewController(_ viewController: NewContactViewController, didCreateContact contact: Contact) {
+        viewController.dismiss(animated: true) {
+            self.contactListViewController?.insertNewContactItem(contact: contact)
+        }
     }
 }

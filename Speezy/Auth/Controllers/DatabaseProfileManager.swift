@@ -30,18 +30,41 @@ class DatabaseProfileManager {
         }
     }
     
+    func fetchProfile(
+        userName: String,
+        completion: @escaping (Result<(Profile, String), Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
+            guard let userId = snapshot.value as? String else {
+                let error = NSError(domain: "database", code: 404, userInfo: nil)
+                completion(.failure(error))
+                return
+            }
+            
+            self.fetchProfile(userId: userId) { (result) in
+                switch result {
+                case let .success(profile):
+                    completion(.success((profile, userId)))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
     func checkUsernameExists(
         userName: String,
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         let ref = Database.database().reference()
         ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
-            if let exists = snapshot.value as? Bool {
-                completion(.success(exists))
+            if snapshot.value != nil {
+                completion(.success(false))
                 return
             }
             
-            completion(.success(false))
+            completion(.success(true))
         }
     }
     
@@ -121,7 +144,7 @@ class DatabaseProfileManager {
             } else {
                 // Make sure to update the usernames table so we can check if a user exists or not.
                 let usernamesChild = ref.child("usernames/\(profile.userName)")
-                usernamesChild.setValue(true) { (error, ref) in
+                usernamesChild.setValue(userId) { (error, ref) in
                     if let error = error {
                         let error = AuthErrorFactory.authError(for: error)
                         completion(.failure(error))

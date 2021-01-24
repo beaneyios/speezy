@@ -23,6 +23,10 @@ extension ContactCellModel {
         contact.displayName
     }
     
+    var userNameText: String {
+        contact.userName
+    }
+    
     var accountImage: UIImage? {
         UIImage(named: "account-btn")
     }

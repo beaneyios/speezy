@@ -29,6 +29,8 @@ class ContactListViewModel {
             case let .success(contacts):
                 self.items = contacts.map {
                     ContactCellModel(contact: $0, selected: nil)
+                }.sorted {
+                    $0.contact.displayName < $1.contact.displayName
                 }
                 
                 self.didChange?(.loaded)
@@ -36,6 +38,21 @@ class ContactListViewModel {
                 break
             }
         }
+    }
+    
+    func insertNewContactItem(contact: Contact) {
+        let newCellModel = ContactCellModel(contact: contact, selected: nil)
+        if items.isEmpty {
+            items.append(newCellModel)
+        } else {
+            items.insert(newCellModel, at: 0)
+        }
+        
+        items.sort {
+            $0.contact.displayName < $1.contact.displayName
+        }
+        
+        didChange?(.loaded)
     }
 }
 

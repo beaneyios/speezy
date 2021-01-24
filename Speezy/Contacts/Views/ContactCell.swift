@@ -12,6 +12,7 @@ class ContactCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var tickIcon: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     var viewModel: ContactCellModel?
     
@@ -27,6 +28,7 @@ class ContactCell: UICollectionViewCell, NibLoadable {
         titleLabel.text = item.titleText
         profileImage.image = item.accountImage
         tickIcon.isHidden = item.selected == nil
+        userNameLabel.text = item.userNameText
         
         configureSelectedTick(selected: item.selected)
     }
