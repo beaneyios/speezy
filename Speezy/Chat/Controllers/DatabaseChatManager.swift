@@ -224,6 +224,22 @@ extension DatabaseChatManager {
         }
     }
     
+    func updateChat(
+        chat: Chat,
+        completion: @escaping (Result<Chat, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        let groupChild = ref.child("chats/\(chat.id)")
+        groupChild.setValue(chat.toDict) { (error, ref) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            completion(.success(chat))
+        }
+    }
+    
     private func createChat(
         chatId: String,
         chatters: [Chatter],
@@ -235,22 +251,21 @@ extension DatabaseChatManager {
             chatters: chatters,
             title: title,
             lastUpdated: Date().timeIntervalSince1970,
-            lastMessage: "New chat started"
+            lastMessage: "New chat started",
+            chatImageUrl: nil
         )
         
-        let ref = Database.database().reference()
-        let groupChild = ref.child("chats/\(chat.id)")
-        groupChild.setValue(chat.toDict) { (error, ref) in
-            if let error = error {
+        updateChat(chat: chat) { (result) in
+            switch result {
+            case let .success(chat):
+                self.addChatToUsersLists(
+                    chat: chat,
+                    chatters: chatters,
+                    completion: completion
+                )
+            case let .failure(error):
                 completion(.failure(error))
-                return
             }
-            
-            self.addChatToUsersLists(
-                chat: chat,
-                chatters: chatters,
-                completion: completion
-            )
         }
     }
     

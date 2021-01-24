@@ -85,7 +85,7 @@ class NewContactViewModel {
                         )
                     ]
                 case let .failure(error):
-                    break
+                    self.items = []
                 }
                 
                 self.didChange?(.loaded)

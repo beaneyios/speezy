@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import FirebaseStorage
 
-struct ChatCellModel {
+class ChatCellModel {
     let chat: Chat
+    
+    private var downloadTask: StorageDownloadTask?
     
     init(chat: Chat) {
         self.chat = chat
@@ -28,5 +31,20 @@ extension ChatCellModel {
     var lastUpdatedText: String {
         let date = Date(timeIntervalSince1970: chat.lastUpdated)
         return date.relativeTimeString
+    }
+    
+    func loadImage(completion: @escaping (StorageFetchResult<UIImage>) -> Void) {
+        if chat.chatImageUrl == nil {
+            // TODO: Handle image error better here.
+            let error = NSError(domain: "", code: 404, userInfo: nil)
+            completion(.failure(error))
+            return
+        }
+        
+        downloadTask?.cancel()
+        downloadTask = CloudImageManager.fetchImage(
+            at: "chats/\(chat.id).jpg",
+            completion: completion
+        )
     }
 }

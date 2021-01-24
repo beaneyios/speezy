@@ -19,6 +19,7 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var titleTextFieldSeparator: UIView!
     @IBOutlet weak var lblErrorMessage: UILabel?
+    @IBOutlet weak var groupImageButton: SpeezyButton!
     
     @IBOutlet weak var createSpinner: UIActivityIndicatorView!
     @IBOutlet weak var createButton: UIButton!
@@ -49,10 +50,20 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
         startListeningForKeyboardChanges()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        groupImageButton.layer.cornerRadius = groupImageButton.frame.width / 2.0
+    }
+    
     override func willMove(toParent parent: UIViewController?) {
         if parent == nil {
             stopListeningForKeyboardChanges()
         }
+    }
+    
+    @IBAction func uploadChatImage(_ sender: Any) {
+        showAttachmentAlert()
     }
     
     @IBAction func createChat(_ sender: Any) {
@@ -207,5 +218,74 @@ extension NewChatViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension NewChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func configureProfileImage() {
+        groupImageButton.startLoading(color: .lightGray)
+        groupImageButton.imageView?.contentMode = .scaleAspectFill
+        
+        let imageApplication: (UIImage?) -> Void = { image in
+            self.groupImageButton.stopLoading()
+            self.groupImageButton.setImage(image, for: .normal)
+        }
+        
+        imageApplication(viewModel.attachedImage ?? UIImage(named: "camera-button"))
+    }
+    
+    private func showAttachmentAlert() {
+        let alert = UIAlertController(
+            title: "Select your photo",
+            message: "From where you want to pick this image?",
+            preferredStyle: .actionSheet
+        )
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+            self.getImage(fromSourceType: .camera)
+        }
+        
+        let photoAlbumAction = UIAlertAction(title: "Photo Album", style: .default) { action in
+            self.getImage(fromSourceType: .photoLibrary)
+        }
+        
+        alert.addAction(cameraAction)
+        alert.addAction(photoAlbumAction)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        //Check is source type available
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            groupImageButton.startLoading(color: .lightGray)
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+                return
+            }
+            
+            self.viewModel.setImage(image)
+            self.configureProfileImage()
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        groupImageButton.stopLoading()
+        picker.dismiss(animated: true, completion: nil)
     }
 }

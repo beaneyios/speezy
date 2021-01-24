@@ -23,7 +23,8 @@ class DatabaseChatParser {
             chatters: [],
             title: title,
             lastUpdated: lastUpdated,
-            lastMessage: lastMessage
+            lastMessage: lastMessage,
+            chatImageUrl: URL(key: "chat_image_url", dict: dict)
         )
         
         return chat

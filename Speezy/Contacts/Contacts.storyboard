@@ -237,16 +237,16 @@
                                             <constraint firstAttribute="height" constant="1" id="3lQ-RM-kPW"/>
                                         </constraints>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-button" translatesAutoresizingMaskIntoConstraints="NO" id="Sj6-19-T8t">
-                                        <rect key="frame" x="16" y="16.5" width="15" height="31"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn-close" translatesAutoresizingMaskIntoConstraints="NO" id="Sj6-19-T8t">
+                                        <rect key="frame" x="16" y="16.5" width="20" height="31"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="UnG-Ur-6MQ"/>
+                                            <constraint firstAttribute="width" constant="20" id="UnG-Ur-6MQ"/>
                                             <constraint firstAttribute="height" constant="31" id="qSl-kC-gGQ"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUm-yD-Vt6">
-                                        <rect key="frame" x="0.0" y="0.0" width="47" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="52" height="64"/>
                                         <connections>
                                             <action selector="goBack:" destination="sGz-9n-8qs" eventType="touchUpInside" id="XiR-kX-o4A"/>
                                         </connections>
@@ -350,6 +350,7 @@
     </scenes>
     <resources>
         <image name="back-button" width="250" height="500"/>
+        <image name="btn-close" width="500" height="500"/>
         <image name="empty-mic" width="500" height="500"/>
         <image name="gradient-background" width="1063" height="1891"/>
         <systemColor name="separatorColor">

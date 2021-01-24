@@ -10,15 +10,16 @@ import UIKit
 import FirebaseStorage
 
 class CloudImageManager {
+    @discardableResult
     static func fetchImage(
         at path: String,
         completion: @escaping (StorageFetchResult<UIImage>) -> Void
-    ) {
+    ) -> StorageDownloadTask {
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
         let profileImagesRef = storageRef.child(path)
         
-        profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+        return profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             guard let data = data, let image = UIImage(data: data) else {
                 // TODO: Handle error.
                 completion(.failure(error))

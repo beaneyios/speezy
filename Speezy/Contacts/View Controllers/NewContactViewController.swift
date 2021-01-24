@@ -37,6 +37,12 @@ class NewContactViewController: UIViewController {
         startListeningForKeyboardChanges()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        titleTextField.becomeFirstResponder()
+    }
+    
     override func willMove(toParent parent: UIViewController?) {
         if parent == nil {
             stopListeningForKeyboardChanges()

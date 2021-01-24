@@ -17,6 +17,7 @@ class NewChatViewModel {
     
     private(set) var selectedContacts = [Contact]()
     private(set) var title: String?
+    private(set) var attachedImage: UIImage?
     
     private(set) var items = [ContactCellModel]()
     
@@ -49,6 +50,10 @@ class NewChatViewModel {
         }
     }
     
+    func setImage(_ image: UIImage?) {
+        self.attachedImage = image
+    }
+    
     func setTitle(_ title: String) {
         self.title = title
     }
@@ -67,6 +72,51 @@ class NewChatViewModel {
             return
         }
         
+        createChatInFirebase(userId: userId) { (result) in
+            switch result {
+            case let .success(chat):
+                if let attachment = self.attachedImage {
+                    self.uploadImageAndUpdate(image: attachment, chat: chat)
+                } else {
+                    self.didChange?(.chatCreated(chat))
+                }
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func uploadImageAndUpdate(image: UIImage, chat: Chat) {
+        CloudImageManager.uploadImage(
+            image,
+            path: "chats/\(chat.id).jpg")
+        { (result) in
+            switch result {
+            case let .success(url):
+                let newChat = chat.withChatImageUrl(url)
+                self.updateChatInFirebase(chat: newChat)
+            case let .failure(error):
+                self.didChange?(.chatCreated(chat))
+            }
+        }
+    }
+    
+    private func updateChatInFirebase(chat: Chat) {
+        chatManager.updateChat(chat: chat) { (result) in
+            switch result {
+            case let .success(chat):
+                self.didChange?(.chatCreated(chat))
+            case let .failure(error):
+                // TODO: Handle error
+                break
+            }
+        }
+    }
+    
+    private func createChatInFirebase(
+        userId: String,
+        completion: @escaping (Result<Chat, Error>) -> Void
+    ) {
         profileManager.fetchProfile(userId: userId) { (result) in
             switch result {
             case let .success(profile):
@@ -76,14 +126,17 @@ class NewChatViewModel {
                     profileImageUrl: profile.profileImageUrl
                 )
                 
-                self.createChat(with: chatter)
+                self.createChat(with: chatter, completion: completion)
             case let .failure(error):
                 break
             }
         }
     }
     
-    private func createChat(with chatter: Chatter) {
+    private func createChat(
+        with chatter: Chatter,
+        completion: @escaping (Result<Chat, Error>) -> Void
+    ) {
         guard let title = self.title else {
             return
         }
@@ -95,9 +148,9 @@ class NewChatViewModel {
         ) { (result) in
             switch result {
             case let .success(chat):
-                self.didChange?(.chatCreated(chat))
+                completion(.success(chat))
             case let .failure(error):
-                break
+                completion(.failure(error))
             }
         }
     }

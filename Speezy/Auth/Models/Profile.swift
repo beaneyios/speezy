@@ -31,6 +31,6 @@ struct Profile {
         self.userName = username
         self.occupation = occupation
         self.aboutYou = about
-        self.profileImageUrl = nil
+        self.profileImageUrl = URL(key: "profile_image", dict: dict)
     }
 }
