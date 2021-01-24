@@ -20,6 +20,16 @@ protocol HomeViewControllerDelegate: AnyObject {
 class HomeViewController: UIViewController {
     weak var delegate: HomeViewControllerDelegate?
     
+    @IBOutlet var roundables: [UIView]!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        roundables.forEach {
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 15.0
+        }
+    }
     
     @IBAction func goToAudio(_ sender: Any) {
         delegate?.homeViewControllerDidSelectAudio(self)

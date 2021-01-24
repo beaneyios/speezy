@@ -17,6 +17,7 @@ protocol ContactListViewControllerDelegate: AnyObject {
 class ContactListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var emptyView: UIView!
     
     weak var delegate: ContactListViewControllerDelegate?
     
@@ -45,12 +46,21 @@ class ContactListViewController: UIViewController {
             DispatchQueue.main.async {
                 switch change {
                 case .loaded:
+                    self.toggleEmptyView()
                     self.collectionView.reloadData()
                 }
             }
         }
 
         viewModel.listenForData()
+    }
+    
+    private func toggleEmptyView() {
+        if viewModel.shouldShowEmptyView {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
     }
     
     private func configureCollectionView() {
@@ -88,7 +98,7 @@ extension ContactListViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 80.0)
+        CGSize(width: collectionView.frame.width, height: 70.0)
     }
 }
 

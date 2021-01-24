@@ -24,7 +24,7 @@ extension ContactCellModel {
     }
     
     var userNameText: String {
-        contact.userName
+        "(\(contact.userName))"
     }
     
     var accountImage: UIImage? {

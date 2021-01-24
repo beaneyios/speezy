@@ -16,6 +16,10 @@ class SearchDebouncer {
         self.interval = seconds
     }
     
+    func cancel() {
+        worker.cancel()
+    }
+    
     func debounce(action: @escaping (() -> Void)) {
         worker.cancel()
         worker = DispatchWorkItem(block: { action() })

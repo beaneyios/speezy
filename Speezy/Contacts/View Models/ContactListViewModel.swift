@@ -18,6 +18,10 @@ class ContactListViewModel {
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
     
+    var shouldShowEmptyView: Bool {
+        items.isEmpty
+    }
+    
     func listenForData() {
         guard let userId = Auth.auth().currentUser?.uid else {
             assertionFailure("No user id")

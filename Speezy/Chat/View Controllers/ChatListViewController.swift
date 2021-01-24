@@ -17,6 +17,8 @@ protocol ChatListViewControllerDelegate: AnyObject {
 class ChatListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     weak var delegate: ChatListViewControllerDelegate?
     
@@ -26,6 +28,8 @@ class ChatListViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         listenForChanges()
+        
+        collectionView.alpha = 0.0
     }
     
     @IBAction func createNewChat(_ sender: Any) {
@@ -45,12 +49,33 @@ class ChatListViewController: UIViewController {
             DispatchQueue.main.async {
                 switch change {
                 case .loaded:
+                    self.toggleEmptyView()
                     self.collectionView.reloadData()
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        self.collectionView.alpha = 1.0
+                    }
+                case let .loading(isLoading):
+                    if isLoading {
+                        self.spinner.startAnimating()
+                        self.spinner.isHidden = false
+                    } else {
+                        self.spinner.stopAnimating()
+                        self.spinner.isHidden = true
+                    }
                 }
             }
         }
 
         viewModel.listenForData()
+    }
+    
+    private func toggleEmptyView() {
+        if viewModel.shouldShowEmptyView {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
     }
     
     private func configureCollectionView() {

@@ -56,11 +56,11 @@ extension MessageCellModel {
     }
     
     var displayNameText: String? {
-        isSender ? nil : message.chatter.displayName
+        isSender ? "You" : message.chatter.displayName
     }
     
     var displayNameTint: UIColor {
-        .speezyPurple
+        isSender ? .white : .speezyPurple
     }
     
     // Timestamp

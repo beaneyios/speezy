@@ -12,11 +12,16 @@ import FirebaseAuth
 class ChatListViewModel {
     enum Change {
         case loaded
+        case loading(Bool)
     }
     
     private(set) var items = [ChatCellModel]()
     var didChange: ((Change) -> Void)?
     let chatListManager = DatabaseChatManager()
+    
+    var shouldShowEmptyView: Bool {
+        items.isEmpty
+    }
     
     func listenForData() {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -24,6 +29,7 @@ class ChatListViewModel {
             return
         }
         
+        didChange?(.loading(true))
         chatListManager.fetchChats(userId: userId) { (result) in
             switch result {
             case let .success(chats):
@@ -35,6 +41,8 @@ class ChatListViewModel {
             case let .failure(error):
                 break
             }
+            
+            self.didChange?(.loading(false))
         }
     }
     

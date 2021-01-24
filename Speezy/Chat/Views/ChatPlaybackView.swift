@@ -66,6 +66,8 @@ class ChatPlaybackView: UIView, NibLoadable {
     }
     
     @IBAction func sendTapped(_ sender: Any) {
+        audioManager?.markAsClean()
+        
         sendContainer.alpha = 1.0
         sendSpinner.isHidden = false
         sendSpinner.startAnimating()

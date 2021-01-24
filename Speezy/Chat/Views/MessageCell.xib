@@ -54,8 +54,8 @@
                                             <constraint firstAttribute="height" constant="15" id="e1W-Kz-iTu"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qa-c6-0V4">
-                                        <rect key="frame" x="24" y="16" width="208.5" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qa-c6-0V4">
+                                        <rect key="frame" x="24" y="16" width="35.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -82,8 +82,8 @@
                                         <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRM-4u-xxO">
-                                        <rect key="frame" x="248.5" y="16" width="35.5" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <rect key="frame" x="248" y="16" width="36" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -101,7 +101,7 @@
                                     <constraint firstItem="HcO-yk-p5g" firstAttribute="top" secondItem="9qa-c6-0V4" secondAttribute="bottom" constant="16" id="FWr-Lf-qb5"/>
                                     <constraint firstItem="nS3-yw-9Uq" firstAttribute="centerX" secondItem="eeY-VD-Mcy" secondAttribute="centerX" id="Ftm-TN-HHi"/>
                                     <constraint firstItem="zCB-2M-cOJ" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" id="LRL-V2-MzL"/>
-                                    <constraint firstItem="ZRM-4u-xxO" firstAttribute="leading" secondItem="9qa-c6-0V4" secondAttribute="trailing" constant="16" id="Rff-oI-DCU"/>
+                                    <constraint firstItem="ZRM-4u-xxO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9qa-c6-0V4" secondAttribute="trailing" constant="16" id="Rff-oI-DCU"/>
                                     <constraint firstItem="JsA-yO-RWG" firstAttribute="leading" secondItem="KKY-EB-1ns" secondAttribute="trailing" id="SHm-jx-jge"/>
                                     <constraint firstAttribute="trailing" secondItem="kio-MT-Ihq" secondAttribute="trailing" constant="24" id="dU4-KY-YmR"/>
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="top" secondItem="BUq-vR-o3i" secondAttribute="top" constant="16" id="drg-zt-mdX"/>

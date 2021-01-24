@@ -14,12 +14,13 @@ protocol ChatViewControllerDelegate: AnyObject {
 
 class ChatViewController: UIViewController, QuickRecordPresenting {
     
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var groupTitleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordButtonContainer: UIView!
     @IBOutlet weak var recordButtonContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var recordBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     weak var delegate: ChatViewControllerDelegate?
     
@@ -35,6 +36,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         addRecordButtonView()
         
         groupTitleLabel.text = viewModel.groupTitleText
+        collectionView.alpha = 0.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,8 +141,14 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
             DispatchQueue.main.async {
                 switch change {
                 case .loaded:
+                    self.toggleEmptyView()
                     self.collectionView.reloadData()
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        self.collectionView.alpha = 1.0
+                    }
                 case let .itemInserted(index):
+                    self.toggleEmptyView()
                     self.collectionView.insertItems(
                         at: [
                             IndexPath(
@@ -157,11 +165,27 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                     } else {
                         self.animateToRecordButtonView()
                     }
+                case let .loading(isLoading):
+                    if isLoading {
+                        self.spinner.startAnimating()
+                        self.spinner.isHidden = false
+                    } else {
+                        self.spinner.stopAnimating()
+                        self.spinner.isHidden = true
+                    }
                 }
             }
         }
         
         viewModel.listenForData()
+    }
+    
+    private func toggleEmptyView() {
+        if viewModel.shouldShowEmptyView {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
     }
     
     private func configureCollectionView() {

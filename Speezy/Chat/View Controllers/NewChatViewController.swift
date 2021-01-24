@@ -22,6 +22,9 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
     
     @IBOutlet weak var createSpinner: UIActivityIndicatorView!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var emptyView: UIView!
+    
+    @IBOutlet var keyboardBottomConstraints: [NSLayoutConstraint]!
     
     weak var delegate: NewChatViewControllerDelegate?
     
@@ -42,6 +45,14 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
         
         titleTextField.delegate = self
         createSpinner.isHidden = true
+        
+        startListeningForKeyboardChanges()
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            stopListeningForKeyboardChanges()
+        }
     }
     
     @IBAction func createChat(_ sender: Any) {
@@ -65,16 +76,23 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
             DispatchQueue.main.async {
                 switch change {
                 case .loaded:
+                    self.toggleEmptyView()
                     self.collectionView.reloadData()
                 case let .chatCreated(chat):
                     self.delegate?.newChatViewController(self, didCreateChat: chat)
-                default:
-                    break
                 }
             }
         }
 
         viewModel.listenForData()
+    }
+    
+    private func toggleEmptyView() {
+        if viewModel.shouldShowEmptyView {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
     }
     
     private func configureCollectionView() {
@@ -141,5 +159,53 @@ extension NewChatViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 80.0)
+    }
+}
+
+extension NewChatViewController {
+    func startListeningForKeyboardChanges() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(adjustForKeyboard),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+        
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(adjustForKeyboard),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+    }
+    
+    func stopListeningForKeyboardChanges() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self)
+    }
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            keyboardBottomConstraints.forEach {
+                $0.constant = 0.0
+            }
+        } else {
+            keyboardBottomConstraints.forEach {
+                $0.constant = keyboardViewEndFrame.height
+            }
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.setNeedsLayout()
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

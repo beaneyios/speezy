@@ -29,6 +29,10 @@ class NewContactViewModel {
     private let profileManager = DatabaseProfileManager()
     private let contactManager = DatabaseContactManager()
     
+    var shouldShowEmptyView: Bool {
+        !userName.isEmpty && items.isEmpty
+    }
+    
     func loadData() {
         guard let id = Auth.auth().currentUser?.uid else {
             return
@@ -56,14 +60,15 @@ class NewContactViewModel {
     
     func setUserName(userName: String) {
         self.userName = userName
-        
+    
         guard userName.count > 3 else {
+            debouncer.cancel()
             return
         }
         
         debouncer.debounce {
             self.didChange?(.loading(true))
-            self.profileManager.fetchProfile(userName: self.userName) { (result) in
+            self.profileManager.fetchProfile(userName: userName) { (result) in
                 switch result {
                 case let .success((profile, userId)):
                     let contact = Contact(

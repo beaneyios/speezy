@@ -31,7 +31,10 @@ class AudioItemListViewModel: NewItemGenerating {
         DatabaseAudioManager.fetchItems { (result) in
             switch result {
             case let .success(items):
-                self.audioItems = items
+                self.audioItems = items.sorted {
+                    $0.lastUpdated > $1.lastUpdated
+                }
+                
                 self.didChange?(.itemsLoaded)
             case let .failure(error):
                 // TODO: Handle error

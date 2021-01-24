@@ -25,6 +25,10 @@ class NewChatViewModel {
     let chatManager = DatabaseChatManager()
     let profileManager = DatabaseProfileManager()
     
+    var shouldShowEmptyView: Bool {
+        items.isEmpty
+    }
+    
     func listenForData() {
         guard let userId = Auth.auth().currentUser?.uid else {
             assertionFailure("No user id")

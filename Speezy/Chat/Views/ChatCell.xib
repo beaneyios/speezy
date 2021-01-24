@@ -22,14 +22,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="444" height="96"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Alex Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33v-Ni-Nj5">
-                                <rect key="frame" x="24" y="16" width="348" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <rect key="frame" x="24" y="16" width="339" height="23"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="15:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-tB-ovT">
-                                <rect key="frame" x="388" y="16" width="32" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="379" y="16" width="41" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -41,8 +41,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have an idea" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zyt-0v-Okh">
-                                <rect key="frame" x="24" y="45" width="396" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="24" y="47" width="396" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -53,7 +53,7 @@
                             <constraint firstItem="Zyt-0v-Okh" firstAttribute="leading" secondItem="GQQ-tK-hV1" secondAttribute="leading" constant="24" id="K40-XA-jFk"/>
                             <constraint firstAttribute="trailing" secondItem="nj7-tB-ovT" secondAttribute="trailing" constant="24" id="UhG-pu-en3"/>
                             <constraint firstAttribute="trailing" secondItem="WC2-07-j1M" secondAttribute="trailing" id="coH-Ke-vAa"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Zyt-0v-Okh" secondAttribute="bottom" constant="16" id="dEg-wP-QTW"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Zyt-0v-Okh" secondAttribute="bottom" constant="17" id="dEg-wP-QTW"/>
                             <constraint firstItem="nj7-tB-ovT" firstAttribute="leading" secondItem="33v-Ni-Nj5" secondAttribute="trailing" constant="16" id="evp-sk-kSj"/>
                             <constraint firstAttribute="trailing" secondItem="Zyt-0v-Okh" secondAttribute="trailing" constant="24" id="hre-fl-8fW"/>
                             <constraint firstItem="WC2-07-j1M" firstAttribute="leading" secondItem="GQQ-tK-hV1" secondAttribute="leading" constant="24" id="jT1-ew-buc"/>

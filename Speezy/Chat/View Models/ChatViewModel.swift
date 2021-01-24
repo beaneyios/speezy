@@ -11,6 +11,7 @@ import FirebaseAuth
 
 class ChatViewModel: NewItemGenerating {
     enum Change {
+        case loading(Bool)
         case loaded
         case itemInserted(index: Int)
     }
@@ -39,11 +40,16 @@ class ChatViewModel: NewItemGenerating {
         Auth.auth().currentUser?.uid ?? ""
     }
     
+    var shouldShowEmptyView: Bool {
+        items.isEmpty
+    }
+    
     init(chat: Chat) {
         self.chat = chat
     }
     
     func listenForData() {
+        didChange?(.loading(true))
         chatManager.fetchChatters(chat: chat) { (result) in
             switch result {
             case let .success(chatters):
@@ -72,6 +78,8 @@ class ChatViewModel: NewItemGenerating {
             case let .failure(error):
                 break
             }
+            
+            self.didChange?(.loading(false))
         }
     }
     
@@ -84,6 +92,7 @@ class ChatViewModel: NewItemGenerating {
             return
         }
         
+        didChange?(.loading(true))
         chatManager.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { (result) in
             switch result {
             case let .success(newMessages):
@@ -105,6 +114,8 @@ class ChatViewModel: NewItemGenerating {
                 assertionFailure("Errored with error \(error)")
                 // TODO: Handle errors.
             }
+            
+            self.didChange?(.loading(false))
         }
     }
     
