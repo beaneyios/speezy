@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -190,10 +191,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0AV-z1-GSR" userLabel="Empty View">
-                                <rect key="frame" x="0.0" y="184" width="414" height="712"/>
+                                <rect key="frame" x="0.0" y="174" width="414" height="722"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfM-cn-nC5">
-                                        <rect key="frame" x="0.0" y="260.5" width="414" height="191.5"/>
+                                        <rect key="frame" x="0.0" y="265.5" width="414" height="191.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No contacts found for that username." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIc-Dk-E3w">
                                                 <rect key="frame" x="0.0" y="166" width="414" height="25.5"/>
@@ -282,7 +283,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jZX-L4-msz">
-                                <rect key="frame" x="0.0" y="184" width="414" height="712"/>
+                                <rect key="frame" x="0.0" y="174" width="414" height="722"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qVn-x1-z55">
                                     <size key="itemSize" width="128" height="128"/>
@@ -293,32 +294,40 @@
                                 <cells/>
                             </collectionView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What is your contact's username?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9WK-S3-zfJ">
-                                <rect key="frame" x="16" y="108" width="398" height="75"/>
+                                <rect key="frame" x="39.5" y="108" width="374.5" height="65"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="qXj-Ze-416"/>
+                                    <constraint firstAttribute="height" constant="65" id="qXj-Ze-416"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="twitter" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLG-O0-95d">
-                                <rect key="frame" x="0.0" y="183" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="173" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="VI4-5H-2tO"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQS-3p-1i8">
+                                <rect key="frame" x="16" y="130" width="15.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="speezy-purple"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="APs-bp-yYg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="jZX-L4-msz" firstAttribute="top" secondItem="PLG-O0-95d" secondAttribute="bottom" id="1eB-UK-ulM"/>
+                            <constraint firstItem="cQS-3p-1i8" firstAttribute="centerY" secondItem="9WK-S3-zfJ" secondAttribute="centerY" id="3aw-Dk-5e5"/>
                             <constraint firstItem="jZX-L4-msz" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" id="4Vv-q7-dTE"/>
                             <constraint firstItem="VgP-zE-bDc" firstAttribute="leading" secondItem="Jgh-Go-25E" secondAttribute="leading" id="5cJ-UY-pxy"/>
+                            <constraint firstItem="cQS-3p-1i8" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" constant="16" id="CWt-ju-HqE"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="PLG-O0-95d" secondAttribute="trailing" id="IZ6-3A-hPl"/>
                             <constraint firstItem="BlW-bi-4Pn" firstAttribute="top" secondItem="APs-bp-yYg" secondAttribute="top" id="PXi-Pg-uH2"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="VgP-zE-bDc" secondAttribute="trailing" id="PmX-18-47N"/>
+                            <constraint firstItem="9WK-S3-zfJ" firstAttribute="leading" secondItem="cQS-3p-1i8" secondAttribute="trailing" constant="8" id="RNs-BZ-3ib"/>
                             <constraint firstItem="9WK-S3-zfJ" firstAttribute="top" secondItem="VgP-zE-bDc" secondAttribute="bottom" id="Rat-qP-ScS"/>
-                            <constraint firstItem="9WK-S3-zfJ" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" constant="16" id="VHt-Zb-IiS"/>
                             <constraint firstItem="0AV-z1-GSR" firstAttribute="top" secondItem="PLG-O0-95d" secondAttribute="bottom" id="VsX-Ck-tgl"/>
                             <constraint firstItem="APs-bp-yYg" firstAttribute="trailing" secondItem="BlW-bi-4Pn" secondAttribute="trailing" id="Wfo-bY-qBy"/>
                             <constraint firstItem="PLG-O0-95d" firstAttribute="leading" secondItem="APs-bp-yYg" secondAttribute="leading" id="Xz3-1G-2Bu"/>
@@ -353,6 +362,9 @@
         <image name="btn-close" width="500" height="500"/>
         <image name="empty-mic" width="500" height="500"/>
         <image name="gradient-background" width="1063" height="1891"/>
+        <namedColor name="speezy-purple">
+            <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="separatorColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -27,7 +27,7 @@ extension ContactCellModel {
     }
     
     var userNameText: String {
-        "(\(contact.userName))"
+        "(@\(contact.userName))"
     }
     
     func tickImage(for selected: Bool?) -> UIImage? {
@@ -48,7 +48,7 @@ extension ContactCellModel {
         
         downloadTask?.cancel()
         downloadTask = CloudImageManager.fetchImage(
-            at: "users/\(contact.userId).jpg",
+            at: "profile_images/\(contact.userId).jpg",
             completion: completion
         )
     }
