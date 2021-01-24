@@ -27,7 +27,7 @@ extension AudioCropping {
         stopTime: Double,
         finished: @escaping (String) -> Void
     ) {
-        let asset = AVAsset(url: audioItem.url)
+        let asset = AVAsset(url: audioItem.fileUrl)
         let outputPath = "\(audioItem.id)\(cropExtension)"
         
         guard

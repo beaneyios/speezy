@@ -14,13 +14,13 @@ protocol FirebaseSignupViewModel: AnyObject {
     var profile: Profile { get set }
     var profileImageAttachment: UIImage? { get set }
     func createProfile(completion: @escaping (AuthResult) -> Void)
-    func profileValidationError() -> AuthError?
+    func profileValidationError() -> FormError?
 }
 
 extension FirebaseSignupViewModel {
-    func profileValidationError() -> AuthError? {
+    func profileValidationError() -> FormError? {
         if profile.userName.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a username, you'll need it for adding contacts.",
                 field: Field.username
             )

@@ -23,9 +23,26 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
             return
         }
         
+        DatabaseProfileManager().checkUsernameExists(userName: profile.userName) { (result) in
+            switch result {
+            case let .success(exists):
+                if exists {
+                    let error = FormError(message: "Username already exists", field: .username)
+                    completion(.failure(error))
+                } else {
+                    self.createUserInFirebase(completion: completion)
+                }
+            case let .failure(error):
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func createUserInFirebase(completion: @escaping (AuthResult) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
-                self.createProfileInFireStore(
+                self.createProfileInRealtimeDatabase(
                     userId: user.uid,
                     completion: completion
                 )
@@ -33,11 +50,11 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
                 let error = AuthErrorFactory.authError(for: error)
                 completion(.failure(error))
             }
-        }  
+        }
     }
     
-    private func createProfileInFireStore(userId: String, completion: @escaping (AuthResult) -> Void) {
-        FirebaseUserProfileEditor().updateUserProfile(
+    private func createProfileInRealtimeDatabase(userId: String, completion: @escaping (AuthResult) -> Void) {
+        DatabaseProfileManager().updateUserProfile(
             userId: userId,
             profile: profile,
             profileImage: profileImageAttachment,
@@ -47,37 +64,37 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
 }
 
 extension EmailSignupViewModel {    
-    func validationError() -> AuthError? {
+    func validationError() -> FormError? {
         if email.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a valid email address",
                 field: Field.email
             )
         }
         
         if !isValidEmail(email) {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a valid email address",
                 field: Field.email
             )
         }
         
         if password.isEmpty {
-            return AuthError(
+            return FormError(
                 message: "Please ensure you enter a password",
                 field: Field.password
             )
         }
         
         if password.count < 6 {
-            return AuthError(
+            return FormError(
                 message: "Password must be at least 6 characters",
                 field: Field.password
             )
         }
         
         if password != verifyPassword {
-            return AuthError(
+            return FormError(
                 message: "Passwords do not match",
                 field: Field.passwordVerifier
             )

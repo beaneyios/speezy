@@ -38,8 +38,12 @@ class AudioLevelGenerator {
     }
     
     typealias AudioLevelCompletion = (AudioData) -> Void
-    static func render(fromAudioItem item: AudioItem, targetSamplesPolicy: TargetSamples, completion: @escaping AudioLevelCompletion) {
-        self.load(fromAudioURL: item.url) { (context) in
+    static func render(
+        fromAudioItem item: AudioItem,
+        targetSamplesPolicy: TargetSamples,
+        completion: @escaping AudioLevelCompletion
+    ) {
+        self.load(fromAudioURL: item.fileUrl) { (context) in
             guard let context = context else {
                 completion(
                     AudioData(
@@ -54,8 +58,8 @@ class AudioLevelGenerator {
             let targetSamples: Int = {
                 switch targetSamplesPolicy {
                 case .fitToDuration:
-                    guard let audioFile = try? AVAudioFile(forReading: item.url) else {
-                        assertionFailure("Couldn't load URL \(item.url.absoluteString)")
+                    guard let audioFile = try? AVAudioFile(forReading: item.fileUrl) else {
+                        assertionFailure("Couldn't load URL \(item.fileUrl.absoluteString)")
                         return 100
                     }
                     
@@ -75,7 +79,7 @@ class AudioLevelGenerator {
             }()
             
             let levels = self.render(audioContext: context, targetSamples: targetSamples)
-            let seconds = item.duration
+            let seconds = item.calculatedDuration
             let percentageLevels = self.generatePercentageLevels(from: levels)
             
             completion(

@@ -35,8 +35,8 @@ class ExperimentalDisfluencyDetection {
             let startIndexPercentage = Double(startIndex) / Double(totalLevels.count)
             let endIndexPercentage = Double(index) / Double(totalLevels.count)
             
-            self.startSeconds = audioItem.duration * startIndexPercentage
-            self.endSeconds = audioItem.duration * endIndexPercentage
+            self.startSeconds = audioItem.calculatedDuration * startIndexPercentage
+            self.endSeconds = audioItem.calculatedDuration * endIndexPercentage
         }
     }
     
@@ -95,7 +95,7 @@ class ExperimentalDisfluencyDetection {
 
                     self.crop(
                         name: "uhm-\($0.startIndex)",
-                        url: self.audioItem.url,
+                        url: self.audioItem.fileUrl,
                         startTime: $0.startSeconds,
                         stopTime: $0.endSeconds
                     ) { (path) in
@@ -130,7 +130,7 @@ class ExperimentalDisfluencyDetection {
             from range: [AudioWord],
             finished: @escaping (String) -> Void
         ) {
-            let asset = AVURLAsset(url: audioItem.url, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
+            let asset = AVURLAsset(url: audioItem.fileUrl, options: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
             let compatiblePresets = AVAssetExportSession.exportPresets(compatibleWith: asset)
                     
             FileManager.default.deleteExistingFile(with: "\(audioItem.id)_cut.\(AudioConstants.fileExtension)")

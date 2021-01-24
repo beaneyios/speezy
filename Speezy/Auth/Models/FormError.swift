@@ -13,9 +13,10 @@ enum Field: Hashable {
     case password
     case passwordVerifier
     case username
+    case chatTitle
 }
 
-struct AuthError {
+struct FormError {
     var message: String
     var field: Field?
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChatRecordView" customModule="Speezy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="647" height="255"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHe-MA-Ud1">
+                    <rect key="frame" x="0.0" y="0.0" width="647" height="255"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ZK-n5-jXW">
+                            <rect key="frame" x="293.5" y="97.5" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="2nl-zk-xO7"/>
+                                <constraint firstAttribute="width" constant="60" id="MQQ-6S-JuR"/>
+                            </constraints>
+                            <state key="normal" image="chat-record-button"/>
+                            <connections>
+                                <action selector="recordButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="LA3-0E-3ZA"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="6ZK-n5-jXW" firstAttribute="centerY" secondItem="pHe-MA-Ud1" secondAttribute="centerY" id="aDy-ra-Iep"/>
+                        <constraint firstItem="6ZK-n5-jXW" firstAttribute="centerX" secondItem="pHe-MA-Ud1" secondAttribute="centerX" id="nMC-Eo-Q4s"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="pHe-MA-Ud1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TlY-J8-cN3"/>
+                <constraint firstItem="pHe-MA-Ud1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Zjw-fc-i4M"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="pHe-MA-Ud1" secondAttribute="trailing" id="cqF-tn-hCU"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pHe-MA-Ud1" secondAttribute="bottom" id="oES-4n-XrF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="recordButton" destination="6ZK-n5-jXW" id="Tsx-th-AV0"/>
+            </connections>
+            <point key="canvasLocation" x="306.52173913043481" y="367.96875"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="chat-record-button" width="120" height="120"/>
+    </resources>
+</document>

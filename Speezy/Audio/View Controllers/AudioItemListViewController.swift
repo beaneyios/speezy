@@ -22,9 +22,10 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
         didSelectSendOnItem item: AudioItem
     )
     func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController)
+    func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController)
 }
 
-class AudioItemListViewController: UIViewController {
+class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var gradient: UIImageView!
@@ -45,7 +46,7 @@ class AudioItemListViewController: UIViewController {
         observeViewModelChanges()
         configureTableView()
         loadItems()
-        loadProfileImage()
+//        loadProfileImage()
         configureProfileButton()
     }
     
@@ -110,7 +111,7 @@ class AudioItemListViewController: UIViewController {
     }
     
     @IBAction func signOutTapped(_ sender: Any) {
-        signOut()
+        delegate?.audioItemListViewControllerDidSelectBack(self)
     }
     
     @IBAction func settingsTapped(_ sender: Any) {
@@ -118,32 +119,7 @@ class AudioItemListViewController: UIViewController {
     }
     
     @IBAction func speezyTapped(_ sender: Any) {
-        presentQuickRecordDialogue()
-    }
-    
-    private func presentQuickRecordDialogue() {
-        let storyboard = UIStoryboard(name: "Audio", bundle: nil)
-        let quickRecordViewController = storyboard.instantiateViewController(identifier: "quick-record") as! QuickRecordViewController
-        
-        let newItem = viewModel.newItem
-        
-        let audioManager = AudioManager(item: newItem)
-        quickRecordViewController.audioManager = audioManager
-        quickRecordViewController.delegate = self
-        
-        addChild(quickRecordViewController)
-        view.addSubview(quickRecordViewController.view)
-        
-        quickRecordViewController.view.layer.cornerRadius = 10.0
-        quickRecordViewController.view.clipsToBounds = true
-        quickRecordViewController.view.addShadow()
-        
-        quickRecordViewController.view.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalTo(view.snp.bottom)
-        }
+        presentQuickRecordDialogue(item: viewModel.newItem)
     }
     
     func reloadItem(_ item: AudioItem) {
@@ -259,15 +235,10 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
         
-        // The recording is done, save the file first.
-        // Then we're going to offer the user the chance to
-        // update the title and save it again.
-        audioManager.save(saveAttachment: false) { (item) in
-            self.showTitleAlert(audioManager: audioManager) {
-                audioManager.save(saveAttachment: false) { (item) in
-                    DispatchQueue.main.async {
-                        self.loadItems()
-                    }
+        self.showTitleAlert(audioManager: audioManager) {
+            audioManager.save(saveAttachment: false) { (item) in
+                DispatchQueue.main.async {
+                    self.loadItems()
                 }
             }
         }
@@ -294,9 +265,7 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         }
         
         alert.addButton("Not right now") {
-            audioManager.discard {
-                completion?()
-            }
+            completion?()
         }
         
         alert.showEdit(

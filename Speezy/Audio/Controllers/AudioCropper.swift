@@ -36,13 +36,7 @@ class AudioCropper: AudioCropping {
         cropTo = to
         
         crop(audioItem: item, startTime: from, stopTime: to) { (path) in
-            let croppedItem = AudioItem(
-                id: self.item.id,
-                path: path,
-                title: self.item.title,
-                date: self.item.date,
-                tags: self.item.tags
-            )
+            let croppedItem = self.item.withPath(path: path)
             self.croppedItem = croppedItem
             self.delegate?.audioCropper(self, didAdjustCroppedItem: croppedItem)
         }

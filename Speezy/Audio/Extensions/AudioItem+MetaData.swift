@@ -14,8 +14,12 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
-            tags: tags
+            date: lastUpdated,
+            tags: tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
         
         return newItem
@@ -33,8 +37,12 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
-            tags: tags + tags
+            date: lastUpdated,
+            tags: tags + tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
         
         return newItem
@@ -49,8 +57,12 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
-            tags: newTags
+            date: lastUpdated,
+            tags: newTags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
         
         return newItem
@@ -65,8 +77,40 @@ extension AudioItem {
             id: id,
             path: path,
             title: title,
-            date: date,
-            tags: tags
+            date: lastUpdated,
+            tags: tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
+        )
+    }
+    
+    func withRemoteUrl(_ url: URL) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: lastUpdated,
+            tags: tags,
+            remoteUrl: url,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
+        )
+    }
+    
+    func withAttachmentUrl(_ url: URL?) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: lastUpdated,
+            tags: tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: url,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
         )
     }
 }

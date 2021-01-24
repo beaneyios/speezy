@@ -37,15 +37,42 @@ class AppCoordinator: ViewCoordinator {
         add(coordinator)
         coordinator.start()
     }
+    
+    private func navigateToChat() {
+        let coordinator = ChatCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        add(coordinator)
+        coordinator.start()
+    }
+    
+    private func navigateToContacts() {
+        let coordinator = ContactsCoordinator(navigationController: navigationController)
+        coordinator.delegate = self
+        add(coordinator)
+        coordinator.start()
+    }
+    
+    private func navigateToHome() {
+        let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
+        let homeViewController = homeStoryboard.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+        homeViewController.delegate = self
+        navigationController.setViewControllers([homeViewController], animated: true)
+    }
+}
+
+extension AppCoordinator: ChatCoordinatorDelegate {
+    func chatCoordinatorDidFinish(_ coordinator: ChatCoordinator) {
+        remove(coordinator)
+    }
 }
 
 extension AppCoordinator: AuthCoordinatorDelegate {
     func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator) {
-        navigateToAudioItems()
+        navigateToHome()
     }
     
     func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
-        navigateToAudioItems()
+        navigateToHome()
     }
     
     func authCoordinatorDidFinish(_ coordinator: AuthCoordinator) {
@@ -53,7 +80,7 @@ extension AppCoordinator: AuthCoordinatorDelegate {
     }
 }
 
-extension AppCoordinator: AudioItemCoordinatorDelegate {
+extension AppCoordinator: AudioItemCoordinatorDelegate {    
     func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator) {
         remove(coordinator)
         navigateToAuth()
@@ -61,5 +88,29 @@ extension AppCoordinator: AudioItemCoordinatorDelegate {
     
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
         remove(coordinator)
+    }
+}
+
+extension AppCoordinator: ContactsCoordinatorDelegate {
+    func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
+        remove(coordinator)
+    }
+}
+
+extension AppCoordinator: HomeViewControllerDelegate {
+    func homeViewControllerDidSelectChats(_ viewController: HomeViewController) {
+        navigateToChat()
+    }
+    
+    func homeViewControllerDidSelectAudio(_ viewController: HomeViewController) {
+        navigateToAudioItems()
+    }
+    
+    func homeViewControllerDidSelectContacts(_ viewController: HomeViewController) {
+        navigateToContacts()
+    }
+    
+    func homeViewControllerDidSelectSignOut(_ viewController: HomeViewController) {
+        navigateToAuth()
     }
 }

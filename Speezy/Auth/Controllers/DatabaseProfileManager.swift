@@ -8,10 +8,66 @@
 
 import UIKit
 import Foundation
-import FirebaseFirestore
+import FirebaseDatabase
 import FirebaseStorage
 
-class FirebaseUserProfileEditor {
+class DatabaseProfileManager {
+    func fetchProfile(
+        userId: String,
+        completion: @escaping (Result<Profile, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        ref.child("users").child(userId).child("profile").observeSingleEvent(of: .value) { (snapshot) in
+            guard
+                let result = snapshot.value as? NSDictionary,
+                let profile = Profile(dict: result)
+            else {
+                assertionFailure("Something went wrong here")
+                return
+            }
+            
+            completion(.success(profile))
+        }
+    }
+    
+    func fetchProfile(
+        userName: String,
+        completion: @escaping (Result<(Profile, String), Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
+            guard let userId = snapshot.value as? String else {
+                let error = NSError(domain: "database", code: 404, userInfo: nil)
+                completion(.failure(error))
+                return
+            }
+            
+            self.fetchProfile(userId: userId) { (result) in
+                switch result {
+                case let .success(profile):
+                    completion(.success((profile, userId)))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func checkUsernameExists(
+        userName: String,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        let ref = Database.database().reference()
+        ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.value != nil {
+                completion(.success(false))
+                return
+            }
+            
+            completion(.success(true))
+        }
+    }
+    
     func updateUserProfile(
         userId: String,
         profile: Profile,
@@ -64,7 +120,7 @@ class FirebaseUserProfileEditor {
         profile: Profile,
         completion: @escaping (AuthResult) -> Void
     ) {
-        let db = Firestore.firestore()
+        let ref = Database.database().reference()
         
         var dataDictionary: [String: Any] = [
             "name": profile.name,
@@ -77,16 +133,25 @@ class FirebaseUserProfileEditor {
             dataDictionary["profile_image"] = profileImage.absoluteString
         }
         
-        db.collection("users").document(userId).setData(dataDictionary) { (error) in
+        ref.child("users").child(userId).child("profile").setValue(dataDictionary) { (error, _) in
             if let error = error {
-                let error = AuthError(
+                let error = FormError(
                     message: "Unable to set profile, please try again\nReason: \(error.localizedDescription)",
                     field: nil
                 )
                 
                 completion(.failure(error))
             } else {
-                completion(.success)
+                // Make sure to update the usernames table so we can check if a user exists or not.
+                let usernamesChild = ref.child("usernames/\(profile.userName)")
+                usernamesChild.setValue(userId) { (error, ref) in
+                    if let error = error {
+                        let error = AuthErrorFactory.authError(for: error)
+                        completion(.failure(error))
+                    } else {
+                        completion(.success)
+                    }
+                }
             }
         }
     }

@@ -18,6 +18,8 @@ class QuickRecordViewController: UIViewController {
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var recordingContainer: UIView!
+    @IBOutlet weak var recordingControlsContainer: UIView!
+    @IBOutlet weak var recordingContainerBackground: UIImageView!
     @IBOutlet weak var recordingContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var backgroundView: UIView!
     
@@ -45,16 +47,29 @@ class QuickRecordViewController: UIViewController {
     }
     
     private func animateInDialogue() {
-        recordingContainer.alpha = 0.0
+        recordingControlsContainer.alpha = 0.0
         recordingContainerHeight.constant = 400
-        
+
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         } completion: { _ in
             UIView.animate(withDuration: 0.3) {
-                self.recordingContainer.alpha = 1.0
+                self.recordingControlsContainer.alpha = 1.0
             } completion: { _ in
                 self.configureMainSoundWave()
+            }
+        }
+    }
+    
+    private func animateOutDialogue(completion: @escaping () -> Void) {
+        UIView.animate(withDuration: 0.3) {
+            self.recordingControlsContainer.alpha = 0.0
+        } completion: { _ in
+            self.recordingContainerHeight.constant = 160.0
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                completion()
             }
         }
     }
@@ -66,10 +81,18 @@ class QuickRecordViewController: UIViewController {
         
         let panTop = UIPanGestureRecognizer(target: self, action: #selector(topPan(sender:)))
         panTop.cancelsTouchesInView = false
+        
+        recordingContainer.layer.cornerRadius = 20.0
+        recordingContainer.clipsToBounds = true
+        recordingContainer.layer.cornerRadius = 20.0
+        recordingContainer.layer.maskedCorners = [
+            .layerMinXMinYCorner, .layerMaxXMinYCorner
+        ]
+        
         recordingContainer.addGestureRecognizer(panTop)
         recordingContainer.isUserInteractionEnabled = true
         
-        recordingContainerHeight.constant = 0.0
+        recordingContainerHeight.constant = 160.0
     }
     
     private func configureMainSoundWave() {
@@ -109,7 +132,9 @@ extension QuickRecordViewController: AudioRecorderObserver {
     }
     
     func recordingStopped(maxLimitedReached: Bool) {
-        delegate?.quickRecordViewController(self, didFinishRecordingItem: audioManager.item)
+        animateOutDialogue {
+            self.delegate?.quickRecordViewController(self, didFinishRecordingItem: self.audioManager.item)
+        }
     }
 }
 
@@ -117,11 +142,8 @@ extension QuickRecordViewController {
     @objc func dismissRecording() {
         audioManager.cancelRecording()
         recordingContainer.isUserInteractionEnabled = false
-        recordingContainerHeight.constant = 0.0
-
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.layoutIfNeeded()
-        }) { (finished) in
+        
+        animateOutDialogue {
             self.delegate?.quickRecordViewControllerDidClose(self)
         }
     }

@@ -48,9 +48,6 @@ class AudioItemViewController: UIViewController {
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
         
-    @IBOutlet weak var btnSend: UIButton!
-    @IBOutlet weak var btnDrafts: UIButton!
-        
     @IBOutlet weak var btnTranscribeContainer: UIView!
     private var transcribeButton: TranscriptionButton?
     
@@ -58,7 +55,6 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
-    @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
     
     @IBOutlet weak var bgGradient: UIImageView!
@@ -68,6 +64,12 @@ class AudioItemViewController: UIViewController {
         
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnDone: UIButton!
+    
+    @IBOutlet weak var draftBtnContainer: UIView!
+    @IBOutlet weak var sendBtnContainer: UIView!
+    
+    private var draftBtn: GradientButton!
+    private var sendBtn: GradientButton!
     
     weak var delegate: AudioItemViewControllerDelegate?
     
@@ -85,9 +87,13 @@ class AudioItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        prepareStagedFile()
-        configureDependencies()
-        configureSubviews()
+        audioManager.downloadFile {
+            DispatchQueue.main.async {
+                self.prepareStagedFile()
+                self.configureDependencies()
+                self.configureSubviews()
+            }
+        }        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,11 +114,23 @@ class AudioItemViewController: UIViewController {
         }
     }
     
-    @IBAction func saveToDrafts(_ sender: Any) {
+     func didTapDraft() {
         let saveAction = {
-            self.audioManager.save(saveAttachment: false) { (item) in
-                self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                self.delegate?.audioItemViewControllerShouldPop(self)
+            self.view.isUserInteractionEnabled = false
+            self.draftBtn.startLoading()
+            self.audioManager.save(saveAttachment: false) { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case let .success(item):
+                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                        self.delegate?.audioItemViewControllerShouldPop(self)
+                    case let .failure(error):
+                        assertionFailure("Errored with error \(error.localizedDescription)")
+                    }
+                    
+                    self.draftBtn.stopLoading()
+                    self.view.isUserInteractionEnabled = true
+                }
             }
         }
         
@@ -125,10 +143,21 @@ class AudioItemViewController: UIViewController {
         }
     }
     
-    @IBAction func send(_ sender: Any) {
-        audioManager.save(saveAttachment: false) { (item) in
+    func didTapShare() {
+        view.isUserInteractionEnabled = false
+        sendBtn.startLoading()
+        audioManager.save(saveAttachment: false) { (result) in
             DispatchQueue.main.async {
-                self.delegate?.audioItemViewController(self, shouldSendItem: item)
+                switch result {
+                case let .success(item):
+                    self.delegate?.audioItemViewController(self, shouldSendItem: item)
+                case let .failure(error):
+                    // TODO: Handle error gracefully.
+                    assertionFailure("Errored with error \(error.localizedDescription)")
+                }
+                
+                self.sendBtn.stopLoading()
+                self.view.isUserInteractionEnabled = true
             }
         }
     }
@@ -145,10 +174,17 @@ class AudioItemViewController: UIViewController {
                 preferredStyle: .actionSheet
             )
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                self.audioManager.save(saveAttachment: false) { (item) in
+                self.audioManager.save(saveAttachment: false) { (result) in
                     DispatchQueue.main.async {
-                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                        self.delegate?.audioItemViewControllerShouldPop(self)
+                        switch result {
+                        case let .success(item):
+                            self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
+                            self.delegate?.audioItemViewControllerShouldPop(self)
+                        case let .failure(error):
+                            // TODO: Handle error
+                            assertionFailure("Errored with error \(error.localizedDescription)")
+                        }
+                        
                     }
                 }
             }
@@ -259,10 +295,40 @@ extension AudioItemViewController {
     }
     
     func configureSubviews() {
+        configureDraftButton()
+        configureSendButton()
         configureTranscribeButton()
         configureNavButtons()
         configureMainSoundWave()
         configureTitle()
+    }
+    
+    private func configureSendButton() {
+        let button = GradientButton.createFromNib()
+        sendBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "SEND") {
+            self.didTapShare()
+        }
+        
+        self.sendBtn = button
+    }
+    
+    private func configureDraftButton() {
+        let button = GradientButton.createFromNib()
+        draftBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "DRAFTS", backgroundImage: nil) {
+            self.didTapDraft()
+        }
+        
+        self.draftBtn = button
     }
     
     private func configureTranscribeButton() {
@@ -291,15 +357,16 @@ extension AudioItemViewController {
     
     private func configureNavButtons() {
         if audioManager.duration <= 0.0 {
-            btnSend.isEnabled = false
-            btnSend.alpha = 0.6
+            sendBtn.isUserInteractionEnabled = false
+            sendBtn.alpha = 0.6
         }
         
-        btnSend.layer.cornerRadius = 5.0
-        btnDrafts.layer.cornerRadius = 5.0
+        sendBtn.clipsToBounds = true
+        sendBtn.layer.cornerRadius = 5.0
+        draftBtn.layer.cornerRadius = 5.0
         
-        btnDrafts.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
-        btnDrafts.layer.borderWidth = 1.0
+        draftBtn.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
+        draftBtn.layer.borderWidth = 1.0
     }
     
     private func configureMainSoundWave() {

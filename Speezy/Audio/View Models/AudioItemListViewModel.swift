@@ -7,12 +7,10 @@
 //
 
 import Foundation
-import FirebaseFirestore
-import FirebaseStorage
 import FirebaseAuth
 import FBSDKLoginKit
 
-class AudioItemListViewModel {
+class AudioItemListViewModel: NewItemGenerating {
     
     enum Change {
         case itemsLoaded
@@ -30,8 +28,19 @@ class AudioItemListViewModel {
     }
     
     func loadItems() {
-        audioItems = AudioStorage.fetchItems()
-        didChange?(.itemsLoaded)
+        DatabaseAudioManager.fetchItems { (result) in
+            switch result {
+            case let .success(items):
+                self.audioItems = items.sorted {
+                    $0.lastUpdated > $1.lastUpdated
+                }
+                
+                self.didChange?(.itemsLoaded)
+            case let .failure(error):
+                // TODO: Handle error
+                assertionFailure("Errored with error \(error.localizedDescription)")
+            }
+        }
     }
     
     func reloadItem(_ item: AudioItem) {
@@ -42,23 +51,23 @@ class AudioItemListViewModel {
         }
         
         audioAttachmentManager.resetCache()
-        
         didChange?(.itemsLoaded)
     }
     
     func deleteItem(_ item: AudioItem) {
-        audioAttachmentManager.storeAttachment(
-            nil,
-            forItem: item
-        )
-        
-        FileManager.default.deleteExistingURL(
-            item.withStagingPath().url
-        )
-        FileManager.default.deleteExistingURL(item.url)
-        AudioStorage.deleteItem(item)
-        audioItems = audioItems.removing(item)
-        didChange?(.itemsLoaded)
+        audioAttachmentManager.removeAttachment(forItem: item)
+
+        AudioSavingManager().deleteItem(item) { (result) in
+            switch result {
+            case .success:
+                self.audioItems = self.audioItems.removing(item)
+                self.didChange?(.itemsLoaded)
+            case let .failure(error):
+                // TODO: Handle error
+                assertionFailure("Deletion failed with error \(error.localizedDescription)")
+                break
+            }
+        }
     }
 }
 
@@ -68,19 +77,18 @@ extension AudioItemListViewModel {
             return
         }
         
-        let storage = FirebaseStorage.Storage.storage()
-        let storageRef = storage.reference()
-        let profileImagesRef = storageRef.child("profile_images/\(currentUser.uid).jpg")
-        
-        profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            guard let data = data, let image = UIImage(data: data) else {
-                if let defaultImage = UIImage(named: "account-btn") {
-                    self.didChange?(.profileImageLoaded(defaultImage))
-                }
-                return
+        // TODO: Only make this request when we know the profile has a link.
+        CloudImageManager.fetchImage(at: "profile_images/\(currentUser.uid).jpg") { (result) in
+            switch result {
+            case let .success(image):
+                break
+//                self.didChange?(.profileImageLoaded(image))
+            case .failure:
+                break
+//                if let defaultImage = UIImage(named: "account-btn") {
+//                    self.didChange?(.profileImageLoaded(defaultImage))
+//                }
             }
-            
-            self.didChange?(.profileImageLoaded(image))
         }
     }
     
@@ -98,18 +106,5 @@ extension AudioItemListViewModel {
     
     func item(at indexPath: IndexPath) -> AudioItem {
         audioItems[indexPath.row]
-    }
-}
-
-extension AudioItemListViewModel {
-    var newItem: AudioItem {
-        let id = UUID().uuidString
-        return AudioItem(
-            id: id,
-            path: "\(id).\(AudioConstants.fileExtension)",
-            title: "",
-            date: Date(),
-            tags: []
-        )
     }
 }

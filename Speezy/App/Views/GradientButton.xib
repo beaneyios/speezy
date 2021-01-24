@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,7 +33,7 @@
                             <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </activityIndicatorView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="fiK-4c-uH9" firstAttribute="top" secondItem="E4c-E7-PAU" secondAttribute="top" id="2Op-ip-pOS"/>
                         <constraint firstItem="d08-s5-dHf" firstAttribute="top" secondItem="E4c-E7-PAU" secondAttribute="top" id="5tW-2g-B2b"/>
@@ -53,7 +52,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="E4c-E7-PAU" secondAttribute="trailing" id="1Q3-5j-Y5e"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="E4c-E7-PAU" secondAttribute="bottom" id="8NE-eI-9fz"/>
@@ -63,6 +62,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="button" destination="fiK-4c-uH9" id="3Xn-pe-AIN"/>
+                <outlet property="gradientImg" destination="d08-s5-dHf" id="b2M-s2-ytR"/>
                 <outlet property="spinner" destination="nHJ-qQ-xS7" id="7Ib-1a-bc2"/>
             </connections>
             <point key="canvasLocation" x="-134.05797101449275" y="328.45982142857139"/>
@@ -70,8 +70,5 @@
     </objects>
     <resources>
         <image name="red-gradient" width="500" height="70"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

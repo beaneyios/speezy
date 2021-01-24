@@ -179,6 +179,11 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
 }
 
 extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController) {
+        navigationController.popViewController(animated: true)
+        delegate?.audioItemCoordinatorDidFinish(self)
+    }
+    
     func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController) {
         delegate?.audioItemCoordinatorDidSignOut(self)
     }
@@ -207,7 +212,7 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
         }
 
         viewController.delegate = self
-        navigationController.setViewControllers([viewController], animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
 

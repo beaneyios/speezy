@@ -41,10 +41,55 @@ class AudioManager: NSObject {
         self.stateManager = AudioStateManager()
     }
     
-    func save(saveAttachment: Bool, completion: @escaping (AudioItem) -> Void) {
+    func downloadFile(completion: @escaping () -> Void) {
+        guard (try? Data(contentsOf: item.fileUrl)) != nil else {
+            downloadAudioFile(completion: completion)
+            return
+        }
+        
+        // If the actual file on disk is older than the remote object,
+        // we should download the remote object.
+        if let lastModified = item.fileUrl.lastModified, lastModified < item.lastUpdated {
+            downloadAudioFile(completion: completion)
+            return
+        }
+        
+        // Else, we just carry on with the local file.
+        completion()
+    }
+    
+    private func downloadAudioFile(completion: @escaping () -> Void) {
+        CloudAudioManager.fetchAudioClip(
+            at: "audio_clips/\(item.id).m4a"
+        ) { (result) in
+            switch result {
+            case let .success(data):
+                try? data.write(to: self.item.fileUrl)
+                try? data.write(to: self.originalItem.fileUrl)
+            case let .failure(error):
+                break
+            }
+            
+            completion()
+        }
+    }
+    
+    func save(
+        saveAttachment: Bool,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
         if saveAttachment {
-            commitImageAttachment {
-                self.saveItem(completion: completion)
+            commitImageAttachment { result in
+                switch result {
+                case let .success(item):
+                    self.item = item
+                    self.saveItem(completion: completion)
+                case let .failure(error):
+                    //completion(.failure(error))
+                    // TODO: Handle nil error here.
+                    assertionFailure("Errored with error \(error?.localizedDescription)")
+                    break
+                }
             }
         } else {
             saveItem(completion: completion)
@@ -72,22 +117,34 @@ class AudioManager: NSObject {
         AudioItemChangeManager.removeUnsavedChange(for: item)
     }
     
-    private func saveItem(completion: @escaping (AudioItem) -> Void) {
-        let newItem = audioSavingManager.saveItem(
+    private func saveItem(completion: @escaping (Result<AudioItem, Error>) -> Void) {
+        audioSavingManager.saveItem(
             item: item,
             originalItem: originalItem
-        )
-        markAsClean()
-        transcriptManager.saveTranscript()
-        completion(newItem)
+        ) { result in
+            if case let .success(item) = result {
+                self.item = item
+            }
+            
+            self.markAsClean()
+            self.transcriptManager.saveTranscript()
+            completion(result)
+        }
     }
     
-    private func commitImageAttachment(completion: @escaping () -> Void) {
-        audioAttachmentManager.storeAttachment(
-            currentImageAttachment,
-            forItem: item,
-            completion: completion
-        )
+    private func commitImageAttachment(completion: @escaping AttachmentChangeHandler) {
+        if let image = currentImageAttachment {
+            audioAttachmentManager.storeAttachment(
+                image,
+                forItem: item,
+                completion: completion
+            )
+        } else {
+            audioAttachmentManager.removeAttachment(
+                forItem: item,
+                completion: completion
+            )
+        }
     }
     
     func updateTitle(title: String) {
@@ -110,10 +167,15 @@ class AudioManager: NSObject {
         markAsDirty()
     }
     
-    func fetchImageAttachment(completion: @escaping (UIImage?) -> Void) {
-        audioAttachmentManager.fetchAttachment(forItem: item) { (image) in
-            self.currentImageAttachment = image
-            completion(image)
+    func fetchImageAttachment(completion: @escaping (AttachmentFetchHandler)) {
+        audioAttachmentManager.fetchAttachment(forItem: item) { (result) in
+            switch result {
+            case let .success(image):
+                self.currentImageAttachment = image
+                completion(.success(image))
+            case let .failure(error):
+                completion(.failure(error))
+            }
         }
     }
 }
@@ -121,7 +183,7 @@ class AudioManager: NSObject {
 // MARK: Recording
 extension AudioManager: AudioRecorderDelegate {
     var hasRecorded: Bool {
-        item.duration > 0
+        item.calculatedDuration > 0
     }
     
     func addRecorderObserver(_ observer: AudioRecorderObserver) {
@@ -190,6 +252,7 @@ extension AudioManager: AudioRecorderDelegate {
             action: .showRecordingStopped(item, maxLimitReached: maxLimitReached)
         )
         
+        regeneratePlayer(withItem: item)        
         markAsDirty()
     }
 }
@@ -205,7 +268,7 @@ extension AudioManager: AudioPlayerDelegate {
     }
     
     var duration: TimeInterval {
-        item.duration
+        item.calculatedDuration
     }
     
     private var currentPlaybackTime: TimeInterval {
@@ -252,7 +315,7 @@ extension AudioManager: AudioPlayerDelegate {
             regeneratePlayer(withItem: currentItem)
         }
         
-        let seekTime = item.duration * Double(percentage)
+        let seekTime = item.calculatedDuration * Double(percentage)
         
         audioPlayer?.seek(to: seekTime - startOffset)
     }
@@ -335,15 +398,15 @@ extension AudioManager: AudioCropperDelegate {
     }
     
     var canCrop: Bool {
-        currentItem.duration > 3.0
+        currentItem.calculatedDuration > 3.0
     }
     
     var hasActiveCrop: Bool {
-        guard let croppedItemDuration = audioCropper?.croppedItem?.duration else {
+        guard let croppedItemDuration = audioCropper?.croppedItem?.calculatedDuration else {
             return false
         }
         
-        return croppedItemDuration != item.duration
+        return croppedItemDuration != item.calculatedDuration
     }
     
     func addCropperObserver(_ observer: AudioCropperObserver) {
@@ -426,15 +489,15 @@ extension AudioManager: AudioCutterDelegate {
     }
     
     var canCut: Bool {
-        currentItem.duration > 3.0
+        currentItem.calculatedDuration > 3.0
     }
     
     var hasActiveCut: Bool {
-        guard let cutItemDuration = audioCutter?.cutItem?.duration else {
+        guard let cutItemDuration = audioCutter?.cutItem?.calculatedDuration else {
             return false
         }
         
-        return cutItemDuration != item.duration
+        return cutItemDuration != item.calculatedDuration
     }
     
     func addCutterObserver(_ observer: AudioCutterObserver) {
@@ -519,7 +582,7 @@ extension AudioManager: TranscriptionJobManagerDelegate {
         createTranscriptionJobManagerIfNoneExists()
         transcriptionJobManager?.createTranscriptionJob(
             audioId: item.id,
-            url: item.url
+            url: item.fileUrl
         )
     }
     

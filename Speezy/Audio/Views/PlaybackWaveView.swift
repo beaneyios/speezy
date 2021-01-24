@@ -44,7 +44,11 @@ class PlaybackWaveView: UIView {
         frame.width / 2.0
     }
     
-    func configure(manager: AudioManager, scrollable: Bool = true, completion: (() -> Void)? = nil) {
+    func configure(
+        manager: AudioManager,
+        scrollable: Bool = true,
+        completion: (() -> Void)? = nil
+    ) {
         self.manager = manager
         manager.addPlaybackObserver(self)
         manager.addRecorderObserver(self)
