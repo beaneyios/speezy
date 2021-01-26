@@ -55,7 +55,7 @@ class PushTokenSyncService {
         ) { (result) in
             switch result {
             case let .success(token):
-                UserDefaults.standard.setValue(token, forKey: tokenStorageKey)
+                UserDefaults.standard.setValue(token, forKey: self.tokenStorageKey)
             case .failure:
                 // We'll try again later.
                 break
