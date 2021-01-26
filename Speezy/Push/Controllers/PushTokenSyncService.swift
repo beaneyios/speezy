@@ -47,6 +47,17 @@ class PushTokenSyncService {
         updateDatabase(userId: userId, fcmToken: token)
     }
     
+    func unsyncPushToken() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        let pushDatabaseManager = DatabasePushTokenManager()
+        pushDatabaseManager.unsyncPushToken(
+            forUserId: userId,
+            completion: nil
+        )
+    }
+    
     private func updateDatabase(userId: String, fcmToken: String) {
         let pushDatabaseManager = DatabasePushTokenManager()
         pushDatabaseManager.syncPushToken(

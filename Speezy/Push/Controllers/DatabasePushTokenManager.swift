@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class DatabasePushTokenManager {
     typealias PushTokenSyncHandler = (Result<String, Error>) -> Void
+    typealias PushTokenUnsyncHandler = (Error?) -> Void
     
     func syncPushToken(
         forUserId userId: String,
@@ -28,6 +29,25 @@ class DatabasePushTokenManager {
             self.syncPushTokenToGroups(
                 userId: userId,
                 token: token,
+                completion: completion
+            )
+        }
+    }
+    
+    func unsyncPushToken(
+        forUserId userId: String,
+        completion: PushTokenUnsyncHandler?
+    ) {
+        let ref = Database.database().reference()
+        let userRef = ref.child("users/\(userId)/push_token")
+        userRef.removeValue { (error, ref) in
+            if let error = error {
+                completion?(error)
+                return
+            }
+            
+            self.unsyncPushTokenFromGroups(
+                userId: userId,
                 completion: completion
             )
         }
@@ -55,6 +75,32 @@ class DatabasePushTokenManager {
                     }
                     
                     completion?(.success(token))
+                }
+            }
+        }
+    }
+    
+    private func unsyncPushTokenFromGroups(
+        userId: String,
+        completion: PushTokenUnsyncHandler?
+    ) {
+        let ref = Database.database().reference()
+        let chatListRef = ref.child("users/\(userId)/chats")
+        chatListRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? NSDictionary else {
+                return
+            }
+            
+            let chatKeys = value.allKeys
+            chatKeys.forEach {
+                let chatterRef = ref.child("chatters/\($0)/\(userId)/push_token")
+                chatterRef.removeValue { (error, ref) in
+                    if let error = error {
+                        completion?(error)
+                        return
+                    }
+                    
+                    completion?(nil)
                 }
             }
         }

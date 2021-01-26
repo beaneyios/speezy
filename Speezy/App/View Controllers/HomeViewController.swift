@@ -20,6 +20,8 @@ protocol HomeViewControllerDelegate: AnyObject {
 class HomeViewController: UIViewController {
     weak var delegate: HomeViewControllerDelegate?
     
+    let tokenSyncService = PushTokenSyncService()
+    
     @IBOutlet var roundables: [UIView]!
     
     override func viewDidLoad() {
@@ -44,6 +46,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
+        tokenSyncService.unsyncPushToken()
         LoginManager().logOut()
         try? Auth.auth().signOut()
         delegate?.homeViewControllerDidSelectSignOut(self)
