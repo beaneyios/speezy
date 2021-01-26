@@ -18,6 +18,8 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     
     var profileImageAttachment: UIImage?
     
+    let tokenSyncService = PushTokenSyncService()
+    
     func login(
         viewController: UIViewController,
         completion: @escaping (AuthResult) -> Void
@@ -82,9 +84,16 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                 DatabaseProfileManager().updateUserProfile(
                     userId: user.uid,
                     profile: self.profile,
-                    profileImage: self.profileImageAttachment,
-                    completion: completion
-                )
+                    profileImage: self.profileImageAttachment
+                ) { (result) in
+                    switch result {
+                    case .success:
+                        self.tokenSyncService.syncPushToken(userId: user.uid)
+                        completion(.success)
+                    case let .failure(error):
+                        completion(.failure(error))
+                    }
+                }
             } else {
                 let formError = AuthErrorFactory.authError(for: error)
                 completion(.failure(formError))
@@ -169,7 +178,6 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data, let image = UIImage(data: data) else {
-                    let error = AuthErrorFactory.authError(for: error)
                     completion(.success)
                     return
                 }

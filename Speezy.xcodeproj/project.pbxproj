@@ -32,6 +32,8 @@
 		BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */; };
 		BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */; };
 		BE268B37256086BF009C5D3D /* AudioSavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE268B36256086BF009C5D3D /* AudioSavingManager.swift */; };
+		BE2A0CAB25C09EA8000B8A4C /* DatabasePushTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2A0CAA25C09EA8000B8A4C /* DatabasePushTokenManager.swift */; };
+		BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2A0CC725C0A53B000B8A4C /* PushTokenSyncService.swift */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
 		BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B097824C7239300317EB7 /* AudioItemCell.xib */; };
 		BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098124C732DC00317EB7 /* TagCell.xib */; };
@@ -266,6 +268,8 @@
 		BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyLoadingView.swift; sourceTree = "<group>"; };
 		BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioItem+MetaData.swift"; sourceTree = "<group>"; };
 		BE268B36256086BF009C5D3D /* AudioSavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSavingManager.swift; sourceTree = "<group>"; };
+		BE2A0CAA25C09EA8000B8A4C /* DatabasePushTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabasePushTokenManager.swift; sourceTree = "<group>"; };
+		BE2A0CC725C0A53B000B8A4C /* PushTokenSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTokenSyncService.swift; sourceTree = "<group>"; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
 		BE2B097824C7239300317EB7 /* AudioItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioItemCell.xib; sourceTree = "<group>"; };
 		BE2B098124C732DC00317EB7 /* TagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
@@ -512,6 +516,23 @@
 				BE222CC4258A2D1A007144FD /* AudioConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		BE2A0CA825C09E8E000B8A4C /* Push */ = {
+			isa = PBXGroup;
+			children = (
+				BE2A0CA925C09E9D000B8A4C /* Controllers */,
+			);
+			path = Push;
+			sourceTree = "<group>";
+		};
+		BE2A0CA925C09E9D000B8A4C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE2A0CAA25C09EA8000B8A4C /* DatabasePushTokenManager.swift */,
+				BE2A0CC725C0A53B000B8A4C /* PushTokenSyncService.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		BE3C5DDB25BD8B70005E34BB /* Search */ = {
@@ -782,6 +803,7 @@
 				BEECD88F25ACCF4100AD7AC3 /* Chat */,
 				BEA9D1DF25B46951000888A7 /* Cloud */,
 				BEE47F0125BC557600AF47FA /* Contacts */,
+				BE2A0CA825C09E8E000B8A4C /* Push */,
 				BE3C5DDB25BD8B70005E34BB /* Search */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
@@ -1681,6 +1703,7 @@
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEE47F3625BC5E5700AF47FA /* DatabaseContactParser.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
+				BE2A0CAB25C09EA8000B8A4C /* DatabasePushTokenManager.swift in Sources */,
 				BE6FD91625B4D07600723732 /* DatabaseChatManager.swift in Sources */,
 				BEE47F1C25BC55FA00AF47FA /* ContactCellModel.swift in Sources */,
 				BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */,
@@ -1734,6 +1757,7 @@
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
+				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */,

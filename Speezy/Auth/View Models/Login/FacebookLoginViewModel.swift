@@ -11,7 +11,9 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FirebaseAuth
 
-class FacebookLoginViewModel {        
+class FacebookLoginViewModel {
+    let tokenSyncService = PushTokenSyncService()
+    
     func login(
         viewController: UIViewController,
         completion: @escaping (AuthResult) -> Void
@@ -40,11 +42,12 @@ class FacebookLoginViewModel {
             )
             
             Auth.auth().signIn(with: credential) { (result, error) in
-                let error = AuthErrorFactory.authError(for: error)
-
-                if result?.user != nil {
+                
+                if let user = result?.user {
                     completion(.success)
+                    self.tokenSyncService.syncPushToken(userId: user.uid)
                 } else {
+                    let error = AuthErrorFactory.authError(for: error)
                     completion(.failure(error))
                 }
             }

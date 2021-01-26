@@ -17,6 +17,8 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     
     var profileImageAttachment: UIImage?
     
+    let tokenSyncService = PushTokenSyncService()
+    
     func createProfile(completion: @escaping (AuthResult) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
@@ -57,9 +59,16 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         DatabaseProfileManager().updateUserProfile(
             userId: userId,
             profile: profile,
-            profileImage: profileImageAttachment,
-            completion: completion
-        )
+            profileImage: profileImageAttachment
+        ) { (result) in
+            switch result {
+            case .success:
+                completion(.success)
+                self.tokenSyncService.syncPushToken(userId: userId)
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 

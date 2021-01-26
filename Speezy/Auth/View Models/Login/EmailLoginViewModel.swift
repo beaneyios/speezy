@@ -13,6 +13,8 @@ class EmailLoginViewModel {
     var email: String = ""
     var password: String = ""
     
+    let tokenSyncService = PushTokenSyncService()
+    
     func login(completion: @escaping (AuthResult) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
@@ -22,6 +24,7 @@ class EmailLoginViewModel {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
                 completion(.success)
+                self.tokenSyncService.syncPushToken(userId: user.uid)
             } else {
                 let error = AuthErrorFactory.authError(for: error)
                 completion(.failure(error))
