@@ -14,6 +14,7 @@ struct Profile {
     var occupation: String = ""
     var aboutYou: String = ""
     var profileImageUrl: URL?
+    var pushToken: String?
     
     init() {}
     
@@ -32,5 +33,6 @@ struct Profile {
         self.occupation = occupation
         self.aboutYou = about
         self.profileImageUrl = URL(key: "profile_image", dict: dict)
+        self.pushToken = dict["push_token"] as? String
     }
 }

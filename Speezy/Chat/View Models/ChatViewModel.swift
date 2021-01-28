@@ -23,6 +23,7 @@ class ChatViewModel: NewItemGenerating {
     let chatManager = DatabaseChatManager()
     let audioClipManager = DatabaseAudioManager()
     let audioCloudManager = CloudAudioManager()
+    let chatPushManager = ChatPushManager()
     
     private var activeAudioManager: AudioManager?
     
@@ -201,6 +202,7 @@ extension ChatViewModel {
             readBy: []
         )
         
+        // First, insert the message.
         chatManager.insertMessage(
             item: item,
             message: message,
@@ -208,7 +210,28 @@ extension ChatViewModel {
         ) { (result) in
             switch result {
             case let .success(message):
-                self.updateAudioDatabaseRecords(item: item, message: message)
+                let mostRecentMessage = message.message ?? "New message from \(message.chatter.displayName)"
+                let newChat = self.chat.withLastMessage(mostRecentMessage).withLastUpdated(Date().timeIntervalSince1970)
+                
+                // Second, update chat metadata
+                self.chatManager.updateChat(chat: newChat) { (result) in
+                    switch result {
+                    case let .success(newChat):
+                        self.chat = newChat
+                        
+                        // Third, update the audio reference
+                        self.updateAudioDatabaseRecords(item: item, message: message)
+                        
+                        // Fourth, send a push notification to relevant users.
+                        self.chatPushManager.sendNotification(
+                            message: mostRecentMessage,
+                            chat: newChat
+                        )
+                    case let .failure(error):
+                        // TODO: Handle error.
+                        break
+                    }
+                }
             case let .failure(error):
                 break
             }

@@ -19,7 +19,7 @@ class DatabasePushTokenManager {
         completion: PushTokenSyncHandler?
     ) {
         let ref = Database.database().reference()
-        let userRef = ref.child("users/\(userId)/push_token")
+        let userRef = ref.child("users/\(userId)/profile/push_token")
         userRef.setValue(token) { (error, ref) in
             if let error = error {
                 completion?(.failure(error))
@@ -39,7 +39,7 @@ class DatabasePushTokenManager {
         completion: PushTokenUnsyncHandler?
     ) {
         let ref = Database.database().reference()
-        let userRef = ref.child("users/\(userId)/push_token")
+        let userRef = ref.child("users/\(userId)/profile/push_token")
         userRef.removeValue { (error, ref) in
             if let error = error {
                 completion?(error)
@@ -103,6 +103,36 @@ class DatabasePushTokenManager {
                     completion?(nil)
                 }
             }
+        }
+    }
+}
+
+extension DatabasePushTokenManager {
+    func fetchTokens(
+        for ids: [String],
+        completion: @escaping (Result<[UserToken], Error>) -> Void
+    ) {
+        let group = DispatchGroup()
+        var userTokens = [UserToken]()
+        
+        let ref = Database.database().reference()
+        ids.forEach {
+            let userId = $0
+            let userChild = ref.child("users/\($0)/push_token")
+            
+            group.enter()
+            userChild.observeSingleEvent(of: .value) { (snapshot) in
+                guard let token = snapshot.value as? String else {
+                    return
+                }
+                
+                userTokens.append(UserToken(userId: userId, token: token))
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .global()) {
+            completion(.success(userTokens))
         }
     }
 }

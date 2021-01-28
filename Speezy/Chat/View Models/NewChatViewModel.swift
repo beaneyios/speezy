@@ -123,7 +123,8 @@ class NewChatViewModel {
                 let chatter = Chatter(
                     id: userId,
                     displayName: profile.name,
-                    profileImageUrl: profile.profileImageUrl
+                    profileImageUrl: profile.profileImageUrl,
+                    pushToken: profile.pushToken
                 )
                 
                 self.createChat(with: chatter, completion: completion)

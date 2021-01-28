@@ -39,6 +39,28 @@ extension Chat {
             chatImageUrl: url
         )
     }
+    
+    func withLastMessage(_ message: String) -> Chat {
+        Chat(
+            id: id,
+            chatters: chatters,
+            title: title,
+            lastUpdated: lastUpdated,
+            lastMessage: lastMessage,
+            chatImageUrl: chatImageUrl
+        )
+    }
+    
+    func withLastUpdated(_ lastUpdated: TimeInterval) -> Chat {
+        Chat(
+            id: id,
+            chatters: chatters,
+            title: title,
+            lastUpdated: lastUpdated,
+            lastMessage: lastMessage,
+            chatImageUrl: chatImageUrl
+        )
+    }
 }
 
 extension Chat {

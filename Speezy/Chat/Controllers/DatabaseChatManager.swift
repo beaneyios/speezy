@@ -157,6 +157,7 @@ class DatabaseChatManager {
         let ref = Database.database().reference()
         let chatChild = ref.child("messages/\(chat.id)")
         let newMessageChild = chatChild.childByAutoId()
+        
         newMessageChild.setValue(messageDict) { (error, newRef) in
             completion(.success(message))
         }
@@ -171,23 +172,14 @@ extension DatabaseChatManager {
         contacts: [Contact],
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
-        // Convert contacts to chatters and create a group
-        var chatters = contacts.map {
-            Chatter(
-                id: $0.userId,
-                displayName: $0.displayName,
-                profileImageUrl: $0.profilePhotoUrl
-            )
-        }
-        
-        chatters.append(currentChatter)
-        
-        self.createChatters(chatters: chatters) { (result) in
+        let userIds = contacts.map { $0.userId }
+        DatabasePushTokenManager().fetchTokens(for: userIds) { (result) in
             switch result {
-            case let .success(chatId):
-                self.createChat(
-                    chatId: chatId,
-                    chatters: chatters,
+            case let .success(userTokens):
+                self.createChattersAndChat(
+                    currentChatter: currentChatter,
+                    contacts: contacts,
+                    userTokens: userTokens,
                     title: title,
                     completion: completion
                 )
@@ -197,10 +189,28 @@ extension DatabaseChatManager {
         }
     }
     
-    private func createChatters(
-        chatters: [Chatter],
-        completion: @escaping (Result<String, Error>) -> Void
+    private func createChattersAndChat(
+        currentChatter: Chatter,
+        contacts: [Contact],
+        userTokens: [UserToken],
+        title: String,
+        completion: @escaping (Result<Chat, Error>) -> Void
     ) {
+        var chatters = contacts.map { (contact) -> Chatter in
+            let userToken = userTokens.compactMap { (userToken) -> String? in
+                userToken.userId == contact.userId ? userToken.token : nil
+            }.first
+            
+            return Chatter(
+                id: contact.userId,
+                displayName: contact.displayName,
+                profileImageUrl: contact.profilePhotoUrl,
+                pushToken: userToken
+            )
+        }
+        
+        chatters.append(currentChatter)
+        
         let ref = Database.database().reference()
         let groupChild = ref.child("chatters").childByAutoId()
         let group = DispatchGroup()
@@ -220,7 +230,12 @@ extension DatabaseChatManager {
                 return
             }
             
-            completion(.success(key))
+            self.createChat(
+                chatId: key,
+                chatters: chatters,
+                title: title,
+                completion: completion
+            )
         }
     }
     

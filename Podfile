@@ -19,6 +19,7 @@ target 'Speezy' do
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
   pod 'FacebookLogin'
+  pod 'Firebase/Functions'
 
   target 'SpeezyTests' do
     inherit! :search_paths

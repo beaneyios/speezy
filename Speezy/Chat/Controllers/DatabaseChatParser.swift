@@ -38,7 +38,8 @@ class DatabaseChatParser {
         return Chatter(
             id: key,
             displayName: displayName,
-            profileImageUrl: URL(key: "profile_image_url", dict: dict)
+            profileImageUrl: URL(key: "profile_image_url", dict: dict),
+            pushToken: dict["push_token"] as? String
         )
     }
     

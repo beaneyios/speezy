@@ -11,6 +11,7 @@ import Firebase
 import FirebaseMessaging
 import UserNotifications
 import FBSDKCoreKit
+import FirebaseFunctions
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         configurePush(app: application)
+        
+        
+        let functions = Functions.functions()
+        let token = "eDTIBgAJv0ZykjqBU8ky2v:APA91bGCEy8mxa0iEPsnHKmuH2KUH9l2LkYTLQykFYuKrbDCqQDqNFanTnrRldnJ9Y8HbUppNDC5BKhmqfyteFA_S4sxbjO8q9nmms7AW-0d5r0bgiB7MtCr6-IF5cnT9y5sLVWMw-qr"
+
+        functions.httpsCallable("alertNewMessage").call(["tokens": [token]]) { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let code = FunctionsErrorCode(rawValue: error.code)
+                    let message = error.localizedDescription
+                    let details = error.userInfo[FunctionsErrorDetailsKey]
+                }
+                // ...
+            }
+            print(result?.data)
+        }
         
         return true
     }

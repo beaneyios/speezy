@@ -12,6 +12,7 @@ struct Chatter: Equatable {
     let id: String
     let displayName: String
     let profileImageUrl: URL?
+    let pushToken: String?
 }
 
 extension Array where Element == Chatter {

@@ -64,6 +64,8 @@
 		BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE54296225937745007EEAD1 /* ProfileCreationViewController.swift */; };
 		BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5429692593A85D007EEAD1 /* AuthCoordinator.swift */; };
 		BE5429742593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5429732593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift */; };
+		BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB6F25C344F000F937C3 /* ChatPushManager.swift */; };
+		BE5BDB7525C34DC400F937C3 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB7425C34DC400F937C3 /* UserToken.swift */; };
 		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
 		BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */; };
 		BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */; };
@@ -300,6 +302,8 @@
 		BE54296225937745007EEAD1 /* ProfileCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCreationViewController.swift; sourceTree = "<group>"; };
 		BE5429692593A85D007EEAD1 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		BE5429732593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+SpeezyGreyPlaceholder.swift"; sourceTree = "<group>"; };
+		BE5BDB6F25C344F000F937C3 /* ChatPushManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPushManager.swift; sourceTree = "<group>"; };
+		BE5BDB7425C34DC400F937C3 /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionViewController.swift; sourceTree = "<group>"; };
@@ -521,6 +525,7 @@
 		BE2A0CA825C09E8E000B8A4C /* Push */ = {
 			isa = PBXGroup;
 			children = (
+				BE5BDB7325C34DBC00F937C3 /* Models */,
 				BE2A0CA925C09E9D000B8A4C /* Controllers */,
 			);
 			path = Push;
@@ -624,6 +629,14 @@
 				BE5429732593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BE5BDB7325C34DBC00F937C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BE5BDB7425C34DC400F937C3 /* UserToken.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		BE6080A0250E84A9003CB318 /* Transcription */ = {
@@ -1144,6 +1157,7 @@
 			children = (
 				BE6FD91525B4D07600723732 /* DatabaseChatManager.swift */,
 				BE6FD97F25BC3C6600723732 /* DatabaseChatParser.swift */,
+				BE5BDB6F25C344F000F937C3 /* ChatPushManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1597,6 +1611,7 @@
 				BEDC11F5259CA6C500BB0064 /* FirebaseSignupViewModel.swift in Sources */,
 				BE50344B24BA4D5200A414D1 /* AudioLevelGenerator.swift in Sources */,
 				BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */,
+				BE5BDB7525C34DC400F937C3 /* UserToken.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
 				BEFDB53E255FF8A900362428 /* PlaybackNotification.swift in Sources */,
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
@@ -1630,6 +1645,7 @@
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */,
+				BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
