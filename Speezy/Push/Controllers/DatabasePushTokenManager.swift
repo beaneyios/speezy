@@ -123,6 +123,7 @@ extension DatabasePushTokenManager {
             group.enter()
             userChild.observeSingleEvent(of: .value) { (snapshot) in
                 guard let token = snapshot.value as? String else {
+                    group.leave()
                     return
                 }
                 

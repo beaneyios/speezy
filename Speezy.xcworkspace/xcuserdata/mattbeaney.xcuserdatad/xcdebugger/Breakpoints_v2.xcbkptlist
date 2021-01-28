@@ -3,4 +3,86 @@
    uuid = "9BA2DB38-9914-476E-88EC-6A3A904FDAC0"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2721B408-97B2-4868-9EA3-CACC5DBDEC7E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Speezy/Chat/Controllers/DatabaseChatManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "createChattersAndChat(currentChatter:contacts:userTokens:title:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2721B408-97B2-4868-9EA3-CACC5DBDEC7E - ee41545ae1e94fc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Speezy.DatabaseChatManager.(createChattersAndChat in _8C5ADAF895139A9B10FD665D206CA14D)(currentChatter: Speezy.Chatter, contacts: Swift.Array&lt;Speezy.Contact&gt;, userTokens: Swift.Array&lt;Speezy.UserToken&gt;, title: Swift.String, completion: (Swift.Result&lt;Speezy.Chat, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Speezy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattbeaney/Desktop/Code/iOS/Speezy/Speezy/Speezy/Chat/Controllers/DatabaseChatManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
+                  offsetFromSymbolStart = "684">
+               </Location>
+               <Location
+                  uuid = "2721B408-97B2-4868-9EA3-CACC5DBDEC7E - 5a1fcebe757adea8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Speezy.Contact) -&gt; Speezy.Chatter in Speezy.DatabaseChatManager.(createChattersAndChat in _8C5ADAF895139A9B10FD665D206CA14D)(currentChatter: Speezy.Chatter, contacts: Swift.Array&lt;Speezy.Contact&gt;, userTokens: Swift.Array&lt;Speezy.UserToken&gt;, title: Swift.String, completion: (Swift.Result&lt;Speezy.Chat, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Speezy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattbeaney/Desktop/Code/iOS/Speezy/Speezy/Speezy/Chat/Controllers/DatabaseChatManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "236">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0031A059-C989-4712-9349-70E029FBEB28"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Speezy/Chat/Controllers/DatabaseChatManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "createChattersAndChat(currentChatter:contacts:userTokens:title:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E657AEF-8AB3-463F-BC90-48D5EE3E2B50"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Speezy/Auth/View Models/Login/EmailLoginViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "login(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

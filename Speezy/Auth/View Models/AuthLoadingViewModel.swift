@@ -11,6 +11,7 @@ import FirebaseAuth
 class AuthLoadingViewModel {
     
     private var listener: AuthStateDidChangeListenerHandle?
+    private var tokenSyncService = PushTokenSyncService()
     
     func checkAuthStatus(completion: @escaping (User?) -> Void) {
         
@@ -28,6 +29,10 @@ class AuthLoadingViewModel {
         
         listener = Auth.auth().addStateDidChangeListener { (auth, user) in
             authCompleted = true
+            
+            if let userId = user?.uid {
+                self.tokenSyncService.syncPushToken(userId: userId)
+            }
             
             if timerCompleted {
                 completion(user)
