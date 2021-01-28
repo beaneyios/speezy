@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DatabaseChatParser {
+class ChatParser {
     static func parseChat(key: String, dict: NSDictionary) -> Chat? {
         guard
             let lastUpdated = dict["last_updated"] as? TimeInterval,

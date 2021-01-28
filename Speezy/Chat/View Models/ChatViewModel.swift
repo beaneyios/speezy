@@ -20,7 +20,11 @@ class ChatViewModel: NewItemGenerating {
     var didChange: ChangeBlock?
     private(set) var items = [MessageCellModel]()
     
-    let chatManager = DatabaseChatManager()
+    let groupFetcher = GroupFetcher()
+    let messageFetcher = MessageFetcher()
+    let messageListener = MessageListener()
+    let messageCreator = MessageCreator()
+    
     let audioClipManager = DatabaseAudioManager()
     let audioCloudManager = CloudAudioManager()
     let chatPushManager = ChatPushManager()
@@ -51,7 +55,7 @@ class ChatViewModel: NewItemGenerating {
     
     func listenForData() {
         didChange?(.loading(true))
-        chatManager.fetchChatters(chat: chat) { (result) in
+        groupFetcher.fetchChatters(chat: chat) { (result) in
             switch result {
             case let .success(chatters):
                 self.chat = self.chat.withChatters(chatters: chatters)
@@ -63,7 +67,7 @@ class ChatViewModel: NewItemGenerating {
     }
     
     private func fetchMessages() {
-        chatManager.fetchMessages(chat: chat) { (result) in
+        messageFetcher.fetchMessages(chat: chat) { (result) in
             switch result {
             case let .success(messages):
                 self.items = messages.map {
@@ -94,7 +98,7 @@ class ChatViewModel: NewItemGenerating {
         }
         
         didChange?(.loading(true))
-        chatManager.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { (result) in
+        messageFetcher.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { (result) in
             switch result {
             case let .success(newMessages):
                 let newMessageModels = newMessages.map {
@@ -121,7 +125,7 @@ class ChatViewModel: NewItemGenerating {
     }
     
     private func listenForNewMessages(mostRecentMessage: Message?) {
-        chatManager.listenForNewMessages(mostRecentMessage: mostRecentMessage, chat: chat) { (result) in
+        messageListener.listenForNewMessages(mostRecentMessage: mostRecentMessage, chat: chat) { (result) in
             switch result {
             case let .success(message):
                 let cellModel = MessageCellModel(
@@ -203,7 +207,7 @@ extension ChatViewModel {
         )
         
         // First, insert the message.
-        chatManager.insertMessage(
+        messageCreator.insertMessage(
             item: item,
             message: message,
             chat: chat
@@ -214,7 +218,7 @@ extension ChatViewModel {
                 let newChat = self.chat.withLastMessage(mostRecentMessage).withLastUpdated(Date().timeIntervalSince1970)
                 
                 // Second, update chat metadata
-                self.chatManager.updateChat(chat: newChat) { (result) in
+                ChatUpdater().updateChat(chat: newChat) { (result) in
                     switch result {
                     case let .success(newChat):
                         self.chat = newChat

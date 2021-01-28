@@ -17,7 +17,6 @@ class ChatListViewModel {
     
     private(set) var items = [ChatCellModel]()
     var didChange: ((Change) -> Void)?
-    let chatListManager = DatabaseChatManager()
     
     var shouldShowEmptyView: Bool {
         items.isEmpty
@@ -30,7 +29,7 @@ class ChatListViewModel {
         }
         
         didChange?(.loading(true))
-        chatListManager.fetchChats(userId: userId) { (result) in
+        ChatListFetcher().fetchChats(userId: userId) { (result) in
             switch result {
             case let .success(chats):
                 self.items = chats.map {

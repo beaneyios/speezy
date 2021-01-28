@@ -23,7 +23,7 @@ class NewChatViewModel {
     
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
-    let chatManager = DatabaseChatManager()
+    let chatListener = MessageListener()
     let profileManager = DatabaseProfileManager()
     
     var shouldShowEmptyView: Bool {
@@ -72,7 +72,7 @@ class NewChatViewModel {
             return
         }
         
-        createChatInFirebase(userId: userId) { (result) in
+        createChatInDatabase(userId: userId) { (result) in
             switch result {
             case let .success(chat):
                 if let attachment = self.attachedImage {
@@ -94,15 +94,15 @@ class NewChatViewModel {
             switch result {
             case let .success(url):
                 let newChat = chat.withChatImageUrl(url)
-                self.updateChatInFirebase(chat: newChat)
+                self.updateChatInDatabase(chat: newChat)
             case let .failure(error):
                 self.didChange?(.chatCreated(chat))
             }
         }
     }
     
-    private func updateChatInFirebase(chat: Chat) {
-        chatManager.updateChat(chat: chat) { (result) in
+    private func updateChatInDatabase(chat: Chat) {
+        ChatUpdater().updateChat(chat: chat) { (result) in
             switch result {
             case let .success(chat):
                 self.didChange?(.chatCreated(chat))
@@ -113,7 +113,7 @@ class NewChatViewModel {
         }
     }
     
-    private func createChatInFirebase(
+    private func createChatInDatabase(
         userId: String,
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
@@ -142,7 +142,7 @@ class NewChatViewModel {
             return
         }
         
-        chatManager.createChat(
+        ChatCreator().createChat(
             title: title,
             currentChatter: chatter,
             contacts: selectedContacts
