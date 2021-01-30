@@ -22,7 +22,7 @@ class ChatListViewController: UIViewController {
     
     weak var delegate: ChatListViewControllerDelegate?
     
-    let viewModel = ChatListViewModel()
+    let viewModel = ChatListViewModel(store: Store.shared)
     
     override func viewDidLoad() {
         super.viewDidLoad()

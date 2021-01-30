@@ -70,7 +70,6 @@
 		BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */; };
 		BE5BDB8525C354AD00F937C3 /* ChatUserUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8425C354AD00F937C3 /* ChatUserUpdater.swift */; };
 		BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */; };
-		BE5BDB9125C354FA00F937C3 /* ChatListFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB9025C354FA00F937C3 /* ChatListFetcher.swift */; };
 		BE5BDB9525C3551B00F937C3 /* GroupCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB9425C3551B00F937C3 /* GroupCreator.swift */; };
 		BE5BDB9F25C3581A00F937C3 /* GroupFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */; };
 		BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */; };
@@ -322,7 +321,6 @@
 		BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUpdater.swift; sourceTree = "<group>"; };
 		BE5BDB8425C354AD00F937C3 /* ChatUserUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserUpdater.swift; sourceTree = "<group>"; };
 		BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCreator.swift; sourceTree = "<group>"; };
-		BE5BDB9025C354FA00F937C3 /* ChatListFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListFetcher.swift; sourceTree = "<group>"; };
 		BE5BDB9425C3551B00F937C3 /* GroupCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCreator.swift; sourceTree = "<group>"; };
 		BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFetcher.swift; sourceTree = "<group>"; };
@@ -680,7 +678,6 @@
 		BE5BDBB525C35A2C00F937C3 /* Fetching */ = {
 			isa = PBXGroup;
 			children = (
-				BE5BDB9025C354FA00F937C3 /* ChatListFetcher.swift */,
 				BE5BDB7825C3530300F937C3 /* ChatsListener.swift */,
 				BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */,
 				BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */,
@@ -1754,7 +1751,6 @@
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
-				BE5BDB9125C354FA00F937C3 /* ChatListFetcher.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,

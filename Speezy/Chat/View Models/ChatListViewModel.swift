@@ -20,12 +20,15 @@ class ChatListViewModel {
     private var chats = [Chat]()
     var didChange: ((Change) -> Void)?
     
-    
-    let debouncer = Debouncer(seconds: 0.5)
-    let chatListFetcher = ChatListFetcher()
+    private let store: Store
+    private let debouncer = Debouncer(seconds: 0.5)
     
     var shouldShowEmptyView: Bool {
         items.isEmpty
+    }
+    
+    init(store: Store) {
+        self.store = store
     }
     
     func listenForData() {
@@ -34,23 +37,8 @@ class ChatListViewModel {
             return
         }
         
-        Store.shared.chatStore.addChatListObserver(self)
-        
-//        didChange?(.loading(true))
-//        chatListFetcher.fetchChats(userId: userId) { (result) in
-//            switch result {
-//            case let .success(chats):
-//                self.items = chats.map {
-//                    ChatCellModel(chat: $0)
-//                }
-//
-//                self.didChange?(.loaded)
-//            case let .failure(error):
-//                break
-//            }
-//
-//            self.didChange?(.loading(false))
-//        }
+        didChange?(.loading(true))
+        store.chatStore.addChatListObserver(self)
     }
     
     func insertNewChatItem(chat: Chat) {
@@ -72,6 +60,7 @@ class ChatListViewModel {
             }
 
             self.didChange?(.loaded)
+            self.didChange?(.loading(false))
         }
     }
     
