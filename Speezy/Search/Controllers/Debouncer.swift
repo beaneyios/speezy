@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SearchDebouncer {
+class Debouncer {
     private var interval: TimeInterval
     private var worker = DispatchWorkItem(block: {})
     

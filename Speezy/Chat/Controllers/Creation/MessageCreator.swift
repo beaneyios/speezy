@@ -10,10 +10,15 @@ import Foundation
 import FirebaseDatabase
 
 class MessageCreator {
+    let chat: Chat
+    
+    init(chat: Chat) {
+        self.chat = chat
+    }
+    
     func insertMessage(
         item: AudioItem,
         message: Message,
-        chat: Chat,
         completion: @escaping (Result<Message, Error>) -> Void
     ) {
         var messageDict: [String: Any] = [

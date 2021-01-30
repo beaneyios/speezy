@@ -22,8 +22,9 @@ class ChatViewModel: NewItemGenerating {
     
     let groupFetcher = GroupFetcher()
     let messageFetcher = MessageFetcher()
-    let messageListener = MessageListener()
-    let messageCreator = MessageCreator()
+    
+    private lazy var messageCreator = MessageCreator(chat: chat)
+    private lazy var messageListener = MessageListener(chat: chat)
     
     let audioClipManager = DatabaseAudioManager()
     let audioCloudManager = CloudAudioManager()
@@ -125,7 +126,7 @@ class ChatViewModel: NewItemGenerating {
     }
     
     private func listenForNewMessages(mostRecentMessage: Message?) {
-        messageListener.listenForNewMessages(mostRecentMessage: mostRecentMessage, chat: chat) { (result) in
+        messageListener.listenForNewMessages(mostRecentMessage: mostRecentMessage) { (result) in
             switch result {
             case let .success(message):
                 let cellModel = MessageCellModel(
@@ -207,11 +208,7 @@ extension ChatViewModel {
         )
         
         // First, insert the message.
-        messageCreator.insertMessage(
-            item: item,
-            message: message,
-            chat: chat
-        ) { (result) in
+        messageCreator.insertMessage(item: item, message: message) { (result) in
             switch result {
             case let .success(message):
                 let mostRecentMessage = message.message ?? "New message from \(message.chatter.displayName)"

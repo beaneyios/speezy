@@ -63,6 +63,15 @@ class ChatListViewController: UIViewController {
                         self.spinner.stopAnimating()
                         self.spinner.isHidden = true
                     }
+                case let .replacedItem(index):
+                    self.collectionView.reloadItems(
+                        at: [
+                            IndexPath(
+                                item: index,
+                                section: 0
+                            )
+                        ]
+                    )
                 }
             }
         }

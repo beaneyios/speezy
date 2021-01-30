@@ -25,7 +25,7 @@ class NewContactViewModel {
     
     private var currentContact: Contact?
     
-    private let debouncer = SearchDebouncer(seconds: 1.5)
+    private let debouncer = Debouncer(seconds: 1.5)
     private let profileManager = DatabaseProfileManager()
     private let contactManager = DatabaseContactManager()
     

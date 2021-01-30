@@ -11,13 +11,16 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class MessageListener {
-    var currentQuery: DatabaseQuery?
+    typealias MessageFetchHandler = (Result<Message, Error>) -> Void
     
-    func listenForNewMessages(
-        mostRecentMessage: Message?,
-        chat: Chat,
-        completion: @escaping (Result<Message, Error>) -> Void
-    ) {
+    let chat: Chat
+    private var currentQuery: DatabaseQuery?
+    
+    init(chat: Chat) {
+        self.chat = chat
+    }
+    
+    func listenForNewMessages(mostRecentMessage: Message?, completion: @escaping MessageFetchHandler) {
         currentQuery?.removeAllObservers()
         
         let ref = Database.database().reference()
@@ -32,7 +35,7 @@ class MessageListener {
             }
             
             let message = ChatParser.parseMessage(
-                chat: chat,
+                chat: self.chat,
                 key: snapshot.key,
                 dict: result
             )

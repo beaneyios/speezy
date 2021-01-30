@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Chat {
+struct Chat: Equatable, Identifiable {
     let id: String
     let chatters: [Chatter]
     let title: String
@@ -61,6 +61,17 @@ extension Chat {
             chatImageUrl: chatImageUrl
         )
     }
+    
+    func withTitle(_ title: String) -> Chat {
+        Chat(
+            id: id,
+            chatters: chatters,
+            title: title,
+            lastUpdated: lastUpdated,
+            lastMessage: lastMessage,
+            chatImageUrl: chatImageUrl
+        )
+    }
 }
 
 extension Chat {
@@ -76,5 +87,25 @@ extension Chat {
         }
         
         return dict
+    }
+}
+
+extension Array where Element == Chat {
+    func isSameOrderAs(_ array: Self) -> Bool {
+        for (index, element) in self.enumerated() {
+            if index >= array.count {
+                // Something was added, best to assume these aren't in the same order.
+                return false
+            }
+            
+            // The chat in this position is not the same chat as self's element.
+            let secondElement = array[index]
+            if secondElement.id != element.id {
+                return false
+            }
+        }
+        
+        // No early false terminations, we can assume they are in the same order.
+        return true
     }
 }

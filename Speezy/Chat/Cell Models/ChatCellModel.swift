@@ -9,7 +9,11 @@
 import UIKit
 import FirebaseStorage
 
-class ChatCellModel {
+class ChatCellModel: Identifiable {
+    var id: String {
+        chat.id
+    }
+    
     let chat: Chat
     
     private var downloadTask: StorageDownloadTask?

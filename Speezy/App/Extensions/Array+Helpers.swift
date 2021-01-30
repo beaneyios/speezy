@@ -35,9 +35,9 @@ extension Array where Element: Identifiable {
         return newArray
     }
     
-    func removing(_ element: Element) -> Self {
+    func removing(_ id: String) -> Self {
         let indexOfElement = firstIndex {
-            $0.id == element.id
+            $0.id == id
         }
         
         guard let index = indexOfElement else {
@@ -47,5 +47,9 @@ extension Array where Element: Identifiable {
         var newArray = self
         newArray.remove(at: index)
         return newArray
+    }
+    
+    func removing(_ element: Element) -> Self {
+        removing(element.id)
     }
 }

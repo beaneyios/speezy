@@ -23,7 +23,6 @@ class NewChatViewModel {
     
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
-    let chatListener = MessageListener()
     let profileManager = DatabaseProfileManager()
     
     var shouldShowEmptyView: Bool {
