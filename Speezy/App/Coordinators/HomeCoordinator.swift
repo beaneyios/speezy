@@ -96,7 +96,9 @@ class HomeCoordinator: ViewCoordinator {
         withIconName iconName: String,
         containing viewController: UIViewController
     ) {
-        viewController.tabBarItem.image = UIImage(named: iconName)?.withRenderingMode(.alwaysOriginal)
+        viewController.tabBarItem.image = UIImage(named: iconName)
+        tabBarController.tabBar.tintColor = .speezyPurple
+        tabBarController.tabBar.unselectedItemTintColor = .black
         tabBarController.viewControllers?.append(viewController)
     }
 }
