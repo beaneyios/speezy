@@ -19,10 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let navigationController = UINavigationController()
-        self.appCoordinator = AppCoordinator(navigationController: navigationController)
+        let tabBarController = UITabBarController()
+        self.appCoordinator = AppCoordinator(tabBarController: tabBarController)
         self.appCoordinator.start()
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
 

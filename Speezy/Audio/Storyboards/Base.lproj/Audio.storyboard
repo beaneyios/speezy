@@ -367,22 +367,22 @@
                                 <sections/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI7-m2-amv" userLabel="Empty View">
-                                <rect key="frame" x="0.0" y="108" width="414" height="681"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="754"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any recordings, tap the record button below to get started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bu-pr-44d">
-                                        <rect key="frame" x="32" y="349" width="350" height="50.5"/>
+                                        <rect key="frame" x="32" y="385.5" width="350" height="50.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="21"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-mic" translatesAutoresizingMaskIntoConstraints="NO" id="6ZK-zo-NYJ">
-                                        <rect key="frame" x="16" y="190" width="382" height="150"/>
+                                        <rect key="frame" x="16" y="226.5" width="382" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="hhT-X4-zsu"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bv4-I1-q03">
-                                        <rect key="frame" x="0.0" y="340" width="414" height="1"/>
+                                        <rect key="frame" x="0.0" y="376.5" width="414" height="1"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Bkq-M5-AW4"/>
@@ -402,59 +402,25 @@
                                     <constraint firstItem="Bv4-I1-q03" firstAttribute="centerY" secondItem="tI7-m2-amv" secondAttribute="centerY" id="y38-SL-9dm"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPH-Zo-Pi6" userLabel="Speezy Bar">
-                                <rect key="frame" x="0.0" y="789" width="414" height="107"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Yae-3d-PVl">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="107"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="107" id="8zE-Bu-nRS"/>
-                                    <constraint firstAttribute="bottom" secondItem="Yae-3d-PVl" secondAttribute="bottom" id="Rrg-Dh-Y9y"/>
-                                    <constraint firstItem="Yae-3d-PVl" firstAttribute="leading" secondItem="qPH-Zo-Pi6" secondAttribute="leading" id="kHg-SM-s90"/>
-                                    <constraint firstItem="Yae-3d-PVl" firstAttribute="top" secondItem="qPH-Zo-Pi6" secondAttribute="top" id="lfm-9e-1n5"/>
-                                    <constraint firstAttribute="trailing" secondItem="Yae-3d-PVl" secondAttribute="trailing" id="qlj-Ua-HcU"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-ef-aIt">
-                                <rect key="frame" x="169.5" y="771" width="75" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="4hS-Ez-L1u"/>
-                                    <constraint firstAttribute="height" constant="75" id="6g3-Em-e4c"/>
-                                </constraints>
-                                <state key="normal" image="speezy"/>
-                                <connections>
-                                    <action selector="speezyTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="7A7-9l-q2L"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Z69-9u-VIT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="bottom" secondItem="jO6-yj-Wkd" secondAttribute="bottom" id="3xe-1k-4dl"/>
-                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="top" secondItem="tI7-m2-amv" secondAttribute="bottom" id="44p-sy-CqV"/>
-                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="3EA-ef-aIt" secondAttribute="bottom" constant="16" id="7jt-p9-RK8"/>
                             <constraint firstItem="07M-6G-J6e" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="8Tv-du-eUw"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" id="8yA-Iy-nME"/>
-                            <constraint firstItem="3EA-ef-aIt" firstAttribute="centerX" secondItem="jO6-yj-Wkd" secondAttribute="centerX" id="CBs-5f-RMc"/>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="tI7-m2-amv" secondAttribute="bottom" id="9ng-Ps-sxu"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="tI7-m2-amv" secondAttribute="trailing" id="Gtf-Qq-5jt"/>
                             <constraint firstItem="tI7-m2-amv" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="bottom" id="NYx-CN-tiz"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="RHA-DZ-evl"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="bottom" id="UZ9-gp-sww"/>
-                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="dIr-4b-cae"/>
                             <constraint firstItem="07M-6G-J6e" firstAttribute="top" secondItem="Z69-9u-VIT" secondAttribute="top" id="iZc-bq-nL9"/>
                             <constraint firstAttribute="trailing" secondItem="07M-6G-J6e" secondAttribute="trailing" id="jNs-K5-Z7L"/>
-                            <constraint firstItem="qPH-Zo-Pi6" firstAttribute="trailing" secondItem="Z69-9u-VIT" secondAttribute="trailing" id="pmO-Fe-zh3"/>
                             <constraint firstItem="tI7-m2-amv" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="uJz-MO-hrD"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="j5y-1d-41N" secondAttribute="trailing" id="wAg-Jr-6OH"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="btnRecord" destination="3EA-ef-aIt" id="wiX-xo-XcP"/>
                         <outlet property="emptyView" destination="tI7-m2-amv" id="uez-9h-pOS"/>
-                        <outlet property="gradient" destination="Yae-3d-PVl" id="HXe-ql-GbO"/>
                         <outlet property="profileButton" destination="aNt-NE-7DI" id="qUK-fC-yAe"/>
                         <outlet property="tableView" destination="j5y-1d-41N" id="FF6-F5-jzw"/>
                     </connections>
@@ -1034,7 +1000,6 @@
     </scenes>
     <resources>
         <image name="back-button" width="250" height="500"/>
-        <image name="bottom-gradient" width="120" height="22"/>
         <image name="btn-close" width="500" height="500"/>
         <image name="camera-button" width="500" height="500"/>
         <image name="camera-icon" width="500" height="500"/>
@@ -1044,7 +1009,6 @@
         <image name="gradient-background" width="1063" height="1891"/>
         <image name="play-button" width="120" height="120"/>
         <image name="settings-button" width="20" height="20"/>
-        <image name="speezy" width="446" height="441"/>
         <image name="start-recording-button" width="120" height="120"/>
         <image name="stop-recording-button" width="120" height="120"/>
         <image name="tag-icon" width="500" height="500"/>

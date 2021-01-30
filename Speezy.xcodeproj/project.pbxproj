@@ -45,7 +45,6 @@
 		BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */; };
 		BE3C5DD825BD8AFD005E34BB /* NewContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */; };
 		BE3C5DDE25BD8B81005E34BB /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DDD25BD8B81005E34BB /* Debouncer.swift */; };
-		BE3C5DE925BDA330005E34BB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DE825BDA330005E34BB /* HomeViewController.swift */; };
 		BE3C5DEF25BDA375005E34BB /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3C5DEE25BDA375005E34BB /* Home.storyboard */; };
 		BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */; };
 		BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */; };
@@ -241,6 +240,10 @@
 		BEFF49BE25C590A200794A21 /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49BD25C590A200794A21 /* ChatStore.swift */; };
 		BEFF49C625C590DF00794A21 /* ChatListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49C525C590DF00794A21 /* ChatListObservation.swift */; };
 		BEFF49CC25C590EF00794A21 /* ChatListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49CB25C590EF00794A21 /* ChatListObserver.swift */; };
+		BEFF49D425C59D3F00794A21 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49D325C59D3F00794A21 /* TabItem.swift */; };
+		BEFF49DA25C5A5BD00794A21 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49D925C5A5BD00794A21 /* HomeCoordinator.swift */; };
+		BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49E925C5AD6800794A21 /* QuickRecordDummyViewController.swift */; };
+		BEFF49FE25C5B58100794A21 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,7 +299,6 @@
 		BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
 		BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewModel.swift; sourceTree = "<group>"; };
 		BE3C5DDD25BD8B81005E34BB /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
-		BE3C5DE825BDA330005E34BB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BE3C5DEE25BDA375005E34BB /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		BE3FACAE2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionLoadingViewController.swift; sourceTree = "<group>"; };
 		BE3FACB42540BEA7006AD4D6 /* TranscriptCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptCollectionViewController.swift; sourceTree = "<group>"; };
@@ -496,6 +498,10 @@
 		BEFF49BD25C590A200794A21 /* ChatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStore.swift; sourceTree = "<group>"; };
 		BEFF49C525C590DF00794A21 /* ChatListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListObservation.swift; sourceTree = "<group>"; };
 		BEFF49CB25C590EF00794A21 /* ChatListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListObserver.swift; sourceTree = "<group>"; };
+		BEFF49D325C59D3F00794A21 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		BEFF49D925C5A5BD00794A21 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		BEFF49E925C5AD6800794A21 /* QuickRecordDummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordDummyViewController.swift; sourceTree = "<group>"; };
+		BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -585,7 +591,7 @@
 		BE3C5DE525BDA26F005E34BB /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BE3C5DE825BDA330005E34BB /* HomeViewController.swift */,
+				BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1068,6 +1074,8 @@
 			isa = PBXGroup;
 			children = (
 				BEBFD4BF24C5B9C700200D87 /* AppCoordinator.swift */,
+				BEFF49D925C5A5BD00794A21 /* HomeCoordinator.swift */,
+				BEFF49E925C5AD6800794A21 /* QuickRecordDummyViewController.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1364,12 +1372,13 @@
 		BEFCDBE324D047D100A6232E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */,
-				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
-				BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */,
-				BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */,
 				BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */,
 				BE8BA7E8259FB9160071B57A /* GradientButton.xib */,
+				BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */,
+				BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */,
+				BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */,
+				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
+				BEFF49D325C59D3F00794A21 /* TabItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1764,6 +1773,8 @@
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
+				BEFF49D425C59D3F00794A21 /* TabItem.swift in Sources */,
+				BEFF49DA25C5A5BD00794A21 /* HomeCoordinator.swift in Sources */,
 				BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */,
 				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
@@ -1777,6 +1788,7 @@
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
+				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,
 				BE5BDB7925C3530300F937C3 /* ChatsListener.swift in Sources */,
@@ -1834,12 +1846,12 @@
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
-				BE3C5DE925BDA330005E34BB /* HomeViewController.swift in Sources */,
 				BE5BDB8525C354AD00F937C3 /* ChatUserUpdater.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEE47F3625BC5E5700AF47FA /* DatabaseContactParser.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
+				BEFF49FE25C5B58100794A21 /* CustomTabBarController.swift in Sources */,
 				BE2A0CAB25C09EA8000B8A4C /* DatabasePushTokenManager.swift in Sources */,
 				BE6FD91625B4D07600723732 /* MessageListener.swift in Sources */,
 				BEE47F1C25BC55FA00AF47FA /* ContactCellModel.swift in Sources */,

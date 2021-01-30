@@ -19,7 +19,9 @@ class AuthLoadingViewModel {
         var authCompleted = false
         var storedUser: User?
         
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 1.0) {
+        let serialQueue = DispatchQueue(label: "com.speezy.authQueue")
+        
+        serialQueue.asyncAfter(deadline: DispatchTime.now() + 1.0) {
             timerCompleted = true
             
             if authCompleted {
@@ -28,17 +30,19 @@ class AuthLoadingViewModel {
         }
         
         listener = Auth.auth().addStateDidChangeListener { (auth, user) in
-            authCompleted = true
-            
-            if let userId = user?.uid {
-                Store.shared.listenForChatChanges(userId: userId)
-                self.tokenSyncService.syncPushToken(userId: userId)
-            }
-            
-            if timerCompleted {
-                completion(user)
-            } else {
-                storedUser = user
+            serialQueue.async {
+                authCompleted = true
+                
+                if let userId = user?.uid {
+                    Store.shared.listenForChatChanges(userId: userId)
+                    self.tokenSyncService.syncPushToken(userId: userId)
+                }
+                
+                if timerCompleted {
+                    completion(user)
+                } else {
+                    storedUser = user
+                }
             }
         }
     }
