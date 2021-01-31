@@ -36,6 +36,10 @@ extension MessageCellModel {
 }
 
 extension MessageCellModel {
+    var backgroundColor: UIColor {
+        isSender ? .speezyPurple : .chatBubbleOther
+    }
+    
     // Duration
     var durationText: String? {
         guard let duration = message.duration else {

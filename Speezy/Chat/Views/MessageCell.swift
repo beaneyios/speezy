@@ -22,7 +22,6 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var sendStatusImageWidth: NSLayoutConstraint!
     
     @IBOutlet weak var messageContainer: UIView!
-    @IBOutlet weak var messageBackgroundImage: UIImageView!
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var playButtonImage: UIImageView!
@@ -71,8 +70,8 @@ class MessageCell: UICollectionViewCell, NibLoadable {
             }
         }()
         
+        messageContainer.backgroundColor = item.backgroundColor
         messageContainer.layer.cornerRadius = 30.0
-        messageBackgroundImage.image = item.backgroundImage
         
         durationLabel.text = item.durationText
         durationLabel.textColor = item.durationTint
