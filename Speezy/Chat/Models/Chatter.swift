@@ -31,6 +31,10 @@ extension Chatter {
             dict["profile_image_url"] = profileImageUrl.absoluteString
         }
         
+        if let pushToken = pushToken {
+            dict["push_token"] = pushToken
+        }
+        
         return dict
     }    
 }

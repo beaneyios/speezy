@@ -56,17 +56,6 @@ class ChatListViewModel {
         store.chatStore.addChatListObserver(self)
     }
     
-    func insertNewChatItem(chat: Chat) {
-        let newCellModel = ChatCellModel(chat: chat, currentUserId: userId)
-        if items.isEmpty {
-            items.append(newCellModel)
-        } else {
-            items.insert(newCellModel, at: 0)
-        }
-        
-        didChange?(.loaded)
-    }
-    
     func navigateToChatId(_ chatId: String) {
         if let chat = chats.first(withId: chatId) {
             didChange?(.loadChat(chat))

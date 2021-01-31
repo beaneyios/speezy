@@ -74,7 +74,7 @@ extension Chat {
         )
     }
     
-    func withLastMessage(_ message: String) -> Chat {
+    func withLastMessage(_ lastMessage: String) -> Chat {
         Chat(
             id: id,
             chatters: chatters,

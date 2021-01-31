@@ -118,7 +118,7 @@ extension DatabasePushTokenManager {
         let ref = Database.database().reference()
         ids.forEach {
             let userId = $0
-            let userChild = ref.child("users/\($0)/push_token")
+            let userChild = ref.child("users/\($0)/profile/push_token")
             
             group.enter()
             userChild.observeSingleEvent(of: .value) { (snapshot) in

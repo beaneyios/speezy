@@ -40,10 +40,6 @@ class ChatListViewController: UIViewController {
         viewModel.navigateToChatId(chatId)
     }
     
-    func insertNewChatItem(chat: Chat) {
-        viewModel.insertNewChatItem(chat: chat)
-    }
-    
     private func listenForChanges() {
         viewModel.didChange = { change in
             self.applyChange(change: change)

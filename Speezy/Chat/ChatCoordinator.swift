@@ -114,13 +114,7 @@ extension ChatCoordinator: NewChatViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
     }
     
-    func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat) {
-        viewController.dismiss(animated: true) {
-            guard let chatListViewController = self.chatListViewController else {
-                return
-            }
-            
-            chatListViewController.insertNewChatItem(chat: chat)
-        }
+    func newChatViewController(_ viewController: NewChatViewController, didCreateChat chat: Chat) {        
+        viewController.dismiss(animated: true, completion: nil)
     }    
 }
