@@ -80,7 +80,7 @@ class HomeCoordinator: ViewCoordinator {
     private class DummyRecordViewController: UIViewController {}
     private func addQuickRecord() {
         let dummyController = DummyRecordViewController()
-        let imageInsets = UIEdgeInsets(top: -10, left: 0, bottom: 5, right: 0)
+        let imageInsets = UIEdgeInsets(top: -5, left: 0, bottom: 1, right: 0)
         
         dummyController.tabBarItem.image = UIImage(
             named: "speezy-tab-item"
