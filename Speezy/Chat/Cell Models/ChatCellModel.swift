@@ -56,9 +56,6 @@ extension ChatCellModel {
         }
         
         downloadTask?.cancel()
-        downloadTask = CloudImageManager.fetchImage(
-            at: "chats/\(chat.id).jpg",
-            completion: completion
-        )
+        downloadTask = ChatImageFetcher().fetchImage(id: chat.id, completion: completion)
     }
 }

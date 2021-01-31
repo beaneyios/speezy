@@ -16,6 +16,8 @@ target 'Speezy' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
+  pod 'FirebaseUI/Storage', '~> 8.0'
+  
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
   pod 'FacebookLogin'

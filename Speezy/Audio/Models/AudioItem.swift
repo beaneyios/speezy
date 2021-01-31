@@ -35,6 +35,10 @@ struct AudioItem: Codable, Equatable, Identifiable {
         FileManager.default.documentsURL(with: path)!
     }
     
+    var existsLocally: Bool {
+        fileUrl.data != nil
+    }
+    
     init(
         id: String,
         path: String,

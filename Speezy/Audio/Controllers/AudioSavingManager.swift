@@ -65,11 +65,14 @@ extension AudioSavingManager {
         _ item: AudioItem,
         completion: @escaping (Result<AudioItem, Error>) -> Void
     ) {
-        guard let data = try? Data(contentsOf: item.fileUrl) else {
+        guard let data = item.fileUrl.data else {
             return
         }
         
-        CloudAudioManager.uploadAudioClip(data, path: "audio_clips/\(item.id).m4a") { (result) in
+        CloudAudioManager.uploadAudioClip(
+            id: item.id,
+            data: data
+        ) { (result) in
             switch result {
             case let .success(url):
                 let audioItemWithUpdatedUrl = item.withRemoteUrl(url)

@@ -44,7 +44,7 @@ class ChatCell: UICollectionViewCell, NibLoadable {
                     UIView.animate(withDuration: 1.0) {
                         self.chatImage.alpha = 1.0
                     }
-                case let .failure(error):
+                case .failure:
                     self.chatImage.alpha = 1.0
                     self.chatImage.image = UIImage(named: "account-btn")
                 }

@@ -177,13 +177,13 @@ class ChatViewModel: NewItemGenerating {
 
 extension ChatViewModel {
     func sendStagedItem() {
-        guard let item = stagedAudioFile, let data = try? Data(contentsOf: item.fileUrl) else {
+        guard let item = stagedAudioFile, let data = item.fileUrl.data else {
             return
         }
         
         CloudAudioManager.uploadAudioClip(
-            data,
-            path: "audio_clips/\(item.id).m4a"
+            id: item.id,
+            data: data
         ) { (result) in
             switch result {
             case let .success(url):

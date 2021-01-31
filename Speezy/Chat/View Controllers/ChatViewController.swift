@@ -25,6 +25,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     
     weak var delegate: ChatViewControllerDelegate?
     
+    private var activeAudioManager: AudioManager?
+    
     var activeControl: UIView?
     var viewModel: ChatViewModel!
     
@@ -48,6 +50,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopListeningForKeyboardChanges()
+        cancelAudioPlayback()
     }
     
     override func viewWillLayoutSubviews() {
@@ -75,6 +78,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     
     @IBAction func didTapBack(_ sender: Any) {
         delegate?.chatViewControllerDidTapBack(self)
+    }
+    
+    private func cancelAudioPlayback() {
+        activeAudioManager?.stop()
     }
     
     private func configureRecordContainer() {
@@ -250,10 +257,12 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
         cell.messageDidStartPlaying = { playingCell in
+            self.activeAudioManager = playingCell.audioManager
             self.cellStartedPlaying(cell: playingCell, collectionView: collectionView)
         }
         
         cell.messageDidStopPlaying = { stoppingCell in
+            self.activeAudioManager = nil
             self.cellStoppedPlaying(cell: stoppingCell, collectionView: collectionView)
         }
         

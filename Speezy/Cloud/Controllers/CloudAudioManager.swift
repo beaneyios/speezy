@@ -10,34 +10,92 @@ import Foundation
 import FirebaseStorage
 
 class CloudAudioManager {
-    static func fetchAudioClip(
-        at path: String,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) {
+    static func downloadAudioClip(
+        id: String,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {        
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
-        let profileImagesRef = storageRef.child(path)
+        let profileImagesRef = storageRef.child("audio_clips/\(id).m4a")
         
-        profileImagesRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            guard let data = data else {
-                // TODO: Handle error.
-                assertionFailure("Errored with error \(error?.localizedDescription)")
-                return
+        let item = AudioItem(
+            id: id,
+            path: "\(id).m4a",
+            title: "",
+            date: Date(),
+            tags: []
+        )
+        
+        profileImagesRef.getMetadata { (metaData, error) in
+            if
+                let localLastModified = item.fileUrl.lastModified,
+                let remoteLastModified = metaData?.updated,
+                localLastModified > remoteLastModified,
+                item.existsLocally
+            {
+                completion(.success(item))
+            } else {
+                self.downloadAudioClip(
+                    ref: profileImagesRef,
+                    item: item,
+                    completion: completion
+                )
             }
-            
-            completion(.success(data))
         }
     }
     
+    static func downloadAudioItem(
+        item: AudioItem,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
+        downloadAudioClip(id: item.id, completion: completion)
+    }
+    
+    enum AudioDownloadError: Error {
+        case notFound
+    }
+    
+    private static func downloadAudioClip(
+        ref: StorageReference,
+        item: AudioItem,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
+        ref.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            guard let data = data else {
+                completion(.failure(AudioDownloadError.notFound))
+                return
+            }
+            
+            do {
+                try data.write(to: item.withStagingPath().fileUrl)
+                try data.write(to: item.fileUrl)
+                completion(.success(item))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    static func uploadAudioItem(
+        item: AudioItem,
+        completion: @escaping (StorageUploadResult) -> Void
+    ) {
+        guard let data = item.fileUrl.data else {
+            return
+        }
+        
+        uploadAudioClip(id: item.id, data: data, completion: completion)
+    }
+    
     static func uploadAudioClip(
-        _ data: Data,
-        path: String,
+        id: String,
+        data: Data,
         completion: @escaping (StorageUploadResult) -> Void
     ) {
         // Create a root reference
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
-        let audioClipRef = storageRef.child(path)
+        let audioClipRef = storageRef.child("audio_clips/\(id).m4a")
         
         audioClipRef.putData(data, metadata: nil) { (metadata, error) in
             if let error = error {

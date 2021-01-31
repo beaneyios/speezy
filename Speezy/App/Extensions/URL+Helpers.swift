@@ -17,4 +17,8 @@ extension URL {
             return nil
         }
     }
+    
+    var data: Data? {
+        try? Data(contentsOf: self)
+    }
 }

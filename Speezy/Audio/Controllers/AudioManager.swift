@@ -59,13 +59,12 @@ class AudioManager: NSObject {
     }
     
     private func downloadAudioFile(completion: @escaping () -> Void) {
-        CloudAudioManager.fetchAudioClip(
-            at: "audio_clips/\(item.id).m4a"
+        CloudAudioManager.downloadAudioClip(
+            id: item.id
         ) { (result) in
             switch result {
             case let .success(data):
-                try? data.write(to: self.item.fileUrl)
-                try? data.write(to: self.originalItem.fileUrl)
+                break
             case let .failure(error):
                 break
             }

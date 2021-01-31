@@ -25,18 +25,19 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var messageBackgroundImage: UIImageView!
     
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var playButtonImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var messageDidStartPlaying: ((MessageCell) -> Void)?
     var messageDidStopPlaying: ((MessageCell) -> Void)?
     
-    private var audioManager: AudioManager?
+    private(set) var audioManager: AudioManager?
     private var message: Message?
         
     func configure(item: MessageCellModel) {
         self.message = item.message
         
-        playButton.tintColor = item.playButtonTint
+        playButtonImage.tintColor = item.playButtonTint
         
         messageLabel.text = item.messageText
         messageLabel.textColor = item.messageTint
@@ -130,22 +131,13 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         spinner.isHidden = false
         spinner.startAnimating()
         
-        playButton.isHidden = true
-        CloudAudioManager.fetchAudioClip(at: "audio_clips/\(audioId).m4a") { (result) in
-            let item = AudioItem(
-                id: audioId,
-                path: "\(audioId).m4a",
-                title: "",
-                date: Date(),
-                tags: []
-            )
-            
+        playButtonImage.isHidden = true
+        
+        CloudAudioManager.downloadAudioClip(id: audioId) { (result) in            
             DispatchQueue.main.async {
                 switch result {
-                case let .success(data):
+                case let .success(item):
                     do {
-                        try data.write(to: item.withStagingPath().fileUrl)
-                        try data.write(to: item.fileUrl)
                         self.audioManager = AudioManager(item: item)
                         self.audioManager?.addPlaybackObserver(self)
                         self.audioManager?.play()
@@ -154,13 +146,13 @@ class MessageCell: UICollectionViewCell, NibLoadable {
                         // TODO: handle error here.
                     }
                 case let .failure(error):
-                    assertionFailure("Errored with error \(error)")
-                    // TODO: handle failure here.
+                    self.playButtonImage.image = UIImage(named: "error-icon")
+                    self.playButton.isUserInteractionEnabled = false
                 }
                 
                 self.spinner.isHidden = true
                 self.spinner.stopAnimating()
-                self.playButton.isHidden = false
+                self.playButtonImage.isHidden = false
                 self.slider.alpha = 1.0
                 self.slider.isUserInteractionEnabled = true
             }
@@ -171,17 +163,16 @@ class MessageCell: UICollectionViewCell, NibLoadable {
 extension MessageCell: AudioPlayerObserver {
     func playBackBegan(on item: AudioItem) {
         messageDidStartPlaying?(self)
-        playButton.setImage(UIImage(named: "plain-pause-button"), for: .normal)
+        playButtonImage.image = UIImage(named: "plain-pause-button")
     }
     
     func playbackPaused(on item: AudioItem) {
-        playButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
-        
+        playButtonImage.image = UIImage(named: "plain-play-button")
         messageDidStopPlaying?(self)
     }
     
     func playbackStopped(on item: AudioItem) {
-        playButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+        playButtonImage.image = UIImage(named: "plain-play-button")
         durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: audioManager?.duration ?? 0.0)
         slider.value = 0.0
         
