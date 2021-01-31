@@ -23,7 +23,8 @@ class SettingsItemListViewController: UIViewController {
     var settingsItems: [SettingsItem] = [
         SettingsItem(icon: UIImage(named: "heart-icon"), title: "Acknowledgements", identifier: .acknowledgements),
         SettingsItem(icon: UIImage(named: "tos-icon"), title: "Privacy Policy", identifier: .privacyPolicy),
-        SettingsItem(icon: UIImage(named: "feedback-icon"), title: "Feedback", identifier: .feedback)
+        SettingsItem(icon: UIImage(named: "feedback-icon"), title: "Feedback", identifier: .feedback),
+        SettingsItem(icon: UIImage(named: "account-btn"), title: "Log out", identifier: .logout)
     ]
         
     override func viewDidLoad() {

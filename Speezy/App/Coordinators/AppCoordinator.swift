@@ -24,26 +24,31 @@ class AppCoordinator: ViewCoordinator {
         
     }
     
+    func navigateToChatId(_ chatId: String, message: String) {
+        guard let homeCoordinator = find(HomeCoordinator.self) else {
+            return
+        }
+        
+        homeCoordinator.navigateToChatId(chatId, message: message)
+    }
+    
     private func navigateToAuth() {
         let navigationController = UINavigationController()
         let coordinator = AuthCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         add(coordinator)
         coordinator.start()
-        
+        tabBarController.tabBar.isHidden = true
         tabBarController.setViewControllers([navigationController], animated: true)
     }
     
     private func navigateToHome() {
         tabBarController.tabBar.isHidden = false
         let homeCoordinator = HomeCoordinator(tabBarController: tabBarController)
+        homeCoordinator.delegate = self
+        add(homeCoordinator)
         homeCoordinator.start()
-    }
-}
-
-extension AppCoordinator: ChatCoordinatorDelegate {
-    func chatCoordinatorDidFinish(_ coordinator: ChatCoordinator) {
-        remove(coordinator)
+        tabBarController.tabBar.isHidden = false
     }
 }
 
@@ -61,19 +66,12 @@ extension AppCoordinator: AuthCoordinatorDelegate {
     }
 }
 
-extension AppCoordinator: AudioItemCoordinatorDelegate {    
-    func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator) {
+extension AppCoordinator: HomeCoordinatorDelegate {
+    func homeCoordinatorDidFinish(_ coordinator: HomeCoordinator) {
         remove(coordinator)
-        navigateToAuth()
     }
     
-    func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
-        remove(coordinator)
-    }
-}
-
-extension AppCoordinator: ContactsCoordinatorDelegate {
-    func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
-        remove(coordinator)
+    func homeCoordinatorDidLogOut(_ coordinator: HomeCoordinator) {
+        navigateToAuth()
     }
 }

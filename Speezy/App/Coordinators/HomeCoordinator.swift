@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol HomeCoordinatorDelegate: AnyObject {
+    func homeCoordinatorDidFinish(_ coordinator: HomeCoordinator)
+    func homeCoordinatorDidLogOut(_ coordinator: HomeCoordinator)
+}
+
 class HomeCoordinator: ViewCoordinator {
     enum TabBarTab: Int {
         case audio
@@ -15,6 +20,8 @@ class HomeCoordinator: ViewCoordinator {
         case profile
         case contacts
     }
+    
+    weak var delegate: HomeCoordinatorDelegate?
     
     private let tabBarController: UITabBarController
     
@@ -28,7 +35,34 @@ class HomeCoordinator: ViewCoordinator {
         addChatCoordinator()
         addQuickRecord()
         addContactsCoordinator()
-        addProfileCoordinator()
+        addSettingsCoordinator()
+    }
+    
+    func navigateToChatId(_ chatId: String, message: String) {
+        let presentedViewController = childCoordinators.compactMap {
+            ($0 as? NavigationControlling)?.navigationController.presentedViewController
+        }.first
+        
+        if let presentedViewController = presentedViewController {
+            let alert = UIAlertController(
+                title: message,
+                message: "Once you're done, you'll find your message in the chats list",
+                preferredStyle: .alert
+            )
+            
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(ok)
+            presentedViewController.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        tabBarController.selectedIndex = 1
+        
+        guard let chatCoordinator = find(ChatCoordinator.self) else {
+            return
+        }
+        
+        chatCoordinator.navigateToChatId(chatId, message: message)
     }
     
     private func addAudioCoordinator() {
@@ -49,9 +83,7 @@ class HomeCoordinator: ViewCoordinator {
         add(coordinator)
         coordinator.start()
         
-        let imageInsets = UIDevice.current.userInterfaceIdiom == .pad
-                    ? UIEdgeInsets(top: -10, left: 0, bottom: 10, right: 0)
-                    : UIEdgeInsets(top: -10, left: 0, bottom: -10, right: 0)
+        let imageInsets = UIEdgeInsets(top: -10, left: 0, bottom: 5, right: 0)
         
         navigationController.tabBarItem.image = UIImage(
             named: "speezy-tab-item"
@@ -82,20 +114,21 @@ class HomeCoordinator: ViewCoordinator {
         addTab(withIconName: "chat-tab-item", containing: navigationController)
     }
     
-    private func addProfileCoordinator() {
+    private func addSettingsCoordinator() {
         let navigationController = UINavigationController()
         navigationController.setNavigationBarHidden(true, animated: false)
-        let coordinator = ChatCoordinator(navigationController: navigationController)
-        coordinator.delegate = self
-        add(coordinator)
-        coordinator.start()
-        addTab(withIconName: "profile-tab-item", containing: navigationController)
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
+        settingsCoordinator.delegate = self
+        add(settingsCoordinator)
+        settingsCoordinator.start()
+        addTab(withIconName: "settings-tab-item", containing: navigationController)
     }
     
     private func addTab(
         withIconName iconName: String,
         containing viewController: UIViewController
     ) {
+        viewController.tabBarItem.title = nil
         viewController.tabBarItem.image = UIImage(named: iconName)
         tabBarController.tabBar.tintColor = .speezyPurple
         tabBarController.tabBar.unselectedItemTintColor = .black
@@ -109,7 +142,8 @@ extension HomeCoordinator: AudioItemCoordinatorDelegate {
     }
     
     func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator) {
-        
+        delegate?.homeCoordinatorDidLogOut(self)
+        delegate?.homeCoordinatorDidFinish(self)
     }
 }
 
@@ -121,6 +155,16 @@ extension HomeCoordinator: ChatCoordinatorDelegate {
 
 extension HomeCoordinator: ContactsCoordinatorDelegate {
     func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
+        remove(coordinator)
+    }
+}
+
+extension HomeCoordinator: SettingsCoordinatorDelegate {
+    func settingsCoordinatorDidLogOut(_ coordinator: SettingsCoordinator) {
+        delegate?.homeCoordinatorDidLogOut(self)
+    }
+    
+    func settingsCoordinatorDidFinish(_ coordinator: SettingsCoordinator) {
         remove(coordinator)
     }
 }

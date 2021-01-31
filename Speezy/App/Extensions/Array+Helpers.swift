@@ -16,8 +16,12 @@ extension Array where Element: Identifiable {
     }
     
     func contains(_ element: Element) -> Bool {
+        contains(elementWithId: element.id)
+    }
+    
+    func contains(elementWithId id: String) -> Bool {
         contains {
-            $0.id == element.id
+            $0.id == id
         }
     }
     

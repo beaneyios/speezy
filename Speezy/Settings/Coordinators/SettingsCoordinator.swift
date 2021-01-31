@@ -8,12 +8,15 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import FBSDKLoginKit
 
 protocol SettingsCoordinatorDelegate: AnyObject {
+    func settingsCoordinatorDidLogOut(_ coordinator: SettingsCoordinator)
     func settingsCoordinatorDidFinish(_ coordinator: SettingsCoordinator)
 }
 
-class SettingsCoordinator: ViewCoordinator {
+class SettingsCoordinator: ViewCoordinator, NavigationControlling {
     let storyboard = UIStoryboard(name: "Settings", bundle: nil)
     let navigationController: UINavigationController
     
@@ -33,6 +36,10 @@ class SettingsCoordinator: ViewCoordinator {
     override func finish() {
         delegate?.settingsCoordinatorDidFinish(self)
     }
+    
+    deinit {
+        print("Weee")
+    }
 }
 
 extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
@@ -42,6 +49,11 @@ extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
             navigateToAcknowledgements()
         case .privacyPolicy:
             navigateToPrivacyPolicy()
+        case .logout:
+            try? Auth.auth().signOut()
+            LoginManager().logOut()
+            delegate?.settingsCoordinatorDidLogOut(self)
+            delegate?.settingsCoordinatorDidFinish(self)
         default:
             break
         }

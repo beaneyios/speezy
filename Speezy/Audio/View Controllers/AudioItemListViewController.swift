@@ -16,21 +16,16 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
         didSelectAudioItem item: AudioItem
     )
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
-    func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
     func audioItemListViewController(
         _ viewController: AudioItemListViewController,
         didSelectSendOnItem item: AudioItem
     )
-    func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController)
     func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var btnRecord: UIButton!
-    @IBOutlet weak var gradient: UIImageView!
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var profileButton: SpeezyButton!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -46,23 +41,6 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
         observeViewModelChanges()
         configureTableView()
         loadItems()
-//        loadProfileImage()
-        configureProfileButton()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        profileButton.layer.cornerRadius = profileButton.frame.width / 2.0
-        profileButton.clipsToBounds = true
-    }
-    
-    private func configureProfileButton() {
-        profileButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
-    }
-    
-    @objc private func signOut() {
-        viewModel.signOut()
     }
     
     private func configureTableView() {
@@ -81,10 +59,6 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
                 case .itemsLoaded:
                     self.toggleEmptyView()
                     self.tableView.reloadData()
-                case let .profileImageLoaded(image):
-                    self.profileButton.stopLoading(image: image)
-                case .userSignedOut:
-                    self.delegate?.audioItemListViewControllerDidSelectSignOut(self)
                 }
             }
         }
@@ -94,32 +68,12 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
         viewModel.loadItems()
     }
     
-    private func loadProfileImage() {
-        profileButton.startLoading(
-            color: UIColor(named: "speezy-purple") ?? .black,
-            style: .medium
-        )
-        viewModel.loadProfileImage()
-    }
-    
     private func toggleEmptyView() {
         if viewModel.shouldShowEmptyView {
             emptyView.isHidden = false
         } else {
             emptyView.isHidden = true
         }
-    }
-    
-    @IBAction func signOutTapped(_ sender: Any) {
-        delegate?.audioItemListViewControllerDidSelectBack(self)
-    }
-    
-    @IBAction func settingsTapped(_ sender: Any) {
-        delegate?.audioItemListViewControllerDidSelectSettings(self)
-    }
-    
-    @IBAction func speezyTapped(_ sender: Any) {
-        presentQuickRecordDialogue(item: viewModel.newItem)
     }
     
     func reloadItem(_ item: AudioItem) {

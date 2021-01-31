@@ -36,20 +36,6 @@
                                             <constraint firstAttribute="height" constant="1" id="veD-0H-vlE"/>
                                         </constraints>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-button" translatesAutoresizingMaskIntoConstraints="NO" id="PPt-OQ-l68">
-                                        <rect key="frame" x="16" y="16.5" width="15" height="31"/>
-                                        <color key="tintColor" name="speezy-purple"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="FqO-tV-Kee"/>
-                                            <constraint firstAttribute="width" constant="15" id="w2g-id-6el"/>
-                                        </constraints>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdG-T2-0Sk">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
-                                        <connections>
-                                            <action selector="didTapBack:" destination="dg1-FN-T3m" eventType="touchUpInside" id="Mnx-P6-5B1"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pvq-Ua-AVD">
                                         <rect key="frame" x="148" y="20" width="79.5" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -61,15 +47,10 @@
                                 <constraints>
                                     <constraint firstItem="3Im-uJ-fgx" firstAttribute="leading" secondItem="I0A-1K-dTc" secondAttribute="leading" id="06c-8n-TPo"/>
                                     <constraint firstItem="Pvq-Ua-AVD" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="top" constant="20" id="0tT-jQ-crn"/>
-                                    <constraint firstItem="KdG-T2-0Sk" firstAttribute="leading" secondItem="I0A-1K-dTc" secondAttribute="leading" id="Ef3-W9-EtB"/>
-                                    <constraint firstItem="PPt-OQ-l68" firstAttribute="centerY" secondItem="Pvq-Ua-AVD" secondAttribute="centerY" id="KdR-FQ-hhc"/>
                                     <constraint firstItem="Pvq-Ua-AVD" firstAttribute="centerX" secondItem="I0A-1K-dTc" secondAttribute="centerX" id="TuK-Jn-NwU"/>
-                                    <constraint firstItem="PPt-OQ-l68" firstAttribute="leading" secondItem="I0A-1K-dTc" secondAttribute="leading" constant="16" id="UBq-aa-OFz"/>
                                     <constraint firstAttribute="bottom" secondItem="3Im-uJ-fgx" secondAttribute="bottom" id="Z23-5K-AF5"/>
                                     <constraint firstItem="3Im-uJ-fgx" firstAttribute="top" secondItem="Pvq-Ua-AVD" secondAttribute="bottom" constant="19" id="ZMU-Q7-vcz"/>
-                                    <constraint firstItem="KdG-T2-0Sk" firstAttribute="top" secondItem="I0A-1K-dTc" secondAttribute="top" id="c3b-bm-JvW"/>
                                     <constraint firstAttribute="trailing" secondItem="3Im-uJ-fgx" secondAttribute="trailing" id="crX-DH-f2I"/>
-                                    <constraint firstAttribute="bottom" secondItem="KdG-T2-0Sk" secondAttribute="bottom" id="n69-HP-lmf"/>
                                 </constraints>
                             </view>
                         </subviews>

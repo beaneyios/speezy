@@ -21,7 +21,8 @@ class ChatPushManager {
         let infoDict: [String: Any] = [
             "tokens": tokens,
             "title": "\(chat.title)",
-            "body": "\(message)"
+            "body": "\(message)",
+            "chatId": chat.id
         ]
         
         functions.httpsCallable("alertNewMessage").call(infoDict) { (result, error) in

@@ -36,8 +36,8 @@ class ChatListViewController: UIViewController {
         delegate?.chatListViewControllerDidSelectCreateNewChat(self)
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        delegate?.chatListViewControllerDidSelectBack(self)
+    func navigateToChatId(_ chatId: String) {
+        viewModel.navigateToChatId(chatId)
     }
     
     func insertNewChatItem(chat: Chat) {
@@ -72,6 +72,8 @@ class ChatListViewController: UIViewController {
                             )
                         ]
                     )
+                case let .loadChat(chat):
+                    self.delegate?.chatListViewController(self, didSelectChat: chat)
                 }
             }
         }

@@ -14,6 +14,7 @@ struct SettingsItem {
         case acknowledgements
         case feedback
         case privacyPolicy
+        case logout
     }
     
     var icon: UIImage?

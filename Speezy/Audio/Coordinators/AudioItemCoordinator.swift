@@ -11,10 +11,9 @@ import UIKit
 
 protocol AudioItemCoordinatorDelegate: AnyObject {
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator)
-    func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator)
 }
 
-class AudioItemCoordinator: ViewCoordinator {
+class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
     let storyboard = UIStoryboard(name: "Audio", bundle: nil)
     let navigationController: UINavigationController
     
@@ -182,16 +181,6 @@ extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
     func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController) {
         navigationController.popViewController(animated: true)
         delegate?.audioItemCoordinatorDidFinish(self)
-    }
-    
-    func audioItemListViewControllerDidSelectSignOut(_ viewController: AudioItemListViewController) {
-        delegate?.audioItemCoordinatorDidSignOut(self)
-    }
-    
-    func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
-        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
-        add(settingsCoordinator)
-        settingsCoordinator.start()
     }
     
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController) {

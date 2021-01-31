@@ -79,20 +79,6 @@
                                             <constraint firstAttribute="height" constant="1" id="00A-Nv-ddN"/>
                                         </constraints>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-button" translatesAutoresizingMaskIntoConstraints="NO" id="q1w-ds-Pyi">
-                                        <rect key="frame" x="16" y="16.5" width="15" height="31"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="ZkP-bs-kwL"/>
-                                            <constraint firstAttribute="height" constant="31" id="tab-2C-iCS"/>
-                                        </constraints>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNZ-Jf-g8R">
-                                        <rect key="frame" x="0.0" y="0.0" width="47" height="64"/>
-                                        <connections>
-                                            <action selector="goBack:" destination="cOF-HD-6O1" eventType="touchUpInside" id="Zq7-ag-DY3"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26J-qW-kan">
                                         <rect key="frame" x="164" y="20" width="86" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -112,14 +98,8 @@
                                     <constraint firstAttribute="trailing" secondItem="RIH-hn-H5Y" secondAttribute="trailing" constant="16" id="5LL-Ir-oSl"/>
                                     <constraint firstItem="1Zp-Ub-zxa" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" id="BRv-Ph-Q8r"/>
                                     <constraint firstAttribute="trailing" secondItem="1Zp-Ub-zxa" secondAttribute="trailing" id="EPy-Mz-Zna"/>
-                                    <constraint firstAttribute="bottom" secondItem="zNZ-Jf-g8R" secondAttribute="bottom" id="I5v-GW-pDo"/>
-                                    <constraint firstItem="zNZ-Jf-g8R" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" id="JGj-zH-ES1"/>
-                                    <constraint firstItem="zNZ-Jf-g8R" firstAttribute="top" secondItem="IpE-M8-ZsW" secondAttribute="top" id="KJR-Ts-wtr"/>
                                     <constraint firstItem="26J-qW-kan" firstAttribute="centerX" secondItem="IpE-M8-ZsW" secondAttribute="centerX" id="KnJ-m7-i6W"/>
-                                    <constraint firstItem="q1w-ds-Pyi" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" constant="16" id="Mpi-2X-Y87"/>
                                     <constraint firstAttribute="height" constant="64" id="NEO-oE-L61"/>
-                                    <constraint firstItem="q1w-ds-Pyi" firstAttribute="centerY" secondItem="26J-qW-kan" secondAttribute="centerY" id="UyR-HU-XoN"/>
-                                    <constraint firstItem="zNZ-Jf-g8R" firstAttribute="trailing" secondItem="q1w-ds-Pyi" secondAttribute="trailing" constant="16" id="d4x-Y0-n4a"/>
                                     <constraint firstItem="RIH-hn-H5Y" firstAttribute="centerY" secondItem="26J-qW-kan" secondAttribute="centerY" id="gbI-Do-QTB"/>
                                     <constraint firstItem="26J-qW-kan" firstAttribute="top" secondItem="IpE-M8-ZsW" secondAttribute="top" constant="20" id="jfl-xT-Iye"/>
                                     <constraint firstItem="1Zp-Ub-zxa" firstAttribute="top" secondItem="26J-qW-kan" secondAttribute="bottom" constant="19" id="p0u-Fs-cwA"/>
@@ -358,7 +338,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back-button" width="250" height="500"/>
         <image name="btn-close" width="500" height="500"/>
         <image name="empty-mic" width="500" height="500"/>
         <image name="gradient-background" width="1063" height="1891"/>

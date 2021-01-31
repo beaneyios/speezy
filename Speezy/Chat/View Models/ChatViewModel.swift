@@ -32,7 +32,7 @@ class ChatViewModel: NewItemGenerating {
     
     private var activeAudioManager: AudioManager?
     
-    private var chat: Chat
+    private(set) var chat: Chat
     private var stagedAudioFile: AudioItem?
     private var stagedText: String?
     

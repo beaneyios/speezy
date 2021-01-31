@@ -21,6 +21,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var recordButtonContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var recordBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var notificationLabel: UILabel!
     
     weak var delegate: ChatViewControllerDelegate?
     
@@ -47,6 +48,25 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopListeningForKeyboardChanges()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        notificationLabel.layer.cornerRadius = notificationLabel.frame.width / 2.0
+        notificationLabel.clipsToBounds = true
+        notificationLabel.isHidden = true
+    }
+    
+    func showNotificationLabel() {
+        notificationLabel.isHidden = false
+        UIView.animate(withDuration: 0.3) {
+            self.notificationLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3) {
+                self.notificationLabel.transform = CGAffineTransform.identity
+            }
+        }
     }
     
     func didTapRecord() {

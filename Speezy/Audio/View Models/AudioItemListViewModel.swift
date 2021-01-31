@@ -14,8 +14,6 @@ class AudioItemListViewModel: NewItemGenerating {
     
     enum Change {
         case itemsLoaded
-        case profileImageLoaded(UIImage)
-        case userSignedOut
     }
     
     var didChange: ((Change) -> Void)?
@@ -68,34 +66,6 @@ class AudioItemListViewModel: NewItemGenerating {
                 break
             }
         }
-    }
-}
-
-extension AudioItemListViewModel {
-    func loadProfileImage() {
-        guard let currentUser = Auth.auth().currentUser else {
-            return
-        }
-        
-        // TODO: Only make this request when we know the profile has a link.
-        CloudImageManager.fetchImage(at: "profile_images/\(currentUser.uid).jpg") { (result) in
-            switch result {
-            case let .success(image):
-                break
-//                self.didChange?(.profileImageLoaded(image))
-            case .failure:
-                break
-//                if let defaultImage = UIImage(named: "account-btn") {
-//                    self.didChange?(.profileImageLoaded(defaultImage))
-//                }
-            }
-        }
-    }
-    
-    func signOut() {
-        LoginManager().logOut()
-        try? Auth.auth().signOut()
-        didChange?(.userSignedOut)
     }
 }
 

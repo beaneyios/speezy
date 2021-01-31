@@ -14,7 +14,7 @@ protocol ChatCoordinatorDelegate: AnyObject {
     func chatCoordinatorDidFinish(_ coordinator: ChatCoordinator)
 }
 
-class ChatCoordinator: ViewCoordinator {
+class ChatCoordinator: ViewCoordinator, NavigationControlling {
     let storyboard = UIStoryboard(name: "Chat", bundle: nil)
     let navigationController: UINavigationController
     
@@ -32,11 +32,25 @@ class ChatCoordinator: ViewCoordinator {
         delegate?.chatCoordinatorDidFinish(self)
     }
     
+    func navigateToChatId(_ chatId: String, message: String) {
+        guard let chatViewController = chatViewController else {
+            chatListViewController?.navigateToChatId(chatId)
+            return
+        }
+        
+        if chatViewController.viewModel.chat.id == chatId {
+            return
+        }
+        
+        chatViewController.showNotificationLabel()
+    }
+    
     private func navigateToChatView(chat: Chat) {
         let viewController = storyboard.instantiateViewController(
             identifier: "ChatViewController"
         ) as! ChatViewController
         
+        viewController.hidesBottomBarWhenPushed = true
         viewController.delegate = self
         viewController.viewModel = ChatViewModel(chat: chat)        
         navigationController.pushViewController(viewController, animated: true)
@@ -61,6 +75,20 @@ class ChatCoordinator: ViewCoordinator {
     }
 }
 
+extension ChatCoordinator {
+    var chatListViewController: ChatListViewController? {
+        navigationController.viewControllers.compactMap {
+            $0 as? ChatListViewController
+        }.first
+    }
+    
+    var chatViewController: ChatViewController? {
+        navigationController.viewControllers.compactMap {
+            $0 as? ChatViewController
+        }.first
+    }
+}
+
 extension ChatCoordinator: ChatListViewControllerDelegate {
     func chatListViewControllerDidSelectBack(_ viewController: ChatListViewController) {
         navigationController.popViewController(animated: true)
@@ -82,12 +110,6 @@ extension ChatCoordinator: ChatViewControllerDelegate {
 }
 
 extension ChatCoordinator: NewChatViewControllerDelegate {
-    var chatListViewController: ChatListViewController? {
-        navigationController.viewControllers.compactMap {
-            $0 as? ChatListViewController
-        }.first
-    }
-    
     func newChatViewControllerDidSelectBack(_ viewController: NewChatViewController) {
         viewController.dismiss(animated: true, completion: nil)
     }

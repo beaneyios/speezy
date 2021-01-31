@@ -14,7 +14,7 @@ protocol ContactsCoordinatorDelegate: AnyObject {
     func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator)
 }
 
-class ContactsCoordinator: ViewCoordinator {
+class ContactsCoordinator: ViewCoordinator, NavigationControlling {
     let storyboard = UIStoryboard(name: "Contacts", bundle: nil)
     let navigationController: UINavigationController
     

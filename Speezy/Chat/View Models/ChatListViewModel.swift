@@ -14,6 +14,7 @@ class ChatListViewModel {
         case replacedItem(Int)
         case loaded
         case loading(Bool)
+        case loadChat(Chat)
     }
     
     private(set) var items = [ChatCellModel]()
@@ -22,6 +23,8 @@ class ChatListViewModel {
     
     private let store: Store
     private let debouncer = Debouncer(seconds: 0.5)
+    
+    private var awaitingChatId: String?
     
     var shouldShowEmptyView: Bool {
         items.isEmpty
@@ -52,6 +55,15 @@ class ChatListViewModel {
         didChange?(.loaded)
     }
     
+    func navigateToChatId(_ chatId: String) {
+        if let chat = chats.first(withId: chatId) {
+            didChange?(.loadChat(chat))
+        } else {
+            didChange?(.loading(true))
+            awaitingChatId = chatId
+        }
+    }
+    
     private func updateCellModels(chats: [Chat]) {
         debouncer.debounce {
             self.chats = chats
@@ -60,6 +72,19 @@ class ChatListViewModel {
             }
 
             self.didChange?(.loaded)
+            self.didChange?(.loading(false))
+        }
+    }
+    
+    private func updateCellModelsAndOpenChat(chat: Chat, chats: [Chat]) {
+        debouncer.debounce {
+            self.chats = chats
+            self.items = chats.map {
+                ChatCellModel(chat: $0)
+            }
+
+            self.didChange?(.loaded)
+            self.didChange?(.loadChat(chat))
             self.didChange?(.loading(false))
         }
     }
@@ -81,7 +106,11 @@ class ChatListViewModel {
 
 extension ChatListViewModel: ChatListObserver {
     func chatAdded(chat: Chat, in chats: [Chat]) {
-        updateCellModels(chats: chats)
+        if let awaitingChatId = awaitingChatId, awaitingChatId == chat.id {
+            updateCellModelsAndOpenChat(chat: chat, chats: chats)
+        } else {
+            updateCellModels(chats: chats)
+        }
     }
     
     func chatUpdated(chat: Chat, in chats: [Chat]) {
@@ -93,7 +122,11 @@ extension ChatListViewModel: ChatListObserver {
     }
     
     func initialChatsReceived(chats: [Chat]) {
-        updateCellModels(chats: chats)
+        if let awaitingChatId = awaitingChatId, let chat = chats.first(withId: awaitingChatId) {
+            updateCellModelsAndOpenChat(chat: chat, chats: chats)
+        } else {
+            updateCellModels(chats: chats)
+        }
     }
     
     func chatRemoved(chat: Chat, chats: [Chat]) {

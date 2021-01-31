@@ -38,4 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
             annotation: [UIApplication.OpenURLOptionsKey.annotation]
         )
     }
+    
+    static var appCoordinator: AppCoordinator? {        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appCoordinator
+    }
 }

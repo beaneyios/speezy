@@ -301,63 +301,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YzJ-2D-oUj">
-                                        <rect key="frame" x="376" y="21" width="22" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="3vv-CH-3bj"/>
-                                            <constraint firstAttribute="height" constant="22" id="fxX-l6-43n"/>
-                                        </constraints>
-                                        <state key="normal" image="settings-button"/>
-                                        <connections>
-                                            <action selector="settingsTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="r1f-kE-hv9"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjL-fO-Qqa">
-                                        <rect key="frame" x="354" y="0.0" width="60" height="63"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="Xs9-Iv-cjy"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="settingsTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="nXN-Ba-92O"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-NE-7DI" customClass="SpeezyButton" customModule="Speezy" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="16.5" width="15" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="ias-k6-WOe"/>
-                                            <constraint firstAttribute="height" constant="31" id="yeh-iU-Mif"/>
-                                        </constraints>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="back-button"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6z-uN-idB">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="v6u-Wb-vcK"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="signOutTapped:" destination="PtS-EP-wtG" eventType="touchUpInside" id="2Ua-AN-0zl"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="I6z-uN-idB" secondAttribute="bottom" id="2bA-RI-td7"/>
                                     <constraint firstAttribute="bottom" secondItem="Q56-sQ-4nK" secondAttribute="bottom" id="Gzf-3n-xaY"/>
                                     <constraint firstItem="bCZ-5y-G0y" firstAttribute="centerY" secondItem="07M-6G-J6e" secondAttribute="centerY" id="KNm-1n-EPI"/>
-                                    <constraint firstItem="YzJ-2D-oUj" firstAttribute="centerY" secondItem="07M-6G-J6e" secondAttribute="centerY" id="Lmz-V7-imP"/>
-                                    <constraint firstItem="wjL-fO-Qqa" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="top" id="QnI-DA-6yX"/>
                                     <constraint firstAttribute="trailing" secondItem="Q56-sQ-4nK" secondAttribute="trailing" id="Qvt-VI-nST"/>
-                                    <constraint firstItem="aNt-NE-7DI" firstAttribute="leading" secondItem="07M-6G-J6e" secondAttribute="leading" constant="16" id="XA6-sw-6Pw"/>
-                                    <constraint firstItem="Q56-sQ-4nK" firstAttribute="top" secondItem="wjL-fO-Qqa" secondAttribute="bottom" id="d4Q-7Z-7iT"/>
                                     <constraint firstAttribute="height" constant="64" id="d8z-cP-jWt"/>
-                                    <constraint firstItem="I6z-uN-idB" firstAttribute="leading" secondItem="07M-6G-J6e" secondAttribute="leading" id="ef3-cs-pIW"/>
                                     <constraint firstItem="bCZ-5y-G0y" firstAttribute="centerX" secondItem="07M-6G-J6e" secondAttribute="centerX" id="fTh-NO-l68"/>
-                                    <constraint firstItem="I6z-uN-idB" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="top" id="hll-v1-yGL"/>
-                                    <constraint firstItem="aNt-NE-7DI" firstAttribute="centerY" secondItem="07M-6G-J6e" secondAttribute="centerY" id="mSG-Kx-fmZ"/>
                                     <constraint firstItem="Q56-sQ-4nK" firstAttribute="leading" secondItem="07M-6G-J6e" secondAttribute="leading" id="nJC-ez-KKt"/>
-                                    <constraint firstAttribute="trailing" secondItem="YzJ-2D-oUj" secondAttribute="trailing" constant="16" id="q4D-ey-vWh"/>
-                                    <constraint firstAttribute="trailing" secondItem="wjL-fO-Qqa" secondAttribute="trailing" id="twZ-iy-qaK"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5y-1d-41N">
@@ -421,7 +373,6 @@
                     </view>
                     <connections>
                         <outlet property="emptyView" destination="tI7-m2-amv" id="uez-9h-pOS"/>
-                        <outlet property="profileButton" destination="aNt-NE-7DI" id="qUK-fC-yAe"/>
                         <outlet property="tableView" destination="j5y-1d-41N" id="FF6-F5-jzw"/>
                     </connections>
                 </viewController>
@@ -1008,7 +959,6 @@
         <image name="empty-mic" width="500" height="500"/>
         <image name="gradient-background" width="1063" height="1891"/>
         <image name="play-button" width="120" height="120"/>
-        <image name="settings-button" width="20" height="20"/>
         <image name="start-recording-button" width="120" height="120"/>
         <image name="stop-recording-button" width="120" height="120"/>
         <image name="tag-icon" width="500" height="500"/>

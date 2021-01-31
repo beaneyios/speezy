@@ -21,4 +21,10 @@ class ViewCoordinator {
     func remove(_ coordinator: ViewCoordinator) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
     }
+    
+    func find<T: ViewCoordinator>(_ coordinatorType: T.Type) -> T? {
+        childCoordinators.compactMap {
+            $0 as? T
+        }.first
+    }
 }

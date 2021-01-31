@@ -219,6 +219,7 @@
 		BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */; };
 		BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */; };
 		BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */; };
+		BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF7DE0E25C6BF4D00B690CB /* NavigationControlling.swift */; };
 		BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */; };
 		BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */; };
 		BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */; };
@@ -477,6 +478,7 @@
 		BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorFactory.swift; sourceTree = "<group>"; };
 		BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInsetManager.swift; sourceTree = "<group>"; };
 		BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignupViewModel.swift; sourceTree = "<group>"; };
+		BEF7DE0E25C6BF4D00B690CB /* NavigationControlling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControlling.swift; sourceTree = "<group>"; };
 		BEFCDBDF24D0282400A6232E /* CustomVideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomVideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BEFCDBE124D028E100A6232E /* CustomVideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyButton.swift; sourceTree = "<group>"; };
@@ -1086,6 +1088,7 @@
 				BEBFD4C224C5B9DC00200D87 /* ViewCoordinator.swift */,
 				BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */,
 				BE2B098724C7336F00317EB7 /* NibLoadable.swift */,
+				BEF7DE0E25C6BF4D00B690CB /* NavigationControlling.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1759,6 +1762,7 @@
 				BE6FD90C25B49BD800723732 /* URL+LastModified.swift in Sources */,
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
+				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,

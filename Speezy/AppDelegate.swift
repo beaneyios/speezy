@@ -135,11 +135,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     ) {
         let userInfo = notification.request.content.userInfo
         
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+        guard
+            let chatId = chatId(from: userInfo),
+            let message = message(from: userInfo)
+        else {
+            return
         }
         
-        completionHandler([[.alert, .sound]])
+        
     }
     
     func userNotificationCenter(
@@ -148,10 +151,31 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+        guard
+            let chatId = chatId(from: userInfo),
+            let message = message(from: userInfo)
+        else {
+            return
         }
         
-        completionHandler()
+        SceneDelegate.appCoordinator?.navigateToChatId(chatId, message: message)
+    }
+    
+    private func message(from userInfo: [AnyHashable: Any]) -> String? {
+        let aps = userInfo["aps"] as? [AnyHashable: Any]
+        let alert = aps?["alert"] as? [AnyHashable: Any]
+        
+        guard
+            let title = alert?["title"] as? String,
+            let body = alert?["body"] as? String
+        else {
+            return nil
+        }
+        
+        return "\(body) in \(title)"
+    }
+    
+    private func chatId(from userInfo: [AnyHashable: Any]) -> String? {
+        userInfo["chatId"] as? String
     }
 }
