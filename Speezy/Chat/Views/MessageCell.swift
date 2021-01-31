@@ -36,8 +36,11 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         
     func configure(item: MessageCellModel) {
         self.message = item.message
+        self.audioManager = nil
         
         playButtonImage.tintColor = item.playButtonTint
+        playButtonImage.image = UIImage(named: "plain-play-button")
+        playButton.isUserInteractionEnabled = true
         
         messageLabel.text = item.messageText
         messageLabel.textColor = item.messageTint
@@ -146,6 +149,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
                         // TODO: handle error here.
                     }
                 case let .failure(error):
+                    self.playButtonImage.tintColor = .speezyDarkRed
                     self.playButtonImage.image = UIImage(named: "error-icon")
                     self.playButton.isUserInteractionEnabled = false
                 }
