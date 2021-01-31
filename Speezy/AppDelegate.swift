@@ -122,7 +122,9 @@ extension AppDelegate: MessagingDelegate {
         _ messaging: Messaging,
         didReceiveRegistrationToken fcmToken: String
     ) {
-        tokenSyncService.syncPushToken(token: fcmToken)
+        DispatchQueue.main.async {
+            self.tokenSyncService.syncPushToken(token: fcmToken)
+        }
     }
 }
 

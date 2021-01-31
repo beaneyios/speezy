@@ -10,7 +10,7 @@ import UIKit
 
 protocol QuickRecordViewControllerDelegate: AnyObject {
     func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem)
-    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController)
+    func quickRecordViewControllerDidCancel(_ viewController: QuickRecordViewController)
 }
 
 class QuickRecordViewController: UIViewController {
@@ -22,6 +22,8 @@ class QuickRecordViewController: UIViewController {
     @IBOutlet weak var recordingContainerBackground: UIImageView!
     @IBOutlet weak var recordingContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var backgroundView: UIView!
+    
+    var startHeight: CGFloat = 160.0
     
     weak var delegate: QuickRecordViewControllerDelegate?
     var audioManager: AudioManager!
@@ -62,14 +64,18 @@ class QuickRecordViewController: UIViewController {
     }
     
     private func animateOutDialogue(completion: @escaping () -> Void) {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.2) {
             self.recordingControlsContainer.alpha = 0.0
         } completion: { _ in
-            self.recordingContainerHeight.constant = 160.0
-            UIView.animate(withDuration: 0.3) {
+            self.recordingContainerHeight.constant = self.startHeight
+            UIView.animate(withDuration: 0.2) {
                 self.view.layoutIfNeeded()
             } completion: { _ in
-                completion()
+                UIView.animate(withDuration: 0.2) {
+                    self.view.alpha = 0.0
+                } completion: { _ in
+                    completion()
+                }
             }
         }
     }
@@ -92,7 +98,7 @@ class QuickRecordViewController: UIViewController {
         recordingContainer.addGestureRecognizer(panTop)
         recordingContainer.isUserInteractionEnabled = true
         
-        recordingContainerHeight.constant = 160.0
+        recordingContainerHeight.constant = startHeight
     }
     
     private func configureMainSoundWave() {
@@ -144,7 +150,7 @@ extension QuickRecordViewController {
         recordingContainer.isUserInteractionEnabled = false
         
         animateOutDialogue {
-            self.delegate?.quickRecordViewControllerDidClose(self)
+            self.delegate?.quickRecordViewControllerDidCancel(self)
         }
     }
     

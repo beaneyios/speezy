@@ -233,7 +233,7 @@ extension ChatViewController {
         animateToPlaybackView(item: item)
     }
     
-    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
+    func quickRecordViewControllerDidCancel(_ viewController: QuickRecordViewController) {
         viewController.view.removeFromSuperview()
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)

@@ -36,6 +36,8 @@ class HomeCoordinator: ViewCoordinator {
         addQuickRecord()
         addContactsCoordinator()
         addSettingsCoordinator()
+        
+        tabBarController.delegate = self
     }
     
     func navigateToChatId(_ chatId: String, message: String) {
@@ -75,23 +77,16 @@ class HomeCoordinator: ViewCoordinator {
         addTab(withIconName: "home-tab-item", containing: navigationController)
     }
     
+    private class DummyRecordViewController: UIViewController {}
     private func addQuickRecord() {
-        let navigationController = UINavigationController()
-        navigationController.setNavigationBarHidden(true, animated: false)
-        let coordinator = ContactsCoordinator(navigationController: navigationController)
-        coordinator.delegate = self
-        add(coordinator)
-        coordinator.start()
-        
+        let dummyController = DummyRecordViewController()
         let imageInsets = UIEdgeInsets(top: -10, left: 0, bottom: 5, right: 0)
         
-        navigationController.tabBarItem.image = UIImage(
+        dummyController.tabBarItem.image = UIImage(
             named: "speezy-tab-item"
         )?.withRenderingMode(.alwaysOriginal)
-        navigationController.tabBarItem.imageInsets = imageInsets
-
-        
-        tabBarController.viewControllers?.append(navigationController)
+        dummyController.tabBarItem.imageInsets = imageInsets
+        tabBarController.viewControllers?.append(dummyController)
     }
     
     private func addContactsCoordinator() {
@@ -137,14 +132,38 @@ class HomeCoordinator: ViewCoordinator {
     }
 }
 
+extension HomeCoordinator: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController is DummyRecordViewController {
+            tabBarController.selectedIndex = 1
+            guard
+                let audioCoordinator = find(AudioItemCoordinator.self),
+                let listViewController = audioCoordinator.listViewController
+            else {
+                return false
+            }
+            
+            
+            listViewController.presentQuickRecordDialogue(
+                item: listViewController.viewModel.newItem,
+                startHeight: 30.0
+            )
+            
+            tabBarController.tabBar.isHidden = true
+            return false
+        }
+        
+        return true
+    }
+}
+
 extension HomeCoordinator: AudioItemCoordinatorDelegate {
-    func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
-        remove(coordinator)
+    func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemCoordinator) {
+        tabBarController.tabBar.isHidden = false
     }
     
-    func audioItemCoordinatorDidSignOut(_ coordinator: AudioItemCoordinator) {
-        delegate?.homeCoordinatorDidLogOut(self)
-        delegate?.homeCoordinatorDidFinish(self)
+    func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
+        remove(coordinator)
     }
 }
 

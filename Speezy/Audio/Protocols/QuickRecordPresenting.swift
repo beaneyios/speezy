@@ -9,11 +9,11 @@
 import UIKit
 
 protocol QuickRecordPresenting: QuickRecordViewControllerDelegate {
-    func presentQuickRecordDialogue(item: AudioItem)
+    func presentQuickRecordDialogue(item: AudioItem, startHeight: CGFloat)
 }
 
 extension QuickRecordPresenting where Self: UIViewController {
-    func presentQuickRecordDialogue(item: AudioItem) {
+    func presentQuickRecordDialogue(item: AudioItem, startHeight: CGFloat = 160.0) {
         let storyboard = UIStoryboard(name: "Audio", bundle: nil)
         let quickRecordViewController = storyboard.instantiateViewController(identifier: "quick-record") as! QuickRecordViewController
         
@@ -26,6 +26,7 @@ extension QuickRecordPresenting where Self: UIViewController {
         addChild(quickRecordViewController)
         view.addSubview(quickRecordViewController.view)
         
+        quickRecordViewController.startHeight = startHeight
         quickRecordViewController.view.layer.cornerRadius = 10.0
         quickRecordViewController.view.clipsToBounds = true
         quickRecordViewController.view.addShadow()

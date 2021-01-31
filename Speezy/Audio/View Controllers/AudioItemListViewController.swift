@@ -21,6 +21,7 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
         didSelectSendOnItem item: AudioItem
     )
     func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController)
+    func audioItemListViewControllerDidFinishRecording(_ viewController: AudioItemListViewController)
 }
 
 class AudioItemListViewController: UIViewController, QuickRecordPresenting {
@@ -182,9 +183,7 @@ extension AudioItemListViewController: AudioItemCellDelegate {
 
 extension AudioItemListViewController: QuickRecordViewControllerDelegate {
     func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem) {
-        viewController.view.removeFromSuperview()
-        viewController.removeFromParent()
-        viewController.willMove(toParent: nil)
+        handleRecorderDismissed(viewController: viewController)
         
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
@@ -198,10 +197,15 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         }
     }
     
-    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
+    func quickRecordViewControllerDidCancel(_ viewController: QuickRecordViewController) {
+        handleRecorderDismissed(viewController: viewController)
+    }
+    
+    private func handleRecorderDismissed(viewController: QuickRecordViewController) {
         viewController.view.removeFromSuperview()
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
+        delegate?.audioItemListViewControllerDidFinishRecording(self)
     }
     
     private func showTitleAlert(audioManager: AudioManager, completion: (() -> Void)? = nil) {

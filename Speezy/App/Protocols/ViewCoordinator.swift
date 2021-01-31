@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ViewCoordinator {
+class ViewCoordinator: NSObject {
     var childCoordinators: [ViewCoordinator] = []
     
     func start() {}

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 protocol AudioItemCoordinatorDelegate: AnyObject {
+    func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemCoordinator)
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator)
 }
 
@@ -178,6 +179,10 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
 }
 
 extension AudioItemCoordinator: AudioItemListViewControllerDelegate {
+    func audioItemListViewControllerDidFinishRecording(_ viewController: AudioItemListViewController) {
+        delegate?.audioItemCoordinatorDidFinishRecording(self)
+    }
+    
     func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController) {
         navigationController.popViewController(animated: true)
         delegate?.audioItemCoordinatorDidFinish(self)
