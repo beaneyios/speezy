@@ -21,7 +21,7 @@ class ChatListViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     weak var delegate: ChatListViewControllerDelegate?
-    
+        
     let viewModel = ChatListViewModel(store: Store.shared)
     
     override func viewDidLoad() {
@@ -46,39 +46,47 @@ class ChatListViewController: UIViewController {
     
     private func listenForChanges() {
         viewModel.didChange = { change in
-            DispatchQueue.main.async {
-                switch change {
-                case .loaded:
-                    self.toggleEmptyView()
-                    self.collectionView.reloadData()
-                    
-                    UIView.animate(withDuration: 0.3) {
-                        self.collectionView.alpha = 1.0
-                    }
-                case let .loading(isLoading):
-                    if isLoading {
-                        self.spinner.startAnimating()
-                        self.spinner.isHidden = false
-                    } else {
-                        self.spinner.stopAnimating()
-                        self.spinner.isHidden = true
-                    }
-                case let .replacedItem(index):
-                    self.collectionView.reloadItems(
-                        at: [
-                            IndexPath(
-                                item: index,
-                                section: 0
-                            )
-                        ]
-                    )
-                case let .loadChat(chat):
-                    self.delegate?.chatListViewController(self, didSelectChat: chat)
-                }
-            }
+            self.applyChange(change: change)
         }
 
         viewModel.listenForData()
+    }
+    
+    private func applyChange(change: ChatListViewModel.Change) {
+        DispatchQueue.main.async {
+            self.navigationController?.tabBarItem.image = UIImage(
+                named: self.viewModel.anyUnreadChats ? "chat-tab-item-unread" : "chat-tab-item"
+            )
+            
+            switch change {
+            case .loaded:
+                self.toggleEmptyView()
+                self.collectionView.reloadData()
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.collectionView.alpha = 1.0
+                }
+            case let .loading(isLoading):
+                if isLoading {
+                    self.spinner.startAnimating()
+                    self.spinner.isHidden = false
+                } else {
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
+                }
+            case let .replacedItem(index):
+                self.collectionView.reloadItems(
+                    at: [
+                        IndexPath(
+                            item: index,
+                            section: 0
+                        )
+                    ]
+                )
+            case let .loadChat(chat):
+                self.delegate?.chatListViewController(self, didSelectChat: chat)
+            }
+        }
     }
     
     private func toggleEmptyView() {

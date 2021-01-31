@@ -54,6 +54,7 @@ class GroupCreator {
             let newChat = Chat(
                 id: key,
                 chatters: chatters,
+                readBy: [],
                 title: title,
                 lastUpdated: Date().timeIntervalSince1970,
                 lastMessage: "New chat started",

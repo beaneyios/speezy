@@ -31,8 +31,8 @@ class HomeCoordinator: ViewCoordinator {
     
     override func start() {
         tabBarController.setViewControllers([], animated: false)
-        addAudioCoordinator()
         addChatCoordinator()
+        addAudioCoordinator()
         addQuickRecord()
         addContactsCoordinator()
         addSettingsCoordinator()
@@ -56,7 +56,7 @@ class HomeCoordinator: ViewCoordinator {
             return
         }
         
-        tabBarController.selectedIndex = 1
+        tabBarController.selectedIndex = 0
         
         guard let chatCoordinator = find(ChatCoordinator.self) else {
             return
@@ -121,6 +121,7 @@ class HomeCoordinator: ViewCoordinator {
         settingsCoordinator.delegate = self
         add(settingsCoordinator)
         settingsCoordinator.start()
+        
         addTab(withIconName: "settings-tab-item", containing: navigationController)
     }
     

@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 
 class ChatListViewModel {
-    enum Change {
+    enum Change: Equatable {
         case replacedItem(Int)
         case loaded
         case loading(Bool)
@@ -30,12 +30,24 @@ class ChatListViewModel {
         items.isEmpty
     }
     
+    var userId: String? {
+        Auth.auth().currentUser?.uid
+    }
+    
+    var anyUnreadChats: Bool {
+        guard let userId = self.userId else {
+            return false
+        }
+        
+        return chats.containsUnread(userId: userId)
+    }
+    
     init(store: Store) {
         self.store = store
     }
     
     func listenForData() {
-        guard let userId = Auth.auth().currentUser?.uid else {
+        guard let userId = userId else {
             assertionFailure("No user id")
             return
         }
@@ -45,7 +57,7 @@ class ChatListViewModel {
     }
     
     func insertNewChatItem(chat: Chat) {
-        let newCellModel = ChatCellModel(chat: chat)
+        let newCellModel = ChatCellModel(chat: chat, currentUserId: userId)
         if items.isEmpty {
             items.append(newCellModel)
         } else {
@@ -68,7 +80,7 @@ class ChatListViewModel {
         debouncer.debounce {
             self.chats = chats
             self.items = chats.map {
-                ChatCellModel(chat: $0)
+                ChatCellModel(chat: $0, currentUserId: self.userId)
             }
 
             self.didChange?(.loaded)
@@ -80,7 +92,7 @@ class ChatListViewModel {
         debouncer.debounce {
             self.chats = chats
             self.items = chats.map {
-                ChatCellModel(chat: $0)
+                ChatCellModel(chat: $0, currentUserId: self.userId)
             }
 
             self.didChange?(.loaded)
@@ -92,7 +104,7 @@ class ChatListViewModel {
     private func updateCellModel(chat: Chat) {
         debouncer.debounce {
             self.chats = self.chats.replacing(chat)
-            let newCellModel = ChatCellModel(chat: chat)
+            let newCellModel = ChatCellModel(chat: chat, currentUserId: self.userId)
             self.items = self.items.replacing(newCellModel)
             
             if let index = self.chats.firstIndex(of: chat) {

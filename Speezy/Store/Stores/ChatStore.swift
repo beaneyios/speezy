@@ -10,7 +10,7 @@ import Foundation
 
 class ChatStore {
     private let chatListener = ChatsListener()
-    private var chats = [Chat]()
+    private(set) var chats = [Chat]()
     
     private var observations = [ObjectIdentifier : ChatListObservation]()
     private let serialQueue = DispatchQueue(label: "com.speezy.chatStoreActions")
@@ -60,6 +60,9 @@ class ChatStore {
                 return chatToUpdate?.withLastUpdated(lastUpdated)
             case let .title(title):
                 return chatToUpdate?.withTitle(title)
+            case let .readBy(readBy):
+                let readBy = readBy.components(separatedBy: ",")
+                return chatToUpdate?.withReadBy(readBy: readBy)
             }
         }()
         

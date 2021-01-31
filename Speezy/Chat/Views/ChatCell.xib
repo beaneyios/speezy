@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,8 +22,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQQ-tK-hV1">
                         <rect key="frame" x="0.0" y="0.0" width="444" height="96"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WC2-07-j1M">
-                                <rect key="frame" x="24" y="96" width="420" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WC2-07-j1M">
+                                <rect key="frame" x="24" y="95" width="420" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="PgB-tI-3Lg"/>
@@ -66,11 +67,22 @@
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPZ-kq-EGj">
+                                        <rect key="frame" x="328.5" y="27" width="19.5" height="19.5"/>
+                                        <color key="backgroundColor" name="speezy-purple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="XPZ-kq-EGj" secondAttribute="height" multiplier="1:1" id="Vfq-VG-dNN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Zyt-0v-Okh" firstAttribute="leading" secondItem="eDc-fA-Ok4" secondAttribute="leading" id="QIc-tb-Ff0"/>
                                     <constraint firstItem="33v-Ni-Nj5" firstAttribute="leading" secondItem="eDc-fA-Ok4" secondAttribute="leading" id="RI6-I2-0Tl"/>
+                                    <constraint firstAttribute="bottom" secondItem="XPZ-kq-EGj" secondAttribute="bottom" id="UA7-Dq-LU1"/>
                                     <constraint firstItem="nj7-tB-ovT" firstAttribute="top" secondItem="eDc-fA-Ok4" secondAttribute="top" constant="3" id="XLA-r7-A03"/>
                                     <constraint firstAttribute="trailing" secondItem="Zyt-0v-Okh" secondAttribute="trailing" constant="40" id="bP0-gv-3He"/>
                                     <constraint firstAttribute="trailing" secondItem="nj7-tB-ovT" secondAttribute="trailing" id="fQ1-z2-UEg"/>
@@ -78,6 +90,7 @@
                                     <constraint firstItem="nj7-tB-ovT" firstAttribute="leading" secondItem="33v-Ni-Nj5" secondAttribute="trailing" constant="16" id="i9c-0p-zgo"/>
                                     <constraint firstItem="Zyt-0v-Okh" firstAttribute="top" secondItem="33v-Ni-Nj5" secondAttribute="bottom" constant="4" id="rJY-03-Fx0"/>
                                     <constraint firstAttribute="bottom" secondItem="Zyt-0v-Okh" secondAttribute="bottom" id="u8K-vP-Irh"/>
+                                    <constraint firstAttribute="trailing" secondItem="XPZ-kq-EGj" secondAttribute="trailing" id="zwO-Em-aLd"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -86,6 +99,7 @@
                             <constraint firstItem="eDc-fA-Ok4" firstAttribute="centerY" secondItem="GQQ-tK-hV1" secondAttribute="centerY" id="Ox9-we-5sA"/>
                             <constraint firstItem="9aO-Bo-euI" firstAttribute="leading" secondItem="GQQ-tK-hV1" secondAttribute="leading" constant="24" id="Pv8-cb-ofI"/>
                             <constraint firstItem="9aO-Bo-euI" firstAttribute="centerY" secondItem="GQQ-tK-hV1" secondAttribute="centerY" id="a3d-3t-pjZ"/>
+                            <constraint firstAttribute="bottom" secondItem="WC2-07-j1M" secondAttribute="bottom" id="bd9-JQ-Pmx"/>
                             <constraint firstAttribute="trailing" secondItem="WC2-07-j1M" secondAttribute="trailing" id="coH-Ke-vAa"/>
                             <constraint firstItem="uVl-fa-7Wv" firstAttribute="centerX" secondItem="9aO-Bo-euI" secondAttribute="centerX" id="d8i-YC-4Vv"/>
                             <constraint firstItem="uVl-fa-7Wv" firstAttribute="height" secondItem="9aO-Bo-euI" secondAttribute="height" id="dfq-Ar-0ae"/>
@@ -112,11 +126,15 @@
                 <outlet property="chatTitleLabel" destination="33v-Ni-Nj5" id="jBu-w8-e7m"/>
                 <outlet property="lastMessageLabel" destination="Zyt-0v-Okh" id="OO5-p9-5iM"/>
                 <outlet property="lastUpdatedLabel" destination="nj7-tB-ovT" id="Q76-iD-CTn"/>
+                <outlet property="notificationLabel" destination="XPZ-kq-EGj" id="BiA-fq-aVl"/>
             </connections>
             <point key="canvasLocation" x="392.75362318840581" y="115.84821428571428"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <namedColor name="speezy-purple">
+            <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

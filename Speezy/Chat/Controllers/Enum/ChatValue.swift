@@ -17,6 +17,7 @@ enum ChatValue {
     case lastMessage(String)
     case lastUpdated(TimeInterval)
     case title(String)
+    case readBy(String)
     
     init?(key: String, value: Any) {
         if key == "last_updated", let lastUpdated = value as? TimeInterval {
@@ -25,6 +26,8 @@ enum ChatValue {
             self = .lastMessage(lastMessage)
         } else if key == "title", let title = value as? String {
             self = .title(title)
+        } else if key == "read_by", let readBy = value as? String {
+            self = .readBy(readBy)
         } else {
             return nil
         }

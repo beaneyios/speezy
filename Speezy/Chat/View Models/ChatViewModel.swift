@@ -42,8 +42,8 @@ class ChatViewModel: NewItemGenerating {
         chat.title
     }
 
-    var currentUserId: String {
-        Auth.auth().currentUser?.uid ?? ""
+    var currentUserId: String? {
+        Auth.auth().currentUser?.uid
     }
     
     var shouldShowEmptyView: Bool {
@@ -71,16 +71,21 @@ class ChatViewModel: NewItemGenerating {
         messageFetcher.fetchMessages(chat: chat) { (result) in
             switch result {
             case let .success(messages):
+                guard let userId = self.currentUserId else {
+                    return
+                }
+                
                 self.items = messages.map {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
-                        currentUserId: self.currentUserId
+                        currentUserId: userId
                     )
                 }
 
                 self.didChange?(.loaded)
                 self.listenForNewMessages(mostRecentMessage: messages.first)
+                self.updateReadBy()
             case let .failure(error):
                 break
             }
@@ -102,11 +107,15 @@ class ChatViewModel: NewItemGenerating {
         messageFetcher.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { (result) in
             switch result {
             case let .success(newMessages):
+                guard let userId = self.currentUserId else {
+                    return
+                }
+                
                 let newMessageModels = newMessages.map {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
-                        currentUserId: self.currentUserId
+                        currentUserId: userId
                     )
                 }
                 
@@ -124,7 +133,7 @@ class ChatViewModel: NewItemGenerating {
             self.didChange?(.loading(false))
         }
     }
-    
+        
     private func listenForNewMessages(mostRecentMessage: Message?) {
         messageListener.listenForNewMessages(mostRecentMessage: mostRecentMessage) { (result) in
             switch result {
@@ -185,6 +194,29 @@ extension ChatViewModel {
         }
     }
     
+    private func updateReadBy() {
+        guard let userId = currentUserId else {
+            return
+        }
+        
+        // Only update the read by if this is the first time you are reading it.
+        if chat.readBy.contains(userId) {
+            return
+        }
+        
+        let newChat = chat.withReadBy(userId: userId)
+        
+        ChatUpdater().updateChat(chat: newChat) { (result) in
+            switch result {
+            case let .success(newChat):
+                self.chat = newChat
+            case let .failure(error):
+                // TODO: Handle error.
+                break
+            }
+        }
+    }
+    
     private func updateDatabaseRecords(item: AudioItem) {
         guard
             let id = Auth.auth().currentUser?.uid,
@@ -212,7 +244,9 @@ extension ChatViewModel {
             switch result {
             case let .success(message):
                 let mostRecentMessage = message.message ?? "New message from \(message.chatter.displayName)"
-                let newChat = self.chat.withLastMessage(mostRecentMessage).withLastUpdated(Date().timeIntervalSince1970)
+                let newChat = self.chat.withLastMessage(mostRecentMessage)
+                    .withLastUpdated(Date().timeIntervalSince1970)
+                    .withReadBy(readBy: [id])
                 
                 // Second, update chat metadata
                 ChatUpdater().updateChat(chat: newChat) { (result) in

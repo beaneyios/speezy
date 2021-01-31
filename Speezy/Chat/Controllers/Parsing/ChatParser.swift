@@ -18,9 +18,18 @@ class ChatParser {
             return nil
         }
         
+        let readBy: [String] = {
+            guard let readByString = dict["read_by"] as? String else {
+                return []
+            }
+            
+            return readByString.components(separatedBy: ",")
+        }()
+        
         let chat = Chat(
             id: key,
             chatters: [],
+            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,

@@ -15,11 +15,13 @@ class ChatCellModel: Identifiable {
     }
     
     let chat: Chat
+    let currentUserId: String?
     
     private var downloadTask: StorageDownloadTask?
     
-    init(chat: Chat) {
+    init(chat: Chat, currentUserId: String?) {
         self.chat = chat
+        self.currentUserId = currentUserId
     }
 }
 
@@ -35,6 +37,14 @@ extension ChatCellModel {
     var lastUpdatedText: String {
         let date = Date(timeIntervalSince1970: chat.lastUpdated)
         return date.relativeTimeString
+    }
+    
+    var showUnread: Bool {
+        guard let currentUserId = currentUserId else {
+            return false
+        }
+        
+        return !chat.readBy.contains(currentUserId)
     }
     
     func loadImage(completion: @escaping (StorageFetchResult<UIImage>) -> Void) {

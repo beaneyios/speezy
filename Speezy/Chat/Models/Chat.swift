@@ -11,6 +11,7 @@ import Foundation
 struct Chat: Equatable, Identifiable {
     let id: String
     let chatters: [Chatter]
+    let readBy: [String]
     let title: String
     let lastUpdated: TimeInterval
     let lastMessage: String
@@ -18,10 +19,42 @@ struct Chat: Equatable, Identifiable {
 }
 
 extension Chat {
+    func withReadBy(userId: String) -> Chat {
+        if readBy.contains(userId) {
+            return self
+        }
+        
+        var newReadBy = readBy
+        newReadBy.append(userId)
+        
+        return Chat(
+            id: id,
+            chatters: chatters,
+            readBy: newReadBy,
+            title: title,
+            lastUpdated: lastUpdated,
+            lastMessage: lastMessage,
+            chatImageUrl: chatImageUrl
+        )
+    }
+    
+    func withReadBy(readBy: [String]) -> Chat {
+        return Chat(
+            id: id,
+            chatters: chatters,
+            readBy: readBy,
+            title: title,
+            lastUpdated: lastUpdated,
+            lastMessage: lastMessage,
+            chatImageUrl: chatImageUrl
+        )
+    }
+    
     func withChatters(chatters: [Chatter]) -> Chat {
         Chat(
             id: id,
             chatters: chatters,
+            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
@@ -33,6 +66,7 @@ extension Chat {
         Chat(
             id: id,
             chatters: chatters,
+            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
@@ -44,6 +78,7 @@ extension Chat {
         Chat(
             id: id,
             chatters: chatters,
+            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
@@ -55,6 +90,7 @@ extension Chat {
         Chat(
             id: id,
             chatters: chatters,
+            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
@@ -66,6 +102,7 @@ extension Chat {
         Chat(
             id: id,
             chatters: chatters,
+            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
@@ -79,6 +116,7 @@ extension Chat {
         var dict: [String: Any] = [
             "last_message": lastMessage,
             "last_updated": lastUpdated,
+            "read_by": readBy.joined(separator: ","),
             "title": title
         ]
         
@@ -107,5 +145,11 @@ extension Array where Element == Chat {
         
         // No early false terminations, we can assume they are in the same order.
         return true
+    }
+    
+    func containsUnread(userId: String) -> Bool {
+        contains {
+            !$0.readBy.contains(userId)
+        }
     }
 }

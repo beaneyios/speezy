@@ -14,6 +14,7 @@ class ChatCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var lastUpdatedLabel: UILabel!
     @IBOutlet weak var chatImage: UIImageView!
     @IBOutlet weak var chatImageFrame: UIView!
+    @IBOutlet weak var notificationLabel: UILabel!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -21,6 +22,9 @@ class ChatCell: UICollectionViewCell, NibLoadable {
         chatImageFrame.layer.cornerRadius = chatImageFrame.frame.width / 2.0
         chatImageFrame.layer.borderWidth = 1.0
         chatImageFrame.layer.borderColor = UIColor.speezyPurple.cgColor
+        
+        notificationLabel.layer.cornerRadius = notificationLabel.frame.width / 2.0
+        notificationLabel.clipsToBounds = true
     }
     
     func configure(item: ChatCellModel) {
@@ -29,6 +33,8 @@ class ChatCell: UICollectionViewCell, NibLoadable {
         lastUpdatedLabel.text = item.lastUpdatedText
         chatImage.image = nil
         chatImage.alpha = 0.0
+        
+        notificationLabel.isHidden = !item.showUnread
         
         item.loadImage { (result) in
             DispatchQueue.main.async {
