@@ -12,6 +12,10 @@ class Store {
     static let shared = Store()
     let chatStore = ChatStore()
     
+    func userDidLogOut() {
+        chatStore.clear()
+    }
+    
     func listenForChatChanges(userId: String) {
         chatStore.listenForChats(userId: userId)
     }

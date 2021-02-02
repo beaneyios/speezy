@@ -15,6 +15,11 @@ class ChatStore {
     private var observations = [ObjectIdentifier : ChatListObservation]()
     private let serialQueue = DispatchQueue(label: "com.speezy.chatStoreActions")
     
+    func clear() {
+        self.chats = []
+        self.observations = [:]
+    }
+    
     func listenForChats(userId: String) {
         chatListener.didChange = { change in
             // We do not want to manipulate the chats available until the notifier has

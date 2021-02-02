@@ -42,10 +42,10 @@ class FacebookLoginViewModel {
             )
             
             Auth.auth().signIn(with: credential) { (result, error) in
-                
-                if let user = result?.user {
+                if let userId = result?.user.uid {
+                    Store.shared.listenForChatChanges(userId: userId)
                     completion(.success)
-                    self.tokenSyncService.syncPushToken(userId: user.uid)
+                    self.tokenSyncService.syncPushToken(userId: userId)
                 } else {
                     let error = AuthErrorFactory.authError(for: error)
                     completion(.failure(error))

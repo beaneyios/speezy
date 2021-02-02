@@ -50,6 +50,7 @@ extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
         case .privacyPolicy:
             navigateToPrivacyPolicy()
         case .logout:
+            Store.shared.userDidLogOut()
             try? Auth.auth().signOut()
             LoginManager().logOut()
             delegate?.settingsCoordinatorDidLogOut(self)

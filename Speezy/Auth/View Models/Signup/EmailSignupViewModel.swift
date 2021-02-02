@@ -64,6 +64,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
             switch result {
             case .success:
                 completion(.success)
+                Store.shared.listenForChatChanges(userId: userId)
                 self.tokenSyncService.syncPushToken(userId: userId)
             case let .failure(error):
                 completion(.failure(error))
