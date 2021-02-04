@@ -136,7 +136,7 @@ extension ChatCoordinator: AudioItemCoordinatorDelegate {
         chatViewController?.discardAudioItem(item)
     }
     
-    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem) {
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem, saveFirst: Bool) {
         chatViewController?.sendEditedAudioItem(item)
     }
 }

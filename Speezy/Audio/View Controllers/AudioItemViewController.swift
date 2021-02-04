@@ -13,7 +13,8 @@ import SCLAlertView
 protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewController(
         _ viewController: AudioItemViewController,
-        shouldSendItem item: AudioItem
+        shouldSendItem item: AudioItem,
+        saveFirst: Bool
     )
     
     func audioItemViewController(
@@ -123,7 +124,11 @@ class AudioItemViewController: UIViewController {
     }
     
     func didTapShare() {
-        delegate?.audioItemViewController(self, shouldSendItem: audioManager.item)
+        delegate?.audioItemViewController(
+            self,
+            shouldSendItem: audioManager.item,
+            saveFirst: audioManager.hasUnsavedChanges
+        )
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
@@ -260,7 +265,10 @@ extension AudioItemViewController {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "SEND") {
+        button.configure(
+            title: "SEND",
+            iconImage: UIImage(named: "send-chat-icon")
+        ) {
             self.didTapShare()
         }
         

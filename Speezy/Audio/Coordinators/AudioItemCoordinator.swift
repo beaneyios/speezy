@@ -12,7 +12,7 @@ import UIKit
 protocol AudioItemCoordinatorDelegate: AnyObject {
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator)
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem)
-    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem)
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem, saveFirst: Bool)
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldDiscardItem item: AudioItem)
 }
 
@@ -149,9 +149,13 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         }
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem) {
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldSendItem item: AudioItem,
+        saveFirst: Bool
+    ) {
         viewController.dismiss(animated: true) {
-            self.delegate?.audioItemCoordinator(self, shouldSendItem: item)
+            self.delegate?.audioItemCoordinator(self, shouldSendItem: item, saveFirst: saveFirst)
         }
     }
     

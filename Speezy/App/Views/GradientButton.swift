@@ -12,6 +12,9 @@ class GradientButton: UIView, NibLoadable {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var gradientImg: UIImageView!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var buttonIcon: UIImageView!
+    @IBOutlet weak var buttonIconWidth: NSLayoutConstraint!
+    @IBOutlet weak var buttonIconRightPadding: NSLayoutConstraint!
     
     typealias Action = () -> Void
     var action: Action?
@@ -19,7 +22,10 @@ class GradientButton: UIView, NibLoadable {
     func configure(
         title: String,
         titleColor: UIColor = .white,
-        backgroundImage: UIImage? = UIImage(named: "red-gradient"),
+        backgroundImage: UIImage? = UIImage(
+            named: "red-gradient"
+        ),
+        iconImage: UIImage? = nil,
         action: @escaping Action
     ) {
         self.button.setTitle(title, for: .normal)
@@ -30,14 +36,19 @@ class GradientButton: UIView, NibLoadable {
         self.spinner.color = titleColor
         self.spinner.tintColor = titleColor
         
-        button.addTarget(
-            self,
-            action: #selector(buttonTapped),
-            for: .touchUpInside
-        )
+        if let image = iconImage {
+            buttonIcon.tintColor = titleColor
+            buttonIcon.image = image
+            buttonIconWidth.constant = 25.0
+            buttonIconRightPadding.constant = 8.0
+        } else {
+            buttonIcon.image = nil
+            buttonIconWidth.constant = 0.0
+            buttonIconRightPadding.constant = 0.0
+        }
     }
-    
-    @objc func buttonTapped() {
+
+    @IBAction func buttonTapped(_ sender: Any) {
         action?()
     }
     

@@ -96,22 +96,7 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     }
     
     func didTapDraft() {
-        view.isUserInteractionEnabled = false
-        draftBtn.startLoading()
-        audioManager.save(saveAttachment: true) { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case let .success(item):
-                    self.delegate?.publishViewController(self, didSaveItemToDrafts: item)
-                    self.delegate?.publishViewControllerShouldNavigateHome(self)
-                case let .failure(error):
-                    assertionFailure("Error: \(error.localizedDescription)")
-                }
-                
-                self.draftBtn.stopLoading()
-                self.view.isUserInteractionEnabled = true
-            }
-        }
+        delegate?.publishViewController(self, didSaveItemToDrafts: audioManager.item)
     }
     
     @IBAction func didTapCameraButton(_ sender: Any) {

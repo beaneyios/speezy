@@ -54,17 +54,20 @@ class AudioItemListCoordinator: ViewCoordinator, NavigationControlling {
 }
 
 extension AudioItemListCoordinator: AudioItemCoordinatorDelegate {
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem, saveFirst: Bool) {
+        if saveFirst {
+            listViewController?.saveItem(item)
+        }
+        
+        navigateToPublish(item: item)
+    }
+    
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem) {
         listViewController?.saveItem(item)
     }
     
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldDiscardItem item: AudioItem) {
         listViewController?.discardItem(item)
-    }
-    
-    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem) {
-        listViewController?.saveItem(item)
-        navigateToPublish(item: item)
     }
     
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
@@ -121,10 +124,12 @@ extension AudioItemListCoordinator: PublishViewControllerDelegate {
         let audioManager = AudioManager(item: item)
         viewController.audioManager = audioManager
         viewController.delegate = self
+        viewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(viewController, animated: true)
     }
     
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
+        navigationController.popViewController(animated: true)
         listViewController?.saveItem(item)
     }
     

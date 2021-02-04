@@ -31,12 +31,12 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="692"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDO-J8-gZl">
-                                                        <rect key="frame" x="16" y="8" width="40" height="40"/>
+                                                        <rect key="frame" x="16" y="8" width="30" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="Ifp-70-cV5"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                        <state key="normal" title="Title">
+                                                        <state key="normal">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
@@ -524,8 +524,8 @@
                                                     <constraint firstItem="MHz-bI-Ysm" firstAttribute="leading" secondItem="DR9-wQ-4m1" secondAttribute="leading" id="k6C-hJ-hsU"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type your title here..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24a-fQ-HND" userLabel="Type your title here...">
-                                                <rect key="frame" x="20" y="24" width="158" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type your message here..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24a-fQ-HND" userLabel="Type your message here...">
+                                                <rect key="frame" x="20" y="24" width="198" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
