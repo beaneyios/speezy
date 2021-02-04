@@ -31,7 +31,7 @@ class PushDeliveryHandler: NSObject {
             return
         }
         
-        appCoordinator?.navigateToChatId(chatId, message: message)  
+        appCoordinator?.navigateToChatId(chatId, message: message)
     }
     
     func chatId(from connectionOptions: UIScene.ConnectionOptions) -> String? {
