@@ -11,6 +11,7 @@ import UIKit
 
 class AppCoordinator: ViewCoordinator {
     let tabBarController: UITabBarController
+    var awaitingChatId: String?
     
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -47,8 +48,10 @@ class AppCoordinator: ViewCoordinator {
         let homeCoordinator = HomeCoordinator(tabBarController: tabBarController)
         homeCoordinator.delegate = self
         add(homeCoordinator)
-        homeCoordinator.start()
+        homeCoordinator.start(withAwaitingChatId: awaitingChatId)
         tabBarController.tabBar.isHidden = false
+        
+        awaitingChatId = nil
     }
 }
 

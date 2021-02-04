@@ -14,6 +14,7 @@
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
 		BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */; };
 		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
+		BE0A455725CC004A005F4DA8 /* PushDeliveryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -270,6 +271,7 @@
 		BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignupViewModel.swift; sourceTree = "<group>"; };
 		BE07DAF62596862400D37FC7 /* Speezy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Speezy.entitlements; sourceTree = "<group>"; };
 		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
+		BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeliveryHandler.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 			children = (
 				BE2A0CAA25C09EA8000B8A4C /* DatabasePushTokenManager.swift */,
 				BE2A0CC725C0A53B000B8A4C /* PushTokenSyncService.swift */,
+				BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1872,6 +1875,7 @@
 				BE6FD91625B4D07600723732 /* MessageListener.swift in Sources */,
 				BEE47F1C25BC55FA00AF47FA /* ContactCellModel.swift in Sources */,
 				BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */,
+				BE0A455725CC004A005F4DA8 /* PushDeliveryHandler.swift in Sources */,
 				BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */,
 				BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */,
 				BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */,

@@ -24,8 +24,10 @@ class ChatCoordinator: ViewCoordinator, NavigationControlling {
         self.navigationController = navigationController
     }
     
-    override func start() {
-        navigateToChatListView()
+    override func start() {}
+    
+    func start(withAwaitingChatId chatId: String?) {
+        navigateToChatListView(withAwaitingChatId: chatId)
     }
     
     override func finish() {
@@ -56,12 +58,17 @@ class ChatCoordinator: ViewCoordinator, NavigationControlling {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    private func navigateToChatListView() {
+    private func navigateToChatListView(withAwaitingChatId chatId: String?) {
         let viewController = storyboard.instantiateViewController(
             identifier: "ChatListViewController"
         ) as! ChatListViewController
         
         viewController.delegate = self
+        
+        if let chatId = chatId {
+            viewController.navigateToChatId(chatId)
+        }
+        
         navigationController.pushViewController(viewController, animated: true)
     }
     

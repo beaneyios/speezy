@@ -29,9 +29,9 @@ class HomeCoordinator: ViewCoordinator {
         self.tabBarController = tabBarController
     }
     
-    override func start() {
+    func start(withAwaitingChatId chatId: String?) {
         tabBarController.setViewControllers([], animated: false)
-        addChatCoordinator()
+        addChatCoordinator(awaitingChatId: chatId)
         addAudioCoordinator()
         addQuickRecord()
         addContactsCoordinator()
@@ -99,13 +99,13 @@ class HomeCoordinator: ViewCoordinator {
         addTab(withIconName: "contact-tab-item", containing: navigationController)
     }
     
-    private func addChatCoordinator() {
+    private func addChatCoordinator(awaitingChatId: String?) {
         let navigationController = UINavigationController()
         navigationController.setNavigationBarHidden(true, animated: false)
         let coordinator = ChatCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         add(coordinator)
-        coordinator.start()
+        coordinator.start(withAwaitingChatId: awaitingChatId)
         addTab(withIconName: "chat-tab-item", containing: navigationController)
     }
     

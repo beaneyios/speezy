@@ -20,8 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window?.windowScene = windowScene
         
         let tabBarController = UITabBarController()
-        self.appCoordinator = AppCoordinator(tabBarController: tabBarController)
-        self.appCoordinator.start()
+        let appCoordinator = AppCoordinator(tabBarController: tabBarController)
+        
+        PushDeliveryHandler.shared.configure(appCoordinator: appCoordinator)
+        appCoordinator.awaitingChatId = PushDeliveryHandler.shared.chatId(from: connectionOptions)
+        appCoordinator.start()
+        
+        self.appCoordinator = appCoordinator
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
@@ -39,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         )
     }
     
-    static var appCoordinator: AppCoordinator? {        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.appCoordinator
+    static var main: SceneDelegate? {
+        UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
     }
 }
