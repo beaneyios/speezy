@@ -1,0 +1,215 @@
+<html>
+
+<title>Speezy Player</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" type="text/css">
+<style>
+body {font-family: "Inter", Arial, sans-serif}
+.w3-row img {margin-bottom: -8px}
+</style>
+
+<body>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+  <!-- Header -->
+  <header class="w3-container w3-xlarge w3-padding-24">
+    <a href="#" class="w3-left w3-button w3-white">Speezy Player</a>
+    <a href="#about" class="w3-right w3-button w3-white">About</a>
+  </header>
+  
+    <div style="background-color:#eee; height:200px;width:350px;float:left;">
+        <p>Player some content</p>
+    </div>
+<hr>
+----x-----><br>
+
+<center>
+  <!-- Photo Grid -->
+    <div style="background-color:#aaa; width:5%;">
+    </div>
+    <div style="background-color:#aaa; height:100px;width:100px;float:center;">
+      <img id="face_img" src="images/IMG_0596.jpg">
+      
+    </div>
+    <div style="background-color:#aaa; width:5%;">
+    </div>
+</center>
+<hr>
+----x-----><br>
+
+    <div class="w3-half">
+      <img id="face_img" src="images/IMG_0593_smooth aniso.JPG" style="width:20%">
+      <img src="images/teststreet.jpg" style="width:20%">
+      <img src="images/testcar.jpg" style="width:20%">
+       <img src="images/IMG_0597a.JPG" style="width:20%">
+       <img src="images/IMG_0596.jpg" style="width:20%" >
+       
+       
+    </div>
+  </div>
+  
+  
+       
+<!-- End Page Content -->
+</div>
+
+<div class="container">
+  <img src="/images/1361982728a.gif" />
+</div>
+<div class="container">
+  <img id="clip" src="images/1361982728a.gif" />
+</div>
+<div class="container">
+  <img id="clip2" src="images/1361982728a.gif" />
+</div>
+<div class="container">
+  <img id="clip3" src="images/1361982728a.gif" />
+</div>
+<hr>
+<br>
+<br>
+<br>
+<br>
+<!--- <img id="next" src="images/1361982728a.gif" />
+<br>
+<img id="play" src="images/1361982728a.gif" />
+  <br>
+  <img id="pause" src="images/1361982728a.gif">
+  <br>
+--->
+
+  
+<h1> Speezy Player</h1>
+
+<audio controls="controls" id="audio_player">
+  <source src="audio/prologue.ogg" type="audio/ogg" />
+  <source src="audio/prologue.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<h1>=======WW=======</h1>
+
+<div id="audioplayer" style="border: 1px solid black">
+  <button id="pButton" class="play" onclick="playAudio()"></button>
+    <div id="timeline">
+    <div id="playhead"></div>
+  </div>
+  <div id="volume_control">
+    <label id="rngVolume_label" for="rngVolume">Volume:</label>
+    <input type="range" onchange="setVolume(this.value)" id="rngVolume" min="0" max="1" step="0.01" value="1">
+  </div>
+</div>
+
+<h1>----x----</h1>
+<a href="index.html?&audio_id=12345&username=fred">Call Player Index</a>
+<h2>---y---</h2>
+
+<script>
+function SetHTML5AudioFile(obj) {
+ var path = "audio/";
+ var audio = document.getElementById("audio");
+ var song = obj.getAttribute("data-audio");
+ var audio_file_path = path + song;
+ audio.src = audio_file_path;
+
+ txtSong.value = song;
+
+ btnPlay.disabled = false;
+ btnPause.disabled = true;
+ btnRewind.disabled = true;
+}
+function PlayAudioFile() {
+ var audio = document.getElementById("audio");
+ audio.play();
+ 
+ btnPlay.disabled = true;
+ btnPause.disabled = false;
+ btnRewind.disabled = false;
+}
+function PauseAudioFile() {
+ var audio = document.getElementById("audio");
+ audio.pause();
+ 
+ btnPlay.disabled = false;
+ btnPause.disabled = true;
+ btnRewind.disabled = false;
+}
+function RewindAudioFile() {
+ var audio = document.getElementById("audio");
+ audio.pause();
+ audio.currentTime = 0;
+ 
+ btnPlay.disabled = false;
+ btnPause.disabled = true;
+ btnRewind.disabled = true;
+}
+
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+// query string: ?foo=lorem&bar=&baz
+var foo = getParameterByName('foo'); // "lorem"
+var bar = getParameterByName('bar'); // "" (present with empty value)
+var baz = getParameterByName('baz'); // "" (present with no value)
+var qux = getParameterByName('qux'); // null (absent)
+
+//Method II
+
+const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get('myParam');
+
+//Method III
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+
+</script>
+
+<p>Choose your song to play using HTML5 audio element.</p>
+<ul>
+ <li><a id="link" href="index.html">Ring Ring</a></li>
+ <li><a href="javascript:void();" onclick="SetHTML5AudioFile(this);" data-audio="RingRing.mp3">RingRing</a></li>
+ <li><a href="javascript:void();" onclick="SetHTML5AudioFile(this);" data-audio="prologue.mp3">Prologue</a></li>
+ <li><a href="javascript:void();" onclick="SetHTML5AudioFile(this);" data-audio="Maid with the Flaxen Hair.mp3">Maid with the Flaxen Hair</a></li>
+</ul>
+<audio id="audio">
+  Your browser does not support the audio element.
+</audio>
+
+<input id="txtSong" type="text" />
+<button id="btnPlay" onclick="PlayAudioFile();" disabled="disabled"> > (Play)</button>
+<button id="btnPause" onclick="PauseAudioFile();" disabled="disabled">|| (Pause)</button>
+<button id="btnRewind" onclick="RewindAudioFile();" disabled="disabled"> |<< (Rewind)</button>
+
+
+<!-- Footer / About Section -->
+<footer class="w3-light-grey w3-padding-64 w3-center" id="about">
+  <h2>About</h2>
+  <img src="images/speezyLogo.png" class="w3-image w3-padding-32" width="40" height="40">
+  <p>This app is provided by Speezy a division of Suggestv Ltd.
+       </p>
+    
+  <br>
+  
+</footer>
+ 
+</body>
+</html>
