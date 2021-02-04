@@ -15,6 +15,7 @@ class ChatViewModel: NewItemGenerating {
         case loaded
         case itemInserted(index: Int)
         case finishedRecording
+        case editingDiscarded(AudioItem)
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -34,7 +35,7 @@ class ChatViewModel: NewItemGenerating {
     private var activeAudioManager: AudioManager?
     
     private(set) var chat: Chat
-    private var stagedAudioFile: AudioItem?
+    private var currentAudioFile: AudioItem?
     private var stagedText: String?
     
     private var noMoreMessages = false
@@ -56,16 +57,17 @@ class ChatViewModel: NewItemGenerating {
     }
     
     func setAudioItem(_ item: AudioItem) {
-        stagedAudioFile = item
+        currentAudioFile = item.withoutStagingPath()
+        LocalAudioManager.createOriginalFromStaged(item: item)
     }
     
     func cancelAudioItem() {
-        guard let item = stagedAudioFile else {
+        guard let item = currentAudioFile else {
             return
         }
         
-        FileManager.default.deleteExistingURL(item.fileUrl)
-        stagedAudioFile = nil
+        LocalAudioManager.deleteAudioFiles(item: item)
+        currentAudioFile = nil
     }
     
     func setMessageText(_ text: String) {
@@ -183,7 +185,7 @@ extension ChatViewModel {
 // MARK: Sending
 extension ChatViewModel {
     func sendStagedItem() {
-        guard let item = stagedAudioFile, let data = item.fileUrl.data else {
+        guard let item = currentAudioFile, let data = item.fileUrl.data else {
             return
         }
         
@@ -197,6 +199,17 @@ extension ChatViewModel {
             case let .failure(error):
                 break
             }
+        }
+    }
+    
+    func discardItem(_ item: AudioItem) {
+        guard let stagedAudioFile = self.currentAudioFile else {
+            return
+        }
+        
+        let manager = AudioManager(item: item)
+        manager.discard {
+            self.didChange?(.editingDiscarded(stagedAudioFile))
         }
     }
     

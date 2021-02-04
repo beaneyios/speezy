@@ -13,6 +13,7 @@ protocol AudioItemCoordinatorDelegate: AnyObject {
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator)
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem)
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem)
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldDiscardItem item: AudioItem)
 }
 
 class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
@@ -141,16 +142,8 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         )
         navigateToAudioItem(item: item)
     }
-    
-    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
-        navigateToCutView(audioItem: audioItem, on: viewController)
-    }
-    
-    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCropOnItem audioItem: AudioItem) {
-        navigateToCropView(audioItem: audioItem, on: viewController)
-    }
-    
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {
+        
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldSaveItemToDrafts item: AudioItem) {
         viewController.dismiss(animated: true) {
             self.delegate?.audioItemCoordinator(self, didSaveItem: item)
         }
@@ -162,16 +155,26 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         }
     }
     
-    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
-        viewController.dismiss(animated: true, completion: nil)
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldDiscardItem item: AudioItem) {
+        viewController.dismiss(animated: true) {
+            self.delegate?.audioItemCoordinator(self, shouldDiscardItem: item)
+        }
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
+        navigateToCutView(audioItem: audioItem, on: viewController)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCropOnItem audioItem: AudioItem) {
+        navigateToCropView(audioItem: audioItem, on: viewController)
     }
     
     func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribeWithManager manager: AudioManager) {
         navigateToTranscription(manager: manager, on: viewController)
     }
     
-    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool {
-        viewController.navigationController?.viewControllers.last == viewController
+    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
     
     func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController) {

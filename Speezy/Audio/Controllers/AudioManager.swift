@@ -96,7 +96,7 @@ class AudioManager: NSObject {
     }
     
     func discard(completion: @escaping () -> Void) {
-        audioSavingManager.discard(item: item, originalItem: originalItem) {
+        audioSavingManager.discard(item: item) {
             self.markAsClean()
             completion()
         }

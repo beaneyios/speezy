@@ -80,6 +80,10 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     func saveItem(_ item: AudioItem) {
         viewModel.saveItem(item)
     }
+    
+    func discardItem(_ item: AudioItem) {
+        viewModel.discardItem(item)
+    }
 }
 
 extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSource {

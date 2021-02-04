@@ -22,10 +22,19 @@ class LocalAudioManager {
         )
     }
     
+    static func createOriginalFromStaged(item: AudioItem) {
+        FileManager.default.copy(
+            original: item.fileUrl,
+            to: item.withoutStagingPath().fileUrl
+        )        
+    }
+    
     static func deleteAudioFiles(item: AudioItem) {
         FileManager.default.deleteExistingURL(
             item.withStagingPath().fileUrl
         )
-        FileManager.default.deleteExistingURL(item.fileUrl)
+        FileManager.default.deleteExistingURL(
+            item.withoutStagingPath().fileUrl
+        )
     }
 }

@@ -60,6 +60,13 @@ class AudioItemListViewModel: NewItemGenerating {
         }
     }
     
+    func discardItem(_ item: AudioItem) {
+        let audioManager = AudioManager(item: item)
+        audioManager.discard {
+            // no op
+        }
+    }
+    
     func deleteItem(_ item: AudioItem) {
         audioAttachmentManager.removeAttachment(forItem: item)
 

@@ -9,13 +9,10 @@
 import Foundation
 
 class AudioSavingManager {
-    func discard(
-        item: AudioItem,
-        originalItem: AudioItem,
-        completion: @escaping () -> Void
+    func discard(item: AudioItem, completion: @escaping () -> Void
     ) {
-        FileManager.default.deleteExistingURL(item.fileUrl)
-        FileManager.default.copy(original: originalItem.fileUrl, to: item.fileUrl)
+        FileManager.default.deleteExistingURL(item.withStagingPath().fileUrl)
+        FileManager.default.copy(original: item.withoutStagingPath().fileUrl, to: item.withStagingPath().fileUrl)
         completion()
     }
 }

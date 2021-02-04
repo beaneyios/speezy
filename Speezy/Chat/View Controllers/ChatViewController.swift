@@ -85,6 +85,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         viewModel.sendStagedItem()
     }
     
+    func discardAudioItem(_ item: AudioItem) {
+        viewModel.discardItem(item)
+    }
+    
     func applyChangesToAudioItem(_ item: AudioItem) {
         guard let playbackView = activeControl as? ChatPlaybackView else {
             return
@@ -222,6 +226,12 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                     } else {
                         self.animateToRecordButtonView()
                     }
+                case let .editingDiscarded(itemToReturnTo):
+                    guard let playbackView = self.activeControl as? ChatPlaybackView else {
+                        return
+                    }
+                    
+                    playbackView.configure(audioItem: itemToReturnTo)
                 }
             }
         }
@@ -259,7 +269,7 @@ extension ChatViewController {
         viewController.willMove(toParent: nil)
         
         viewModel.setAudioItem(item)
-        animateToPlaybackView(item: item)
+        animateToPlaybackView(item: item.withoutStagingPath())
     }
     
     func quickRecordViewControllerDidCancel(_ viewController: QuickRecordViewController) {

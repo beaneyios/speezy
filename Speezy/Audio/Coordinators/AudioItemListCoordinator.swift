@@ -58,6 +58,10 @@ extension AudioItemListCoordinator: AudioItemCoordinatorDelegate {
         listViewController?.saveItem(item)
     }
     
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldDiscardItem item: AudioItem) {
+        listViewController?.discardItem(item)
+    }
+    
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem) {
         listViewController?.saveItem(item)
         navigateToPublish(item: item)

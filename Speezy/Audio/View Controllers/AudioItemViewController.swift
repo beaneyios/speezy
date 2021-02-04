@@ -18,16 +18,17 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     
     func audioItemViewController(
         _ viewController: AudioItemViewController,
-        didSaveItemToDrafts item: AudioItem
+        shouldSaveItemToDrafts item: AudioItem
     )
     
-    func audioItemViewControllerShouldPop(
-        _ viewController: AudioItemViewController
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldDiscardItem item: AudioItem
     )
     
-    func audioItemViewControllerDidFinish(
-        _ viewController: AudioItemViewController
-    )
+    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
+    func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController)
+    
     
     func audioItemViewController(
         _ viewController: AudioItemViewController,
@@ -43,8 +44,6 @@ protocol AudioItemViewControllerDelegate: AnyObject {
         _ viewController: AudioItemViewController,
         didPresentCropOnItem audioItem: AudioItem
     )
-    
-    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool
 }
 
 class AudioItemViewController: UIViewController {
@@ -120,8 +119,7 @@ class AudioItemViewController: UIViewController {
     }
     
      func didTapDraft() {
-        delegate?.audioItemViewController(self, didSaveItemToDrafts: audioManager.item)
-        delegate?.audioItemViewControllerShouldPop(self)
+        delegate?.audioItemViewController(self, shouldSaveItemToDrafts: audioManager.item)
     }
     
     func didTapShare() {
@@ -140,25 +138,11 @@ class AudioItemViewController: UIViewController {
                 preferredStyle: .actionSheet
             )
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                self.audioManager.save(saveAttachment: false) { (result) in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case let .success(item):
-                            self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                            self.delegate?.audioItemViewControllerShouldPop(self)
-                        case let .failure(error):
-                            // TODO: Handle error
-                            assertionFailure("Errored with error \(error.localizedDescription)")
-                        }
-                        
-                    }
-                }
+                self.delegate?.audioItemViewController(self, shouldSaveItemToDrafts: self.audioManager.item)
             }
             
             let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
-                self.audioManager.discard {
-                    self.delegate?.audioItemViewControllerShouldPop(self)
-                }
+                self.delegate?.audioItemViewController(self, shouldDiscardItem: self.audioManager.item)
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
