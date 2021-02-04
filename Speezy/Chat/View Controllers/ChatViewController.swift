@@ -81,6 +81,19 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         delegate?.chatViewControllerDidTapBack(self)
     }
     
+    func sendEditedAudioItem(_ item: AudioItem) {
+        viewModel.sendStagedItem()
+    }
+    
+    func applyChangesToAudioItem(_ item: AudioItem) {
+        guard let playbackView = activeControl as? ChatPlaybackView else {
+            return
+        }
+        
+        viewModel.setAudioItem(item)
+        playbackView.configure(audioItem: item)
+    }
+    
     private func cancelAudioPlayback() {
         activeAudioManager?.stop()
     }
@@ -150,6 +163,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         }
         
         playbackView.editAudioAction = { audioManager in
+            // We don't want this going into the studio view "dirty".
+            // The editor picks this up and assumes the user previously quit the
+            // studio view without saving, which isn't the case here.
+            audioManager.markAsClean()
             self.delegate?.chatViewController(self, didSelectEditWithAudioManager: audioManager)
         }
         
@@ -189,14 +206,6 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                             )
                         ]
                     )
-                    
-                    if let playbackView = self.activeControl as? ChatPlaybackView {
-                        playbackView.animateOut {
-                            self.animateToRecordButtonView()
-                        }
-                    } else {
-                        self.animateToRecordButtonView()
-                    }
                 case let .loading(isLoading):
                     if isLoading {
                         self.spinner.startAnimating()
@@ -204,6 +213,14 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                     } else {
                         self.spinner.stopAnimating()
                         self.spinner.isHidden = true
+                    }
+                case .finishedRecording:
+                    if let playbackView = self.activeControl as? ChatPlaybackView {
+                        playbackView.animateOut {
+                            self.animateToRecordButtonView()
+                        }
+                    } else {
+                        self.animateToRecordButtonView()
                     }
                 }
             }

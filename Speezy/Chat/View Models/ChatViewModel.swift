@@ -14,6 +14,7 @@ class ChatViewModel: NewItemGenerating {
         case loading(Bool)
         case loaded
         case itemInserted(index: Int)
+        case finishedRecording
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -54,6 +55,32 @@ class ChatViewModel: NewItemGenerating {
         self.chat = chat
     }
     
+    func setAudioItem(_ item: AudioItem) {
+        stagedAudioFile = item
+    }
+    
+    func cancelAudioItem() {
+        guard let item = stagedAudioFile else {
+            return
+        }
+        
+        FileManager.default.deleteExistingURL(item.fileUrl)
+        stagedAudioFile = nil
+    }
+    
+    func setMessageText(_ text: String) {
+        self.stagedText = text
+    }
+    
+    func startPlaying(audioManager: AudioManager) {
+        self.activeAudioManager?.stop()
+        
+        audioManager.play()
+    }
+}
+
+// MARK: Receiving
+extension ChatViewModel {
     func listenForData() {
         didChange?(.loading(true))
         groupFetcher.fetchChatters(chat: chat) { (result) in
@@ -94,7 +121,7 @@ class ChatViewModel: NewItemGenerating {
         }
     }
     
-    func loadMoreMessages(index: Int) {        
+    func loadMoreMessages(index: Int) {
         guard
             index == items.count - 1,
             let mostRecentMessage = items.last?.message,
@@ -150,31 +177,10 @@ class ChatViewModel: NewItemGenerating {
             }
         }
     }
-    
-    func setAudioItem(_ item: AudioItem) {
-        stagedAudioFile = item
-    }
-    
-    func cancelAudioItem() {
-        guard let item = stagedAudioFile else {
-            return
-        }
-        
-        FileManager.default.deleteExistingURL(item.fileUrl)
-        stagedAudioFile = nil
-    }
-    
-    func setMessageText(_ text: String) {
-        self.stagedText = text
-    }
-    
-    func startPlaying(audioManager: AudioManager) {
-        self.activeAudioManager?.stop()
-        
-        audioManager.play()
-    }
 }
 
+
+// MARK: Sending
 extension ChatViewModel {
     func sendStagedItem() {
         guard let item = stagedAudioFile, let data = item.fileUrl.data else {
@@ -277,8 +283,7 @@ extension ChatViewModel {
         DatabaseAudioManager.updateDatabaseReference(item) { (result) in
             switch result {
             case .success:
-                // TODO: Not sure how to handle success, we're listening for new chat items automatically.
-                break
+                self.didChange?(.finishedRecording)
             case let .failure(error):
                 break
             }

@@ -41,15 +41,23 @@ class AudioItemListViewModel: NewItemGenerating {
         }
     }
     
-    func reloadItem(_ item: AudioItem) {
-        if audioItems.contains(item) {
-            audioItems = audioItems.replacing(item)
-        } else {
-            audioItems.append(item)
+    func saveItem(_ item: AudioItem) {
+        let audioManager = AudioManager(item: item)
+        audioManager.save(saveAttachment: false) { (result) in
+            switch result {
+            case let .success(item):
+                if self.audioItems.contains(item) {
+                    self.audioItems = self.audioItems.replacing(item)
+                } else {
+                    self.audioItems.append(item)
+                }
+                
+                self.audioAttachmentManager.resetCache()
+                self.didChange?(.itemsLoaded)
+            case let .failure(error):
+                break
+            }
         }
-        
-        audioAttachmentManager.resetCache()
-        didChange?(.itemsLoaded)
     }
     
     func deleteItem(_ item: AudioItem) {

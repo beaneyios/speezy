@@ -129,11 +129,11 @@ extension ChatCoordinator: AudioItemCoordinatorDelegate {
     }
     
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem) {
-        
+        chatViewController?.applyChangesToAudioItem(item)
     }
     
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem) {
-        
+        chatViewController?.sendEditedAudioItem(item)
     }
 }
 

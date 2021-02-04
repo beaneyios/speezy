@@ -77,8 +77,8 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
         }
     }
     
-    func reloadItem(_ item: AudioItem) {
-        viewModel.reloadItem(item)
+    func saveItem(_ item: AudioItem) {
+        viewModel.saveItem(item)
     }
 }
 

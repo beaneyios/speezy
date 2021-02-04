@@ -120,51 +120,12 @@ class AudioItemViewController: UIViewController {
     }
     
      func didTapDraft() {
-        let saveAction = {
-            self.view.isUserInteractionEnabled = false
-            self.draftBtn.startLoading()
-            self.audioManager.save(saveAttachment: false) { (result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case let .success(item):
-                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                        self.delegate?.audioItemViewControllerShouldPop(self)
-                    case let .failure(error):
-                        assertionFailure("Errored with error \(error.localizedDescription)")
-                    }
-                    
-                    self.draftBtn.stopLoading()
-                    self.view.isUserInteractionEnabled = true
-                }
-            }
-        }
-        
-        if audioManager.noTitleSet {
-            self.showTitleAlert {
-                saveAction()
-            }
-        } else {
-            saveAction()
-        }
+        delegate?.audioItemViewController(self, didSaveItemToDrafts: audioManager.item)
+        delegate?.audioItemViewControllerShouldPop(self)
     }
     
     func didTapShare() {
-        view.isUserInteractionEnabled = false
-        sendBtn.startLoading()
-        audioManager.save(saveAttachment: false) { (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case let .success(item):
-                    self.delegate?.audioItemViewController(self, shouldSendItem: item)
-                case let .failure(error):
-                    // TODO: Handle error gracefully.
-                    assertionFailure("Errored with error \(error.localizedDescription)")
-                }
-                
-                self.sendBtn.stopLoading()
-                self.view.isUserInteractionEnabled = true
-            }
-        }
+        delegate?.audioItemViewController(self, shouldSendItem: audioManager.item)
     }
     
     @IBAction func chooseTitle(_ sender: Any) {

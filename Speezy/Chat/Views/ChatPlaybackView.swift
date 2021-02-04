@@ -60,6 +60,8 @@ class ChatPlaybackView: UIView, NibLoadable {
     func configure(audioItem: AudioItem) {
         audioManager = AudioManager(item: audioItem)
         audioManager?.addPlaybackObserver(self)
+        
+        durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: audioItem.duration)
     }
     
     @IBAction func editAudioTapped(_ sender: Any) {

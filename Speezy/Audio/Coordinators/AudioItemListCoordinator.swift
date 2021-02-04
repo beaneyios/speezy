@@ -55,11 +55,11 @@ class AudioItemListCoordinator: ViewCoordinator, NavigationControlling {
 
 extension AudioItemListCoordinator: AudioItemCoordinatorDelegate {
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem) {
-        listViewController?.reloadItem(item)
+        listViewController?.saveItem(item)
     }
     
     func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem) {
-        listViewController?.reloadItem(item)
+        listViewController?.saveItem(item)
         navigateToPublish(item: item)
     }
     
@@ -121,7 +121,7 @@ extension AudioItemListCoordinator: PublishViewControllerDelegate {
     }
     
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
-        listViewController?.reloadItem(item)
+        listViewController?.saveItem(item)
     }
     
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {
