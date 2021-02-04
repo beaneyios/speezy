@@ -32,7 +32,7 @@ class HomeCoordinator: ViewCoordinator {
     func start(withAwaitingChatId chatId: String?) {
         tabBarController.setViewControllers([], animated: false)
         addChatCoordinator(awaitingChatId: chatId)
-        addAudioCoordinator()
+        addAudioListCoordinator()
         addQuickRecord()
         addContactsCoordinator()
         addSettingsCoordinator()
@@ -67,10 +67,10 @@ class HomeCoordinator: ViewCoordinator {
         chatCoordinator.navigateToChatId(chatId, message: message)
     }
     
-    private func addAudioCoordinator() {
+    private func addAudioListCoordinator() {
         let navigationController = UINavigationController()
         navigationController.setNavigationBarHidden(true, animated: false)
-        let coordinator = AudioItemCoordinator(navigationController: navigationController)
+        let coordinator = AudioItemListCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         add(coordinator)
         coordinator.start()
@@ -137,7 +137,7 @@ extension HomeCoordinator: UITabBarControllerDelegate {
         if viewController is DummyRecordViewController {
             tabBarController.selectedIndex = 1
             guard
-                let audioCoordinator = find(AudioItemCoordinator.self),
+                let audioCoordinator = find(AudioItemListCoordinator.self),
                 let listViewController = audioCoordinator.listViewController
             else {
                 return false
@@ -157,12 +157,12 @@ extension HomeCoordinator: UITabBarControllerDelegate {
     }
 }
 
-extension HomeCoordinator: AudioItemCoordinatorDelegate {
-    func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemCoordinator) {
+extension HomeCoordinator: AudioItemListCoordinatorDelegate {
+    func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemListCoordinator) {
         tabBarController.tabBar.isHidden = false
     }
     
-    func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
+    func audioItemCoordinatorDidFinish(_ coordinator: AudioItemListCoordinator) {
         remove(coordinator)
     }
 }

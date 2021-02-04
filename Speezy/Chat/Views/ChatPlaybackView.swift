@@ -29,6 +29,7 @@ class ChatPlaybackView: UIView, NibLoadable {
     var sendAction: (() -> Void)?
     var textChangeAction: ((String) -> Void)?
     var cancelAction: (() -> Void)?
+    var editAudioAction: ((AudioManager) -> Void)?
     
     private var audioManager: AudioManager?
     
@@ -63,6 +64,12 @@ class ChatPlaybackView: UIView, NibLoadable {
     
     @IBAction func editAudioTapped(_ sender: Any) {
         editAudioContainer.alpha = 1.0
+        
+        guard let audioManager = audioManager else {
+            return
+        }
+        
+        editAudioAction?(audioManager)
     }
     
     @IBAction func sendTapped(_ sender: Any) {

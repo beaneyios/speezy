@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChatViewControllerDelegate: AnyObject {
     func chatViewControllerDidTapBack(_ viewController: ChatViewController)
+    func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager)
 }
 
 class ChatViewController: UIViewController, QuickRecordPresenting {
@@ -146,6 +147,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         
         playbackView.textChangeAction = { text in
             self.viewModel.setMessageText(text)
+        }
+        
+        playbackView.editAudioAction = { audioManager in
+            self.delegate?.chatViewController(self, didSelectEditWithAudioManager: audioManager)
         }
         
         playbackView.cancelAction = {

@@ -15,6 +15,7 @@
 		BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */; };
 		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
 		BE0A455725CC004A005F4DA8 /* PushDeliveryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */; };
+		BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A455A25CC1080005F4DA8 /* AudioItemListCoordinator.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -272,6 +273,7 @@
 		BE07DAF62596862400D37FC7 /* Speezy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Speezy.entitlements; sourceTree = "<group>"; };
 		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
 		BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeliveryHandler.swift; sourceTree = "<group>"; };
+		BE0A455A25CC1080005F4DA8 /* AudioItemListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListCoordinator.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -1103,6 +1105,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBFD4C524C5BAB100200D87 /* AudioItemCoordinator.swift */,
+				BE0A455A25CC1080005F4DA8 /* AudioItemListCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1864,6 +1867,7 @@
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
+				BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
 				BE5BDB8525C354AD00F937C3 /* ChatUserUpdater.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,

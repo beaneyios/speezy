@@ -111,8 +111,29 @@ extension ChatCoordinator: ChatListViewControllerDelegate {
 }
 
 extension ChatCoordinator: ChatViewControllerDelegate {
+    func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager) {
+        let coordinator = AudioItemCoordinator(navigationController: navigationController)
+        add(coordinator)
+        coordinator.delegate = self
+        coordinator.navigateToAudioItem(item: manager.item)
+    }
+    
     func chatViewControllerDidTapBack(_ viewController: ChatViewController) {
         navigationController.popViewController(animated: true)
+    }
+}
+
+extension ChatCoordinator: AudioItemCoordinatorDelegate {
+    func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator) {
+        remove(coordinator)
+    }
+    
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem) {
+        
+    }
+    
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem) {
+        
     }
 }
 

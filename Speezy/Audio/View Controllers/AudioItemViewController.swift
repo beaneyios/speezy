@@ -25,6 +25,10 @@ protocol AudioItemViewControllerDelegate: AnyObject {
         _ viewController: AudioItemViewController
     )
     
+    func audioItemViewControllerDidFinish(
+        _ viewController: AudioItemViewController
+    )
+    
     func audioItemViewController(
         _ viewController: AudioItemViewController,
         didSelectTranscribeWithManager manager: AudioManager
@@ -111,6 +115,7 @@ class AudioItemViewController: UIViewController {
     override func willMove(toParent parent: UIViewController?) {
         if parent == nil {
             audioManager.stopTranscriptionChecks()
+            delegate?.audioItemViewControllerDidFinish(self)
         }
     }
     

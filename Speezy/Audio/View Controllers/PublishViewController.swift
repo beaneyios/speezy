@@ -12,7 +12,6 @@ import SCLAlertView
 import SnapKit
 
 protocol PublishViewControllerDelegate: AnyObject {
-    func publishViewController(_ viewController: PublishViewController, shouldSendItem item: AudioItem)
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem)
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController)
     func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController)
