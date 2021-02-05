@@ -25,4 +25,29 @@ class ChatUpdater {
             completion(.success(chat))
         }
     }
+    
+    func updateChats(
+        chats: [Chat],
+        completion: @escaping (Result<[Chat], Error>) -> Void
+    ) {
+        var successfulChats = [Chat]()
+        let group = DispatchGroup()
+        chats.forEach {
+            group.enter()
+            updateChat(chat: $0) { (result) in
+                switch result {
+                case let .success(chat):
+                    successfulChats.append(chat)
+                case .failure:
+                    break
+                }
+                
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .global()) {
+            completion(.success(successfulChats))
+        }
+    }
 }

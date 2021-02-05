@@ -20,4 +20,8 @@ struct Message: Equatable {
     let duration: TimeInterval?
     
     let readBy: [Chatter]
+    
+    var formattedMessage: String {
+        message ?? "New message from \(chatter.displayName)"
+    }
 }

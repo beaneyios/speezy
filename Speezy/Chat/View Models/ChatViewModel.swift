@@ -25,7 +25,7 @@ class ChatViewModel: NewItemGenerating {
     let groupFetcher = GroupFetcher()
     let messageFetcher = MessageFetcher()
     
-    private lazy var messageCreator = MessageCreator(chat: chat)
+    private lazy var messageCreator = MessageCreator()
     private lazy var messageListener = MessageListener(chat: chat)
     
     let audioClipManager = DatabaseAudioManager()
@@ -259,10 +259,10 @@ extension ChatViewModel {
         )
         
         // First, insert the message.
-        messageCreator.insertMessage(item: item, message: message) { (result) in
+        messageCreator.insertMessage(chat: chat, item: item, message: message) { (result) in
             switch result {
             case let .success(message):
-                let mostRecentMessage = message.message ?? "New message from \(message.chatter.displayName)"
+                let mostRecentMessage = message.formattedMessage
                 let newChat = self.chat.withLastMessage(mostRecentMessage)
                     .withLastUpdated(Date().timeIntervalSince1970)
                     .withReadBy(readBy: [id])
@@ -279,7 +279,8 @@ extension ChatViewModel {
                         // Fourth, send a push notification to relevant users.
                         self.chatPushManager.sendNotification(
                             message: mostRecentMessage,
-                            chat: newChat
+                            chat: newChat,
+                            from: chatter
                         )
                     case let .failure(error):
                         // TODO: Handle error.

@@ -689,6 +689,7 @@
                                         </state>
                                         <connections>
                                             <action selector="createChat:" destination="OE9-KN-pzB" eventType="touchUpInside" id="AjF-pE-grg"/>
+                                            <action selector="sendSelectedChats:" destination="GXi-Iu-xku" eventType="touchUpInside" id="QK2-fu-rpt"/>
                                         </connections>
                                     </button>
                                 </subviews>

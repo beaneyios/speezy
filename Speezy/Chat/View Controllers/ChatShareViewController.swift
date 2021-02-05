@@ -11,7 +11,7 @@ import UIKit
 protocol ChatShareViewControllerDelegate: AnyObject {
     func chatShareViewController(
         _ viewController: ChatShareViewController,
-        didSelectChat chat: Chat
+        didSelectChats chats: [Chat]
     )
     
     func chatShareViewControllerDidSelectExit(
@@ -34,6 +34,10 @@ class ChatShareViewController: UIViewController {
         listenForChanges()
         
         collectionView.alpha = 0.0
+    }
+    
+    @IBAction func sendSelectedChats(_ sender: Any) {
+        viewModel.sendToSelectedChats()
     }
     
     @IBAction func didTapClose(_ sender: Any) {
@@ -68,8 +72,11 @@ class ChatShareViewController: UIViewController {
                     self.spinner.stopAnimating()
                     self.spinner.isHidden = true
                 }
-            case let .selectChat(chat):
-                self.delegate?.chatShareViewController(self, didSelectChat: chat)
+            case .messageInserted:
+                self.delegate?.chatShareViewController(
+                    self,
+                    didSelectChats: self.viewModel.selectedChats
+                )
             }
         }
     }

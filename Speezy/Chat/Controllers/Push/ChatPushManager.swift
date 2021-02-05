@@ -11,8 +11,10 @@ import FirebaseDatabase
 import FirebaseFunctions
 
 class ChatPushManager {
-    func sendNotification(message: String, chat: Chat) {
-        let tokens = chat.chatters.compactMap {
+    func sendNotification(message: String, chat: Chat, from chatter: Chatter) {
+        let tokens = chat.chatters.filter {
+            $0 != chatter
+        }.compactMap {
             $0.pushToken
         }
         
@@ -38,6 +40,30 @@ class ChatPushManager {
             }
             
             print(result?.data)
+        }
+    }
+    
+    func sendNotification(message: String, chats: [Chat], from chatter: Chatter) {
+        chats.forEach {
+            let chat = $0
+            if chat.chatters.count > 1 {
+                self.sendNotification(message: message, chat: chat, from: chatter)
+                return
+            }
+            
+            GroupFetcher().fetchChatters(chat: chat) { (result) in
+                switch result {
+                case let .success(chatters):
+                    let newChat = chat.withChatters(chatters: chatters)
+                    self.sendNotification(
+                        message: message,
+                        chat: newChat,
+                        from: chatter
+                    )
+                case .failure:
+                    break
+                }
+            }
         }
     }
 }

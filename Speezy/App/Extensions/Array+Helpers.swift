@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension Array where Element: Equatable {
+    func without(_ element: Element) -> Self {
+        let indexOfElement = firstIndex(of: element)
+        guard let index = indexOfElement else {
+            return self
+        }
+        
+        var newArray = self
+        newArray[index] = element
+        return newArray
+    }
+}
+
 extension Array where Element: Identifiable {
     func first(withId id: String) -> Element? {
         first {

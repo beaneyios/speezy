@@ -109,12 +109,12 @@ extension ChatCoordinator {
 }
 
 extension ChatCoordinator: ChatShareViewControllerDelegate {
-    func chatShareViewControllerDidSelectExit(_ viewController: ChatShareViewController) {
+    func chatShareViewController(_ viewController: ChatShareViewController, didSelectChats chats: [Chat]) {
         viewController.dismiss(animated: true, completion: nil)
     }
     
-    func chatShareViewController(_ viewController: ChatShareViewController, didSelectChat chat: Chat) {
-        
+    func chatShareViewControllerDidSelectExit(_ viewController: ChatShareViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -11,9 +11,9 @@ import FirebaseAuth
 
 class ChatShareViewModel {
     enum Change: Equatable {
+        case messageInserted
         case loaded
         case loading(Bool)
-        case selectChat(Chat)
     }
     
     private(set) var selectedChats = [Chat]()
@@ -24,6 +24,10 @@ class ChatShareViewModel {
     
     private let store: Store
     private let audioItem: AudioItem
+    
+    private let messageCreator = MessageCreator()
+    private let chatUpdater = ChatUpdater()
+    private let chatPushManager = ChatPushManager()
     
     var shouldShowEmptyView: Bool {
         items.isEmpty
@@ -47,6 +51,85 @@ class ChatShareViewModel {
             selectedChats.remove(at: chatIndex)
         } else {
             selectedChats.append(chat)
+        }
+    }
+    
+    func sendToSelectedChats() {
+        didChange?(.loading(true))
+        
+        guard let userId = userId else {
+            return
+        }
+        
+        DatabaseProfileManager().fetchProfile(userId: userId) { (result) in
+            switch result {
+            case let .success(profile):
+                self.insertMessage(
+                    userId: userId,
+                    item: self.audioItem,
+                    profile: profile
+                )
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func insertMessage(userId: String, item: AudioItem, profile: Profile) {
+        let chatter = Chatter(
+            id: userId,
+            displayName: profile.name,
+            profileImageUrl: profile.profileImageUrl,
+            pushToken: profile.pushToken
+        )
+        
+        let message = Message(
+            id: UUID().uuidString,
+            chatter: chatter,
+            sent: Date(),
+            message: item.title,
+            audioId: item.id,
+            audioUrl: item.remoteUrl,
+            attachmentUrl: nil,
+            duration: item.calculatedDuration,
+            readBy: []
+        )
+        
+        messageCreator.insertMessage(
+            chats: selectedChats,
+            item: item,
+            message: message
+        ) { (result) in
+            switch result {
+            case let .success(message):
+                self.updateChats(chatter: chatter, message: message)
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func updateChats(chatter: Chatter, message: Message) {
+        let updatedChats = self.selectedChats.map {
+            $0.withLastUpdated(Date().timeIntervalSince1970)
+                .withLastMessage(message.formattedMessage)
+                .withReadBy(readBy: [chatter.id])
+        }
+        
+        self.chatUpdater.updateChats(chats: updatedChats) { (result) in
+            switch result {
+            case let .success(chats):
+                let mostRecentMessage = message.formattedMessage
+                self.didChange?(.messageInserted)
+                self.chatPushManager.sendNotification(
+                    message: mostRecentMessage,
+                    chats: chats,
+                    from: chatter
+                )
+            case .failure:
+                break
+            }
+            
         }
     }
     
