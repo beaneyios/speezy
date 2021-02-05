@@ -27,6 +27,7 @@ class ShareViewController: UIViewController {
     var completion: (() -> Void)?
     
     let options: [ShareOption] = [
+        ShareOption(title: "Speezy", image: UIImage(named: "speezy-share-icon"), platform: .speezy),
         ShareOption(title: "WhatsApp", image: UIImage(named: "whatsapp-share-icon"), platform: .whatsapp),
         ShareOption(title: "Messenger", image: UIImage(named: "messenger-share-icon"), platform: .messenger),
         ShareOption(title: "Email", image: UIImage(named: "email-share-icon"), platform: .email)

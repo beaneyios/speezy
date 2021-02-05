@@ -15,10 +15,10 @@ protocol HomeCoordinatorDelegate: AnyObject {
 
 class HomeCoordinator: ViewCoordinator {
     enum TabBarTab: Int {
-        case audio
         case chat
-        case profile
+        case audio
         case contacts
+        case settings
     }
     
     weak var delegate: HomeCoordinatorDelegate?
@@ -58,7 +58,7 @@ class HomeCoordinator: ViewCoordinator {
             return
         }
         
-        tabBarController.selectedIndex = 0
+        tabBarController.selectedIndex = TabBarTab.chat.rawValue
         
         guard let chatCoordinator = find(ChatCoordinator.self) else {
             return
@@ -135,7 +135,7 @@ class HomeCoordinator: ViewCoordinator {
 extension HomeCoordinator: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController is DummyRecordViewController {
-            tabBarController.selectedIndex = 1
+            tabBarController.selectedIndex = TabBarTab.audio.rawValue
             guard
                 let audioCoordinator = find(AudioItemListCoordinator.self),
                 let listViewController = audioCoordinator.listViewController
@@ -158,6 +158,16 @@ extension HomeCoordinator: UITabBarControllerDelegate {
 }
 
 extension HomeCoordinator: AudioItemListCoordinatorDelegate {
+    func audioItemCoordinator(_ coordinator: AudioItemListCoordinator, didShareItemToSpeezy item: AudioItem) {
+        tabBarController.selectedIndex = TabBarTab.chat.rawValue
+        
+        guard let chatCoordinator = find(ChatCoordinator.self) else {
+            return
+        }
+        
+        chatCoordinator.shareItemToChat(audioItem: item)
+    }
+    
     func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemListCoordinator) {
         tabBarController.tabBar.isHidden = false
     }

@@ -16,6 +16,12 @@
 		BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE088CE124EDC33C000FEE55 /* PublishViewController.swift */; };
 		BE0A455725CC004A005F4DA8 /* PushDeliveryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */; };
 		BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A455A25CC1080005F4DA8 /* AudioItemListCoordinator.swift */; };
+		BE0A458325CD673B005F4DA8 /* ChatShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A458225CD673B005F4DA8 /* ChatShareViewController.swift */; };
+		BE0A458825CD677A005F4DA8 /* ChatSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A458625CD677A005F4DA8 /* ChatSelectionCell.swift */; };
+		BE0A458925CD677A005F4DA8 /* ChatSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0A458725CD677A005F4DA8 /* ChatSelectionCell.xib */; };
+		BE0A458D25CD684F005F4DA8 /* ChatShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A458C25CD684F005F4DA8 /* ChatShareViewModel.swift */; };
+		BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A459025CD7129005F4DA8 /* UINavigationController+Completion.swift */; };
+		BE0A459525CD725E005F4DA8 /* ChatSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A459425CD725D005F4DA8 /* ChatSelectionCellModel.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -274,6 +280,12 @@
 		BE088CE124EDC33C000FEE55 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
 		BE0A455625CC004A005F4DA8 /* PushDeliveryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeliveryHandler.swift; sourceTree = "<group>"; };
 		BE0A455A25CC1080005F4DA8 /* AudioItemListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListCoordinator.swift; sourceTree = "<group>"; };
+		BE0A458225CD673B005F4DA8 /* ChatShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatShareViewController.swift; sourceTree = "<group>"; };
+		BE0A458625CD677A005F4DA8 /* ChatSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSelectionCell.swift; sourceTree = "<group>"; };
+		BE0A458725CD677A005F4DA8 /* ChatSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatSelectionCell.xib; sourceTree = "<group>"; };
+		BE0A458C25CD684F005F4DA8 /* ChatShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatShareViewModel.swift; sourceTree = "<group>"; };
+		BE0A459025CD7129005F4DA8 /* UINavigationController+Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Completion.swift"; sourceTree = "<group>"; };
+		BE0A459425CD725D005F4DA8 /* ChatSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSelectionCellModel.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -936,6 +948,7 @@
 				BEA9D13525B0C623000888A7 /* ChatViewModel.swift */,
 				BE6FD97625BC398200723732 /* ChatListViewModel.swift */,
 				BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */,
+				BE0A458C25CD684F005F4DA8 /* ChatShareViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1296,6 +1309,8 @@
 				BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */,
 				BEE47EF925BC433200AF47FA /* ChatCell.swift */,
 				BEE47EFA25BC433200AF47FA /* ChatCell.xib */,
+				BE0A458625CD677A005F4DA8 /* ChatSelectionCell.swift */,
+				BE0A458725CD677A005F4DA8 /* ChatSelectionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1305,6 +1320,7 @@
 			children = (
 				BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */,
 				BEE47EEF25BC415D00AF47FA /* ChatCellModel.swift */,
+				BE0A459425CD725D005F4DA8 /* ChatSelectionCellModel.swift */,
 			);
 			path = "Cell Models";
 			sourceTree = "<group>";
@@ -1315,6 +1331,7 @@
 				BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */,
 				BE6FD97225BC397300723732 /* ChatListViewController.swift */,
 				BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */,
+				BE0A458225CD673B005F4DA8 /* ChatShareViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1358,6 +1375,7 @@
 				BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */,
 				BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */,
 				BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */,
+				BE0A459025CD7129005F4DA8 /* UINavigationController+Completion.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1627,6 +1645,7 @@
 				BE6FD95F25B75CFF00723732 /* ChatRecordView.xib in Resources */,
 				BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */,
 				BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */,
+				BE0A458925CD677A005F4DA8 /* ChatSelectionCell.xib in Resources */,
 				BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
@@ -1765,6 +1784,7 @@
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
 				BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */,
+				BE0A459525CD725E005F4DA8 /* ChatSelectionCellModel.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
@@ -1775,6 +1795,7 @@
 				BEE47EFB25BC433200AF47FA /* ChatCell.swift in Sources */,
 				BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */,
 				BEFF49AF25C58AD100794A21 /* ChatValue.swift in Sources */,
+				BE0A458825CD677A005F4DA8 /* ChatSelectionCell.swift in Sources */,
 				BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */,
 				BE3C5DDE25BD8B81005E34BB /* Debouncer.swift in Sources */,
 				BE6FD90C25B49BD800723732 /* URL+Helpers.swift in Sources */,
@@ -1783,6 +1804,7 @@
 				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
+				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
 				BE3C5DD825BD8AFD005E34BB /* NewContactViewModel.swift in Sources */,
@@ -1839,6 +1861,7 @@
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
+				BE0A458325CD673B005F4DA8 /* ChatShareViewController.swift in Sources */,
 				BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */,
 				BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */,
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
@@ -1933,6 +1956,7 @@
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,
+				BE0A458D25CD684F005F4DA8 /* ChatShareViewModel.swift in Sources */,
 				BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,

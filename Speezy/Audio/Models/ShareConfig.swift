@@ -12,4 +12,8 @@ struct ShareConfig {
     let includeTags: Bool
     let includeTitle: Bool
     let attachment: UIImage?
+    
+    var shouldGenerateVideo: Bool {
+        attachment != nil || includeTags || includeTitle
+    }
 }

@@ -15,6 +15,7 @@ protocol PublishViewControllerDelegate: AnyObject {
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem)
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController)
     func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController)
+    func publishViewController(_ viewController: PublishViewController, didShareItemToSpeezy item: AudioItem)
 }
 
 class PublishViewController: UIViewController, PreviewWavePresenting {
@@ -45,7 +46,11 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     private var tagsView: TagsView?
     private var shareView: ShareViewController!
             
-    lazy var shareController = AudioShareController(parentViewController: self)
+    lazy var shareController: AudioShareController = {
+        let controller = AudioShareController(parentViewController: self)
+        controller.delegate = self
+        return controller
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,6 +141,12 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
         } else {
             self.delegate?.publishViewControllerShouldNavigateBack(self)
         }
+    }
+}
+
+extension PublishViewController: AudioShareControllerDelegate {
+    func shareController(_ shareController: AudioShareController, didShareItemToSpeezy item: AudioItem) {
+        delegate?.publishViewController(self, didShareItemToSpeezy: item)
     }
 }
 

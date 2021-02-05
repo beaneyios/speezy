@@ -11,9 +11,14 @@ import SCLAlertView
 import SwiftVideoGenerator
 import MessageUI
 
+protocol AudioShareControllerDelegate: AnyObject {
+    func shareController(_ shareController: AudioShareController, didShareItemToSpeezy item: AudioItem)
+}
+
 class AudioShareController: NSObject {
     typealias ShareCompletion = () -> Void
     
+    weak var delegate: AudioShareControllerDelegate?
     weak var parentViewController: UIViewController?
     
     private var audioItem: AudioItem!
@@ -63,7 +68,7 @@ extension AudioShareController: ShareViewControllerDelegate {
     func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
         shareViewController.dismissShare()
         
-        if config.attachment != nil || config.includeTags || config.includeTitle {
+        if config.shouldGenerateVideo && option.platform != .speezy {
             generateVideoAndPresentShareOption(item: audioItem, option: option, config: config)
         } else {
             generateAudioAndPresentShareOption(item: audioItem, option: option)
@@ -172,6 +177,8 @@ extension AudioShareController {
         switch option.platform {
         case .email:
             sendEmail(url: url)
+        case .speezy:
+            delegate?.shareController(self, didShareItemToSpeezy: audioItem)
         default:
             presentNativeShareSheet(url: url)
         }

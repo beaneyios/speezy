@@ -12,6 +12,7 @@ import UIKit
 protocol AudioItemListCoordinatorDelegate: AnyObject {
     func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemListCoordinator)
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemListCoordinator)
+    func audioItemCoordinator(_ coordinator: AudioItemListCoordinator, didShareItemToSpeezy item: AudioItem)
 }
 
 class AudioItemListCoordinator: ViewCoordinator, NavigationControlling {
@@ -131,6 +132,12 @@ extension AudioItemListCoordinator: PublishViewControllerDelegate {
     func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
         navigationController.popViewController(animated: true)
         listViewController?.saveItem(item)
+    }
+    
+    func publishViewController(_ viewController: PublishViewController, didShareItemToSpeezy item: AudioItem) {
+        navigationController.popViewController(animated: true) {
+            self.delegate?.audioItemCoordinator(self, didShareItemToSpeezy: item)
+        }
     }
     
     func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {
