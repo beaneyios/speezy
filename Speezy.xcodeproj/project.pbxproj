@@ -27,6 +27,12 @@
 		BE0A45A125CEBEE0005F4DA8 /* ContactListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */; };
 		BE0A45A525CEBF30005F4DA8 /* ContactsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45A425CEBF30005F4DA8 /* ContactsListener.swift */; };
 		BE0A45AB25CEBF8F005F4DA8 /* ContactValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */; };
+		BE0A45BB25CED6FA005F4DA8 /* MyRecordingsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45BA25CED6FA005F4DA8 /* MyRecordingsListener.swift */; };
+		BE0A45BF25CED9DA005F4DA8 /* MyRecordingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */; };
+		BE0A45C525CEDA3B005F4DA8 /* AudioItemListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C425CEDA3B005F4DA8 /* AudioItemListObservation.swift */; };
+		BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */; };
+		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
+		BE0A45D925CEDFC7005F4DA8 /* MyRecordingsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -296,6 +302,12 @@
 		BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListObservation.swift; sourceTree = "<group>"; };
 		BE0A45A425CEBF30005F4DA8 /* ContactsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListener.swift; sourceTree = "<group>"; };
 		BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactValue.swift; sourceTree = "<group>"; };
+		BE0A45BA25CED6FA005F4DA8 /* MyRecordingsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListener.swift; sourceTree = "<group>"; };
+		BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsStore.swift; sourceTree = "<group>"; };
+		BE0A45C425CEDA3B005F4DA8 /* AudioItemListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListObservation.swift; sourceTree = "<group>"; };
+		BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObserver.swift; sourceTree = "<group>"; };
+		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
+		BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsFetcher.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -565,6 +577,36 @@
 				09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BE0A45AE25CED61B005F4DA8 /* Fetching */ = {
+			isa = PBXGroup;
+			children = (
+				BE0A45BA25CED6FA005F4DA8 /* MyRecordingsListener.swift */,
+				BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */,
+			);
+			path = Fetching;
+			sourceTree = "<group>";
+		};
+		BE0A45AF25CED622005F4DA8 /* Editing */ = {
+			isa = PBXGroup;
+			children = (
+				BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */,
+				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
+				BE9AD41925692F240034F921 /* AudioCutter.swift */,
+				BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */,
+			);
+			path = Editing;
+			sourceTree = "<group>";
+		};
+		BE0A45B025CED63E005F4DA8 /* Playing */ = {
+			isa = PBXGroup;
+			children = (
+				BE50344824BA4D2C00A414D1 /* AudioContext.swift */,
+				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
+				BEBFD4B924C5A23700200D87 /* AudioPlayer.swift */,
+			);
+			path = Playing;
 			sourceTree = "<group>";
 		};
 		BE0E53D024E9BDE8009BA1F9 /* Extensions */ = {
@@ -1056,16 +1098,12 @@
 		BEAACE8A24BA10400074E4B9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE0A45B025CED63E005F4DA8 /* Playing */,
+				BE0A45AF25CED622005F4DA8 /* Editing */,
+				BE0A45AE25CED61B005F4DA8 /* Fetching */,
 				BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */,
-				BE50344824BA4D2C00A414D1 /* AudioContext.swift */,
-				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
-				BE9AD41925692F240034F921 /* AudioCutter.swift */,
-				BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */,
 				BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */,
-				BE50344A24BA4D5200A414D1 /* AudioLevelGenerator.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
-				BEBFD4B924C5A23700200D87 /* AudioPlayer.swift */,
-				BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */,
 				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
 				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
 				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
@@ -1274,7 +1312,6 @@
 				BE5BDBB425C35A1F00F937C3 /* Creation */,
 				BEF7DE3E25C728BA00B690CB /* Deletion */,
 				BE5BDBB625C35A3F00F937C3 /* Editing */,
-				BEFF49AD25C58AC800794A21 /* Enum */,
 				BE5BDBB525C35A2C00F937C3 /* Fetching */,
 				BE5BDBB725C35A5700F937C3 /* Parsing */,
 				BE5BDBB825C35A6A00F937C3 /* Push */,
@@ -1499,6 +1536,7 @@
 			children = (
 				BEFF49AE25C58AD100794A21 /* ChatValue.swift */,
 				BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */,
+				BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1506,6 +1544,7 @@
 		BEFF49B425C58C9E00794A21 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				BEFF49AD25C58AC800794A21 /* Enum */,
 				BEFF49C425C590D400794A21 /* Observations */,
 				BEFF49C325C590CD00794A21 /* Observers */,
 				BEFF49BC25C5909A00794A21 /* Stores */,
@@ -1519,6 +1558,7 @@
 			children = (
 				BEFF49BD25C590A200794A21 /* ChatStore.swift */,
 				BE0A459825CEBE5E005F4DA8 /* ContactStore.swift */,
+				BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -1528,6 +1568,7 @@
 			children = (
 				BEFF49CB25C590EF00794A21 /* ChatListObserver.swift */,
 				BE0A459C25CEBEB2005F4DA8 /* ContactListObserver.swift */,
+				BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */,
 			);
 			path = Observers;
 			sourceTree = "<group>";
@@ -1537,6 +1578,7 @@
 			children = (
 				BEFF49C525C590DF00794A21 /* ChatListObservation.swift */,
 				BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */,
+				BE0A45C425CEDA3B005F4DA8 /* AudioItemListObservation.swift */,
 			);
 			path = Observations;
 			sourceTree = "<group>";
@@ -1820,6 +1862,7 @@
 				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
+				BE0A45D925CEDFC7005F4DA8 /* MyRecordingsFetcher.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
@@ -1845,6 +1888,7 @@
 				BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BEE47EF425BC42A000AF47FA /* Date+RelativeTime.swift in Sources */,
+				BE0A45BB25CED6FA005F4DA8 /* MyRecordingsListener.swift in Sources */,
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
@@ -1863,6 +1907,7 @@
 				BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */,
 				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
 				BE6FD95925B7512900723732 /* QuickRecordPresenting.swift in Sources */,
+				BE0A45BF25CED9DA005F4DA8 /* MyRecordingsStore.swift in Sources */,
 				BE0A45AB25CEBF8F005F4DA8 /* ContactValue.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
@@ -1886,6 +1931,7 @@
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* Observers.swift in Sources */,
+				BE0A45C525CEDA3B005F4DA8 /* AudioItemListObservation.swift in Sources */,
 				BE54295B2593714B007EEAD1 /* EmailSignupViewController.swift in Sources */,
 				BE0A45A525CEBF30005F4DA8 /* ContactsListener.swift in Sources */,
 				BE5429742593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift in Sources */,
@@ -1903,6 +1949,7 @@
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
 				BEE47F0F25BC55B000AF47FA /* ContactListViewModel.swift in Sources */,
 				BEF425B725AB285A00DC8E3D /* FormError.swift in Sources */,
+				BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */,
 				BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */,
 				BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
@@ -1949,6 +1996,7 @@
 				BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
+				BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */,
 				BE6080B0250E86A3003CB318 /* WordCell.swift in Sources */,
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
