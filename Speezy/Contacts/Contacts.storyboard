@@ -77,18 +77,24 @@
                                             <action selector="newContactTapped:" destination="cOF-HD-6O1" eventType="touchUpInside" id="mJg-ae-9j8"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZkK-Ig-RAc">
+                                        <rect key="frame" x="337" y="22" width="20" height="20"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="RIH-hn-H5Y" secondAttribute="trailing" constant="16" id="5LL-Ir-oSl"/>
                                     <constraint firstItem="1Zp-Ub-zxa" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" id="BRv-Ph-Q8r"/>
                                     <constraint firstAttribute="trailing" secondItem="1Zp-Ub-zxa" secondAttribute="trailing" id="EPy-Mz-Zna"/>
+                                    <constraint firstItem="ZkK-Ig-RAc" firstAttribute="centerY" secondItem="IpE-M8-ZsW" secondAttribute="centerY" id="IXk-UG-1P0"/>
                                     <constraint firstItem="26J-qW-kan" firstAttribute="centerX" secondItem="IpE-M8-ZsW" secondAttribute="centerX" id="KnJ-m7-i6W"/>
                                     <constraint firstAttribute="height" constant="64" id="NEO-oE-L61"/>
                                     <constraint firstItem="RIH-hn-H5Y" firstAttribute="centerY" secondItem="26J-qW-kan" secondAttribute="centerY" id="gbI-Do-QTB"/>
                                     <constraint firstItem="26J-qW-kan" firstAttribute="top" secondItem="IpE-M8-ZsW" secondAttribute="top" constant="20" id="jfl-xT-Iye"/>
                                     <constraint firstItem="1Zp-Ub-zxa" firstAttribute="top" secondItem="26J-qW-kan" secondAttribute="bottom" constant="19" id="p0u-Fs-cwA"/>
                                     <constraint firstAttribute="bottom" secondItem="1Zp-Ub-zxa" secondAttribute="bottom" id="tM8-AJ-cTd"/>
+                                    <constraint firstItem="RIH-hn-H5Y" firstAttribute="leading" secondItem="ZkK-Ig-RAc" secondAttribute="trailing" constant="16" id="zmn-jK-wFS"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-g5-IJE">
@@ -122,6 +128,7 @@
                     <connections>
                         <outlet property="collectionView" destination="cF2-g5-IJE" id="NFf-K7-ih7"/>
                         <outlet property="emptyView" destination="zUb-4B-qhc" id="C1g-UO-nxS"/>
+                        <outlet property="spinner" destination="ZkK-Ig-RAc" id="ubC-8u-kOE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7u-u9-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

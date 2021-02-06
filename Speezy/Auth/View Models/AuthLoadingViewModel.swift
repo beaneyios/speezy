@@ -34,7 +34,7 @@ class AuthLoadingViewModel {
                 authCompleted = true
                 
                 if let userId = user?.uid {
-                    Store.shared.listenForChatChanges(userId: userId)
+                    Store.shared.startListeningForCoreChanges(userId: userId)
                     self.tokenSyncService.syncPushToken(userId: userId)
                 }
                 

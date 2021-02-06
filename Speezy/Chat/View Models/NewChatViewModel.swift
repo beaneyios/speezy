@@ -15,6 +15,7 @@ class NewChatViewModel {
         case chatCreated(Chat)
     }
     
+    private let store: Store
     private(set) var selectedContacts = [Contact]()
     private(set) var title: String?
     private(set) var attachedImage: UIImage?
@@ -29,24 +30,17 @@ class NewChatViewModel {
         items.isEmpty
     }
     
+    init(store: Store) {
+        self.store = store
+    }
+    
     func listenForData() {
         guard let userId = Auth.auth().currentUser?.uid else {
             assertionFailure("No user id")
             return
         }
-        
-        contactListManager.fetchContacts(userId: userId) { (result) in
-            switch result {
-            case let .success(contacts):
-                self.items = contacts.map {
-                    ContactCellModel(contact: $0, selected: self.selectedContacts.contains($0))
-                }
-                
-                self.didChange?(.loaded)
-            case let .failure(error):
-                break
-            }
-        }
+
+        store.contactStore.addContactListObserver(self)
     }
     
     func setImage(_ image: UIImage?) {
@@ -83,6 +77,14 @@ class NewChatViewModel {
                 break
             }
         }
+    }
+    
+    private func updateCellModels(contacts: [Contact]) {
+        self.items = contacts.map {
+            ContactCellModel(contact: $0, selected: self.selectedContacts.contains($0))
+        }
+        
+        self.didChange?(.loaded)
     }
     
     private func uploadImageAndUpdate(image: UIImage, chat: Chat) {
@@ -174,4 +176,14 @@ extension NewChatViewModel {
         
         return nil
     }
+}
+
+extension NewChatViewModel: ContactListObserver {
+    func initialContactsReceived(contacts: [Contact]) {
+        updateCellModels(contacts: contacts)
+    }
+    
+    func contactAdded(contact: Contact, in contacts: [Contact]) {}
+    func contactUpdated(contact: Contact, in contacts: [Contact]) {}
+    func contactRemoved(contact: Contact, contacts: [Contact]) {}
 }

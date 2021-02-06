@@ -92,7 +92,7 @@ class ContactStore {
     
     private func sortContacts() {
         contacts = contacts.sorted(by: { (contact1, contact2) -> Bool in
-            contact1.displayName > contact2.displayName
+            contact1.displayName.uppercased() < contact2.displayName.uppercased()
         })
     }
 }

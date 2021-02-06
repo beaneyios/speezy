@@ -87,8 +87,8 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                     profileImage: self.profileImageAttachment
                 ) { (result) in
                     switch result {
-                    case .success:
-                        Store.shared.listenForChatChanges(userId: user.uid)
+                    case .success:                        
+                        Store.shared.startListeningForCoreChanges(userId: user.uid)
                         self.tokenSyncService.syncPushToken(userId: user.uid)
                         completion(.success)
                     case let .failure(error):

@@ -25,9 +25,18 @@ class ContactsListener {
         let query = contactsChild.queryOrderedByKey()
         query.observe(.childAdded) { (snapshot) in
             
+            // First thing, send found contact.
+            guard
+                let dict = snapshot.value as? NSDictionary,
+                let contact = ContactParser.parseContact(key: snapshot.key, dict: dict)
+            else {
+                return
+            }
+            
+            self.didChange?(.contactAdded(contact))
             
             // Second thing - listen for any future changes to the contact.
-            self.listenForContactChanges(contactId: snapshot.key)
+            self.listenForContactChanges(userId: userId, contactId: snapshot.key)
         }
     }
     
@@ -40,24 +49,9 @@ class ContactsListener {
         }
     }
     
-    private func fetchContact(contactId: String) {
+    private func listenForContactChanges(userId: String, contactId: String) {
         let ref = Database.database().reference()
-        let contactChild = ref.child("contacts/\(contactId)")
-        contactChild.observeSingleEvent(of: .value) { (snapshot) in
-            guard
-                let dict = snapshot.value as? NSDictionary,
-                let contact = ContactParser.parseContact(key: snapshot.key, dict: dict)
-            else {
-                return
-            }
-            
-            self.didChange?(.contactAdded(contact))
-        }
-    }
-    
-    private func listenForContactChanges(contactId: String) {
-        let ref = Database.database().reference()
-        let contactsChild: DatabaseReference = ref.child("contacts/\(contactId)")
+        let contactsChild: DatabaseReference = ref.child("users/\(userId)/contacts/\(contactId)")
         let query = contactsChild.queryOrderedByKey()
         query.observe(.childChanged) { (snapshot) in
             guard

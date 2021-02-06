@@ -9,8 +9,12 @@
 import UIKit
 import FirebaseStorage
 
-class ContactCellModel {
+class ContactCellModel: Identifiable {
     private var downloadTask: StorageDownloadTask?
+    
+    var id: String {
+        contact.id
+    }
     
     let contact: Contact
     let selected: Bool?

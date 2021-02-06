@@ -23,7 +23,7 @@ class EmailLoginViewModel {
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let userId = result?.user.uid {
-                Store.shared.listenForChatChanges(userId: userId)
+                Store.shared.startListeningForCoreChanges(userId: userId)
                 completion(.success)
                 self.tokenSyncService.syncPushToken(userId: userId)
             } else {

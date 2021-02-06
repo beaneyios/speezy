@@ -128,25 +128,7 @@ extension Chat {
     }
 }
 
-extension Array where Element == Chat {
-    func isSameOrderAs(_ array: Self) -> Bool {
-        for (index, element) in self.enumerated() {
-            if index >= array.count {
-                // Something was added, best to assume these aren't in the same order.
-                return false
-            }
-            
-            // The chat in this position is not the same chat as self's element.
-            let secondElement = array[index]
-            if secondElement.id != element.id {
-                return false
-            }
-        }
-        
-        // No early false terminations, we can assume they are in the same order.
-        return true
-    }
-    
+extension Array where Element == Chat {    
     func containsUnread(userId: String) -> Bool {
         contains {
             !$0.readBy.contains(userId)

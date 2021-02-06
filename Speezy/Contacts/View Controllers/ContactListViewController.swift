@@ -18,10 +18,11 @@ class ContactListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     weak var delegate: ContactListViewControllerDelegate?
     
-    let viewModel = ContactListViewModel()
+    let viewModel = ContactListViewModel(store: Store.shared)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,23 @@ class ContactListViewController: UIViewController {
                 case .loaded:
                     self.toggleEmptyView()
                     self.collectionView.reloadData()
+                case let .loading(isLoading):
+                    if isLoading {
+                        self.spinner.startAnimating()
+                        self.spinner.isHidden = false
+                    } else {
+                        self.spinner.stopAnimating()
+                        self.spinner.isHidden = true
+                    }
+                case let .replacedItem(index):
+                    self.collectionView.reloadItems(
+                        at: [
+                            IndexPath(
+                                item: index,
+                                section: 0
+                            )
+                        ]
+                    )
                 }
             }
         }

@@ -11,12 +11,23 @@ import Foundation
 class Store {
     static let shared = Store()
     let chatStore = ChatStore()
+    let contactStore = ContactStore()
     
     func userDidLogOut() {
         chatStore.clear()
+        contactStore.clear()
+    }
+    
+    func startListeningForCoreChanges(userId: String) {
+        chatStore.listenForChats(userId: userId)
+        contactStore.listenForContacts(userId: userId)
     }
     
     func listenForChatChanges(userId: String) {
         chatStore.listenForChats(userId: userId)
+    }
+    
+    func listenForContactChanges(userId: String) {
+        contactStore.listenForContacts(userId: userId)
     }
 }

@@ -12,14 +12,22 @@ import FirebaseAuth
 class ContactListViewModel {
     enum Change {
         case loaded
+        case loading(Bool)
+        case replacedItem(Int)
     }
     
+    private let store: Store
+    private let debouncer = Debouncer(seconds: 0.5)
+    private var contacts = [Contact]()
     private(set) var items = [ContactCellModel]()
     var didChange: ((Change) -> Void)?
-    let contactListManager = DatabaseContactManager()
     
     var shouldShowEmptyView: Bool {
         items.isEmpty
+    }
+    
+    init(store: Store) {
+        self.store = store
     }
     
     func listenForData() {
@@ -28,20 +36,7 @@ class ContactListViewModel {
             return
         }
         
-        contactListManager.fetchContacts(userId: userId) { (result) in
-            switch result {
-            case let .success(contacts):
-                self.items = contacts.map {
-                    ContactCellModel(contact: $0, selected: nil)
-                }.sorted {
-                    $0.contact.displayName < $1.contact.displayName
-                }
-                
-                self.didChange?(.loaded)
-            case let .failure(error):
-                break
-            }
-        }
+        store.contactStore.addContactListObserver(self)
     }
     
     func insertNewContactItem(contact: Contact) {
@@ -53,10 +48,57 @@ class ContactListViewModel {
         }
         
         items.sort {
-            $0.contact.displayName < $1.contact.displayName
+            $0.contact.displayName.uppercased() < $1.contact.displayName.uppercased()
         }
         
         didChange?(.loaded)
     }
+    
+    private func updateCellModels(contacts: [Contact]) {
+        debouncer.debounce {
+            self.contacts = contacts
+            self.items = contacts.map {
+                ContactCellModel(contact: $0, selected: nil)
+            }
+
+            self.didChange?(.loaded)
+            self.didChange?(.loading(false))
+        }
+    }
+    
+    private func updateCellModel(contact: Contact) {
+        debouncer.debounce {
+            self.contacts = self.contacts.replacing(contact)
+            let newCellModel = ContactCellModel(contact: contact, selected: nil)
+            self.items = self.items.replacing(newCellModel)
+            
+            if let index = self.contacts.firstIndex(of: contact) {
+                self.didChange?(.replacedItem(index))
+            } else {
+                self.didChange?(.loaded)
+            }
+        }
+    }
 }
 
+extension ContactListViewModel: ContactListObserver {
+    func contactAdded(contact: Contact, in contacts: [Contact]) {
+        updateCellModels(contacts: contacts)
+    }
+    
+    func contactUpdated(contact: Contact, in contacts: [Contact]) {
+        if contacts.isSameOrderAs(self.contacts) {
+            updateCellModel(contact: contact)
+        } else {
+            updateCellModels(contacts: contacts)
+        }
+    }
+    
+    func initialContactsReceived(contacts: [Contact]) {
+        updateCellModels(contacts: contacts)
+    }
+    
+    func contactRemoved(contact: Contact, contacts: [Contact]) {
+        updateCellModels(contacts: contacts)
+    }
+}

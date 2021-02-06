@@ -37,7 +37,7 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
         [titleTextFieldSeparator]
     }
     
-    let viewModel = NewChatViewModel()
+    let viewModel = NewChatViewModel(store: Store.shared)
     
     override func viewDidLoad() {
         super.viewDidLoad()

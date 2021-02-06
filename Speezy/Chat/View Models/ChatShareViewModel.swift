@@ -43,7 +43,11 @@ class ChatShareViewModel {
     }
     
     func fetchChats() {
-        updateCellModels(chats: store.chatStore.chats)
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        store.chatStore.addChatListObserver(self)
     }
     
     func selectChat(chat: Chat) {
@@ -134,7 +138,7 @@ class ChatShareViewModel {
     }
     
     private func updateCellModels(chats: [Chat]) {
-        self.chats = store.chatStore.chats
+        self.chats = chats
         self.items = chats.map {
             ChatSelectionCellModel(
                 chat: $0,
@@ -146,4 +150,14 @@ class ChatShareViewModel {
         self.didChange?(.loaded)
         self.didChange?(.loading(false))
     }
+}
+
+extension ChatShareViewModel: ChatListObserver {
+    func initialChatsReceived(chats: [Chat]) {
+        updateCellModels(chats: chats)
+    }
+    
+    func chatAdded(chat: Chat, in chats: [Chat]) {}
+    func chatUpdated(chat: Chat, in chats: [Chat]) {}
+    func chatRemoved(chat: Chat, chats: [Chat]) {}
 }
