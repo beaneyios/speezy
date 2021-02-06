@@ -16,29 +16,28 @@ class AudioItemListViewModel: NewItemGenerating {
         case itemsLoaded
     }
     
+    
+    private let store: Store
+    private(set) var audioAttachmentManager = AudioAttachmentManager()
+    
     var didChange: ((Change) -> Void)?
     var audioItems: [AudioItem] = []
-    
-    private(set) var audioAttachmentManager = AudioAttachmentManager()
     
     var shouldShowEmptyView: Bool {
         audioItems.isEmpty
     }
     
+    init(store: Store) {
+        self.store = store
+    }
+    
     func loadItems() {
-        DatabaseAudioManager.fetchItems { (result) in
-            switch result {
-            case let .success(items):
-                self.audioItems = items.sorted {
-                    $0.lastUpdated > $1.lastUpdated
-                }
-                
-                self.didChange?(.itemsLoaded)
-            case let .failure(error):
-                // TODO: Handle error
-                assertionFailure("Errored with error \(error.localizedDescription)")
-            }
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
         }
+        
+        store.myRecordingsStore.addRecordingItemListObserver(self)
+        store.myRecordingsStore.fetchNextPage(userId: userId)
     }
     
     func saveItem(_ item: AudioItem) {
@@ -82,6 +81,11 @@ class AudioItemListViewModel: NewItemGenerating {
             }
         }
     }
+    
+    private func updateCellModels(recordings: [AudioItem]) {
+        audioItems = recordings
+        didChange?(.itemsLoaded)
+    }
 }
 
 extension AudioItemListViewModel {
@@ -91,5 +95,23 @@ extension AudioItemListViewModel {
     
     func item(at indexPath: IndexPath) -> AudioItem {
         audioItems[indexPath.row]
+    }
+}
+
+extension AudioItemListViewModel: MyRecordingsListObserver {
+    func recordingAdded(recording: AudioItem, recordings: [AudioItem]) {
+        updateCellModels(recordings: recordings)
+    }
+    
+    func recordingUpdated(recording: AudioItem, recordings: [AudioItem]) {
+        updateCellModels(recordings: recordings)
+    }
+    
+    func pagedRecordingsReceived(recordings: [AudioItem]) {
+        updateCellModels(recordings: recordings)
+    }
+    
+    func recordingRemoved(recording: AudioItem, recordings: [AudioItem]) {
+        updateCellModels(recordings: recordings)
     }
 }

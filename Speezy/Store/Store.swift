@@ -12,6 +12,7 @@ class Store {
     static let shared = Store()
     let chatStore = ChatStore()
     let contactStore = ContactStore()
+    let myRecordingsStore = MyRecordingsStore()
     
     func userDidLogOut() {
         chatStore.clear()

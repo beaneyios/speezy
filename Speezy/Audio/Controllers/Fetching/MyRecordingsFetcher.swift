@@ -16,16 +16,16 @@ class MyRecordingsFetcher {
         completion: @escaping (Result<[AudioItem], Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        let chatChild: DatabaseReference = ref.child("user/\(userId)/recordings")
+        let recordingsChild: DatabaseReference = ref.child("users/\(userId)/recordings")
         
         let query: DatabaseQuery = {
             if let mostRecentRecording = mostRecentRecording {
-                return chatChild
+                return recordingsChild
                     .queryOrderedByKey()
                     .queryEnding(atValue: mostRecentRecording.id)
                     .queryLimited(toLast: 10)
             } else {
-                return chatChild.queryOrderedByKey().queryLimited(toLast: 10)
+                return recordingsChild.queryOrderedByKey().queryLimited(toLast: 10)
             }
         }()
         

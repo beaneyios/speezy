@@ -71,7 +71,7 @@ class DatabaseAudioManager {
             audioItemDict: audioItemDict
         )
         
-        let clipChild = ref.child("users/\(userId)/audio_clips/\(item.id)")
+        let clipChild = ref.child("users/\(userId)/recordings/\(item.id)")
         clipChild.setValue(audioItemDict) { (error, newRef) in
             completion(.success(item))
         }

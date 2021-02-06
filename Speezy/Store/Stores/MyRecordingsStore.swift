@@ -24,11 +24,13 @@ class MyRecordingsStore {
     
     func fetchNextPage(userId: String) {
         myRecordingsFetcher.fetchMyRecordings(userId: userId, mostRecentRecording: myRecordings.first) { (result) in
-            switch result {
-            case let .success(newRecordings):
-                self.myRecordings.append(contentsOf: newRecordings)
-            case .failure:
-                break
+            self.serialQueue.async {
+                switch result {
+                case let .success(newRecordings):
+                    self.handleNewPage(recordings: newRecordings)
+                case .failure:
+                    break
+                }
             }
         }
     }
@@ -50,6 +52,12 @@ class MyRecordingsStore {
         }
         
         myRecordingsListener.listenForRecordingAdditions(userId: userId, mostRecentRecording: myRecordings.first)
+    }
+    
+    private func handleNewPage(recordings: [AudioItem]) {
+        myRecordings.append(contentsOf: recordings)
+        sortRecordings()
+        notifyObservers(change: .pagedRecordings(recordings: myRecordings))
     }
     
     private func handleRecordingAdded(recording: AudioItem) {
@@ -121,7 +129,6 @@ extension MyRecordingsStore {
     enum Change {
         case recordingAdded(recording: AudioItem, recordings: [AudioItem])
         case recordingUpdated(recording: AudioItem, recordings: [AudioItem])
-        case initialRecordings(recordings: [AudioItem])
         case pagedRecordings(recordings: [AudioItem])
         case recordingRemoved(recording: AudioItem, recordings: [AudioItem])
     }
@@ -130,9 +137,6 @@ extension MyRecordingsStore {
         serialQueue.async {
             let id = ObjectIdentifier(observer)
             self.observations[id] = MyRecordingsListObservation(observer: observer)
-            
-            // We might be mid-load, let's give the new subscriber what we have so far.
-            observer.initialRecordingsReceived(recordings: self.myRecordings)
         }
     }
     
@@ -155,12 +159,10 @@ extension MyRecordingsStore {
                 observer.recordingAdded(recording: recording, recordings: myRecordings)
             case let .recordingUpdated(recording, myRecordings):
                 observer.recordingUpdated(recording: recording, recordings: myRecordings)
-            case let .initialRecordings(recording):
-                observer.initialRecordingsReceived(recordings: myRecordings)
             case let .recordingRemoved(recording, myRecordings):
                 observer.recordingRemoved(recording: recording, recordings: myRecordings)
             case let .pagedRecordings(recordings):
-                observer.pagedRecordingsReceived(newRecordings: recordings)
+                observer.pagedRecordingsReceived(recordings: recordings)
             }
         }
     }

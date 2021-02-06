@@ -33,7 +33,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     var documentInteractionController: UIDocumentInteractionController?
     
     lazy var shareController = AudioShareController(parentViewController: self)
-    let viewModel = AudioItemListViewModel()
+    let viewModel = AudioItemListViewModel(store: Store.shared)
     
     weak var delegate: AudioItemListViewControllerDelegate?
     
