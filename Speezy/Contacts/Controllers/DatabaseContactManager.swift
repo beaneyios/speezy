@@ -48,7 +48,7 @@ class DatabaseContactManager {
                     return nil
                 }
                 
-                return DatabaseContactParser.parseContact(key: key, dict: dict)
+                return ContactParser.parseContact(key: key, dict: dict)
             }
             
             completion(.success(contacts))

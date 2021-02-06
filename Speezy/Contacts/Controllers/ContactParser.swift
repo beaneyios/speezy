@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DatabaseContactParser {
+class ContactParser {
     static func parseContact(key: String, dict: NSDictionary) -> Contact? {
         guard
             let displayName = dict["display_name"] as? String,

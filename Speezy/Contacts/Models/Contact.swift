@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct Contact: Equatable {
+struct Contact: Equatable, Identifiable {
+    var id: String {
+        userId
+    }
+    
     let userId: String
     let displayName: String
     let userName: String
@@ -27,5 +31,32 @@ extension Contact {
         }
         
         return dict
+    }
+    
+    func withDisplayName(_ displayName: String) -> Self {
+        Contact(
+            userId: userId,
+            displayName: displayName,
+            userName: userName,
+            profilePhotoUrl: profilePhotoUrl
+        )
+    }
+    
+    func withUserName(_ userName: String) -> Self {
+        Contact(
+            userId: userId,
+            displayName: displayName,
+            userName: userName,
+            profilePhotoUrl: profilePhotoUrl
+        )
+    }
+    
+    func withProfilePhotoUrl(_ profilePhotoUrl: URL?) -> Self {
+        Contact(
+            userId: userId,
+            displayName: displayName,
+            userName: userName,
+            profilePhotoUrl: profilePhotoUrl
+        )
     }
 }
