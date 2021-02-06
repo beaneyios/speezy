@@ -27,6 +27,7 @@ protocol AudioItemListViewControllerDelegate: AnyObject {
 class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
@@ -42,6 +43,24 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
         observeViewModelChanges()
         configureTableView()
         loadItems()
+        
+        let font = UIFont.boldSystemFont(ofSize: 16.0)
+        segmentControl.setTitleTextAttributes(
+            [NSAttributedString.Key.font: font],
+            for: .normal
+        )
+    }
+    
+    func saveItem(_ item: AudioItem) {
+        viewModel.saveItem(item)
+    }
+    
+    func discardItem(_ item: AudioItem) {
+        viewModel.discardItem(item)
+    }
+    
+    @IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
+        print(sender.selectedSegmentIndex)
     }
     
     private func configureTableView() {
@@ -75,14 +94,6 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
         } else {
             emptyView.isHidden = true
         }
-    }
-    
-    func saveItem(_ item: AudioItem) {
-        viewModel.saveItem(item)
-    }
-    
-    func discardItem(_ item: AudioItem) {
-        viewModel.discardItem(item)
     }
 }
 

@@ -12,6 +12,7 @@ import FirebaseMessaging
 import UserNotifications
 import FBSDKCoreKit
 import FirebaseFunctions
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+        
+        _ = Database.database().reference()
         
         PushDeliveryHandler.shared.configurePush(app: application)
         return true

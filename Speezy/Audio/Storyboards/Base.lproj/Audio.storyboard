@@ -285,8 +285,8 @@
                                             <constraint firstAttribute="height" constant="1" id="yBN-3S-Aas"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My recordings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCZ-5y-G0y">
-                                        <rect key="frame" x="139.5" y="20" width="135" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recordings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCZ-5y-G0y">
+                                        <rect key="frame" x="153.5" y="20" width="107" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -303,28 +303,29 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5y-1d-41N">
-                                <rect key="frame" x="0.0" y="108" width="414" height="754"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="164" width="414" height="698"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="91"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI7-m2-amv" userLabel="Empty View">
-                                <rect key="frame" x="0.0" y="108" width="414" height="754"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI7-m2-amv" userLabel="Empty View">
+                                <rect key="frame" x="0.0" y="164" width="414" height="698"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any recordings, tap the record button below to get started" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bu-pr-44d">
-                                        <rect key="frame" x="32" y="385.5" width="350" height="50.5"/>
+                                        <rect key="frame" x="32" y="357.5" width="350" height="50.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="21"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-mic" translatesAutoresizingMaskIntoConstraints="NO" id="6ZK-zo-NYJ">
-                                        <rect key="frame" x="16" y="226.5" width="382" height="150"/>
+                                        <rect key="frame" x="16" y="198.5" width="382" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="hhT-X4-zsu"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bv4-I1-q03">
-                                        <rect key="frame" x="0.0" y="376.5" width="414" height="1"/>
+                                        <rect key="frame" x="0.0" y="348.5" width="414" height="1"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Bkq-M5-AW4"/>
@@ -344,17 +345,35 @@
                                     <constraint firstItem="Bv4-I1-q03" firstAttribute="centerY" secondItem="tI7-m2-amv" secondAttribute="centerY" id="y38-SL-9dm"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ref-Wa-PvA">
+                                <rect key="frame" x="8" y="116" width="398" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="m1A-ye-agq"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="My recordings"/>
+                                    <segment title="Favourites"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="segmentControlChanged:" destination="PtS-EP-wtG" eventType="valueChanged" id="L4F-t7-xhd"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Z69-9u-VIT"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Ref-Wa-PvA" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" constant="8" id="2rV-SS-7Xx"/>
                             <constraint firstItem="07M-6G-J6e" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="8Tv-du-eUw"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="j5y-1d-41N" secondAttribute="bottom" id="8yA-Iy-nME"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="bottom" secondItem="tI7-m2-amv" secondAttribute="bottom" id="9ng-Ps-sxu"/>
                             <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="tI7-m2-amv" secondAttribute="trailing" id="Gtf-Qq-5jt"/>
-                            <constraint firstItem="tI7-m2-amv" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="bottom" id="NYx-CN-tiz"/>
+                            <constraint firstItem="tI7-m2-amv" firstAttribute="top" secondItem="j5y-1d-41N" secondAttribute="top" id="NKo-fO-mZX"/>
+                            <constraint firstItem="Z69-9u-VIT" firstAttribute="trailing" secondItem="Ref-Wa-PvA" secondAttribute="trailing" constant="8" id="NkS-Wk-pKJ"/>
                             <constraint firstItem="j5y-1d-41N" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="RHA-DZ-evl"/>
-                            <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="bottom" id="UZ9-gp-sww"/>
+                            <constraint firstItem="j5y-1d-41N" firstAttribute="top" secondItem="Ref-Wa-PvA" secondAttribute="bottom" constant="8" id="a0t-jy-HFA"/>
+                            <constraint firstItem="Ref-Wa-PvA" firstAttribute="top" secondItem="07M-6G-J6e" secondAttribute="bottom" constant="8" id="fOW-AX-LuT"/>
                             <constraint firstItem="07M-6G-J6e" firstAttribute="top" secondItem="Z69-9u-VIT" secondAttribute="top" id="iZc-bq-nL9"/>
                             <constraint firstAttribute="trailing" secondItem="07M-6G-J6e" secondAttribute="trailing" id="jNs-K5-Z7L"/>
                             <constraint firstItem="tI7-m2-amv" firstAttribute="leading" secondItem="Z69-9u-VIT" secondAttribute="leading" id="uJz-MO-hrD"/>
@@ -363,6 +382,7 @@
                     </view>
                     <connections>
                         <outlet property="emptyView" destination="tI7-m2-amv" id="uez-9h-pOS"/>
+                        <outlet property="segmentControl" destination="Ref-Wa-PvA" id="t8h-4j-WLK"/>
                         <outlet property="tableView" destination="j5y-1d-41N" id="FF6-F5-jzw"/>
                     </connections>
                 </viewController>
