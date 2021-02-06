@@ -252,7 +252,7 @@ extension AudioItemViewController {
     func configureSubviews() {
         configureDraftButton()
         configureSendButton()
-        configureTranscribeButton()
+//        configureTranscribeButton()
         configureNavButtons()
         configureMainSoundWave()
         configureTitle()
@@ -429,7 +429,7 @@ extension AudioItemViewController: AudioRecorderObserver {
             $0.enable()
         }
         
-        configureTranscribeButton()
+//        configureTranscribeButton()
     }
 }
 
@@ -451,7 +451,7 @@ extension AudioItemViewController: AudioPlayerObserver {
         
         btnCrop.enable()
         btnCut.enable()
-        configureTranscribeButton()
+//        configureTranscribeButton()
         
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
@@ -462,7 +462,7 @@ extension AudioItemViewController: AudioPlayerObserver {
         }
         
         btnCrop.enable()
-        configureTranscribeButton()
+//        configureTranscribeButton()
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
