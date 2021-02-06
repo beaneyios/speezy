@@ -21,11 +21,13 @@ class MyRecordingsFetcher {
         let query: DatabaseQuery = {
             if let mostRecentRecording = mostRecentRecording {
                 return recordingsChild
-                    .queryOrderedByKey()
-                    .queryEnding(atValue: mostRecentRecording.id)
-                    .queryLimited(toLast: 10)
+                    .queryOrdered(byChild: "last_updated_sort")
+                    .queryStarting(atValue: -mostRecentRecording.lastUpdated.timeIntervalSince1970)
+                    .queryLimited(toFirst: 10)
             } else {
-                return recordingsChild.queryOrderedByKey().queryLimited(toLast: 10)
+                return recordingsChild
+                    .queryOrdered(byChild: "last_updated_sort")
+                    .queryLimited(toFirst: 10)
             }
         }()
         

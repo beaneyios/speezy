@@ -64,7 +64,6 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     }
     
     private func configureTableView() {
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
         tableView.estimatedRowHeight = 100.0
         tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
@@ -141,6 +140,10 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         return UISwipeActionsConfiguration(actions: [share, delete])
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        viewModel.loadMoreItems(index: indexPath.row)
     }
     
     private func deleteItem(item: AudioItem) {

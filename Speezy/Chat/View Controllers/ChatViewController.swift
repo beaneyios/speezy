@@ -284,6 +284,10 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         viewModel.items.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        viewModel.loadMoreMessages(index: indexPath.row)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MessageCell
         let cellModel = viewModel.items[indexPath.row]
@@ -299,7 +303,6 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
-        viewModel.loadMoreMessages(index: indexPath.row)
         return cell
     }
     

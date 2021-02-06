@@ -59,7 +59,8 @@ class DatabaseAudioManager {
             "duration": item.calculatedDuration,
             "title": item.title,
             "url": itemUrl.absoluteString,
-            "last_updated": item.lastUpdated.timeIntervalSince1970
+            "last_updated": item.lastUpdated.timeIntervalSince1970,
+            "last_updated_sort": -item.lastUpdated.timeIntervalSince1970
         ]
         
         if let attachmentUrl = item.attachmentUrl {

@@ -23,7 +23,7 @@ class MyRecordingsStore {
     }
     
     func fetchNextPage(userId: String) {
-        myRecordingsFetcher.fetchMyRecordings(userId: userId, mostRecentRecording: myRecordings.first) { (result) in
+        myRecordingsFetcher.fetchMyRecordings(userId: userId, mostRecentRecording: myRecordings.last) { (result) in
             self.serialQueue.async {
                 switch result {
                 case let .success(newRecordings):

@@ -9,13 +9,13 @@
 import Foundation
 import FirebaseAuth
 import FBSDKLoginKit
+import FirebaseDatabase
 
 class AudioItemListViewModel: NewItemGenerating {
     
     enum Change {
         case itemsLoaded
     }
-    
     
     private let store: Store
     private(set) var audioAttachmentManager = AudioAttachmentManager()
@@ -36,7 +36,37 @@ class AudioItemListViewModel: NewItemGenerating {
             return
         }
         
+//        DatabaseAudioManager.fetchItems { (result) in
+//            switch result {
+//            case let .success(items):
+//                items.enumerated().forEach { (item) in
+//                    DatabaseAudioManager.updateDatabaseReference(item.element) { (result) in
+//                        switch result {
+//                        case let .success(item):
+//                            break
+//                        case let .failure(error):
+//                            break
+//                        }
+//                    }
+//                }
+//            case let .failure(error):
+//                break
+//            }
+//        }
+        
         store.myRecordingsStore.addRecordingItemListObserver(self)
+        store.myRecordingsStore.fetchNextPage(userId: userId)
+    }
+    
+    func loadMoreItems(index: Int) {
+        guard index == audioItems.count - 1 else {
+            return
+        }
+        
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
         store.myRecordingsStore.fetchNextPage(userId: userId)
     }
     
