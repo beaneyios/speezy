@@ -191,11 +191,14 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
-        
-        self.showTitleAlert(audioManager: audioManager) {
-            audioManager.save(saveAttachment: false) { (item) in
-                DispatchQueue.main.async {
+        audioManager.save(saveAttachment: false) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(item):
                     self.loadItems()
+                    self.delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
+                case .failure:
+                    break
                 }
             }
         }
@@ -210,32 +213,5 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
         delegate?.audioItemListViewControllerDidFinishRecording(self)
-    }
-    
-    private func showTitleAlert(audioManager: AudioManager, completion: (() -> Void)? = nil) {
-        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
-        let alert = SCLAlertView(appearance: appearance)
-        let textField = alert.addTextField("Add a title?")
-        textField.layer.cornerRadius = 12.0
-        alert.addButton("Add") {
-            guard let text = textField.text else {
-                return
-            }
-            
-            audioManager.updateTitle(title: text)
-            completion?()
-        }
-        
-        alert.addButton("Not right now") {
-            completion?()
-        }
-        
-        alert.showEdit(
-            "Title",
-            subTitle: "Add the title for your audio file here",
-            closeButtonTitle: "Cancel",
-            colorStyle: 0x3B08A0,
-            animationStyle: .topToBottom
-        )
     }
 }

@@ -168,10 +168,12 @@ extension PublishViewController {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "SHARE") {
+        button.configure(title: "SEND", iconImage: UIImage(named: "send-chat-icon")) {
             self.didTapShare()
         }
         
+        button.layer.cornerRadius = 10.0
+        button.clipsToBounds = true
         self.shareBtn = button
     }
     
