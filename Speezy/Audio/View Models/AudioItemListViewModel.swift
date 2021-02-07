@@ -177,11 +177,14 @@ extension AudioItemListViewModel: MyRecordingsListObserver {
     }
     
     func pagedRecordingsReceived(newRecordings: [AudioItem], recordings: [AudioItem]) {
-        if newRecordings.isEmpty {
+        if newRecordings.count < MyRecordingsFetcher.pageSize {
             moreItems[Tab.myRecordings] = false
-            return
         }
         
+        if newRecordings.isEmpty {
+            return
+        }
+
         updateCellModels(items: recordings, tab: .myRecordings)
     }
     
