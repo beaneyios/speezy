@@ -55,13 +55,13 @@ class AudioItemListViewModel: NewItemGenerating {
             return
         }
         
+        store.favouritesStore.listenForRecordingItems(userId: userId)
         store.favouritesStore.addFavouriteRecordingListObserver(self)
         store.favouritesStore.fetchNextPage(userId: userId)
-        store.favouritesStore.listenForRecordingItems(userId: userId)
         
+        store.myRecordingsStore.listenForRecordingItems(userId: userId)
         store.myRecordingsStore.addRecordingItemListObserver(self)
         store.myRecordingsStore.fetchNextPage(userId: userId)
-        store.myRecordingsStore.listenForRecordingItems(userId: userId)
     }
     
     func switchTabs(toIndex index: Int) {
@@ -76,6 +76,7 @@ class AudioItemListViewModel: NewItemGenerating {
             audioItems = myRecordings
         }
         
+        currentTab = tab
         didChange?(.itemsLoaded)
     }
     

@@ -66,7 +66,7 @@ class ChatCoordinator: ViewCoordinator, NavigationControlling {
         
         viewController.hidesBottomBarWhenPushed = true
         viewController.delegate = self
-        viewController.viewModel = ChatViewModel(chat: chat)        
+        viewController.viewModel = ChatViewModel(chat: chat, store: Store.shared)        
         navigationController.pushViewController(viewController, animated: true)
     }
     

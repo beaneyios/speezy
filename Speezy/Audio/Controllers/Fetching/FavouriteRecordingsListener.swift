@@ -28,7 +28,9 @@ class FavouriteRecordingsListener {
         
         let ref = Database.database().reference()
         let messagesChild: DatabaseReference = ref.child("users/\(userId)/favourites")
-        currentQuery = messagesChild.queryOrderedByKey().queryLimited(toLast: 1)
+        currentQuery = messagesChild
+            .queryOrdered(byChild: "last_updated_sort")
+            .queryLimited(toFirst: 1)
 
         currentQuery?.observe(.childAdded) { (snapshot) in
             guard let result = snapshot.value as? NSDictionary else {
@@ -39,13 +41,7 @@ class FavouriteRecordingsListener {
             
             let key = snapshot.key
             
-            guard
-                let dict = result[key] as? NSDictionary
-            else {
-                return
-            }
-            
-            guard let recording = DatabaseAudioItemParser.parseItem(key: key, dict: dict) else {
+            guard let recording = DatabaseAudioItemParser.parseItem(key: key, dict: result) else {
                 return
             }
             

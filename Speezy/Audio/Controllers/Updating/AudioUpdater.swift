@@ -71,18 +71,13 @@ class AudioUpdater {
             return audioItemDict
         }
         
-        let occurrencesDict = item.attachedMessageIds.enumerated().reduce([Int: String]()) { (dict, messageId) -> [Int: String] in
-            var dict = dict
-            dict[messageId.offset] = messageId.element
-            return dict
-        }
-
-        audioItemDict["occurrences"] = occurrencesDict
+        let occurrencesString = item.attachedMessageIds.joined(separator: ",")
+        audioItemDict["occurrences"] = occurrencesString
         return audioItemDict
     }
     
     func removeRecording(
-        _ item: AudioItem,
+        withId id: String,
         completion: @escaping (DatabaseDeleteResult) -> Void
     ) {
         guard
@@ -93,7 +88,7 @@ class AudioUpdater {
         
         let ref = Database.database().reference()
         let clipChild = ref.child(
-            recordingPath(userId: userId, itemId: item.id)
+            recordingPath(userId: userId, itemId: id)
         )
 
         clipChild.removeValue { (error, newRef) in

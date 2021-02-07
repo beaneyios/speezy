@@ -9,19 +9,26 @@
 import UIKit
 import AFDateHelper
 
-struct MessageCellModel {
-    let message: Message
-    let chat: Chat
-    let currentUserId: String
+struct MessageCellModel: Identifiable {
+    var message: Message
+    var chat: Chat
+    var currentUserId: String
+    var isFavourite: Bool
+    
+    var id: String {
+        message.id
+    }
     
     init(
         message: Message,
         chat: Chat,
-        currentUserId: String
+        currentUserId: String,
+        isFavourite: Bool
     ) {
         self.message = message
         self.chat = chat
         self.currentUserId = currentUserId
+        self.isFavourite = isFavourite
     }
 }
 
@@ -36,6 +43,14 @@ extension MessageCellModel {
 }
 
 extension MessageCellModel {
+    var favouriteImage: UIImage? {
+        isFavourite ? UIImage(named: "favourite-button-filled") : UIImage(named: "favourite-button")
+    }
+    
+    var favouriteTint: UIColor {
+        isSender ? .chatBubbleOther : .speezyPurple
+    }
+    
     var backgroundColor: UIColor {
         isSender ? .speezyPurple : .chatBubbleOther
     }

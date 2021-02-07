@@ -9,7 +9,45 @@
 import Foundation
 
 class Favouriter {
-    func favourite(message: Message, completion: @escaping (Result<AudioItem, Error>) -> Void) {
+    let audioUpdater = AudioUpdater(kind: .favourites)
+    
+    func toggleFavourite(
+        currentFavourites: [AudioItem],
+        message: Message,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        if
+            let audioId = message.audioId,
+            currentFavourites.contains(elementWithId: audioId)
+        {
+            unfavourite(message: message, completion: completion)
+        } else {
+            favourite(message: message, completion: completion)
+        }
+    }
+    
+    private func unfavourite(
+        message: Message,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        guard let audioId = message.audioId else {
+            return
+        }
+        
+        audioUpdater.removeRecording(withId: audioId) { (result) in
+            switch result {
+            case .success:
+                completion(.success(false))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func favourite(
+        message: Message,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
         guard
             let audioId = message.audioId,
             let audioUrl = message.audioUrl,
@@ -30,7 +68,13 @@ class Favouriter {
             attachedMessageIds: [message.id]
         )
         
-        let audioUpdater = AudioUpdater(kind: .favourites)
-        audioUpdater.updateRecording(audioItem, completion: completion)
+        audioUpdater.updateRecording(audioItem) { (result) in
+            switch result {
+            case let .success(item):
+                completion(.success(true))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
 }

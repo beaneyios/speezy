@@ -27,8 +27,13 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var playButtonImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    @IBOutlet weak var favouriteImage: UIImageView!
+    @IBOutlet weak var favouriteSpinner: UIActivityIndicatorView!
+    
+    
     var messageDidStartPlaying: ((MessageCell) -> Void)?
     var messageDidStopPlaying: ((MessageCell) -> Void)?
+    var favouriteTapped: ((Message) -> Void)?
     
     private(set) var audioManager: AudioManager?
     private var message: Message?
@@ -96,6 +101,13 @@ class MessageCell: UICollectionViewCell, NibLoadable {
             action: #selector(onSliderValChanged(slider:forEvent:)),
             for: .valueChanged
         )
+        
+        favouriteImage.isHidden = false
+        favouriteImage.image = item.favouriteImage
+        favouriteImage.tintColor = item.favouriteTint
+        
+        favouriteSpinner.isHidden = true
+        favouriteSpinner.color = item.spinnerTint
     }
     
     @objc private func onSliderValChanged(
@@ -116,6 +128,17 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         default:
             break
         }
+    }
+    
+    @IBAction func didTapFavourite(_ sender: Any) {
+        guard let message = self.message else {
+            return
+        }
+        
+        favouriteImage.isHidden = true
+        favouriteSpinner.isHidden = false
+        favouriteSpinner.startAnimating()
+        favouriteTapped?(message)
     }
     
     @IBAction func didTapPlay(_ sender: Any) {

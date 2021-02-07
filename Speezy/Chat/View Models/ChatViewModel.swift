@@ -16,6 +16,7 @@ class ChatViewModel: NewItemGenerating {
         case itemInserted(index: Int)
         case finishedRecording
         case editingDiscarded(AudioItem)
+        case itemReloaded(index: Int)
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -28,6 +29,7 @@ class ChatViewModel: NewItemGenerating {
     private lazy var messageCreator = MessageCreator()
     private lazy var messageListener = MessageListener(chat: chat)
     
+    let store: Store
     let audioCloudManager = CloudAudioManager()
     let chatPushManager = ChatPushManager()
     
@@ -51,8 +53,9 @@ class ChatViewModel: NewItemGenerating {
         items.isEmpty
     }
     
-    init(chat: Chat) {
+    init(chat: Chat, store: Store) {
         self.chat = chat
+        self.store = store
     }
     
     func setAudioItem(_ item: AudioItem) {
@@ -95,6 +98,12 @@ extension ChatViewModel {
         }
     }
     
+    private func messageIsFavourite(message: Message) -> Bool {
+        store.favouritesStore.favourites.contains {
+            message.audioId == $0.id
+        }
+    }
+    
     private func fetchMessages() {
         messageFetcher.fetchMessages(chat: chat) { (result) in
             switch result {
@@ -107,7 +116,8 @@ extension ChatViewModel {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
-                        currentUserId: userId
+                        currentUserId: userId,
+                        isFavourite: self.messageIsFavourite(message: $0)
                     )
                 }
 
@@ -119,6 +129,30 @@ extension ChatViewModel {
             }
             
             self.didChange?(.loading(false))
+        }
+    }
+    
+    func toggleFavourite(on message: Message) {
+        let favouriter = Favouriter()
+        favouriter.toggleFavourite(
+            currentFavourites: store.favouritesStore.favourites,
+            message: message
+        ) { (result) in
+            switch result {
+            case let .success(favourited):
+                guard var modelToUpdate = self.items.first(withId: message.id) else {
+                    return
+                }
+                
+                modelToUpdate.isFavourite = favourited
+                self.items = self.items.replacing(modelToUpdate)
+                
+                if let index = self.items.index(modelToUpdate) {
+                    self.didChange?(.itemReloaded(index: index))
+                }
+            case .failure:
+                break
+            }
         }
     }
     
@@ -143,7 +177,8 @@ extension ChatViewModel {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
-                        currentUserId: userId
+                        currentUserId: userId,
+                        isFavourite: self.messageIsFavourite(message: $0)
                     )
                 }
                 
@@ -169,7 +204,8 @@ extension ChatViewModel {
                 let cellModel = MessageCellModel(
                     message: message,
                     chat: self.chat,
-                    currentUserId: Auth.auth().currentUser?.uid ?? ""
+                    currentUserId: Auth.auth().currentUser?.uid ?? "",
+                    isFavourite: self.messageIsFavourite(message: message)
                 )
                 self.items.insert(cellModel, at: 0)
                 self.didChange?(.itemInserted(index: 0))

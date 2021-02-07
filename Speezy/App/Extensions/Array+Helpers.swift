@@ -87,4 +87,10 @@ extension Array where Element: Identifiable {
     func removing(_ element: Element) -> Self {
         removing(element.id)
     }
+    
+    func index(_ element: Element) -> Int? {
+        firstIndex {
+            $0.id == element.id
+        }
+    }
 }

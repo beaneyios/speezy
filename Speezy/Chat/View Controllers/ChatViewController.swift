@@ -232,6 +232,15 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                     }
                     
                     playbackView.configure(audioItem: itemToReturnTo)
+                case let .itemReloaded(index: index):
+                    self.collectionView.reloadItems(
+                        at: [
+                            IndexPath(
+                                item: index,
+                                section: 0
+                            )
+                        ]
+                    )
                 }
             }
         }
@@ -300,6 +309,10 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.messageDidStopPlaying = { stoppingCell in
             self.activeAudioManager = nil
             self.cellStoppedPlaying(cell: stoppingCell, collectionView: collectionView)
+        }
+        
+        cell.favouriteTapped = { message in
+            self.viewModel.toggleFavourite(on: message)
         }
         
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)

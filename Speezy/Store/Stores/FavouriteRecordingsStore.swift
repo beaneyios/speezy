@@ -28,11 +28,24 @@ class FavouriteRecordingsStore {
             mostRecentRecording: favourites.last
         ) { (result) in
             self.serialQueue.async {
+                let oldFavourites = self.favourites
+                
                 switch result {
                 case let .success(newRecordings):
                     self.handleNewPage(userId: userId, recordings: newRecordings)
                 case .failure:
                     break
+                }
+                
+                if oldFavourites.isEmpty {
+                    // This is the first load and we've now processed the the first page.
+                    // So now we can start listening for additions, knowing that the first addition
+                    // will be a duplicate, but will get processed.
+                    self.favouritesListener.listenForRecordingAdditions(
+                        userId: userId,
+                        mostRecentRecording: self.favourites.first
+                    )
+                    self.favouritesListener.listenForRecordingDeletions(userId: userId)
                 }
             }
         }
@@ -53,9 +66,6 @@ class FavouriteRecordingsStore {
                 }
             }
         }
-        
-        favouritesListener.listenForRecordingAdditions(userId: userId, mostRecentRecording: favourites.first)
-        favouritesListener.listenForRecordingDeletions(userId: userId)
     }
     
     private func handleNewPage(userId: String, recordings: [AudioItem]) {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Message: Equatable {
+struct Message: Equatable, Identifiable {
     let id: String
     let chatter: Chatter
     let sent: Date
