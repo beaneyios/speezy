@@ -34,11 +34,11 @@ class AudioItemListCoordinator: ViewCoordinator, NavigationControlling {
         delegate?.audioItemCoordinatorDidFinish(self)
     }
     
-    func navigateToAudioItem(item: AudioItem) {
+    func navigateToAudioItem(item: AudioItem, playbackOnly: Bool) {
         let coordinator = AudioItemCoordinator(navigationController: navigationController)
         add(coordinator)
         coordinator.delegate = self
-        coordinator.navigateToAudioItem(item: item)
+        coordinator.navigateToAudioItem(item: item, playbackOnly: playbackOnly)
     }
     
     private func navigateToNewItem() {
@@ -50,7 +50,7 @@ class AudioItemListCoordinator: ViewCoordinator, NavigationControlling {
             date: Date(),
             tags: []
         )
-        navigateToAudioItem(item: item)
+        navigateToAudioItem(item: item, playbackOnly: false)
     }
 }
 
@@ -98,8 +98,12 @@ extension AudioItemListCoordinator: AudioItemListViewControllerDelegate {
         navigateToNewItem()
     }
     
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem) {
-        navigateToAudioItem(item: item)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectAudioItem item: AudioItem,
+        playbackOnly: Bool
+    ) {
+        navigateToAudioItem(item: item, playbackOnly: playbackOnly)
     }
     
     func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem) {

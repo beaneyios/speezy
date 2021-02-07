@@ -137,7 +137,7 @@ extension ChatCoordinator: ChatViewControllerDelegate {
         let coordinator = AudioItemCoordinator(navigationController: navigationController)
         add(coordinator)
         coordinator.delegate = self
-        coordinator.navigateToAudioItem(item: manager.item)
+        coordinator.navigateToAudioItem(item: manager.item, playbackOnly: false)
     }
     
     func chatViewControllerDidTapBack(_ viewController: ChatViewController) {

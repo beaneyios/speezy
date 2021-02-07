@@ -34,7 +34,31 @@ class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
         delegate?.audioItemCoordinatorDidFinish(self)
     }
     
-    func navigateToAudioItem(item: AudioItem) {
+    func navigateToAudioItem(item: AudioItem, playbackOnly: Bool) {
+        if playbackOnly {
+            navigateToAudioPlayback(item: item)
+        } else {
+            navigateToAudioEditing(item: item)
+        }
+    }
+    
+    private func navigateToAudioPlayback(item: AudioItem) {
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        guard let viewController = storyboard.instantiateViewController(identifier: "AudioPlaybackViewController") as? AudioPlaybackViewController else {
+            return
+        }
+        
+        let audioManager = AudioManager(item: item)
+        viewController.audioManager = audioManager
+        viewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.present(navigationController, animated: true, completion: nil)
+    }
+    
+    private func navigateToAudioEditing(item: AudioItem) {
         navigationController.setNavigationBarHidden(true, animated: false)
         
         guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemViewController") as? AudioItemViewController else {
@@ -140,7 +164,7 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
             date: Date(),
             tags: []
         )
-        navigateToAudioItem(item: item)
+        navigateToAudioItem(item: item, playbackOnly: false)
     }
         
     func audioItemViewController(_ viewController: AudioItemViewController, shouldSaveItemToDrafts item: AudioItem) {
@@ -182,6 +206,16 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     }
     
     func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController) {
+        delegate?.audioItemCoordinatorDidFinish(self)
+    }
+}
+
+extension AudioItemCoordinator: AudioPlaybackViewControllerDelegate {
+    func audioPlaybackViewControllerDidTapExit(_ viewController: AudioPlaybackViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func audioPlaybackViewControllerDidFinish(_ viewController: AudioPlaybackViewController) {
         delegate?.audioItemCoordinatorDidFinish(self)
     }
 }

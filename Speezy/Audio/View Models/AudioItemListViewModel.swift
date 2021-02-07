@@ -31,10 +31,10 @@ class AudioItemListViewModel: NewItemGenerating {
         Tab.myRecordings: false,
         Tab.favourites: false
     ]
-    
-    private var currentTab = Tab.myRecordings
+        
     private let store: Store
     private(set) var audioAttachmentManager = AudioAttachmentManager()
+    private(set) var currentTab = Tab.myRecordings
     
     var didChange: ((Change) -> Void)?
     var audioItems: [AudioItem] = []

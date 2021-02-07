@@ -72,13 +72,14 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var draftBtnContainer: UIView!
     @IBOutlet weak var sendBtnContainer: UIView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     private var draftBtn: GradientButton!
     private var sendBtn: GradientButton!
     
     weak var delegate: AudioItemViewControllerDelegate?
     
     private var mainWave: PlaybackWaveView?
-    
     private var transcriptionCropUpdatesPending = false
     
     var shareAlert: SCLAlertView?
@@ -91,8 +92,11 @@ class AudioItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        spinner.startAnimating()
         audioManager.downloadFile {
             DispatchQueue.main.async {
+                self.spinner.stopAnimating()
+                self.spinner.isHidden = true
                 self.prepareStagedFile()
                 self.configureDependencies()
                 self.configureSubviews()

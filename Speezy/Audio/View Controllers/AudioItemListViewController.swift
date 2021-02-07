@@ -13,7 +13,8 @@ import SCLAlertView
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(
         _ viewController: AudioItemListViewController,
-        didSelectAudioItem item: AudioItem
+        didSelectAudioItem item: AudioItem,
+        playbackOnly: Bool
     )
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
     func audioItemListViewController(
@@ -121,7 +122,12 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let audioItem = viewModel.item(at: indexPath)
-        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
+        let playbackOnly = viewModel.currentTab == .favourites
+        delegate?.audioItemListViewController(
+            self,
+            didSelectAudioItem: audioItem,
+            playbackOnly: playbackOnly
+        )
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
