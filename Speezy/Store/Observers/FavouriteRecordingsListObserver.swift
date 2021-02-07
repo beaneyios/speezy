@@ -11,6 +11,6 @@ import Foundation
 protocol FavouriteRecordingsListObserver: AnyObject {
     func favouriteAdded(favourite: AudioItem, favourites: [AudioItem])
     func favouriteUpdated(favourite: AudioItem, favourites: [AudioItem])
-    func pagedFavouritesReceived(favourites: [AudioItem])
+    func pagedFavouritesReceived(newFavourites: [AudioItem], favourites: [AudioItem])
     func favouriteRemoved(favourite: AudioItem, favourites: [AudioItem])
 }

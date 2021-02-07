@@ -69,7 +69,12 @@ class FavouriteRecordingsStore {
         
         favourites.append(contentsOf: recordings)
         sortRecordings()
-        notifyObservers(change: .pagedRecordings(recordings: favourites))
+        notifyObservers(
+            change: .pagedRecordings(
+                newRecordings: recordings,
+                recordings: favourites
+            )
+        )
     }
     
     private func handleRecordingAdded(recording: AudioItem) {
@@ -148,7 +153,7 @@ extension FavouriteRecordingsStore {
     enum Change {
         case recordingAdded(recording: AudioItem, recordings: [AudioItem])
         case recordingUpdated(recording: AudioItem, recordings: [AudioItem])
-        case pagedRecordings(recordings: [AudioItem])
+        case pagedRecordings(newRecordings: [AudioItem], recordings: [AudioItem])
         case recordingRemoved(recording: AudioItem, recordings: [AudioItem])
     }
     
@@ -180,8 +185,8 @@ extension FavouriteRecordingsStore {
                 observer.favouriteUpdated(favourite: favourite, favourites: favourites)
             case let .recordingRemoved(favourite, favourites):
                 observer.favouriteRemoved(favourite: favourite, favourites: favourites)
-            case let .pagedRecordings(favourites):
-                observer.pagedFavouritesReceived(favourites: favourites)
+            case let .pagedRecordings(newFavourites, favourites):
+                observer.pagedFavouritesReceived(newFavourites: newFavourites, favourites: favourites)
             }
         }
     }

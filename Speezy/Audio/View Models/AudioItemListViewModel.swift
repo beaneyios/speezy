@@ -202,7 +202,15 @@ extension AudioItemListViewModel: FavouriteRecordingsListObserver {
         updateCellModels(items: favourites, tab: .favourites)
     }
     
-    func pagedFavouritesReceived(favourites: [AudioItem]) {
+    func pagedFavouritesReceived(newFavourites: [AudioItem], favourites: [AudioItem]) {
+        if newFavourites.count < FavouriteRecordingsFetcher.pageSize {
+            moreItems[Tab.favourites] = false
+        }
+        
+        if newFavourites.isEmpty {
+            return
+        }
+        
         updateCellModels(items: favourites, tab: .favourites)
     }
     

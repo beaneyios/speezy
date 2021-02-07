@@ -10,6 +10,8 @@ import Foundation
 import FirebaseDatabase
 
 class FavouriteRecordingsFetcher {
+    static let pageSize = 10
+    
     func fetchFavouriteRecordings(
         userId: String,
         mostRecentRecording: AudioItem?,
@@ -23,11 +25,11 @@ class FavouriteRecordingsFetcher {
                 return recordingsChild
                     .queryOrdered(byChild: "last_updated_sort")
                     .queryStarting(atValue: -mostRecentRecording.lastUpdated.timeIntervalSince1970)
-                    .queryLimited(toFirst: 10)
+                    .queryLimited(toFirst: UInt(Self.pageSize))
             } else {
                 return recordingsChild
                     .queryOrdered(byChild: "last_updated_sort")
-                    .queryLimited(toFirst: 10)
+                    .queryLimited(toFirst: UInt(Self.pageSize))
             }
         }()
         
