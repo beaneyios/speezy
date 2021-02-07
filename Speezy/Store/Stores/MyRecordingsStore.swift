@@ -9,8 +9,8 @@
 import Foundation
 
 class MyRecordingsStore {
-    private let myRecordingsListener = MyRecordingsListener()
-    private let myRecordingsFetcher = MyRecordingsFetcher()
+    private let myRecordingsListener = AudioItemListener(kind: .recordings)
+    private let myRecordingsFetcher = AudioItemsFetcher(kind: .recordings)
     
     private(set) var myRecordings = [AudioItem]()
     
@@ -23,7 +23,7 @@ class MyRecordingsStore {
     }
     
     func fetchNextPage(userId: String) {
-        myRecordingsFetcher.fetchMyRecordings(userId: userId, mostRecentRecording: myRecordings.last) { (result) in
+        myRecordingsFetcher.fetch(userId: userId, mostRecentRecording: myRecordings.last) { (result) in
             self.serialQueue.async {
                 switch result {
                 case let .success(newRecordings):
@@ -51,14 +51,14 @@ class MyRecordingsStore {
             }
         }
         
-        myRecordingsListener.listenForRecordingAdditions(userId: userId, mostRecentRecording: myRecordings.first)
-        myRecordingsListener.listenForRecordingDeletions(userId: userId)
+        myRecordingsListener.listenForAdditions(userId: userId, mostRecentRecording: myRecordings.first)
+        myRecordingsListener.listenForDeletions(userId: userId)
     }
     
     private func handleNewPage(userId: String, recordings: [AudioItem]) {
         // Now we have a new page, we need to attach change listeners to the items.
         recordings.forEach {
-            self.myRecordingsListener.listenForRecordingChanges(
+            self.myRecordingsListener.listenForChanges(
                 userId: userId,
                 recordingId: $0.id
             )

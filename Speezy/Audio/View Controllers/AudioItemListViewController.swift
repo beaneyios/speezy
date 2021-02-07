@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SCLAlertView
+import JGProgressHUD
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
     func audioItemListViewController(
@@ -221,6 +222,10 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
         
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
+        
+        let hud = JGProgressHUD()
+        hud.textLabel.text = "Saving your recording..."
+        hud.show(in: self.view)
         audioManager.save(saveAttachment: false) { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -230,6 +235,8 @@ extension AudioItemListViewController: QuickRecordViewControllerDelegate {
                 case .failure:
                     break
                 }
+                
+                hud.dismiss()
             }
         }
     }

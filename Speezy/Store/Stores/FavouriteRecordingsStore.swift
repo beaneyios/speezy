@@ -9,8 +9,8 @@
 import Foundation
 
 class FavouriteRecordingsStore {
-    private let favouritesListener = FavouriteRecordingsListener()
-    private let favouritesFetcher = FavouriteRecordingsFetcher()
+    private let favouritesListener = AudioItemListener(kind: .favourites)
+    private let favouritesFetcher = AudioItemsFetcher(kind: .favourites)
     
     private(set) var favourites = [AudioItem]()
     
@@ -23,7 +23,7 @@ class FavouriteRecordingsStore {
     }
     
     func fetchNextPage(userId: String) {
-        favouritesFetcher.fetchFavouriteRecordings(
+        favouritesFetcher.fetch(
             userId: userId,
             mostRecentRecording: favourites.last
         ) { (result) in
@@ -41,11 +41,12 @@ class FavouriteRecordingsStore {
                     // This is the first load and we've now processed the the first page.
                     // So now we can start listening for additions, knowing that the first addition
                     // will be a duplicate, but will get processed.
-                    self.favouritesListener.listenForRecordingAdditions(
+                    self.favouritesListener.listenForAdditions(
                         userId: userId,
                         mostRecentRecording: self.favourites.first
                     )
-                    self.favouritesListener.listenForRecordingDeletions(userId: userId)
+                    
+                    self.favouritesListener.listenForDeletions(userId: userId)
                 }
             }
         }
@@ -71,7 +72,7 @@ class FavouriteRecordingsStore {
     private func handleNewPage(userId: String, recordings: [AudioItem]) {
         // Now we have a new page, we need to attach change listeners to the items.
         recordings.forEach {
-            self.favouritesListener.listenForRecordingChanges(
+            self.favouritesListener.listenForChanges(
                 userId: userId,
                 recordingId: $0.id
             )
