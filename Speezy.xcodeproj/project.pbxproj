@@ -50,7 +50,7 @@
 		BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */; };
 		BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */; };
 		BE268B312560858A009C5D3D /* AudioItem+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */; };
-		BE268B37256086BF009C5D3D /* AudioSavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE268B36256086BF009C5D3D /* AudioSavingManager.swift */; };
+		BE268B37256086BF009C5D3D /* RecordingSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE268B36256086BF009C5D3D /* RecordingSaver.swift */; };
 		BE2A0CAB25C09EA8000B8A4C /* DatabasePushTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2A0CAA25C09EA8000B8A4C /* DatabasePushTokenManager.swift */; };
 		BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2A0CC725C0A53B000B8A4C /* PushTokenSyncService.swift */; };
 		BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B097724C7239300317EB7 /* AudioItemCell.swift */; };
@@ -154,6 +154,7 @@
 		BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */; };
 		BE939D4225D0226E00042EB7 /* FavouriteRecordingsListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */; };
 		BE939D4625D0230800042EB7 /* FavouritesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */; };
+		BE939D5125D047CE00042EB7 /* Favouriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5025D047CE00042EB7 /* Favouriter.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -165,7 +166,7 @@
 		BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13525B0C623000888A7 /* ChatViewModel.swift */; };
 		BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */; };
 		BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */; };
-		BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */; };
+		BEA9D1C625B45CA9000888A7 /* AudioUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C525B45CA9000888A7 /* AudioUpdater.swift */; };
 		BEA9D1CA25B45D2F000888A7 /* CloudImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */; };
 		BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */; };
 		BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */; };
@@ -330,7 +331,7 @@
 		BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeezyLoadingView.xib; sourceTree = "<group>"; };
 		BE2351E4253CCB5F00067BA2 /* SpeezyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyLoadingView.swift; sourceTree = "<group>"; };
 		BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioItem+MetaData.swift"; sourceTree = "<group>"; };
-		BE268B36256086BF009C5D3D /* AudioSavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSavingManager.swift; sourceTree = "<group>"; };
+		BE268B36256086BF009C5D3D /* RecordingSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingSaver.swift; sourceTree = "<group>"; };
 		BE2A0CAA25C09EA8000B8A4C /* DatabasePushTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabasePushTokenManager.swift; sourceTree = "<group>"; };
 		BE2A0CC725C0A53B000B8A4C /* PushTokenSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTokenSyncService.swift; sourceTree = "<group>"; };
 		BE2B097724C7239300317EB7 /* AudioItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemCell.swift; sourceTree = "<group>"; };
@@ -438,6 +439,7 @@
 		BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListObservation.swift; sourceTree = "<group>"; };
 		BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesFetcher.swift; sourceTree = "<group>"; };
+		BE939D5025D047CE00042EB7 /* Favouriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favouriter.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -449,7 +451,7 @@
 		BEA9D13525B0C623000888A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		BEA9D13925B0C83E000888A7 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAudioManager.swift; sourceTree = "<group>"; };
+		BEA9D1C525B45CA9000888A7 /* AudioUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUpdater.swift; sourceTree = "<group>"; };
 		BEA9D1C925B45D2F000888A7 /* CloudImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudImageManager.swift; sourceTree = "<group>"; };
 		BEA9D1DA25B46945000888A7 /* CloudAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAudioManager.swift; sourceTree = "<group>"; };
 		BEA9D1E225B46995000888A7 /* StorageUploadResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUploadResult.swift; sourceTree = "<group>"; };
@@ -1006,6 +1008,16 @@
 			path = SpeezyTests;
 			sourceTree = "<group>";
 		};
+		BE939D4925D045D300042EB7 /* Updating */ = {
+			isa = PBXGroup;
+			children = (
+				BEA9D1C525B45CA9000888A7 /* AudioUpdater.swift */,
+				BE268B36256086BF009C5D3D /* RecordingSaver.swift */,
+				BE939D5025D047CE00042EB7 /* Favouriter.swift */,
+			);
+			path = Updating;
+			sourceTree = "<group>";
+		};
 		BEA9D13425B0C615000888A7 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1110,16 +1122,15 @@
 		BEAACE8A24BA10400074E4B9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE939D4925D045D300042EB7 /* Updating */,
 				BE0A45B025CED63E005F4DA8 /* Playing */,
 				BE0A45AF25CED622005F4DA8 /* Editing */,
 				BE0A45AE25CED61B005F4DA8 /* Fetching */,
 				BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */,
 				BE68472B2573B68C00981686 /* AudioItemChangeManager.swift */,
 				BE50346124BDFCA900A414D1 /* AudioManager.swift */,
-				BE268B36256086BF009C5D3D /* AudioSavingManager.swift */,
 				BEDC126624F2655D00B53D1A /* AudioShareController.swift */,
 				BE6FD8E725B4779E00723732 /* DatabaseAudioItemParser.swift */,
-				BEA9D1C525B45CA9000888A7 /* DatabaseAudioManager.swift */,
 				BE6FD90F25B49DDA00723732 /* LocalAudioManager.swift */,
 				BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */,
 			);
@@ -1900,7 +1911,7 @@
 				BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
 				BE6FD94925B6106900723732 /* Chat.swift in Sources */,
-				BEA9D1C625B45CA9000888A7 /* DatabaseAudioManager.swift in Sources */,
+				BEA9D1C625B45CA9000888A7 /* AudioUpdater.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
 				BEE47EF425BC42A000AF47FA /* Date+RelativeTime.swift in Sources */,
 				BE0A45BB25CED6FA005F4DA8 /* MyRecordingsListener.swift in Sources */,
@@ -1985,6 +1996,7 @@
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
 				BEFF49FE25C5B58100794A21 /* CustomTabBarController.swift in Sources */,
 				BE2A0CAB25C09EA8000B8A4C /* DatabasePushTokenManager.swift in Sources */,
+				BE939D5125D047CE00042EB7 /* Favouriter.swift in Sources */,
 				BE6FD91625B4D07600723732 /* MessageListener.swift in Sources */,
 				BEE47F1C25BC55FA00AF47FA /* ContactCellModel.swift in Sources */,
 				BE6FD96325B75D2400723732 /* ChatRecordView.swift in Sources */,
@@ -2024,7 +2036,7 @@
 				BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
-				BE268B37256086BF009C5D3D /* AudioSavingManager.swift in Sources */,
+				BE268B37256086BF009C5D3D /* RecordingSaver.swift in Sources */,
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,
 				BEFDB51C255FF5E200362428 /* RecorderObservationManaging.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,

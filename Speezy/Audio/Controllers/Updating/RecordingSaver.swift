@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AudioSavingManager {
+class RecordingSaver {
     func discard(item: AudioItem, completion: @escaping () -> Void
     ) {
         FileManager.default.deleteExistingURL(item.withStagingPath().fileUrl)
@@ -18,7 +18,7 @@ class AudioSavingManager {
 }
 
 // MARK: Saving
-extension AudioSavingManager {
+extension RecordingSaver {
     func saveItem(
         item: AudioItem,
         originalItem: AudioItem,
@@ -43,7 +43,7 @@ extension AudioSavingManager {
         originalItem: AudioItem,
         completion: @escaping (Result<AudioItem, Error>) -> Void
     ) {
-        DatabaseAudioManager.updateDatabaseReference(item) { (result) in
+        AudioUpdater(kind: .recordings).updateRecording(item) { (result) in
             switch result {
             case let .success(item):
                 LocalAudioManager.syncStageWithOriginal(
@@ -82,7 +82,7 @@ extension AudioSavingManager {
 }
 
 // MARK: Deleting
-extension AudioSavingManager {
+extension RecordingSaver {
     func deleteItem(
         _ item: AudioItem,
         completion: @escaping (StorageDeleteResult) -> Void
@@ -91,7 +91,7 @@ extension AudioSavingManager {
         CloudAudioManager.deleteAudioClip(at: "audio_clips/\(item.id).m4a") { (result) in
             switch result {
             case .success:
-                DatabaseAudioManager.removeDatabaseReference(item) { (result) in
+                AudioUpdater(kind: .recordings).removeRecording(item) { (result) in
                     switch result {
                     case .success:
                         completion(.success)

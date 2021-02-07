@@ -127,7 +127,7 @@ class AudioItemListViewModel: NewItemGenerating {
     func deleteItem(_ item: AudioItem) {
         audioAttachmentManager.removeAttachment(forItem: item)
 
-        AudioSavingManager().deleteItem(item) { (result) in
+        RecordingSaver().deleteItem(item) { (result) in
             switch result {
             case .success:
                 self.audioItems = self.audioItems.removing(item)

@@ -32,7 +32,7 @@ class AudioManager: NSObject {
     private var transcriptionJobManager: TranscriptionJobManager?
     private var transcriptManager: TranscriptManager
     private let audioAttachmentManager = AudioAttachmentManager()
-    private let audioSavingManager = AudioSavingManager()
+    private let audioSavingManager = RecordingSaver()
         
     init(item: AudioItem) {
         self.originalItem = item

@@ -28,7 +28,6 @@ class ChatViewModel: NewItemGenerating {
     private lazy var messageCreator = MessageCreator()
     private lazy var messageListener = MessageListener(chat: chat)
     
-    let audioClipManager = DatabaseAudioManager()
     let audioCloudManager = CloudAudioManager()
     let chatPushManager = ChatPushManager()
     
@@ -273,10 +272,7 @@ extension ChatViewModel {
                     case let .success(newChat):
                         self.chat = newChat
                         
-                        // Third, update the audio reference
-                        self.updateAudioDatabaseRecords(item: item, message: message)
-                        
-                        // Fourth, send a push notification to relevant users.
+                        // Third, send a push notification to relevant users.
                         self.chatPushManager.sendNotification(
                             message: mostRecentMessage,
                             chat: newChat,
@@ -287,17 +283,6 @@ extension ChatViewModel {
                         break
                     }
                 }
-            case let .failure(error):
-                break
-            }
-        }
-    }
-    
-    private func updateAudioDatabaseRecords(item: AudioItem, message: Message) {
-        DatabaseAudioManager.updateDatabaseReference(item) { (result) in
-            switch result {
-            case .success:
-                self.didChange?(.finishedRecording)
             case let .failure(error):
                 break
             }
