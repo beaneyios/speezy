@@ -1,15 +1,15 @@
 //
-//  AudioItemListener.swift
+//  FavouriteRecordingsListener.swift
 //  Speezy
 //
-//  Created by Matt Beaney on 06/02/2021.
+//  Created by Matt Beaney on 07/02/2021.
 //  Copyright © 2021 Speezy. All rights reserved.
 //
 
 import Foundation
 import FirebaseDatabase
 
-class MyRecordingsListener {
+class FavouriteRecordingsListener {
     private var currentQuery: DatabaseQuery?
     
     enum Change {
@@ -27,7 +27,7 @@ class MyRecordingsListener {
         currentQuery?.removeAllObservers()
         
         let ref = Database.database().reference()
-        let messagesChild: DatabaseReference = ref.child("users/\(userId)/recordings")
+        let messagesChild: DatabaseReference = ref.child("users/\(userId)/favourites")
         currentQuery = messagesChild.queryOrderedByKey().queryLimited(toLast: 1)
 
         currentQuery?.observe(.childAdded) { (snapshot) in
@@ -59,7 +59,7 @@ class MyRecordingsListener {
     
     func listenForRecordingChanges(userId: String, recordingId: String) {
         let ref = Database.database().reference()
-        let chatsChild: DatabaseReference = ref.child("users/\(userId)/recordings/\(recordingId)")
+        let chatsChild: DatabaseReference = ref.child("users/\(userId)/favourites/\(recordingId)")
         let query = chatsChild.queryOrderedByKey()
         query.observe(.childChanged) { (snapshot) in
             guard
@@ -77,7 +77,7 @@ class MyRecordingsListener {
     
     func listenForRecordingDeletions(userId: String) {
         let ref = Database.database().reference()
-        let chatsChild = ref.child("users/\(userId)/recordings")
+        let chatsChild = ref.child("users/\(userId)/favourites")
         let query = chatsChild.queryOrderedByKey()
         query.observe(.childRemoved) { (snapshot) in
             self.didChange?(.recordingRemoved(snapshot.key))

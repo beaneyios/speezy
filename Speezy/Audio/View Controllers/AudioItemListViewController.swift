@@ -37,6 +37,8 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     
     weak var delegate: AudioItemListViewControllerDelegate?
     
+    private var scrollViewDragging = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,7 +62,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     }
     
     @IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
-        print(sender.selectedSegmentIndex)
+        viewModel.switchTabs(toIndex: sender.selectedSegmentIndex)
     }
     
     private func configureTableView() {
@@ -142,10 +144,6 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         return UISwipeActionsConfiguration(actions: [share, delete])
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        viewModel.loadMoreItems(index: indexPath.row)
-    }
-    
     private func deleteItem(item: AudioItem) {
         let alert = UIAlertController(
             title: "Delete item",
@@ -169,6 +167,18 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension AudioItemListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
+        let scrollPosition = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.height
+        
+        if contentHeight - scrollPosition <= scrollViewHeight {
+            viewModel.loadMoreItems()
+        }
     }
 }
 

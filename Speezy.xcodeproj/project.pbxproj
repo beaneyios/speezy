@@ -29,7 +29,7 @@
 		BE0A45AB25CEBF8F005F4DA8 /* ContactValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */; };
 		BE0A45BB25CED6FA005F4DA8 /* MyRecordingsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45BA25CED6FA005F4DA8 /* MyRecordingsListener.swift */; };
 		BE0A45BF25CED9DA005F4DA8 /* MyRecordingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */; };
-		BE0A45C525CEDA3B005F4DA8 /* AudioItemListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C425CEDA3B005F4DA8 /* AudioItemListObservation.swift */; };
+		BE0A45C525CEDA3B005F4DA8 /* MyRecordingsListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */; };
 		BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */; };
 		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
 		BE0A45D925CEDFC7005F4DA8 /* MyRecordingsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */; };
@@ -149,6 +149,11 @@
 		BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */; };
 		BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8BA7E8259FB9160071B57A /* GradientButton.xib */; };
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
+		BE939D3225D021C100042EB7 /* FavouriteRecordingsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D3125D021C100042EB7 /* FavouriteRecordingsListener.swift */; };
+		BE939D3625D021E700042EB7 /* FavouriteRecordingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */; };
+		BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */; };
+		BE939D4225D0226E00042EB7 /* FavouriteRecordingsListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */; };
+		BE939D4625D0230800042EB7 /* FavouritesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -304,7 +309,7 @@
 		BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactValue.swift; sourceTree = "<group>"; };
 		BE0A45BA25CED6FA005F4DA8 /* MyRecordingsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListener.swift; sourceTree = "<group>"; };
 		BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsStore.swift; sourceTree = "<group>"; };
-		BE0A45C425CEDA3B005F4DA8 /* AudioItemListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListObservation.swift; sourceTree = "<group>"; };
+		BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObservation.swift; sourceTree = "<group>"; };
 		BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
 		BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsFetcher.swift; sourceTree = "<group>"; };
@@ -428,6 +433,11 @@
 		BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		BE8BA7E8259FB9160071B57A /* GradientButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradientButton.xib; sourceTree = "<group>"; };
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
+		BE939D3125D021C100042EB7 /* FavouriteRecordingsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListener.swift; sourceTree = "<group>"; };
+		BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsStore.swift; sourceTree = "<group>"; };
+		BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListObserver.swift; sourceTree = "<group>"; };
+		BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListObservation.swift; sourceTree = "<group>"; };
+		BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesFetcher.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -583,7 +593,9 @@
 			isa = PBXGroup;
 			children = (
 				BE0A45BA25CED6FA005F4DA8 /* MyRecordingsListener.swift */,
+				BE939D3125D021C100042EB7 /* FavouriteRecordingsListener.swift */,
 				BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */,
+				BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */,
 			);
 			path = Fetching;
 			sourceTree = "<group>";
@@ -1559,6 +1571,7 @@
 				BEFF49BD25C590A200794A21 /* ChatStore.swift */,
 				BE0A459825CEBE5E005F4DA8 /* ContactStore.swift */,
 				BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */,
+				BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -1569,6 +1582,7 @@
 				BEFF49CB25C590EF00794A21 /* ChatListObserver.swift */,
 				BE0A459C25CEBEB2005F4DA8 /* ContactListObserver.swift */,
 				BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */,
+				BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */,
 			);
 			path = Observers;
 			sourceTree = "<group>";
@@ -1578,7 +1592,8 @@
 			children = (
 				BEFF49C525C590DF00794A21 /* ChatListObservation.swift */,
 				BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */,
-				BE0A45C425CEDA3B005F4DA8 /* AudioItemListObservation.swift */,
+				BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */,
+				BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */,
 			);
 			path = Observations;
 			sourceTree = "<group>";
@@ -1890,6 +1905,7 @@
 				BEE47EF425BC42A000AF47FA /* Date+RelativeTime.swift in Sources */,
 				BE0A45BB25CED6FA005F4DA8 /* MyRecordingsListener.swift in Sources */,
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
+				BE939D3625D021E700042EB7 /* FavouriteRecordingsStore.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
@@ -1914,6 +1930,7 @@
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
 				BEFF49C625C590DF00794A21 /* ChatListObservation.swift in Sources */,
+				BE939D4225D0226E00042EB7 /* FavouriteRecordingsListObservation.swift in Sources */,
 				BEE47EF025BC415D00AF47FA /* ChatCellModel.swift in Sources */,
 				BEDC1222259D1A1100BB0064 /* DatabaseProfileManager.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
@@ -1922,6 +1939,8 @@
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
+				BE939D4625D0230800042EB7 /* FavouritesFetcher.swift in Sources */,
+				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE0A458325CD673B005F4DA8 /* ChatShareViewController.swift in Sources */,
@@ -1931,7 +1950,7 @@
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* Observers.swift in Sources */,
-				BE0A45C525CEDA3B005F4DA8 /* AudioItemListObservation.swift in Sources */,
+				BE0A45C525CEDA3B005F4DA8 /* MyRecordingsListObservation.swift in Sources */,
 				BE54295B2593714B007EEAD1 /* EmailSignupViewController.swift in Sources */,
 				BE0A45A525CEBF30005F4DA8 /* ContactsListener.swift in Sources */,
 				BE5429742593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift in Sources */,
@@ -1951,6 +1970,7 @@
 				BEF425B725AB285A00DC8E3D /* FormError.swift in Sources */,
 				BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */,
 				BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */,
+				BE939D3225D021C100042EB7 /* FavouriteRecordingsListener.swift in Sources */,
 				BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,

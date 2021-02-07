@@ -17,11 +17,30 @@ class AudioItemListViewModel: NewItemGenerating {
         case itemsLoaded
     }
     
+    enum Tab: Int {
+        case myRecordings
+        case favourites
+    }
+    
+    private var moreItems: [Tab: Bool] = [
+        Tab.myRecordings: true,
+        Tab.favourites: true
+    ]
+    
+    private var isLoading: [Tab: Bool] = [
+        Tab.myRecordings: false,
+        Tab.favourites: false
+    ]
+    
+    private var currentTab = Tab.myRecordings
     private let store: Store
     private(set) var audioAttachmentManager = AudioAttachmentManager()
     
     var didChange: ((Change) -> Void)?
     var audioItems: [AudioItem] = []
+    
+    private var myRecordings = [AudioItem]()
+    private var favourites = [AudioItem]()
     
     var shouldShowEmptyView: Bool {
         audioItems.isEmpty
@@ -36,38 +55,47 @@ class AudioItemListViewModel: NewItemGenerating {
             return
         }
         
-//        DatabaseAudioManager.fetchItems { (result) in
-//            switch result {
-//            case let .success(items):
-//                items.enumerated().forEach { (item) in
-//                    DatabaseAudioManager.updateDatabaseReference(item.element) { (result) in
-//                        switch result {
-//                        case let .success(item):
-//                            break
-//                        case let .failure(error):
-//                            break
-//                        }
-//                    }
-//                }
-//            case let .failure(error):
-//                break
-//            }
-//        }
+        store.favouritesStore.addFavouriteRecordingListObserver(self)
+        store.favouritesStore.fetchNextPage(userId: userId)
+        store.favouritesStore.listenForRecordingItems(userId: userId)
         
         store.myRecordingsStore.addRecordingItemListObserver(self)
         store.myRecordingsStore.fetchNextPage(userId: userId)
+        store.myRecordingsStore.listenForRecordingItems(userId: userId)
     }
     
-    func loadMoreItems(index: Int) {
-        guard index == audioItems.count - 1 else {
+    func switchTabs(toIndex index: Int) {
+        guard let tab = Tab(rawValue: index) else {
             return
         }
         
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
+        switch tab {
+        case .favourites:
+            audioItems = favourites
+        case .myRecordings:
+            audioItems = myRecordings
         }
         
-        store.myRecordingsStore.fetchNextPage(userId: userId)
+        didChange?(.itemsLoaded)
+    }
+    
+    func loadMoreItems() {
+        guard
+            let hasMoreItems = moreItems[self.currentTab], hasMoreItems,
+            let isLoading = isLoading[currentTab], isLoading == false,
+            let userId = Auth.auth().currentUser?.uid
+        else {
+            return
+        }
+                
+        self.isLoading[currentTab] = true
+        
+        switch currentTab {
+        case .favourites:
+            store.favouritesStore.fetchNextPage(userId: userId)
+        case .myRecordings:
+            store.myRecordingsStore.fetchNextPage(userId: userId)
+        }        
     }
     
     func saveItem(_ item: AudioItem) {
@@ -112,8 +140,19 @@ class AudioItemListViewModel: NewItemGenerating {
         }
     }
     
-    private func updateCellModels(recordings: [AudioItem]) {
-        audioItems = recordings
+    private func updateCellModels(items: [AudioItem], tab: Tab) {
+        switch tab {
+        case .favourites:
+            self.favourites = items
+        case .myRecordings:
+            self.myRecordings = items
+        }
+
+        if tab == currentTab {
+            audioItems = items
+        }
+        
+        isLoading[tab] = false
         didChange?(.itemsLoaded)
     }
 }
@@ -130,18 +169,41 @@ extension AudioItemListViewModel {
 
 extension AudioItemListViewModel: MyRecordingsListObserver {
     func recordingAdded(recording: AudioItem, recordings: [AudioItem]) {
-        updateCellModels(recordings: recordings)
+        updateCellModels(items: recordings, tab: .myRecordings)
     }
     
     func recordingUpdated(recording: AudioItem, recordings: [AudioItem]) {
-        updateCellModels(recordings: recordings)
+        updateCellModels(items: recordings, tab: .myRecordings)
     }
     
-    func pagedRecordingsReceived(recordings: [AudioItem]) {
-        updateCellModels(recordings: recordings)
+    func pagedRecordingsReceived(newRecordings: [AudioItem], recordings: [AudioItem]) {
+        if newRecordings.isEmpty {
+            moreItems[Tab.myRecordings] = false
+            return
+        }
+        
+        updateCellModels(items: recordings, tab: .myRecordings)
     }
     
     func recordingRemoved(recording: AudioItem, recordings: [AudioItem]) {
-        updateCellModels(recordings: recordings)
+        updateCellModels(items: recordings, tab: .myRecordings)
+    }
+}
+
+extension AudioItemListViewModel: FavouriteRecordingsListObserver {
+    func favouriteAdded(favourite: AudioItem, favourites: [AudioItem]) {
+        updateCellModels(items: favourites, tab: .favourites)
+    }
+    
+    func favouriteUpdated(favourite: AudioItem, favourites: [AudioItem]) {
+        updateCellModels(items: favourites, tab: .favourites)
+    }
+    
+    func pagedFavouritesReceived(favourites: [AudioItem]) {
+        updateCellModels(items: favourites, tab: .favourites)
+    }
+    
+    func favouriteRemoved(favourite: AudioItem, favourites: [AudioItem]) {
+        updateCellModels(items: favourites, tab: .favourites)
     }
 }

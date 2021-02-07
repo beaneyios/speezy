@@ -117,4 +117,32 @@ extension AudioItem {
             attachedMessageIds: attachedMessageIds
         )
     }
+    
+    func withLastUpdated(_ lastUpdated: Date) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: lastUpdated,
+            tags: tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
+        )
+    }
+    
+    func withDuration(_ duration: TimeInterval) -> AudioItem {
+        AudioItem(
+            id: id,
+            path: path,
+            title: title,
+            date: lastUpdated,
+            tags: tags,
+            remoteUrl: remoteUrl,
+            attachmentUrl: attachmentUrl,
+            duration: duration,
+            attachedMessageIds: attachedMessageIds
+        )
+    }
 }

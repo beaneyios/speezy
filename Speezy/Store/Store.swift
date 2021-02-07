@@ -13,6 +13,7 @@ class Store {
     let chatStore = ChatStore()
     let contactStore = ContactStore()
     let myRecordingsStore = MyRecordingsStore()
+    let favouritesStore = FavouriteRecordingsStore()
     
     func userDidLogOut() {
         chatStore.clear()
@@ -21,14 +22,6 @@ class Store {
     
     func startListeningForCoreChanges(userId: String) {
         chatStore.listenForChats(userId: userId)
-        contactStore.listenForContacts(userId: userId)
-    }
-    
-    func listenForChatChanges(userId: String) {
-        chatStore.listenForChats(userId: userId)
-    }
-    
-    func listenForContactChanges(userId: String) {
         contactStore.listenForContacts(userId: userId)
     }
 }

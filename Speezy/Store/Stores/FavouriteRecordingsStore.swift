@@ -1,29 +1,32 @@
 //
-//  RecordingItemStore.swift
+//  FavouriteRecordingsStore.swift
 //  Speezy
 //
-//  Created by Matt Beaney on 06/02/2021.
+//  Created by Matt Beaney on 07/02/2021.
 //  Copyright © 2021 Speezy. All rights reserved.
 //
 
 import Foundation
 
-class MyRecordingsStore {
-    private let myRecordingsListener = MyRecordingsListener()
-    private let myRecordingsFetcher = MyRecordingsFetcher()
+class FavouriteRecordingsStore {
+    private let favouritesListener = FavouriteRecordingsListener()
+    private let favouritesFetcher = FavouriteRecordingsFetcher()
     
-    private(set) var myRecordings = [AudioItem]()
+    private(set) var favourites = [AudioItem]()
     
-    private var observations = [ObjectIdentifier : MyRecordingsListObservation]()
-    private let serialQueue = DispatchQueue(label: "com.speezy.myRecordingsActions")
+    private var observations = [ObjectIdentifier : FavouriteRecordingsListObservation]()
+    private let serialQueue = DispatchQueue(label: "com.speezy.favouritesActions")
     
     func clear() {
-        self.myRecordings = []
+        self.favourites = []
         self.observations = [:]
     }
     
     func fetchNextPage(userId: String) {
-        myRecordingsFetcher.fetchMyRecordings(userId: userId, mostRecentRecording: myRecordings.last) { (result) in
+        favouritesFetcher.fetchFavouriteRecordings(
+            userId: userId,
+            mostRecentRecording: favourites.last
+        ) { (result) in
             self.serialQueue.async {
                 switch result {
                 case let .success(newRecordings):
@@ -36,7 +39,7 @@ class MyRecordingsStore {
     }
     
     func listenForRecordingItems(userId: String) {
-        myRecordingsListener.didChange = { change in
+        favouritesListener.didChange = { change in
             // We do not want to manipulate the recordingItems available until the notifier has
             // finished notifying any newly added observers, so we need a queue.
             self.serialQueue.async {
@@ -51,47 +54,42 @@ class MyRecordingsStore {
             }
         }
         
-        myRecordingsListener.listenForRecordingAdditions(userId: userId, mostRecentRecording: myRecordings.first)
-        myRecordingsListener.listenForRecordingDeletions(userId: userId)
+        favouritesListener.listenForRecordingAdditions(userId: userId, mostRecentRecording: favourites.first)
+        favouritesListener.listenForRecordingDeletions(userId: userId)
     }
     
     private func handleNewPage(userId: String, recordings: [AudioItem]) {
         // Now we have a new page, we need to attach change listeners to the items.
         recordings.forEach {
-            self.myRecordingsListener.listenForRecordingChanges(
+            self.favouritesListener.listenForRecordingChanges(
                 userId: userId,
                 recordingId: $0.id
             )
         }
         
-        myRecordings.append(contentsOf: recordings)
+        favourites.append(contentsOf: recordings)
         sortRecordings()
-        notifyObservers(
-            change: .pagedRecordings(
-                newRecordings: recordings,
-                recordings: myRecordings
-            )
-        )
+        notifyObservers(change: .pagedRecordings(recordings: favourites))
     }
     
     private func handleRecordingAdded(recording: AudioItem) {
-        if myRecordings.contains(recording) {
+        if favourites.contains(recording) {
             return
         }
         
-        myRecordings.append(recording)
+        favourites.append(recording)
         sortRecordings()
         notifyObservers(
             change: .recordingAdded(
                 recording: recording,
-                recordings: myRecordings
+                recordings: favourites
             )
         )
     }
     
     private func handleRecordingUpdated(change: RecordingValueChange) {
         // Find the recordingItem to update.
-        let recordingToUpdate = myRecordings.first {
+        let recordingToUpdate = favourites.first {
             change.recordingId == $0.id
         }
         
@@ -114,50 +112,50 @@ class MyRecordingsStore {
             notifyObservers(
                 change: .recordingUpdated(
                     recording: newRecording,
-                    recordings: myRecordings
+                    recordings: favourites
                 )
             )
         }
     }
     
     private func handleRecordingRemoved(recordingId: String) {
-        guard let recording = myRecordings.first(withId: recordingId) else {
+        guard let recording = favourites.first(withId: recordingId) else {
             return
         }
         
-        myRecordings = myRecordings.removing(recording)
+        favourites = favourites.removing(recording)
         sortRecordings()
         notifyObservers(
             change: .recordingRemoved(
                 recording: recording,
-                recordings: myRecordings
+                recordings: favourites
             )
         )
     }
     
     private func replaceRecording(recordingItem: AudioItem) {
-        myRecordings = myRecordings.replacing(recordingItem)
+        favourites = favourites.replacing(recordingItem)
     }
     
     private func sortRecordings() {
-        myRecordings = myRecordings.sorted(by: { (recordingItem1, recordingItem2) -> Bool in
+        favourites = favourites.sorted(by: { (recordingItem1, recordingItem2) -> Bool in
             recordingItem1.lastUpdated > recordingItem2.lastUpdated
         })
     }
 }
 
-extension MyRecordingsStore {
+extension FavouriteRecordingsStore {
     enum Change {
         case recordingAdded(recording: AudioItem, recordings: [AudioItem])
         case recordingUpdated(recording: AudioItem, recordings: [AudioItem])
-        case pagedRecordings(newRecordings: [AudioItem], recordings: [AudioItem])
+        case pagedRecordings(recordings: [AudioItem])
         case recordingRemoved(recording: AudioItem, recordings: [AudioItem])
     }
     
-    func addRecordingItemListObserver(_ observer: MyRecordingsListObserver) {
+    func addFavouriteRecordingListObserver(_ observer: FavouriteRecordingsListObserver) {
         serialQueue.async {
             let id = ObjectIdentifier(observer)
-            self.observations[id] = MyRecordingsListObservation(observer: observer)
+            self.observations[id] = FavouriteRecordingsListObservation(observer: observer)
         }
     }
     
@@ -176,14 +174,14 @@ extension MyRecordingsStore {
             }
             
             switch change {
-            case let .recordingAdded(recording, myRecordings):
-                observer.recordingAdded(recording: recording, recordings: myRecordings)
-            case let .recordingUpdated(recording, myRecordings):
-                observer.recordingUpdated(recording: recording, recordings: myRecordings)
-            case let .recordingRemoved(recording, myRecordings):
-                observer.recordingRemoved(recording: recording, recordings: myRecordings)
-            case let .pagedRecordings(newRecordings, recordings):
-                observer.pagedRecordingsReceived(newRecordings: newRecordings, recordings: recordings)
+            case let .recordingAdded(favourite, favourites):
+                observer.favouriteAdded(favourite: favourite, favourites: favourites)
+            case let .recordingUpdated(favourite, favourites):
+                observer.favouriteUpdated(favourite: favourite, favourites: favourites)
+            case let .recordingRemoved(favourite, favourites):
+                observer.favouriteRemoved(favourite: favourite, favourites: favourites)
+            case let .pagedRecordings(favourites):
+                observer.pagedFavouritesReceived(favourites: favourites)
             }
         }
     }
