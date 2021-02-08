@@ -308,6 +308,8 @@ extension ChatViewModel {
                     case let .success(newChat):
                         self.chat = newChat
                         
+                        self.didChange?(.finishedRecording)
+                        
                         // Third, send a push notification to relevant users.
                         self.chatPushManager.sendNotification(
                             message: mostRecentMessage,
