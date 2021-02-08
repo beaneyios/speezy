@@ -64,6 +64,13 @@ class ChatPlaybackView: UIView, NibLoadable {
         durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: audioItem.duration)
     }
     
+    func showLoader() {
+        sendSpinner.isHidden = false
+        sendSpinner.startAnimating()
+        sendButtonIcon.isHidden = true
+        sendButtonText.isHidden = true
+    }
+    
     @IBAction func editAudioTapped(_ sender: Any) {
         editAudioContainer.alpha = 1.0
         
@@ -78,10 +85,7 @@ class ChatPlaybackView: UIView, NibLoadable {
         audioManager?.markAsClean()
         
         sendContainer.alpha = 1.0
-        sendSpinner.isHidden = false
-        sendSpinner.startAnimating()
-        sendButtonIcon.isHidden = true
-        sendButtonText.isHidden = true
+        showLoader()
         
         sendAction?()
     }

@@ -82,6 +82,12 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     }
     
     func sendEditedAudioItem(_ item: AudioItem) {
+        guard let playbackView = activeControl as? ChatPlaybackView else {
+            return
+        }
+        
+        playbackView.showLoader()
+        viewModel.setAudioItem(item)
         viewModel.sendStagedItem()
     }
     
