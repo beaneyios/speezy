@@ -11,6 +11,7 @@ import FirebaseAuth
 
 class ChatViewModel: NewItemGenerating {
     enum Change {
+        case leftChat
         case loading(Bool)
         case loaded
         case itemInserted(index: Int)
@@ -28,6 +29,7 @@ class ChatViewModel: NewItemGenerating {
     
     private lazy var messageCreator = MessageCreator()
     private lazy var messageListener = MessageListener(chat: chat)
+    private lazy var chatDeleter = ChatDeleter()
     
     let store: Store
     let audioCloudManager = CloudAudioManager()
@@ -61,6 +63,16 @@ class ChatViewModel: NewItemGenerating {
     func setAudioItem(_ item: AudioItem) {
         currentAudioFile = item.withoutStagingPath()
         LocalAudioManager.createOriginalFromStaged(item: item)
+    }
+    
+    func leaveChat() {
+        guard let userId = currentUserId else {
+            return
+        }
+        
+        chatDeleter.deleteChat(chat: chat, userId: userId) { (result) in
+            self.didChange?(.leftChat)
+        }
     }
     
     func cancelAudioItem() {

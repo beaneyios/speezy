@@ -162,6 +162,7 @@
 		BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41D256AF6240034F921 /* AudioCropping.swift */; };
 		BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */; };
 		BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD427256AF9980034F921 /* CutNotification.swift */; };
+		BEA32DFD25D475A700A9F643 /* ChatDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32DFC25D475A700A9F643 /* ChatDeleter.swift */; };
 		BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8325178E490009ECCC /* test-transcribe.m4a */; };
 		BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */; };
 		BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13525B0C623000888A7 /* ChatViewModel.swift */; };
@@ -448,6 +449,7 @@
 		BE9AD41D256AF6240034F921 /* AudioCropping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCropping.swift; sourceTree = "<group>"; };
 		BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterObservationManaging.swift; sourceTree = "<group>"; };
 		BE9AD427256AF9980034F921 /* CutNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutNotification.swift; sourceTree = "<group>"; };
+		BEA32DFC25D475A700A9F643 /* ChatDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDeleter.swift; sourceTree = "<group>"; };
 		BEA5AE8325178E490009ECCC /* test-transcribe.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.m4a"; sourceTree = "<group>"; };
 		BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.flac"; sourceTree = "<group>"; };
 		BEA9D13525B0C623000888A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
@@ -1477,6 +1479,7 @@
 		BEF7DE3E25C728BA00B690CB /* Deletion */ = {
 			isa = PBXGroup;
 			children = (
+				BEA32DFC25D475A700A9F643 /* ChatDeleter.swift */,
 			);
 			path = Deletion;
 			sourceTree = "<group>";
@@ -2053,6 +2056,7 @@
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
+				BEA32DFD25D475A700A9F643 /* ChatDeleter.swift in Sources */,
 				BE5BDB9525C3551B00F937C3 /* GroupCreator.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
 				BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */,

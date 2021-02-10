@@ -19,7 +19,12 @@ class ChatsListener {
     var userChatQuery: DatabaseQuery?
     var didChange: ((Change) -> Void)?
     
+    var queries: [String: DatabaseQuery] = [:]
+    
     func listenForChatAdditions(userId: String) {
+        let userIdQueryKey = "\(userId)_additions"
+        removeQueryListener(forId: userIdQueryKey)
+        
         let ref = Database.database().reference()
         let chatsChild = ref.child("users/\(userId)/chats")
         let query = chatsChild.queryOrderedByKey()
@@ -30,15 +35,23 @@ class ChatsListener {
             // Second thing - listen for any future changes to the chat.
             self.listenForChatChanges(chatId: snapshot.key)
         }
+        
+        queries[userIdQueryKey] = query
     }
     
     func listenForChatDeletions(userId: String) {
+        let userIdQueryKey = "\(userId)_deletions"
+        removeQueryListener(forId: userIdQueryKey)
+        
         let ref = Database.database().reference()
         let chatsChild = ref.child("users/\(userId)/chats")
         let query = chatsChild.queryOrderedByKey()
         query.observe(.childRemoved) { (snapshot) in
             self.didChange?(.chatRemoved(snapshot.key))
+            self.stopListeningForChatChanges(chatId: snapshot.key)
         }
+        
+        queries[userIdQueryKey] = query
     }
     
     private func fetchChat(chatId: String) {
@@ -57,6 +70,9 @@ class ChatsListener {
     }
     
     private func listenForChatChanges(chatId: String) {
+        let chatIdQueryKey = "\(chatId)_changes"
+        removeQueryListener(forId: chatIdQueryKey)
+        
         let ref = Database.database().reference()
         let chatsChild: DatabaseReference = ref.child("chats/\(chatId)")
         let query = chatsChild.queryOrderedByKey()
@@ -68,9 +84,23 @@ class ChatsListener {
                 return
             }
             
-            
             let change = ChatValueChange(chatId: chatId, chatValue: chatValue)
             self.didChange?(.chatUpdated(change))
         }
+        
+        queries[chatIdQueryKey] = query
+    }
+    
+    private func stopListeningForChatChanges(chatId: String) {
+        let chatIdQueryKey = "\(chatId)_changes"
+        removeQueryListener(forId: chatIdQueryKey)
+    }
+    
+    private func removeQueryListener(forId id: String) {
+        guard let currentQuery = queries[id] else {
+            return
+        }
+        
+        currentQuery.removeAllObservers()
     }
 }

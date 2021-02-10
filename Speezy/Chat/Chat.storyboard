@@ -122,26 +122,46 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="sSd-0B-Kwx">
-                                        <rect key="frame" x="378" y="22" width="20" height="20"/>
+                                        <rect key="frame" x="332" y="22" width="20" height="20"/>
                                         <color key="color" name="speezy-purple"/>
                                     </activityIndicatorView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="more-options-button" translatesAutoresizingMaskIntoConstraints="NO" id="Uer-aX-N3o">
+                                        <rect key="frame" x="368" y="22" width="30" height="20"/>
+                                        <color key="tintColor" name="speezy-purple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="bNA-L2-Rnr"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnH-oz-qet">
+                                        <rect key="frame" x="352" y="0.0" width="62" height="64"/>
+                                        <connections>
+                                            <action selector="didTapOptions:" destination="2pp-Oq-boV" eventType="touchUpInside" id="I5W-gh-th3"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Uer-aX-N3o" firstAttribute="leading" secondItem="sSd-0B-Kwx" secondAttribute="trailing" constant="16" id="1QW-gG-fuc"/>
                                     <constraint firstItem="RoF-nS-bFl" firstAttribute="leading" secondItem="cwi-pJ-Drf" secondAttribute="trailing" constant="4" id="9oQ-Dn-mhU"/>
                                     <constraint firstAttribute="trailing" secondItem="Kj0-Xo-wyP" secondAttribute="trailing" id="Cf5-wa-1CC"/>
-                                    <constraint firstAttribute="trailing" secondItem="sSd-0B-Kwx" secondAttribute="trailing" constant="16" id="Fwd-CH-YtC"/>
                                     <constraint firstItem="cwi-pJ-Drf" firstAttribute="leading" secondItem="0Rq-LX-6tF" secondAttribute="leading" constant="16" id="GSF-bb-Qtr"/>
+                                    <constraint firstAttribute="bottom" secondItem="rnH-oz-qet" secondAttribute="bottom" id="Hvi-Ek-Wmg"/>
                                     <constraint firstItem="WiA-hN-OdY" firstAttribute="top" secondItem="0Rq-LX-6tF" secondAttribute="top" id="IDY-C0-0Yv"/>
+                                    <constraint firstAttribute="trailing" secondItem="rnH-oz-qet" secondAttribute="trailing" id="QQn-Js-GyU"/>
                                     <constraint firstItem="Kj0-Xo-wyP" firstAttribute="leading" secondItem="0Rq-LX-6tF" secondAttribute="leading" id="Qao-XD-W5u"/>
                                     <constraint firstAttribute="bottom" secondItem="Kj0-Xo-wyP" secondAttribute="bottom" id="SeO-vu-ipy"/>
+                                    <constraint firstItem="rnH-oz-qet" firstAttribute="leading" secondItem="sSd-0B-Kwx" secondAttribute="trailing" id="V4F-g6-a2R"/>
                                     <constraint firstItem="RoF-nS-bFl" firstAttribute="centerY" secondItem="4e1-3B-Dgf" secondAttribute="centerY" id="ZvE-7q-TbW"/>
                                     <constraint firstItem="sSd-0B-Kwx" firstAttribute="centerY" secondItem="4e1-3B-Dgf" secondAttribute="centerY" id="Zy8-xZ-r2v"/>
+                                    <constraint firstItem="rnH-oz-qet" firstAttribute="top" secondItem="0Rq-LX-6tF" secondAttribute="top" id="bSe-NV-r7G"/>
                                     <constraint firstItem="4e1-3B-Dgf" firstAttribute="top" secondItem="0Rq-LX-6tF" secondAttribute="top" constant="20" id="f1b-uR-qdN"/>
                                     <constraint firstAttribute="bottom" secondItem="WiA-hN-OdY" secondAttribute="bottom" id="hE8-aU-Yk9"/>
                                     <constraint firstItem="Kj0-Xo-wyP" firstAttribute="top" secondItem="4e1-3B-Dgf" secondAttribute="bottom" constant="19" id="i2h-kd-PHr"/>
                                     <constraint firstItem="WiA-hN-OdY" firstAttribute="trailing" secondItem="cwi-pJ-Drf" secondAttribute="trailing" constant="16" id="lkW-qH-Ok2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uer-aX-N3o" secondAttribute="trailing" constant="16" id="lne-ma-i9p"/>
+                                    <constraint firstItem="Uer-aX-N3o" firstAttribute="centerY" secondItem="0Rq-LX-6tF" secondAttribute="centerY" id="mw0-47-1pD"/>
                                     <constraint firstItem="cwi-pJ-Drf" firstAttribute="centerY" secondItem="4e1-3B-Dgf" secondAttribute="centerY" id="oVu-5k-JZA"/>
+                                    <constraint firstItem="Uer-aX-N3o" firstAttribute="height" secondItem="sSd-0B-Kwx" secondAttribute="height" id="qBx-vB-EcV"/>
                                     <constraint firstItem="WiA-hN-OdY" firstAttribute="leading" secondItem="0Rq-LX-6tF" secondAttribute="leading" id="qKd-50-NUe"/>
                                     <constraint firstItem="4e1-3B-Dgf" firstAttribute="centerX" secondItem="0Rq-LX-6tF" secondAttribute="centerX" id="zVI-aX-6fl"/>
                                 </constraints>
@@ -749,6 +769,7 @@
         <image name="camera-button" width="500" height="500"/>
         <image name="empty-mic" width="500" height="500"/>
         <image name="gradient-background" width="1063" height="1891"/>
+        <image name="more-options-button" width="120" height="48"/>
         <namedColor name="speezy-purple">
             <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

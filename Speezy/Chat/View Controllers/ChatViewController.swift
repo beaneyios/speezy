@@ -24,6 +24,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var notificationLabel: UILabel!
     
+    
     weak var delegate: ChatViewControllerDelegate?
     
     private var activeAudioManager: AudioManager?
@@ -75,6 +76,32 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     
     func didTapRecord() {
         presentQuickRecordDialogue(item: viewModel.newItem)
+    }
+    
+    @IBAction func didTapOptions(_ sender: Any) {
+        let alert = UIAlertController(
+            title: "Chat options",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        
+        let leaveChat = UIAlertAction(
+            title: "Leave chat",
+            style: .destructive
+        ) { _ in
+            self.viewModel.leaveChat()
+        }
+        
+        let cancel = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
+        
+        alert.addAction(leaveChat)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func didTapBack(_ sender: Any) {
@@ -247,6 +274,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                             )
                         ]
                     )
+                case .leftChat:
+                    self.delegate?.chatViewControllerDidTapBack(self)
                 }
             }
         }
