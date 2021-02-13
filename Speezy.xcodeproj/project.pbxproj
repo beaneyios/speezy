@@ -31,7 +31,6 @@
 		BE0A45C525CEDA3B005F4DA8 /* MyRecordingsListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */; };
 		BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */; };
 		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
-		BE0A45D925CEDFC7005F4DA8 /* MyRecordingsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
@@ -151,7 +150,6 @@
 		BE939D3625D021E700042EB7 /* FavouriteRecordingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */; };
 		BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */; };
 		BE939D4225D0226E00042EB7 /* FavouriteRecordingsListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */; };
-		BE939D4625D0230800042EB7 /* FavouritesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */; };
 		BE939D5125D047CE00042EB7 /* Favouriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5025D047CE00042EB7 /* Favouriter.swift */; };
 		BE939D5925D0629D00042EB7 /* AudioPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5825D0629D00042EB7 /* AudioPlaybackViewController.swift */; };
 		BE939D5F25D06B4A00042EB7 /* AudioItemListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */; };
@@ -314,7 +312,6 @@
 		BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObservation.swift; sourceTree = "<group>"; };
 		BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
-		BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsFetcher.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
@@ -438,7 +435,6 @@
 		BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsStore.swift; sourceTree = "<group>"; };
 		BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRecordingsListObservation.swift; sourceTree = "<group>"; };
-		BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesFetcher.swift; sourceTree = "<group>"; };
 		BE939D5025D047CE00042EB7 /* Favouriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favouriter.swift; sourceTree = "<group>"; };
 		BE939D5825D0629D00042EB7 /* AudioPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackViewController.swift; sourceTree = "<group>"; };
 		BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListener.swift; sourceTree = "<group>"; };
@@ -600,8 +596,6 @@
 			children = (
 				BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */,
 				BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */,
-				BE939D4525D0230800042EB7 /* FavouritesFetcher.swift */,
-				BE0A45D825CEDFC7005F4DA8 /* MyRecordingsFetcher.swift */,
 			);
 			path = Fetching;
 			sourceTree = "<group>";
@@ -1903,7 +1897,6 @@
 				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
-				BE0A45D925CEDFC7005F4DA8 /* MyRecordingsFetcher.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
@@ -1965,7 +1958,6 @@
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
-				BE939D4625D0230800042EB7 /* FavouritesFetcher.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,

@@ -187,7 +187,7 @@ extension AudioItemListViewModel: MyRecordingsListObserver {
     }
     
     func pagedRecordingsReceived(newRecordings: [AudioItem], recordings: [AudioItem]) {
-        if newRecordings.count < MyRecordingsFetcher.pageSize {
+        if newRecordings.count < AudioItemsFetcher.pageSize {
             moreItems[Tab.myRecordings] = false
         }
         
@@ -213,7 +213,7 @@ extension AudioItemListViewModel: FavouriteRecordingsListObserver {
     }
     
     func pagedFavouritesReceived(newFavourites: [AudioItem], favourites: [AudioItem]) {
-        if newFavourites.count < FavouriteRecordingsFetcher.pageSize {
+        if newFavourites.count < AudioItemsFetcher.pageSize {
             moreItems[Tab.favourites] = false
         }
         

@@ -75,7 +75,7 @@ class Favouriter {
         
         audioUpdater.updateRecording(audioItem) { (result) in
             switch result {
-            case let .success(item):
+            case .success:
                 completion(.success(true))
             case let .failure(error):
                 completion(.failure(error))
