@@ -26,6 +26,8 @@ class NewContactViewModel {
     private var currentContact: Contact?
     
     private let debouncer = Debouncer(seconds: 1.5)
+    
+    private let profileFetcher = ProfileFetcher()
     private let profileManager = DatabaseProfileManager()
     private let contactManager = DatabaseContactManager()
     
@@ -39,7 +41,7 @@ class NewContactViewModel {
         }
         
         didChange?(.loading(true))
-        profileManager.fetchProfile(userId: id) { (result) in
+        profileFetcher.fetchProfile(userId: id) { (result) in
             switch result {
             case let .success(profile):
                 self.currentContact = Contact(
@@ -68,7 +70,7 @@ class NewContactViewModel {
         
         debouncer.debounce {
             self.didChange?(.loading(true))
-            self.profileManager.fetchProfile(userName: userName) { (result) in
+            self.profileFetcher.fetchProfile(username: userName) { (result) in
                 switch result {
                 case let .success((profile, userId)):
                     let contact = Contact(

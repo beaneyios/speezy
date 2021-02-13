@@ -16,4 +16,12 @@ extension URL {
             return nil
         }
     }
+    
+    init?(string: String?) {
+        if let urlString = string, let url = URL(string: urlString) {
+            self = url
+        } else {
+            return nil
+        }
+    }
 }

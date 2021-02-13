@@ -11,48 +11,12 @@ import Foundation
 import FirebaseDatabase
 import FirebaseStorage
 
+enum SpeezyResult<T, E> {
+    case success(T)
+    case failure(E)
+}
+
 class DatabaseProfileManager {
-    func fetchProfile(
-        userId: String,
-        completion: @escaping (Result<Profile, Error>) -> Void
-    ) {
-        let ref = Database.database().reference()
-        ref.child("users").child(userId).child("profile").observeSingleEvent(of: .value) { (snapshot) in
-            guard
-                let result = snapshot.value as? NSDictionary,
-                let profile = Profile(dict: result)
-            else {
-                assertionFailure("Something went wrong here")
-                return
-            }
-            
-            completion(.success(profile))
-        }
-    }
-    
-    func fetchProfile(
-        userName: String,
-        completion: @escaping (Result<(Profile, String), Error>) -> Void
-    ) {
-        let ref = Database.database().reference()
-        ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
-            guard let userId = snapshot.value as? String else {
-                let error = NSError(domain: "database", code: 404, userInfo: nil)
-                completion(.failure(error))
-                return
-            }
-            
-            self.fetchProfile(userId: userId) { (result) in
-                switch result {
-                case let .success(profile):
-                    completion(.success((profile, userId)))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-    
     func checkUsernameExists(
         userName: String,
         completion: @escaping (Result<Bool, Error>) -> Void
@@ -72,7 +36,7 @@ class DatabaseProfileManager {
         userId: String,
         profile: Profile,
         profileImage: UIImage?,
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         if let profileImage = profileImage {
             uploadImageAndCreateProfile(
@@ -94,7 +58,7 @@ class DatabaseProfileManager {
         userId: String,
         profile: Profile,
         profileImage: UIImage,
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         DispatchQueue.global().async {
             self.uploadUserImage(userId: userId, image: profileImage) { (result) in
@@ -118,7 +82,7 @@ class DatabaseProfileManager {
     private func createUserProfile(
         userId: String,
         profile: Profile,
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         let ref = Database.database().reference()
         
@@ -133,8 +97,12 @@ class DatabaseProfileManager {
             dataDictionary["profile_image"] = profileImageUrl.absoluteString
         }
         
-        let profileChild = ref.child("users").child(userId).child("profile")
-        profileChild.setValue(dataDictionary) { (error, _) in
+        let updatedData: [String: Any] = [
+            "users/\(userId)/profile": dataDictionary,
+            "usernames/\(profile.userName)": userId
+        ]
+        
+        ref.updateChildValues(updatedData) { (error, _) in
             if let error = error {
                 let error = FormError(
                     message: "Unable to set profile, please try again\nReason: \(error.localizedDescription)",
@@ -143,16 +111,7 @@ class DatabaseProfileManager {
                 
                 completion(.failure(error))
             } else {
-                // Make sure to update the usernames table so we can check if a user exists or not.
-                let usernamesChild = ref.child("usernames/\(profile.userName)")
-                usernamesChild.setValue(userId) { (error, ref) in
-                    if let error = error {
-                        let error = AuthErrorFactory.authError(for: error)
-                        completion(.failure(error))
-                    } else {
-                        completion(.success)
-                    }
-                }
+                completion(.success(profile))
             }
         }
     }

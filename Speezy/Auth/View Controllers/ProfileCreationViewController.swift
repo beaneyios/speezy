@@ -10,8 +10,13 @@ import UIKit
 import FirebaseAuth
 
 protocol ProfileCreationViewControllerDelegate: AnyObject {
-    func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController)
-    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController)
+    func profileCreationViewControllerDidCompleteSignup(
+        _ viewController: ProfileCreationViewController,
+        withUser user: User
+    )
+    func profileCreationViewControllerDidGoBack(
+        _ viewController: ProfileCreationViewController
+    )
 }
 
 class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
@@ -107,9 +112,12 @@ class ProfileCreationViewController: UIViewController, FormErrorDisplaying {
                 switch result {
                 case let .failure(error):
                     self.highlightErroredFields(error: error)
-                case .success:
+                case let .success(user):
                     self.completeSignupBtn?.stopLoading()
-                    self.delegate?.profileCreationViewControllerDidCompleteSignup(self)
+                    self.delegate?.profileCreationViewControllerDidCompleteSignup(
+                        self,
+                        withUser: user
+                    )
                 }
                 
                 self.completeSignupBtn?.stopLoading()

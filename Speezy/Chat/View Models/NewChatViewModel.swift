@@ -25,6 +25,7 @@ class NewChatViewModel {
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
     let profileManager = DatabaseProfileManager()
+    let profileFetcher = ProfileFetcher()
     
     var shouldShowEmptyView: Bool {
         items.isEmpty
@@ -118,7 +119,7 @@ class NewChatViewModel {
         userId: String,
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
-        profileManager.fetchProfile(userId: userId) { (result) in
+        profileFetcher.fetchProfile(userId: userId) { (result) in
             switch result {
             case let .success(profile):
                 let chatter = Chatter(

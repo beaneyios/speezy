@@ -8,10 +8,14 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class AppCoordinator: ViewCoordinator {
     let tabBarController: UITabBarController
     var awaitingChatId: String?
+    
+    let store = Store.shared
+    let tokenService = PushTokenSyncService()
     
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -56,16 +60,29 @@ class AppCoordinator: ViewCoordinator {
 }
 
 extension AppCoordinator: AuthCoordinatorDelegate {
-    func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator) {
+    func authCoordinatorDidCompleteLogin(
+        _ coordinator: AuthCoordinator,
+        withUser user: User
+    ) {
+        listenAndSync(user: user)
         navigateToHome()
     }
     
-    func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator) {
+    func authCoordinatorDidCompleteSignup(
+        _ coordinator: AuthCoordinator,
+        withUser user: User
+    ) {
+        listenAndSync(user: user)
         navigateToHome()
     }
     
     func authCoordinatorDidFinish(_ coordinator: AuthCoordinator) {
         remove(coordinator)
+    }
+    
+    private func listenAndSync(user: User) {
+        tokenService.syncPushToken(userId: user.uid)
+        store.startListeningForCoreChanges(userId: user.uid)
     }
 }
 

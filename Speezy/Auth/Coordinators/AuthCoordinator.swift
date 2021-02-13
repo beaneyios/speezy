@@ -11,9 +11,17 @@ import UIKit
 import FirebaseAuth
 
 protocol AuthCoordinatorDelegate: AnyObject {
-    func authCoordinatorDidCompleteSignup(_ coordinator: AuthCoordinator)
-    func authCoordinatorDidCompleteLogin(_ coordinator: AuthCoordinator)
-    func authCoordinatorDidFinish(_ coordinator: AuthCoordinator)
+    func authCoordinatorDidCompleteSignup(
+        _ coordinator: AuthCoordinator,
+        withUser user: User
+    )
+    func authCoordinatorDidCompleteLogin(
+        _ coordinator: AuthCoordinator,
+        withUser user: User
+    )
+    func authCoordinatorDidFinish(
+        _ coordinator: AuthCoordinator
+    )
 }
 
 class AuthCoordinator: ViewCoordinator {
@@ -80,9 +88,9 @@ extension AuthCoordinator: AuthLoadingViewControllerDelegate {
     
     func authLoadingViewController(
         _ viewController: AuthLoadingViewController,
-        signedInWithUser: User
+        signedInWithUser user: User
     ) {
-        delegate?.authCoordinatorDidCompleteLogin(self)
+        delegate?.authCoordinatorDidCompleteLogin(self, withUser: user)
     }
 }
 
@@ -98,8 +106,11 @@ extension AuthCoordinator: AuthViewControllerDelegate {
         navigateToProfileView(viewModel: viewModel)
     }
     
-    func authViewController(_ viewController: AuthViewController, didCompleteSignupWithUser user: User) {
-        delegate?.authCoordinatorDidCompleteSignup(self)
+    func authViewController(
+        _ viewController: AuthViewController,
+        didCompleteSignupWithUser user: User
+    ) {
+        delegate?.authCoordinatorDidCompleteSignup(self, withUser: user)
     }
     
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController) {
@@ -125,8 +136,11 @@ extension AuthCoordinator: LoginViewControllerDelegate {
         navigationController.popViewController(animated: true)
     }
     
-    func loginViewControllerDidLogIn(_ viewController: LoginViewController) {
-        delegate?.authCoordinatorDidCompleteLogin(self)
+    func loginViewControllerDidLogIn(
+        _ viewController: LoginViewController,
+        withUser user: User
+    ) {
+        delegate?.authCoordinatorDidCompleteLogin(self, withUser: user)
     }
     
     func loginViewControllerDidGoBack(_ viewController: LoginViewController) {
@@ -135,11 +149,16 @@ extension AuthCoordinator: LoginViewControllerDelegate {
 }
 
 extension AuthCoordinator: ProfileCreationViewControllerDelegate {
-    func profileCreationViewControllerDidGoBack(_ viewController: ProfileCreationViewController) {
+    func profileCreationViewControllerDidGoBack(
+        _ viewController: ProfileCreationViewController
+    ) {
         navigationController.popViewController(animated: true)
     }
     
-    func profileCreationViewControllerDidCompleteSignup(_ viewController: ProfileCreationViewController) {
-        delegate?.authCoordinatorDidCompleteSignup(self)
+    func profileCreationViewControllerDidCompleteSignup(
+        _ viewController: ProfileCreationViewController,
+        withUser user: User
+    ) {
+        delegate?.authCoordinatorDidCompleteSignup(self, withUser: user)
     }
 }

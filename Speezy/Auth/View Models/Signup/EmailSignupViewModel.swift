@@ -19,7 +19,7 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     
     let tokenSyncService = PushTokenSyncService()
     
-    func createProfile(completion: @escaping (AuthResult) -> Void) {
+    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
         guard !email.isEmpty && !password.isEmpty else {
             assertionFailure("These should have been validated earlier on")
             return
@@ -41,11 +41,13 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         }
     }
     
-    private func createUserInFirebase(completion: @escaping (AuthResult) -> Void) {
+    private func createUserInFirebase(
+        completion: @escaping (SpeezyResult<User, FormError?>) -> Void
+    ) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let user = result?.user {
                 self.createProfileInRealtimeDatabase(
-                    userId: user.uid,
+                    user: user,
                     completion: completion
                 )
             } else {
@@ -55,17 +57,18 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         }
     }
     
-    private func createProfileInRealtimeDatabase(userId: String, completion: @escaping (AuthResult) -> Void) {
+    private func createProfileInRealtimeDatabase(
+        user: User,
+        completion: @escaping (SpeezyResult<User, FormError?>) -> Void
+    ) {
         DatabaseProfileManager().updateUserProfile(
-            userId: userId,
+            userId: user.uid,
             profile: profile,
             profileImage: profileImageAttachment
         ) { (result) in
             switch result {
             case .success:
-                completion(.success)
-                Store.shared.startListeningForCoreChanges(userId: userId)
-                self.tokenSyncService.syncPushToken(userId: userId)
+                completion(.success(user))
             case let .failure(error):
                 completion(.failure(error))
             }

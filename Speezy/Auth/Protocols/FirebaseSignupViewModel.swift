@@ -13,7 +13,7 @@ import UIKit
 protocol FirebaseSignupViewModel: AnyObject {
     var profile: Profile { get set }
     var profileImageAttachment: UIImage? { get set }
-    func createProfile(completion: @escaping (AuthResult) -> Void)
+    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void)
     func profileValidationError() -> FormError?
 }
 

@@ -13,7 +13,7 @@ protocol AuthLoadingViewControllerDelegate: AnyObject {
     func authLoadingViewControllerNotSignedIn(_ viewController: AuthLoadingViewController)
     func authLoadingViewController(
         _ viewController: AuthLoadingViewController,
-        signedInWithUser: User
+        signedInWithUser user: User
     )
 }
 

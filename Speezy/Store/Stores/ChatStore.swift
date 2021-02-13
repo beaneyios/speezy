@@ -16,6 +16,7 @@ class ChatStore {
     private let serialQueue = DispatchQueue(label: "com.speezy.chatStoreActions")
     
     func clear() {
+        self.chatListener.stopListening()
         self.chats = []
         self.observations = [:]
     }

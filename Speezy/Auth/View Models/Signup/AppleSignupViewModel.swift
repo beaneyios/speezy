@@ -45,7 +45,7 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
         authorizationController.performRequests()
     }
     
-    func createProfile(completion: @escaping (AuthResult) -> Void) {
+    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
         guard let idTokenString = appleIdToken, let nonce = currentNonce else {
             return
         }
@@ -59,20 +59,27 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
         
         // Sign in with Firebase.
         Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let user = authResult?.user {
-                if let displayName = user.displayName {
-                    self.profile.name = displayName
-                }
-                
-                DatabaseProfileManager().updateUserProfile(
-                    userId: user.uid,
-                    profile: self.profile,
-                    profileImage: self.profileImageAttachment,
-                    completion: completion
-                )
-            } else {
+            guard let user = authResult?.user else {
                 let error = AuthErrorFactory.authError(for: error)
                 completion(.failure(error))
+                return
+            }
+            
+            if let displayName = user.displayName {
+                self.profile.name = displayName
+            }
+            
+            DatabaseProfileManager().updateUserProfile(
+                userId: user.uid,
+                profile: self.profile,
+                profileImage: self.profileImageAttachment
+            ) { (result) in
+                switch result {
+                case .success:
+                    completion(.success(user))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
             }
         }
     }

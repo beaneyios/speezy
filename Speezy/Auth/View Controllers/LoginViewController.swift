@@ -11,7 +11,8 @@ import FirebaseAuth
 
 protocol LoginViewControllerDelegate: AnyObject {
     func loginViewControllerDidLogIn(
-        _ viewController: LoginViewController
+        _ viewController: LoginViewController,
+        withUser user: User
     )
     func loginViewControllerDidGoBack(
         _ viewController: LoginViewController
@@ -70,8 +71,8 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
         viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success:
-                    self.delegate?.loginViewControllerDidLogIn(self)
+                case let .success(user):
+                    self.delegate?.loginViewControllerDidLogIn(self, withUser: user)
                 case let .failure(error):
                     self.presentError(error: error)
                 }
@@ -117,8 +118,8 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
         emailViewModel.login { (result) in
             DispatchQueue.main.async {
                 switch result {
-                case .success:
-                    self.delegate?.loginViewControllerDidLogIn(self)
+                case let .success(user):
+                    self.delegate?.loginViewControllerDidLogIn(self, withUser: user)
                 case let .failure(error):
                     self.highlightErroredFields(error: error)
                 }

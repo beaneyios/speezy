@@ -10,12 +10,15 @@ import Foundation
 
 class Store {
     static let shared = Store()
+    
     let chatStore = ChatStore()
     let contactStore = ContactStore()
     let myRecordingsStore = MyRecordingsStore()
     let favouritesStore = FavouriteRecordingsStore()
+    let profileStore = ProfileStore()
     
     func userDidLogOut() {
+        profileStore.clear()
         chatStore.clear()
         contactStore.clear()
     }
@@ -23,5 +26,6 @@ class Store {
     func startListeningForCoreChanges(userId: String) {
         chatStore.listenForChats(userId: userId)
         contactStore.listenForContacts(userId: userId)
+        profileStore.fetchProfile(userId: userId)
     }
 }

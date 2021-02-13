@@ -8,8 +8,6 @@
 
 import Foundation
 import FirebaseAuth
-import FBSDKLoginKit
-import FirebaseDatabase
 
 class AudioItemListViewModel: NewItemGenerating {
     

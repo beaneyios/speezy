@@ -91,6 +91,18 @@ class ChatsListener {
         queries[chatIdQueryKey] = query
     }
     
+    func stopListening() {
+        queries.keys.forEach {
+            let chatId = $0
+                .replacingOccurrences(of: "_changes", with: "")
+                .replacingOccurrences(of: "_additions", with: "")
+                .replacingOccurrences(of: "_deletions", with: "")
+            self.stopListeningForChatChanges(chatId: chatId)
+        }
+        
+        queries = [:]
+    }
+    
     private func stopListeningForChatChanges(chatId: String) {
         let chatIdQueryKey = "\(chatId)_changes"
         removeQueryListener(forId: chatIdQueryKey)

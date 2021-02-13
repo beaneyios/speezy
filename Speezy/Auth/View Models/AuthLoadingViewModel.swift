@@ -14,7 +14,6 @@ class AuthLoadingViewModel {
     private var tokenSyncService = PushTokenSyncService()
     
     func checkAuthStatus(completion: @escaping (User?) -> Void) {
-        
         var timerCompleted = false
         var authCompleted = false
         var storedUser: User?
@@ -32,11 +31,6 @@ class AuthLoadingViewModel {
         listener = Auth.auth().addStateDidChangeListener { (auth, user) in
             serialQueue.async {
                 authCompleted = true
-                
-                if let userId = user?.uid {
-                    Store.shared.startListeningForCoreChanges(userId: userId)
-                    self.tokenSyncService.syncPushToken(userId: userId)
-                }
                 
                 if timerCompleted {
                     completion(user)

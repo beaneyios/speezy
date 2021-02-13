@@ -161,6 +161,12 @@
 		BE9AD422256AF8A30034F921 /* CutterObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */; };
 		BE9AD428256AF9980034F921 /* CutNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD427256AF9980034F921 /* CutNotification.swift */; };
 		BEA32DFD25D475A700A9F643 /* ChatDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32DFC25D475A700A9F643 /* ChatDeleter.swift */; };
+		BEA32E1425D80EC400A9F643 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32E1325D80EC400A9F643 /* ProfileStore.swift */; };
+		BEA32E1825D80EFD00A9F643 /* ProfileListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32E1725D80EFC00A9F643 /* ProfileListener.swift */; };
+		BEA32E1D25D80F2D00A9F643 /* ProfileValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32E1C25D80F2D00A9F643 /* ProfileValue.swift */; };
+		BEA32E2525D814B100A9F643 /* ProfileObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32E2425D814B100A9F643 /* ProfileObserver.swift */; };
+		BEA32E2925D814D400A9F643 /* ProfileObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32E2825D814D400A9F643 /* ProfileObservation.swift */; };
+		BEA32E2D25D8431000A9F643 /* ProfileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA32E2C25D8431000A9F643 /* ProfileFetcher.swift */; };
 		BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8325178E490009ECCC /* test-transcribe.m4a */; };
 		BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */; };
 		BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D13525B0C623000888A7 /* ChatViewModel.swift */; };
@@ -446,6 +452,12 @@
 		BE9AD421256AF8A30034F921 /* CutterObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutterObservationManaging.swift; sourceTree = "<group>"; };
 		BE9AD427256AF9980034F921 /* CutNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutNotification.swift; sourceTree = "<group>"; };
 		BEA32DFC25D475A700A9F643 /* ChatDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDeleter.swift; sourceTree = "<group>"; };
+		BEA32E1325D80EC400A9F643 /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStore.swift; sourceTree = "<group>"; };
+		BEA32E1725D80EFC00A9F643 /* ProfileListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListener.swift; sourceTree = "<group>"; };
+		BEA32E1C25D80F2D00A9F643 /* ProfileValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValue.swift; sourceTree = "<group>"; };
+		BEA32E2425D814B100A9F643 /* ProfileObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileObserver.swift; sourceTree = "<group>"; };
+		BEA32E2825D814D400A9F643 /* ProfileObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileObservation.swift; sourceTree = "<group>"; };
+		BEA32E2C25D8431000A9F643 /* ProfileFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFetcher.swift; sourceTree = "<group>"; };
 		BEA5AE8325178E490009ECCC /* test-transcribe.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.m4a"; sourceTree = "<group>"; };
 		BEA5AE8525178E9B0009ECCC /* test-transcribe.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "test-transcribe.flac"; sourceTree = "<group>"; };
 		BEA9D13525B0C623000888A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
@@ -1023,6 +1035,14 @@
 			path = Deleting;
 			sourceTree = "<group>";
 		};
+		BEA32E1B25D80F1E00A9F643 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				BEA32E1C25D80F2D00A9F643 /* ProfileValue.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		BEA9D13425B0C615000888A7 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,6 +1241,7 @@
 		BEC825B4257D53010037F007 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				BEA32E1B25D80F1E00A9F643 /* Enums */,
 				BEDC1220259D161A00BB0064 /* Controllers */,
 				BE5429662593796B007EEAD1 /* Coordinators */,
 				BE5429722593AF2D007EEAD1 /* Extensions */,
@@ -1265,6 +1286,8 @@
 			children = (
 				BEDC1221259D1A1100BB0064 /* DatabaseProfileManager.swift */,
 				BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */,
+				BEA32E1725D80EFC00A9F643 /* ProfileListener.swift */,
+				BEA32E2C25D8431000A9F643 /* ProfileFetcher.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1591,6 +1614,7 @@
 				BE0A459825CEBE5E005F4DA8 /* ContactStore.swift */,
 				BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */,
 				BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */,
+				BEA32E1325D80EC400A9F643 /* ProfileStore.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -1602,6 +1626,7 @@
 				BE0A459C25CEBEB2005F4DA8 /* ContactListObserver.swift */,
 				BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */,
 				BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */,
+				BEA32E2425D814B100A9F643 /* ProfileObserver.swift */,
 			);
 			path = Observers;
 			sourceTree = "<group>";
@@ -1613,6 +1638,7 @@
 				BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */,
 				BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */,
 				BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */,
+				BEA32E2825D814D400A9F643 /* ProfileObservation.swift */,
 			);
 			path = Observations;
 			sourceTree = "<group>";
@@ -1916,6 +1942,7 @@
 				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
+				BEA32E2925D814D400A9F643 /* ProfileObservation.swift in Sources */,
 				BE939D6325D06BC500042EB7 /* AudioItemFetcher.swift in Sources */,
 				BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
@@ -1926,6 +1953,7 @@
 				BE54296325937745007EEAD1 /* ProfileCreationViewController.swift in Sources */,
 				BE939D3625D021E700042EB7 /* FavouriteRecordingsStore.swift in Sources */,
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
+				BEA32E2525D814B100A9F643 /* ProfileObserver.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
@@ -1949,6 +1977,7 @@
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
 				BEFF49C625C590DF00794A21 /* ChatListObservation.swift in Sources */,
+				BEA32E1425D80EC400A9F643 /* ProfileStore.swift in Sources */,
 				BE939D4225D0226E00042EB7 /* FavouriteRecordingsListObservation.swift in Sources */,
 				BEE47EF025BC415D00AF47FA /* ChatCellModel.swift in Sources */,
 				BEDC1222259D1A1100BB0064 /* DatabaseProfileManager.swift in Sources */,
@@ -2013,6 +2042,7 @@
 				BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */,
 				BEBFD4C024C5B9C700200D87 /* AppCoordinator.swift in Sources */,
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
+				BEA32E1825D80EFD00A9F643 /* ProfileListener.swift in Sources */,
 				BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */,
 				BEFDB542255FF8B000362428 /* CropNotification.swift in Sources */,
 				BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */,
@@ -2026,6 +2056,7 @@
 				BE5BDB9F25C3581A00F937C3 /* GroupFetcher.swift in Sources */,
 				BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */,
 				BEE47F0725BC558D00AF47FA /* ContactsCoordinator.swift in Sources */,
+				BEA32E2D25D8431000A9F643 /* ProfileFetcher.swift in Sources */,
 				BEE47F1425BC55C500AF47FA /* ContactCell.swift in Sources */,
 				BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
@@ -2055,6 +2086,7 @@
 				BE6FD94D25B6107200723732 /* Chatter.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
+				BEA32E1D25D80F2D00A9F643 /* ProfileValue.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BEA32DFD25D475A700A9F643 /* ChatDeleter.swift in Sources */,
 				BE5BDB9525C3551B00F937C3 /* GroupCreator.swift in Sources */,

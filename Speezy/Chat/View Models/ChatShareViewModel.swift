@@ -65,7 +65,7 @@ class ChatShareViewModel {
             return
         }
         
-        DatabaseProfileManager().fetchProfile(userId: userId) { (result) in
+        ProfileFetcher().fetchProfile(userId: userId) { (result) in
             switch result {
             case let .success(profile):
                 self.insertMessage(

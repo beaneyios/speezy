@@ -22,7 +22,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     
     func login(
         viewController: UIViewController,
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         let manager = LoginManager()
         manager.logIn(
@@ -44,11 +44,14 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
             }
                         
             self.facebookAccessToken = accessTokenString
-            self.extractUserDataForProfile(accessToken: accessTokenString, completion: completion)
+            self.extractUserDataForProfile(
+                accessToken: accessTokenString,
+                completion: completion
+            )
         }
     }
     
-    func createProfile(completion: @escaping (AuthResult) -> Void) {
+    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
         guard let accessToken = self.facebookAccessToken else {
             assertionFailure("No user ID found")
             return
@@ -61,7 +64,10 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                     let error = FormError(message: "Username already exists", field: .username)
                     completion(.failure(error))
                 } else {
-                    self.createUserInFirebase(token: accessToken, completion: completion)
+                    self.createUserInFirebase(
+                        token: accessToken,
+                        completion: completion
+                    )
                 }
             case let .failure(error):
                 let error = AuthErrorFactory.authError(for: error)
@@ -70,41 +76,43 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         }
     }
     
-    private func createUserInFirebase(token: String, completion: @escaping (AuthResult) -> Void) {
+    private func createUserInFirebase(
+        token: String,
+        completion: @escaping (SpeezyResult<User, FormError?>) -> Void
+    ) {
         let credential = FacebookAuthProvider.credential(
             withAccessToken: token
         )
         
         Auth.auth().signIn(with: credential) { (result, error) in
-            if let user = result?.user {
-                if let displayName = user.displayName {
-                    self.profile.name = displayName
-                }
-                
-                DatabaseProfileManager().updateUserProfile(
-                    userId: user.uid,
-                    profile: self.profile,
-                    profileImage: self.profileImageAttachment
-                ) { (result) in
-                    switch result {
-                    case .success:                        
-                        Store.shared.startListeningForCoreChanges(userId: user.uid)
-                        self.tokenSyncService.syncPushToken(userId: user.uid)
-                        completion(.success)
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                }
-            } else {
+            guard let user = result?.user else {
                 let formError = AuthErrorFactory.authError(for: error)
                 completion(.failure(formError))
+                return
+            }
+            
+            if let displayName = user.displayName {
+                self.profile.name = displayName
+            }
+            
+            DatabaseProfileManager().updateUserProfile(
+                userId: user.uid,
+                profile: self.profile,
+                profileImage: self.profileImageAttachment
+            ) { (result) in
+                switch result {
+                case .success:
+                    completion(.success(user))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
             }
         }
     }
     
     private func extractUserDataForProfile(
         accessToken: String,
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         let params = ["fields": "first_name, last_name, email, picture.width(1080).height(1080)"]
         GraphRequest(graphPath: "me", parameters: params).start { (connection, result, error) in
@@ -144,7 +152,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         dict: [String: Any],
         email: String,
         accessToken: String,
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         let credential = FacebookAuthProvider.credential(
             withAccessToken: accessToken
@@ -169,7 +177,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     
     private func attemptExtractImage(
         dict: [String: Any],
-        completion: @escaping (AuthResult) -> Void
+        completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
         if
             let pictureDict = dict["picture"] as? [String: Any],
@@ -179,15 +187,15 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data, let image = UIImage(data: data) else {
-                    completion(.success)
+                    completion(.success(self.profile))
                     return
                 }
                 
                 self.profileImageAttachment = image
-                completion(.success)
+                completion(.success(self.profile))
             }.resume()
         } else {
-            completion(.success)
+            completion(.success(self.profile))
         }
     }
 }

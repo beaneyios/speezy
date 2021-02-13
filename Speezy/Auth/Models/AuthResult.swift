@@ -10,6 +10,6 @@ import Foundation
 import FirebaseAuth
 
 enum AuthResult {
-    case success
+    case success(User)
     case failure(FormError?)
 }
