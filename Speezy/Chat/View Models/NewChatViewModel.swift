@@ -11,6 +11,7 @@ import FirebaseAuth
 
 class NewChatViewModel {
     enum Change {
+        case profileLoaded
         case loaded
         case chatCreated(Chat)
     }
@@ -27,6 +28,8 @@ class NewChatViewModel {
     let profileManager = DatabaseProfileManager()
     let profileFetcher = ProfileFetcher()
     
+    private var profile: Profile?
+    
     var shouldShowEmptyView: Bool {
         items.isEmpty
     }
@@ -36,11 +39,7 @@ class NewChatViewModel {
     }
     
     func listenForData() {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            assertionFailure("No user id")
-            return
-        }
-
+        store.profileStore.addProfileObserver(self)
         store.contactStore.addContactListObserver(self)
     }
     
@@ -119,21 +118,18 @@ class NewChatViewModel {
         userId: String,
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
-        profileFetcher.fetchProfile(userId: userId) { (result) in
-            switch result {
-            case let .success(profile):
-                let chatter = Chatter(
-                    id: userId,
-                    displayName: profile.name,
-                    profileImageUrl: profile.profileImageUrl,
-                    pushToken: profile.pushToken
-                )
-                
-                self.createChat(with: chatter, completion: completion)
-            case let .failure(error):
-                break
-            }
+        guard let profile = profile else {
+            return
         }
+
+        let chatter = Chatter(
+            id: userId,
+            displayName: profile.name,
+            profileImageUrl: profile.profileImageUrl,
+            pushToken: profile.pushToken
+        )
+        
+        createChat(with: chatter, completion: completion)
     }
     
     private func createChat(
@@ -187,4 +183,15 @@ extension NewChatViewModel: ContactListObserver {
     func contactAdded(contact: Contact, in contacts: [Contact]) {}
     func contactUpdated(contact: Contact, in contacts: [Contact]) {}
     func contactRemoved(contact: Contact, contacts: [Contact]) {}
+}
+
+extension NewChatViewModel: ProfileObserver {
+    func initialProfileReceived(profile: Profile) {
+        self.profile = profile
+        self.didChange?(.profileLoaded)
+    }
+    
+    func profileUpdated(profile: Profile) {
+        self.profile = profile
+    }
 }

@@ -46,6 +46,7 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
         
         titleTextField.delegate = self
         createSpinner.isHidden = true
+        createButton.isUserInteractionEnabled = false
         
         startListeningForKeyboardChanges()
     }
@@ -91,6 +92,8 @@ class NewChatViewController: UIViewController, FormErrorDisplaying {
                     self.collectionView.reloadData()
                 case let .chatCreated(chat):
                     self.delegate?.newChatViewController(self, didCreateChat: chat)
+                case .profileLoaded:
+                    self.createButton.isUserInteractionEnabled = true
                 }
             }
         }
