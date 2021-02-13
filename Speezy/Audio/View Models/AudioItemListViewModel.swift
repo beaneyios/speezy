@@ -126,13 +126,22 @@ class AudioItemListViewModel: NewItemGenerating {
     }
     
     func deleteItem(_ item: AudioItem) {
+        switch currentTab {
+        case .favourites:
+            Favouriter().unfavourite(item)
+        case .myRecordings:
+            self.deleteRecording(item)
+        }
+    }
+    
+    private func deleteRecording(_ item: AudioItem) {
         audioAttachmentManager.removeAttachment(forItem: item)
 
         RecordingSaver().deleteItem(item) { (result) in
             switch result {
             case .success:
-                self.audioItems = self.audioItems.removing(item)
-                self.didChange?(.itemsLoaded)
+                // Do nothing here, it needs to be handled by the listening delegates below.
+                break
             case let .failure(error):
                 // TODO: Handle error
                 assertionFailure("Deletion failed with error \(error.localizedDescription)")

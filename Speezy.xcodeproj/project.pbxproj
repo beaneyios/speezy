@@ -1022,6 +1022,13 @@
 			path = Updating;
 			sourceTree = "<group>";
 		};
+		BEA32E0025D8042E00A9F643 /* Deleting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Deleting;
+			sourceTree = "<group>";
+		};
 		BEA9D13425B0C615000888A7 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1127,6 +1134,7 @@
 		BEAACE8A24BA10400074E4B9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BEA32E0025D8042E00A9F643 /* Deleting */,
 				BE939D4925D045D300042EB7 /* Updating */,
 				BE0A45B025CED63E005F4DA8 /* Playing */,
 				BE0A45AF25CED622005F4DA8 /* Editing */,

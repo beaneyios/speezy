@@ -78,7 +78,7 @@ class AudioUpdater {
     
     func removeRecording(
         withId id: String,
-        completion: @escaping (DatabaseDeleteResult) -> Void
+        completion: ((DatabaseDeleteResult) -> Void)? = nil
     ) {
         guard
             let userId = Auth.auth().currentUser?.uid
@@ -93,9 +93,9 @@ class AudioUpdater {
 
         clipChild.removeValue { (error, newRef) in
             if let error = error {
-                completion(.failure(error))
+                completion?(.failure(error))
             } else {
-                completion(.success)
+                completion?(.success)
             }
         }
     }

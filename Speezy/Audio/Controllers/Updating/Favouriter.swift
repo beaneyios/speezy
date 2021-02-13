@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 class Favouriter {
     let audioUpdater = AudioUpdater(kind: .favourites)
@@ -24,6 +25,10 @@ class Favouriter {
         } else {
             favourite(message: message, completion: completion)
         }
+    }
+    
+    func unfavourite(_ item: AudioItem) {
+        audioUpdater.removeRecording(withId: item.id)
     }
     
     private func unfavourite(
