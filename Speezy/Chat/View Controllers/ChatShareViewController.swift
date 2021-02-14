@@ -34,6 +34,7 @@ class ChatShareViewController: UIViewController {
         listenForChanges()
         
         collectionView.alpha = 0.0
+        sendButton.isUserInteractionEnabled = false
     }
     
     @IBAction func sendSelectedChats(_ sender: Any) {
@@ -49,13 +50,15 @@ class ChatShareViewController: UIViewController {
             self.applyChange(change: change)
         }
 
-        viewModel.fetchChats()
+        viewModel.loadData()
     }
     
     private func applyChange(change: ChatShareViewModel.Change) {
         DispatchQueue.main.async {            
             switch change {
-            case .loaded:
+            case .loadedProfile:
+                self.sendButton.isUserInteractionEnabled = true
+            case .loadedChats:
                 self.toggleEmptyView()
                 self.collectionView.reloadData()
                 

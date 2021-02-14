@@ -28,36 +28,21 @@ class NewContactViewModel {
     private let debouncer = Debouncer(seconds: 1.5)
     
     private let profileFetcher = ProfileFetcher()
-    private let profileManager = DatabaseProfileManager()
     private let contactManager = DatabaseContactManager()
+    
+    private let store: Store
     
     var shouldShowEmptyView: Bool {
         !userName.isEmpty && items.isEmpty
     }
     
+    init(store: Store = Store.shared) {
+        self.store = store
+    }
+    
     func loadData() {
-        guard let id = Auth.auth().currentUser?.uid else {
-            return
-        }
-        
         didChange?(.loading(true))
-        profileFetcher.fetchProfile(userId: id) { (result) in
-            switch result {
-            case let .success(profile):
-                self.currentContact = Contact(
-                    userId: id,
-                    displayName: profile.name,
-                    userName: profile.userName,
-                    profilePhotoUrl: profile.profileImageUrl
-                )
-                
-                self.didChange?(.userLoaded)
-            case let .failure(error):
-                break
-            }
-            
-            self.didChange?(.loading(false))
-        }
+        store.profileStore.addProfileObserver(self)
     }
     
     func setUserName(userName: String) {
@@ -112,5 +97,28 @@ class NewContactViewModel {
                 break
             }
         }
+    }
+}
+
+extension NewContactViewModel: ProfileObserver {
+    func initialProfileReceived(profile: Profile) {
+        self.currentContact = Contact(
+            userId: profile.userId,
+            displayName: profile.name,
+            userName: profile.userName,
+            profilePhotoUrl: profile.profileImageUrl
+        )
+        
+        didChange?(.loading(false))
+        self.didChange?(.userLoaded)
+    }
+    
+    func profileUpdated(profile: Profile) {
+        self.currentContact = Contact(
+            userId: profile.userId,
+            displayName: profile.name,
+            userName: profile.userName,
+            profilePhotoUrl: profile.profileImageUrl
+        )
     }
 }

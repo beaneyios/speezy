@@ -16,10 +16,10 @@ class ProfileFetcher {
         completion: @escaping (Result<Profile, Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        ref.child("users").child(userId).child("profile").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child("users/\(userId)/profile").observeSingleEvent(of: .value) { (snapshot) in
             guard
                 let result = snapshot.value as? NSDictionary,
-                let profile = Profile(dict: result)
+                let profile = Profile(key: userId, dict: result)
             else {
                 assertionFailure("Something went wrong here")
                 return

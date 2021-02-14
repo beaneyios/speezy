@@ -12,7 +12,8 @@ import FirebaseAuth
 class ChatShareViewModel {
     enum Change: Equatable {
         case messageInserted
-        case loaded
+        case loadedChats
+        case loadedProfile
         case loading(Bool)
     }
     
@@ -29,6 +30,8 @@ class ChatShareViewModel {
     private let chatUpdater = ChatUpdater()
     private let chatPushManager = ChatPushManager()
     
+    private var profile: Profile?
+    
     var shouldShowEmptyView: Bool {
         items.isEmpty
     }
@@ -42,11 +45,8 @@ class ChatShareViewModel {
         self.audioItem = audioItem
     }
     
-    func fetchChats() {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
-        
+    func loadData() {
+        store.profileStore.addProfileObserver(self)
         store.chatStore.addChatListObserver(self)
     }
     
@@ -61,22 +61,18 @@ class ChatShareViewModel {
     func sendToSelectedChats() {
         didChange?(.loading(true))
         
-        guard let userId = userId else {
+        guard
+            let userId = userId,
+            let profile = self.profile
+        else {
             return
         }
         
-        ProfileFetcher().fetchProfile(userId: userId) { (result) in
-            switch result {
-            case let .success(profile):
-                self.insertMessage(
-                    userId: userId,
-                    item: self.audioItem,
-                    profile: profile
-                )
-            case let .failure(error):
-                break
-            }
-        }
+        insertMessage(
+            userId: userId,
+            item: self.audioItem,
+            profile: profile
+        )
     }
     
     private func insertMessage(userId: String, item: AudioItem, profile: Profile) {
@@ -147,7 +143,7 @@ class ChatShareViewModel {
             )
         }
 
-        self.didChange?(.loaded)
+        self.didChange?(.loadedChats)
         self.didChange?(.loading(false))
     }
 }
@@ -160,4 +156,16 @@ extension ChatShareViewModel: ChatListObserver {
     func chatAdded(chat: Chat, in chats: [Chat]) {}
     func chatUpdated(chat: Chat, in chats: [Chat]) {}
     func chatRemoved(chat: Chat, chats: [Chat]) {}
+}
+
+extension ChatShareViewModel: ProfileObserver {
+    func initialProfileReceived(profile: Profile) {
+        self.profile = profile
+        didChange?(.loading(false))
+        self.didChange?(.loadedProfile)
+    }
+    
+    func profileUpdated(profile: Profile) {
+        self.profile = profile
+    }
 }

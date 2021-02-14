@@ -9,6 +9,7 @@
 import Foundation
 
 struct Profile {
+    var userId: String = ""
     var name: String = ""
     var userName: String = ""
     var occupation: String = ""
@@ -18,7 +19,9 @@ struct Profile {
     
     init() {}
     
-    init?(dict: NSDictionary) {
+    init?(key: String, dict: NSDictionary) {
+        self.userId = key
+        
         guard
             let name = dict["name"] as? String,
             let username = dict["username"] as? String,
