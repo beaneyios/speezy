@@ -13,19 +13,14 @@ import MessageUI
 import DeviceKit
 
 protocol SettingsItemListViewControllerDelegate: AnyObject {
-    func settingsItemListViewController(_ viewController: SettingsItemListViewController, didSelectSettingsItem item: SettingsItem)
+    func settingsItemListViewController(_ viewController: SettingsViewController, didSelectSettingsItem item: SettingsItem)
 }
 
-class SettingsItemListViewController: UIViewController {
+class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
         
     weak var delegate: SettingsItemListViewControllerDelegate?
-    var settingsItems: [SettingsItem] = [
-        SettingsItem(icon: UIImage(named: "heart-icon"), title: "Acknowledgements", identifier: .acknowledgements),
-        SettingsItem(icon: UIImage(named: "tos-icon"), title: "Privacy Policy", identifier: .privacyPolicy),
-        SettingsItem(icon: UIImage(named: "feedback-icon"), title: "Feedback", identifier: .feedback),
-        SettingsItem(icon: UIImage(named: "account-btn"), title: "Log out", identifier: .logout)
-    ]
+    var settingsItems: [SettingsItem] = SettingsItem.allCases
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +50,7 @@ class SettingsItemListViewController: UIViewController {
     }
 }
 
-extension SettingsItemListViewController: UITableViewDelegate, UITableViewDataSource {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -75,16 +70,22 @@ extension SettingsItemListViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let settingsItem = settingsItems[indexPath.row]
         
-        if settingsItem.identifier == .feedback {
+        if settingsItem == .feedback {
             sendEmail()
             return
+        }
+        
+        if settingsItem == .shareApp {
+            let items: [Any] = ["Download Speezy", URL(string: "https://testflight.apple.com/join/dZggvy0n")!]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            present(ac, animated: true)
         }
         
         delegate?.settingsItemListViewController(self, didSelectSettingsItem: settingsItem)
     }
 }
 
-extension SettingsItemListViewController: MFMailComposeViewControllerDelegate {
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func sendEmail() {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()

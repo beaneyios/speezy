@@ -128,7 +128,7 @@
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
-		BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */; };
+		BE77766C24D6CB8A0009BE63 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766B24D6CB8A0009BE63 /* SettingsViewController.swift */; };
 		BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766D24D6CBEC0009BE63 /* SettingsCell.swift */; };
 		BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE77766E24D6CBEC0009BE63 /* SettingsCell.xib */; };
 		BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77767224D6CCD90009BE63 /* SettingsItem.swift */; };
@@ -415,7 +415,7 @@
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemListViewController.swift; sourceTree = "<group>"; };
+		BE77766B24D6CB8A0009BE63 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BE77766D24D6CBEC0009BE63 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		BE77766E24D6CBEC0009BE63 /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		BE77767224D6CCD90009BE63 /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
@@ -937,7 +937,7 @@
 		BE77766524D6CB570009BE63 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BE77766B24D6CB8A0009BE63 /* SettingsItemListViewController.swift */,
+				BE77766B24D6CB8A0009BE63 /* SettingsViewController.swift */,
 				BE77767824D6DA6E0009BE63 /* WebViewViewController.swift */,
 			);
 			path = "View Controllers";
@@ -2090,7 +2090,7 @@
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BEA32DFD25D475A700A9F643 /* ChatDeleter.swift in Sources */,
 				BE5BDB9525C3551B00F937C3 /* GroupCreator.swift in Sources */,
-				BE77766C24D6CB8A0009BE63 /* SettingsItemListViewController.swift in Sources */,
+				BE77766C24D6CB8A0009BE63 /* SettingsViewController.swift in Sources */,
 				BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */,
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,

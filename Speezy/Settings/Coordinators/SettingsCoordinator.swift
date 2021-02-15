@@ -27,7 +27,7 @@ class SettingsCoordinator: ViewCoordinator, NavigationControlling {
     }
     
     override func start() {
-        let listViewController = storyboard.instantiateViewController(identifier: "SettingsItemListViewController") as! SettingsItemListViewController
+        let listViewController = storyboard.instantiateViewController(identifier: "SettingsItemListViewController") as! SettingsViewController
         listViewController.title = "Settings"
         listViewController.delegate = self
         navigationController.pushViewController(listViewController, animated: true)
@@ -43,8 +43,8 @@ class SettingsCoordinator: ViewCoordinator, NavigationControlling {
 }
 
 extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
-    func settingsItemListViewController(_ viewController: SettingsItemListViewController, didSelectSettingsItem item: SettingsItem) {
-        switch item.identifier {
+    func settingsItemListViewController(_ viewController: SettingsViewController, didSelectSettingsItem item: SettingsItem) {
+        switch item {
         case .acknowledgements:
             navigateToAcknowledgements()
         case .privacyPolicy:
