@@ -84,9 +84,7 @@
 		BE5BDB7525C34DC400F937C3 /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB7425C34DC400F937C3 /* UserToken.swift */; };
 		BE5BDB7925C3530300F937C3 /* ChatsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB7825C3530300F937C3 /* ChatsListener.swift */; };
 		BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */; };
-		BE5BDB8525C354AD00F937C3 /* ChatUserUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8425C354AD00F937C3 /* ChatUserUpdater.swift */; };
 		BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */; };
-		BE5BDB9525C3551B00F937C3 /* GroupCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB9425C3551B00F937C3 /* GroupCreator.swift */; };
 		BE5BDB9F25C3581A00F937C3 /* GroupFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */; };
 		BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */; };
 		BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */; };
@@ -371,9 +369,7 @@
 		BE5BDB7425C34DC400F937C3 /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		BE5BDB7825C3530300F937C3 /* ChatsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListener.swift; sourceTree = "<group>"; };
 		BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUpdater.swift; sourceTree = "<group>"; };
-		BE5BDB8425C354AD00F937C3 /* ChatUserUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserUpdater.swift; sourceTree = "<group>"; };
 		BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCreator.swift; sourceTree = "<group>"; };
-		BE5BDB9425C3551B00F937C3 /* GroupCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCreator.swift; sourceTree = "<group>"; };
 		BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCreator.swift; sourceTree = "<group>"; };
@@ -772,7 +768,6 @@
 			isa = PBXGroup;
 			children = (
 				BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */,
-				BE5BDB9425C3551B00F937C3 /* GroupCreator.swift */,
 				BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */,
 			);
 			path = Creation;
@@ -794,7 +789,6 @@
 			isa = PBXGroup;
 			children = (
 				BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */,
-				BE5BDB8425C354AD00F937C3 /* ChatUserUpdater.swift */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -2025,7 +2019,6 @@
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
-				BE5BDB8525C354AD00F937C3 /* ChatUserUpdater.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEE47F3625BC5E5700AF47FA /* ContactParser.swift in Sources */,
@@ -2089,7 +2082,6 @@
 				BEA32E1D25D80F2D00A9F643 /* ProfileValue.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,
 				BEA32DFD25D475A700A9F643 /* ChatDeleter.swift in Sources */,
-				BE5BDB9525C3551B00F937C3 /* GroupCreator.swift in Sources */,
 				BE77766C24D6CB8A0009BE63 /* SettingsViewController.swift in Sources */,
 				BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */,
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,

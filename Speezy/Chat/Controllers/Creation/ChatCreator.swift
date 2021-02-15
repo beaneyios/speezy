@@ -20,34 +20,11 @@ class ChatCreator {
         DatabasePushTokenManager().fetchTokens(for: userIds) { (result) in
             switch result {
             case let .success(userTokens):
-                GroupCreator().createChatters(
+                self.createChat(
+                    tokens: userTokens,
+                    title: title,
                     currentChatter: currentChatter,
                     contacts: contacts,
-                    userTokens: userTokens,
-                    title: title
-                ) { (result) in
-                    switch result {
-                    case let .success(chat):
-                        self.createChat(chat: chat, completion: completion)
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                }
-            case let .failure(error):
-                break
-            }
-        }
-    }
-    
-    private func createChat(
-        chat: Chat,
-        completion: @escaping (Result<Chat, Error>) -> Void
-    ) {
-        insertChatIntoDatabase(chat: chat) { (result) in
-            switch result {
-            case let .success(chat):
-                ChatUserUpdater().updateUserChatLists(
-                    with: chat,
                     completion: completion
                 )
             case let .failure(error):
@@ -56,19 +33,59 @@ class ChatCreator {
         }
     }
     
-    private func insertChatIntoDatabase(
-        chat: Chat,
+    private func createChat(
+        tokens: [UserToken],
+        title: String,
+        currentChatter: Chatter,
+        contacts: [Contact],
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
+        var updatePaths: [AnyHashable: Any] = [:]
         let ref = Database.database().reference()
-        let groupChild = ref.child("chats/\(chat.id)")
-        groupChild.setValue(chat.toDict) { (error, ref) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
+        let groupChild = ref.child("chatters").childByAutoId()
+        
+        guard let key = groupChild.key else {
+            // TODO: Handle errors
+            assertionFailure("Key not available")
+            return
+        }
+        
+        let chatters = contacts.map { contact -> Chatter in
+            let userToken = tokens.compactMap { (userToken) -> String? in
+                userToken.userId == contact.userId ? userToken.token : nil
+            }.first
             
-            completion(.success(chat))
+            let chatter = Chatter(
+                id: contact.userId,
+                displayName: contact.displayName,
+                profileImageUrl: contact.profilePhotoUrl,
+                pushToken: userToken
+            )
+        
+            return chatter
+        }
+                
+        let newChat = Chat(
+            id: key,
+            chatters: chatters,
+            readBy: [currentChatter.id],
+            title: title,
+            lastUpdated: Date().timeIntervalSince1970,
+            lastMessage: "New chat started",
+            chatImageUrl: nil
+        )
+        
+        chatters.forEach { chatter in
+            updatePaths["chatters/\(key)/\(chatter.id)"] = chatter.toDict
+            updatePaths["users/\(chatter.id)/chats/\(key)"] = true
+        }
+        
+        updatePaths["chatters/\(key)/\(currentChatter.id)"] = currentChatter.toDict
+        updatePaths["users/\(currentChatter.id)/chats/\(key)"] = true
+        updatePaths["chats/\(key)"] = newChat.toDict
+        
+        ref.updateChildValues(updatePaths) { (error, newRef) in
+            completion(.success(newChat))
         }
     }
 }
