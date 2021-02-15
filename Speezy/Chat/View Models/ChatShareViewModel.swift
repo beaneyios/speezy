@@ -97,7 +97,6 @@ class ChatShareViewModel {
         
         messageCreator.insertMessage(
             chats: selectedChats,
-            item: item,
             message: message
         ) { (result) in
             switch result {

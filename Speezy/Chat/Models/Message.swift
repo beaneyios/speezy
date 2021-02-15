@@ -25,3 +25,34 @@ struct Message: Equatable, Identifiable {
         message ?? "New message from \(chatter.displayName)"
     }
 }
+
+extension Message {
+    var toDict: [String: Any] {
+        var messageDict: [String: Any] = [
+            "sent_date": sent.timeIntervalSince1970
+        ]
+        
+        if let messageText = message {
+            messageDict["message"] = messageText
+        }
+        
+        if let audioUrl = audioUrl {
+            messageDict["audio_url"] = audioUrl.absoluteString
+        }
+        
+        if let attachmentUrl = attachmentUrl {
+            messageDict["attachment_url"] = attachmentUrl
+        }
+        
+        if let audioId = audioId {
+            messageDict["audio_id"] = audioId
+        }
+        
+        if let duration = duration {
+            messageDict["duration"] = audioId
+        }
+        
+        messageDict["user_id"] = chatter.id
+        return messageDict
+    }
+}

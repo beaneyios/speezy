@@ -22,7 +22,7 @@ class DatabaseProfileManager {
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        ref.child("usernames").child(userName).observeSingleEvent(of: .value) { (snapshot) in
+        ref.child("usernames/\(userName)").observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.value != nil {
                 completion(.success(false))
                 return

@@ -306,7 +306,10 @@ extension ChatViewModel {
         )
         
         // First, insert the message.
-        messageCreator.insertMessage(chat: chat, item: item, message: message) { (result) in
+        messageCreator.insertMessage(
+            chats: [chat],
+            message: message
+        ) { (result) in
             switch result {
             case let .success(message):
                 let mostRecentMessage = message.formattedMessage
