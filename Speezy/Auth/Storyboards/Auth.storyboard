@@ -454,7 +454,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oR4-8t-dCC">
-                                <rect key="frame" x="0.0" y="181" width="414" height="604"/>
+                                <rect key="frame" x="0.0" y="165" width="414" height="620"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWe-2R-Z18">
@@ -472,7 +472,7 @@
                             <constraint firstItem="oR4-8t-dCC" firstAttribute="leading" secondItem="g4X-qk-n5T" secondAttribute="leading" id="3ak-6d-vuS"/>
                             <constraint firstItem="g4X-qk-n5T" firstAttribute="bottom" secondItem="POf-Im-vzJ" secondAttribute="bottom" constant="16" id="45o-TN-8cs"/>
                             <constraint firstItem="rWe-2R-Z18" firstAttribute="top" secondItem="BL7-PY-xNt" secondAttribute="bottom" constant="16" id="G8b-MI-1KI"/>
-                            <constraint firstItem="oR4-8t-dCC" firstAttribute="top" secondItem="rWe-2R-Z18" secondAttribute="bottom" constant="16" id="HDk-fL-DLx"/>
+                            <constraint firstItem="oR4-8t-dCC" firstAttribute="top" secondItem="rWe-2R-Z18" secondAttribute="bottom" id="HDk-fL-DLx"/>
                             <constraint firstItem="g4X-qk-n5T" firstAttribute="trailing" secondItem="rWe-2R-Z18" secondAttribute="trailing" constant="24" id="ZAv-m5-gi8"/>
                             <constraint firstItem="g4X-qk-n5T" firstAttribute="trailing" secondItem="oR4-8t-dCC" secondAttribute="trailing" id="ekA-SU-vB0"/>
                             <constraint firstItem="rWe-2R-Z18" firstAttribute="leading" secondItem="g4X-qk-n5T" secondAttribute="leading" constant="24" id="f6H-BV-CqQ"/>
