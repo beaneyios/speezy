@@ -226,7 +226,7 @@ extension NewChatViewController {
 
 extension NewChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func configureProfileImage() {
-        groupImageButton.startLoading(color: .lightGray)
+        groupImageButton.startLoading(color: .lightGray, style: .medium)
         groupImageButton.imageView?.contentMode = .scaleAspectFill
         
         let imageApplication: (UIImage?) -> Void = { image in
@@ -264,7 +264,7 @@ extension NewChatViewController: UIImagePickerControllerDelegate, UINavigationCo
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
             imagePickerController.sourceType = sourceType
-            groupImageButton.startLoading(color: .lightGray)
+            groupImageButton.startLoading(color: .lightGray, style: .medium)
             self.present(imagePickerController, animated: true, completion: nil)
         }
     }
