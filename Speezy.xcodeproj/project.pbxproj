@@ -235,6 +235,11 @@
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
 		BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A1025A3A84F0045ABFF /* Data+Size.swift */; };
+		BEF3B23525DC4DD40002C09E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B23425DC4DD40002C09E /* Profile.storyboard */; };
+		BEF3B23A25DC4E330002C09E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B23925DC4E330002C09E /* ProfileViewController.swift */; };
+		BEF3B23E25DC57100002C09E /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B23D25DC57100002C09E /* ProfileEditViewController.swift */; };
+		BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B24225DC5A810002C09E /* ProfileEditViewModel.swift */; };
+		BEF3B24925DC5AEF0002C09E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B24825DC5AEF0002C09E /* ProfileCoordinator.swift */; };
 		BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */; };
 		BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */ = {isa = PBXBuildFile; fileRef = BEF3B7162546081B009308A4 /* supertrimmed.flac */; };
 		BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */; };
@@ -524,6 +529,11 @@
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
 		BEF28A1025A3A84F0045ABFF /* Data+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Size.swift"; sourceTree = "<group>"; };
+		BEF3B23425DC4DD40002C09E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		BEF3B23925DC4E330002C09E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		BEF3B23D25DC57100002C09E /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		BEF3B24225DC5A810002C09E /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
+		BEF3B24825DC5AEF0002C09E /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		BEF3B7122545DC8A009308A4 /* TranscriptionJobManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionJobManager.swift; sourceTree = "<group>"; };
 		BEF3B7162546081B009308A4 /* supertrimmed.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = supertrimmed.flac; sourceTree = "<group>"; };
 		BEF3B71A25476C88009308A4 /* TranscribeActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribeActionViewController.swift; sourceTree = "<group>"; };
@@ -987,6 +997,7 @@
 				BEA9D1DF25B46951000888A7 /* Cloud */,
 				BEE47F0125BC557600AF47FA /* Contacts */,
 				BE2A0CA825C09E8E000B8A4C /* Push */,
+				BEF3B23325DC4DC30002C09E /* Profile */,
 				BE3C5DDB25BD8B70005E34BB /* Search */,
 				BE77766224D6CB440009BE63 /* Settings */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
@@ -1278,10 +1289,7 @@
 		BEDC1220259D161A00BB0064 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BEDC1221259D1A1100BB0064 /* DatabaseProfileManager.swift */,
 				BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */,
-				BEA32E1725D80EFC00A9F643 /* ProfileListener.swift */,
-				BEA32E2C25D8431000A9F643 /* ProfileFetcher.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1473,6 +1481,45 @@
 				BE0A459025CD7129005F4DA8 /* UINavigationController+Completion.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		BEF3B23325DC4DC30002C09E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				BEF3B24C25DC5F070002C09E /* Controllers */,
+				BEF3B24125DC5A680002C09E /* View Models */,
+				BEF3B23825DC4E230002C09E /* View Controllers */,
+				BEF3B23425DC4DD40002C09E /* Profile.storyboard */,
+				BEF3B24825DC5AEF0002C09E /* ProfileCoordinator.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		BEF3B23825DC4E230002C09E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEF3B23925DC4E330002C09E /* ProfileViewController.swift */,
+				BEF3B23D25DC57100002C09E /* ProfileEditViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BEF3B24125DC5A680002C09E /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEF3B24225DC5A810002C09E /* ProfileEditViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		BEF3B24C25DC5F070002C09E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEDC1221259D1A1100BB0064 /* DatabaseProfileManager.swift */,
+				BEA32E1725D80EFC00A9F643 /* ProfileListener.swift */,
+				BEA32E2C25D8431000A9F643 /* ProfileFetcher.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		BEF3B71E25481896009308A4 /* Legacy */ = {
@@ -1774,6 +1821,7 @@
 				BE6080BA250E90A0003CB318 /* transcription-test-file-trimmed.m4a in Resources */,
 				BE6080B1250E86A3003CB318 /* WordCell.xib in Resources */,
 				BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */,
+				BEF3B23525DC4DD40002C09E /* Profile.storyboard in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
 				BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */,
 			);
@@ -1885,6 +1933,7 @@
 				BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */,
 				BE5BDB7525C34DC400F937C3 /* UserToken.swift in Sources */,
 				BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */,
+				BEF3B24925DC5AEF0002C09E /* ProfileCoordinator.swift in Sources */,
 				BEFDB53E255FF8A900362428 /* PlaybackNotification.swift in Sources */,
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
@@ -1917,6 +1966,7 @@
 				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
+				BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
@@ -1952,6 +2002,8 @@
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,
+				BEF3B23A25DC4E330002C09E /* ProfileViewController.swift in Sources */,
+				BEF3B23E25DC57100002C09E /* ProfileEditViewController.swift in Sources */,
 				BE5BDB7925C3530300F937C3 /* ChatsListener.swift in Sources */,
 				BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */,
 				BEA9D1CA25B45D2F000888A7 /* CloudImageManager.swift in Sources */,

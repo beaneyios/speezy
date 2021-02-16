@@ -12,12 +12,10 @@ import FBSDKLoginKit
 import FirebaseAuth
 
 class FacebookSignupViewModel: FirebaseSignupViewModel {
-    var profile: Profile = Profile()
+    var profile: Profile? = Profile()
     
     private var facebookAccessToken: String?
-    
     var profileImageAttachment: UIImage?
-    
     let tokenSyncService = PushTokenSyncService()
     
     func login(
@@ -52,7 +50,10 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
     }
     
     func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
-        guard let accessToken = self.facebookAccessToken else {
+        guard
+            let accessToken = self.facebookAccessToken,
+            let profile = self.profile
+        else {
             assertionFailure("No user ID found")
             return
         }
@@ -92,12 +93,16 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
             }
             
             if let displayName = user.displayName {
-                self.profile.name = displayName
+                self.profile?.name = displayName
+            }
+            
+            guard let profile = self.profile else {
+                return
             }
             
             DatabaseProfileManager().updateUserProfile(
                 userId: user.uid,
-                profile: self.profile,
+                profile: profile,
                 profileImage: self.profileImageAttachment
             ) { (result) in
                 switch result {
@@ -126,7 +131,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
                 let firstName = dict["first_name"] as? String,
                 let lastName = dict["last_name"] as? String
             {
-                self.profile.name = "\(firstName) \(lastName)"
+                self.profile?.name = "\(firstName) \(lastName)"
             }
             
             // If there's an email, we should check it isn't
@@ -179,6 +184,9 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         dict: [String: Any],
         completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
     ) {
+        guard let profile = self.profile else {
+            return
+        }
         if
             let pictureDict = dict["picture"] as? [String: Any],
             let dataDict = pictureDict["data"] as? [String: Any],
@@ -187,15 +195,15 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data, let image = UIImage(data: data) else {
-                    completion(.success(self.profile))
+                    completion(.success(profile))
                     return
                 }
                 
                 self.profileImageAttachment = image
-                completion(.success(self.profile))
+                completion(.success(profile))
             }.resume()
         } else {
-            completion(.success(self.profile))
+            completion(.success(profile))
         }
     }
 }

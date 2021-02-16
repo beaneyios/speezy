@@ -19,7 +19,7 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
     
     weak var anchor: UIWindow!
     
-    var profile: Profile = Profile()
+    var profile: Profile? = Profile()
     var didChange: ((Change) -> Void)?
     
     private var currentNonce: String?
@@ -66,12 +66,16 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
             }
             
             if let displayName = user.displayName {
-                self.profile.name = displayName
+                self.profile?.name = displayName
+            }
+            
+            guard let profile = self.profile else {
+                return
             }
             
             DatabaseProfileManager().updateUserProfile(
                 userId: user.uid,
-                profile: self.profile,
+                profile: profile,
                 profileImage: self.profileImageAttachment
             ) { (result) in
                 switch result {
@@ -107,7 +111,7 @@ extension AppleSignupViewModel: ASAuthorizationControllerDelegate {
             return
         }
         
-        self.profile.name = {
+        self.profile?.name = {
             if let name = appleIDCredential.fullName {
                 if let firstName = name.givenName, let surname = name.familyName {
                     return "\(firstName) \(surname)"

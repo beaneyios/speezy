@@ -13,14 +13,17 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
     var email: String = ""
     var password: String = ""
     var verifyPassword: String = ""    
-    var profile: Profile = Profile()
+    var profile: Profile? = Profile()
     
     var profileImageAttachment: UIImage?
     
     let tokenSyncService = PushTokenSyncService()
     
     func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
-        guard !email.isEmpty && !password.isEmpty else {
+        guard
+            let profile = self.profile,
+            !email.isEmpty && !password.isEmpty
+        else {
             assertionFailure("These should have been validated earlier on")
             return
         }
@@ -61,6 +64,10 @@ class EmailSignupViewModel: FirebaseSignupViewModel {
         user: User,
         completion: @escaping (SpeezyResult<User, FormError?>) -> Void
     ) {
+        guard let profile = self.profile else {
+            return
+        }
+        
         DatabaseProfileManager().updateUserProfile(
             userId: user.uid,
             profile: profile,

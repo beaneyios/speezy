@@ -34,7 +34,7 @@ class HomeCoordinator: ViewCoordinator {
         addChatCoordinator(awaitingChatId: chatId)
         addAudioListCoordinator()
         addQuickRecord()
-        addContactsCoordinator()
+        addProfileCoordinator()
         addSettingsCoordinator()
         
         tabBarController.delegate = self
@@ -89,10 +89,10 @@ class HomeCoordinator: ViewCoordinator {
         tabBarController.viewControllers?.append(dummyController)
     }
     
-    private func addContactsCoordinator() {
+    private func addProfileCoordinator() {
         let navigationController = UINavigationController()
         navigationController.setNavigationBarHidden(true, animated: false)
-        let coordinator = ContactsCoordinator(navigationController: navigationController)
+        let coordinator = ProfileCoordinator(navigationController: navigationController)
         coordinator.delegate = self
         add(coordinator)
         coordinator.start()
@@ -183,8 +183,8 @@ extension HomeCoordinator: ChatCoordinatorDelegate {
     }
 }
 
-extension HomeCoordinator: ContactsCoordinatorDelegate {
-    func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
+extension HomeCoordinator: ProfileCoordinatorDelegate {
+    func profileCoordinatorDidFinish(_ coordinator: ProfileCoordinator) {
         remove(coordinator)
     }
 }
