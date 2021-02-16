@@ -270,17 +270,8 @@ extension ChatViewModel {
             return
         }
         
-        let newChat = chat.withReadBy(userId: userId)
-        
-        ChatUpdater().updateChat(chat: newChat) { (result) in
-            switch result {
-            case let .success(newChat):
-                self.chat = newChat
-            case let .failure(error):
-                // TODO: Handle error.
-                break
-            }
-        }
+        self.chat = chat.withReadBy(userId: userId)
+        ChatUpdater().updateChat(chatValue: .readBy(userId), chatId: chat.id)
     }
     
     private func updateDatabaseRecords(item: AudioItem) {
@@ -312,30 +303,17 @@ extension ChatViewModel {
         ) { (result) in
             switch result {
             case let .success(message):
-                let mostRecentMessage = message.formattedMessage
-                let newChat = self.chat.withLastMessage(mostRecentMessage)
+                self.chat = self.chat.withLastMessage(message.formattedMessage)
                     .withLastUpdated(Date().timeIntervalSince1970)
                     .withReadBy(readBy: [id])
+                        
+                self.didChange?(.finishedRecording)
                 
-                // Second, update chat metadata
-                ChatUpdater().updateChat(chat: newChat) { (result) in
-                    switch result {
-                    case let .success(newChat):
-                        self.chat = newChat
-                        
-                        self.didChange?(.finishedRecording)
-                        
-                        // Third, send a push notification to relevant users.
-                        self.chatPushManager.sendNotification(
-                            message: mostRecentMessage,
-                            chat: newChat,
-                            from: chatter
-                        )
-                    case let .failure(error):
-                        // TODO: Handle error.
-                        break
-                    }
-                }
+                self.chatPushManager.sendNotification(
+                    message: message.formattedMessage,
+                    chat: self.chat,
+                    from: chatter
+                )
             case let .failure(error):
                 break
             }

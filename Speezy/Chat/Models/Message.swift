@@ -49,7 +49,7 @@ extension Message {
         }
         
         if let duration = duration {
-            messageDict["duration"] = audioId
+            messageDict["duration"] = duration
         }
         
         messageDict["user_id"] = chatter.id

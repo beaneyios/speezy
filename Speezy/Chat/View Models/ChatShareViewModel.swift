@@ -101,34 +101,15 @@ class ChatShareViewModel {
         ) { (result) in
             switch result {
             case let .success(message):
-                self.updateChats(chatter: chatter, message: message)
+                self.didChange?(.messageInserted)
+                self.chatPushManager.sendNotification(
+                    message: message.formattedMessage,
+                    chats: self.chats,
+                    from: chatter
+                )
             case let .failure(error):
                 break
             }
-        }
-    }
-    
-    private func updateChats(chatter: Chatter, message: Message) {
-        let updatedChats = self.selectedChats.map {
-            $0.withLastUpdated(Date().timeIntervalSince1970)
-                .withLastMessage(message.formattedMessage)
-                .withReadBy(readBy: [chatter.id])
-        }
-        
-        self.chatUpdater.updateChats(chats: updatedChats) { (result) in
-            switch result {
-            case let .success(chats):
-                let mostRecentMessage = message.formattedMessage
-                self.didChange?(.messageInserted)
-                self.chatPushManager.sendNotification(
-                    message: mostRecentMessage,
-                    chats: chats,
-                    from: chatter
-                )
-            case .failure:
-                break
-            }
-            
         }
     }
     

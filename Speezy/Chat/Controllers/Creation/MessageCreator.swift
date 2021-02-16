@@ -21,11 +21,15 @@ class MessageCreator {
         
         chats.forEach {
             let chatChild = ref.child("messages/\($0.id)")
-            let newMessageChild = chatChild.childByAutoId()
-            
-            if let key = newMessageChild.key {
-                updatePaths["messages/\($0.id)/\(key)"] = messageDict
+            guard let newKey = chatChild.childByAutoId().key else {
+                return
             }
+            
+            let newMessagePath = "messages/\($0.id)/\(newKey)"
+            updatePaths[newMessagePath] = messageDict
+            updatePaths["chats/\($0.id)/last_updated"] = Date().timeIntervalSince1970
+            updatePaths["chats/\($0.id)/read_by"] = message.chatter.id
+            updatePaths["chats/\($0.id)/last_message"] = message.formattedMessage
         }
         
         ref.updateChildValues(updatePaths) { (error, newRef) in

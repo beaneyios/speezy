@@ -25,8 +25,6 @@ class NewChatViewModel {
     
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
-    let profileManager = DatabaseProfileManager()
-    let profileFetcher = ProfileFetcher()
     
     private var profile: Profile?
     
@@ -60,22 +58,38 @@ class NewChatViewModel {
     }
     
     func createChat() {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            assertionFailure("No user id")
+        guard
+            let profile = profile,
+            let title = self.title,
+            let newChatId = ChatCreator().newChatId()
+        else {
+            assertionFailure("No chat id")
             return
         }
         
-        createChatInDatabase(userId: userId) { (result) in
-            switch result {
-            case let .success(chat):
-                if let attachment = self.attachedImage {
-                    self.uploadImageAndUpdate(image: attachment, chat: chat)
-                } else {
-                    self.didChange?(.chatCreated(chat))
-                }
-            case let .failure(error):
-                break
-            }
+        let currentChatter = Chatter(
+            id: profile.userId,
+            displayName: profile.name,
+            profileImageUrl: profile.profileImageUrl,
+            pushToken: profile.pushToken
+        )
+        
+        if let attachment = self.attachedImage {
+            self.uploadImageAndCreateChat(
+                chatId: newChatId,
+                title: title,
+                currentChatter: currentChatter,
+                contacts: selectedContacts,
+                image: attachment
+            )
+        } else {
+            self.createChat(
+                chatId: newChatId,
+                title: title,
+                attachmentUrl: nil,
+                chatter: currentChatter,
+                contacts: selectedContacts
+            )
         }
     }
     
@@ -87,69 +101,55 @@ class NewChatViewModel {
         self.didChange?(.loaded)
     }
     
-    private func uploadImageAndUpdate(image: UIImage, chat: Chat) {
+    private func uploadImageAndCreateChat(
+        chatId: String,
+        title: String,
+        currentChatter: Chatter,
+        contacts: [Contact],
+        image: UIImage
+    ) {
         CloudImageManager.uploadImage(
             image,
-            path: "chats/\(chat.id).jpg")
+            path: "chats/\(chatId).jpg")
         { (result) in
             switch result {
             case let .success(url):
-                let newChat = chat.withChatImageUrl(url)
-                self.updateChatInDatabase(chat: newChat)
+                self.createChat(
+                    chatId: chatId,
+                    title: title,
+                    attachmentUrl: url,
+                    chatter: currentChatter,
+                    contacts: contacts
+                )
             case let .failure(error):
-                self.didChange?(.chatCreated(chat))
-            }
-        }
-    }
-    
-    private func updateChatInDatabase(chat: Chat) {
-        ChatUpdater().updateChat(chat: chat) { (result) in
-            switch result {
-            case let .success(chat):
-                self.didChange?(.chatCreated(chat))
-            case let .failure(error):
-                // TODO: Handle error
                 break
             }
         }
     }
     
-    private func createChatInDatabase(
-        userId: String,
-        completion: @escaping (Result<Chat, Error>) -> Void
-    ) {
-        guard let profile = profile else {
-            return
-        }
-
-        let chatter = Chatter(
-            id: userId,
-            displayName: profile.name,
-            profileImageUrl: profile.profileImageUrl,
-            pushToken: profile.pushToken
-        )
-        
-        createChat(with: chatter, completion: completion)
-    }
-    
     private func createChat(
-        with chatter: Chatter,
-        completion: @escaping (Result<Chat, Error>) -> Void
+        chatId: String,
+        title: String,
+        attachmentUrl: URL?,
+        chatter: Chatter,
+        contacts: [Contact]
     ) {
         guard let title = self.title else {
             return
         }
         
         ChatCreator().createChat(
+            chatId: chatId,
             title: title,
+            attachmentUrl: attachmentUrl,
             currentChatter: chatter,
-            contacts: selectedContacts
+            contacts: contacts
         ) { (result) in
             switch result {
             case let .success(chat):
-                completion(.success(chat))
+                self.didChange?(.chatCreated(chat))
             case let .failure(error):
-                completion(.failure(error))
+                break
             }
         }
     }

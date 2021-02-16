@@ -20,16 +20,43 @@ enum ChatValue {
     case readBy(String)
     
     init?(key: String, value: Any) {
-        if key == "last_updated", let lastUpdated = value as? TimeInterval {
-            self = .lastUpdated(lastUpdated)
-        } else if key == "last_message", let lastMessage = value as? String {
-            self = .lastMessage(lastMessage)
-        } else if key == "title", let title = value as? String {
-            self = .title(title)
-        } else if key == "read_by", let readBy = value as? String {
-            self = .readBy(readBy)
-        } else {
+        switch (key, value) {
+        case ("last_updated", let value as TimeInterval):
+            self = .lastUpdated(value)
+        case ("last_message", let value as String):
+            self = .lastMessage(value)
+        case ("title", let value as String):
+            self = .title(value)
+        case ("read_by", let value as String):
+            self = .readBy(value)
+        default:
             return nil
+        }
+    }
+    
+    var key: String {
+        switch self {
+        case .lastMessage:
+            return "last_message"
+        case .lastUpdated:
+            return "last_updated"
+        case .title:
+            return "title"
+        case .readBy:
+            return "read_by"
+        }
+    }
+    
+    var value: Any {
+        switch self {
+        case let .lastMessage(message):
+            return message
+        case let .lastUpdated(timeInterval):
+            return timeInterval
+        case let .title(title):
+            return title
+        case let .readBy(readBy):
+            return readBy
         }
     }
 }

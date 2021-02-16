@@ -10,8 +10,15 @@ import Foundation
 import FirebaseDatabase
 
 class ChatCreator {
+    func newChatId() -> String? {
+        let ref = Database.database().reference()
+        return ref.child("chatters").childByAutoId().key
+    }
+    
     func createChat(
+        chatId: String,
         title: String,
+        attachmentUrl: URL?,
         currentChatter: Chatter,
         contacts: [Contact],
         completion: @escaping (Result<Chat, Error>) -> Void
@@ -21,10 +28,12 @@ class ChatCreator {
             switch result {
             case let .success(userTokens):
                 self.createChat(
+                    chatId: chatId,
                     tokens: userTokens,
                     title: title,
                     currentChatter: currentChatter,
                     contacts: contacts,
+                    attachmentUrl: attachmentUrl,
                     completion: completion
                 )
             case let .failure(error):
@@ -34,21 +43,17 @@ class ChatCreator {
     }
     
     private func createChat(
+        chatId: String,
         tokens: [UserToken],
         title: String,
         currentChatter: Chatter,
         contacts: [Contact],
+        attachmentUrl: URL?,
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
         var updatePaths: [AnyHashable: Any] = [:]
         let ref = Database.database().reference()
-        let groupChild = ref.child("chatters").childByAutoId()
-        
-        guard let key = groupChild.key else {
-            // TODO: Handle errors
-            assertionFailure("Key not available")
-            return
-        }
+        let groupChild = ref.child("chatters/\(chatId)")
         
         let chatters = contacts.map { contact -> Chatter in
             let userToken = tokens.compactMap { (userToken) -> String? in
@@ -66,23 +71,23 @@ class ChatCreator {
         }
                 
         let newChat = Chat(
-            id: key,
+            id: chatId,
             chatters: chatters,
             readBy: [currentChatter.id],
             title: title,
             lastUpdated: Date().timeIntervalSince1970,
             lastMessage: "New chat started",
-            chatImageUrl: nil
+            chatImageUrl: attachmentUrl
         )
         
         chatters.forEach { chatter in
-            updatePaths["chatters/\(key)/\(chatter.id)"] = chatter.toDict
-            updatePaths["users/\(chatter.id)/chats/\(key)"] = true
+            updatePaths["chatters/\(chatId)/\(chatter.id)"] = chatter.toDict
+            updatePaths["users/\(chatter.id)/chats/\(chatId)"] = true
         }
         
-        updatePaths["chatters/\(key)/\(currentChatter.id)"] = currentChatter.toDict
-        updatePaths["users/\(currentChatter.id)/chats/\(key)"] = true
-        updatePaths["chats/\(key)"] = newChat.toDict
+        updatePaths["chatters/\(chatId)/\(currentChatter.id)"] = currentChatter.toDict
+        updatePaths["users/\(currentChatter.id)/chats/\(chatId)"] = true
+        updatePaths["chats/\(chatId)"] = newChat.toDict
         
         ref.updateChildValues(updatePaths) { (error, newRef) in
             completion(.success(newChat))
