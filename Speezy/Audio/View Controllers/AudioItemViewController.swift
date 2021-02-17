@@ -286,7 +286,7 @@ extension AudioItemViewController {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "SAVE", backgroundImage: nil) {
+        button.configure(title: "SAVE", color: .clear) {
             self.didTapDraft()
         }
         

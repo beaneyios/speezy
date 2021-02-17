@@ -28,13 +28,17 @@ class ChatsListener {
         let ref = Database.database().reference()
         let chatsChild = ref.child("users/\(userId)/chats")
         let query = chatsChild.queryOrderedByKey()
+        
         query.observe(.childAdded) { (snapshot) in
             // First thing - fetch the chat so our store is set up.
             self.fetchChat(chatId: snapshot.key)
             
             // Second thing - listen for any future changes to the chat.
             self.listenForChatChanges(chatId: snapshot.key)
+        } withCancel: { (error) in
+            print(error)
         }
+
         
         queries[userIdQueryKey] = query
     }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ProfileEditViewControllerDelegate: AnyObject {
+    func profileEditViewControllerDidLoadContacts(_ viewController: ProfileEditViewController)
+}
+
 class ProfileEditViewController: UIViewController {
     @IBOutlet weak var profileViewContainer: UIView!
     @IBOutlet weak var updateButtonContainer: UIView!
@@ -18,6 +22,7 @@ class ProfileEditViewController: UIViewController {
     
     private var profileViewController: ProfileViewController!
     
+    weak var delegate: ProfileEditViewControllerDelegate?
     var viewModel: ProfileEditViewModel!
     
     override func viewDidLoad() {
@@ -55,8 +60,8 @@ class ProfileEditViewController: UIViewController {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "Contacts") {
-            
+        button.configure(title: "Contacts", color: .purple) {
+            self.delegate?.profileEditViewControllerDidLoadContacts(self)
         }
         
         self.contactsButton = button

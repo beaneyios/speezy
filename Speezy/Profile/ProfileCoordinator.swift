@@ -37,7 +37,22 @@ class ProfileCoordinator: ViewCoordinator, NavigationControlling {
             identifier: "ProfileEditViewController"
         ) as! ProfileEditViewController
         viewController.viewModel = ProfileEditViewModel(store: Store.shared)
-//        viewController.delegate = self
+        viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension ProfileCoordinator: ProfileEditViewControllerDelegate {
+    func profileEditViewControllerDidLoadContacts(_ viewController: ProfileEditViewController) {
+        let contactsCoordinator = ContactsCoordinator(navigationController: navigationController)
+        contactsCoordinator.delegate = self
+        add(contactsCoordinator)
+        contactsCoordinator.start()
+    }
+}
+
+extension ProfileCoordinator: ContactsCoordinatorDelegate {
+    func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
+        remove(coordinator)
     }
 }

@@ -19,19 +19,23 @@ class GradientButton: UIView, NibLoadable {
     typealias Action = () -> Void
     var action: Action?
     
+    enum Color: String {
+        case red = "red-gradient"
+        case purple = "purple-gradient"
+        case clear = ""
+    }
+    
     func configure(
         title: String,
         titleColor: UIColor = .white,
-        backgroundImage: UIImage? = UIImage(
-            named: "red-gradient"
-        ),
+        color: Color = .red,
         iconImage: UIImage? = nil,
         action: @escaping Action
     ) {
         self.button.setTitle(title, for: .normal)
         self.action = action
         self.spinner.isHidden = true
-        self.gradientImg.image = backgroundImage
+        self.gradientImg.image = UIImage(named: color.rawValue)
         self.button.setTitleColor(titleColor, for: .normal)
         self.spinner.color = titleColor
         self.spinner.tintColor = titleColor

@@ -258,18 +258,18 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V55-xw-BGk">
-                                <rect key="frame" x="0.0" y="64" width="414" height="518"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="502"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAb-Sm-o1a">
-                                <rect key="frame" x="20" y="659" width="374" height="45"/>
+                                <rect key="frame" x="20" y="643" width="374" height="45"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="SCu-KO-GV6"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoi-vg-bO1">
-                                <rect key="frame" x="20" y="598" width="374" height="45"/>
+                                <rect key="frame" x="20" y="582" width="374" height="45"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Rrh-ed-vOi"/>
@@ -289,7 +289,7 @@
                             <constraint firstItem="eoi-vg-bO1" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" constant="20" id="ixq-7f-i7h"/>
                             <constraint firstItem="V55-xw-BGk" firstAttribute="top" secondItem="Ocl-hr-0rI" secondAttribute="bottom" id="qps-Ih-swE"/>
                             <constraint firstItem="Ocl-hr-0rI" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" id="rrs-pg-18c"/>
-                            <constraint firstItem="HrR-3B-AfN" firstAttribute="bottom" secondItem="wAb-Sm-o1a" secondAttribute="bottom" constant="32" id="vMr-cR-6Qz"/>
+                            <constraint firstItem="HrR-3B-AfN" firstAttribute="bottom" secondItem="wAb-Sm-o1a" secondAttribute="bottom" constant="48" id="vMr-cR-6Qz"/>
                             <constraint firstItem="Ocl-hr-0rI" firstAttribute="trailing" secondItem="HrR-3B-AfN" secondAttribute="trailing" id="vW2-89-FS9"/>
                             <constraint firstItem="wAb-Sm-o1a" firstAttribute="top" secondItem="eoi-vg-bO1" secondAttribute="bottom" constant="16" id="yBB-ke-Moc"/>
                         </constraints>
