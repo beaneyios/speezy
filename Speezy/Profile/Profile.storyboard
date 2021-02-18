@@ -258,7 +258,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V55-xw-BGk">
-                                <rect key="frame" x="0.0" y="64" width="414" height="502"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="441"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAb-Sm-o1a">
@@ -275,6 +275,13 @@
                                     <constraint firstAttribute="height" constant="45" id="Rrh-ed-vOi"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xt6-LV-NNP">
+                                <rect key="frame" x="24" y="521" width="366" height="45"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="HOy-qn-9mv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HrR-3B-AfN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -282,27 +289,31 @@
                             <constraint firstItem="V55-xw-BGk" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" id="CsY-dp-jOJ"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="eoi-vg-bO1" secondAttribute="trailing" constant="20" id="FnU-bA-9eQ"/>
                             <constraint firstItem="wAb-Sm-o1a" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" constant="20" id="Fx3-Ga-PGM"/>
+                            <constraint firstItem="xt6-LV-NNP" firstAttribute="top" secondItem="V55-xw-BGk" secondAttribute="bottom" constant="16" id="K1f-ma-var"/>
                             <constraint firstItem="Ocl-hr-0rI" firstAttribute="top" secondItem="HrR-3B-AfN" secondAttribute="top" id="KdU-4u-0pP"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="V55-xw-BGk" secondAttribute="trailing" id="Xk3-3L-wiL"/>
-                            <constraint firstItem="eoi-vg-bO1" firstAttribute="top" secondItem="V55-xw-BGk" secondAttribute="bottom" constant="16" id="bC5-xV-rA3"/>
+                            <constraint firstItem="xt6-LV-NNP" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" constant="24" id="aoO-LW-1g5"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="wAb-Sm-o1a" secondAttribute="trailing" constant="20" id="i8o-YJ-nUN"/>
                             <constraint firstItem="eoi-vg-bO1" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" constant="20" id="ixq-7f-i7h"/>
+                            <constraint firstItem="eoi-vg-bO1" firstAttribute="top" secondItem="xt6-LV-NNP" secondAttribute="bottom" constant="16" id="nMa-lG-Y5u"/>
                             <constraint firstItem="V55-xw-BGk" firstAttribute="top" secondItem="Ocl-hr-0rI" secondAttribute="bottom" id="qps-Ih-swE"/>
                             <constraint firstItem="Ocl-hr-0rI" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" id="rrs-pg-18c"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="bottom" secondItem="wAb-Sm-o1a" secondAttribute="bottom" constant="48" id="vMr-cR-6Qz"/>
                             <constraint firstItem="Ocl-hr-0rI" firstAttribute="trailing" secondItem="HrR-3B-AfN" secondAttribute="trailing" id="vW2-89-FS9"/>
+                            <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="xt6-LV-NNP" secondAttribute="trailing" constant="24" id="wis-xy-1Bi"/>
                             <constraint firstItem="wAb-Sm-o1a" firstAttribute="top" secondItem="eoi-vg-bO1" secondAttribute="bottom" constant="16" id="yBB-ke-Moc"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="contactsButtonContainer" destination="eoi-vg-bO1" id="8D3-Cd-5w1"/>
                         <outlet property="profileViewContainer" destination="V55-xw-BGk" id="vfp-HC-mLs"/>
+                        <outlet property="shareContainer" destination="xt6-LV-NNP" id="w4s-3y-mt5"/>
                         <outlet property="updateButtonContainer" destination="wAb-Sm-o1a" id="0CI-mL-Cb9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4pf-XD-1oe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2332" y="73"/>
+            <point key="canvasLocation" x="2330.434782608696" y="72.554347826086968"/>
         </scene>
     </scenes>
     <resources>

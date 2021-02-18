@@ -16,9 +16,11 @@ class ProfileEditViewController: UIViewController {
     @IBOutlet weak var profileViewContainer: UIView!
     @IBOutlet weak var updateButtonContainer: UIView!
     @IBOutlet weak var contactsButtonContainer: UIView!
+    @IBOutlet weak var shareContainer: UIView!
     
     private var updateButton: GradientButton!
     private var contactsButton: GradientButton!
+    private var shareButton: GradientButton!
     
     private var profileViewController: ProfileViewController!
     
@@ -35,6 +37,7 @@ class ProfileEditViewController: UIViewController {
                     self.configureProfileViewController()
                     self.configureSignupButton()
                     self.configureContactsButton()
+                    self.configureShareButton()
                 case .saved:
                     self.updateButton.stopLoading()
                 }
@@ -51,6 +54,30 @@ class ProfileEditViewController: UIViewController {
         
         updateButtonContainer.layer.cornerRadius = updateButtonContainer.frame.height / 2.0
         updateButtonContainer.clipsToBounds = true
+        
+        shareContainer.layer.cornerRadius = updateButtonContainer.frame.height / 2.0
+        shareContainer.clipsToBounds = true
+        shareContainer.layer.borderWidth = 1.0
+        shareContainer.layer.borderColor = UIColor.speezyPurple.cgColor
+    }
+    
+    private func configureShareButton() {
+        let button = GradientButton.createFromNib()
+        shareContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(
+            title: "Send to a friend",
+            titleColor: .speezyPurple,
+            color: .clear,
+            iconImage: UIImage(named: "share-button")
+        ) {
+            
+        }
+        
+        self.shareButton = button
     }
     
     private func configureContactsButton() {
