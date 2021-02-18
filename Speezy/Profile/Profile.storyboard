@@ -70,7 +70,7 @@
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p3s-AP-dhe">
-                                                <rect key="frame" x="39.333333333333343" y="136" width="350.66666666666663" height="50"/>
+                                                <rect key="frame" x="39.333333333333343" y="136" width="313.66666666666663" height="50"/>
                                                 <color key="tintColor" name="speezy-grey-text"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="f6r-j7-leg"/>
@@ -135,6 +135,18 @@
                                                 <color key="textColor" name="speezy-purple"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQ1-BM-ONk">
+                                                <rect key="frame" x="365" y="148.66666666666666" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="Nb0-VW-R8r"/>
+                                                    <constraint firstAttribute="height" constant="25" id="R72-5R-5ll"/>
+                                                </constraints>
+                                                <color key="tintColor" name="speezy-purple"/>
+                                                <state key="normal" image="copy-button"/>
+                                                <connections>
+                                                    <action selector="copyUsernameToClipboard:" destination="H1t-rL-FvZ" eventType="touchUpInside" id="FtE-hs-xzo"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -151,14 +163,15 @@
                                             <constraint firstItem="p3s-AP-dhe" firstAttribute="top" secondItem="g2f-m8-kKF" secondAttribute="bottom" constant="4" id="GfP-kZ-Etc"/>
                                             <constraint firstItem="aax-cA-SyE" firstAttribute="top" secondItem="7xv-f3-9lE" secondAttribute="bottom" constant="4" id="Gmk-fh-b5i"/>
                                             <constraint firstAttribute="trailing" secondItem="hpn-Ye-joN" secondAttribute="trailing" constant="24" id="IAw-CV-30O"/>
+                                            <constraint firstItem="RQ1-BM-ONk" firstAttribute="leading" secondItem="p3s-AP-dhe" secondAttribute="trailing" constant="12" id="KOu-36-jXp"/>
                                             <constraint firstItem="cVO-me-9Wn" firstAttribute="leading" secondItem="Czt-4S-Pbc" secondAttribute="leading" id="KqW-ty-RVg"/>
                                             <constraint firstItem="b3H-tT-54H" firstAttribute="top" secondItem="p3s-AP-dhe" secondAttribute="bottom" constant="4" id="Oxy-1k-Fov"/>
                                             <constraint firstItem="r50-iA-llQ" firstAttribute="top" secondItem="Czt-4S-Pbc" secondAttribute="top" constant="16" id="QlO-a9-fZR"/>
                                             <constraint firstAttribute="trailing" secondItem="7xv-f3-9lE" secondAttribute="trailing" constant="24" id="Sl3-yb-fcT"/>
                                             <constraint firstItem="7xv-f3-9lE" firstAttribute="top" secondItem="b3H-tT-54H" secondAttribute="bottom" constant="4" id="UZR-6t-w6g"/>
                                             <constraint firstItem="jTf-cK-ube" firstAttribute="top" secondItem="sud-YR-Z3O" secondAttribute="bottom" constant="16" id="V7c-ei-Rww"/>
+                                            <constraint firstAttribute="trailing" secondItem="RQ1-BM-ONk" secondAttribute="trailing" constant="24" id="VmP-hr-9HI"/>
                                             <constraint firstItem="aax-cA-SyE" firstAttribute="leading" secondItem="Czt-4S-Pbc" secondAttribute="leading" constant="24" id="Zo6-0Y-xpK"/>
-                                            <constraint firstAttribute="trailing" secondItem="p3s-AP-dhe" secondAttribute="trailing" constant="24" id="Zp9-L7-mTo"/>
                                             <constraint firstItem="mxr-ab-2iS" firstAttribute="leading" secondItem="Czt-4S-Pbc" secondAttribute="leading" constant="24" id="b07-p4-N4X"/>
                                             <constraint firstItem="g2f-m8-kKF" firstAttribute="leading" secondItem="Czt-4S-Pbc" secondAttribute="leading" constant="24" id="eZI-fV-npn"/>
                                             <constraint firstItem="9km-pq-O2Z" firstAttribute="leading" secondItem="Czt-4S-Pbc" secondAttribute="leading" constant="20" id="fLB-21-Zmo"/>
@@ -169,6 +182,7 @@
                                             <constraint firstAttribute="trailing" secondItem="mxr-ab-2iS" secondAttribute="trailing" constant="24" id="kbr-8n-dFs"/>
                                             <constraint firstItem="cVO-me-9Wn" firstAttribute="top" secondItem="Czt-4S-Pbc" secondAttribute="top" id="kuX-bO-K66"/>
                                             <constraint firstAttribute="trailing" secondItem="g2f-m8-kKF" secondAttribute="trailing" constant="24" id="mXn-jQ-ak3"/>
+                                            <constraint firstItem="RQ1-BM-ONk" firstAttribute="centerY" secondItem="p3s-AP-dhe" secondAttribute="centerY" id="nUA-it-c7H"/>
                                             <constraint firstAttribute="trailing" secondItem="b3H-tT-54H" secondAttribute="trailing" constant="24" id="ngh-Bx-yFQ"/>
                                             <constraint firstItem="9km-pq-O2Z" firstAttribute="centerY" secondItem="p3s-AP-dhe" secondAttribute="centerY" id="siR-3D-aVW"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hpn-Ye-joN" secondAttribute="bottom" constant="16" id="vFc-UB-imR"/>
@@ -207,6 +221,7 @@
                         <outlet property="attachBtn" destination="nSx-9l-PnB" id="g4R-Us-4fO"/>
                         <outlet property="attachBtnHeight" destination="bzF-hO-7ZY" id="B0z-nD-NLN"/>
                         <outlet property="attachBtnWidth" destination="4sO-aR-dZ5" id="s31-V1-TPI"/>
+                        <outlet property="copyButtonWidth" destination="Nb0-VW-R8r" id="1t3-Em-VXj"/>
                         <outlet property="lblErrorMessage" destination="g2f-m8-kKF" id="pfU-oT-COa"/>
                         <outlet property="nameTxtField" destination="7xv-f3-9lE" id="nWu-jm-6NR"/>
                         <outlet property="occupationTxtField" destination="mxr-ab-2iS" id="HtR-wD-EVs"/>
@@ -318,6 +333,7 @@
     </scenes>
     <resources>
         <image name="camera-button" width="500" height="500"/>
+        <image name="copy-button" width="200" height="200"/>
         <namedColor name="speezy-grey-text">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var attachBtn: SpeezyButton!
     @IBOutlet weak var attachBtnWidth: NSLayoutConstraint!
     @IBOutlet weak var attachBtnHeight: NSLayoutConstraint!
+    @IBOutlet weak var copyButtonWidth: NSLayoutConstraint!
     
     @IBOutlet weak var usernameTxtField: UITextField!
     @IBOutlet weak var usernameSeparator: UIView!
@@ -29,7 +30,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var aboutYouTxtField: UITextView!
     
     @IBOutlet weak var lblErrorMessage: UILabel?
-    
+
     @IBOutlet weak var usernameIcon: UILabel!
     
     var viewModel: ProfileViewModel!
@@ -48,9 +49,12 @@ class ProfileViewController: UIViewController {
         configureAboutYouPlaceholder()
         
         if !canEditUsername {
-            self.usernameIcon.textColor = .lightGray
-            self.usernameTxtField.textColor = .lightGray
-            self.usernameTxtField.isUserInteractionEnabled = false
+            copyButtonWidth.constant = 25.0
+            usernameIcon.textColor = .lightGray
+            usernameTxtField.textColor = .lightGray
+            usernameTxtField.isUserInteractionEnabled = false
+        } else {
+            copyButtonWidth.constant = 0.0
         }
     }
     
@@ -69,6 +73,14 @@ class ProfileViewController: UIViewController {
         if parent == nil {
             insetManager.stopListening()
         }
+    }
+    
+    @IBAction func copyUsernameToClipboard(_ sender: Any) {
+        guard let profile = viewModel.profile else {
+            return
+        }
+        
+        UIPasteboard.general.string = profile.userName
     }
     
     @IBAction func attachProfileImage(_ sender: Any) {
