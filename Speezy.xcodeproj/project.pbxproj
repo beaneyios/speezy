@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00ECD81F74E696D80D8FB459 /* Pods_SpeezyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */; };
 		94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71429DDB4953F7C3622682B /* Pods_Speezy.framework */; };
+		BE041E0625E18558005C3B9F /* ImportContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E0525E18558005C3B9F /* ImportContactViewController.swift */; };
+		BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
@@ -298,6 +300,8 @@
 		3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.release.xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.release.xcconfig"; sourceTree = "<group>"; };
 		86CD793C347B4292285E0E0E /* Pods-Speezy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.debug.xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.debug.xcconfig"; sourceTree = "<group>"; };
 		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE041E0525E18558005C3B9F /* ImportContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewController.swift; sourceTree = "<group>"; };
+		BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewModel.swift; sourceTree = "<group>"; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSignupViewModel.swift; sourceTree = "<group>"; };
@@ -1323,6 +1327,7 @@
 			children = (
 				BEE47F0A25BC55A900AF47FA /* ContactListViewController.swift */,
 				BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */,
+				BE041E0525E18558005C3B9F /* ImportContactViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1332,6 +1337,7 @@
 			children = (
 				BEE47F0E25BC55B000AF47FA /* ContactListViewModel.swift */,
 				BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */,
+				BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -2111,6 +2117,7 @@
 				BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */,
 				BE54296A2593A85D007EEAD1 /* AuthCoordinator.swift in Sources */,
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
+				BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */,
 				BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */,
 				BE6080B0250E86A3003CB318 /* WordCell.swift in Sources */,
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
@@ -2130,6 +2137,7 @@
 				BE6FD94325B6106200723732 /* Message.swift in Sources */,
 				BE6FD94D25B6107200723732 /* Chatter.swift in Sources */,
 				BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */,
+				BE041E0625E18558005C3B9F /* ImportContactViewController.swift in Sources */,
 				BEF3B71B25476C88009308A4 /* TranscribeActionViewController.swift in Sources */,
 				BEA32E1D25D80F2D00A9F643 /* ProfileValue.swift in Sources */,
 				BEBFD4B424C595F800200D87 /* TimelineView.swift in Sources */,

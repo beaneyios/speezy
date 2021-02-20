@@ -325,6 +325,46 @@
             </objects>
             <point key="canvasLocation" x="1037.68115942029" y="156.69642857142856"/>
         </scene>
+        <!--Import Contact View Controller-->
+        <scene sceneID="iYs-OY-7n2">
+            <objects>
+                <viewController storyboardIdentifier="ImportContactViewController" id="3GO-z7-xRy" customClass="ImportContactViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0pe-8W-0so">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Roh-lh-Z7I">
+                                <rect key="frame" x="182" y="370" width="50" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="SyF-Pk-WbR"/>
+                                    <constraint firstAttribute="height" constant="50" id="mZ3-9I-Ulz"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importing contact..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6j-uM-GNc">
+                                <rect key="frame" x="123" y="436" width="168" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Sc-Os-OnY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Roh-lh-Z7I" firstAttribute="centerX" secondItem="0pe-8W-0so" secondAttribute="centerX" id="L0T-bw-rz3"/>
+                            <constraint firstItem="Y6j-uM-GNc" firstAttribute="top" secondItem="Roh-lh-Z7I" secondAttribute="bottom" constant="16" id="imo-oX-0r9"/>
+                            <constraint firstItem="Y6j-uM-GNc" firstAttribute="centerX" secondItem="0pe-8W-0so" secondAttribute="centerX" id="o2O-88-FpN"/>
+                            <constraint firstItem="Y6j-uM-GNc" firstAttribute="centerY" secondItem="0pe-8W-0so" secondAttribute="centerY" id="wPp-K9-SvD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="speezyLoadingContainer" destination="Roh-lh-Z7I" id="mNp-D1-Yv8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yco-pF-SiI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1761" y="157"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back-button" width="250" height="500"/>

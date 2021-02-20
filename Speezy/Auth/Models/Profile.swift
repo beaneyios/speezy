@@ -39,3 +39,14 @@ struct Profile {
         self.pushToken = dict["push_token"] as? String
     }
 }
+
+extension Profile {
+    var toContact: Contact {
+        Contact(
+            userId: userId,
+            displayName: name,
+            userName: userName,
+            profilePhotoUrl: profileImageUrl
+        )
+    }
+}

@@ -32,13 +32,17 @@ class ContactsCoordinator: ViewCoordinator, NavigationControlling {
         delegate?.contactsCoordinatorDidFinish(self)
     }
     
-    private func navigateToContactListView() {
+    func navigateToContactListView(animated: Bool = true) {
         let viewController = storyboard.instantiateViewController(
             identifier: "ContactListViewController"
         ) as! ContactListViewController
         
         viewController.delegate = self
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+    
+    func navigateToAddContact(contactId: String) {
+        navigateToImportContact(contactId: contactId)
     }
     
     private func navigateToNewContact() {
@@ -47,6 +51,24 @@ class ContactsCoordinator: ViewCoordinator, NavigationControlling {
         ) as! NewContactViewController
         viewController.delegate = self
         navigationController.present(viewController, animated: true, completion: nil)
+    }
+    
+    private func navigateToImportContact(contactId: String) {
+        let viewController  = storyboard.instantiateViewController(
+            identifier: "ImportContactViewController"
+        ) as! ImportContactViewController
+        
+        viewController.viewModel = ImportContactViewModel(contactId: contactId)
+        viewController.delegate = self
+        
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.present(viewController, animated: true, completion: nil)
+    }
+}
+
+extension ContactsCoordinator: ImportContactViewControllerDelegate {
+    func importContactViewControllerDidImportContact(_ viewController: ImportContactViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

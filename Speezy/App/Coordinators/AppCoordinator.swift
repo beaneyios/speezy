@@ -29,6 +29,14 @@ class AppCoordinator: ViewCoordinator {
         
     }
     
+    func navigateToAddContact(contactId: String) {
+        guard let homeCoordinator = find(HomeCoordinator.self) else {
+            return
+        }
+        
+        homeCoordinator.navigateToAddContact(contactId: contactId)
+    }
+    
     func navigateToChatId(_ chatId: String, message: String) {
         guard let homeCoordinator = find(HomeCoordinator.self) else {
             return

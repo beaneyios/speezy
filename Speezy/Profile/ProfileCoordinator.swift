@@ -32,6 +32,23 @@ class ProfileCoordinator: ViewCoordinator, NavigationControlling {
         delegate?.profileCoordinatorDidFinish(self)
     }
     
+    func navigateToAddContact(contactId: String) {
+        navigateToContactsView(animated: false)
+        
+        guard let contactsCoordinator = find(ContactsCoordinator.self) else {
+            return
+        }
+        
+        contactsCoordinator.navigateToAddContact(contactId: contactId)
+    }
+    
+    private func navigateToContactsView(animated: Bool = true) {
+        let contactsCoordinator = ContactsCoordinator(navigationController: navigationController)
+        contactsCoordinator.delegate = self
+        add(contactsCoordinator)
+        contactsCoordinator.navigateToContactListView(animated: animated)
+    }
+    
     private func navigateToProfileView() {
         let viewController = storyboard.instantiateViewController(
             identifier: "ProfileEditViewController"
@@ -44,10 +61,7 @@ class ProfileCoordinator: ViewCoordinator, NavigationControlling {
 
 extension ProfileCoordinator: ProfileEditViewControllerDelegate {
     func profileEditViewControllerDidLoadContacts(_ viewController: ProfileEditViewController) {
-        let contactsCoordinator = ContactsCoordinator(navigationController: navigationController)
-        contactsCoordinator.delegate = self
-        add(contactsCoordinator)
-        contactsCoordinator.start()
+        navigateToContactsView()
     }
 }
 

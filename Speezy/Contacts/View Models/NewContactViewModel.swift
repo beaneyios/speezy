@@ -58,12 +58,7 @@ class NewContactViewModel {
             self.profileFetcher.fetchProfile(username: userName) { (result) in
                 switch result {
                 case let .success((profile, userId)):
-                    let contact = Contact(
-                        userId: userId,
-                        displayName: profile.name,
-                        userName: profile.userName,
-                        profilePhotoUrl: profile.profileImageUrl
-                    )
+                    let contact = profile.toContact
                     
                     self.items = [
                         ContactCellModel(

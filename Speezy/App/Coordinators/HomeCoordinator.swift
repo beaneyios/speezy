@@ -17,6 +17,7 @@ class HomeCoordinator: ViewCoordinator {
     enum TabBarTab: Int {
         case chat
         case audio
+        case speezy
         case contacts
         case settings
     }
@@ -38,6 +39,16 @@ class HomeCoordinator: ViewCoordinator {
         addSettingsCoordinator()
         
         tabBarController.delegate = self
+    }
+    
+    func navigateToAddContact(contactId: String) {
+        tabBarController.selectedIndex = TabBarTab.contacts.rawValue
+        
+        guard let profileCoordinator = find(ProfileCoordinator.self) else {
+            return
+        }
+        
+        profileCoordinator.navigateToAddContact(contactId: contactId)
     }
     
     func navigateToChatId(_ chatId: String, message: String) {

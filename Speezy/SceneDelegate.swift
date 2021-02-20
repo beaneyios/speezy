@@ -8,6 +8,8 @@
 
 import UIKit
 import FBSDKCoreKit
+import Firebase
+import FirebaseDynamicLinks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDelegate {
 
@@ -44,7 +46,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         )
     }
     
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard let webPageUrl = userActivity.webpageURL else {
+            return
+        }
+        
+        DynamicLinks.dynamicLinks().handleUniversalLink(webPageUrl) { (dynamicLink, error) in
+            guard let contactId = webPageUrl.queryParameters?["contact_id"] else {
+                return
+            }
+            
+            self.appCoordinator.navigateToAddContact(contactId: contactId)
+        }
+    }
+    
     static var main: SceneDelegate? {
         UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+    }
+}
+
+extension URL {
+    var queryParameters: [String: String]? {
+        guard
+            let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
+            let queryItems = components.queryItems else { return nil }
+        return queryItems.reduce(into: [String: String]()) { (result, item) in
+            result[item.name] = item.value
+        }
     }
 }

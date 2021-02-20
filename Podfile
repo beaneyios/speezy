@@ -17,6 +17,7 @@ target 'Speezy' do
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'FirebaseUI/Storage', '~> 8.0'
+  pod 'Firebase/DynamicLinks'
   pod 'JGProgressHUD'
   
   pod 'Alamofire', '~> 5.2'
