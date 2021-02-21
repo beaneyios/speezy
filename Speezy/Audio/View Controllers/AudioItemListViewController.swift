@@ -40,6 +40,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     weak var delegate: AudioItemListViewControllerDelegate?
     
     private var scrollViewDragging = false
+    private var hud: JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +83,15 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
                 case .itemsLoaded:
                     self.toggleEmptyView()
                     self.tableView.reloadData()
+                case let .loading(loading):
+                    if loading {
+                        let hud = JGProgressHUD()
+                        hud.textLabel.text = "Loading your chats..."
+                        hud.show(in: self.view)
+                        self.hud = hud
+                    } else {
+                        self.hud?.dismiss()
+                    }
                 }
             }
         }
@@ -92,7 +102,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     }
     
     private func toggleEmptyView() {
-        if viewModel.shouldShowEmptyView {
+        if viewModel.shouldShowEmptyView && viewModel.loadingTimerHit {
             emptyView.isHidden = false
         } else {
             emptyView.isHidden = true

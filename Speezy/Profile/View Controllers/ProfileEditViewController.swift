@@ -17,6 +17,7 @@ class ProfileEditViewController: UIViewController {
     @IBOutlet weak var updateButtonContainer: UIView!
     @IBOutlet weak var contactsButtonContainer: UIView!
     @IBOutlet weak var shareContainer: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private var updateButton: GradientButton!
     private var contactsButton: GradientButton!
@@ -30,6 +31,7 @@ class ProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        spinner.startAnimating()
         shareContainer.alpha = 0.0
         contactsButtonContainer.alpha = 0.0
         updateButtonContainer.alpha = 0.0
@@ -43,6 +45,8 @@ class ProfileEditViewController: UIViewController {
                     self.configureContactsButton()
                     self.configureShareButton()
                     self.animateButtons()
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
                 case .saved:
                     self.updateButton.stopLoading()
                 }

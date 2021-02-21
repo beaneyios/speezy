@@ -26,6 +26,8 @@ class ChatListViewModel {
     
     private var awaitingChatId: String?
     
+    private(set) var loadingTimerHit = false
+    
     var shouldShowEmptyView: Bool {
         items.isEmpty
     }
@@ -54,6 +56,11 @@ class ChatListViewModel {
         
         didChange?(.loading(true))
         store.chatStore.addChatListObserver(self)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+            self.loadingTimerHit = true
+            self.didChange?(.loaded)
+        }
     }
     
     func navigateToChatId(_ chatId: String) {

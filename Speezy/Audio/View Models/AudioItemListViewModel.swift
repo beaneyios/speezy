@@ -13,6 +13,7 @@ class AudioItemListViewModel: NewItemGenerating {
     
     enum Change {
         case itemsLoaded
+        case loading(Bool)
     }
     
     enum Tab: Int {
@@ -33,6 +34,7 @@ class AudioItemListViewModel: NewItemGenerating {
     private let store: Store
     private(set) var audioAttachmentManager = AudioAttachmentManager()
     private(set) var currentTab = Tab.myRecordings
+    private(set) var loadingTimerHit = false
     
     var didChange: ((Change) -> Void)?
     var audioItems: [AudioItem] = []
@@ -60,6 +62,13 @@ class AudioItemListViewModel: NewItemGenerating {
         store.myRecordingsStore.listenForRecordingItems(userId: userId)
         store.myRecordingsStore.addRecordingItemListObserver(self)
         store.myRecordingsStore.fetchNextPage(userId: userId)
+        
+        didChange?(.loading(true))
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+            self.loadingTimerHit = true
+            self.didChange?(.itemsLoaded)
+        }
     }
     
     func switchTabs(toIndex index: Int) {
@@ -162,6 +171,7 @@ class AudioItemListViewModel: NewItemGenerating {
         
         isLoading[tab] = false
         didChange?(.itemsLoaded)
+        didChange?(.loading(false))
     }
 }
 

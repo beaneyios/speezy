@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 protocol ChatListViewControllerDelegate: AnyObject {
     func chatListViewControllerDidSelectBack(_ viewController: ChatListViewController)
@@ -23,6 +24,8 @@ class ChatListViewController: UIViewController {
     weak var delegate: ChatListViewControllerDelegate?
         
     let viewModel = ChatListViewModel(store: Store.shared)
+    
+    private var hud: JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +67,16 @@ class ChatListViewController: UIViewController {
                 }
             case let .loading(isLoading):
                 if isLoading {
+                    let hud = JGProgressHUD()
+                    hud.textLabel.text = "Loading your chats..."
+                    hud.show(in: self.view)
+                    self.hud = hud
+                    
                     self.spinner.startAnimating()
                     self.spinner.isHidden = false
                 } else {
+                    
+                    self.hud?.dismiss()
                     self.spinner.stopAnimating()
                     self.spinner.isHidden = true
                 }
@@ -86,7 +96,7 @@ class ChatListViewController: UIViewController {
     }
     
     private func toggleEmptyView() {
-        if viewModel.shouldShowEmptyView {
+        if viewModel.shouldShowEmptyView && viewModel.loadingTimerHit {
             emptyView.isHidden = false
         } else {
             emptyView.isHidden = true

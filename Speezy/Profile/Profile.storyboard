@@ -298,6 +298,9 @@
                                     <constraint firstAttribute="height" constant="45" id="HOy-qn-9mv"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="cN6-KH-TQW">
+                                <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HrR-3B-AfN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -305,8 +308,10 @@
                             <constraint firstItem="V55-xw-BGk" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" id="CsY-dp-jOJ"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="eoi-vg-bO1" secondAttribute="trailing" constant="20" id="FnU-bA-9eQ"/>
                             <constraint firstItem="wAb-Sm-o1a" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" constant="20" id="Fx3-Ga-PGM"/>
+                            <constraint firstItem="cN6-KH-TQW" firstAttribute="centerY" secondItem="MSs-Js-lDn" secondAttribute="centerY" id="Jgd-Jv-fgJ"/>
                             <constraint firstItem="xt6-LV-NNP" firstAttribute="top" secondItem="V55-xw-BGk" secondAttribute="bottom" constant="16" id="K1f-ma-var"/>
                             <constraint firstItem="Ocl-hr-0rI" firstAttribute="top" secondItem="HrR-3B-AfN" secondAttribute="top" id="KdU-4u-0pP"/>
+                            <constraint firstItem="cN6-KH-TQW" firstAttribute="centerX" secondItem="MSs-Js-lDn" secondAttribute="centerX" id="Ne1-bK-wGv"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="V55-xw-BGk" secondAttribute="trailing" id="Xk3-3L-wiL"/>
                             <constraint firstItem="xt6-LV-NNP" firstAttribute="leading" secondItem="HrR-3B-AfN" secondAttribute="leading" constant="24" id="aoO-LW-1g5"/>
                             <constraint firstItem="HrR-3B-AfN" firstAttribute="trailing" secondItem="wAb-Sm-o1a" secondAttribute="trailing" constant="20" id="i8o-YJ-nUN"/>
@@ -324,6 +329,7 @@
                         <outlet property="contactsButtonContainer" destination="eoi-vg-bO1" id="8D3-Cd-5w1"/>
                         <outlet property="profileViewContainer" destination="V55-xw-BGk" id="vfp-HC-mLs"/>
                         <outlet property="shareContainer" destination="xt6-LV-NNP" id="w4s-3y-mt5"/>
+                        <outlet property="spinner" destination="cN6-KH-TQW" id="Qz9-yW-yZd"/>
                         <outlet property="updateButtonContainer" destination="wAb-Sm-o1a" id="0CI-mL-Cb9"/>
                     </connections>
                 </viewController>
