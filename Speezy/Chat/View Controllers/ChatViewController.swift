@@ -233,6 +233,16 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                     UIView.animate(withDuration: 0.3) {
                         self.collectionView.alpha = 1.0
                     }
+                case let .itemRemoved(index: index):
+                    self.toggleEmptyView()
+                    self.collectionView.deleteItems(
+                        at: [
+                            IndexPath(
+                                item: index,
+                                section: 0
+                            )
+                        ]
+                    )
                 case let .itemInserted(index):
                     self.toggleEmptyView()
                     self.collectionView.insertItems(
@@ -323,6 +333,7 @@ extension ChatViewController {
     }
 }
 
+// MARK: Datasource methods
 extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.items.count
@@ -350,8 +361,50 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
             self.viewModel.toggleFavourite(on: message)
         }
         
+        cell.longPressTapped = { message in
+            self.presentMessageOptions(message: message)
+        }
+        
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
+    }
+    
+    private func presentMessageOptions(message: Message) {
+        guard let currentUserId = viewModel.currentUserId, message.chatter.id == currentUserId else {
+            return
+        }
+        
+        let alert = UIAlertController(title: "Message options", message: nil, preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "Delete message", style: .destructive) { _ in
+            self.deleteMessage(message: message)
+        }
+        
+        let favourite = UIAlertAction(title: "Add to favourites", style: .default) { _ in
+            self.viewModel.toggleFavourite(on: message)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(delete)
+        alert.addAction(favourite)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func deleteMessage(message: Message) {
+        let alert = UIAlertController(
+            title: "Are you sure?",
+            message: "Deleting this message will permanently remove it, are you sure you want to delete?",
+            preferredStyle: .alert
+        )
+        
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.viewModel.deleteMessage(message: message)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
     
     private func cellStartedPlaying(cell: UICollectionViewCell, collectionView: UICollectionView) {
@@ -385,6 +438,7 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
+// MARK: CView layout
 extension ChatViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,

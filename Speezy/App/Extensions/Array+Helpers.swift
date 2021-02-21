@@ -56,12 +56,18 @@ extension Array where Element: Identifiable {
         }
     }
     
-    func replacing(_ element: Element) -> Self {
-        let indexOfElement = firstIndex {
-            $0.id == element.id
+    func inserting(_ element: Element) -> Self {
+        if let index = index(element) {
+            return replacing(element)
         }
         
-        guard let index = indexOfElement else {
+        var newArray = self
+        newArray.insert(element, at: 0)
+        return newArray
+    }
+    
+    func replacing(_ element: Element) -> Self {
+        guard let index = index(element) else {
             return self
         }
         
@@ -88,9 +94,13 @@ extension Array where Element: Identifiable {
         removing(element.id)
     }
     
-    func index(_ element: Element) -> Int? {
+    func index(_ id: String) -> Int? {
         firstIndex {
-            $0.id == element.id
+            $0.id == id
         }
+    }
+    
+    func index(_ element: Element) -> Int? {
+        index(element.id)
     }
 }

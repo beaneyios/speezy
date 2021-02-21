@@ -116,20 +116,20 @@ class CloudAudioManager {
     }
     
     static func deleteAudioClip(
-        at path: String,
-        completion: @escaping (StorageDeleteResult) -> Void
+        id: String,
+        completion: ((StorageDeleteResult) -> Void)? = nil
     ) {
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
-        let audioClipRef = storageRef.child(path)
+        let audioClipRef = storageRef.child("audio_clips/\(id).m4a")
 
         audioClipRef.delete { (error) in
             if let error = error {
-                completion(.failure(error))
+                completion?(.failure(error))
                 return
             }
             
-            completion(.success)
+            completion?(.success)
         }
     }
 }

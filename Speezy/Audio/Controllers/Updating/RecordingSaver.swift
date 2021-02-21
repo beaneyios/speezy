@@ -88,7 +88,7 @@ extension RecordingSaver {
         completion: @escaping (StorageDeleteResult) -> Void
     ) {
         LocalAudioManager.deleteAudioFiles(item: item)
-        CloudAudioManager.deleteAudioClip(at: "audio_clips/\(item.id).m4a") { (result) in
+        CloudAudioManager.deleteAudioClip(id: item.id) { (result) in
             switch result {
             case .success:
                 AudioUpdater(kind: .recordings).removeRecording(withId: item.id) { (result) in

@@ -18,6 +18,7 @@ class ChatViewModel: NewItemGenerating {
         case finishedRecording
         case editingDiscarded(AudioItem)
         case itemReloaded(index: Int)
+        case itemRemoved(index: Int)
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -29,6 +30,7 @@ class ChatViewModel: NewItemGenerating {
     
     private lazy var messageCreator = MessageCreator()
     private lazy var messageListener = MessageListener(chat: chat)
+    private lazy var messageDeleter = MessageDeleter()
     private lazy var chatDeleter = ChatDeleter()
     
     let store: Store
@@ -135,6 +137,8 @@ extension ChatViewModel {
 
                 self.didChange?(.loaded)
                 self.listenForNewMessages(mostRecentMessage: messages.first)
+                self.listenForDeletedMessages()
+                
                 self.updateReadBy()
             case let .failure(error):
                 break
@@ -219,9 +223,28 @@ extension ChatViewModel {
                     currentUserId: Auth.auth().currentUser?.uid ?? "",
                     isFavourite: self.messageIsFavourite(message: message)
                 )
-                self.items.insert(cellModel, at: 0)
+                self.items = self.items.inserting(cellModel)
                 self.didChange?(.itemInserted(index: 0))
             case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func listenForDeletedMessages() {
+        messageListener.listenForDeletedMessages { (result) in
+            switch result {
+            case let .success(messageId):
+                if let index = self.items.index(messageId) {
+                    self.items = self.items.removing(messageId)
+                    self.didChange?(.itemRemoved(index: index))
+                    
+                    // We need to renew this, since the "most recent message" will be different.
+                    if index == 0 {
+                        self.listenForNewMessages(mostRecentMessage: self.items.first?.message)
+                    }
+                }
+            case let.failure(error):
                 break
             }
         }
@@ -247,6 +270,16 @@ extension ChatViewModel {
                 break
             }
         }
+    }
+
+    func deleteMessage(message: Message) {
+        messageDeleter.deleteMessage(message: message, chat: chat)
+        
+        guard let audioId = message.audioId else {
+            return
+        }
+        
+        CloudAudioManager.deleteAudioClip(id: audioId)
     }
     
     func discardItem(_ item: AudioItem) {

@@ -11,6 +11,7 @@
 		94454CFB332F7797FE84738E /* Pods_Speezy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F71429DDB4953F7C3622682B /* Pods_Speezy.framework */; };
 		BE041E0625E18558005C3B9F /* ImportContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E0525E18558005C3B9F /* ImportContactViewController.swift */; };
 		BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */; };
+		BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
@@ -302,6 +303,7 @@
 		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE041E0525E18558005C3B9F /* ImportContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewController.swift; sourceTree = "<group>"; };
 		BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewModel.swift; sourceTree = "<group>"; };
+		BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleter.swift; sourceTree = "<group>"; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSignupViewModel.swift; sourceTree = "<group>"; };
@@ -1552,6 +1554,7 @@
 			isa = PBXGroup;
 			children = (
 				BEA32DFC25D475A700A9F643 /* ChatDeleter.swift */,
+				BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */,
 			);
 			path = Deletion;
 			sourceTree = "<group>";
@@ -2095,6 +2098,7 @@
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
 				BEA32E1825D80EFD00A9F643 /* ProfileListener.swift in Sources */,
 				BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */,
+				BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */,
 				BEFDB542255FF8B000362428 /* CropNotification.swift in Sources */,
 				BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */,
 				BE0A45A125CEBEE0005F4DA8 /* ContactListObservation.swift in Sources */,
