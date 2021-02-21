@@ -13,6 +13,7 @@ import FirebaseAuth
 class AppCoordinator: ViewCoordinator {
     let tabBarController: UITabBarController
     var awaitingChatId: String?
+    var awaitingContactId: String?
     
     let store = Store.shared
     let tokenService = PushTokenSyncService()
@@ -31,6 +32,7 @@ class AppCoordinator: ViewCoordinator {
     
     func navigateToAddContact(contactId: String) {
         guard let homeCoordinator = find(HomeCoordinator.self) else {
+            awaitingContactId = contactId
             return
         }
         
@@ -60,9 +62,13 @@ class AppCoordinator: ViewCoordinator {
         let homeCoordinator = HomeCoordinator(tabBarController: tabBarController)
         homeCoordinator.delegate = self
         add(homeCoordinator)
-        homeCoordinator.start(withAwaitingChatId: awaitingChatId)
+        homeCoordinator.start(
+            withAwaitingChatId: awaitingChatId,
+            andAwaitingContactId: awaitingContactId
+        )
         tabBarController.tabBar.isHidden = false
         
+        awaitingContactId = nil
         awaitingChatId = nil
     }
 }
@@ -74,6 +80,7 @@ extension AppCoordinator: AuthCoordinatorDelegate {
     ) {
         listenAndSync(user: user)
         navigateToHome()
+        remove(coordinator)
     }
     
     func authCoordinatorDidCompleteSignup(
@@ -82,6 +89,7 @@ extension AppCoordinator: AuthCoordinatorDelegate {
     ) {
         listenAndSync(user: user)
         navigateToHome()
+        remove(coordinator)
     }
     
     func authCoordinatorDidFinish(_ coordinator: AuthCoordinator) {
@@ -101,5 +109,6 @@ extension AppCoordinator: HomeCoordinatorDelegate {
     
     func homeCoordinatorDidLogOut(_ coordinator: HomeCoordinator) {
         navigateToAuth()
+        remove(coordinator)
     }
 }

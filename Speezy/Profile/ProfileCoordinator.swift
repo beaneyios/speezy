@@ -33,8 +33,10 @@ class ProfileCoordinator: ViewCoordinator, NavigationControlling {
     }
     
     func navigateToAddContact(contactId: String) {
-        navigateToContactsView(animated: false)
-        
+        if find(ContactsCoordinator.self) == nil {
+            navigateToContactsView(animated: false)
+        }
+                
         guard let contactsCoordinator = find(ContactsCoordinator.self) else {
             return
         }

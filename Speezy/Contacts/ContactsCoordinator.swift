@@ -37,6 +37,7 @@ class ContactsCoordinator: ViewCoordinator, NavigationControlling {
             identifier: "ContactListViewController"
         ) as! ContactListViewController
         
+        viewController.hidesBottomBarWhenPushed = true
         viewController.delegate = self
         navigationController.pushViewController(viewController, animated: animated)
     }
@@ -67,12 +68,18 @@ class ContactsCoordinator: ViewCoordinator, NavigationControlling {
 }
 
 extension ContactsCoordinator: ImportContactViewControllerDelegate {
-    func importContactViewControllerDidImportContact(_ viewController: ImportContactViewController) {
-        viewController.dismiss(animated: true, completion: nil)
+    func importContactViewController(_ viewController: ImportContactViewController, didImportContact contact: Contact) {
+        viewController.dismiss(animated: true) {
+            self.contactListViewController?.alertContactAdded(contact: contact)
+        }
     }
 }
 
 extension ContactsCoordinator: ContactListViewControllerDelegate {
+    func contactListViewControllerDidFinish(_ viewController: ContactListViewController) {
+        delegate?.contactsCoordinatorDidFinish(self)
+    }
+    
     func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact) {
         
     }

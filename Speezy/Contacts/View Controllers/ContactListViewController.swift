@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 protocol ContactListViewControllerDelegate: AnyObject {
     func contactListViewControllerDidSelectBack(_ viewController: ContactListViewController)
     func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact)
     func contactListViewControllerDidSelectNewContact(_ viewController: ContactListViewController)
+    func contactListViewControllerDidFinish(_ viewController: ContactListViewController)
 }
 
 class ContactListViewController: UIViewController {
@@ -28,6 +30,25 @@ class ContactListViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         listenForChanges()
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        
+        if parent == nil {
+            delegate?.contactListViewControllerDidFinish(self)
+        }
+    }
+    
+    func alertContactAdded(contact: Contact) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.textLabel.text = "Added \(contact.displayName)"
+        hud.show(in: self.view)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+            hud.dismiss()
+        }
     }
     
     func insertNewContactItem(contact: Contact) {

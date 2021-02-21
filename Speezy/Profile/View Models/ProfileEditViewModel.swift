@@ -18,6 +18,10 @@ class ProfileEditViewModel: ProfileViewModel {
     var profile: Profile?
     var profileImageAttachment: UIImage?
     
+    var contact: Contact? {
+        profile?.toContact
+    }
+    
     private let store: Store
     
     init(store: Store) {

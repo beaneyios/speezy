@@ -10,7 +10,7 @@ import Foundation
 
 class ImportContactViewModel {
     enum Change {
-        case contactImported
+        case contactImported(Contact)
     }
     
     var didChange: ((Change) -> Void)?
@@ -34,10 +34,19 @@ class ImportContactViewModel {
         profileFetcher.fetchProfile(userId: contactId) { (result) in
             switch result {
             case let .success(profile):
-                let contact = profile.toContact
-                self.contactManager.addContact(userContact: userContact, contact: contact) { (result) in
-                    self.didChange?(.contactImported)
-                }
+                self.addContact(userContact: userContact, profile: profile)
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func addContact(userContact: Contact, profile: Profile) {
+        let contact = profile.toContact
+        self.contactManager.addContact(userContact: userContact, contact: contact) { (result) in
+            switch result {
+            case let .success(contact):
+                self.didChange?(.contactImported(contact))
             case let .failure(error):
                 break
             }

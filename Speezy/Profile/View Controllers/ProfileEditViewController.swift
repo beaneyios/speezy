@@ -79,7 +79,13 @@ class ProfileEditViewController: UIViewController {
             color: .clear,
             iconImage: UIImage(named: "share-button")
         ) {
+            guard let contactId = self.viewModel.contact?.id else {
+                return
+            }
             
+            let items: [Any] = ["Add me on Speezy", URL(string: "https://speezy.page.link/add-friend?contact_id=\(contactId)")!]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            self.present(ac, animated: true)
         }
         
         self.shareButton = button

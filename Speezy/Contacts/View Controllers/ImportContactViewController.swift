@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ImportContactViewControllerDelegate: AnyObject {
-    func importContactViewControllerDidImportContact(_ viewController: ImportContactViewController)
+    func importContactViewController(_ viewController: ImportContactViewController, didImportContact contact: Contact)
 }
 
 class ImportContactViewController: UIViewController {
@@ -29,10 +29,10 @@ class ImportContactViewController: UIViewController {
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
-                case .contactImported:
-                    self.delegate?.importContactViewControllerDidImportContact(self)
+                case let .contactImported(contact):
+                    self.delegate?.importContactViewController(self, didImportContact: contact)
                 }
-            }            
+            }
         }
         
         viewModel.loadData()

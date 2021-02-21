@@ -30,7 +30,7 @@ class HomeCoordinator: ViewCoordinator {
         self.tabBarController = tabBarController
     }
     
-    func start(withAwaitingChatId chatId: String?) {
+    func start(withAwaitingChatId chatId: String?, andAwaitingContactId contactId: String?) {
         tabBarController.setViewControllers([], animated: false)
         addChatCoordinator(awaitingChatId: chatId)
         addAudioListCoordinator()
@@ -39,6 +39,10 @@ class HomeCoordinator: ViewCoordinator {
         addSettingsCoordinator()
         
         tabBarController.delegate = self
+        
+        if let contactId = contactId {
+            navigateToAddContact(contactId: contactId)
+        }
     }
     
     func navigateToAddContact(contactId: String) {
