@@ -8,29 +8,37 @@
 
 import Foundation
 
-struct Chat: Equatable, Identifiable {
+struct Chat: Equatable, Identifiable {    
     let id: String
     let chatters: [Chatter]
-    let readBy: [String]
+    let readBy: [ReadBy]
     let title: String
     let lastUpdated: TimeInterval
     let lastMessage: String
     let chatImageUrl: URL?
 }
 
-extension Chat {
-    func withReadBy(userId: String) -> Chat {
-        if readBy.contains(userId) {
-            return self
+extension Array where Element == ReadBy {
+    init(string: String) {
+        let readBy = string.components(separatedBy: ",")
+        self = readBy.compactMap {
+            ReadBy(string: $0)
         }
-        
-        var newReadBy = readBy
-        newReadBy.append(userId)
+    }
+    
+    var toString: String {
+        map { $0.toString }.joined(separator: ",")
+    }
+}
+
+extension Chat {
+    func withReadBy(userId: String, time: TimeInterval) -> Chat {
+        let newReadBy = ReadBy(id: userId, time: time)
         
         return Chat(
             id: id,
             chatters: chatters,
-            readBy: newReadBy,
+            readBy: readBy.inserting(newReadBy),
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
@@ -38,7 +46,7 @@ extension Chat {
         )
     }
     
-    func withReadBy(readBy: [String]) -> Chat {
+    func withReadBy(readBy: [ReadBy]) -> Chat {
         return Chat(
             id: id,
             chatters: chatters,
@@ -116,7 +124,7 @@ extension Chat {
         var dict: [String: Any] = [
             "last_message": lastMessage,
             "last_updated": lastUpdated,
-            "read_by": readBy.joined(separator: ","),
+            "read_by": readBy.toString,
             "title": title
         ]
         
@@ -131,7 +139,7 @@ extension Chat {
 extension Array where Element == Chat {    
     func containsUnread(userId: String) -> Bool {
         contains {
-            !$0.readBy.contains(userId)
+            !$0.readBy.contains(elementWithId: userId)
         }
     }
 }

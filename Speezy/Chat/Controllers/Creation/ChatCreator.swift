@@ -69,11 +69,13 @@ class ChatCreator {
         
             return chatter
         }
+        
+        let readByCurrent = ReadBy(id: currentChatter.id, time: Date().timeIntervalSince1970)
                 
         let newChat = Chat(
             id: chatId,
             chatters: chatters,
-            readBy: [currentChatter.id],
+            readBy: [readByCurrent],
             title: title,
             lastUpdated: Date().timeIntervalSince1970,
             lastMessage: "New chat started",

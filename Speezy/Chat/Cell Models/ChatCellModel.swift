@@ -44,7 +44,9 @@ extension ChatCellModel {
             return false
         }
         
-        return !chat.readBy.contains(currentUserId)
+        return !chat.readBy.contains {
+            $0.id == currentUserId && $0.time >= chat.lastUpdated
+        }
     }
     
     func loadImage(completion: @escaping (StorageFetchResult<UIImage>) -> Void) {

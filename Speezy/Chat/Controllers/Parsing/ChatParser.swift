@@ -18,12 +18,12 @@ class ChatParser {
             return nil
         }
         
-        let readBy: [String] = {
+        let readBy: [ReadBy] = {
             guard let readByString = dict["read_by"] as? String else {
                 return []
             }
             
-            return readByString.components(separatedBy: ",")
+            return [ReadBy](string: readByString)
         }()
         
         let chat = Chat(
@@ -61,6 +61,10 @@ class ChatParser {
             return nil
         }
         
+        let readBy = chat.readBy.filter {
+            $0.time >= sentDateSeconds
+        }
+        
         return Message(
             id: key,
             chatter: chatter,
@@ -70,7 +74,7 @@ class ChatParser {
             audioUrl: URL(key: "audio_url", dict: dict),
             attachmentUrl: URL(key: "attachment_url", dict: dict),
             duration: dict["duration"] as? TimeInterval,
-            readBy: []
+            readBy: readBy
         )
     }
 }

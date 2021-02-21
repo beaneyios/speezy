@@ -64,4 +64,12 @@ class MessageListener {
             completion(.success(snapshot.key))
         }
     }
+    
+    func stopListening() {
+        currentNewMessageQuery?.removeAllObservers()
+        currentDeletedMessageQuery?.removeAllObservers()
+        
+        currentNewMessageQuery = nil
+        currentDeletedMessageQuery = nil
+    }
 }

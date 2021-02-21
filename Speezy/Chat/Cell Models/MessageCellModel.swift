@@ -38,7 +38,7 @@ extension MessageCellModel {
     }
     
     var received: Bool? {
-        isSender ? message.readBy == chat.chatters : nil
+        isSender ? message.readBy.count == chat.chatters.count : nil
     }
 }
 

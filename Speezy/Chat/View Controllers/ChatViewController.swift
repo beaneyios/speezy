@@ -63,6 +63,13 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         notificationLabel.isHidden = true
     }
     
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            viewModel.stopListeningForData()
+        }
+    }
+    
     func showNotificationLabel() {
         notificationLabel.isHidden = false
         UIView.animate(withDuration: 0.3) {
@@ -333,14 +340,22 @@ extension ChatViewController {
     }
 }
 
+extension ChatViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollPosition = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.height
+        
+        if contentHeight - scrollPosition <= scrollViewHeight {
+            viewModel.loadMoreMessages()
+        }
+    }
+}
+
 // MARK: Datasource methods
 extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewModel.loadMoreMessages(index: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

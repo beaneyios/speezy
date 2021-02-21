@@ -46,8 +46,6 @@ class MessageFetcher {
                 return ChatParser.parseMessage(chat: chat, key: key, dict: dict)
             }.sorted {
                 $0.sent > $1.sent
-            }.filter {
-                $0 != mostRecentMessage
             }
             
             completion(.success(messages))

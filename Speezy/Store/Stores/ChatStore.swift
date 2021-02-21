@@ -67,7 +67,7 @@ class ChatStore {
             case let .title(title):
                 return chatToUpdate?.withTitle(title)
             case let .readBy(readBy):
-                let readBy = readBy.components(separatedBy: ",")
+                let readBy = [ReadBy](string: readBy)
                 return chatToUpdate?.withReadBy(readBy: readBy)
             }
         }()

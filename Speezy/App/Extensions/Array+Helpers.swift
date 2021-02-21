@@ -22,6 +22,12 @@ extension Array where Element: Equatable {
 }
 
 extension Array where Element: Identifiable {
+    func appending(element: Element) -> Self {
+        var newArray = self
+        newArray.append(element)
+        return newArray
+    }
+    
     func first(withId id: String) -> Element? {
         first {
             $0.id == id
@@ -57,7 +63,7 @@ extension Array where Element: Identifiable {
     }
     
     func inserting(_ element: Element) -> Self {
-        if let index = index(element) {
+        if index(element) != nil {
             return replacing(element)
         }
         

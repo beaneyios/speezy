@@ -12,6 +12,7 @@
 		BE041E0625E18558005C3B9F /* ImportContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E0525E18558005C3B9F /* ImportContactViewController.swift */; };
 		BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */; };
 		BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */; };
+		BE041E6025E2A8B7005C3B9F /* ReadBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5F25E2A8B7005C3B9F /* ReadBy.swift */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
@@ -304,6 +305,7 @@
 		BE041E0525E18558005C3B9F /* ImportContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewController.swift; sourceTree = "<group>"; };
 		BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewModel.swift; sourceTree = "<group>"; };
 		BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleter.swift; sourceTree = "<group>"; };
+		BE041E5F25E2A8B7005C3B9F /* ReadBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBy.swift; sourceTree = "<group>"; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSignupViewModel.swift; sourceTree = "<group>"; };
@@ -911,6 +913,7 @@
 				BE6FD94225B6106200723732 /* Message.swift */,
 				BE6FD94825B6106900723732 /* Chat.swift */,
 				BE6FD94C25B6107200723732 /* Chatter.swift */,
+				BE041E5F25E2A8B7005C3B9F /* ReadBy.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2056,6 +2059,7 @@
 				BE54295B2593714B007EEAD1 /* EmailSignupViewController.swift in Sources */,
 				BE0A45A525CEBF30005F4DA8 /* ContactsListener.swift in Sources */,
 				BE5429742593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift in Sources */,
+				BE041E6025E2A8B7005C3B9F /* ReadBy.swift in Sources */,
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
 				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
 				BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */,
