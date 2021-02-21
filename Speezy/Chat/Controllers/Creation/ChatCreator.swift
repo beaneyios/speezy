@@ -12,7 +12,7 @@ import FirebaseDatabase
 class ChatCreator {
     func newChatId() -> String? {
         let ref = Database.database().reference()
-        return ref.child("chatters").childByAutoId().key
+        return ref.child("chats").childByAutoId().key
     }
     
     func createChat(
@@ -53,7 +53,8 @@ class ChatCreator {
     ) {
         var updatePaths: [AnyHashable: Any] = [:]
         let ref = Database.database().reference()
-        let groupChild = ref.child("chatters/\(chatId)")
+        
+        var readBy = [String: TimeInterval]()
         
         let chatters = contacts.map { contact -> Chatter in
             let userToken = tokens.compactMap { (userToken) -> String? in
@@ -67,27 +68,24 @@ class ChatCreator {
                 pushToken: userToken
             )
         
+            readBy[contact.id] = Date().timeIntervalSince1970
             return chatter
-        }
-        
-        let readByCurrent = ReadBy(id: currentChatter.id, time: Date().timeIntervalSince1970)
+        }.appending(element: currentChatter)
                 
         let newChat = Chat(
             id: chatId,
-            chatters: chatters,
-            readBy: [readByCurrent],
             title: title,
             lastUpdated: Date().timeIntervalSince1970,
             lastMessage: "New chat started",
-            chatImageUrl: attachmentUrl
+            chatImageUrl: attachmentUrl,
+            readBy: readBy
         )
         
         chatters.forEach { chatter in
-            updatePaths["chatters/\(chatId)/\(chatter.id)"] = chatter.toDict
             updatePaths["users/\(chatter.id)/chats/\(chatId)"] = true
         }
         
-        updatePaths["chatters/\(chatId)/\(currentChatter.id)"] = currentChatter.toDict
+        updatePaths["chatters/\(newChat.id)"] = chatters.toDict
         updatePaths["users/\(currentChatter.id)/chats/\(chatId)"] = true
         updatePaths["chats/\(chatId)"] = newChat.toDict
         

@@ -12,6 +12,7 @@ import AFDateHelper
 struct MessageCellModel: Identifiable {
     var message: Message
     var chat: Chat
+    var chatters: [Chatter]
     var currentUserId: String
     var isFavourite: Bool
     
@@ -22,11 +23,13 @@ struct MessageCellModel: Identifiable {
     init(
         message: Message,
         chat: Chat,
+        chatters: [Chatter],
         currentUserId: String,
         isFavourite: Bool
     ) {
         self.message = message
         self.chat = chat
+        self.chatters = chatters
         self.currentUserId = currentUserId
         self.isFavourite = isFavourite
     }
@@ -38,7 +41,7 @@ extension MessageCellModel {
     }
     
     var received: Bool? {
-        isSender ? message.readBy.count == chat.chatters.count : nil
+        isSender ? message.readBy.count == chatters.count : nil
     }
 }
 

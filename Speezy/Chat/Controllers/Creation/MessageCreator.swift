@@ -26,15 +26,11 @@ class MessageCreator {
             }
             
             let updatedTime = Date().timeIntervalSince1970
-            let newReadBy = ReadBy(id: message.chatter.id, time: updatedTime)
-            let chatReadBy = $0.readBy.map {
-                $0.id == newReadBy.id ? newReadBy : $0
-            }
             let newMessagePath = "messages/\($0.id)/\(newKey)"
             updatePaths[newMessagePath] = messageDict
             updatePaths["chats/\($0.id)/last_updated"] = updatedTime
-            updatePaths["chats/\($0.id)/read_by"] = chatReadBy.toString
-            updatePaths["chats/\($0.id)/last_message"] = message.formattedMessage
+            updatePaths["chats/\($0.id)/last_message"] = message.formattedMessage            
+            updatePaths["chats/\($0.id)/read_by/\(message.chatter.id)"] = updatedTime
         }
         
         ref.updateChildValues(updatePaths) { (error, newRef) in

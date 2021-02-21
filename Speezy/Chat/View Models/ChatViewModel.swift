@@ -25,15 +25,13 @@ class ChatViewModel: NewItemGenerating {
     var didChange: ChangeBlock?
     private(set) var items = [MessageCellModel]()
     
-    let groupFetcher = GroupFetcher()
     let messageFetcher = MessageFetcher()
     
     private lazy var messageCreator = MessageCreator()
-    private lazy var messageListener = {
-        MessageListener(chat: chat)
-    }()
+    private lazy var messageListener = MessageListener(chat: chat, chatters: chatters)
     private lazy var messageDeleter = MessageDeleter()
     private lazy var chatDeleter = ChatDeleter()
+    private lazy var chatterFetcher = ChattersFetcher()
     
     let store: Store
     let audioCloudManager = CloudAudioManager()
@@ -42,6 +40,8 @@ class ChatViewModel: NewItemGenerating {
     private var activeAudioManager: AudioManager?
     
     private(set) var chat: Chat
+    private var chatters: [Chatter] = []
+    
     private var currentAudioFile: AudioItem?
     private var stagedText: String?
     
@@ -74,7 +74,11 @@ class ChatViewModel: NewItemGenerating {
             return
         }
         
-        chatDeleter.deleteChat(chat: chat, userId: userId) { (result) in
+        chatDeleter.deleteChat(
+            chat: chat,
+            chatters: chatters,
+            userId: userId
+        ) { (result) in
             self.didChange?(.leftChat)
         }
     }
@@ -102,20 +106,17 @@ class ChatViewModel: NewItemGenerating {
 // MARK: Receiving
 extension ChatViewModel {
     func listenForData() {
-        didChange?(.loading(true))
-        groupFetcher.fetchChatters(chat: chat) { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            
+        chatterFetcher.fetchChatters(chat: chat) { (result) in
             switch result {
             case let .success(chatters):
-                self.chat = self.chat.withChatters(chatters: chatters)
+                self.chatters = chatters
                 self.fetchMessages()
             case let .failure(error):
                 break
             }
         }
+        
+        store.chatStore.addChatListObserver(self)
     }
     
     func stopListeningForData() {
@@ -129,7 +130,8 @@ extension ChatViewModel {
     }
     
     private func fetchMessages() {
-        messageFetcher.fetchMessages(chat: chat) { [weak self] (result) in
+        didChange?(.loading(true))
+        messageFetcher.fetchMessages(chat: chat, chatters: chatters) { [weak self] (result) in
             guard let self = self else {
                 return
             }
@@ -144,6 +146,7 @@ extension ChatViewModel {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
+                        chatters: self.chatters,
                         currentUserId: userId,
                         isFavourite: self.messageIsFavourite(message: $0)
                     )
@@ -198,7 +201,11 @@ extension ChatViewModel {
         }
         
         didChange?(.loading(true))
-        messageFetcher.fetchMessages(chat: chat, mostRecentMessage: mostRecentMessage) { [weak self] (result) in
+        messageFetcher.fetchMessages(
+            chat: chat,
+            chatters: chatters,
+            mostRecentMessage: mostRecentMessage
+        ) { [weak self] (result) in
             guard let self = self else {
                 return
             }
@@ -213,6 +220,7 @@ extension ChatViewModel {
                     MessageCellModel(
                         message: $0,
                         chat: self.chat,
+                        chatters: self.chatters,
                         currentUserId: userId,
                         isFavourite: self.messageIsFavourite(message: $0)
                     )
@@ -244,6 +252,7 @@ extension ChatViewModel {
                 let cellModel = MessageCellModel(
                     message: message,
                     chat: self.chat,
+                    chatters: self.chatters,
                     currentUserId: Auth.auth().currentUser?.uid ?? "",
                     isFavourite: self.messageIsFavourite(message: message)
                 )
@@ -255,6 +264,12 @@ extension ChatViewModel {
                     self.didChange?(.itemInserted(index: 0))
                 } else {
                     self.didChange?(.itemReloaded(index: 0))
+                }
+                
+                if let currentUserId = self.currentUserId, message.chatter.id != currentUserId {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                        self.updateReadBy()
+                    }                    
                 }
             case let .failure(error):
                 break
@@ -336,15 +351,15 @@ extension ChatViewModel {
         guard let userId = currentUserId else {
             return
         }
-        
-        self.chat = chat.withReadBy(userId: userId, time: Date().timeIntervalSince1970)
-        ChatUpdater().updateChat(chatValue: .readBy(chat.readBy.toString), chatId: chat.id)
+
+        let updatedDate = Date().timeIntervalSince1970
+        ChatUpdater().updateReadBy(chatId: chat.id, userId: userId, time: updatedDate)
     }
     
     private func updateDatabaseRecords(item: AudioItem) {
         guard
             let id = Auth.auth().currentUser?.uid,
-            let chatter = chat.chatters.chatter(for: id)
+            let chatter = chatters.chatter(for: id)
         else {
             // TODO: Handle error here.
             assertionFailure("User not found")
@@ -360,12 +375,9 @@ extension ChatViewModel {
             audioUrl: item.remoteUrl,
             attachmentUrl: nil,
             duration: item.calculatedDuration,
-            readBy: []
+            readBy: [chatter]
         )
-        
-        let updatedTime = Date().timeIntervalSince1970
-        let readByCurrent = ReadBy(id: id, time: updatedTime)
-        
+                
         // First, insert the message.
         messageCreator.insertMessage(
             chats: [chat],
@@ -378,14 +390,13 @@ extension ChatViewModel {
             switch result {
             case let .success(message):
                 self.chat = self.chat.withLastMessage(message.formattedMessage)
-                    .withLastUpdated(updatedTime)
-                    .withReadBy(readBy: [readByCurrent])
                         
                 self.didChange?(.finishedRecording)
                 
                 self.chatPushManager.sendNotification(
                     message: message.formattedMessage,
                     chat: self.chat,
+                    chatters: self.chatters,
                     from: chatter
                 )
             case let .failure(error):
@@ -393,4 +404,34 @@ extension ChatViewModel {
             }
         }
     }
+}
+
+extension ChatViewModel: ChatListObserver {
+    func chatUpdated(chat: Chat, in chats: [Chat]) {
+        if self.chat.id == chat.id, let userId = self.currentUserId {
+            self.chat = chat
+            
+            self.items = self.items.map {
+                var newMessage = $0.message
+                newMessage.readBy = chatters.readChatters(
+                    forMessageDate: newMessage.sent,
+                    chat: chat
+                )
+                
+                return MessageCellModel(
+                    message: newMessage,
+                    chat: self.chat,
+                    chatters: self.chatters,
+                    currentUserId: userId,
+                    isFavourite: self.messageIsFavourite(message: $0.message)
+                )
+            }
+            
+            self.didChange?(.loaded)
+        }
+    }
+    
+    func chatAdded(chat: Chat, in chats: [Chat]) {}
+    func initialChatsReceived(chats: [Chat]) {}
+    func chatRemoved(chat: Chat, chats: [Chat]) {}
 }

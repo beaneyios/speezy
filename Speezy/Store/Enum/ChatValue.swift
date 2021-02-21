@@ -17,7 +17,7 @@ enum ChatValue {
     case lastMessage(String)
     case lastUpdated(TimeInterval)
     case title(String)
-    case readBy(String)
+    case readBy([String: TimeInterval])
     
     init?(key: String, value: Any) {
         switch (key, value) {
@@ -27,7 +27,7 @@ enum ChatValue {
             self = .lastMessage(value)
         case ("title", let value as String):
             self = .title(value)
-        case ("read_by", let value as String):
+        case ("read_by", let value as [String: TimeInterval]):
             self = .readBy(value)
         default:
             return nil

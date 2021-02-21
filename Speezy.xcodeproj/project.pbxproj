@@ -12,7 +12,8 @@
 		BE041E0625E18558005C3B9F /* ImportContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E0525E18558005C3B9F /* ImportContactViewController.swift */; };
 		BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */; };
 		BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */; };
-		BE041E6025E2A8B7005C3B9F /* ReadBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5F25E2A8B7005C3B9F /* ReadBy.swift */; };
+		BE041E6825E2C89E005C3B9F /* ChatterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6725E2C89E005C3B9F /* ChatterValue.swift */; };
+		BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
@@ -89,7 +90,6 @@
 		BE5BDB7925C3530300F937C3 /* ChatsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB7825C3530300F937C3 /* ChatsListener.swift */; };
 		BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */; };
 		BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */; };
-		BE5BDB9F25C3581A00F937C3 /* GroupFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */; };
 		BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */; };
 		BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */; };
 		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
@@ -305,7 +305,8 @@
 		BE041E0525E18558005C3B9F /* ImportContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewController.swift; sourceTree = "<group>"; };
 		BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewModel.swift; sourceTree = "<group>"; };
 		BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleter.swift; sourceTree = "<group>"; };
-		BE041E5F25E2A8B7005C3B9F /* ReadBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBy.swift; sourceTree = "<group>"; };
+		BE041E6725E2C89E005C3B9F /* ChatterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterValue.swift; sourceTree = "<group>"; };
+		BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattersFetcher.swift; sourceTree = "<group>"; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSignupViewModel.swift; sourceTree = "<group>"; };
@@ -383,7 +384,6 @@
 		BE5BDB7825C3530300F937C3 /* ChatsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListener.swift; sourceTree = "<group>"; };
 		BE5BDB8025C3544600F937C3 /* ChatUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUpdater.swift; sourceTree = "<group>"; };
 		BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCreator.swift; sourceTree = "<group>"; };
-		BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCreator.swift; sourceTree = "<group>"; };
 		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
@@ -795,10 +795,10 @@
 			isa = PBXGroup;
 			children = (
 				BE5BDB7825C3530300F937C3 /* ChatsListener.swift */,
-				BE5BDB9E25C3581A00F937C3 /* GroupFetcher.swift */,
 				BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */,
 				BE6FD91525B4D07600723732 /* MessageListener.swift */,
 				BEF7DE3A25C724DB00B690CB /* ChatImageFetcher.swift */,
+				BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */,
 			);
 			path = Fetching;
 			sourceTree = "<group>";
@@ -913,7 +913,6 @@
 				BE6FD94225B6106200723732 /* Message.swift */,
 				BE6FD94825B6106900723732 /* Chat.swift */,
 				BE6FD94C25B6107200723732 /* Chatter.swift */,
-				BE041E5F25E2A8B7005C3B9F /* ReadBy.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1644,6 +1643,7 @@
 				BEFF49AE25C58AD100794A21 /* ChatValue.swift */,
 				BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */,
 				BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */,
+				BE041E6725E2C89E005C3B9F /* ChatterValue.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -2054,12 +2054,12 @@
 				BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */,
 				BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */,
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
+				BE041E6825E2C89E005C3B9F /* ChatterValue.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* Observers.swift in Sources */,
 				BE0A45C525CEDA3B005F4DA8 /* MyRecordingsListObservation.swift in Sources */,
 				BE54295B2593714B007EEAD1 /* EmailSignupViewController.swift in Sources */,
 				BE0A45A525CEBF30005F4DA8 /* ContactsListener.swift in Sources */,
 				BE5429742593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift in Sources */,
-				BE041E6025E2A8B7005C3B9F /* ReadBy.swift in Sources */,
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
 				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
 				BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */,
@@ -2108,11 +2108,11 @@
 				BE0A45A125CEBEE0005F4DA8 /* ContactListObservation.swift in Sources */,
 				BEE47F3E25BC67D100AF47FA /* NewChatViewModel.swift in Sources */,
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
+				BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */,
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
 				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,
-				BE5BDB9F25C3581A00F937C3 /* GroupFetcher.swift in Sources */,
 				BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */,
 				BEE47F0725BC558D00AF47FA /* ContactsCoordinator.swift in Sources */,
 				BEA32E2D25D8431000A9F643 /* ProfileFetcher.swift in Sources */,

@@ -456,7 +456,7 @@
                                     <constraint firstAttribute="height" constant="50" id="5ui-Y9-vnL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="name"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EWe-Lb-auN">
                                 <rect key="frame" x="0.0" y="158" width="414" height="1"/>

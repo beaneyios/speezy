@@ -69,7 +69,10 @@ class ChatListViewModel {
         debouncer.debounce {
             self.chats = chats
             self.items = chats.map {
-                ChatCellModel(chat: $0, currentUserId: self.userId)
+                ChatCellModel(
+                    chat: $0,
+                    currentUserId: self.userId
+                )
             }
 
             self.didChange?(.loaded)

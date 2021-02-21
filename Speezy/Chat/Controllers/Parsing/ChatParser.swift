@@ -18,29 +18,35 @@ class ChatParser {
             return nil
         }
         
-        let readBy: [ReadBy] = {
-            guard let readByString = dict["read_by"] as? String else {
-                return []
-            }
-            
-            return [ReadBy](string: readByString)
-        }()
+        let readBy = dict["read_by"] as? [String: TimeInterval]
         
         let chat = Chat(
             id: key,
-            chatters: [],
-            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
-            chatImageUrl: URL(key: "chat_image_url", dict: dict)
+            chatImageUrl: URL(key: "chat_image_url", dict: dict),
+            readBy: readBy ?? [:]
         )
         
         return chat
     }
     
-    static func parseChatter(key: String, dict: NSDictionary) -> Chatter? {
-        guard let displayName = dict["display_name"] as? String else {
+    static func parseChatters(dict: NSDictionary) -> [Chatter] {
+        dict.compactMap {
+            guard let key = $0.key as? String, let dict = $0.value as? NSDictionary else {
+                return nil
+            }
+            
+            return self.parseChatter(key: key, dict: dict)
+        }
+    }
+    
+    static func parseChatter(key: String, dict: NSDictionary?) -> Chatter? {
+        guard
+            let dict = dict,
+            let displayName = dict["display_name"] as? String
+        else {
             return nil
         }
         
@@ -52,18 +58,24 @@ class ChatParser {
         )
     }
     
-    static func parseMessage(chat: Chat, key: String, dict: NSDictionary) -> Message? {
+    static func parseMessage(
+        chat: Chat,
+        chatters: [Chatter],
+        key: String,
+        dict: NSDictionary
+    ) -> Message? {
         guard
             let userId = dict["user_id"] as? String,
-            let chatter = chat.chatters.chatter(for: userId),
+            let chatter = chatters.chatter(for: userId),
             let sentDateSeconds = dict["sent_date"] as? TimeInterval
         else {
             return nil
         }
         
-        let readBy = chat.readBy.filter {
-            $0.time >= sentDateSeconds
-        }
+        let readBy = chatters.readChatters(
+            forMessageDate: Date(timeIntervalSince1970: sentDateSeconds),
+            chat: chat
+        )
         
         return Message(
             id: key,

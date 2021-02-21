@@ -39,14 +39,15 @@ extension ChatCellModel {
         return date.relativeTimeString
     }
     
-    var showUnread: Bool {
-        guard let currentUserId = currentUserId else {
+    var showRead: Bool {
+        guard
+            let currentUserId = currentUserId,
+            let readBy = chat.readBy[currentUserId]
+        else {
             return false
         }
         
-        return !chat.readBy.contains {
-            $0.id == currentUserId && $0.time >= chat.lastUpdated
-        }
+        return readBy >= chat.lastUpdated
     }
     
     func loadImage(completion: @escaping (StorageFetchResult<UIImage>) -> Void) {

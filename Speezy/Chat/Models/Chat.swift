@@ -8,113 +8,74 @@
 
 import Foundation
 
-struct Chat: Equatable, Identifiable {    
+struct Chat: Equatable, Identifiable, Hashable {    
     let id: String
-    let chatters: [Chatter]
-    let readBy: [ReadBy]
     let title: String
     let lastUpdated: TimeInterval
     let lastMessage: String
     let chatImageUrl: URL?
-}
-
-extension Array where Element == ReadBy {
-    init(string: String) {
-        let readBy = string.components(separatedBy: ",")
-        self = readBy.compactMap {
-            ReadBy(string: $0)
-        }
-    }
-    
-    var toString: String {
-        map { $0.toString }.joined(separator: ",")
-    }
+    let readBy: [String: TimeInterval]
 }
 
 extension Chat {
-    func withReadBy(userId: String, time: TimeInterval) -> Chat {
-        let newReadBy = ReadBy(id: userId, time: time)
+    func withReadBy(readBy: [String: TimeInterval]) -> Chat {
+        var newReadBy = self.readBy
         
+        readBy.keys.forEach {
+            newReadBy[$0] = readBy[$0]
+        }
+
         return Chat(
             id: id,
-            chatters: chatters,
-            readBy: readBy.inserting(newReadBy),
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl
-        )
-    }
-    
-    func withReadBy(readBy: [ReadBy]) -> Chat {
-        return Chat(
-            id: id,
-            chatters: chatters,
-            readBy: readBy,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl
-        )
-    }
-    
-    func withChatters(chatters: [Chatter]) -> Chat {
-        Chat(
-            id: id,
-            chatters: chatters,
-            readBy: readBy,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl
+            chatImageUrl: chatImageUrl,
+            readBy: newReadBy
         )
     }
     
     func withChatImageUrl(_ url: URL) -> Chat {
         Chat(
             id: id,
-            chatters: chatters,
-            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
-            chatImageUrl: url
+            chatImageUrl: url,
+            readBy: readBy
         )
     }
     
     func withLastMessage(_ lastMessage: String) -> Chat {
         Chat(
             id: id,
-            chatters: chatters,
-            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl
+            chatImageUrl: chatImageUrl,
+            readBy: readBy
         )
     }
     
     func withLastUpdated(_ lastUpdated: TimeInterval) -> Chat {
         Chat(
             id: id,
-            chatters: chatters,
-            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl
+            chatImageUrl: chatImageUrl,
+            readBy: readBy
         )
     }
     
     func withTitle(_ title: String) -> Chat {
         Chat(
             id: id,
-            chatters: chatters,
-            readBy: readBy,
             title: title,
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl
+            chatImageUrl: chatImageUrl,
+            readBy: readBy
         )
     }
 }
@@ -124,8 +85,8 @@ extension Chat {
         var dict: [String: Any] = [
             "last_message": lastMessage,
             "last_updated": lastUpdated,
-            "read_by": readBy.toString,
-            "title": title
+            "title": title,
+            "read_by": readBy
         ]
         
         if let chatImageUrl = chatImageUrl {
@@ -139,7 +100,13 @@ extension Chat {
 extension Array where Element == Chat {    
     func containsUnread(userId: String) -> Bool {
         contains {
-            !$0.readBy.contains(elementWithId: userId)
+            
+            let chat = $0
+            guard let lastRead = chat.readBy[userId] else {
+                return true
+            }
+            
+            return lastRead <= chat.lastUpdated
         }
     }
 }

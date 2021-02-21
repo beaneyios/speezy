@@ -9,13 +9,14 @@
 import Foundation
 import FirebaseDatabase
 
-class ChatUpdater {
-    func updateChat(
-        chatValue: ChatValue,
-        chatId: String
+class ChatUpdater {    
+    func updateReadBy(
+        chatId: String,
+        userId: String,
+        time: TimeInterval
     ) {
         let ref = Database.database().reference()
-        let groupChild = ref.child("chats/\(chatId)/\(chatValue.key)")
-        groupChild.setValue(chatValue.value)
+        let groupChild = ref.child("chats/\(chatId)/read_by/\(userId)")
+        groupChild.setValue(time)
     }
 }

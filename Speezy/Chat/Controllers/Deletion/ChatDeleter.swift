@@ -12,6 +12,7 @@ import FirebaseDatabase
 class ChatDeleter {
     func deleteChat(
         chat: Chat,
+        chatters: [Chatter],
         userId: String,
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
@@ -21,11 +22,10 @@ class ChatDeleter {
             "users/\(userId)/chats/\(chat.id)": NSNull()
         ]
         
-        if chat.chatters.count == 1 && chat.chatters[0].id == userId {
+        if chatters.count == 1 && chatters[0].id == userId {
             // This user is the last one left, and they're leaving.
             // So bin the chat.
             updatedData["chats/\(chat.id)"] = NSNull()
-            updatedData["chatters/\(chat.id)"] = NSNull()
         } else {
             // Just remove this user.
             updatedData["chatters/\(chat.id)/\(userId)"] = NSNull()

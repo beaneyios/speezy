@@ -8,16 +8,36 @@
 
 import UIKit
 
-struct Chatter: Equatable {
-    let id: String
-    let displayName: String
-    let profileImageUrl: URL?
-    let pushToken: String?
+struct Chatter: Equatable, Identifiable {
+    var id: String
+    var displayName: String
+    var profileImageUrl: URL?
+    var pushToken: String?
 }
 
 extension Array where Element == Chatter {
+    func readChatters(forMessageDate date: Date, chat: Chat) -> [Chatter] {
+        filter {
+            guard let readBy = chat.readBy[$0.id] else {
+                return false
+            }
+            
+            return readBy >= date.timeIntervalSince1970
+        }
+    }
+    
     func chatter(for id: String) -> Chatter? {
         first { $0.id == id }
+    }
+    
+    var toDict: [String: Any] {
+        var dict = [String: Any]()
+        
+        forEach {
+            dict[$0.id] = $0.toDict
+        }
+        
+        return dict
     }
 }
 

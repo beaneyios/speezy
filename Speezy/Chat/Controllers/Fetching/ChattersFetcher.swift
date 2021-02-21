@@ -1,15 +1,15 @@
 //
-//  GroupFetcher.swift
+//  ChattersFetcher.swift
 //  Speezy
 //
-//  Created by Matt Beaney on 28/01/2021.
+//  Created by Matt Beaney on 21/02/2021.
 //  Copyright © 2021 Speezy. All rights reserved.
 //
 
 import Foundation
 import FirebaseDatabase
 
-class GroupFetcher {
+class ChattersFetcher {
     func fetchChatters(
         chat: Chat,
         completion: @escaping (Result<[Chatter], Error>) -> Void

@@ -94,6 +94,8 @@ class ChatShareViewModel {
             duration: item.calculatedDuration,
             readBy: []
         )
+
+        
         
         messageCreator.insertMessage(
             chats: selectedChats,
@@ -104,7 +106,7 @@ class ChatShareViewModel {
                 self.didChange?(.messageInserted)
                 self.chatPushManager.sendNotification(
                     message: message.formattedMessage,
-                    chats: self.chats,
+                    chats: self.selectedChats,
                     from: chatter
                 )
             case let .failure(error):

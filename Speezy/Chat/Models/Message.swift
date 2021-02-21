@@ -19,7 +19,7 @@ struct Message: Equatable, Identifiable {
     let attachmentUrl: URL?
     let duration: TimeInterval?
     
-    let readBy: [ReadBy]
+    var readBy: [Chatter]
     
     var formattedMessage: String {
         message ?? "New message from \(chatter.displayName)"

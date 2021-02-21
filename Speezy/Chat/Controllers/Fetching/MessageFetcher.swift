@@ -12,6 +12,7 @@ import FirebaseDatabase
 class MessageFetcher {
     func fetchMessages(
         chat: Chat,
+        chatters: [Chatter],
         mostRecentMessage: Message? = nil,
         completion: @escaping (Result<[Message], Error>) -> Void
     ) {
@@ -43,7 +44,12 @@ class MessageFetcher {
                     return nil
                 }
                 
-                return ChatParser.parseMessage(chat: chat, key: key, dict: dict)
+                return ChatParser.parseMessage(
+                    chat: chat,
+                    chatters: chatters,
+                    key: key,
+                    dict: dict
+                )
             }.sorted {
                 $0.sent > $1.sent
             }

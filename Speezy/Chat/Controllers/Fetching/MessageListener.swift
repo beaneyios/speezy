@@ -14,11 +14,13 @@ class MessageListener {
     typealias MessageFetchHandler = (Result<Message, Error>) -> Void
     
     let chat: Chat
+    let chatters: [Chatter]
     private var currentNewMessageQuery: DatabaseQuery?
     private var currentDeletedMessageQuery: DatabaseQuery?
     
-    init(chat: Chat) {
+    init(chat: Chat, chatters: [Chatter]) {
         self.chat = chat
+        self.chatters = chatters
     }
     
     func listenForNewMessages(mostRecentMessage: Message?, completion: @escaping MessageFetchHandler) {
@@ -37,6 +39,7 @@ class MessageListener {
             
             let message = ChatParser.parseMessage(
                 chat: self.chat,
+                chatters: self.chatters,
                 key: snapshot.key,
                 dict: result
             )

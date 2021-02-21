@@ -34,7 +34,7 @@ class ChatCell: UICollectionViewCell, NibLoadable {
         chatImage.image = nil
         chatImage.alpha = 0.0
         
-        notificationLabel.isHidden = !item.showUnread
+        notificationLabel.isHidden = item.showRead
         
         item.loadImage { (result) in
             DispatchQueue.main.async {
