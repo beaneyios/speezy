@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 protocol ProfileViewModel {
     var profile: Profile? { get set }
@@ -31,6 +32,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var lblErrorMessage: UILabel?
 
+    @IBOutlet weak var copyButton: UIButton!
     @IBOutlet weak var usernameIcon: UILabel!
     
     var viewModel: ProfileViewModel!
@@ -76,11 +78,25 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func copyUsernameToClipboard(_ sender: Any) {
+        
+        copyButton.setImage(UIImage(named: "tick-icon"), for: .normal)
+        
+        let hud = JGProgressHUD()
+        hud.textLabel.text = "Copied to clipboard"
+        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+        hud.style = .dark
+        hud.show(in: self.view)
+        
         guard let profile = viewModel.profile else {
             return
         }
         
         UIPasteboard.general.string = profile.userName
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+            hud.dismiss()
+            self.copyButton.setImage(UIImage(named: "copy-button"), for: .normal)
+        }
     }
     
     @IBAction func attachProfileImage(_ sender: Any) {

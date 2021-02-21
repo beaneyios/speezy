@@ -30,6 +30,10 @@ class ProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        shareContainer.alpha = 0.0
+        contactsButtonContainer.alpha = 0.0
+        updateButtonContainer.alpha = 0.0
+        
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
@@ -38,6 +42,7 @@ class ProfileEditViewController: UIViewController {
                     self.configureSignupButton()
                     self.configureContactsButton()
                     self.configureShareButton()
+                    self.animateButtons()
                 case .saved:
                     self.updateButton.stopLoading()
                 }
@@ -107,6 +112,30 @@ class ProfileEditViewController: UIViewController {
         }
         
         self.updateButton = button
+    }
+    
+    private func animateButtons() {
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        
+        [shareContainer, contactsButtonContainer, updateButtonContainer].enumerated().forEach {
+            guard let element = $0.element else {
+                return
+            }
+            
+            self.animateButton(button: element, offset: $0.offset)
+        }
+    }
+    
+    private func animateButton(button: UIView, offset: Int) {
+        button.transform = button.transform.translatedBy(x: 0.0, y: 20.0)
+        UIView.animate(withDuration: 0.6, delay: Double(offset) / 10.0, options: .curveEaseInOut) {
+            button.alpha = 1.0
+            button.transform = .identity
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            print(button.alpha)
+        }
     }
     
     private func configureProfileViewController() {

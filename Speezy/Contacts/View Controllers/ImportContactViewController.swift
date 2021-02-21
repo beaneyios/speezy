@@ -27,11 +27,15 @@ class ImportContactViewController: UIViewController {
         startLoading()
         
         viewModel.didChange = { change in
-            switch change {
-            case .contactImported:
-                self.delegate?.importContactViewControllerDidImportContact(self)
-            }
+            DispatchQueue.main.async {
+                switch change {
+                case .contactImported:
+                    self.delegate?.importContactViewControllerDidImportContact(self)
+                }
+            }            
         }
+        
+        viewModel.loadData()
     }
     
     private func configureLoader() {
