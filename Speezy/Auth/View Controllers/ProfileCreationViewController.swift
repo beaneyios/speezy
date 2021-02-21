@@ -23,6 +23,7 @@ class ProfileCreationViewController: UIViewController {
     
     @IBOutlet weak var completeSignupBtnContainer: UIView!
     @IBOutlet weak var profileViewContainer: UIView!
+    @IBOutlet weak var bottomButtonConstraint: NSLayoutConstraint!
     
     private var completeSignupBtn: GradientButton?
     private var profileViewController: ProfileViewController!
@@ -30,11 +31,19 @@ class ProfileCreationViewController: UIViewController {
     weak var delegate: ProfileCreationViewControllerDelegate?
     var viewModel: FirebaseSignupViewModel!
     
+    lazy var insetManager = KeyboardConstraintManager(
+        view: view,
+        constraint: bottomButtonConstraint,
+        defaultConstant: 16.0
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         completeSignupBtnContainer.addShadow()
         configureSignupButton()
         configureProfileViewController()
+        
+        insetManager.startListening()
     }
     
     override func viewDidLayoutSubviews() {

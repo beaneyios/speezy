@@ -35,7 +35,7 @@ class EmailSignupViewController: UIViewController, FormErrorDisplaying {
     
     weak var delegate: EmailSignupViewControllerDelegate?
     var viewModel: EmailSignupViewModel!
-    private var insetManager: KeyboardInsetManager!
+    private var insetManager: KeyboardScrollViewInsetManager!
     
     var fieldDict: [Field: UIView] {
         [
@@ -124,7 +124,7 @@ class EmailSignupViewController: UIViewController, FormErrorDisplaying {
     }
     
     private func configureInsetManager() {
-        insetManager = KeyboardInsetManager(
+        insetManager = KeyboardScrollViewInsetManager(
             view: view,
             scrollView: scrollView
         )

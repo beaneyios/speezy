@@ -1,20 +1,22 @@
 //
-//  KeyboardInsetManager.swift
+//  KeyboardConstraintManager.swift
 //  Speezy
 //
-//  Created by Matt Beaney on 23/12/2020.
-//  Copyright © 2020 Speezy. All rights reserved.
+//  Created by Matt Beaney on 21/02/2021.
+//  Copyright © 2021 Speezy. All rights reserved.
 //
 
 import UIKit
 
-class KeyboardInsetManager {
+class KeyboardConstraintManager {
     let view: UIView
-    let scrollView: UIScrollView
+    let constraint: NSLayoutConstraint
+    let defaultConstant: CGFloat
         
-    init(view: UIView, scrollView: UIScrollView) {
+    init(view: UIView, constraint: NSLayoutConstraint, defaultConstant: CGFloat) {
         self.view = view
-        self.scrollView = scrollView
+        self.constraint = constraint
+        self.defaultConstant = defaultConstant
     }
     
     func startListening() {
@@ -52,17 +54,10 @@ class KeyboardInsetManager {
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
 
         if notification.name == UIResponder.keyboardWillHideNotification {
-            scrollView.contentInset = .zero
+            constraint.constant = defaultConstant
         } else {
-            scrollView.contentInset = UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
-                right: 0
-            )
+            constraint.constant = keyboardViewEndFrame.height - view.safeAreaInsets.bottom + defaultConstant
         }
-
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
     
     @objc func dismissKeyboard() {

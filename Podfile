@@ -11,6 +11,7 @@ target 'Speezy' do
   pod 'AFDateHelper', '~> 4.3.0'
   pod 'SCLAlertView', '~> 0.8'
   pod 'DeviceKit', '~> 4.2.1'
+  
   pod 'Firebase/Crashlytics', '~> 6.27.0'
   pod 'Firebase/Auth', '~> 6.27.0'
   pod 'Firebase/Database'
@@ -18,11 +19,13 @@ target 'Speezy' do
   pod 'Firebase/Messaging'
   pod 'FirebaseUI/Storage', '~> 8.0'
   pod 'Firebase/DynamicLinks'
+  
   pod 'JGProgressHUD'
   
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
   pod 'FacebookLogin'
+  pod 'GoogleSignIn'
   pod 'Firebase/Functions'
 
   target 'SpeezyTests' do

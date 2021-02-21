@@ -14,6 +14,8 @@
 		BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */; };
 		BE041E6825E2C89E005C3B9F /* ChatterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6725E2C89E005C3B9F /* ChatterValue.swift */; };
 		BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */; };
+		BE041E9925E2EF23005C3B9F /* GoogleSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E9825E2EF23005C3B9F /* GoogleSignInViewModel.swift */; };
+		BE041EA325E2F77F005C3B9F /* KeyboardConstraintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
@@ -255,7 +257,7 @@
 		BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */; };
 		BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425BE25AB512200DC8E3D /* AuthResult.swift */; };
 		BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */; };
-		BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */; };
+		BEF4DB652593C9FA002B403A /* KeyboardScrollViewInsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB642593C9FA002B403A /* KeyboardScrollViewInsetManager.swift */; };
 		BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */; };
 		BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF7DE0E25C6BF4D00B690CB /* NavigationControlling.swift */; };
 		BEF7DE3B25C724DB00B690CB /* ChatImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF7DE3A25C724DB00B690CB /* ChatImageFetcher.swift */; };
@@ -307,6 +309,8 @@
 		BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleter.swift; sourceTree = "<group>"; };
 		BE041E6725E2C89E005C3B9F /* ChatterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterValue.swift; sourceTree = "<group>"; };
 		BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattersFetcher.swift; sourceTree = "<group>"; };
+		BE041E9825E2EF23005C3B9F /* GoogleSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewModel.swift; sourceTree = "<group>"; };
+		BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardConstraintManager.swift; sourceTree = "<group>"; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSignupViewModel.swift; sourceTree = "<group>"; };
@@ -553,7 +557,7 @@
 		BEF425BA25AB2F4900DC8E3D /* FormErrorDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormErrorDisplaying.swift; sourceTree = "<group>"; };
 		BEF425BE25AB512200DC8E3D /* AuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResult.swift; sourceTree = "<group>"; };
 		BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorFactory.swift; sourceTree = "<group>"; };
-		BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInsetManager.swift; sourceTree = "<group>"; };
+		BEF4DB642593C9FA002B403A /* KeyboardScrollViewInsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardScrollViewInsetManager.swift; sourceTree = "<group>"; };
 		BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignupViewModel.swift; sourceTree = "<group>"; };
 		BEF7DE0E25C6BF4D00B690CB /* NavigationControlling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControlling.swift; sourceTree = "<group>"; };
 		BEF7DE3A25C724DB00B690CB /* ChatImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatImageFetcher.swift; sourceTree = "<group>"; };
@@ -713,6 +717,7 @@
 				BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */,
 				BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */,
 				BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */,
+				BE041E9825E2EF23005C3B9F /* GoogleSignInViewModel.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -1238,7 +1243,8 @@
 			isa = PBXGroup;
 			children = (
 				BEBFD4CA24C5DB8700200D87 /* Storage.swift */,
-				BEF4DB642593C9FA002B403A /* KeyboardInsetManager.swift */,
+				BEF4DB642593C9FA002B403A /* KeyboardScrollViewInsetManager.swift */,
+				BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1719,6 +1725,7 @@
 				BE792701247EE55F0079652C /* Resources */,
 				8BD7A46B0703E53F9D366220 /* [CP] Embed Pods Frameworks */,
 				BE0CA32E25001A9F00F354BD /* Crashlytics */,
+				09310DE6B23D95339D42D733 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1849,6 +1856,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		09310DE6B23D95339D42D733 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Speezy/Pods-Speezy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5F4458E6A8545A8ED09BB292 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2083,7 +2107,7 @@
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */,
-				BEF4DB652593C9FA002B403A /* KeyboardInsetManager.swift in Sources */,
+				BEF4DB652593C9FA002B403A /* KeyboardScrollViewInsetManager.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEE47F3625BC5E5700AF47FA /* ContactParser.swift in Sources */,
@@ -2100,6 +2124,7 @@
 				BEF3B72825481C31009308A4 /* TranscriptManager.swift in Sources */,
 				BEBFD4C024C5B9C700200D87 /* AppCoordinator.swift in Sources */,
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
+				BE041EA325E2F77F005C3B9F /* KeyboardConstraintManager.swift in Sources */,
 				BEA32E1825D80EFD00A9F643 /* ProfileListener.swift in Sources */,
 				BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */,
 				BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */,
@@ -2156,6 +2181,7 @@
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,
+				BE041E9925E2EF23005C3B9F /* GoogleSignInViewModel.swift in Sources */,
 				BE0A458D25CD684F005F4DA8 /* ChatShareViewModel.swift in Sources */,
 				BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,

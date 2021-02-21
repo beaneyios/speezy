@@ -35,7 +35,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     
     weak var delegate: LoginViewControllerDelegate?
     private var loginBtn: GradientButton?
-    private var insetManager: KeyboardInsetManager!
+    private var insetManager: KeyboardScrollViewInsetManager!
     
     private let emailViewModel = EmailLoginViewModel()
     
@@ -80,6 +80,9 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
                 self.facebookLoginBtn.stopLoading()
             }
         }
+    }
+    
+    @IBAction func signInWithGoogle(_ sender: Any) {
     }
     
     @IBAction func signInWithApple(_ sender: Any) {
@@ -137,7 +140,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     private func configureInsetManager() {
-        insetManager = KeyboardInsetManager(
+        insetManager = KeyboardScrollViewInsetManager(
             view: view,
             scrollView: scrollView
         )

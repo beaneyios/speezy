@@ -21,7 +21,7 @@ class ProfileFetcher {
                 let result = snapshot.value as? NSDictionary,
                 let profile = Profile(key: userId, dict: result)
             else {
-                assertionFailure("Something went wrong here")
+//                assertionFailure("Something went wrong here")
                 return
             }
             

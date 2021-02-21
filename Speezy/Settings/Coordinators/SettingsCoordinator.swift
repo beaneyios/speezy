@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 protocol SettingsCoordinatorDelegate: AnyObject {
     func settingsCoordinatorDidLogOut(_ coordinator: SettingsCoordinator)

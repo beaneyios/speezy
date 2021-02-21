@@ -49,72 +49,6 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         }
     }
     
-    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
-        guard
-            let accessToken = self.facebookAccessToken,
-            let profile = self.profile
-        else {
-            assertionFailure("No user ID found")
-            return
-        }
-        
-        DatabaseProfileManager().checkUsernameExists(userName: profile.userName) { (result) in
-            switch result {
-            case let .success(exists):
-                if exists {
-                    let error = FormError(message: "Username already exists", field: .username)
-                    completion(.failure(error))
-                } else {
-                    self.createUserInFirebase(
-                        token: accessToken,
-                        completion: completion
-                    )
-                }
-            case let .failure(error):
-                let error = AuthErrorFactory.authError(for: error)
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    private func createUserInFirebase(
-        token: String,
-        completion: @escaping (SpeezyResult<User, FormError?>) -> Void
-    ) {
-        let credential = FacebookAuthProvider.credential(
-            withAccessToken: token
-        )
-        
-        Auth.auth().signIn(with: credential) { (result, error) in
-            guard let user = result?.user else {
-                let formError = AuthErrorFactory.authError(for: error)
-                completion(.failure(formError))
-                return
-            }
-            
-            if let displayName = user.displayName {
-                self.profile?.name = displayName
-            }
-            
-            guard let profile = self.profile else {
-                return
-            }
-            
-            DatabaseProfileManager().updateUserProfile(
-                userId: user.uid,
-                profile: profile,
-                profileImage: self.profileImageAttachment
-            ) { (result) in
-                switch result {
-                case .success:
-                    completion(.success(user))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-    
     private func extractUserDataForProfile(
         accessToken: String,
         completion: @escaping (SpeezyResult<Profile, FormError?>) -> Void
@@ -187,6 +121,7 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
         guard let profile = self.profile else {
             return
         }
+        
         if
             let pictureDict = dict["picture"] as? [String: Any],
             let dataDict = pictureDict["data"] as? [String: Any],
@@ -204,6 +139,75 @@ class FacebookSignupViewModel: FirebaseSignupViewModel {
             }.resume()
         } else {
             completion(.success(profile))
+        }
+    }
+}
+
+// MARK: Create profile
+extension FacebookSignupViewModel {
+    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
+        guard
+            let accessToken = self.facebookAccessToken,
+            let profile = self.profile
+        else {
+            assertionFailure("No user ID found")
+            return
+        }
+        
+        DatabaseProfileManager().checkUsernameExists(userName: profile.userName) { (result) in
+            switch result {
+            case let .success(exists):
+                if exists {
+                    let error = FormError(message: "Username already exists", field: .username)
+                    completion(.failure(error))
+                } else {
+                    self.createUserInFirebase(
+                        token: accessToken,
+                        completion: completion
+                    )
+                }
+            case let .failure(error):
+                let error = AuthErrorFactory.authError(for: error)
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func createUserInFirebase(
+        token: String,
+        completion: @escaping (SpeezyResult<User, FormError?>) -> Void
+    ) {
+        let credential = FacebookAuthProvider.credential(
+            withAccessToken: token
+        )
+        
+        Auth.auth().signIn(with: credential) { (result, error) in
+            guard let user = result?.user else {
+                let formError = AuthErrorFactory.authError(for: error)
+                completion(.failure(formError))
+                return
+            }
+            
+            if let displayName = user.displayName {
+                self.profile?.name = displayName
+            }
+            
+            guard let profile = self.profile else {
+                return
+            }
+            
+            DatabaseProfileManager().updateUserProfile(
+                userId: user.uid,
+                profile: profile,
+                profileImage: self.profileImageAttachment
+            ) { (result) in
+                switch result {
+                case .success:
+                    completion(.success(user))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
         }
     }
 }

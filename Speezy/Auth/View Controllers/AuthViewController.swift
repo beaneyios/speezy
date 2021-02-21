@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(
@@ -32,7 +33,9 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var btnSignupWithEmail: UIButton!
     @IBOutlet weak var btnSignupWithEmailContainer: UIView!
     @IBOutlet weak var facebookSignupBtn: SpeezyButton!
-    @IBOutlet weak var appleSignupBtn: SpeezyButton!
+    @IBOutlet weak var googleSignupButton: SpeezyButton!
+    
+    var googleViewModel: GoogleSignInViewModel?
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -44,6 +47,30 @@ class AuthViewController: UIViewController {
     
     @IBAction func signUpWithEmail(_ sender: Any) {
         delegate?.authViewControllerdidSelectSignupWithEmail(self)
+    }
+    
+    @IBAction func signUpWithGoogle(_ sender: Any) {
+        let viewModel = GoogleSignInViewModel()
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                self.googleSignupButton.stopLoading()
+                
+                switch change {
+                case let .success(profile):
+                    self.delegate?.authViewController(
+                        self,
+                        didMoveOnToProfileWithViewModel: viewModel
+                    )
+                case let .errored(error):
+                    self.presentError(error: error)
+                }
+            }            
+        }
+        
+        googleSignupButton.startLoading()
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
+        googleViewModel = viewModel
     }
     
     @IBAction func signUpWithFacebook(_ sender: Any) {
@@ -74,14 +101,14 @@ class AuthViewController: UIViewController {
             return
         }
         
-        appleSignupBtn.startLoading()
+//        appleSignupBtn.startLoading()
         
         let viewModel = AppleSignupViewModel(anchor: window)
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
                 case .loggedIn:
-                    self.appleSignupBtn.stopLoading()
+//                    self.appleSignupBtn.stopLoading()
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel

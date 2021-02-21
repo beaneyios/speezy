@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
     var viewModel: ProfileViewModel!
     var canEditUsername = true
     
-    private var insetManager: KeyboardInsetManager!
+    private var insetManager: KeyboardScrollViewInsetManager!
     private var completeSignupBtn: GradientButton?
     
     override func viewDidLoad() {
@@ -58,6 +58,9 @@ class ProfileViewController: UIViewController {
         } else {
             copyButtonWidth.constant = 0.0
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewDidLayoutSubviews() {
@@ -104,7 +107,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureInsetManager() {
-        self.insetManager = KeyboardInsetManager(
+        self.insetManager = KeyboardScrollViewInsetManager(
             view: view,
             scrollView: scrollView
         )
@@ -168,6 +171,21 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITextViewDelegate {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case usernameTxtField:
+            nameTxtField.becomeFirstResponder()
+        case nameTxtField:
+            occupationTxtField.becomeFirstResponder()
+        case nameTxtField:
+            aboutYouTxtField.becomeFirstResponder()
+        default:
+            break
+        }
+        
+        return false
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
