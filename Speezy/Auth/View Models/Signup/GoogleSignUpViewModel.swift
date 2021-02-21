@@ -10,10 +10,10 @@ import Foundation
 import GoogleSignIn
 import Firebase
 
-class GoogleSignInViewModel: NSObject, GIDSignInDelegate, FirebaseSignupViewModel {
+class GoogleSignUpViewModel: NSObject, GIDSignInDelegate, FirebaseSignupViewModel {
     enum Change {
         case errored(FormError)
-        case success(Profile)
+        case accountCreated(Profile)
     }
     
     var profile: Profile? = Profile()
@@ -101,12 +101,12 @@ class GoogleSignInViewModel: NSObject, GIDSignInDelegate, FirebaseSignupViewMode
             return
         }
         
-        didChange?(.success(profile))
+        didChange?(.accountCreated(profile))
     }
 }
 
 // MARK: Profile creation
-extension GoogleSignInViewModel {
+extension GoogleSignUpViewModel {
     func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
         guard let profile = self.profile else {
             assertionFailure("No user ID found")

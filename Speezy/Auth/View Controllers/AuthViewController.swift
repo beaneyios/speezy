@@ -35,7 +35,7 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var facebookSignupBtn: SpeezyButton!
     @IBOutlet weak var googleSignupButton: SpeezyButton!
     
-    var googleViewModel: GoogleSignInViewModel?
+    var googleViewModel: GoogleSignUpViewModel?
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -50,13 +50,13 @@ class AuthViewController: UIViewController {
     }
     
     @IBAction func signUpWithGoogle(_ sender: Any) {
-        let viewModel = GoogleSignInViewModel()
+        let viewModel = GoogleSignUpViewModel()
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 self.googleSignupButton.stopLoading()
                 
                 switch change {
-                case let .success(profile):
+                case let .accountCreated(profile):
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel

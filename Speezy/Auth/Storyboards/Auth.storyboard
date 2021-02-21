@@ -741,6 +741,7 @@
                     <connections>
                         <outlet property="emailSeparator" destination="Ewy-HN-lof" id="xvR-nR-JfC"/>
                         <outlet property="facebookLoginBtn" destination="9f5-xP-ugc" id="lT3-av-f74"/>
+                        <outlet property="googleLoginButton" destination="Whp-bk-Lgo" id="198-nu-pij"/>
                         <outlet property="lblErrorMessage" destination="2lL-l3-CjU" id="kiO-nZ-EQd"/>
                         <outlet property="loginBtnContainer" destination="apN-ej-Rny" id="X2b-kg-a5j"/>
                         <outlet property="passwordSeparator" destination="FNu-3m-m0z" id="zKO-Qy-6kZ"/>

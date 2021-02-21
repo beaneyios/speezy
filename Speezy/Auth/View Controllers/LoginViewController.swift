@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 protocol LoginViewControllerDelegate: AnyObject {
     func loginViewControllerDidLogIn(
@@ -24,6 +25,7 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 class LoginViewController: UIViewController, FormErrorDisplaying {
     @IBOutlet weak var facebookLoginBtn: SpeezyButton!
+    @IBOutlet weak var googleLoginButton: SpeezyButton!
     @IBOutlet weak var txtFieldEmail: UITextField!
     @IBOutlet weak var emailSeparator: UIView!
     @IBOutlet weak var txtFieldPassword: UITextField!
@@ -38,6 +40,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     private var insetManager: KeyboardScrollViewInsetManager!
     
     private let emailViewModel = EmailLoginViewModel()
+    private let googleViewModel = GoogleSignInViewModel()
     
     var fieldDict: [Field : UIView] {
         [
@@ -83,6 +86,22 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     @IBAction func signInWithGoogle(_ sender: Any) {
+        googleLoginButton.startLoading(color: UIColor(named: "speezy-purple")!)
+        googleViewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case let .errored(error):
+                    self.presentError(error: error)
+                case let .loggedIn(user):
+                    self.delegate?.loginViewControllerDidLogIn(self, withUser: user)
+                }
+                
+                self.googleLoginButton.stopLoading()
+            }
+        }
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func signInWithApple(_ sender: Any) {

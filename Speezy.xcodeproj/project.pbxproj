@@ -14,8 +14,9 @@
 		BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */; };
 		BE041E6825E2C89E005C3B9F /* ChatterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6725E2C89E005C3B9F /* ChatterValue.swift */; };
 		BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */; };
-		BE041E9925E2EF23005C3B9F /* GoogleSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E9825E2EF23005C3B9F /* GoogleSignInViewModel.swift */; };
+		BE041E9925E2EF23005C3B9F /* GoogleSignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E9825E2EF23005C3B9F /* GoogleSignUpViewModel.swift */; };
 		BE041EA325E2F77F005C3B9F /* KeyboardConstraintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */; };
+		BE041EA925E2FDD6005C3B9F /* GoogleSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */; };
 		BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */; };
 		BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */; };
 		BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */; };
@@ -309,8 +310,9 @@
 		BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleter.swift; sourceTree = "<group>"; };
 		BE041E6725E2C89E005C3B9F /* ChatterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterValue.swift; sourceTree = "<group>"; };
 		BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattersFetcher.swift; sourceTree = "<group>"; };
-		BE041E9825E2EF23005C3B9F /* GoogleSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewModel.swift; sourceTree = "<group>"; };
+		BE041E9825E2EF23005C3B9F /* GoogleSignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignUpViewModel.swift; sourceTree = "<group>"; };
 		BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardConstraintManager.swift; sourceTree = "<group>"; };
+		BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewModel.swift; sourceTree = "<group>"; };
 		BE05275024CAC30900B0D22B /* VideoPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaceholderView.swift; sourceTree = "<group>"; };
 		BE05275224CAC32400B0D22B /* VideoPlaceholderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoPlaceholderView.xib; sourceTree = "<group>"; };
 		BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookSignupViewModel.swift; sourceTree = "<group>"; };
@@ -717,7 +719,7 @@
 				BEF4DB6F2593D6D7002B403A /* EmailSignupViewModel.swift */,
 				BE07DAD12594B22C00D37FC7 /* FacebookSignupViewModel.swift */,
 				BE07DAF02596845800D37FC7 /* AppleSignupViewModel.swift */,
-				BE041E9825E2EF23005C3B9F /* GoogleSignInViewModel.swift */,
+				BE041E9825E2EF23005C3B9F /* GoogleSignUpViewModel.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -727,6 +729,7 @@
 			children = (
 				BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */,
 				BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */,
+				BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -2055,6 +2058,7 @@
 				BE0A45BF25CED9DA005F4DA8 /* MyRecordingsStore.swift in Sources */,
 				BE0A45AB25CEBF8F005F4DA8 /* ContactValue.swift in Sources */,
 				BEBFD4BA24C5A23700200D87 /* AudioPlayer.swift in Sources */,
+				BE041EA925E2FDD6005C3B9F /* GoogleSignInViewModel.swift in Sources */,
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
@@ -2181,7 +2185,7 @@
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,
-				BE041E9925E2EF23005C3B9F /* GoogleSignInViewModel.swift in Sources */,
+				BE041E9925E2EF23005C3B9F /* GoogleSignUpViewModel.swift in Sources */,
 				BE0A458D25CD684F005F4DA8 /* ChatShareViewModel.swift in Sources */,
 				BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
