@@ -30,9 +30,10 @@ class GoogleSignInViewModel: NSObject, GIDSignInDelegate {
         if let error = error {
             let formError = AuthErrorFactory.authError(for: error)
             didChange?(.errored(formError))
+            return
         }
         
-        guard let authentication = user.authentication else { return }
+        guard let authentication = user?.authentication else { return }
         
         let credential = GoogleAuthProvider.credential(
             withIDToken: authentication.idToken,
