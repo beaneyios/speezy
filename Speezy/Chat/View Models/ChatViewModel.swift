@@ -17,7 +17,7 @@ class ChatViewModel: NewItemGenerating {
         case itemInserted(index: Int)
         case finishedRecording
         case editingDiscarded(AudioItem)
-        case itemReloaded(index: Int)
+        case itemsReloaded(index: [Int])
         case itemRemoved(index: Int)
     }
     
@@ -26,6 +26,7 @@ class ChatViewModel: NewItemGenerating {
     private(set) var items = [MessageCellModel]()
     
     let messageFetcher = MessageFetcher()
+    let updateQueue = DispatchQueue(label: "chatViewModelQueue")
     
     private lazy var messageCreator = MessageCreator()
     private lazy var messageListener = MessageListener(chat: chat, chatters: chatters)
@@ -184,7 +185,7 @@ extension ChatViewModel {
                 self.items = self.items.replacing(modelToUpdate)
                 
                 if let index = self.items.index(modelToUpdate) {
-                    self.didChange?(.itemReloaded(index: index))
+                    self.didChange?(.itemsReloaded(index: [index]))
                 }
             case .failure:
                 break
@@ -256,20 +257,22 @@ extension ChatViewModel {
                     currentUserId: Auth.auth().currentUser?.uid ?? "",
                     isFavourite: self.messageIsFavourite(message: message)
                 )
-                                
-                let oldItems = self.items
-                self.items = self.items.inserting(cellModel)
-                                
-                if oldItems.count != self.items.count {
-                    self.didChange?(.itemInserted(index: 0))
-                } else {
-                    self.didChange?(.itemReloaded(index: 0))
-                }
                 
-                if let currentUserId = self.currentUserId, message.chatter.id != currentUserId {
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
-                        self.updateReadBy()
-                    }                    
+                self.updateQueue.async {
+                    let oldItems = self.items
+                    self.items = self.items.inserting(cellModel)
+                                    
+                    if oldItems.count != self.items.count {
+                        self.didChange?(.itemInserted(index: 0))
+                    } else {
+                        self.didChange?(.itemsReloaded(index: [0]))
+                    }
+                    
+                    if let currentUserId = self.currentUserId, message.chatter.id != currentUserId {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                            self.updateReadBy()
+                        }
+                    }
                 }
             case let .failure(error):
                 break
@@ -286,9 +289,11 @@ extension ChatViewModel {
             switch result {
             case let .success(messageId):
                 if let index = self.items.index(messageId) {
-                    self.items = self.items.removing(messageId)
-                    self.didChange?(.itemRemoved(index: index))
-                    
+                    self.updateQueue.async {
+                        self.items = self.items.removing(messageId)
+                        self.didChange?(.itemRemoved(index: index))
+                    }
+                                        
                     // We need to renew this, since the "most recent message" will be different.
                     if index == 0 {
                         self.listenForNewMessages(mostRecentMessage: self.items.first?.message)
@@ -408,27 +413,47 @@ extension ChatViewModel {
 
 extension ChatViewModel: ChatListObserver {
     func chatUpdated(chat: Chat, in chats: [Chat]) {
-        if self.chat.id == chat.id, let userId = self.currentUserId {
-            self.chat = chat
+        guard self.chat.id == chat.id, let userId = self.currentUserId else {
+            return
+        }
+        
+        updateQueue.async {
+            self.reloadChatItems(chat: chat, userId: userId)
+        }
+    }
+    
+    private func reloadChatItems(chat: Chat, userId: String) {
+        self.chat = chat
+        
+        var updatedItems = [MessageCellModel]()
+        
+        self.items = self.items.map {
+            var newMessage = $0.message
+            newMessage.readBy = chatters.readChatters(
+                forMessageDate: newMessage.sent,
+                chat: chat
+            )
             
-            self.items = self.items.map {
-                var newMessage = $0.message
-                newMessage.readBy = chatters.readChatters(
-                    forMessageDate: newMessage.sent,
-                    chat: chat
-                )
-                
-                return MessageCellModel(
-                    message: newMessage,
-                    chat: self.chat,
-                    chatters: self.chatters,
-                    currentUserId: userId,
-                    isFavourite: self.messageIsFavourite(message: $0.message)
-                )
+            let cellModel = MessageCellModel(
+                message: newMessage,
+                chat: self.chat,
+                chatters: self.chatters,
+                currentUserId: userId,
+                isFavourite: self.messageIsFavourite(message: $0.message)
+            )
+            
+            if newMessage != $0.message {
+                updatedItems.append(cellModel)
             }
             
-            self.didChange?(.loaded)
+            return cellModel
         }
+        
+        let indexes: [Int] = updatedItems.compactMap {
+            self.items.index($0)
+        }
+        
+        self.didChange?(.itemsReloaded(index: indexes))
     }
     
     func chatAdded(chat: Chat, in chats: [Chat]) {}

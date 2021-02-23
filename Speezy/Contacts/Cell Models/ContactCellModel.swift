@@ -31,7 +31,7 @@ extension ContactCellModel {
     }
     
     var userNameText: String {
-        "(@\(contact.userName))"
+        "@\(contact.userName)"
     }
     
     func tickImage(for selected: Bool?) -> UIImage? {

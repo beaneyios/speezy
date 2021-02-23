@@ -86,7 +86,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
                 case let .loading(loading):
                     if loading {
                         let hud = JGProgressHUD()
-                        hud.textLabel.text = "Loading your chats..."
+                        hud.textLabel.text = "Loading your recordings..."
                         hud.show(in: self.view)
                         self.hud = hud
                     } else {

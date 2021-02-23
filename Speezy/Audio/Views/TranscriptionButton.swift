@@ -74,6 +74,7 @@ class TranscriptionButton: UIView, NibLoadable {
     }
     
     @IBAction func buttonTapped(_ sender: Any) {
+        
         action?()
     }
 }

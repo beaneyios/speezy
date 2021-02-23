@@ -200,6 +200,7 @@ extension AudioItemListViewModel: MyRecordingsListObserver {
         }
         
         if newRecordings.isEmpty {
+            didChange?(.loading(false))
             return
         }
 

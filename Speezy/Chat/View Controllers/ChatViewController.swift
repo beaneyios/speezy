@@ -260,6 +260,14 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                             )
                         ]
                     )
+                case let .itemsReloaded(indexes):
+                    let indexPaths = indexes.map {
+                        IndexPath(item: $0, section: 0)
+                    }
+                    
+                    self.collectionView.performBatchUpdates({
+                        self.collectionView.reloadItems(at: indexPaths)
+                    }, completion: nil) 
                 case let .loading(isLoading):
                     if isLoading {
                         self.spinner.startAnimating()
@@ -282,15 +290,6 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
                     }
                     
                     playbackView.configure(audioItem: itemToReturnTo)
-                case let .itemReloaded(index: index):
-                    self.collectionView.reloadItems(
-                        at: [
-                            IndexPath(
-                                item: index,
-                                section: 0
-                            )
-                        ]
-                    )
                 case .leftChat:
                     self.delegate?.chatViewControllerDidTapBack(self)
                 }
