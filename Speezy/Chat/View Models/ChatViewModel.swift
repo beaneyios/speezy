@@ -226,7 +226,7 @@ extension ChatViewModel {
                     )
                 }
                 
-                if newMessageModels.isEmpty {
+                if newMessages.count == 1 && self.items.contains(message: newMessages[0]) {
                     self.noMoreMessages = true
                 } else {
                     self.items.append(contentsOf: newMessageModels)

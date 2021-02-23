@@ -156,3 +156,11 @@ extension MessageCellModel {
         isSender ? .white : .speezyPurple
     }
 }
+
+extension Array where Element == MessageCellModel {
+    func contains(message: Message) -> Bool {
+        contains {
+            $0.message == message
+        }
+    }
+}
