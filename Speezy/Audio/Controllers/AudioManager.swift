@@ -350,7 +350,7 @@ extension AudioManager: AudioPlayerDelegate {
         stateManager.performPlaybackAction(action: .showPlaybackStopped(item))
     }
     
-    private func regeneratePlayer(withItem item: AudioItem) {
+    func regeneratePlayer(withItem item: AudioItem) {
         audioPlayer = AudioPlayer(item: item)
         audioPlayer?.delegate = self
     }

@@ -15,6 +15,7 @@ class GradientButton: UIView, NibLoadable {
     @IBOutlet weak var buttonIcon: UIImageView!
     @IBOutlet weak var buttonIconWidth: NSLayoutConstraint!
     @IBOutlet weak var buttonIconRightPadding: NSLayoutConstraint!
+    @IBOutlet weak var tapButton: UIButton!
     
     typealias Action = () -> Void
     var action: Action?
@@ -54,6 +55,16 @@ class GradientButton: UIView, NibLoadable {
 
     @IBAction func buttonTapped(_ sender: Any) {
         action?()
+    }
+    
+    func enable() {
+        self.alpha = 1.0
+        self.tapButton.enable()
+    }
+    
+    func disable() {
+        self.alpha = 0.6
+        self.tapButton.disable()
     }
     
     func startLoading() {

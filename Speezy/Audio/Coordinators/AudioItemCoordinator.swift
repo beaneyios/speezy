@@ -121,8 +121,16 @@ extension AudioItemCoordinator: CutViewControllerDelegate {
                 $0 is AudioItemViewController
             } as? AudioItemViewController
             
-            audioItemViewController?.audioManager.markAsDirty()
-            audioItemViewController?.audioManager.adjustTranscript(forCutRange: from, to: to)
+            guard
+                let itemViewController = audioItemViewController,
+                let manager = itemViewController.audioManager
+            else {
+                return
+            }
+            
+            manager.regeneratePlayer(withItem: manager.currentItem)
+            manager.markAsDirty()
+            manager.adjustTranscript(forCutRange: from, to: to)
             audioItemViewController?.reset()
         }
     }
@@ -144,7 +152,15 @@ extension AudioItemCoordinator: CropViewControllerDelegate {
                 $0 is AudioItemViewController
             } as? AudioItemViewController
             
-            audioItemViewController?.audioManager.markAsDirty()
+            guard
+                let itemViewController = audioItemViewController,
+                let manager = itemViewController.audioManager
+            else {
+                return
+            }
+            
+            manager.regeneratePlayer(withItem: manager.currentItem)
+            manager.markAsDirty()
             audioItemViewController?.reset()
         }
     }

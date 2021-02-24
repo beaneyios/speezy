@@ -94,6 +94,7 @@
                 <outlet property="buttonIconWidth" destination="7k0-fX-gI5" id="zR4-Ww-NYW"/>
                 <outlet property="gradientImg" destination="d08-s5-dHf" id="b2M-s2-ytR"/>
                 <outlet property="spinner" destination="nHJ-qQ-xS7" id="7Ib-1a-bc2"/>
+                <outlet property="tapButton" destination="GiJ-CT-4vc" id="hIB-Z8-pjK"/>
             </connections>
             <point key="canvasLocation" x="-135.19999999999999" y="327.88605697151428"/>
         </view>

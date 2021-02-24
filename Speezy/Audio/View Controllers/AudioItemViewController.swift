@@ -408,6 +408,10 @@ extension AudioItemViewController: AudioRecorderObserver {
             $0.disable()
         }
         
+        [sendBtn, draftBtn].forEach {
+            $0?.disable()
+        }
+        
         transcribeButton?.disable()
     }
     
@@ -431,6 +435,10 @@ extension AudioItemViewController: AudioRecorderObserver {
         
         recordHidables.forEach {
             $0.enable()
+        }
+        
+        [sendBtn, draftBtn].forEach {
+            $0?.enable()
         }
         
 //        configureTranscribeButton()
