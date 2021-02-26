@@ -13,7 +13,7 @@ protocol ChatViewControllerDelegate: AnyObject {
     func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager)
 }
 
-class ChatViewController: UIViewController, QuickRecordPresenting {
+class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModelDelegate {
     
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var groupTitleLabel: UILabel!
@@ -24,9 +24,11 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var notificationLabel: UILabel!
     
+    var viewHeight: CGFloat {
+        collectionView.frame.height
+    }
     
     weak var delegate: ChatViewControllerDelegate?
-    
     private var activeAudioManager: AudioManager?
     
     var activeControl: UIView?
@@ -37,9 +39,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
         
         configureRecordContainer()
         configureCollectionView()
-        listenForChanges()
         addRecordButtonView()
-        
+        listenForChanges()
         groupTitleLabel.text = viewModel.groupTitleText
         collectionView.alpha = 0.0
     }
@@ -296,6 +297,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting {
             }
         }
         
+        viewModel.delegate = self
         viewModel.listenForData()
     }
     

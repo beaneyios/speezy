@@ -13,6 +13,7 @@ class MessageFetcher {
     func fetchMessages(
         chat: Chat,
         chatters: [Chatter],
+        queryCount: UInt,
         mostRecentMessage: Message? = nil,
         completion: @escaping (Result<[Message], Error>) -> Void
     ) {
@@ -26,7 +27,7 @@ class MessageFetcher {
                     .queryEnding(atValue: message.id)
                     .queryLimited(toLast: 5)
             } else {
-                return chatChild.queryOrderedByKey().queryLimited(toLast: 5)
+                return chatChild.queryOrderedByKey().queryLimited(toLast: queryCount)
             }
         }()
         

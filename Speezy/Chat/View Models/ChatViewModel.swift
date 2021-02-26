@@ -9,7 +9,13 @@
 import UIKit
 import FirebaseAuth
 
+protocol ChatViewModelDelegate: AnyObject {
+    var viewHeight: CGFloat { get }
+}
+
 class ChatViewModel: NewItemGenerating {
+    weak var delegate: ChatViewModelDelegate?
+    
     enum Change {
         case leftChat
         case loading(Bool)
@@ -131,8 +137,21 @@ extension ChatViewModel {
     }
     
     private func fetchMessages() {
+        let queryCount: UInt = {
+            guard let viewHeight = self.delegate?.viewHeight else {
+                return 5
+            }
+            
+            let count = viewHeight / 120.0
+            return UInt(count) + 2
+        }()
+        
         didChange?(.loading(true))
-        messageFetcher.fetchMessages(chat: chat, chatters: chatters) { [weak self] (result) in
+        messageFetcher.fetchMessages(
+            chat: chat,
+            chatters: chatters,
+            queryCount: queryCount
+        ) { [weak self] (result) in
             guard let self = self else {
                 return
             }
@@ -205,6 +224,7 @@ extension ChatViewModel {
         messageFetcher.fetchMessages(
             chat: chat,
             chatters: chatters,
+            queryCount: 5,
             mostRecentMessage: mostRecentMessage
         ) { [weak self] (result) in
             guard let self = self else {
