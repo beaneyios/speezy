@@ -288,16 +288,18 @@ extension ChatViewModel {
             
             switch result {
             case let .success(messageId):
-                if let index = self.items.index(messageId) {
-                    self.updateQueue.async {
-                        self.items = self.items.removing(messageId)
-                        self.didChange?(.itemRemoved(index: index))
-                    }
-                                        
-                    // We need to renew this, since the "most recent message" will be different.
-                    if index == 0 {
-                        self.listenForNewMessages(mostRecentMessage: self.items.first?.message)
-                    }
+                guard let index = self.items.index(messageId) else {
+                    return
+                }
+                
+                self.updateQueue.async {
+                    self.items = self.items.removing(messageId)
+                    self.didChange?(.itemRemoved(index: index))
+                }
+                                    
+                // We need to renew this, since the "most recent message" will be different.
+                if index == 0 {
+                    self.listenForNewMessages(mostRecentMessage: self.items.first?.message)
                 }
             case let.failure(error):
                 break
