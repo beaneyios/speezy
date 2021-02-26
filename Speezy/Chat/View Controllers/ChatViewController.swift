@@ -261,14 +261,21 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                             )
                         ]
                     )
-                case let .itemsReloaded(indexes):
+                case let .readStatusReloaded(indexes):
                     let indexPaths = indexes.map {
                         IndexPath(item: $0, section: 0)
                     }
                     
-                    self.collectionView.performBatchUpdates({
-                        self.collectionView.reloadItems(at: indexPaths)
-                    }, completion: nil) 
+                    self.collectionView.visibleCells.forEach {
+                        if
+                            let indexPath = self.collectionView.indexPath(for: $0),
+                            indexPaths.contains(indexPath),
+                            let messageCell = $0 as? MessageCell
+                        {
+                            let item = self.viewModel.items[indexPath.row]
+                            messageCell.configureTicks(item: item)
+                        }
+                    }
                 case let .loading(isLoading):
                     if isLoading {
                         self.spinner.startAnimating()
@@ -371,10 +378,6 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.messageDidStopPlaying = { stoppingCell in
             self.activeAudioManager = nil
             self.cellStoppedPlaying(cell: stoppingCell, collectionView: collectionView)
-        }
-        
-        cell.favouriteTapped = { message in
-            self.viewModel.toggleFavourite(on: message)
         }
         
         cell.longPressTapped = { message in

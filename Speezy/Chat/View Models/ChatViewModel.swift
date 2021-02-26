@@ -16,15 +16,17 @@ protocol ChatViewModelDelegate: AnyObject {
 class ChatViewModel: NewItemGenerating {
     weak var delegate: ChatViewModelDelegate?
     
+    var updateReadDebouncer = Debouncer(seconds: 1.0)
+    
     enum Change {
         case leftChat
         case loading(Bool)
         case loaded
         case itemInserted(index: Int)
+        case readStatusReloaded(index: [Int])
+        case itemRemoved(index: Int)
         case finishedRecording
         case editingDiscarded(AudioItem)
-        case itemsReloaded(index: [Int])
-        case itemRemoved(index: Int)
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -189,26 +191,8 @@ extension ChatViewModel {
         favouriter.toggleFavourite(
             currentFavourites: store.favouritesStore.favourites,
             message: message
-        ) { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case let .success(favourited):
-                guard var modelToUpdate = self.items.first(withId: message.id) else {
-                    return
-                }
-                
-                modelToUpdate.isFavourite = favourited
-                self.items = self.items.replacing(modelToUpdate)
-                
-                if let index = self.items.index(modelToUpdate) {
-                    self.didChange?(.itemsReloaded(index: [index]))
-                }
-            case .failure:
-                break
-            }
+        ) { _ in
+            // no op.
         }
     }
     
@@ -284,14 +268,10 @@ extension ChatViewModel {
                                     
                     if oldItems.count != self.items.count {
                         self.didChange?(.itemInserted(index: 0))
-                    } else {
-                        self.didChange?(.itemsReloaded(index: [0]))
                     }
                     
                     if let currentUserId = self.currentUserId, message.chatter.id != currentUserId {
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
-                            self.updateReadBy()
-                        }
+                        self.updateReadBy()
                     }
                 }
             case let .failure(error):
@@ -373,12 +353,14 @@ extension ChatViewModel {
     }
     
     private func updateReadBy() {
-        guard let userId = currentUserId else {
-            return
-        }
+        updateReadDebouncer.debounce { [weak self] in
+            guard let self = self, let userId = self.currentUserId else {
+                return
+            }
 
-        let updatedDate = Date().timeIntervalSince1970
-        ChatUpdater().updateReadBy(chatId: chat.id, userId: userId, time: updatedDate)
+            let updatedDate = Date().timeIntervalSince1970
+            ChatUpdater().updateReadBy(chatId: self.chat.id, userId: userId, time: updatedDate)
+        }
     }
     
     private func updateDatabaseRecords(item: AudioItem) {
@@ -438,16 +420,25 @@ extension ChatViewModel: ChatListObserver {
         }
         
         updateQueue.async {
-            self.reloadChatItems(chat: chat, userId: userId)
+            self.reloadReadStatus(chat: chat, userId: userId)
         }
     }
     
-    private func reloadChatItems(chat: Chat, userId: String) {
+    private func reloadReadStatus(chat: Chat, userId: String) {
         self.chat = chat
+        
+        guard let userId = self.currentUserId else {
+            return
+        }
         
         var updatedItems = [MessageCellModel]()
         
+        
         self.items = self.items.map {
+            if $0.message.chatter.id != userId {
+                return $0
+            }
+            
             var newMessage = $0.message
             newMessage.readBy = chatters.readChatters(
                 forMessageDate: newMessage.sent,
@@ -469,11 +460,13 @@ extension ChatViewModel: ChatListObserver {
             return cellModel
         }
         
-        let indexes: [Int] = updatedItems.compactMap {
+        let indexes: [Int] = updatedItems.filter {
+            $0.message.chatter.id == userId
+        }.compactMap {
             self.items.index($0)
         }
         
-        self.didChange?(.itemsReloaded(index: indexes))
+        self.didChange?(.readStatusReloaded(index: indexes))
     }
     
     func chatAdded(chat: Chat, in chats: [Chat]) {}

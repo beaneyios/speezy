@@ -29,7 +29,6 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         
     var messageDidStartPlaying: ((MessageCell) -> Void)?
     var messageDidStopPlaying: ((MessageCell) -> Void)?
-    var favouriteTapped: ((Message) -> Void)?
     var longPressTapped: ((Message) -> Void)?
     
     private(set) var audioManager: AudioManager?
@@ -101,6 +100,10 @@ class MessageCell: UICollectionViewCell, NibLoadable {
                 
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longPressedCell))
         addGestureRecognizer(longTap)
+    }
+    
+    func configureTicks(item: MessageCellModel) {
+        sendStatusImage.alpha = item.tickOpacity
     }
     
     @objc private func longPressedCell() {
