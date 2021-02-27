@@ -232,80 +232,84 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
     
     private func listenForChanges() {
         viewModel.didChange = { change in
-            DispatchQueue.main.async {
-                switch change {
-                case .loaded:
-                    self.toggleEmptyView()
-                    self.collectionView.reloadData()
-                    
-                    UIView.animate(withDuration: 0.3) {
-                        self.collectionView.alpha = 1.0
-                    }
-                case let .itemRemoved(index: index):
-                    self.toggleEmptyView()
-                    self.collectionView.deleteItems(
-                        at: [
-                            IndexPath(
-                                item: index,
-                                section: 0
-                            )
-                        ]
-                    )
-                case let .itemInserted(index):
-                    self.toggleEmptyView()
-                    self.collectionView.insertItems(
-                        at: [
-                            IndexPath(
-                                item: index,
-                                section: 0
-                            )
-                        ]
-                    )
-                case let .readStatusReloaded(indexes):
-                    let indexPaths = indexes.map {
-                        IndexPath(item: $0, section: 0)
-                    }
-                    
-                    self.collectionView.visibleCells.forEach {
-                        if
-                            let indexPath = self.collectionView.indexPath(for: $0),
-                            indexPaths.contains(indexPath),
-                            let messageCell = $0 as? MessageCell
-                        {
-                            let item = self.viewModel.items[indexPath.row]
-                            messageCell.configureTicks(item: item)
-                        }
-                    }
-                case let .loading(isLoading):
-                    if isLoading {
-                        self.spinner.startAnimating()
-                        self.spinner.isHidden = false
-                    } else {
-                        self.spinner.stopAnimating()
-                        self.spinner.isHidden = true
-                    }
-                case .finishedRecording:
-                    if let playbackView = self.activeControl as? ChatPlaybackView {
-                        playbackView.animateOut {
-                            self.animateToRecordButtonView()
-                        }
-                    } else {
-                        self.animateToRecordButtonView()
-                    }
-                case let .editingDiscarded(itemToReturnTo):
-                    guard let playbackView = self.activeControl as? ChatPlaybackView else {
-                        return
-                    }
-                    
-                    playbackView.configure(audioItem: itemToReturnTo)
-                case .leftChat:
-                    self.delegate?.chatViewControllerDidTapBack(self)
-                }
-            }
+            self.applyChange(change: change)
         }
         
         viewModel.delegate = self
         viewModel.listenForData()
+    }
+    
+    private func applyChange(change: ChatViewModel.Change) {
+        DispatchQueue.main.async {
+            switch change {
+            case .loaded:
+                self.toggleEmptyView()
+                self.collectionView.reloadData()
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.collectionView.alpha = 1.0
+                }
+            case let .itemRemoved(index: index):
+                self.toggleEmptyView()
+                self.collectionView.deleteItems(
+                    at: [
+                        IndexPath(
+                            item: index,
+                            section: 0
+                        )
+                    ]
+                )
+            case let .itemInserted(index):
+                self.toggleEmptyView()
+                self.collectionView.insertItems(
+                    at: [
+                        IndexPath(
+                            item: index,
+                            section: 0
+                        )
+                    ]
+                )
+            case let .readStatusReloaded(indexes):
+                let indexPaths = indexes.map {
+                    IndexPath(item: $0, section: 0)
+                }
+                
+                self.collectionView.visibleCells.forEach {
+                    if
+                        let indexPath = self.collectionView.indexPath(for: $0),
+                        indexPaths.contains(indexPath),
+                        let messageCell = $0 as? MessageCell
+                    {
+                        let item = self.viewModel.items[indexPath.row]
+                        messageCell.configureTicks(item: item)
+                    }
+                }
+            case let .loading(isLoading):
+                if isLoading {
+                    self.spinner.startAnimating()
+                    self.spinner.isHidden = false
+                } else {
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
+                }
+            case .finishedRecording:
+                if let playbackView = self.activeControl as? ChatPlaybackView {
+                    playbackView.animateOut {
+                        self.animateToRecordButtonView()
+                    }
+                } else {
+                    self.animateToRecordButtonView()
+                }
+            case let .editingDiscarded(itemToReturnTo):
+                guard let playbackView = self.activeControl as? ChatPlaybackView else {
+                    return
+                }
+                
+                playbackView.configure(audioItem: itemToReturnTo)
+            case .leftChat:
+                self.delegate?.chatViewControllerDidTapBack(self)
+            }
+        }
     }
     
     private func toggleEmptyView() {
