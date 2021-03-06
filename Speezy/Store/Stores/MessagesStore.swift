@@ -13,7 +13,7 @@ class MessagesStore {
     private var messageListeners = [MessageListener]()
     
     private(set) var messages = [Chat: [Message]]()
-    private var noMoreMessages = false
+    private var noMoreMessages = [Chat: Bool]()
     
     private var observations = [ObjectIdentifier : MessagesObservation]()
     private let serialQueue = DispatchQueue(label: "com.speezy.messages")
@@ -31,8 +31,7 @@ class MessagesStore {
         queryCount: UInt
     ) {
         guard
-            !noMoreMessages,
-            !loading
+            shouldLoadMessages(chat: chat)
         else {
             return
         }
@@ -48,7 +47,7 @@ class MessagesStore {
                 switch result {
                 case let .success(newMessages):
                     if newMessages.count == 1 && self.messageExists(id: newMessages[0].id) {
-                        self.noMoreMessages = true
+                        self.noMoreMessages[chat] = true
                     }
                     
                     let oldMessages = self.messages[chat]
@@ -198,6 +197,10 @@ class MessagesStore {
     
     private func mostRecentMessage(chat: Chat) -> Message? {
         messages[chat]?.first
+    }
+    
+    private func shouldLoadMessages(chat: Chat) -> Bool {
+        (noMoreMessages[chat] == nil || noMoreMessages[chat] == false) && !loading
     }
 }
 
