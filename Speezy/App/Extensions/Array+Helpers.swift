@@ -28,6 +28,12 @@ extension Array where Element: Identifiable {
         return newArray
     }
     
+    func appending(elements: [Element]) -> Self {
+        var newArray = self
+        newArray.append(contentsOf: elements)
+        return newArray
+    }
+    
     func first(withId id: String) -> Element? {
         first {
             $0.id == id

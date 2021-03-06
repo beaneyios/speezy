@@ -37,7 +37,6 @@ class ChatViewModel: NewItemGenerating {
     let updateQueue = DispatchQueue(label: "chatViewModelQueue")
     
     private lazy var messageCreator = MessageCreator()
-    private lazy var messageListener = MessageListener(chat: chat, chatters: chatters)
     private lazy var messageDeleter = MessageDeleter()
     private lazy var chatDeleter = ChatDeleter()
     private lazy var chatterFetcher = ChattersFetcher()
@@ -53,8 +52,6 @@ class ChatViewModel: NewItemGenerating {
     
     private var currentAudioFile: AudioItem?
     private var stagedText: String?
-    
-    private var noMoreMessages = false
     
     var groupTitleText: String {
         chat.title
@@ -119,8 +116,11 @@ extension ChatViewModel {
             switch result {
             case let .success(chatters):
                 self.chatters = chatters
-                self.fetchMessages()
-            case let .failure(error):
+                self.store.messagesStore.addMessagesObserver(
+                    self,
+                    chat: self.chat
+                )
+            case .failure:
                 break
             }
         }
@@ -128,8 +128,8 @@ extension ChatViewModel {
         store.chatStore.addChatListObserver(self)
     }
     
-    func stopListeningForData() {
-        messageListener.stopListening()
+    func loadMoreMessages() {
+        store.messagesStore.fetchNextPage(chat: chat, chatters: chatters, queryCount: 5)
     }
     
     private func messageIsFavourite(message: Message) -> Bool {
@@ -139,50 +139,22 @@ extension ChatViewModel {
     }
     
     private func fetchMessages() {
-        let queryCount: UInt = {
-            guard let viewHeight = self.delegate?.viewHeight else {
-                return 5
-            }
-            
-            let count = viewHeight / 120.0
-            return UInt(count) + 2
-        }()
-        
-        didChange?(.loading(true))
-        messageFetcher.fetchMessages(
-            chat: chat,
-            chatters: chatters,
-            queryCount: queryCount
-        ) { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case let .success(messages):
-                guard let userId = self.currentUserId else {
-                    return
+        DispatchQueue.main.async {
+            let queryCount: UInt = {
+                guard let viewHeight = self.delegate?.viewHeight else {
+                    return 5
                 }
                 
-                self.items = messages.map {
-                    MessageCellModel(
-                        message: $0,
-                        chat: self.chat,
-                        chatters: self.chatters,
-                        currentUserId: userId,
-                        isFavourite: self.messageIsFavourite(message: $0)
-                    )
-                }
-
-                self.didChange?(.loaded)
-                self.listenForNewMessages(mostRecentMessage: messages.first)
-                self.listenForDeletedMessages()
-                self.updateReadBy()
-            case let .failure(error):
-                break
-            }
+                let count = viewHeight / 120.0
+                return UInt(count) + 2
+            }()
             
-            self.didChange?(.loading(false))
+            self.didChange?(.loading(true))
+            self.store.messagesStore.fetchNextPage(
+                chat: self.chat,
+                chatters: self.chatters,
+                queryCount: queryCount
+            )
         }
     }
     
@@ -193,117 +165,6 @@ extension ChatViewModel {
             message: message
         ) { _ in
             // no op.
-        }
-    }
-    
-    func loadMoreMessages() {
-        guard
-            let mostRecentMessage = items.last?.message,
-            !noMoreMessages
-        else {
-            return
-        }
-        
-        didChange?(.loading(true))
-        messageFetcher.fetchMessages(
-            chat: chat,
-            chatters: chatters,
-            queryCount: 5,
-            mostRecentMessage: mostRecentMessage
-        ) { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case let .success(newMessages):
-                guard let userId = self.currentUserId else {
-                    return
-                }
-                
-                let newMessageModels = newMessages.map {
-                    MessageCellModel(
-                        message: $0,
-                        chat: self.chat,
-                        chatters: self.chatters,
-                        currentUserId: userId,
-                        isFavourite: self.messageIsFavourite(message: $0)
-                    )
-                }
-                
-                if newMessages.count == 1 && self.items.contains(message: newMessages[0]) {
-                    self.noMoreMessages = true
-                } else {
-                    self.items.append(contentsOf: newMessageModels)
-                    self.didChange?(.loaded)
-                }
-            case let .failure(error):
-                assertionFailure("Errored with error \(error)")
-                // TODO: Handle errors.
-            }
-            
-            self.didChange?(.loading(false))
-        }
-    }
-        
-    private func listenForNewMessages(mostRecentMessage: Message?) {
-        messageListener.listenForNewMessages(mostRecentMessage: mostRecentMessage) { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case let .success(message):
-                let cellModel = MessageCellModel(
-                    message: message,
-                    chat: self.chat,
-                    chatters: self.chatters,
-                    currentUserId: Auth.auth().currentUser?.uid ?? "",
-                    isFavourite: self.messageIsFavourite(message: message)
-                )
-                
-                self.updateQueue.async {
-                    let oldItems = self.items
-                    self.items = self.items.inserting(cellModel)
-                                    
-                    if oldItems.count != self.items.count {
-                        self.didChange?(.itemInserted(index: 0))
-                    }
-                    
-                    if let currentUserId = self.currentUserId, message.chatter.id != currentUserId {
-                        self.updateReadBy()
-                    }
-                }
-            case let .failure(error):
-                break
-            }
-        }
-    }
-    
-    private func listenForDeletedMessages() {
-        messageListener.listenForDeletedMessages { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            
-            switch result {
-            case let .success(messageId):
-                guard let index = self.items.index(messageId) else {
-                    return
-                }
-                
-                self.updateQueue.async {
-                    self.items = self.items.removing(messageId)
-                    self.didChange?(.itemRemoved(index: index))
-                }
-                                    
-                // We need to renew this, since the "most recent message" will be different.
-                if index == 0 {
-                    self.listenForNewMessages(mostRecentMessage: self.items.first?.message)
-                }
-            case let.failure(error):
-                break
-            }
         }
     }
 }
@@ -412,6 +273,64 @@ extension ChatViewModel {
                 break
             }
         }
+    }
+}
+
+extension ChatViewModel: MessagesObserver {
+    func messageAdded(chatId: String, message: Message) {
+        guard chatId == chat.id else {
+            return
+        }
+    }
+    
+    func messageRemoved(chatId: String, message: Message) {
+        guard chatId == chat.id else {
+            return
+        }
+    }
+    
+    func pagedMessages(
+        chatId: String,
+        newMessages: [Message],
+        allMessages: [Message]
+    ) {
+        guard chatId == chat.id else {
+            return
+        }
+        
+        processMessages(messages: allMessages)
+    }
+    
+    func initialMessages(chatId: String, messages: [Message]) {
+        guard chatId == chat.id else {
+            return
+        }
+        
+        if messages.isEmpty {
+            fetchMessages()
+        } else {
+            processMessages(messages: messages)
+        }
+    }
+    
+    private func processMessages(messages: [Message]) {
+        guard let userId = self.currentUserId else {
+            return
+        }
+        
+        self.items = messages.map {
+            MessageCellModel(
+                message: $0,
+                chat: self.chat,
+                chatters: self.chatters,
+                currentUserId: userId,
+                isFavourite: self.messageIsFavourite(message: $0)
+            )
+        }
+
+        self.didChange?(.loaded)
+        self.updateReadBy()
+        self.didChange?(.loading(false))
     }
 }
 

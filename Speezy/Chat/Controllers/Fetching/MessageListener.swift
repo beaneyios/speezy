@@ -10,8 +10,12 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-class MessageListener {
+class MessageListener: Identifiable {
     typealias MessageFetchHandler = (Result<Message, Error>) -> Void
+    
+    var id: String {
+        chat.id
+    }
     
     let chat: Chat
     let chatters: [Chatter]
@@ -23,7 +27,10 @@ class MessageListener {
         self.chatters = chatters
     }
     
-    func listenForNewMessages(mostRecentMessage: Message?, completion: @escaping MessageFetchHandler) {
+    func listenForNewMessages(
+        mostRecentMessage: Message?,
+        completion: @escaping MessageFetchHandler
+    ) {
         currentNewMessageQuery?.removeAllObservers()
         
         let ref = Database.database().reference()

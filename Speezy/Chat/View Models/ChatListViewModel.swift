@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 
 class ChatListViewModel {
-    enum Change: Equatable {
+    enum Change {
         case replacedItem(Int)
         case loaded
         case loading(Bool)
@@ -106,7 +106,7 @@ class ChatListViewModel {
             let newCellModel = ChatCellModel(chat: chat, currentUserId: self.userId)
             self.items = self.items.replacing(newCellModel)
             
-            if let index = self.chats.firstIndex(of: chat) {
+            if let index = self.chats.index(chat) {
                 self.didChange?(.replacedItem(index))
             } else {
                 self.didChange?(.loaded)

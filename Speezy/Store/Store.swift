@@ -16,6 +16,7 @@ class Store {
     let myRecordingsStore = MyRecordingsStore()
     let favouritesStore = FavouriteRecordingsStore()
     let profileStore = ProfileStore()
+    let messagesStore = MessagesStore()
     
     func userDidLogOut() {
         profileStore.clear()

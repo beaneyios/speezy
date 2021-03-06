@@ -8,13 +8,21 @@
 
 import Foundation
 
-struct Chat: Equatable, Identifiable, Hashable {    
+struct Chat: Identifiable, Hashable {
     let id: String
     let title: String
     let lastUpdated: TimeInterval
     let lastMessage: String
     let chatImageUrl: URL?
     let readBy: [String: TimeInterval]
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 extension Chat {

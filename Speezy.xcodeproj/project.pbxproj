@@ -184,6 +184,9 @@
 		BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */; };
 		BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */; };
 		BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */; };
+		BEB7781E25F3E26900CFC29E /* MessagesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7781D25F3E26900CFC29E /* MessagesStore.swift */; };
+		BEB7782225F3E3CC00CFC29E /* MessagesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */; };
+		BEB7782625F3E44D00CFC29E /* MessagesObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */; };
 		BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */; };
 		BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */; };
 		BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */; };
@@ -485,6 +488,9 @@
 		BEA9D1E625B4699E000888A7 /* StorageDeleteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDeleteResult.swift; sourceTree = "<group>"; };
 		BEA9D1EA25B46CD1000888A7 /* DatabaseDeleteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseDeleteResult.swift; sourceTree = "<group>"; };
 		BEAACE8F24BA1C270074E4B9 /* AudioFileCombiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileCombiner.swift; sourceTree = "<group>"; };
+		BEB7781D25F3E26900CFC29E /* MessagesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesStore.swift; sourceTree = "<group>"; };
+		BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObserver.swift; sourceTree = "<group>"; };
+		BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObservation.swift; sourceTree = "<group>"; };
 		BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizationView.swift; sourceTree = "<group>"; };
 		BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioVisualizationView.xib; sourceTree = "<group>"; };
 		BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNibView.swift; sourceTree = "<group>"; };
@@ -1674,8 +1680,9 @@
 			children = (
 				BEFF49BD25C590A200794A21 /* ChatStore.swift */,
 				BE0A459825CEBE5E005F4DA8 /* ContactStore.swift */,
-				BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */,
 				BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */,
+				BEB7781D25F3E26900CFC29E /* MessagesStore.swift */,
+				BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */,
 				BEA32E1325D80EC400A9F643 /* ProfileStore.swift */,
 			);
 			path = Stores;
@@ -1686,8 +1693,9 @@
 			children = (
 				BEFF49CB25C590EF00794A21 /* ChatListObserver.swift */,
 				BE0A459C25CEBEB2005F4DA8 /* ContactListObserver.swift */,
-				BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */,
 				BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */,
+				BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */,
+				BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */,
 				BEA32E2425D814B100A9F643 /* ProfileObserver.swift */,
 			);
 			path = Observers;
@@ -1698,8 +1706,9 @@
 			children = (
 				BEFF49C525C590DF00794A21 /* ChatListObservation.swift */,
 				BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */,
-				BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */,
 				BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */,
+				BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */,
+				BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */,
 				BEA32E2825D814D400A9F643 /* ProfileObservation.swift */,
 			);
 			path = Observations;
@@ -1991,6 +2000,7 @@
 				BEFF49B725C58CB400794A21 /* Store.swift in Sources */,
 				BE939D5925D0629D00042EB7 /* AudioPlaybackViewController.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
+				BEB7781E25F3E26900CFC29E /* MessagesStore.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
 				BEE47EFB25BC433200AF47FA /* ChatCell.swift in Sources */,
 				BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */,
@@ -2045,6 +2055,7 @@
 				BEF3B23E25DC57100002C09E /* ProfileEditViewController.swift in Sources */,
 				BE5BDB7925C3530300F937C3 /* ChatsListener.swift in Sources */,
 				BE23519F252F9B6E00067BA2 /* TranscriptionJobStorage.swift in Sources */,
+				BEB7782625F3E44D00CFC29E /* MessagesObservation.swift in Sources */,
 				BEA9D1CA25B45D2F000888A7 /* CloudImageManager.swift in Sources */,
 				BEFDB528255FF6B000362428 /* TranscriptionJobObservationManaging.swift in Sources */,
 				BEFDB50F255FF3D800362428 /* AudioObservations.swift in Sources */,
@@ -2170,6 +2181,7 @@
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,
 				BEA9D13A25B0C83E000888A7 /* ChatCoordinator.swift in Sources */,
 				BE54295F25937732007EEAD1 /* AuthViewController.swift in Sources */,
+				BEB7782225F3E3CC00CFC29E /* MessagesObserver.swift in Sources */,
 				BE6FD95525B7511300723732 /* NewItemGenerating.swift in Sources */,
 				BE6FD94325B6106200723732 /* Message.swift in Sources */,
 				BE6FD94D25B6107200723732 /* Chatter.swift in Sources */,

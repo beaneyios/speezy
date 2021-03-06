@@ -51,7 +51,7 @@ class ChatShareViewModel {
     }
     
     func selectChat(chat: Chat) {
-        if let chatIndex = selectedChats.firstIndex(of: chat) {
+        if let chatIndex = selectedChats.index(chat) {
             selectedChats.remove(at: chatIndex)
         } else {
             selectedChats.append(chat)
