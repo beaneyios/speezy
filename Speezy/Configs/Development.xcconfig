@@ -1,0 +1,9 @@
+//
+//  Development.xcconfig
+//  Speezy
+//
+//  Created by Matt Beaney on 07/03/2021.
+//  Copyright © 2021 Speezy. All rights reserved.
+//
+
+GOOGLE_PLIST_NAME = GoogleService-Info-Dev

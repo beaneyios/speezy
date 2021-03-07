@@ -105,8 +105,6 @@ extension ContactsCoordinator: NewContactViewControllerDelegate {
     }
     
     func newContactViewController(_ viewController: NewContactViewController, didCreateContact contact: Contact) {
-        viewController.dismiss(animated: true) {
-            self.contactListViewController?.insertNewContactItem(contact: contact)
-        }
+        viewController.dismiss(animated: true)
     }
 }

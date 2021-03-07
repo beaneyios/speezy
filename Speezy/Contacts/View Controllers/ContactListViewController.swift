@@ -51,10 +51,6 @@ class ContactListViewController: UIViewController {
         }
     }
     
-    func insertNewContactItem(contact: Contact) {
-        viewModel.insertNewContactItem(contact: contact)
-    }
-    
     @IBAction func newContactTapped(_ sender: Any) {
         delegate?.contactListViewControllerDidSelectNewContact(self)
     }
@@ -137,7 +133,7 @@ extension ContactListViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 70.0)
+        CGSize(width: collectionView.frame.width, height: 78.0)
     }
 }
 

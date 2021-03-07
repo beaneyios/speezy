@@ -39,21 +39,6 @@ class ContactListViewModel {
         store.contactStore.addContactListObserver(self)
     }
     
-    func insertNewContactItem(contact: Contact) {
-        let newCellModel = ContactCellModel(contact: contact, selected: nil)
-        if items.isEmpty {
-            items.append(newCellModel)
-        } else {
-            items.insert(newCellModel, at: 0)
-        }
-        
-        items.sort {
-            $0.contact.displayName.uppercased() < $1.contact.displayName.uppercased()
-        }
-        
-        didChange?(.loaded)
-    }
-    
     private func updateCellModels(contacts: [Contact]) {
         debouncer.debounce {
             self.contacts = contacts

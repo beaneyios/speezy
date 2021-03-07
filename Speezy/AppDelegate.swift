@@ -23,18 +23,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // Override point for customization after application launch.
-        FirebaseApp.configure()
         
+        configureFirebase()
         ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-        
-        _ = Database.database().reference()
-        
+
         PushDeliveryHandler.shared.configurePush(app: application)
         return true
+    }
+    
+    private func configureFirebase() {
+        guard
+            let plistName = Bundle.main.infoDictionary?["GOOGLE_PLIST_NAME"] as? String,
+            let filePath = Bundle.main.path(forResource: plistName, ofType: "plist"),
+            let fileopts = FirebaseOptions(contentsOfFile: filePath)
+        else {
+            return
+        }
+        
+        FirebaseApp.configure(options: fileopts)
+        _ = Database.database().reference()
     }
 
     func application(

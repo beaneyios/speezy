@@ -40,10 +40,11 @@
 		BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */; };
 		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
-		BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE0CA32F2500223300F354BD /* GoogleService-Info.plist */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
+		BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE17B67125F55020003FB42A /* GoogleService-Info.plist */; };
+		BE17B67425F55021003FB42A /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE17B67225F55021003FB42A /* GoogleService-Info-Dev.plist */; };
 		BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18D10125A8EA580013CED5 /* LoginViewController.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE222CC4258A2D1A007144FD /* AudioConstants.swift */; };
@@ -305,8 +306,13 @@
 /* Begin PBXFileReference section */
 		09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.release.xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.release.xcconfig"; sourceTree = "<group>"; };
 		0C9D8D96E584A10ABE2B3B59 /* Pods-SpeezyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.debug.xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2F8BA5A8FE01B1FF45D3F83C /* Pods-Speezy.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.debug (development).xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.debug (development).xcconfig"; sourceTree = "<group>"; };
+		341CA146AA90BD4F00066393 /* Pods-SpeezyTests.debug (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.debug (development).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.debug (development).xcconfig"; sourceTree = "<group>"; };
 		3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.release.xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.release.xcconfig"; sourceTree = "<group>"; };
+		79F70D2E789A34B4EABB6C5C /* Pods-Speezy.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.debug (production).xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.debug (production).xcconfig"; sourceTree = "<group>"; };
 		86CD793C347B4292285E0E0E /* Pods-Speezy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.debug.xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.debug.xcconfig"; sourceTree = "<group>"; };
+		87EAF33050B2B634DA7622CC /* Pods-Speezy.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.release (production).xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.release (production).xcconfig"; sourceTree = "<group>"; };
+		906A6F2F6AF730ECBDF14601 /* Pods-Speezy.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speezy.release (development).xcconfig"; path = "Target Support Files/Pods-Speezy/Pods-Speezy.release (development).xcconfig"; sourceTree = "<group>"; };
 		A004AD9738A08EB3DC671EBB /* Pods_SpeezyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeezyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE041E0525E18558005C3B9F /* ImportContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewController.swift; sourceTree = "<group>"; };
 		BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewModel.swift; sourceTree = "<group>"; };
@@ -340,10 +346,13 @@
 		BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
-		BE0CA32F2500223300F354BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
+		BE17B61E25F53AF7003FB42A /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		BE17B61F25F53B03003FB42A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		BE17B67125F55020003FB42A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BE17B67225F55021003FB42A /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		BE18D10125A8EA580013CED5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE222CC4258A2D1A007144FD /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
@@ -594,6 +603,9 @@
 		BEFF49D925C5A5BD00794A21 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		BEFF49E925C5AD6800794A21 /* QuickRecordDummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordDummyViewController.swift; sourceTree = "<group>"; };
 		BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		C2E4849A02B31DF71A6AA1B4 /* Pods-SpeezyTests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.release (development).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.release (development).xcconfig"; sourceTree = "<group>"; };
+		DD8796EA307D01BC4CD12859 /* Pods-SpeezyTests.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.release (production).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.release (production).xcconfig"; sourceTree = "<group>"; };
+		E9F37685E35943D9E4364606 /* Pods-SpeezyTests.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.debug (production).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.debug (production).xcconfig"; sourceTree = "<group>"; };
 		F71429DDB4953F7C3622682B /* Pods_Speezy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Speezy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -625,6 +637,14 @@
 				3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */,
 				0C9D8D96E584A10ABE2B3B59 /* Pods-SpeezyTests.debug.xcconfig */,
 				09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */,
+				2F8BA5A8FE01B1FF45D3F83C /* Pods-Speezy.debug (development).xcconfig */,
+				79F70D2E789A34B4EABB6C5C /* Pods-Speezy.debug (production).xcconfig */,
+				906A6F2F6AF730ECBDF14601 /* Pods-Speezy.release (development).xcconfig */,
+				87EAF33050B2B634DA7622CC /* Pods-Speezy.release (production).xcconfig */,
+				341CA146AA90BD4F00066393 /* Pods-SpeezyTests.debug (development).xcconfig */,
+				E9F37685E35943D9E4364606 /* Pods-SpeezyTests.debug (production).xcconfig */,
+				C2E4849A02B31DF71A6AA1B4 /* Pods-SpeezyTests.release (development).xcconfig */,
+				DD8796EA307D01BC4CD12859 /* Pods-SpeezyTests.release (production).xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -666,6 +686,17 @@
 				BE268B302560858A009C5D3D /* AudioItem+MetaData.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BE17B61D25F53AE7003FB42A /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				BE17B61E25F53AF7003FB42A /* Development.xcconfig */,
+				BE17B67225F55021003FB42A /* GoogleService-Info-Dev.plist */,
+				BE17B67125F55020003FB42A /* GoogleService-Info.plist */,
+				BE17B61F25F53B03003FB42A /* Production.xcconfig */,
+			);
+			path = Configs;
 			sourceTree = "<group>";
 		};
 		BE222CC3258A2D0C007144FD /* Constants */ = {
@@ -1011,6 +1042,7 @@
 		BE792705247EE55F0079652C /* Speezy */ = {
 			isa = PBXGroup;
 			children = (
+				BE17B61D25F53AE7003FB42A /* Configs */,
 				BE07DAF62596862400D37FC7 /* Speezy.entitlements */,
 				BEF0ECB024BF948D00B9D554 /* App */,
 				BEAACE8324BA031A0074E4B9 /* Audio */,
@@ -1028,7 +1060,6 @@
 				BE6080A0250E84A9003CB318 /* Transcription */,
 				BE792706247EE55F0079652C /* AppDelegate.swift */,
 				BE79270F247EE5610079652C /* Assets.xcassets */,
-				BE0CA32F2500223300F354BD /* GoogleService-Info.plist */,
 				BE792714247EE5610079652C /* Info.plist */,
 				BE792711247EE5610079652C /* LaunchScreen.storyboard */,
 				BE792708247EE55F0079652C /* SceneDelegate.swift */,
@@ -1812,6 +1843,7 @@
 			files = (
 				BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */,
 				BE6080B6250E8E57003CB318 /* transcription-test-file.m4a in Resources */,
+				BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE3C5DEF25BDA375005E34BB /* Home.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
@@ -1842,13 +1874,13 @@
 				BEE47F0325BC558500AF47FA /* Contacts.storyboard in Resources */,
 				BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */,
 				BEC825B7257D53190037F007 /* Auth.storyboard in Resources */,
+				BE17B67425F55021003FB42A /* GoogleService-Info-Dev.plist in Resources */,
 				BEF3B7172546081B009308A4 /* supertrimmed.flac in Resources */,
 				BE2351E1253CCA7300067BA2 /* SpeezyLoadingView.xib in Resources */,
 				BEF3B72C254867AC009308A4 /* TranscriptionButton.xib in Resources */,
 				BE6080C4250FFE8E003CB318 /* Speezy-35fb1cf24683.json in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
 				BE6080B4250E8713003CB318 /* Transcription.storyboard in Resources */,
-				BE0CA3302500223300F354BD /* GoogleService-Info.plist in Resources */,
 				BE6080BA250E90A0003CB318 /* transcription-test-file-trimmed.m4a in Resources */,
 				BE6080B1250E86A3003CB318 /* WordCell.xib in Resources */,
 				BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */,
@@ -2248,8 +2280,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		BE792720247EE5610079652C /* Debug */ = {
+		BE17B62A25F53DF9003FB42A /* Debug (Production) */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE17B61F25F53B03003FB42A /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2306,10 +2339,56 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = "Debug (Production)";
 		};
-		BE792721247EE5610079652C /* Release */ = {
+		BE17B62B25F53DF9003FB42A /* Debug (Production) */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79F70D2E789A34B4EABB6C5C /* Pods-Speezy.debug (production).xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = D4CTC8FS24;
+				INFOPLIST_FILE = Speezy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Debug (Production)";
+		};
+		BE17B62C25F53DF9003FB42A /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9F37685E35943D9E4364606 /* Pods-SpeezyTests.debug (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5H22ZNNNR4;
+				INFOPLIST_FILE = SpeezyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.speezy.SpeezyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Speezy.app/Speezy";
+			};
+			name = "Debug (Production)";
+		};
+		BE17B63125F53E06003FB42A /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE17B61F25F53B03003FB42A /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2360,54 +2439,214 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = "Release (Production)";
 		};
-		BE792723247EE5610079652C /* Debug */ = {
+		BE17B63225F53E06003FB42A /* Release (Production) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86CD793C347B4292285E0E0E /* Pods-Speezy.debug.xcconfig */;
+			baseConfigurationReference = 87EAF33050B2B634DA7622CC /* Pods-Speezy.release (production).xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D4CTC8FS24;
+				INFOPLIST_FILE = Speezy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Release (Production)";
+		};
+		BE17B63325F53E06003FB42A /* Release (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD8796EA307D01BC4CD12859 /* Pods-SpeezyTests.release (production).xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5H22ZNNNR4;
+				INFOPLIST_FILE = SpeezyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.speezy.SpeezyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Speezy.app/Speezy";
+			};
+			name = "Release (Production)";
+		};
+		BE792720247EE5610079652C /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE17B61E25F53AF7003FB42A /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug (Development)";
+		};
+		BE792721247EE5610079652C /* Release (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE17B61E25F53AF7003FB42A /* Development.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 5P5MB2LN99;
-				INFOPLIST_FILE = Speezy/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.speezy.Speezy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = "Release (Development)";
 		};
-		BE792724247EE5610079652C /* Release */ = {
+		BE792723247EE5610079652C /* Debug (Development) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D45BDB346AA201D63840DD4 /* Pods-Speezy.release.xcconfig */;
+			baseConfigurationReference = 2F8BA5A8FE01B1FF45D3F83C /* Pods-Speezy.debug (development).xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
-				DEVELOPMENT_TEAM = 5P5MB2LN99;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.speezy.Speezy;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Release;
+			name = "Debug (Development)";
 		};
-		BE792726247EE5610079652C /* Debug */ = {
+		BE792724247EE5610079652C /* Release (Development) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C9D8D96E584A10ABE2B3B59 /* Pods-SpeezyTests.debug.xcconfig */;
+			baseConfigurationReference = 906A6F2F6AF730ECBDF14601 /* Pods-Speezy.release (development).xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D4CTC8FS24;
+				INFOPLIST_FILE = Speezy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Release (Development)";
+		};
+		BE792726247EE5610079652C /* Debug (Development) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 341CA146AA90BD4F00066393 /* Pods-SpeezyTests.debug (development).xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2426,11 +2665,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Speezy.app/Speezy";
 			};
-			name = Debug;
+			name = "Debug (Development)";
 		};
-		BE792727247EE5610079652C /* Release */ = {
+		BE792727247EE5610079652C /* Release (Development) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09DA04407E481FEBE52FEC1E /* Pods-SpeezyTests.release.xcconfig */;
+			baseConfigurationReference = C2E4849A02B31DF71A6AA1B4 /* Pods-SpeezyTests.release (development).xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2449,7 +2688,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Speezy.app/Speezy";
 			};
-			name = Release;
+			name = "Release (Development)";
 		};
 /* End XCBuildConfiguration section */
 
@@ -2457,29 +2696,35 @@
 		BE7926FE247EE55F0079652C /* Build configuration list for PBXProject "Speezy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BE792720247EE5610079652C /* Debug */,
-				BE792721247EE5610079652C /* Release */,
+				BE792720247EE5610079652C /* Debug (Development) */,
+				BE17B62A25F53DF9003FB42A /* Debug (Production) */,
+				BE792721247EE5610079652C /* Release (Development) */,
+				BE17B63125F53E06003FB42A /* Release (Production) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release (Development)";
 		};
 		BE792722247EE5610079652C /* Build configuration list for PBXNativeTarget "Speezy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BE792723247EE5610079652C /* Debug */,
-				BE792724247EE5610079652C /* Release */,
+				BE792723247EE5610079652C /* Debug (Development) */,
+				BE17B62B25F53DF9003FB42A /* Debug (Production) */,
+				BE792724247EE5610079652C /* Release (Development) */,
+				BE17B63225F53E06003FB42A /* Release (Production) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release (Development)";
 		};
 		BE792725247EE5610079652C /* Build configuration list for PBXNativeTarget "SpeezyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BE792726247EE5610079652C /* Debug */,
-				BE792727247EE5610079652C /* Release */,
+				BE792726247EE5610079652C /* Debug (Development) */,
+				BE17B62C25F53DF9003FB42A /* Debug (Production) */,
+				BE792727247EE5610079652C /* Release (Development) */,
+				BE17B63325F53E06003FB42A /* Release (Production) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release (Development)";
 		};
 /* End XCConfigurationList section */
 	};
