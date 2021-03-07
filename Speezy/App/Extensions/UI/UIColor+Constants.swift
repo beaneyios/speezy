@@ -28,4 +28,8 @@ extension UIColor {
     static var speezyDarkRed: UIColor {
         UIColor(named: "speezy-dark-red")!
     }
+    
+    static var speezyDarkGreen: UIColor {
+        UIColor(named: "speezy-dark-green")!
+    }
 }

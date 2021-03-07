@@ -42,7 +42,7 @@ class ChatPlaybackView: UIView, NibLoadable {
         }
         
         editAudioContainer.layer.borderColor = UIColor.speezyPurple.cgColor
-        sendContainer.layer.borderColor = UIColor.speezyDarkRed.cgColor
+        sendContainer.layer.borderColor = UIColor.speezyDarkGreen.cgColor
         
         slider.thumbColour = .white
         slider.minimumTrackTintColor = .white
