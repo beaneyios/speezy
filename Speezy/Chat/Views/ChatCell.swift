@@ -34,7 +34,7 @@ class ChatCell: UICollectionViewCell, NibLoadable {
         chatImage.image = nil
         chatImage.alpha = 0.0
         
-        notificationLabel.isHidden = item.showRead
+        configureNotificationLabel(item: item)
         
         item.loadImage { (result) in
             DispatchQueue.main.async {
@@ -50,5 +50,9 @@ class ChatCell: UICollectionViewCell, NibLoadable {
                 }
             }
         }
+    }
+    
+    func configureNotificationLabel(item: ChatCellModel) {
+        notificationLabel.isHidden = item.showRead
     }
 }

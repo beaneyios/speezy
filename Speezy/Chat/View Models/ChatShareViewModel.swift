@@ -135,6 +135,7 @@ extension ChatShareViewModel: ChatListObserver {
         updateCellModels(chats: chats)
     }
     
+    func chatsPaged(chats: [Chat]) {}
     func chatAdded(chat: Chat, in chats: [Chat]) {}
     func chatUpdated(chat: Chat, in chats: [Chat]) {}
     func chatRemoved(chat: Chat, chats: [Chat]) {}

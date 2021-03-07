@@ -23,6 +23,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
     @IBOutlet weak var recordBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet weak var chatterNames: UILabel!
     
     var viewHeight: CGFloat {
         collectionView.frame.height
@@ -249,6 +250,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                 UIView.animate(withDuration: 0.3) {
                     self.collectionView.alpha = 1.0
                 }
+            case let .chattersLoaded(chatters):
+                self.chatterNames.text = chatters.map {
+                    "\($0.displayName)"
+                }.joined(separator: ", ")
             case let .itemRemoved(index: index):
                 self.toggleEmptyView()
                 self.collectionView.deleteItems(

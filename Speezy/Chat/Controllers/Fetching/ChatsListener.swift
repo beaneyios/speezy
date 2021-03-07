@@ -27,7 +27,7 @@ class ChatsListener {
         
         let ref = Database.database().reference()
         let chatsChild = ref.child("users/\(userId)/chats")
-        let query = chatsChild.queryOrderedByKey()
+        let query = chatsChild.queryOrderedByKey().queryLimited(toLast: 1)
         
         query.observe(.childAdded) { (snapshot) in
             // First thing - fetch the chat so our store is set up.

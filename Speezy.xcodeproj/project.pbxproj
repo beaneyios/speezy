@@ -45,6 +45,7 @@
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
 		BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE17B67125F55020003FB42A /* GoogleService-Info.plist */; };
 		BE17B67425F55021003FB42A /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE17B67225F55021003FB42A /* GoogleService-Info-Dev.plist */; };
+		BE17B67C25F55FBF003FB42A /* ChatsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE17B67B25F55FBF003FB42A /* ChatsFetcher.swift */; };
 		BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18D10125A8EA580013CED5 /* LoginViewController.swift */; };
 		BE199F9324CF85F800F633EC /* AudioAttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */; };
 		BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE222CC4258A2D1A007144FD /* AudioConstants.swift */; };
@@ -353,6 +354,7 @@
 		BE17B61F25F53B03003FB42A /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		BE17B67125F55020003FB42A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE17B67225F55021003FB42A /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
+		BE17B67B25F55FBF003FB42A /* ChatsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsFetcher.swift; sourceTree = "<group>"; };
 		BE18D10125A8EA580013CED5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BE199F9224CF85F800F633EC /* AudioAttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAttachmentManager.swift; sourceTree = "<group>"; };
 		BE222CC4258A2D1A007144FD /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
@@ -844,6 +846,7 @@
 				BE6FD91525B4D07600723732 /* MessageListener.swift */,
 				BEF7DE3A25C724DB00B690CB /* ChatImageFetcher.swift */,
 				BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */,
+				BE17B67B25F55FBF003FB42A /* ChatsFetcher.swift */,
 			);
 			path = Fetching;
 			sourceTree = "<group>";
@@ -2203,6 +2206,7 @@
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
+				BE17B67C25F55FBF003FB42A /* ChatsFetcher.swift in Sources */,
 				BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,

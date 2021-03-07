@@ -51,7 +51,7 @@ class ChatListViewController: UIViewController {
         viewModel.listenForData()
     }
     
-    private func applyChange(change: ChatListViewModel.Change) {
+    private func applyChange(change: ChatListViewModel.Change) {        
         DispatchQueue.main.async {
             self.navigationController?.tabBarItem.image = UIImage(
                 named: self.viewModel.anyUnreadChats ? "chat-tab-item-unread" : "chat-tab-item"
@@ -80,15 +80,18 @@ class ChatListViewController: UIViewController {
                     self.spinner.stopAnimating()
                     self.spinner.isHidden = true
                 }
-            case let .replacedItem(index):
-                self.collectionView.reloadItems(
-                    at: [
-                        IndexPath(
-                            item: index,
-                            section: 0
-                        )
-                    ]
-                )
+            case let .replacedItem(cellModel, index):
+                self.collectionView.visibleCells.forEach {
+                    guard
+                        let indexPath = self.collectionView.indexPath(for: $0),
+                        let chatCell = $0 as? ChatCell,
+                        indexPath.row == index
+                    else {
+                        return
+                    }
+                    
+                    chatCell.configureNotificationLabel(item: cellModel)
+                }
             case let .loadChat(chat):
                 self.delegate?.chatListViewController(self, didSelectChat: chat)
             }

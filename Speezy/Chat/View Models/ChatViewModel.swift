@@ -19,6 +19,7 @@ class ChatViewModel: NewItemGenerating {
     var updateReadDebouncer = Debouncer(seconds: 1.0)
     
     enum Change {
+        case chattersLoaded(chatters: [Chatter])
         case leftChat
         case loading(Bool)
         case loaded
@@ -121,6 +122,7 @@ extension ChatViewModel {
             switch result {
             case let .success(chatters):
                 self.chatters = chatters
+                self.didChange?(.chattersLoaded(chatters: chatters))
                 self.store.messagesStore.addMessagesObserver(
                     self,
                     chat: self.chat
@@ -429,6 +431,7 @@ extension ChatViewModel: ChatListObserver {
         self.didChange?(.readStatusReloaded(index: indexes))
     }
     
+    func chatsPaged(chats: [Chat]) {}
     func chatAdded(chat: Chat, in chats: [Chat]) {}
     func initialChatsReceived(chats: [Chat]) {}
     func chatRemoved(chat: Chat, chats: [Chat]) {}

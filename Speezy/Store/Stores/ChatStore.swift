@@ -9,6 +9,7 @@
 import Foundation
 
 class ChatStore {
+    private let chatFetcher = ChatsFetcher()
     private let chatListener = ChatsListener()
     private(set) var chats = [Chat]()
     
@@ -37,8 +38,17 @@ class ChatStore {
             }
         }
         
-        chatListener.listenForChatAdditions(userId: userId)
-        chatListener.listenForChatDeletions(userId: userId)
+        chatFetcher.fetchChats(userId: userId) { (result) in
+            switch result {
+            case let .success(chats):
+                self.chats = chats
+                self.notifyObservers(change: .chatsPaged(chats: chats))
+                self.chatListener.listenForChatAdditions(userId: userId)
+                self.chatListener.listenForChatDeletions(userId: userId)
+            default:
+                break
+            }
+        }
     }
     
     private func handleChatAdded(chat: Chat) {
@@ -102,6 +112,7 @@ class ChatStore {
 
 extension ChatStore {
     enum Change {
+        case chatsPaged(chats: [Chat])
         case chatAdded(chat: Chat, chats: [Chat])
         case chatUpdated(chat: Chat, chats: [Chat])
         case initialChats(chats: [Chat])
@@ -133,6 +144,8 @@ extension ChatStore {
             }
             
             switch change {
+            case let .chatsPaged(chats):
+                observer.chatsPaged(chats: chats)
             case let .chatAdded(chat, chats):
                 observer.chatAdded(chat: chat, in: chats)
             case let .chatUpdated(chat, chats):

@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class ChatListViewModel {
     enum Change {
-        case replacedItem(Int)
+        case replacedItem(cellModel: ChatCellModel, index: Int)
         case loaded
         case loading(Bool)
         case loadChat(Chat)
@@ -48,14 +48,9 @@ class ChatListViewModel {
         self.store = store
     }
     
-    func listenForData() {        
+    func listenForData() {
         didChange?(.loading(true))
         store.chatStore.addChatListObserver(self)
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
-            self.loadingTimerHit = true
-            self.didChange?(.loaded)
-        }
     }
     
     func navigateToChatId(_ chatId: String) {
@@ -102,7 +97,12 @@ class ChatListViewModel {
             self.items = self.items.replacing(newCellModel)
             
             if let index = self.chats.index(chat) {
-                self.didChange?(.replacedItem(index))
+                self.didChange?(
+                    .replacedItem(
+                        cellModel: newCellModel,
+                        index: index
+                    )
+                )
             } else {
                 self.didChange?(.loaded)
             }
@@ -111,6 +111,10 @@ class ChatListViewModel {
 }
 
 extension ChatListViewModel: ChatListObserver {
+    func chatsPaged(chats: [Chat]) {
+        updateCellModels(chats: chats)
+    }
+    
     func chatAdded(chat: Chat, in chats: [Chat]) {
         if let awaitingChatId = awaitingChatId, awaitingChatId == chat.id {
             updateCellModelsAndOpenChat(chat: chat, chats: chats)

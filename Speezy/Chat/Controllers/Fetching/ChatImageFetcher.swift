@@ -34,7 +34,12 @@ class ChatImageFetcher {
         }
         
         // If it's only been thirty seconds, don't re-download.
-        if localLastModified > Date().addingTimeInterval(-30) {
+        let thirtyMinutesAgo = 30.0 * 60.0
+        let thirtyMinutesAgoDate = Date().addingTimeInterval(
+            thirtyMinutesAgo * -1.0
+        )
+        
+        if localLastModified > thirtyMinutesAgoDate {
             completion(.success(localImage))
             return nil
         } else {
