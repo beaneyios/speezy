@@ -107,6 +107,11 @@ class ChatViewModel: NewItemGenerating {
         
         audioManager.play()
     }
+    
+    func stopObserving() {
+        store.messagesStore.removeMessagesObserver(self)
+        store.chatStore.removeChatListObserver(self)
+    }
 }
 
 // MARK: Receiving
@@ -222,7 +227,11 @@ extension ChatViewModel {
             }
 
             let updatedDate = Date().timeIntervalSince1970
-            ChatUpdater().updateReadBy(chatId: self.chat.id, userId: userId, time: updatedDate)
+            ChatUpdater().updateReadBy(
+                chatId: self.chat.id,
+                userId: userId,
+                time: updatedDate
+            )
         }
     }
     
@@ -281,11 +290,41 @@ extension ChatViewModel: MessagesObserver {
         guard chatId == chat.id else {
             return
         }
+        
+        let cellModel = MessageCellModel(
+            message: message,
+            chat: self.chat,
+            chatters: self.chatters,
+            currentUserId: Auth.auth().currentUser?.uid ?? "",
+            isFavourite: self.messageIsFavourite(message: message)
+        )
+        
+        self.updateQueue.async {
+            let oldItems = self.items
+            self.items = self.items.inserting(cellModel)
+            
+            if oldItems.count != self.items.count {
+                self.didChange?(.itemInserted(index: 0))
+            }
+            
+            if let currentUserId = self.currentUserId, message.chatter.id != currentUserId {
+                self.updateReadBy()
+            }
+        }
     }
     
     func messageRemoved(chatId: String, message: Message) {
         guard chatId == chat.id else {
             return
+        }
+        
+        self.updateQueue.async {
+            guard let index = self.items.index(message.id) else {
+                return
+            }
+            
+            self.items = self.items.removing(message.id)
+            self.didChange?(.itemRemoved(index: index))
         }
     }
     

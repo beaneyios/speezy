@@ -48,12 +48,7 @@ class ChatListViewModel {
         self.store = store
     }
     
-    func listenForData() {
-        guard let userId = userId else {
-            assertionFailure("No user id")
-            return
-        }
-        
+    func listenForData() {        
         didChange?(.loading(true))
         store.chatStore.addChatListObserver(self)
         

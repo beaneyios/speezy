@@ -64,6 +64,13 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         notificationLabel.isHidden = true
     }
     
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            viewModel.stopObserving()
+        }
+    }
+    
     func showNotificationLabel() {
         notificationLabel.isHidden = false
         UIView.animate(withDuration: 0.3) {
