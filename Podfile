@@ -19,14 +19,14 @@ target 'Speezy' do
   pod 'Firebase/Messaging'
   pod 'FirebaseUI/Storage', '~> 8.0'
   pod 'Firebase/DynamicLinks'
+  pod 'Firebase/Functions'
   
   pod 'JGProgressHUD'
   
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
-  pod 'FacebookLogin'
+  pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
-  pod 'Firebase/Functions'
 
   target 'SpeezyTests' do
     inherit! :search_paths

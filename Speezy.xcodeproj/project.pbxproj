@@ -694,9 +694,9 @@
 			isa = PBXGroup;
 			children = (
 				BE17B61E25F53AF7003FB42A /* Development.xcconfig */,
+				BE17B61F25F53B03003FB42A /* Production.xcconfig */,
 				BE17B67225F55021003FB42A /* GoogleService-Info-Dev.plist */,
 				BE17B67125F55020003FB42A /* GoogleService-Info.plist */,
-				BE17B61F25F53B03003FB42A /* Production.xcconfig */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
