@@ -98,12 +98,8 @@ class ChatListViewController: UIViewController {
         }
     }
     
-    private func toggleEmptyView() {
-        if viewModel.shouldShowEmptyView && viewModel.loadingTimerHit {
-            emptyView.isHidden = false
-        } else {
-            emptyView.isHidden = true
-        }
+    private func toggleEmptyView() {        
+        emptyView.isHidden = !viewModel.shouldShowEmptyView
     }
     
     private func configureCollectionView() {

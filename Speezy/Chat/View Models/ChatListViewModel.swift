@@ -26,8 +26,6 @@ class ChatListViewModel {
     
     private var awaitingChatId: String?
     
-    private(set) var loadingTimerHit = false
-    
     var shouldShowEmptyView: Bool {
         items.isEmpty
     }
