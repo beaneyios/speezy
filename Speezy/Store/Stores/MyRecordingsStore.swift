@@ -26,8 +26,9 @@ class MyRecordingsStore {
         myRecordingsFetcher.fetch(userId: userId, mostRecentRecording: myRecordings.last) { (result) in
             self.serialQueue.async {
                 switch result {
-                case let .success(newRecordings):
+                case let .success(newRecordings):                    
                     self.handleNewPage(userId: userId, recordings: newRecordings)
+                    self.listenForRecordingItems(userId: userId)
                 case .failure:
                     break
                 }

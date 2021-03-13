@@ -397,11 +397,7 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    private func presentMessageOptions(message: Message) {
-        guard let currentUserId = viewModel.currentUserId, message.chatter.id == currentUserId else {
-            return
-        }
-        
+    private func presentMessageOptions(message: Message) {        
         let alert = UIAlertController(title: "Message options", message: nil, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "Delete message", style: .destructive) { _ in
             self.deleteMessage(message: message)
@@ -412,7 +408,11 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(delete)
+        
+        if let currentUserId = viewModel.currentUserId, message.chatter.id == currentUserId {
+            alert.addAction(delete)
+        }
+        
         alert.addAction(favourite)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)

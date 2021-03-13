@@ -33,6 +33,7 @@ class FavouriteRecordingsStore {
                 switch result {
                 case let .success(newRecordings):
                     self.handleNewPage(userId: userId, recordings: newRecordings)
+                    self.listenForRecordingItems(userId: userId)
                 case .failure:
                     break
                 }

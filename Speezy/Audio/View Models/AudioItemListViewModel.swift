@@ -55,11 +55,9 @@ class AudioItemListViewModel: NewItemGenerating {
             return
         }
         
-        store.favouritesStore.listenForRecordingItems(userId: userId)
         store.favouritesStore.addFavouriteRecordingListObserver(self)
         store.favouritesStore.fetchNextPage(userId: userId)
         
-        store.myRecordingsStore.listenForRecordingItems(userId: userId)
         store.myRecordingsStore.addRecordingItemListObserver(self)
         store.myRecordingsStore.fetchNextPage(userId: userId)
         
