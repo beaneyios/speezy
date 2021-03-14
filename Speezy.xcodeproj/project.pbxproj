@@ -154,6 +154,7 @@
 		BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */; };
 		BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */; };
 		BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */; };
+		BE8A94CA25FE939C00F0C95E /* KillSwitchListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */; };
 		BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */; };
 		BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8BA7E8259FB9160071B57A /* GradientButton.xib */; };
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
@@ -470,6 +471,7 @@
 		BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
+		BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillSwitchListener.swift; sourceTree = "<group>"; };
 		BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		BE8BA7E8259FB9160071B57A /* GradientButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradientButton.xib; sourceTree = "<group>"; };
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 				BEBFD4CA24C5DB8700200D87 /* Storage.swift */,
 				BEF4DB642593C9FA002B403A /* KeyboardScrollViewInsetManager.swift */,
 				BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */,
+				BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2120,6 +2123,7 @@
 				BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */,
 				BE2351E5253CCB5F00067BA2 /* SpeezyLoadingView.swift in Sources */,
 				BE07DAF12596845800D37FC7 /* AppleSignupViewModel.swift in Sources */,
+				BE8A94CA25FE939C00F0C95E /* KillSwitchListener.swift in Sources */,
 				BEFF49C625C590DF00794A21 /* ChatListObservation.swift in Sources */,
 				BEA32E1425D80EC400A9F643 /* ProfileStore.swift in Sources */,
 				BE939D4225D0226E00042EB7 /* FavouriteRecordingsListObservation.swift in Sources */,
