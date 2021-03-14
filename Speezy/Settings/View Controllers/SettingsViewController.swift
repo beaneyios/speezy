@@ -76,7 +76,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if settingsItem == .shareApp {
-            let items: [Any] = ["Download Speezy", URL(string: "https://testflight.apple.com/join/dZggvy0n")!]
+            let items: [Any] = ["Download Speezy", URL(string: "https://apps.apple.com/us/app/speezy/id1557121831")!]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
             present(ac, animated: true)
         }

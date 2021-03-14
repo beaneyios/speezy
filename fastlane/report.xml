@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: increment_build_number" time="2.585861">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: build_app" time="463.282435">
+        
+          <failure message="/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/runner.rb:229:in `chdir'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server_action_command_executor.rb:73:in `run'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server_action_command_executor.rb:42:in `execute'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:181:in `execute_action_command'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:176:in `process_action_command'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:123:in `handle_action_command'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:86:in `parse_and_execute_command'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:62:in `block in receive_and_process_commands'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:49:in `loop'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:49:in `receive_and_process_commands'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:158:in `listen'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/server/socket_server.rb:38:in `start'&#10;/Users/mattbeaney/.rvm/gems/ruby-2.7.0/gems/fastlane-2.178.0/fastlane/lib/fastlane/swift_lane_manager.rb:223:in `block in start_socket_thread'&#10;&#10;Error packaging up the application" />
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
