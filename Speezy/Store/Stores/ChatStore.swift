@@ -41,8 +41,13 @@ class ChatStore {
         chatFetcher.fetchChats(userId: userId) { (result) in
             switch result {
             case let .success(chats):
-                self.chats = chats
-                self.notifyObservers(change: .chatsPaged(chats: chats))
+                self.chats = chats.sortedByLastUpdated()
+                self.notifyObservers(change: .chatsPaged(chats: self.chats))
+                
+                chats.forEach {
+                    self.chatListener.listenForChatChanges(chat: $0)
+                }
+                
                 self.chatListener.listenForChatAdditions(userId: userId)
                 self.chatListener.listenForChatDeletions(userId: userId)
             default:
@@ -56,6 +61,7 @@ class ChatStore {
             return
         }
         
+        chatListener.listenForChatChanges(chat: chat)
         chats.append(chat)
         sortChats()
         notifyObservers(change: .chatAdded(chat: chat, chats: chats))
@@ -94,8 +100,7 @@ class ChatStore {
             return
         }
         
-        chats = chats.removing(chat)
-        sortChats()
+        chats = chats.removing(chat).sortedByLastUpdated()
         notifyObservers(change: .chatRemoved(chat: chat, chats: chats))
     }
     
@@ -104,9 +109,7 @@ class ChatStore {
     }
     
     private func sortChats() {
-        chats = chats.sorted(by: { (chat1, chat2) -> Bool in
-            chat1.lastUpdated > chat2.lastUpdated
-        })
+        chats = chats.sortedByLastUpdated()
     }
 }
 

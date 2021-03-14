@@ -54,8 +54,6 @@ class ChatCreator {
         var updatePaths: [AnyHashable: Any] = [:]
         let ref = Database.database().reference()
         
-        var readBy = [String: TimeInterval]()
-        
         let chatters = contacts.map { contact -> Chatter in
             let userToken = tokens.compactMap { (userToken) -> String? in
                 userToken.userId == contact.userId ? userToken.token : nil
@@ -67,15 +65,20 @@ class ChatCreator {
                 profileImageUrl: contact.profilePhotoUrl,
                 pushToken: userToken
             )
-        
-            readBy[contact.id] = Date().timeIntervalSince1970
+    
             return chatter
         }.appending(element: currentChatter)
+        
+        let lastUpdated = Date().timeIntervalSince1970
+        var readBy = [String: TimeInterval]()
+        chatters.forEach {
+            readBy[$0.id] = lastUpdated
+        }
                 
         let newChat = Chat(
             id: chatId,
             title: title,
-            lastUpdated: Date().timeIntervalSince1970,
+            lastUpdated: lastUpdated,
             lastMessage: "New chat started",
             chatImageUrl: attachmentUrl,
             readBy: readBy

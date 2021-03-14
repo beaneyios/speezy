@@ -19,18 +19,20 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>$(FACEBOOK_APP_ID)</string>
+				<string>com.googleusercontent.apps.1089202737738-rpmeqm6f6u7c7ogphl9nq63svck0pqme</string>
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>1707056142835150</string>
-	<key>FacebookDisplayName</key>
-	<string>Speezy</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>$(FACEBOOK_APP_ID)</string>
+	<key>FacebookDisplayName</key>
+	<string>Speezy</string>
 	<key>GOOGLE_PLIST_NAME</key>
 	<string>$(GOOGLE_PLIST_NAME)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

@@ -65,7 +65,6 @@ class ChatsListener {
                 return
             }
             
-            self.listenForChatChanges(chat: chat)
             self.didChange?(.chatAdded(chat))
         }
     }
@@ -99,7 +98,7 @@ class ChatsListener {
 
 // MARK: Chat changes listening
 extension ChatsListener {
-    private func listenForChatChanges(chat: Chat) {
+    func listenForChatChanges(chat: Chat) {
         let chatIdQueryKey = "\(chat.id)_changes"
         removeQueryListener(forId: chatIdQueryKey)
         

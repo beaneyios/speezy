@@ -117,4 +117,10 @@ extension Array where Element == Chat {
             return lastRead <= chat.lastUpdated
         }
     }
+    
+    func sortedByLastUpdated() -> Self {
+        sorted(by: { (chat1, chat2) -> Bool in
+            chat1.lastUpdated > chat2.lastUpdated
+        })
+    }
 }
