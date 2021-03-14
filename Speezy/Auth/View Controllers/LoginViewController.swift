@@ -225,7 +225,7 @@ extension LoginViewController: UITextFieldDelegate {
         case txtFieldEmail:
             txtFieldPassword.becomeFirstResponder()
         case txtFieldPassword:
-            break
+            submit()
         default:
             break
         }
