@@ -110,11 +110,16 @@ extension Array where Element == Chat {
         contains {
             
             let chat = $0
+            
             guard let lastRead = chat.readBy[userId] else {
                 return true
             }
             
-            return lastRead <= chat.lastUpdated
+            if lastRead < chat.lastUpdated {
+                return true
+            } else {
+                return false
+            }
         }
     }
     

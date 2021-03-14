@@ -77,6 +77,18 @@ class AuthCoordinator: ViewCoordinator {
         viewController.delegate = self
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    private func navigateToForgotPassword() {
+        let viewController = storyboard.instantiateViewController(identifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
+        viewController.delegate = self
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension AuthCoordinator: ForgotPasswordViewControllerDelegate {
+    func forgotPasswordViewControllerShouldPop(_ viewController: ForgotPasswordViewController) {
+        navigationController.popViewController(animated: true)
+    }
 }
 
 extension AuthCoordinator: AuthLoadingViewControllerDelegate {
@@ -145,6 +157,10 @@ extension AuthCoordinator: LoginViewControllerDelegate {
     
     func loginViewControllerDidGoBack(_ viewController: LoginViewController) {
         navigationController.popViewController(animated: true)
+    }
+    
+    func loginViewControllerDidSelectForgotPassword(_ viewController: LoginViewController) {
+        navigateToForgotPassword()
     }
 }
 

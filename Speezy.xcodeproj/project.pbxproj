@@ -151,6 +151,9 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
+		BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */; };
+		BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */; };
+		BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */; };
 		BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */; };
 		BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8BA7E8259FB9160071B57A /* GradientButton.xib */; };
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
@@ -464,6 +467,9 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		BE8BA7E8259FB9160071B57A /* GradientButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradientButton.xib; sourceTree = "<group>"; };
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
@@ -769,6 +775,7 @@
 				BE4CCD8F25A9F6CD007C21A6 /* EmailLoginViewModel.swift */,
 				BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */,
 				BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */,
+				BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -801,6 +808,7 @@
 				BE54296225937745007EEAD1 /* ProfileCreationViewController.swift */,
 				BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */,
 				BE18D10125A8EA580013CED5 /* LoginViewController.swift */,
+				BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1597,6 +1605,7 @@
 				BE4CCD9425A9F6E3007C21A6 /* Login */,
 				BE4CCD9325A9F6D4007C21A6 /* Signup */,
 				BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */,
+				BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -2023,6 +2032,7 @@
 				BEFDB522255FF63400362428 /* CropperObservationManaging.swift in Sources */,
 				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */,
+				BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */,
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
@@ -2064,6 +2074,7 @@
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
+				BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */,
 				BEFF49D425C59D3F00794A21 /* TabItem.swift in Sources */,
 				BEFF49DA25C5A5BD00794A21 /* HomeCoordinator.swift in Sources */,
 				BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */,
@@ -2084,6 +2095,7 @@
 				BEA32E2525D814B100A9F643 /* ProfileObserver.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
+				BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,
 				BEF3B23A25DC4E330002C09E /* ProfileViewController.swift in Sources */,

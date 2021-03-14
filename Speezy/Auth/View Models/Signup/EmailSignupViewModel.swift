@@ -92,7 +92,7 @@ extension EmailSignupViewModel {
             )
         }
         
-        if !isValidEmail(email) {
+        if !EmailValidator.isValidEmail(email) {
             return FormError(
                 message: "Please ensure you enter a valid email address",
                 field: Field.email
@@ -121,12 +121,5 @@ extension EmailSignupViewModel {
         }
         
         return nil
-    }
-    
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
     }
 }

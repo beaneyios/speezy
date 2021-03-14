@@ -21,6 +21,9 @@ protocol LoginViewControllerDelegate: AnyObject {
     func loginViewControllerDidSelectSignUp(
         _ viewController: LoginViewController
     )
+    func loginViewControllerDidSelectForgotPassword(
+        _ viewController: LoginViewController
+    )
 }
 
 class LoginViewController: UIViewController, FormErrorDisplaying {
@@ -66,6 +69,10 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
         super.viewDidLayoutSubviews()
         loginBtnContainer.layer.cornerRadius = loginBtnContainer.frame.height / 2.0
         loginBtnContainer.clipsToBounds = true
+    }
+    
+    @IBAction func forgotPassword(_ sender: Any) {
+        delegate?.loginViewControllerDidSelectForgotPassword(self)
     }
     
     @IBAction func signInWithFacebook(_ sender: Any) {
