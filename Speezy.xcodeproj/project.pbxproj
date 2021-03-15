@@ -155,6 +155,8 @@
 		BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */; };
 		BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */; };
 		BE8A94CA25FE939C00F0C95E /* KillSwitchListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */; };
+		BE8A952A25FEA1CF00F0C95E /* KillSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A952925FEA1CF00F0C95E /* KillSwitchViewController.swift */; };
+		BE8A955C25FEAD1C00F0C95E /* maintenance.json in Resources */ = {isa = PBXBuildFile; fileRef = BE8A955B25FEAD1C00F0C95E /* maintenance.json */; };
 		BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */; };
 		BE8BA7E9259FB9160071B57A /* GradientButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8BA7E8259FB9160071B57A /* GradientButton.xib */; };
 		BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */; };
@@ -295,7 +297,6 @@
 		BEFF49D425C59D3F00794A21 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49D325C59D3F00794A21 /* TabItem.swift */; };
 		BEFF49DA25C5A5BD00794A21 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49D925C5A5BD00794A21 /* HomeCoordinator.swift */; };
 		BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49E925C5AD6800794A21 /* QuickRecordDummyViewController.swift */; };
-		BEFF49FE25C5B58100794A21 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -472,6 +473,8 @@
 		BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillSwitchListener.swift; sourceTree = "<group>"; };
+		BE8A952925FEA1CF00F0C95E /* KillSwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillSwitchViewController.swift; sourceTree = "<group>"; };
+		BE8A955B25FEAD1C00F0C95E /* maintenance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = maintenance.json; sourceTree = "<group>"; };
 		BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		BE8BA7E8259FB9160071B57A /* GradientButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradientButton.xib; sourceTree = "<group>"; };
 		BE8ECE8C25288BA3007A07E3 /* SpeezySpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezySpeechTranscriber.swift; sourceTree = "<group>"; };
@@ -612,7 +615,6 @@
 		BEFF49D325C59D3F00794A21 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		BEFF49D925C5A5BD00794A21 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		BEFF49E925C5AD6800794A21 /* QuickRecordDummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRecordDummyViewController.swift; sourceTree = "<group>"; };
-		BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		C2E4849A02B31DF71A6AA1B4 /* Pods-SpeezyTests.release (development).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.release (development).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.release (development).xcconfig"; sourceTree = "<group>"; };
 		DD8796EA307D01BC4CD12859 /* Pods-SpeezyTests.release (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.release (production).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.release (production).xcconfig"; sourceTree = "<group>"; };
 		E9F37685E35943D9E4364606 /* Pods-SpeezyTests.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeezyTests.debug (production).xcconfig"; path = "Target Support Files/Pods-SpeezyTests/Pods-SpeezyTests.debug (production).xcconfig"; sourceTree = "<group>"; };
@@ -755,7 +757,7 @@
 		BE3C5DE525BDA26F005E34BB /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BEFF49FD25C5B58100794A21 /* CustomTabBarController.swift */,
+				BE8A952925FEA1CF00F0C95E /* KillSwitchViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1625,6 +1627,7 @@
 		BEFCDBE324D047D100A6232E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BE8A955B25FEAD1C00F0C95E /* maintenance.json */,
 				BE8BA7E4259FB8FE0071B57A /* GradientButton.swift */,
 				BE8BA7E8259FB9160071B57A /* GradientButton.xib */,
 				BEFCDBE424D047DE00A6232E /* SpeezyButton.swift */,
@@ -1860,6 +1863,7 @@
 				BE6080B6250E8E57003CB318 /* transcription-test-file.m4a in Resources */,
 				BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
+				BE8A955C25FEAD1C00F0C95E /* maintenance.json in Resources */,
 				BE3C5DEF25BDA375005E34BB /* Home.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
 				BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */,
@@ -2173,12 +2177,12 @@
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */,
+				BE8A952A25FEA1CF00F0C95E /* KillSwitchViewController.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardScrollViewInsetManager.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
 				BEE47F3625BC5E5700AF47FA /* ContactParser.swift in Sources */,
 				BEFDB538255FF85400362428 /* AudioState.swift in Sources */,
-				BEFF49FE25C5B58100794A21 /* CustomTabBarController.swift in Sources */,
 				BE2A0CAB25C09EA8000B8A4C /* DatabasePushTokenManager.swift in Sources */,
 				BE939D5125D047CE00042EB7 /* Favouriter.swift in Sources */,
 				BE6FD91625B4D07600723732 /* MessageListener.swift in Sources */,

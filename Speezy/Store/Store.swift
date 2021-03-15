@@ -19,9 +19,12 @@ class Store {
     let messagesStore = MessagesStore()
     
     func userDidLogOut() {
-        profileStore.clear()
         chatStore.clear()
         contactStore.clear()
+        myRecordingsStore.clear()
+        favouritesStore.clear()
+        profileStore.clear()
+        messagesStore.clear()        
     }
     
     func startListeningForCoreChanges(userId: String) {

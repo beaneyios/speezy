@@ -23,6 +23,7 @@ target 'Speezy' do
   pod 'Firebase/Firestore'
   
   pod 'JGProgressHUD'
+  pod 'lottie-ios'
   
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
