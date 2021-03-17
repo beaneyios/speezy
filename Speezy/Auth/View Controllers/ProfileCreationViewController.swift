@@ -56,6 +56,10 @@ class ProfileCreationViewController: UIViewController {
         delegate?.profileCreationViewControllerDidGoBack(self)
     }
     
+    @IBAction func completeSignup(_ sender: Any) {
+        completeSignup()
+    }
+    
     func completeSignup() {
         profileViewController.clearHighlightedFields()
         
@@ -92,6 +96,7 @@ class ProfileCreationViewController: UIViewController {
             return
         }
         
+        profileViewController.listenForKeyboard = false
         profileViewController.viewModel = self.viewModel
         profileViewController.willMove(toParent: self)
         addChild(profileViewController)
@@ -111,7 +116,7 @@ class ProfileCreationViewController: UIViewController {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "COMPLETE SIGN UP") {
+        button.configure(title: "FINISH") {
             self.completeSignup()
         }
         

@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController {
     
     var viewModel: ProfileViewModel!
     var canEditUsername = true
+    var listenForKeyboard = true
     
     private var insetManager: KeyboardScrollViewInsetManager!
     private var completeSignupBtn: GradientButton?
@@ -107,12 +108,14 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureInsetManager() {
-        self.insetManager = KeyboardScrollViewInsetManager(
-            view: view,
-            scrollView: scrollView
-        )
-        
-        self.insetManager.startListening()
+        if listenForKeyboard {
+            self.insetManager = KeyboardScrollViewInsetManager(
+                view: view,
+                scrollView: scrollView
+            )
+            
+//            self.insetManager.startListening()
+        }
     }
     
     private func configureAboutYouPlaceholder() {
@@ -185,7 +188,7 @@ extension ProfileViewController: UITextViewDelegate {
             nameTxtField.becomeFirstResponder()
         case nameTxtField:
             occupationTxtField.becomeFirstResponder()
-        case nameTxtField:
+        case occupationTxtField:
             aboutYouTxtField.becomeFirstResponder()
         default:
             break
