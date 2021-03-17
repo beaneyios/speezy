@@ -35,6 +35,7 @@ class ChatShareViewController: UIViewController {
         
         collectionView.alpha = 0.0
         sendButton.isUserInteractionEnabled = false
+        sendButton.alpha = 0.6
     }
     
     @IBAction func sendSelectedChats(_ sender: Any) {
@@ -57,10 +58,15 @@ class ChatShareViewController: UIViewController {
         DispatchQueue.main.async {            
             switch change {
             case .loadedProfile:
-                self.sendButton.isUserInteractionEnabled = true
+                break
             case .loadedChats:
                 self.toggleEmptyView()
                 self.collectionView.reloadData()
+                
+                if self.viewModel.items.count > 0 {
+                    self.sendButton.isUserInteractionEnabled = true
+                    self.sendButton.alpha = 1.0
+                }
                 
                 UIView.animate(withDuration: 0.3) {
                     self.collectionView.alpha = 1.0

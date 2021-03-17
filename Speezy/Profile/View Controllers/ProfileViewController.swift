@@ -155,8 +155,14 @@ class ProfileViewController: UIViewController {
             self.attachBtn.setImage(UIImage(named: "camera-button"), for: .normal)
             self.profileImg.image = image
             
-            self.attachBtnWidth.constant = image != nil ? 40.0 : 100.0
-            self.attachBtnHeight.constant = image != nil ? 40.0 : 100.0
+            let attachBtnEdge: CGFloat = image != nil ? 40.0 : 100.0
+            let attachBtnRadius: CGFloat = image != nil ? 20.0 : 50.0
+            
+            self.attachBtnWidth.constant = attachBtnEdge
+            self.attachBtnHeight.constant = attachBtnEdge
+            
+            self.profileImg.layer.cornerRadius = attachBtnRadius
+            self.attachBtn.layer.cornerRadius = attachBtnRadius
             
             UIView.animate(withDuration: 0.6) {
                 self.attachBtn.setNeedsLayout()
