@@ -6,7 +6,8 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:speezy.page.link</string>
+		<string>applinks:sospeezy.page.link</string>
+		<string>applinks:sospeezydev.page.link</string>
 	</array>
 </dict>
 </plist>

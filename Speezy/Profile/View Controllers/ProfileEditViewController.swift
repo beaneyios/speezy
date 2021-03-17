@@ -83,11 +83,17 @@ class ProfileEditViewController: UIViewController {
             color: .clear,
             iconImage: UIImage(named: "share-button")
         ) {
-            guard let contactId = self.viewModel.contact?.id else {
+            guard
+                let contactId = self.viewModel.contact?.id,
+                let dynamicLinkDomain = Bundle.main.infoDictionary?["DYNAMIC_LINK_DOMAIN"] as? String
+            else {
                 return
             }
-            
-            let items: [Any] = ["Add me on Speezy", URL(string: "https://speezy.page.link/add-friend?contact_id=\(contactId)")!]
+                
+            let items: [Any] = [
+                "Add me on Speezy",
+                URL(string: "https://\(dynamicLinkDomain)/add-friend?contact_id=\(contactId)")!
+            ]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
             self.present(ac, animated: true)
         }
