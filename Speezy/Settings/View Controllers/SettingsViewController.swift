@@ -11,6 +11,8 @@ import UIKit
 import SnapKit
 import MessageUI
 import DeviceKit
+import FirebaseAuth
+import JGProgressHUD
 
 protocol SettingsItemListViewControllerDelegate: AnyObject {
     func settingsItemListViewController(_ viewController: SettingsViewController, didSelectSettingsItem item: SettingsItem)
@@ -79,6 +81,43 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             let items: [Any] = ["Download Speezy", URL(string: "https://apps.apple.com/us/app/speezy/id1557121831")!]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
             present(ac, animated: true)
+        }
+        
+        if settingsItem == .deleteAccount {
+            let confirmation = UIAlertController(
+                title: "Are you sure you want to leave Speezy?",
+                message: "This will delete all of your account data and cannot be undone.",
+                preferredStyle: .alert
+            )
+            
+            let delete = UIAlertAction(title: "Delete all data", style: .destructive) { _ in
+                guard let userId = Auth.auth().currentUser?.uid else {
+                    return
+                }
+                
+                let hud = JGProgressHUD()
+                hud.textLabel.text = "Deleting your account..."
+                hud.show(in: self.view)
+                
+                AccountDeletionManager.deleteAccountInformation(userId: userId) { (result) in
+                    hud.dismiss()
+                    
+                    switch result {
+                    case .success:
+                        self.delegate?.settingsItemListViewController(self, didSelectSettingsItem: .deleteAccount)
+                    case let .failure(error):
+                        // TODO: Handle error
+                        break
+                    }
+                }
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            confirmation.addAction(delete)
+            confirmation.addAction(cancel)
+            present(confirmation, animated: true, completion: nil)
+            return
         }
         
         delegate?.settingsItemListViewController(self, didSelectSettingsItem: settingsItem)

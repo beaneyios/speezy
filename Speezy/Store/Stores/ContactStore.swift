@@ -16,6 +16,7 @@ class ContactStore {
     private let serialQueue = DispatchQueue(label: "com.speezy.contactStoreActions")
     
     func clear() {
+        self.contactListener.stopListening()
         self.contacts = []
         self.observations = [:]
     }

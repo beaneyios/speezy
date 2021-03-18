@@ -11,6 +11,7 @@ import UIKit
 protocol HomeCoordinatorDelegate: AnyObject {
     func homeCoordinatorDidFinish(_ coordinator: HomeCoordinator)
     func homeCoordinatorDidLogOut(_ coordinator: HomeCoordinator)
+    func homeCoordinatorDidDeleteAccount(_ coordinator: HomeCoordinator)
 }
 
 class HomeCoordinator: ViewCoordinator {
@@ -205,6 +206,10 @@ extension HomeCoordinator: ProfileCoordinatorDelegate {
 }
 
 extension HomeCoordinator: SettingsCoordinatorDelegate {
+    func settingsCoordinatorDidDeleteAccount(_ coordinator: SettingsCoordinator) {
+        delegate?.homeCoordinatorDidDeleteAccount(self)
+    }
+    
     func settingsCoordinatorDidLogOut(_ coordinator: SettingsCoordinator) {
         delegate?.homeCoordinatorDidLogOut(self)
     }

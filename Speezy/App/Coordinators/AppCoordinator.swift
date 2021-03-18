@@ -80,7 +80,7 @@ class AppCoordinator: ViewCoordinator {
         tabBarController.present(viewController, animated: true, completion: nil)
     }
     
-    private func navigateToAuth(animated: Bool = true) {
+    private func navigateToAuth(animated: Bool = true, showDeletedAccount: Bool = false) {
         let navigationController = UINavigationController()
         let coordinator = AuthCoordinator(navigationController: navigationController)
         coordinator.delegate = self
@@ -88,6 +88,18 @@ class AppCoordinator: ViewCoordinator {
         coordinator.start()
         tabBarController.tabBar.isHidden = true
         tabBarController.setViewControllers([navigationController], animated: animated)
+        
+        if showDeletedAccount {
+            let accountDeleted = UIAlertController(
+                title: "Account deleted",
+                message: "You have deleted your account, you will now be logged out",
+                preferredStyle: .alert
+            )
+            
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            accountDeleted.addAction(ok)
+            tabBarController.present(accountDeleted, animated: true, completion: nil)
+        }
     }
     
     private func navigateToHome() {
@@ -142,6 +154,11 @@ extension AppCoordinator: AuthCoordinatorDelegate {
 }
 
 extension AppCoordinator: HomeCoordinatorDelegate {
+    func homeCoordinatorDidDeleteAccount(_ coordinator: HomeCoordinator) {
+        navigateToAuth(showDeletedAccount: true)
+        remove(coordinator)
+    }
+    
     func homeCoordinatorDidFinish(_ coordinator: HomeCoordinator) {
         remove(coordinator)
     }

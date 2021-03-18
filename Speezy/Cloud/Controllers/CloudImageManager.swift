@@ -70,7 +70,6 @@ class CloudImageManager {
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
         
-        // Create a reference to "mountains.jpg"
         let audioClipRef = storageRef.child(path)
 
         audioClipRef.delete { (error) in

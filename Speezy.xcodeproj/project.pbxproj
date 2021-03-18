@@ -210,6 +210,7 @@
 		BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */; };
 		BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */; };
 		BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */; };
+		BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC1AF032603CC75008A33E8 /* AccountDeletionManager.swift */; };
 		BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */; };
 		BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */; };
 		BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */; };
@@ -528,6 +529,7 @@
 		BEBFD4CC24C5DC0300200D87 /* Array+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		BEBFD4CE24C5DC2600200D87 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewController.swift; sourceTree = "<group>"; };
+		BEC1AF032603CC75008A33E8 /* AccountDeletionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletionManager.swift; sourceTree = "<group>"; };
 		BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListViewModel.swift; sourceTree = "<group>"; };
 		BEC6432425A4FAD40090F189 /* AuthLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewController.swift; sourceTree = "<group>"; };
 		BEC6432825A4FAEF0090F189 /* AuthLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoadingViewModel.swift; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				BEC1AF022603CC66008A33E8 /* Controllers */,
 				BEDC126C24F2D2A900B53D1A /* Resources */,
 				BE77767124D6CCD10009BE63 /* Models */,
 				BE77766324D6CB4B0009BE63 /* Coordinators */,
@@ -1301,6 +1304,14 @@
 				BEF4DB642593C9FA002B403A /* KeyboardScrollViewInsetManager.swift */,
 				BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */,
 				BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEC1AF022603CC66008A33E8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEC1AF032603CC75008A33E8 /* AccountDeletionManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2139,6 +2150,7 @@
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
+				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
@@ -2372,7 +2384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2472,7 +2484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2632,7 +2644,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2654,7 +2666,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -26,6 +26,7 @@ class ChatDeleter {
             // This user is the last one left, and they're leaving.
             // So bin the chat.
             updatedData["chats/\(chat.id)"] = NSNull()
+            updatedData["chatters/\(chat.id)"] = NSNull()
         } else {
             // Just remove this user.
             updatedData["chatters/\(chat.id)/\(userId)"] = NSNull()

@@ -20,17 +20,25 @@ class MessageCreator {
         var updatePaths: [AnyHashable: Any] = [:]
         
         chats.forEach {
-            let chatChild = ref.child("messages/\($0.id)")
+            let chat = $0
+            let chatChild = ref.child("messages/\(chat.id)")
             guard let newKey = chatChild.childByAutoId().key else {
                 return
             }
             
             let updatedTime = Date().timeIntervalSince1970
-            let newMessagePath = "messages/\($0.id)/\(newKey)"
+            let newMessagePath = "messages/\(chat.id)/\(newKey)"
             updatePaths[newMessagePath] = messageDict
-            updatePaths["chats/\($0.id)/last_updated"] = updatedTime
-            updatePaths["chats/\($0.id)/last_message"] = message.formattedMessage            
-            updatePaths["chats/\($0.id)/read_by/\(message.chatter.id)"] = updatedTime
+            updatePaths["chats/\(chat.id)/last_updated"] = updatedTime
+            updatePaths["chats/\(chat.id)/last_message"] = message.formattedMessage
+            updatePaths["chats/\(chat.id)/read_by/\(message.chatter.id)"] = updatedTime
+            
+            let messageRefPath: String = {
+                let root = "users/\(message.chatter.id)/messages/"
+                return root + "\(chat.id),\(newKey)"
+            }()
+            
+            updatePaths[messageRefPath] = message.audioId ?? "No_Audio_Id"
         }
         
         ref.updateChildValues(updatePaths) { (error, newRef) in

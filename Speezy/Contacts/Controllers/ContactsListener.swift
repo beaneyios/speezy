@@ -16,8 +16,9 @@ class ContactsListener {
         case contactRemoved(String)
     }
         
-    var userContactQuery: DatabaseQuery?
     var didChange: ((Change) -> Void)?
+    
+    var queries: [String: DatabaseQuery] = [:]
     
     func listenForContactAdditions(userId: String) {
         let ref = Database.database().reference()
@@ -38,6 +39,8 @@ class ContactsListener {
             // Second thing - listen for any future changes to the contact.
             self.listenForContactChanges(userId: userId, contactId: snapshot.key)
         }
+        
+        queries["additions"] = query
     }
     
     func listenForContactDeletions(userId: String) {
@@ -47,6 +50,16 @@ class ContactsListener {
         query.observe(.childRemoved) { (snapshot) in
             self.didChange?(.contactRemoved(snapshot.key))
         }
+        
+        queries["deletions"] = query
+    }
+    
+    func stopListening() {
+        queries.forEach {
+            $0.value.removeAllObservers()
+        }
+        
+        queries = [:]
     }
     
     private func listenForContactChanges(userId: String, contactId: String) {
@@ -65,5 +78,7 @@ class ContactsListener {
             let change = ContactValueChange(contactId: contactId, contactValue: contactValue)
             self.didChange?(.contactUpdated(change))
         }
+        
+        queries["changes"] = query
     }
 }

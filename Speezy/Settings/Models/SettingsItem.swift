@@ -15,6 +15,7 @@ enum SettingsItem: CaseIterable {
     case privacyPolicy
     case shareApp
     case logout
+    case deleteAccount
     
     var icon: UIImage? {
         switch self {
@@ -28,6 +29,8 @@ enum SettingsItem: CaseIterable {
             return UIImage(named: "settings-share-button")
         case .logout:
             return UIImage(named: "account-btn")
+        case .deleteAccount:
+            return UIImage(named: "delete-account")
         }
     }
     
@@ -43,6 +46,8 @@ enum SettingsItem: CaseIterable {
             return "Share app"
         case .logout:
             return "Log out"
+        case .deleteAccount:
+            return "Delete your account"
         }
     }
 }

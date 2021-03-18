@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 
 protocol SettingsCoordinatorDelegate: AnyObject {
+    func settingsCoordinatorDidDeleteAccount(_ coordinator: SettingsCoordinator)
     func settingsCoordinatorDidLogOut(_ coordinator: SettingsCoordinator)
     func settingsCoordinatorDidFinish(_ coordinator: SettingsCoordinator)
 }
@@ -55,6 +56,12 @@ extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
             try? Auth.auth().signOut()
             LoginManager().logOut()
             delegate?.settingsCoordinatorDidLogOut(self)
+            delegate?.settingsCoordinatorDidFinish(self)
+        case .deleteAccount:
+            Store.shared.userDidLogOut()
+            try? Auth.auth().signOut()
+            LoginManager().logOut()
+            delegate?.settingsCoordinatorDidDeleteAccount(self)
             delegate?.settingsCoordinatorDidFinish(self)
         default:
             break

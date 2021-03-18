@@ -17,6 +17,8 @@ class MessageDeleter {
     ) {
         let ref = Database.database().reference()
         let messageChild = ref.child("messages/\(chat.id)/\(message.id)")
+        let userMessageChild = ref.child("users/\(message.chatter.id)/messages/\(chat.id),\(message.id)")
+        userMessageChild.removeValue()
         messageChild.removeValue()
     }
 }

@@ -21,6 +21,7 @@ class ChatsFetcher {
         
         query.observeSingleEvent(of: .value) { (snapshot) in
             guard let result = snapshot.value as? [String: Any] else {
+                completion(.success([]))
                 return
             }
             
