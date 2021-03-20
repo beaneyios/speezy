@@ -50,14 +50,12 @@ class AppleSignupViewModel: NSObject, FirebaseSignupViewModel {
             return
         }
         
-        // Initialize a Firebase credential.
         let credential = OAuthProvider.credential(
             withProviderID: "apple.com",
             idToken: idTokenString,
             rawNonce: nonce
         )
         
-        // Sign in with Firebase.
         Auth.auth().signIn(with: credential) { (authResult, error) in
             guard let user = authResult?.user else {
                 let error = AuthErrorFactory.authError(for: error)
@@ -123,8 +121,40 @@ extension AppleSignupViewModel: ASAuthorizationControllerDelegate {
             return ""
         }()
         
-        self.appleIdToken = idTokenString
-        self.didChange?(.loggedIn)
+        guard let email = appleIDCredential.email, let nonce = self.currentNonce else {
+            return
+        }
+        
+        let credential = OAuthProvider.credential(
+            withProviderID: "apple.com",
+            idToken: idTokenString,
+            rawNonce: nonce
+        )
+        
+        checkEmailNotInUse(email: email, credential: credential) { (error) in
+            if let error = error {
+                self.didChange?(.errored(error))
+                return
+            }
+            
+            self.appleIdToken = idTokenString
+            self.didChange?(.loggedIn)
+        }
+    }
+    
+    private func checkEmailNotInUse(email: String, credential: AuthCredential, completion: @escaping (FormError?) -> Void) {
+        Auth.auth().fetchSignInMethods(forEmail: email) { (providers, error) in
+            if let providers = providers, providers.contains(credential.provider) {
+                let accountAlreadyExists = FormError(
+                    message: "This account already exists, tap sign in below",
+                    field: nil
+                )
+                
+                completion(accountAlreadyExists)
+            } else {
+                completion(nil)
+            }
+        }
     }
 }
 

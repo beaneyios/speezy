@@ -34,6 +34,7 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var btnSignupWithEmailContainer: UIView!
     @IBOutlet weak var facebookSignupBtn: SpeezyButton!
     @IBOutlet weak var googleSignupButton: SpeezyButton!
+    @IBOutlet weak var appleSignupButton: SpeezyButton!
     
     var googleViewModel: GoogleSignUpViewModel?
     
@@ -101,19 +102,20 @@ class AuthViewController: UIViewController {
             return
         }
         
-//        appleSignupBtn.startLoading()
+        appleSignupButton.startLoading()
         
         let viewModel = AppleSignupViewModel(anchor: window)
         viewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
                 case .loggedIn:
-//                    self.appleSignupBtn.stopLoading()
+                    self.appleSignupButton.stopLoading()
                     self.delegate?.authViewController(
                         self,
                         didMoveOnToProfileWithViewModel: viewModel
                     )
                 case let .errored(error):
+                    self.appleSignupButton.stopLoading()
                     self.presentError(error: error)
                 }
             }
