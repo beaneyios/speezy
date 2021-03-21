@@ -27,6 +27,7 @@ protocol LoginViewControllerDelegate: AnyObject {
 }
 
 class LoginViewController: UIViewController, FormErrorDisplaying {
+    @IBOutlet weak var appleLoginButton: SpeezyButton!
     @IBOutlet weak var facebookLoginBtn: SpeezyButton!
     @IBOutlet weak var googleLoginButton: SpeezyButton!
     @IBOutlet weak var txtFieldEmail: UITextField!
@@ -44,6 +45,9 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     
     private let emailViewModel = EmailLoginViewModel()
     private let googleViewModel = GoogleSignInViewModel()
+    lazy private var appleViewModel = AppleLoginViewModel(
+        anchor: self.view.window!
+    )
     
     var fieldDict: [Field : UIView] {
         [
@@ -76,7 +80,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     @IBAction func signInWithFacebook(_ sender: Any) {
-        facebookLoginBtn.startLoading(color: UIColor(named: "speezy-purple")!)
+        facebookLoginBtn.startLoading(color: .speezyPurple)
         let viewModel = FacebookLoginViewModel()
         viewModel.login(viewController: self) { result in
             DispatchQueue.main.async {
@@ -93,7 +97,7 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     @IBAction func signInWithGoogle(_ sender: Any) {
-        googleLoginButton.startLoading(color: UIColor(named: "speezy-purple")!)
+        googleLoginButton.startLoading(color: .speezyPurple)
         googleViewModel.didChange = { change in
             DispatchQueue.main.async {
                 switch change {
@@ -112,6 +116,19 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
     }
     
     @IBAction func signInWithApple(_ sender: Any) {
+        appleLoginButton.startLoading(color: .speezyPurple)
+        appleViewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case let .loggedIn(user):
+                    self.delegate?.loginViewControllerDidLogIn(self, withUser: user)
+                case let .errored(error):
+                    self.presentError(error: error)
+                }
+                
+                self.appleLoginButton.stopLoading()
+            }
+        }
     }
     
     @IBAction func joinNowTapped(_ sender: Any) {
