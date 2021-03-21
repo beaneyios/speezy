@@ -151,6 +151,7 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
+		BE83BA7B260791A2009C4CA3 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */; };
 		BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */; };
 		BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */; };
 		BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */; };
@@ -470,6 +471,7 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
 		BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		BE8A94C325FE7A9900F0C95E /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 				BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */,
 				BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */,
 				BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */,
+				BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -2217,6 +2220,7 @@
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
 				BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */,
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
+				BE83BA7B260791A2009C4CA3 /* AppleLoginViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
 				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,

@@ -99,8 +99,12 @@ extension PushDeliveryHandler: UNUserNotificationCenterDelegate {
 extension PushDeliveryHandler: MessagingDelegate {
     func messaging(
         _ messaging: Messaging,
-        didReceiveRegistrationToken fcmToken: String
+        didReceiveRegistrationToken fcmToken: String?
     ) {
+        guard let fcmToken = fcmToken else {
+            return
+        }
+        
         DispatchQueue.main.async {
             self.tokenSyncService.syncPushToken(token: fcmToken)
         }
