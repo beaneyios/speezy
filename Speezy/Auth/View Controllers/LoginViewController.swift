@@ -129,6 +129,8 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
                 self.appleLoginButton.stopLoading()
             }
         }
+        
+        appleViewModel.login()
     }
     
     @IBAction func joinNowTapped(_ sender: Any) {

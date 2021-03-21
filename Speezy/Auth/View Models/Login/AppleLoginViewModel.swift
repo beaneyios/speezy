@@ -25,7 +25,7 @@ class AppleLoginViewModel: NSObject {
         self.anchor = anchor
     }
     
-    func login(viewController: UIViewController) {
+    func login() {
         let nonce = String.nonce()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()

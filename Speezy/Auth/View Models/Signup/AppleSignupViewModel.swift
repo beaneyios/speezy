@@ -122,6 +122,12 @@ extension AppleSignupViewModel: ASAuthorizationControllerDelegate {
         }()
         
         guard let email = appleIDCredential.email, let nonce = self.currentNonce else {
+            let error = FormError(
+                message: "It looks like you've used this account to sign up already, try logging in instead.",
+                field: nil
+            )
+            
+            didChange?(.errored(error))
             return
         }
         
