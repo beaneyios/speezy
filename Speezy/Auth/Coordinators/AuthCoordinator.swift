@@ -162,6 +162,13 @@ extension AuthCoordinator: LoginViewControllerDelegate {
     func loginViewControllerDidSelectForgotPassword(_ viewController: LoginViewController) {
         navigateToForgotPassword()
     }
+    
+    func loginViewControllerFoundNoProfile(
+        _ viewController: LoginViewController,
+        signupViewModel: FirebaseSignupViewModel
+    ) {
+        navigateToProfileView(viewModel: signupViewModel)
+    }
 }
 
 extension AuthCoordinator: ProfileCreationViewControllerDelegate {

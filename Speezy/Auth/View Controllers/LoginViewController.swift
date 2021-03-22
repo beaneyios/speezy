@@ -24,6 +24,11 @@ protocol LoginViewControllerDelegate: AnyObject {
     func loginViewControllerDidSelectForgotPassword(
         _ viewController: LoginViewController
     )
+    
+    func loginViewControllerFoundNoProfile(
+        _ viewController: LoginViewController,
+        signupViewModel: FirebaseSignupViewModel
+    )
 }
 
 class LoginViewController: UIViewController, FormErrorDisplaying {
@@ -124,6 +129,11 @@ class LoginViewController: UIViewController, FormErrorDisplaying {
                     self.delegate?.loginViewControllerDidLogIn(self, withUser: user)
                 case let .errored(error):
                     self.presentError(error: error)
+                case .noProfile:
+                    self.delegate?.loginViewControllerFoundNoProfile(
+                        self,
+                        signupViewModel: self.appleViewModel
+                    )
                 }
                 
                 self.appleLoginButton.stopLoading()

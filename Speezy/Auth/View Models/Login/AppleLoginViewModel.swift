@@ -11,7 +11,12 @@ import AuthenticationServices
 import FirebaseAuth
 
 class AppleLoginViewModel: NSObject {
+    
+    var profile: Profile? = Profile()
+    var profileImageAttachment: UIImage?
+    
     enum Change {
+        case noProfile
         case loggedIn(User)
         case errored(FormError)
     }
@@ -19,7 +24,10 @@ class AppleLoginViewModel: NSObject {
     let tokenSyncService = PushTokenSyncService()
     weak var anchor: UIWindow!
     var didChange: ((Change) -> Void)?
+    
     private var currentNonce: String?
+    private var appleIdToken: String?
+    private var user: User?
     
     init(anchor: UIWindow) {
         self.anchor = anchor
@@ -37,6 +45,35 @@ class AppleLoginViewModel: NSObject {
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
+    }
+}
+
+extension AppleLoginViewModel: FirebaseSignupViewModel {
+    func createProfile(completion: @escaping (SpeezyResult<User, FormError?>) -> Void) {
+        guard let user = self.user else {
+            return
+        }
+        
+        if let displayName = user.displayName {
+            self.profile?.name = displayName
+        }
+        
+        guard let profile = self.profile else {
+            return
+        }
+        
+        DatabaseProfileManager().updateUserProfile(
+            userId: user.uid,
+            profile: profile,
+            profileImage: self.profileImageAttachment
+        ) { (result) in
+            switch result {
+            case .success:
+                completion(.success(user))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 
@@ -69,9 +106,19 @@ extension AppleLoginViewModel: ASAuthorizationControllerDelegate {
             rawNonce: nonce
         )
         
+        self.appleIdToken = idTokenString
+        
         Auth.auth().signIn(with: credential) { (result, error) in
             if let user = result?.user {
-                self.didChange?(.loggedIn(user))
+                ProfileFetcher().fetchProfile(userId: user.uid) { (result) in
+                    switch result {
+                    case .success:
+                        self.didChange?(.loggedIn(user))
+                    case let .failure(error):
+                        self.user = user
+                        self.didChange?(.noProfile)
+                    }
+                }
             } else {
                 let error = AuthErrorFactory.authError(for: error)
                 self.didChange?(.errored(error))

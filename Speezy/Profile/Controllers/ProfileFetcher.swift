@@ -21,7 +21,7 @@ class ProfileFetcher {
                 let result = snapshot.value as? NSDictionary,
                 let profile = Profile(key: userId, dict: result)
             else {
-//                assertionFailure("Something went wrong here")
+                completion(.failure(NSError(domain: "com.speezy.profile", code: 404, userInfo: nil)))
                 return
             }
             
