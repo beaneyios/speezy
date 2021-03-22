@@ -128,6 +128,10 @@ extension AuthCoordinator: AuthViewControllerDelegate {
     func authViewControllerdidSelectSignupWithEmail(_ viewController: AuthViewController) {
         navigateToEmailSignupView()
     }
+    
+    func authViewControllerAccountAlreadyCreated(_ viewController: AuthViewController, user: User) {
+        delegate?.authCoordinatorDidCompleteLogin(self, withUser: user)
+    }
 }
 
 extension AuthCoordinator: EmailSignupViewControllerDelegate {

@@ -26,6 +26,8 @@ protocol AuthViewControllerDelegate: AnyObject {
     func authViewControllerDidSelectLogin(
         _ viewController: AuthViewController
     )
+    
+    func authViewControllerAccountAlreadyCreated(_ viewController: AuthViewController, user: User)
 }
 
 class AuthViewController: UIViewController {
@@ -117,6 +119,8 @@ class AuthViewController: UIViewController {
                 case let .errored(error):
                     self.appleSignupButton.stopLoading()
                     self.presentError(error: error)
+                case let .alreadyCreated(user):
+                    self.delegate?.authViewControllerAccountAlreadyCreated(self, user: user)
                 }
             }
         }
