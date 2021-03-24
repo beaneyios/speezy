@@ -687,7 +687,7 @@
                                                     <constraint firstAttribute="width" constant="60" id="BXK-Ss-mE9"/>
                                                     <constraint firstAttribute="height" constant="60" id="g4O-H2-djl"/>
                                                 </constraints>
-                                                <state key="normal" title="Button" image="apple-signin-button-2"/>
+                                                <state key="normal" image="apple-signin-button-2"/>
                                                 <connections>
                                                     <action selector="signInWithApple:" destination="JXt-Sy-0Rm" eventType="touchUpInside" id="bCu-gu-f5r"/>
                                                 </connections>
