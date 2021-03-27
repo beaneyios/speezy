@@ -145,7 +145,7 @@ class MessagesStore {
             return
         }
 
-        self.messages[chat] = messages.appending(element: message)
+        self.messages[chat] = messages.inserting(message)
         notifyObservers(
             change: .messageAdded(chatId: chat.id, message: message)
         )

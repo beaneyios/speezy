@@ -143,7 +143,7 @@ class HomeCoordinator: ViewCoordinator {
         viewController.tabBarItem.title = nil
         viewController.tabBarItem.image = UIImage(named: iconName)
         tabBarController.tabBar.tintColor = .speezyPurple
-        tabBarController.tabBar.unselectedItemTintColor = .black
+        tabBarController.tabBar.unselectedItemTintColor = .label
         tabBarController.viewControllers?.append(viewController)
     }
 }

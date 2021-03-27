@@ -184,7 +184,7 @@ extension PublishViewController {
             maker.edges.equalToSuperview()
         }
         
-        button.configure(title: "SAVE", titleColor: .darkGray, color: .clear) {
+        button.configure(title: "SAVE", titleColor: .secondaryLabel, color: .clear) {
             self.didTapDraft()
         }
         

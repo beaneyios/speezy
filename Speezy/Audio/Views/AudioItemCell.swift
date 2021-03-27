@@ -33,7 +33,7 @@ class AudioItemCell: UITableViewCell {
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        containerView.backgroundColor = highlighted ? .systemGray5 : .white
+        containerView.backgroundColor = highlighted ? .systemGray5 : .systemBackground
     }
     
     func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
