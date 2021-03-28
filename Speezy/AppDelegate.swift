@@ -31,7 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
 
         PushDeliveryHandler.shared.configurePush(app: application)
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         return true
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     private func configureFirebase() {
