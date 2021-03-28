@@ -15,6 +15,8 @@ struct Chat: Identifiable, Hashable {
     let lastMessage: String
     let chatImageUrl: URL?
     let readBy: [String: TimeInterval]
+    let displayNames: [String: String]?
+    let profileImages: [String: String]?
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -22,6 +24,28 @@ struct Chat: Identifiable, Hashable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
+    }
+}
+
+extension Chat {
+    func computedTitle(currentUserId: String?) -> String {
+        if title == ChatCreator.dynamicTitleKey {
+            if let displayNames = displayNames, let currentUserId = currentUserId {
+                let matchedId = displayNames.keys.first {
+                    $0 != currentUserId
+                }
+                
+                if let matchedId = matchedId, let displayName = displayNames[matchedId] {
+                    return displayName
+                } else {
+                    return "No group title"
+                }
+            } else {
+                return "No group title"
+            }
+        }
+        
+        return title
     }
 }
 
@@ -39,7 +63,9 @@ extension Chat {
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
             chatImageUrl: chatImageUrl,
-            readBy: newReadBy
+            readBy: newReadBy,
+            displayNames: displayNames,
+            profileImages: profileImages
         )
     }
     
@@ -50,7 +76,9 @@ extension Chat {
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
             chatImageUrl: url,
-            readBy: readBy
+            readBy: readBy,
+            displayNames: displayNames,
+            profileImages: profileImages
         )
     }
     
@@ -61,7 +89,9 @@ extension Chat {
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
             chatImageUrl: chatImageUrl,
-            readBy: readBy
+            readBy: readBy,
+            displayNames: displayNames,
+            profileImages: profileImages
         )
     }
     
@@ -72,7 +102,9 @@ extension Chat {
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
             chatImageUrl: chatImageUrl,
-            readBy: readBy
+            readBy: readBy,
+            displayNames: displayNames,
+            profileImages: profileImages
         )
     }
     
@@ -83,7 +115,9 @@ extension Chat {
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
             chatImageUrl: chatImageUrl,
-            readBy: readBy
+            readBy: readBy,
+            displayNames: displayNames,
+            profileImages: profileImages
         )
     }
 }
@@ -96,6 +130,14 @@ extension Chat {
             "title": title,
             "read_by": readBy
         ]
+        
+        if let profileImages = profileImages {
+            dict["profile_images"] = profileImages
+        }
+        
+        if let displayNames = displayNames {
+            dict["display_names"] = displayNames
+        }
         
         if let chatImageUrl = chatImageUrl {
             dict["chat_image_url"] = chatImageUrl.absoluteString

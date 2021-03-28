@@ -19,7 +19,7 @@ class ChatViewModel: NewItemGenerating {
     var updateReadDebouncer = Debouncer(seconds: 1.0)
     
     enum Change {
-        case chattersLoaded(chatters: [Chatter])
+        case chattersLoaded(chatterNames: String)
         case leftChat
         case loading(Bool)
         case loaded
@@ -55,7 +55,7 @@ class ChatViewModel: NewItemGenerating {
     private var stagedText: String?
     
     var groupTitleText: String {
-        chat.title
+        chat.computedTitle(currentUserId: currentUserId)
     }
 
     var currentUserId: String? {
@@ -122,7 +122,16 @@ extension ChatViewModel {
             switch result {
             case let .success(chatters):
                 self.chatters = chatters
-                self.didChange?(.chattersLoaded(chatters: chatters))
+                
+                let chatterNames = chatters.map {
+                    if $0.id == self.currentUserId {
+                        return "You"
+                    } else {
+                        return "\($0.displayName)"
+                    }
+                }.joined(separator: ", ")
+                
+                self.didChange?(.chattersLoaded(chatterNames: chatterNames))
                 self.store.messagesStore.addMessagesObserver(
                     self,
                     chat: self.chat

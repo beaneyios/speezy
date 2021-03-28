@@ -26,7 +26,9 @@ class ChatParser {
             lastUpdated: lastUpdated,
             lastMessage: lastMessage,
             chatImageUrl: URL(key: "chat_image_url", dict: dict),
-            readBy: readBy ?? [:]
+            readBy: readBy ?? [:],
+            displayNames: dict["display_names"] as? [String: String],
+            profileImages: dict["profile_images"] as? [String: String]
         )
         
         return chat

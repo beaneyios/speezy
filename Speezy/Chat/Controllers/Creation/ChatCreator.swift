@@ -10,6 +10,8 @@ import Foundation
 import FirebaseDatabase
 
 class ChatCreator {
+    static let dynamicTitleKey = "%DISPLAY_NAME%"
+    
     func newChatId() -> String? {
         let ref = Database.database().reference()
         return ref.child("chats").childByAutoId().key
@@ -17,7 +19,7 @@ class ChatCreator {
     
     func createChat(
         chatId: String,
-        title: String,
+        title: String?,
         attachmentUrl: URL?,
         currentChatter: Chatter,
         contacts: [Contact],
@@ -45,7 +47,7 @@ class ChatCreator {
     private func createChat(
         chatId: String,
         tokens: [UserToken],
-        title: String,
+        title: String?,
         currentChatter: Chatter,
         contacts: [Contact],
         attachmentUrl: URL?,
@@ -74,14 +76,31 @@ class ChatCreator {
         chatters.forEach {
             readBy[$0.id] = lastUpdated
         }
+        
+        var displayNames: [String: String]?
+        var profileImages: [String: String]?
+        
+        if title == nil {
+            displayNames = [:]
+            profileImages = [:]
+            
+            chatters.forEach { chatter in
+                if let profileImageUrl = chatter.profileImageUrl {
+                    profileImages?[chatter.id] = profileImageUrl.absoluteString
+                }
+                displayNames?[chatter.id] = chatter.displayName
+            }
+        }
                 
         let newChat = Chat(
             id: chatId,
-            title: title,
+            title: title ?? Self.dynamicTitleKey,
             lastUpdated: lastUpdated,
             lastMessage: "New chat started",
             chatImageUrl: attachmentUrl,
-            readBy: readBy
+            readBy: readBy,
+            displayNames: displayNames,
+            profileImages: profileImages
         )
         
         chatters.forEach { chatter in

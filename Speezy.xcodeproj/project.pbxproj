@@ -40,6 +40,7 @@
 		BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */; };
 		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
+		BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
@@ -354,6 +355,7 @@
 		BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageFetcher.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
@@ -1374,6 +1376,7 @@
 			isa = PBXGroup;
 			children = (
 				BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */,
+				BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2059,6 +2062,7 @@
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
 				BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */,
 				BE0A459525CD725E005F4DA8 /* ChatSelectionCellModel.swift in Sources */,
+				BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,

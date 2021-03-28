@@ -27,7 +27,7 @@ class ChatCellModel: Identifiable {
 
 extension ChatCellModel {
     var titleText: String {
-        chat.title
+        chat.computedTitle(currentUserId: currentUserId)
     }
     
     var lastMessageText: String {
@@ -51,14 +51,57 @@ extension ChatCellModel {
     }
     
     func loadImage(completion: @escaping (StorageFetchResult<UIImage>) -> Void) {
-        if chat.chatImageUrl == nil {
-            // TODO: Handle image error better here.
-            let error = NSError(domain: "", code: 404, userInfo: nil)
-            completion(.failure(error))
+        if chat.chatImageUrl != nil {
+            downloadTask?.cancel()
+            downloadTask = ChatImageFetcher().fetchImage(id: chat.id, completion: completion)
             return
         }
         
-        downloadTask?.cancel()
-        downloadTask = ChatImageFetcher().fetchImage(id: chat.id, completion: completion)
+        if let profileImages = chat.profileImages {
+            let oppositeProfileId: String? = profileImages.keys.first {
+                $0 != self.currentUserId
+            }
+            
+            if let profileId = oppositeProfileId {
+                downloadTask?.cancel()
+                downloadTask = ProfileImageFetcher().fetchImage(id: profileId, completion: completion)
+                return
+            }
+        }
+        
+        if let displayNames = chat.displayNames {
+            let oppositeProfileDisplayName: [String] = displayNames.compactMap { (keyValuePair) -> String? in
+                if keyValuePair.key != self.currentUserId {
+                    return keyValuePair.value
+                } else {
+                    return nil
+                }
+            }
+            
+            if let firstName = oppositeProfileDisplayName.first, let character = firstName.first {
+                let view = UIView()
+                let label = UILabel()
+                label.text = String(character)
+                
+                view.addSubview(label)
+                view.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
+                label.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
+                label.textColor = .white
+                label.textAlignment = .center
+                label.font = UIFont.boldSystemFont(ofSize: 26.0)
+                
+                let colors: [UIColor] = [.systemRed, .systemBlue, .systemGray, .systemGreen, .systemYellow, .speezyPurple]
+                let randomNumber = Int.random(in: 0...5)
+                view.backgroundColor = colors[randomNumber]
+                
+                let image = view.asImage()
+                completion(.success(image))
+                return
+            }
+        }
+        
+        // TODO: Handle image error better here.
+        let error = NSError(domain: "", code: 404, userInfo: nil)
+        completion(.failure(error))
     }
 }

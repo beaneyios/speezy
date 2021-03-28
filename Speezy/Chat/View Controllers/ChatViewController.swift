@@ -250,10 +250,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                 UIView.animate(withDuration: 0.3) {
                     self.collectionView.alpha = 1.0
                 }
-            case let .chattersLoaded(chatters):
-                self.chatterNames.text = chatters.map {
-                    "\($0.displayName)"
-                }.joined(separator: ", ")
+            case let .chattersLoaded(chatterNames):
+                self.chatterNames.text = chatterNames
             case let .itemRemoved(index: index):
                 self.toggleEmptyView()
                 self.collectionView.deleteItems(

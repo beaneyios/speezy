@@ -60,7 +60,6 @@ class NewChatViewModel {
     func createChat() {
         guard
             let profile = profile,
-            let title = self.title,
             let newChatId = ChatCreator().newChatId()
         else {
             assertionFailure("No chat id")
@@ -103,7 +102,7 @@ class NewChatViewModel {
     
     private func uploadImageAndCreateChat(
         chatId: String,
-        title: String,
+        title: String?,
         currentChatter: Chatter,
         contacts: [Contact],
         image: UIImage
@@ -129,15 +128,11 @@ class NewChatViewModel {
     
     private func createChat(
         chatId: String,
-        title: String,
+        title: String?,
         attachmentUrl: URL?,
         chatter: Chatter,
         contacts: [Contact]
-    ) {
-        guard let title = self.title else {
-            return
-        }
-        
+    ) {        
         ChatCreator().createChat(
             chatId: chatId,
             title: title,
@@ -157,13 +152,6 @@ class NewChatViewModel {
 
 extension NewChatViewModel {
     func validationError() -> FormError? {
-        if title == nil || title?.isEmpty == true {
-            return FormError(
-                message: "Please choose a title",
-                field: .chatTitle
-            )
-        }
-        
         if selectedContacts.isEmpty {
             return FormError(
                 message: "Please select at least one contact",
