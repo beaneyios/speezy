@@ -42,6 +42,8 @@ class ChatViewModel: NewItemGenerating {
     private lazy var chatDeleter = ChatDeleter()
     private lazy var chatterFetcher = ChattersFetcher()
     
+    var colors: [String: UIColor] = [String: UIColor]()
+    
     let store: Store
     let audioCloudManager = CloudAudioManager()
     let chatPushManager = ChatPushManager()
@@ -136,6 +138,10 @@ extension ChatViewModel {
                     self,
                     chat: self.chat
                 )
+                
+                chatters.forEach {
+                    self.colors[$0.id] = SpeezyProfileViewGenerator.randomColor
+                }
             case .failure:
                 break
             }
@@ -311,7 +317,8 @@ extension ChatViewModel: MessagesObserver {
             chat: self.chat,
             chatters: self.chatters,
             currentUserId: Auth.auth().currentUser?.uid ?? "",
-            isFavourite: self.messageIsFavourite(message: message)
+            isFavourite: self.messageIsFavourite(message: message),
+            color: colors[message.chatter.id]
         )
         
         self.updateQueue.async {
@@ -378,7 +385,8 @@ extension ChatViewModel: MessagesObserver {
                 chat: self.chat,
                 chatters: self.chatters,
                 currentUserId: userId,
-                isFavourite: self.messageIsFavourite(message: $0)
+                isFavourite: self.messageIsFavourite(message: $0),
+                color: self.colors[$0.chatter.id]
             )
         }
 
@@ -425,7 +433,10 @@ extension ChatViewModel: ChatListObserver {
                 chat: self.chat,
                 chatters: self.chatters,
                 currentUserId: userId,
-                isFavourite: self.messageIsFavourite(message: $0.message)
+                isFavourite: self.messageIsFavourite(
+                    message: $0.message
+                ),
+                color: self.colors[newMessage.chatter.id]
             )
             
             if newMessage != $0.message {

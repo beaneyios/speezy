@@ -20,7 +20,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var sendStatusImage: UIImageView!
     @IBOutlet weak var sendStatusImageWidth: NSLayoutConstraint!
-    
+    @IBOutlet weak var sendStatusPadding: NSLayoutConstraint!
     @IBOutlet weak var messageContainer: UIView!
     
     @IBOutlet weak var playButton: UIButton!
@@ -28,7 +28,6 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var sliderHeight: NSLayoutConstraint!
-    
         
     var messageDidStartPlaying: ((MessageCell) -> Void)?
     var messageDidStopPlaying: ((MessageCell) -> Void)?
@@ -75,6 +74,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
                 
         sendStatusImage.alpha = item.tickOpacity
         sendStatusImageWidth.constant = item.tickWidth
+        sendStatusPadding.constant = item.tickPadding
         
         spinner.isHidden = true
         spinner.color = item.spinnerTint
@@ -83,6 +83,22 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         addGestureRecognizer(longTap)
         
         configureAudioControls(item: item)
+        configureImage(item: item)
+        
+        setNeedsLayout()
+        layoutIfNeeded()
+        profileImage.layer.cornerRadius = profileImage.frame.height / 2.0
+    }
+    
+    func configureImage(item: MessageCellModel) {
+        item.loadImage { (result) in
+            switch result {
+            case let .success(image):
+                self.profileImage.image = image
+            case let .failure(error):
+                self.profileImage.image = item.profileImage
+            }
+        }
     }
     
     func configureTicks(item: MessageCellModel) {

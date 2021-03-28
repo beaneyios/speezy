@@ -18,7 +18,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="647" height="255"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ZK-n5-jXW">
-                            <rect key="frame" x="231.5" y="97.5" width="60" height="60"/>
+                            <rect key="frame" x="239.5" y="97.5" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="2nl-zk-xO7"/>
                                 <constraint firstAttribute="width" constant="60" id="MQQ-6S-JuR"/>
@@ -29,7 +29,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ces-nz-UqB">
-                            <rect key="frame" x="355.5" y="97.5" width="60" height="60"/>
+                            <rect key="frame" x="347.5" y="97.5" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="IdI-vG-CYl"/>
                                 <constraint firstAttribute="width" constant="60" id="afQ-wO-mmZ"/>
@@ -40,10 +40,10 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cob-Po-d0S">
-                            <rect key="frame" x="291.5" y="0.0" width="64" height="255"/>
+                            <rect key="frame" x="299.5" y="0.0" width="48" height="255"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="64" id="WJ8-oc-DD0"/>
+                                <constraint firstAttribute="width" constant="48" id="WJ8-oc-DD0"/>
                             </constraints>
                         </view>
                     </subviews>

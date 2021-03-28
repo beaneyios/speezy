@@ -43,6 +43,7 @@
 		BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */; };
 		BE0CDDA12610F04B00AF2706 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */; };
 		BE0CDDA52610F05700AF2706 /* ChatTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0CDDA42610F05700AF2706 /* ChatTextView.xib */; };
+		BE0CDDB32611099400AF2706 /* SpeezyProfileViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDB22611099400AF2706 /* SpeezyProfileViewGenerator.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
@@ -360,6 +361,7 @@
 		BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageFetcher.swift; sourceTree = "<group>"; };
 		BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		BE0CDDA42610F05700AF2706 /* ChatTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTextView.xib; sourceTree = "<group>"; };
+		BE0CDDB22611099400AF2706 /* SpeezyProfileViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyProfileViewGenerator.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
@@ -1658,6 +1660,7 @@
 				BE2351E0253CCA7300067BA2 /* SpeezyLoadingView.xib */,
 				BEDC126424F1B41500B53D1A /* TableCellCollectionView.swift */,
 				BEFF49D325C59D3F00794A21 /* TabItem.swift */,
+				BE0CDDB22611099400AF2706 /* SpeezyProfileViewGenerator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2090,6 +2093,7 @@
 				BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */,
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
+				BE0CDDB32611099400AF2706 /* SpeezyProfileViewGenerator.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */,

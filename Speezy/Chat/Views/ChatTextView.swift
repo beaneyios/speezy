@@ -30,6 +30,7 @@ class ChatTextView: UIView, NibLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         txtField.delegate = self
+        activitySpinner.isHidden = true
     }
     
     func showLoader() {

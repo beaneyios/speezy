@@ -79,23 +79,13 @@ extension ChatCellModel {
             }
             
             if let firstName = oppositeProfileDisplayName.first, let character = firstName.first {
-                let view = UIView()
-                let label = UILabel()
-                label.text = String(character)
-                
-                view.addSubview(label)
-                view.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
-                label.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
-                label.textColor = .white
-                label.textAlignment = .center
-                label.font = UIFont.boldSystemFont(ofSize: 26.0)
-                
-                let colors: [UIColor] = [.systemRed, .systemBlue, .systemGray, .systemGreen, .systemYellow, .speezyPurple]
-                let randomNumber = Int.random(in: 0...5)
-                view.backgroundColor = colors[randomNumber]
-                
-                let image = view.asImage()
-                completion(.success(image))
+                completion(
+                    .success(
+                        SpeezyProfileViewGenerator.generateProfileImage(
+                            character: String(character), color: nil
+                        )
+                    )
+                )
                 return
             }
         }

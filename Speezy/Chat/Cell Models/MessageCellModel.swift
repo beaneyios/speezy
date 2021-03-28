@@ -8,13 +8,17 @@
 
 import UIKit
 import AFDateHelper
+import FirebaseStorage
 
-struct MessageCellModel: Identifiable {
+class MessageCellModel: Identifiable {
     var message: Message
     var chat: Chat
     var chatters: [Chatter]
     var currentUserId: String
     var isFavourite: Bool
+    var color: UIColor?
+    
+    private var downloadTask: StorageDownloadTask?
     
     var id: String {
         message.id
@@ -25,13 +29,25 @@ struct MessageCellModel: Identifiable {
         chat: Chat,
         chatters: [Chatter],
         currentUserId: String,
-        isFavourite: Bool
+        isFavourite: Bool,
+        color: UIColor?
     ) {
         self.message = message
         self.chat = chat
         self.chatters = chatters
         self.currentUserId = currentUserId
         self.isFavourite = isFavourite
+        self.color = color
+    }
+    
+    func loadImage(
+        completion: @escaping (StorageFetchResult<UIImage>) -> Void
+    ) {
+        downloadTask?.cancel()
+        downloadTask = ProfileImageFetcher().fetchImage(
+            id: message.chatter.id,
+            completion: completion
+        )
     }
 }
 
@@ -46,7 +62,6 @@ extension MessageCellModel {
 }
 
 extension MessageCellModel {
-    
     var hasAudio: Bool {
         message.audioId != nil
     }
@@ -79,11 +94,19 @@ extension MessageCellModel {
     // User info
     var profileImage: UIImage? {
         if isSender { return nil }
+        
+        if let character = message.chatter.displayName.first {
+            return SpeezyProfileViewGenerator.generateProfileImage(
+                character: String(character),
+                color: color
+            )
+        }
+        
         return UIImage(named: "account-btn")
     }
     
     var displayNameText: String? {
-        isSender ? "You" : message.chatter.displayName
+        isSender ? "" : message.chatter.displayName
     }
     
     var displayNameTint: UIColor {
@@ -142,6 +165,10 @@ extension MessageCellModel {
     
     var tickWidth: CGFloat {
         isSender ? 15.0 : 0.0
+    }
+    
+    var tickPadding: CGFloat {
+        isSender ? 4.0 : 0.0
     }
     
     // Slider
