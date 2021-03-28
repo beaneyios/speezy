@@ -189,10 +189,14 @@ extension ChatViewModel {
 // MARK: Sending
 extension ChatViewModel {
     func sendStagedItem() {
-        guard let item = currentAudioFile, let data = item.fileUrl.data else {
-            return
+        if let item = currentAudioFile, let data = item.fileUrl.data {
+            sendAudioFile(item: item, data: data)
+        } else {
+            updateDatabaseRecords(item: nil)
         }
-        
+    }
+    
+    private func sendAudioFile(item: AudioItem, data: Data) {
         CloudAudioManager.uploadAudioClip(
             id: item.id,
             data: data
@@ -246,7 +250,7 @@ extension ChatViewModel {
         }
     }
     
-    private func updateDatabaseRecords(item: AudioItem) {
+    private func updateDatabaseRecords(item: AudioItem?) {
         guard
             let id = Auth.auth().currentUser?.uid,
             let chatter = chatters.chatter(for: id)
@@ -261,10 +265,10 @@ extension ChatViewModel {
             chatter: chatter,
             sent: Date(),
             message: self.stagedText,
-            audioId: item.id,
-            audioUrl: item.remoteUrl,
+            audioId: item?.id,
+            audioUrl: item?.remoteUrl,
             attachmentUrl: nil,
-            duration: item.calculatedDuration,
+            duration: item?.calculatedDuration,
             readBy: [chatter]
         )
                 

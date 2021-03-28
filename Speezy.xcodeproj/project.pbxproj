@@ -41,6 +41,8 @@
 		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */; };
+		BE0CDDA12610F04B00AF2706 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */; };
+		BE0CDDA52610F05700AF2706 /* ChatTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0CDDA42610F05700AF2706 /* ChatTextView.xib */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
@@ -356,6 +358,8 @@
 		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageFetcher.swift; sourceTree = "<group>"; };
+		BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
+		BE0CDDA42610F05700AF2706 /* ChatTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTextView.xib; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
@@ -1503,6 +1507,8 @@
 				BEE47EFA25BC433200AF47FA /* ChatCell.xib */,
 				BE0A458625CD677A005F4DA8 /* ChatSelectionCell.swift */,
 				BE0A458725CD677A005F4DA8 /* ChatSelectionCell.xib */,
+				BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */,
+				BE0CDDA42610F05700AF2706 /* ChatTextView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1893,6 +1899,7 @@
 				BE77767B24D6DAAB0009BE63 /* privacy-policy.html in Resources */,
 				BE2B098424C732DC00317EB7 /* TagCell.xib in Resources */,
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
+				BE0CDDA52610F05700AF2706 /* ChatTextView.xib in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
 				BEECD89825ACD61200AD7AC3 /* MessageCell.xib in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
@@ -2230,6 +2237,7 @@
 				BE18D10225A8EA580013CED5 /* LoginViewController.swift in Sources */,
 				BEA9D13625B0C623000888A7 /* ChatViewModel.swift in Sources */,
 				BEE47F0725BC558D00AF47FA /* ContactsCoordinator.swift in Sources */,
+				BE0CDDA12610F04B00AF2706 /* ChatTextView.swift in Sources */,
 				BEA32E2D25D8431000A9F643 /* ProfileFetcher.swift in Sources */,
 				BEE47F1425BC55C500AF47FA /* ContactCell.swift in Sources */,
 				BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */,

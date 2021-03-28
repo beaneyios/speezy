@@ -26,6 +26,9 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var playButtonImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    @IBOutlet weak var sliderHeight: NSLayoutConstraint!
+    
         
     var messageDidStartPlaying: ((MessageCell) -> Void)?
     var messageDidStopPlaying: ((MessageCell) -> Void)?
@@ -37,10 +40,6 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     func configure(item: MessageCellModel) {
         self.message = item.message
         self.audioManager = nil
-        
-        playButtonImage.tintColor = item.playButtonTint
-        playButtonImage.image = UIImage(named: "plain-play-button")
-        playButton.isUserInteractionEnabled = true
         
         messageLabel.text = item.messageText
         messageLabel.textColor = item.messageTint
@@ -73,21 +72,47 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         
         messageContainer.backgroundColor = item.backgroundColor
         messageContainer.layer.cornerRadius = 30.0
+                
+        sendStatusImage.alpha = item.tickOpacity
+        sendStatusImageWidth.constant = item.tickWidth
+        
+        spinner.isHidden = true
+        spinner.color = item.spinnerTint
+                
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longPressedCell))
+        addGestureRecognizer(longTap)
+        
+        configureAudioControls(item: item)
+    }
+    
+    func configureTicks(item: MessageCellModel) {
+        sendStatusImage.alpha = item.tickOpacity
+    }
+    
+    private func configureAudioControls(item: MessageCellModel) {
+        if !item.hasAudio {
+            sliderHeight.constant = 0.0
+            durationLabel.isHidden = true
+            slider.isHidden = true
+            playButton.isHidden = true
+            playButtonImage.isHidden = true
+            return
+        } else {
+            sliderHeight.constant = 50.0
+            durationLabel.isHidden = false
+            slider.isHidden = false
+            playButton.isHidden = false
+            playButtonImage.isHidden = false
+        }
         
         durationLabel.text = item.durationText
         durationLabel.textColor = item.durationTint
         
-        sendStatusImage.alpha = item.tickOpacity
-        sendStatusImageWidth.constant = item.tickWidth
-        
         slider.thumbColour = item.sliderThumbColour
         slider.minimumTrackTintColor = item.minSliderColour
         slider.maximumTrackTintColor = item.maxSliderColour
-        slider.borderColor = item.sliderBorderColor        
+        slider.borderColor = item.sliderBorderColor
         slider.configure()
-        
-        spinner.isHidden = true
-        spinner.color = item.spinnerTint
         
         slider.alpha = 0.6
         slider.isUserInteractionEnabled = false
@@ -97,13 +122,10 @@ class MessageCell: UICollectionViewCell, NibLoadable {
             action: #selector(onSliderValChanged(slider:forEvent:)),
             for: .valueChanged
         )
-                
-        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longPressedCell))
-        addGestureRecognizer(longTap)
-    }
-    
-    func configureTicks(item: MessageCellModel) {
-        sendStatusImage.alpha = item.tickOpacity
+        
+        playButtonImage.tintColor = item.playButtonTint
+        playButtonImage.image = UIImage(named: "plain-play-button")
+        playButton.isUserInteractionEnabled = true
     }
     
     @objc private func longPressedCell() {

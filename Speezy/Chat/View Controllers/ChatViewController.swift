@@ -83,6 +83,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         }
     }
     
+    func didTapText() {
+        animateToTextView()
+    }
+    
     func didTapRecord() {
         presentQuickRecordDialogue(item: viewModel.newItem)
     }
@@ -152,6 +156,45 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         ]
     }
     
+    private func animateToTextView() {
+        recordButtonContainerHeight.constant = 100.0
+        
+        if let recordView = activeControl as? ChatRecordView {
+            recordView.animateOut()
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.addTextView()
+        }
+    }
+    
+    private func addTextView() {
+        activeControl?.removeFromSuperview()
+        activeControl = nil
+        
+        let textView = ChatTextView.createFromNib()
+        recordButtonContainer.addSubview(textView)
+        activeControl = textView
+        
+        textView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        textView.textChangeAction = { text in
+            self.viewModel.setMessageText(text)
+        }
+        
+        textView.cancelAction = {
+            self.animateToRecordButtonView()
+        }
+        
+        textView.sendAction = {
+            self.viewModel.sendStagedItem()
+        }
+    }
+    
     private func animateToRecordButtonView() {
         recordButtonContainerHeight.constant = 160.0
         
@@ -169,6 +212,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         let recordView = ChatRecordView.createFromNib()
         recordView.recordAction = {
             self.didTapRecord()
+        }
+        
+        recordView.textAction = {
+            self.didTapText()
         }
 
         recordButtonContainer.addSubview(recordView)

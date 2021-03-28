@@ -46,6 +46,11 @@ extension MessageCellModel {
 }
 
 extension MessageCellModel {
+    
+    var hasAudio: Bool {
+        message.audioId != nil
+    }
+    
     var favouriteImage: UIImage? {
         isFavourite ? UIImage(named: "favourite-button-filled") : UIImage(named: "favourite-button")
     }

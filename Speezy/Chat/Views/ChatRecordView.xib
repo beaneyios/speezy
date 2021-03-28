@@ -18,7 +18,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="647" height="255"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ZK-n5-jXW">
-                            <rect key="frame" x="293.5" y="97.5" width="60" height="60"/>
+                            <rect key="frame" x="231.5" y="97.5" width="60" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="2nl-zk-xO7"/>
                                 <constraint firstAttribute="width" constant="60" id="MQQ-6S-JuR"/>
@@ -28,11 +28,34 @@
                                 <action selector="recordButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="LA3-0E-3ZA"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ces-nz-UqB">
+                            <rect key="frame" x="355.5" y="97.5" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="IdI-vG-CYl"/>
+                                <constraint firstAttribute="width" constant="60" id="afQ-wO-mmZ"/>
+                            </constraints>
+                            <state key="normal" image="btn-text-chat"/>
+                            <connections>
+                                <action selector="textChatTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="LlX-1Z-Uiw"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cob-Po-d0S">
+                            <rect key="frame" x="291.5" y="0.0" width="64" height="255"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="64" id="WJ8-oc-DD0"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="Cob-Po-d0S" firstAttribute="leading" secondItem="6ZK-n5-jXW" secondAttribute="trailing" id="3Y3-Rf-aYF"/>
+                        <constraint firstItem="Ces-nz-UqB" firstAttribute="leading" secondItem="Cob-Po-d0S" secondAttribute="trailing" id="9iZ-38-q9f"/>
+                        <constraint firstItem="Cob-Po-d0S" firstAttribute="top" secondItem="pHe-MA-Ud1" secondAttribute="top" id="H0x-ta-4W6"/>
+                        <constraint firstItem="Cob-Po-d0S" firstAttribute="centerX" secondItem="pHe-MA-Ud1" secondAttribute="centerX" id="O26-T8-bsL"/>
+                        <constraint firstItem="Ces-nz-UqB" firstAttribute="centerY" secondItem="pHe-MA-Ud1" secondAttribute="centerY" id="V8A-f1-MGj"/>
                         <constraint firstItem="6ZK-n5-jXW" firstAttribute="centerY" secondItem="pHe-MA-Ud1" secondAttribute="centerY" id="aDy-ra-Iep"/>
-                        <constraint firstItem="6ZK-n5-jXW" firstAttribute="centerX" secondItem="pHe-MA-Ud1" secondAttribute="centerX" id="nMC-Eo-Q4s"/>
+                        <constraint firstAttribute="bottom" secondItem="Cob-Po-d0S" secondAttribute="bottom" id="sG5-mQ-hLg"/>
                     </constraints>
                 </view>
             </subviews>
@@ -47,11 +70,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="recordButton" destination="6ZK-n5-jXW" id="Tsx-th-AV0"/>
+                <outlet property="textButton" destination="Ces-nz-UqB" id="eGh-6W-eew"/>
             </connections>
-            <point key="canvasLocation" x="306.52173913043481" y="367.96875"/>
+            <point key="canvasLocation" x="306.39999999999998" y="367.46626686656674"/>
         </view>
     </objects>
     <resources>
+        <image name="btn-text-chat" width="500" height="500"/>
         <image name="chat-record-button" width="120" height="120"/>
     </resources>
 </document>
