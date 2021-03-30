@@ -36,10 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
-    }
-    
     private func configureFirebase() {
         guard
             let plistName = Bundle.main.infoDictionary?["GOOGLE_PLIST_NAME"] as? String,

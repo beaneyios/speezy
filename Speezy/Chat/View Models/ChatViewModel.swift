@@ -299,6 +299,9 @@ extension ChatViewModel {
                     chatters: self.chatters,
                     from: chatter
                 )
+                
+                self.stagedText = nil
+                self.currentAudioFile = nil
             case let .failure(error):
                 break
             }

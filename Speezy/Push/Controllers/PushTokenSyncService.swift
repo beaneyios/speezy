@@ -79,6 +79,6 @@ class PushTokenSyncService {
             return true
         }
             
-        return storedToken == token
+        return storedToken != token
     }
 }

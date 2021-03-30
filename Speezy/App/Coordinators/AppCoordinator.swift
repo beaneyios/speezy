@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
 
 class AppCoordinator: ViewCoordinator {
     let tabBarController: UITabBarController
     var awaitingChatId: String?
     var awaitingContactId: String?
     
+    let signOutManager = SignOutManager.shared
     let store = Store.shared
     let tokenService = PushTokenSyncService()
     let killSwitchListener = KillSwitchListener()
@@ -28,6 +30,13 @@ class AppCoordinator: ViewCoordinator {
     }
     
     override func start() {
+        signOutManager.configure(
+            auth: Auth.auth(),
+            loginManager: LoginManager(),
+            pushSyncService: tokenService,
+            store: store
+        )
+        
         navigateToAuth()
         
         killSwitchListener.listenForKill { status in
@@ -59,8 +68,9 @@ class AppCoordinator: ViewCoordinator {
     private func handleKillSwitchChange(status: Status?) {
         if let status = status {
             dismissAllViewControllers()
-            try? Auth.auth().signOut()
-            store.userDidLogOut()
+            
+            signOutManager.signOut()
+            
             navigateToAuth(animated: false)
             navigateToKillSwitch(status: status)
         } else if let killSwitchViewController = killSwitchViewController {

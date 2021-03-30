@@ -32,6 +32,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else {

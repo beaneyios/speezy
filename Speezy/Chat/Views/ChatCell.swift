@@ -53,6 +53,7 @@ class ChatCell: UICollectionViewCell, NibLoadable {
     }
     
     func configureNotificationLabel(item: ChatCellModel) {
+        lastMessageLabel.text = item.lastMessageText
         notificationLabel.isHidden = item.showRead
     }
 }

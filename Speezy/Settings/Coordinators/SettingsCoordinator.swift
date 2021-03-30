@@ -52,15 +52,14 @@ extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
         case .privacyPolicy:
             navigateToPrivacyPolicy()
         case .logout:
-            Store.shared.userDidLogOut()
-            try? Auth.auth().signOut()
-            LoginManager().logOut()
+            
+            SignOutManager.shared.signOut()
+            
             delegate?.settingsCoordinatorDidLogOut(self)
             delegate?.settingsCoordinatorDidFinish(self)
         case .deleteAccount:
-            Store.shared.userDidLogOut()
-            try? Auth.auth().signOut()
-            LoginManager().logOut()
+            SignOutManager.shared.signOut()
+            
             delegate?.settingsCoordinatorDidDeleteAccount(self)
             delegate?.settingsCoordinatorDidFinish(self)
         default:

@@ -47,6 +47,26 @@ extension Chat {
         
         return title
     }
+    
+    func youTitle(currentUserId: String?) -> String {
+        if title == ChatCreator.dynamicTitleKey {
+            if let displayNames = displayNames, let currentUserId = currentUserId {
+                let matchedId = displayNames.keys.first {
+                    $0 == currentUserId
+                }
+                
+                if let matchedId = matchedId, let displayName = displayNames[matchedId] {
+                    return displayName
+                } else {
+                    return "No group title"
+                }
+            } else {
+                return "No group title"
+            }
+        }
+        
+        return title
+    }
 }
 
 extension Chat {

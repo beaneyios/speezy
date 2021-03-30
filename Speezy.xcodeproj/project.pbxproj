@@ -44,6 +44,7 @@
 		BE0CDDA12610F04B00AF2706 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */; };
 		BE0CDDA52610F05700AF2706 /* ChatTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0CDDA42610F05700AF2706 /* ChatTextView.xib */; };
 		BE0CDDB32611099400AF2706 /* SpeezyProfileViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDB22611099400AF2706 /* SpeezyProfileViewGenerator.swift */; };
+		BE0CDDBD261313C200AF2706 /* SignOutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDBC261313C200AF2706 /* SignOutManager.swift */; };
 		BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */; };
 		BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */; };
 		BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */; };
@@ -362,6 +363,7 @@
 		BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		BE0CDDA42610F05700AF2706 /* ChatTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTextView.xib; sourceTree = "<group>"; };
 		BE0CDDB22611099400AF2706 /* SpeezyProfileViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyProfileViewGenerator.swift; sourceTree = "<group>"; };
+		BE0CDDBC261313C200AF2706 /* SignOutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutManager.swift; sourceTree = "<group>"; };
 		BE0E53CC24E8140E009BA1F9 /* CropOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CropOverlayView.xib; sourceTree = "<group>"; };
 		BE0E53CE24E814F7009BA1F9 /* CropOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
 		BE0E53D124E9BE01009BA1F9 /* AVAudioSession+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Helpers.swift"; sourceTree = "<group>"; };
@@ -1383,6 +1385,7 @@
 			children = (
 				BEF425C225AB542800DC8E3D /* AuthErrorFactory.swift */,
 				BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */,
+				BE0CDDBC261313C200AF2706 /* SignOutManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2086,6 +2089,7 @@
 				BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */,
 				BEFF49AF25C58AD100794A21 /* ChatValue.swift in Sources */,
 				BE0A458825CD677A005F4DA8 /* ChatSelectionCell.swift in Sources */,
+				BE0CDDBD261313C200AF2706 /* SignOutManager.swift in Sources */,
 				BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */,
 				BE3C5DDE25BD8B81005E34BB /* Debouncer.swift in Sources */,
 				BE6FD90C25B49BD800723732 /* URL+Helpers.swift in Sources */,
@@ -2403,8 +2407,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2412,8 +2417,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2503,16 +2510,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2663,8 +2673,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2672,8 +2683,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2685,16 +2698,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

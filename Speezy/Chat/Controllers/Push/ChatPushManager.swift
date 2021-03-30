@@ -24,10 +24,12 @@ class ChatPushManager {
         }
         
         let functions = Functions.functions()
+        
+//        functions.useFunctionsEmulator(origin: "http://localhost:5001")
 
         let infoDict: [String: Any] = [
             "tokens": tokens,
-            "title": "\(chat.title)",
+            "title": "\(chat.youTitle(currentUserId: chatter.id))",
             "body": "\(message)",
             "chatId": chat.id
         ]
