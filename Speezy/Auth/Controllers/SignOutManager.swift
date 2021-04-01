@@ -31,9 +31,10 @@ class SignOutManager {
     }
     
     func signOut() {
+        pushSyncService.unsyncPushToken()
         store.userDidLogOut()
+        
         try? auth.signOut()
         loginManager.logOut()
-        pushSyncService.unsyncPushToken()
     }
 }

@@ -56,6 +56,8 @@ class PushTokenSyncService {
             forUserId: userId,
             completion: nil
         )
+        
+        UserDefaults.standard.removeObject(forKey: tokenStorageKey)
     }
     
     private func updateDatabase(userId: String, fcmToken: String) {
