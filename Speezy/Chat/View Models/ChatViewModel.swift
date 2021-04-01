@@ -382,8 +382,12 @@ extension ChatViewModel: MessagesObserver {
             return
         }
         
-        self.items = messages.map {
-            MessageCellModel(
+        self.items = messages.compactMap { [weak self] in
+            guard let self = self else {
+                return nil
+            }
+            
+            return MessageCellModel(
                 message: $0,
                 chat: self.chat,
                 chatters: self.chatters,
