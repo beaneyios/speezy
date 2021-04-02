@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDynamicLinks
+import JGProgressHUD
 
 protocol HomeCoordinatorDelegate: AnyObject {
     func homeCoordinatorDidFinish(_ coordinator: HomeCoordinator)
@@ -31,7 +33,11 @@ class HomeCoordinator: ViewCoordinator {
         self.tabBarController = tabBarController
     }
     
-    func start(withAwaitingChatId chatId: String?, andAwaitingContactId contactId: String?) {
+    func start(
+        awaitingChatId chatId: String?,
+        awaitingContactId contactId: String?,
+        awaitingUserActivity userActivity: NSUserActivity?
+    ) {
         tabBarController.setViewControllers([], animated: false)
         addChatCoordinator(awaitingChatId: chatId)
         addAudioListCoordinator()
@@ -41,9 +47,11 @@ class HomeCoordinator: ViewCoordinator {
         
         tabBarController.delegate = self
         
-        if let contactId = contactId {
-            navigateToAddContact(contactId: contactId)
-        }
+        handleAwaitingActivities(
+            chatId: chatId,
+            contactId: contactId,
+            userActivity: userActivity
+        )
     }
     
     func navigateToAddContact(contactId: String) {
@@ -81,6 +89,41 @@ class HomeCoordinator: ViewCoordinator {
         }
         
         chatCoordinator.navigateToChatId(chatId, message: message)
+    }
+    
+    private func handleAwaitingActivities(
+        chatId: String?,
+        contactId: String?,
+        userActivity: NSUserActivity?
+    ) {
+        if chatId != nil {
+            return
+        }
+        
+        if let contactId = contactId {
+            navigateToAddContact(contactId: contactId)
+        } else if let userActivity = userActivity {
+            handleUserActivity(userActivity)
+        }
+    }
+    
+    private func handleUserActivity(_ userActivity: NSUserActivity) {
+        guard let webPageUrl = userActivity.webpageURL else {
+            return
+        }
+        
+        let hud = JGProgressHUD()
+        hud.textLabel.text = "Loading..."
+        hud.show(in: self.tabBarController.view)
+        DynamicLinks.dynamicLinks().handleUniversalLink(webPageUrl) { (dynamicLink, error) in
+            guard let contactId = webPageUrl.queryParameters?["contact_id"] else {
+                hud.dismiss()
+                return
+            }
+            
+            hud.dismiss()
+            self.navigateToAddContact(contactId: contactId)
+        }
     }
     
     private func addAudioListCoordinator() {

@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         
         PushDeliveryHandler.shared.configure(appCoordinator: appCoordinator)
         appCoordinator.awaitingChatId = PushDeliveryHandler.shared.chatId(from: connectionOptions)
+        appCoordinator.awaitingActivity = connectionOptions.userActivities.first
         appCoordinator.start()
         
         self.appCoordinator = appCoordinator
@@ -55,6 +56,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
     }
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        handleUserActivity(userActivity)
+    }
+    
+    func handleUserActivity(_ userActivity: NSUserActivity) {
         guard let webPageUrl = userActivity.webpageURL else {
             return
         }

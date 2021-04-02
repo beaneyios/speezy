@@ -68,11 +68,17 @@ class ChatParser {
     ) -> Message? {
         guard
             let userId = dict["user_id"] as? String,
-            let chatter = chatters.chatter(for: userId),
             let sentDateSeconds = dict["sent_date"] as? TimeInterval
         else {
             return nil
         }
+        
+        let chatter = chatters.chatter(for: userId) ?? Chatter(
+            id: "No ID",
+            displayName: "Not found",
+            profileImageUrl: nil,
+            pushToken: nil
+        )
         
         let readBy = chatters.readChatters(
             forMessageDate: Date(timeIntervalSince1970: sentDateSeconds),

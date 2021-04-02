@@ -15,6 +15,7 @@ class AppCoordinator: ViewCoordinator {
     let tabBarController: UITabBarController
     var awaitingChatId: String?
     var awaitingContactId: String?
+    var awaitingActivity: NSUserActivity?
     
     let signOutManager = SignOutManager.shared
     let store = Store.shared
@@ -118,13 +119,15 @@ class AppCoordinator: ViewCoordinator {
         homeCoordinator.delegate = self
         add(homeCoordinator)
         homeCoordinator.start(
-            withAwaitingChatId: awaitingChatId,
-            andAwaitingContactId: awaitingContactId
+            awaitingChatId: awaitingChatId,
+            awaitingContactId: awaitingContactId,
+            awaitingUserActivity: awaitingActivity
         )
         tabBarController.tabBar.isHidden = false
         
         awaitingContactId = nil
         awaitingChatId = nil
+        awaitingActivity = nil
     }
 }
 
