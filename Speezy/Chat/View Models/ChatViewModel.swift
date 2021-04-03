@@ -192,6 +192,7 @@ extension ChatViewModel {
     func updateMessagePlayed(message: Message) {
         guard
             let userId = currentUserId,
+            message.chatter.id != userId,
             !message.playedBy.contains(userId)
         else {
             return

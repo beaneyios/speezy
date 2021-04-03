@@ -468,22 +468,50 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     private func presentMessageOptions(message: Message) {        
-        let alert = UIAlertController(title: "Message options", message: nil, preferredStyle: .actionSheet)
-        let delete = UIAlertAction(title: "Delete message", style: .destructive) { _ in
+        let alert = UIAlertController(
+            title: "Message options",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        
+        let delete = UIAlertAction(
+            title: "Delete message",
+            style: .destructive
+        ) { _ in
             self.deleteMessage(message: message)
         }
         
-        let favourite = UIAlertAction(title: "Add to favourites", style: .default) { _ in
+        let favourite = UIAlertAction(
+            title: "Add to favourites",
+            style: .default
+        ) { _ in
             self.viewModel.toggleFavourite(on: message)
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
+        
+        var actions = [UIAlertAction]()
         
         if let currentUserId = viewModel.currentUserId, message.chatter.id == currentUserId {
-            alert.addAction(delete)
+            actions.append(delete)
         }
         
-        alert.addAction(favourite)
+        if message.audioId != nil {
+            actions.append(favourite)
+        }
+        
+        if actions.count == 0 {
+            return
+        }
+        
+        actions.forEach {
+            alert.addAction($0)
+        }
+        
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
     }

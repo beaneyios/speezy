@@ -62,6 +62,8 @@ class MessagesStore {
                             chat: chat,
                             chatters: chatters
                         )
+                        
+                        self.listenForDeletedMessages(chat: chat, chatters: chatters)
                     }
                     
                     newMessages.forEach {
@@ -147,7 +149,7 @@ class MessagesStore {
             newMessage.playedBy = playedBy.components(separatedBy: ",")
         }
         
-        self.messages[chat] = self.messages[chat]?.replacing(newMessage)        
+        self.messages[chat] = self.messages[chat]?.replacing(newMessage)
         notifyObservers(
             change: .messageChanged(
                 chatId: chat.id,
