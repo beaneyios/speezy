@@ -59,6 +59,10 @@ extension MessageCellModel {
     var received: Bool? {
         isSender ? message.readBy.count == chatters.count : nil
     }
+    
+    var unplayed: Bool {
+        !isSender && !message.playedBy.contains(currentUserId) && hasAudio
+    }
 }
 
 extension MessageCellModel {
@@ -169,6 +173,16 @@ extension MessageCellModel {
     
     var tickPadding: CGFloat {
         isSender ? 4.0 : 0.0
+    }
+    
+    // Show unplayed
+    
+    var borderWidth: CGFloat {
+        unplayed ? 2.0 : 0.0
+    }
+    
+    var borderColor: UIColor {
+        unplayed ? .speezyPurple : .clear
     }
     
     // Slider

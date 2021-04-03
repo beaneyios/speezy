@@ -64,6 +64,22 @@ class MessagesStore {
                         )
                     }
                     
+                    newMessages.forEach {
+                        let message = $0
+                        if message.audioId != nil {
+                            self.listener(
+                                chat: chat,
+                                chatters: chatters
+                            ).listenForMessageChanges(message: $0) { (change) in
+                                self.handleMessageChanged(
+                                    chat: chat,
+                                    message: message,
+                                    value: change
+                                )
+                            }
+                        }
+                    }
+                    
                     self.loading = false
                 case .failure:
                     break
@@ -121,6 +137,24 @@ class MessagesStore {
                 break
             }
         }
+    }
+    
+    private func handleMessageChanged(chat: Chat, message: Message, value: MessageValueChange) {
+        var newMessage = message
+        
+        switch value.messageValue {
+        case let .playedBy(playedBy):
+            newMessage.playedBy = playedBy.components(separatedBy: ",")
+        }
+        
+        self.messages[chat] = self.messages[chat]?.replacing(newMessage)        
+        notifyObservers(
+            change: .messageChanged(
+                chatId: chat.id,
+                message: newMessage,
+                change: value
+            )
+        )
     }
     
     private func handleNewPage(chat: Chat, newMessages: [Message]) {
@@ -210,6 +244,7 @@ extension MessagesStore {
         case messageRemoved(chatId: String, message: Message)
         case pagedMessages(chatId: String, newMessages: [Message], allMessages: [Message])
         case initialMessages(chatId: String, messages: [Message])
+        case messageChanged(chatId: String, message: Message, change: MessageValueChange)
     }
     
     func addMessagesObserver(_ observer: MessagesObserver, chat: Chat) {
@@ -245,6 +280,8 @@ extension MessagesStore {
                 observer.pagedMessages(chatId: chatId, newMessages: newMessages, allMessages: allMessages)
             case let .initialMessages(chatId, messages):
                 observer.initialMessages(chatId: chatId, messages: messages)
+            case let .messageChanged(chatId, message, change):
+                observer.messageChanged(chatId: chatId, message: message, change: change)
             }
         }
     }

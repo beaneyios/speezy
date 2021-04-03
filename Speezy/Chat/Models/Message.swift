@@ -18,8 +18,8 @@ struct Message: Equatable, Identifiable {
     let audioUrl: URL?
     let attachmentUrl: URL?
     let duration: TimeInterval?
-    
     var readBy: [Chatter]
+    var playedBy: [String]
     
     var formattedMessage: String {
         message ?? "New message from \(chatter.displayName)"
@@ -53,6 +53,7 @@ extension Message {
         }
         
         messageDict["user_id"] = chatter.id
+        messageDict["played_by"] = playedBy.joined(separator: ",")
         return messageDict
     }
 }

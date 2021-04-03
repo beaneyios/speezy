@@ -28,6 +28,7 @@ class ChatViewModel: NewItemGenerating {
         case itemRemoved(index: Int)
         case finishedRecording
         case editingDiscarded(AudioItem)
+        case messagePlayed(index: Int)
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -41,6 +42,7 @@ class ChatViewModel: NewItemGenerating {
     private lazy var messageDeleter = MessageDeleter()
     private lazy var chatDeleter = ChatDeleter()
     private lazy var chatterFetcher = ChattersFetcher()
+    private lazy var messageUpdater = MessageUpdater()
     
     var colors: [String: UIColor] = [String: UIColor]()
     
@@ -105,12 +107,6 @@ class ChatViewModel: NewItemGenerating {
         self.stagedText = text
     }
     
-    func startPlaying(audioManager: AudioManager) {
-        self.activeAudioManager?.stop()
-        
-        audioManager.play()
-    }
-    
     func stopObserving() {
         store.messagesStore.removeMessagesObserver(self)
         store.chatStore.removeChatListObserver(self)
@@ -133,15 +129,15 @@ extension ChatViewModel {
                     }
                 }.joined(separator: ", ")
                 
+                chatters.forEach {
+                    self.colors[$0.id] = SpeezyProfileViewGenerator.randomColor
+                }
+                
                 self.didChange?(.chattersLoaded(chatterNames: chatterNames))
                 self.store.messagesStore.addMessagesObserver(
                     self,
                     chat: self.chat
                 )
-                
-                chatters.forEach {
-                    self.colors[$0.id] = SpeezyProfileViewGenerator.randomColor
-                }
             case .failure:
                 break
             }
@@ -187,6 +183,46 @@ extension ChatViewModel {
             message: message
         ) { _ in
             // no op.
+        }
+    }
+}
+
+// MARK: Updating
+extension ChatViewModel {
+    func updateMessagePlayed(message: Message) {
+        guard
+            let userId = currentUserId,
+            !message.playedBy.contains(userId)
+        else {
+            return
+        }
+        
+        var newUserIds = message.playedBy
+        newUserIds.append(userId)
+        
+        messageUpdater.updatePlayed(
+            chatId: chat.id,
+            userIds: newUserIds,
+            messageId: message.id
+        )
+    }
+    
+    private func cellModel(forMessage message: Message) -> MessageCellModel? {
+        items.first { $0.message.id == message.id }
+    }
+    
+    private func updateReadBy() {
+        updateReadDebouncer.debounce { [weak self] in
+            guard let self = self, let userId = self.currentUserId else {
+                return
+            }
+
+            let updatedDate = Date().timeIntervalSince1970
+            ChatUpdater().updateReadBy(
+                chatId: self.chat.id,
+                userId: userId,
+                time: updatedDate
+            )
         }
     }
 }
@@ -241,21 +277,6 @@ extension ChatViewModel {
         }
     }
     
-    private func updateReadBy() {
-        updateReadDebouncer.debounce { [weak self] in
-            guard let self = self, let userId = self.currentUserId else {
-                return
-            }
-
-            let updatedDate = Date().timeIntervalSince1970
-            ChatUpdater().updateReadBy(
-                chatId: self.chat.id,
-                userId: userId,
-                time: updatedDate
-            )
-        }
-    }
-    
     private func updateDatabaseRecords(item: AudioItem?) {
         guard
             let id = Auth.auth().currentUser?.uid,
@@ -275,7 +296,8 @@ extension ChatViewModel {
             audioUrl: item?.remoteUrl,
             attachmentUrl: nil,
             duration: item?.calculatedDuration,
-            readBy: [chatter]
+            readBy: [chatter],
+            playedBy: []
         )
                 
         // First, insert the message.
@@ -353,6 +375,24 @@ extension ChatViewModel: MessagesObserver {
         }
     }
     
+    func messageChanged(
+        chatId: String,
+        message: Message,
+        change: MessageValueChange
+    ) {
+        if let newCellModel = cellModel(forMessage: message) {
+            newCellModel.message = message
+            items = items.replacing(newCellModel)
+        }
+        
+        switch change.messageValue {
+        case .playedBy:
+            if let index = items.index(message.id) {
+                self.didChange?(.messagePlayed(index: index))
+            }
+        }
+    }
+    
     func pagedMessages(
         chatId: String,
         newMessages: [Message],
@@ -422,7 +462,6 @@ extension ChatViewModel: ChatListObserver {
         }
         
         var updatedItems = [MessageCellModel]()
-        
         
         self.items = self.items.map {
             if $0.message.chatter.id != userId {

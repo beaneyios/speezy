@@ -28,13 +28,16 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var sliderHeight: NSLayoutConstraint!
-        
+    
+    @IBOutlet weak var unplayedNotification: UIView!
+    @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
+    
     var messageDidStartPlaying: ((MessageCell) -> Void)?
     var messageDidStopPlaying: ((MessageCell) -> Void)?
     var longPressTapped: ((Message) -> Void)?
     
     private(set) var audioManager: AudioManager?
-    private var message: Message?
+    private(set) var message: Message?
         
     func configure(item: MessageCellModel) {
         self.message = item.message
@@ -71,6 +74,8 @@ class MessageCell: UICollectionViewCell, NibLoadable {
         
         messageContainer.backgroundColor = item.backgroundColor
         messageContainer.layer.cornerRadius = 30.0
+        
+        configurePlayedStatus(item: item)
                 
         sendStatusImage.alpha = item.tickOpacity
         sendStatusImageWidth.constant = item.tickWidth
@@ -103,6 +108,21 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     
     func configureTicks(item: MessageCellModel) {
         sendStatusImage.alpha = item.tickOpacity
+    }
+    
+    func configurePlayedStatus(item: MessageCellModel) {
+        unplayedNotification.isHidden = !item.unplayed
+        unplayedNotification.layer.cornerRadius = 3.5
+        unplayedNotification.clipsToBounds = true
+        
+        if item.message.message == nil {
+            unplayedNotificationPadding.constant = 0.0
+        } else {
+            unplayedNotificationPadding.constant = 8.0
+        }
+        
+        messageContainer.layer.borderWidth = item.borderWidth
+        messageContainer.layer.borderColor = item.borderColor.cgColor
     }
     
     private func configureAudioControls(item: MessageCellModel) {

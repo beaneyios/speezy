@@ -92,10 +92,9 @@ class ChatShareViewModel {
             audioUrl: item.remoteUrl,
             attachmentUrl: nil,
             duration: item.calculatedDuration,
-            readBy: []
+            readBy: [],
+            playedBy: []
         )
-
-        
         
         messageCreator.insertMessage(
             chats: selectedChats,

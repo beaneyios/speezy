@@ -85,6 +85,14 @@ class ChatParser {
             chat: chat
         )
         
+        let playedBy: [String] = {
+            guard let playedByString = dict["played_by"] as? String else {
+                return []
+            }
+            
+            return playedByString.components(separatedBy: ",")
+        }()
+        
         return Message(
             id: key,
             chatter: chatter,
@@ -94,7 +102,8 @@ class ChatParser {
             audioUrl: URL(key: "audio_url", dict: dict),
             attachmentUrl: URL(key: "attachment_url", dict: dict),
             duration: dict["duration"] as? TimeInterval,
-            readBy: readBy
+            readBy: readBy,
+            playedBy: playedBy
         )
     }
 }

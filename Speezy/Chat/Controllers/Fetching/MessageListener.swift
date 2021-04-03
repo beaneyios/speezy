@@ -21,6 +21,7 @@ class MessageListener: Identifiable {
     let chatters: [Chatter]
     private var currentNewMessageQuery: DatabaseQuery?
     private var currentDeletedMessageQuery: DatabaseQuery?
+    private var queries: [String: DatabaseQuery] = [:]
     
     init(chat: Chat, chatters: [Chatter]) {
         self.chat = chat
@@ -75,11 +76,50 @@ class MessageListener: Identifiable {
         }
     }
     
+    
+    
     func stopListening() {
         currentNewMessageQuery?.removeAllObservers()
         currentDeletedMessageQuery?.removeAllObservers()
         
         currentNewMessageQuery = nil
         currentDeletedMessageQuery = nil
+    }
+}
+
+// MARK: Message changes listening
+extension MessageListener {
+    func listenForMessageChanges(message: Message, completion: @escaping (MessageValueChange) -> Void) {
+        let chatIdQueryKey = "\(message.id)_changes"
+        removeQueryListener(forId: chatIdQueryKey)
+        
+        let ref = Database.database().reference()
+        let chatsChild: DatabaseReference = ref.child("messages/\(chat.id)/\(message.id)")
+        let query = chatsChild.queryOrderedByKey()
+        query.observe(.childChanged) { (snapshot) in
+            guard
+                let value = snapshot.value,
+                let messageValue = MessageValue(key: snapshot.key, value: value)
+            else {
+                return
+            }
+            
+            let change = MessageValueChange(
+                messageId: message.id,
+                messageValue: messageValue
+            )
+            
+            completion(change)
+        }
+        
+        queries[chatIdQueryKey] = query
+    }
+    
+    private func removeQueryListener(forId id: String) {
+        guard let currentQuery = queries[id] else {
+            return
+        }
+        
+        currentQuery.removeAllObservers()
     }
 }

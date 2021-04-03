@@ -13,4 +13,5 @@ protocol MessagesObserver: AnyObject {
     func messageRemoved(chatId: String, message: Message)
     func pagedMessages(chatId: String, newMessages: [Message], allMessages: [Message])
     func initialMessages(chatId: String, messages: [Message])
+    func messageChanged(chatId: String, message: Message, change: MessageValueChange)
 }

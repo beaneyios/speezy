@@ -33,7 +33,7 @@
                                 <rect key="frame" x="55" y="0.0" width="308" height="179"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vze-YV-QNV">
-                                        <rect key="frame" x="0.0" y="39.5" width="308" height="50"/>
+                                        <rect key="frame" x="0.0" y="36.5" width="308" height="50"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="nS3-yw-9Uq">
                                                 <rect key="frame" x="21.5" y="15" width="20" height="20"/>
@@ -84,30 +84,38 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15:43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JsA-yO-RWG">
-                                        <rect key="frame" x="238" y="93.5" width="35" height="15"/>
+                                        <rect key="frame" x="238" y="90.5" width="35" height="15"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send-receive-ticks" translatesAutoresizingMaskIntoConstraints="NO" id="kio-MT-Ihq">
-                                        <rect key="frame" x="277" y="93.5" width="15" height="15"/>
+                                        <rect key="frame" x="277" y="90.5" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="SY1-bU-ePS"/>
                                             <constraint firstAttribute="height" constant="15" id="e1W-Kz-iTu"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qa-c6-0V4">
-                                        <rect key="frame" x="24" y="16" width="268" height="19.5"/>
+                                        <rect key="frame" x="24" y="16" width="39.5" height="16.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRM-4u-xxO">
-                                        <rect key="frame" x="24" y="93.5" width="37.5" height="17"/>
+                                        <rect key="frame" x="24" y="90.5" width="37.5" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAJ-vg-AhN">
+                                        <rect key="frame" x="71.5" y="21" width="7" height="7"/>
+                                        <color key="backgroundColor" name="speezy-dark-red"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="7" id="ns0-06-vwH"/>
+                                            <constraint firstAttribute="width" constant="7" id="oBG-KK-0KY"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" name="chat-bubble-sender"/>
                                 <constraints>
@@ -115,6 +123,7 @@
                                     <constraint firstItem="Vze-YV-QNV" firstAttribute="top" secondItem="9qa-c6-0V4" secondAttribute="bottom" constant="4" id="44u-gS-8ap"/>
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" constant="24" id="51c-Q2-CrZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Vze-YV-QNV" secondAttribute="trailing" id="A7d-6m-rUT"/>
+                                    <constraint firstItem="mcz-Dh-5Bb" firstAttribute="top" secondItem="FAJ-vg-AhN" secondAttribute="bottom" constant="16" id="DVh-UI-ifd"/>
                                     <constraint firstItem="ZRM-4u-xxO" firstAttribute="top" secondItem="Vze-YV-QNV" secondAttribute="bottom" constant="4" id="Eas-xJ-4fG"/>
                                     <constraint firstItem="JsA-yO-RWG" firstAttribute="top" secondItem="Vze-YV-QNV" secondAttribute="bottom" constant="4" id="FeE-ad-QHo"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JsA-yO-RWG" secondAttribute="bottom" constant="16" id="WLg-xS-lnf"/>
@@ -122,10 +131,12 @@
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="top" secondItem="BUq-vR-o3i" secondAttribute="top" constant="16" id="drg-zt-mdX"/>
                                     <constraint firstItem="ZRM-4u-xxO" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" constant="24" id="e3F-Gd-dQW"/>
                                     <constraint firstItem="JsA-yO-RWG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZRM-4u-xxO" secondAttribute="trailing" constant="16" id="eg2-Ew-2Bg"/>
+                                    <constraint firstItem="FAJ-vg-AhN" firstAttribute="leading" secondItem="9qa-c6-0V4" secondAttribute="trailing" constant="8" id="gdS-Yc-aYZ"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZRM-4u-xxO" secondAttribute="bottom" constant="16" id="gvy-ms-NAa"/>
                                     <constraint firstAttribute="trailing" secondItem="kio-MT-Ihq" secondAttribute="trailing" constant="16" id="iLN-t0-bHh"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZRM-4u-xxO" secondAttribute="bottom" constant="16" id="p7H-iB-0Vd"/>
+                                    <constraint firstItem="FAJ-vg-AhN" firstAttribute="top" secondItem="BUq-vR-o3i" secondAttribute="top" constant="21" id="jlS-iY-TOJ"/>
                                     <constraint firstItem="kio-MT-Ihq" firstAttribute="leading" secondItem="JsA-yO-RWG" secondAttribute="trailing" constant="4" id="qDm-jg-GGV"/>
-                                    <constraint firstAttribute="trailing" secondItem="9qa-c6-0V4" secondAttribute="trailing" constant="16" id="u9D-gh-99k"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FAJ-vg-AhN" secondAttribute="trailing" constant="16" id="s7m-5w-zyl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -164,6 +175,8 @@
                 <outlet property="sliderHeight" destination="3oH-sJ-gIL" id="QLr-Z2-ugl"/>
                 <outlet property="spinner" destination="nS3-yw-9Uq" id="AfH-BN-bpg"/>
                 <outlet property="timestampLabel" destination="JsA-yO-RWG" id="ctQ-5L-QTP"/>
+                <outlet property="unplayedNotification" destination="FAJ-vg-AhN" id="CZx-Db-ht4"/>
+                <outlet property="unplayedNotificationPadding" destination="gdS-Yc-aYZ" id="1fd-Qk-xu1"/>
             </connections>
             <point key="canvasLocation" x="177.536231884058" y="120.87053571428571"/>
         </collectionViewCell>
@@ -174,6 +187,9 @@
         <image name="send-receive-ticks" width="120" height="72"/>
         <namedColor name="chat-bubble-sender">
             <color red="0.92156862745098034" green="0.94509803921568625" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="speezy-dark-red">
+            <color red="0.67843137254901964" green="0.0" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

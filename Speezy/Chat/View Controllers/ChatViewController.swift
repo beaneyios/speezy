@@ -320,19 +320,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                     ]
                 )
             case let .readStatusReloaded(indexes):
-                let indexPaths = indexes.map {
-                    IndexPath(item: $0, section: 0)
-                }
-                
-                self.collectionView.visibleCells.forEach {
-                    if
-                        let indexPath = self.collectionView.indexPath(for: $0),
-                        indexPaths.contains(indexPath),
-                        let messageCell = $0 as? MessageCell
-                    {
-                        let item = self.viewModel.items[indexPath.row]
-                        messageCell.configureTicks(item: item)
-                    }
+                let cells = self.cellsForIndexes(indexes)
+                cells.forEach {
+                    let item = self.viewModel.items[$0.0]
+                    $0.1.configureTicks(item: item)
                 }
             case let .loading(isLoading):
                 if isLoading {
@@ -358,6 +349,30 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                 playbackView.configure(audioItem: itemToReturnTo)
             case .leftChat:
                 self.delegate?.chatViewControllerDidTapBack(self)
+            case let .messagePlayed(index):
+                let cells = self.cellsForIndexes([index])
+                cells.forEach {
+                    let item = self.viewModel.items[$0.0]
+                    $0.1.configurePlayedStatus(item: item)
+                }
+            }
+        }
+    }
+    
+    private func cellsForIndexes(_ indexes: [Int]) -> [(Int, MessageCell)] {
+        let indexPaths = indexes.map {
+            IndexPath(item: $0, section: 0)
+        }
+        
+        return collectionView.visibleCells.compactMap {
+            if
+                let indexPath = self.collectionView.indexPath(for: $0),
+                indexPaths.contains(indexPath),
+                let messageCell = $0 as? MessageCell
+            {
+                return (indexPath.row, messageCell)
+            } else {
+                return nil
             }
         }
     }
@@ -425,13 +440,23 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
         cell.messageDidStartPlaying = { playingCell in
+            if let message = playingCell.message {
+                self.viewModel.updateMessagePlayed(message: message)
+            }
+            
             self.activeAudioManager = playingCell.audioManager
-            self.cellStartedPlaying(cell: playingCell, collectionView: collectionView)
+            self.cellStartedPlaying(
+                cell: playingCell,
+                collectionView: collectionView
+            )
         }
         
         cell.messageDidStopPlaying = { stoppingCell in
             self.activeAudioManager = nil
-            self.cellStoppedPlaying(cell: stoppingCell, collectionView: collectionView)
+            self.cellStoppedPlaying(
+                cell: stoppingCell,
+                collectionView: collectionView
+            )
         }
         
         cell.longPressTapped = { message in
