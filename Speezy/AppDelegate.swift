@@ -8,16 +8,62 @@
 
 import UIKit
 import Firebase
+import FirebaseMessaging
+import UserNotifications
+import FBSDKCoreKit
+import FirebaseFunctions
+import FirebaseDatabase
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    let gcmMessageIDKey = "gcm.message_id"
+    
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        
+        configureFirebase()
+        ApplicationDelegate.shared.application(
+            application,
+            didFinishLaunchingWithOptions: launchOptions
+        )
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        FirebaseApp.configure()
+        PushDeliveryHandler.shared.configurePush(app: application)
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         return true
     }
+    
+    private func configureFirebase() {
+        guard
+            let plistName = Bundle.main.infoDictionary?["GOOGLE_PLIST_NAME"] as? String,
+            let filePath = Bundle.main.path(forResource: plistName, ofType: "plist"),
+            let fileopts = FirebaseOptions(contentsOfFile: filePath)
+        else {
+            return
+        }
+        
+        FirebaseApp.configure(options: fileopts)
+        _ = Database.database().reference()
+    }
 
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
+        
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -25,14 +71,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-        
-        //karl added - but too strong for full player
-        //UIApplication.shared.isIdleTimerDisabled = false
+    
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any]
+    ) {
+        // No-op right now, I'm not sure if we even need it.
     }
     
     /*
@@ -51,7 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //self.rootViewController.createTaskWithTitle(title, body: body)
             return true
         }
-
         return false
     }
     */
@@ -62,5 +105,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
    */
     
-}
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        // No-op right now, I'm not sure if we even need it.
+    }
 
+}

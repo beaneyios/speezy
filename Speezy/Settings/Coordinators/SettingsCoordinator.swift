@@ -8,12 +8,17 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import FBSDKLoginKit
+import GoogleSignIn
 
 protocol SettingsCoordinatorDelegate: AnyObject {
+    func settingsCoordinatorDidDeleteAccount(_ coordinator: SettingsCoordinator)
+    func settingsCoordinatorDidLogOut(_ coordinator: SettingsCoordinator)
     func settingsCoordinatorDidFinish(_ coordinator: SettingsCoordinator)
 }
 
-class SettingsCoordinator: ViewCoordinator {
+class SettingsCoordinator: ViewCoordinator, NavigationControlling {
     let storyboard = UIStoryboard(name: "Settings", bundle: nil)
     let navigationController: UINavigationController
     
@@ -24,7 +29,7 @@ class SettingsCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        let listViewController = storyboard.instantiateViewController(identifier: "SettingsItemListViewController") as! SettingsItemListViewController
+        let listViewController = storyboard.instantiateViewController(identifier: "SettingsItemListViewController") as! SettingsViewController
         listViewController.title = "Settings"
         listViewController.delegate = self
         navigationController.pushViewController(listViewController, animated: true)
@@ -33,15 +38,30 @@ class SettingsCoordinator: ViewCoordinator {
     override func finish() {
         delegate?.settingsCoordinatorDidFinish(self)
     }
+    
+    deinit {
+        print("Weee")
+    }
 }
 
 extension SettingsCoordinator: SettingsItemListViewControllerDelegate {
-    func settingsItemListViewController(_ viewController: SettingsItemListViewController, didSelectSettingsItem item: SettingsItem) {
-        switch item.identifier {
+    func settingsItemListViewController(_ viewController: SettingsViewController, didSelectSettingsItem item: SettingsItem) {
+        switch item {
         case .acknowledgements:
             navigateToAcknowledgements()
         case .privacyPolicy:
             navigateToPrivacyPolicy()
+        case .logout:
+            
+            SignOutManager.shared.signOut()
+            
+            delegate?.settingsCoordinatorDidLogOut(self)
+            delegate?.settingsCoordinatorDidFinish(self)
+        case .deleteAccount:
+            SignOutManager.shared.signOut()
+            
+            delegate?.settingsCoordinatorDidDeleteAccount(self)
+            delegate?.settingsCoordinatorDidFinish(self)
         default:
             break
         }

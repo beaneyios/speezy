@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio item title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQ0-PN-mtv">
-                                <rect key="frame" x="16" y="16" width="137.5" height="24"/>
+                                <rect key="frame" x="16" y="16" width="138" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -28,10 +31,10 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 day ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyN-tS-hI9">
                                 <rect key="frame" x="16" y="52" width="65" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVv-3C-vn9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVv-3C-vn9">
                                 <rect key="frame" x="320" y="0.0" width="55" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="FHV-em-vl8"/>
@@ -46,6 +49,7 @@
                                     <constraint firstAttribute="width" secondItem="YTC-Lc-jeb" secondAttribute="height" multiplier="5:2" id="0U1-oL-y92"/>
                                     <constraint firstAttribute="height" constant="8" id="CoB-mE-Jku"/>
                                 </constraints>
+                                <color key="tintColor" name="speezy-purple"/>
                                 <state key="normal" image="more-options-button"/>
                                 <connections>
                                     <action selector="moreOptionsTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qv6-zO-YcX"/>
@@ -53,7 +57,7 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBU-Jb-exf">
                                 <rect key="frame" x="16" y="145" width="359" height="1"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="9I5-5S-bhY"/>
                                 </constraints>
@@ -73,7 +77,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="YTC-Lc-jeb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rQ0-PN-mtv" secondAttribute="trailing" constant="16" id="2gx-wv-mzQ"/>
                             <constraint firstItem="YTC-Lc-jeb" firstAttribute="centerY" secondItem="rQ0-PN-mtv" secondAttribute="centerY" id="ASY-Dl-6pE"/>
@@ -98,6 +102,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 <constraints>
                     <constraint firstItem="m9a-Oj-cnc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8aN-T1-E2n"/>
                     <constraint firstAttribute="trailing" secondItem="m9a-Oj-cnc" secondAttribute="trailing" id="kPC-gd-sSv"/>
@@ -121,5 +126,17 @@
     </objects>
     <resources>
         <image name="more-options-button" width="120" height="48"/>
+        <namedColor name="speezy-purple">
+            <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -1,0 +1,11 @@
+//
+//  Production.xcconfig
+//  Speezy
+//
+//  Created by Matt Beaney on 07/03/2021.
+//  Copyright © 2021 Speezy. All rights reserved.
+//
+
+GOOGLE_PLIST_NAME = GoogleService-Info
+FACEBOOK_APP_ID = 1707056142835150
+DYNAMIC_LINK_DOMAIN = sospeezy.page.link

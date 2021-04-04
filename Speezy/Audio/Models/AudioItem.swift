@@ -18,17 +18,25 @@ struct AudioItem: Codable, Equatable, Identifiable {
     let id: String
     let title: String
     let path: String
-    let date: Date
+    let lastUpdated: Date
     let tags: [Tag]
+    let duration: TimeInterval
     
-    let _url: URL?
+    let attachedMessageIds: [String]
     
-    var url: URL {
-        _url ?? FileManager.default.documentsURL(with: path)!
+    var attachmentUrl: URL?
+    var remoteUrl: URL?
+    
+    var calculatedDuration: TimeInterval {
+        TimeInterval(CMTimeGetSeconds(AVAsset(url: fileUrl).duration))
     }
     
-    var duration: TimeInterval {
-        TimeInterval(CMTimeGetSeconds(AVAsset(url: url).duration))
+    var fileUrl: URL {
+        FileManager.default.documentsURL(with: path)!
+    }
+    
+    var existsLocally: Bool {
+        fileUrl.data != nil
     }
     
     init(
@@ -37,13 +45,19 @@ struct AudioItem: Codable, Equatable, Identifiable {
         title: String,
         date: Date,
         tags: [Tag],
-        url: URL? = nil
+        remoteUrl: URL? = nil,
+        attachmentUrl: URL? = nil,
+        duration: TimeInterval = 0.0,
+        attachedMessageIds: [String] = []
     ) {
         self.id = id
         self.path = path
         self.title = title
-        self.date = date
+        self.lastUpdated = date
         self.tags = tags
-        self._url = url
+        self.remoteUrl = remoteUrl
+        self.duration = duration
+        self.attachmentUrl = attachmentUrl
+        self.attachedMessageIds = attachedMessageIds
     }
 }

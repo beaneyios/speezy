@@ -11,9 +11,14 @@ import SCLAlertView
 import SwiftVideoGenerator
 import MessageUI
 
+protocol AudioShareControllerDelegate: AnyObject {
+    func shareController(_ shareController: AudioShareController, didShareItemToSpeezy item: AudioItem)
+}
+
 class AudioShareController: NSObject {
     typealias ShareCompletion = () -> Void
     
+    weak var delegate: AudioShareControllerDelegate?
     weak var parentViewController: UIViewController?
     
     private var audioItem: AudioItem!
@@ -63,7 +68,7 @@ extension AudioShareController: ShareViewControllerDelegate {
     func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
         shareViewController.dismissShare()
         
-        if config.attachment != nil || config.includeTags || config.includeTitle {
+        if config.shouldGenerateVideo && option.platform != .speezy {
             generateVideoAndPresentShareOption(item: audioItem, option: option, config: config)
         } else {
             generateAudioAndPresentShareOption(item: audioItem, option: option)
@@ -77,7 +82,7 @@ extension AudioShareController: ShareViewControllerDelegate {
 
 extension AudioShareController {
     func generateAudioAndPresentShareOption(item: AudioItem, option: ShareOption) {
-        presentShareOption(url: item.url, option: option)
+        presentShareOption(url: item.fileUrl, option: option)
     }
     
     func generateVideoAndPresentShareOption(item: AudioItem, option: ShareOption, config: ShareConfig) {
@@ -99,7 +104,7 @@ extension AudioShareController {
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
             
-            let changeFrequency = Int(item.duration / 10.0)
+            let changeFrequency = Int(item.calculatedDuration / 10.0)
             
             if changeFrequency > 0 {
                 images = (1...changeFrequency).map {
@@ -125,7 +130,7 @@ extension AudioShareController {
             videoPlaceholder.setNeedsLayout()
             videoPlaceholder.layoutIfNeeded()
             
-            let changeFrequency = Int(item.duration / 10.0)
+            let changeFrequency = Int(item.calculatedDuration / 10.0)
             
             if changeFrequency > 0 {
                 images = (1...changeFrequency).map {
@@ -147,7 +152,7 @@ extension AudioShareController {
             }
         }
         
-        let audioURL = item.url
+        let audioURL = item.fileUrl
         VideoGenerator.fileName = "Speezy Audio File"
         VideoGenerator.shouldOptimiseImageForVideo = true
         VideoGenerator.current.generate(withImages: images, andAudios: [audioURL], andType: .singleAudioMultipleImage, { (progress) in
@@ -172,6 +177,8 @@ extension AudioShareController {
         switch option.platform {
         case .email:
             sendEmail(url: url)
+        case .speezy:
+            delegate?.shareController(self, didShareItemToSpeezy: audioItem)
         default:
             presentNativeShareSheet(url: url)
         }

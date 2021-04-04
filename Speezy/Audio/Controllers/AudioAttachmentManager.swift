@@ -9,74 +9,89 @@
 import Foundation
 import UIKit
 
+enum AttachmentChangeResult {
+    case success(AudioItem)
+    case failure(Error?)
+}
+
+enum AttachmentFetchResult {
+    case success(UIImage)
+    case failure(Error?)
+}
+
+typealias AttachmentChangeHandler = (AttachmentChangeResult) -> Void
+typealias AttachmentFetchHandler = (StorageFetchResult<UIImage>) -> Void
+
 class AudioAttachmentManager {
+
     private(set) var imageAttachmentCache = [String: UIImage]()
+    
+    private func cloudPath(forId id: String) -> String {
+        "attachments/\(id).jpg"
+    }
     
     func resetCache() {
         imageAttachmentCache = [:]
     }
     
     func storeAttachment(
-        _ image: UIImage?,
+        _ image: UIImage,
         forItem item: AudioItem,
-        completion: @escaping () -> Void
+        completion: AttachmentChangeHandler? = nil
     ) {
-        if let image = image {
-            imageAttachmentCache[item.id] = image
-        } else {
-            imageAttachmentCache.removeValue(forKey: item.id)
+        imageAttachmentCache[item.id] = image
+        
+        CloudImageManager.uploadImage(
+            image,
+            path: cloudPath(forId: item.id)
+        ) { (result) in
+            switch result {
+            case let .success(url):
+                completion?(.success(item.withAttachmentUrl(url)))
+            case let .failure(error):
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    func removeAttachment(
+        forItem item: AudioItem,
+        completion: AttachmentChangeHandler? = nil
+    ) {
+        if imageAttachmentCache[item.id] == nil {
+            completion?(.success(item))
+            return
         }
         
-        DispatchQueue.global().async {
-            guard
-                let url = FileManager.default.documentsURL(with: "\(item.id).dat")
-            else {
-                return
+        imageAttachmentCache[item.id] = nil
+        
+        CloudImageManager.deleteImage(
+            at: cloudPath(forId: item.id)
+        ) { (result) in
+            switch result {
+            case .success:
+                completion?(.success(item.withAttachmentUrl(nil)))
+            case let .failure(error):
+                completion?(.failure(error))
             }
-            
-            guard let imageData = image?.jpegData(compressionQuality: 1.0) else {
-                FileManager.default.deleteExistingURL(url)
-                completion()
-                return
-            }
-            
-            do {
-                try imageData.write(to: url)
-            } catch {
-                assertionFailure("Write failed")
-            }
-            
-            completion()
         }
     }
     
     func fetchAttachment(
         forItem item: AudioItem,
-        completion: @escaping (UIImage?) -> Void
+        completion: @escaping AttachmentFetchHandler
     ) {
         if let attachment = imageAttachmentCache[item.id] {
-            completion(attachment)
+            completion(.success(attachment))
             return
         }
         
-        DispatchQueue.global().async {
-            guard let url = FileManager.default.documentsURL(with: "\(item.id).dat") else {
-                completion(nil)
-                return
-            }
-            
-            guard let data = try? Data(contentsOf: url) else {
-                completion(nil)
-                return
-            }
-            
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                if let image = image {
-                    self.imageAttachmentCache[item.id] = image
-                }
-                
-                completion(image)
+        CloudImageManager.fetchImage(at: cloudPath(forId: item.id)) { (result) in
+            switch result {
+            case let .success(image):
+                completion(.success(image))
+            case let .failure(error):                
+                completion(.failure(error))
             }
         }
     }

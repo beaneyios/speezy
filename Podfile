@@ -11,9 +11,25 @@ target 'Speezy' do
   pod 'AFDateHelper', '~> 4.3.0'
   pod 'SCLAlertView', '~> 0.8'
   pod 'DeviceKit', '~> 4.2.1'
-  pod 'Firebase/Crashlytics', '~> 6.27.0'
+  
+  pod 'Firebase/Crashlytics', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
+  pod 'Firebase/Auth', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
+  pod 'Firebase/Database', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
+  pod 'Firebase/Storage', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
+  pod 'Firebase/Messaging', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'  
+  pod 'Firebase/DynamicLinks', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
+  pod 'Firebase/Functions', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :branch => 'master'
+  
+  pod 'FirebaseUI/Storage'
+  
+  pod 'JGProgressHUD'
+  pod 'lottie-ios'
+  
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'
+  pod 'FBSDKLoginKit'
+  pod 'GoogleSignIn'
 
   target 'SpeezyTests' do
     inherit! :search_paths

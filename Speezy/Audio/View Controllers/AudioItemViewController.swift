@@ -13,17 +13,23 @@ import SCLAlertView
 protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewController(
         _ viewController: AudioItemViewController,
-        shouldSendItem item: AudioItem
+        shouldSendItem item: AudioItem,
+        saveFirst: Bool
     )
     
     func audioItemViewController(
         _ viewController: AudioItemViewController,
-        didSaveItemToDrafts item: AudioItem
+        shouldSaveItemToDrafts item: AudioItem
     )
     
-    func audioItemViewControllerShouldPop(
-        _ viewController: AudioItemViewController
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldDiscardItem item: AudioItem
     )
+    
+    func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
+    func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController)
+    
     
     func audioItemViewController(
         _ viewController: AudioItemViewController,
@@ -39,17 +45,12 @@ protocol AudioItemViewControllerDelegate: AnyObject {
         _ viewController: AudioItemViewController,
         didPresentCropOnItem audioItem: AudioItem
     )
-    
-    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool
 }
 
 class AudioItemViewController: UIViewController {
     
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
-        
-    @IBOutlet weak var btnSend: UIButton!
-    @IBOutlet weak var btnDrafts: UIButton!
         
     @IBOutlet weak var btnTranscribeContainer: UIView!
     private var transcribeButton: TranscriptionButton?
@@ -58,7 +59,6 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var btnCut: UIButton!
     @IBOutlet weak var btnRecord: SpeezyButton!
     @IBOutlet weak var btnCrop: UIButton!
-    @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var btnTitle: UIButton!
     
     @IBOutlet weak var bgGradient: UIImageView!
@@ -69,10 +69,17 @@ class AudioItemViewController: UIViewController {
     @IBOutlet weak var lblTimer: UILabel!
     @IBOutlet weak var btnDone: UIButton!
     
+    @IBOutlet weak var draftBtnContainer: UIView!
+    @IBOutlet weak var sendBtnContainer: UIView!
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    private var draftBtn: GradientButton!
+    private var sendBtn: GradientButton!
+    
     weak var delegate: AudioItemViewControllerDelegate?
     
     private var mainWave: PlaybackWaveView?
-    
     private var transcriptionCropUpdatesPending = false
     
     var shareAlert: SCLAlertView?
@@ -85,9 +92,16 @@ class AudioItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        prepareStagedFile()
-        configureDependencies()
-        configureSubviews()
+        spinner.startAnimating()
+        audioManager.downloadFile {
+            DispatchQueue.main.async {
+                self.spinner.stopAnimating()
+                self.spinner.isHidden = true
+                self.prepareStagedFile()
+                self.configureDependencies()
+                self.configureSubviews()
+            }
+        }        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,32 +119,20 @@ class AudioItemViewController: UIViewController {
     override func willMove(toParent parent: UIViewController?) {
         if parent == nil {
             audioManager.stopTranscriptionChecks()
+            delegate?.audioItemViewControllerDidFinish(self)
         }
     }
     
-    @IBAction func saveToDrafts(_ sender: Any) {
-        let saveAction = {
-            self.audioManager.save(saveAttachment: false) { (item) in
-                self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                self.delegate?.audioItemViewControllerShouldPop(self)
-            }
-        }
-        
-        if audioManager.noTitleSet {
-            self.showTitleAlert {
-                saveAction()
-            }
-        } else {
-            saveAction()
-        }
+     func didTapDraft() {
+        delegate?.audioItemViewController(self, shouldSaveItemToDrafts: audioManager.item)
     }
     
-    @IBAction func send(_ sender: Any) {
-        audioManager.save(saveAttachment: false) { (item) in
-            DispatchQueue.main.async {
-                self.delegate?.audioItemViewController(self, shouldSendItem: item)
-            }
-        }
+    func didTapShare() {
+        delegate?.audioItemViewController(
+            self,
+            shouldSendItem: audioManager.item,
+            saveFirst: audioManager.hasUnsavedChanges
+        )
     }
     
     @IBAction func chooseTitle(_ sender: Any) {
@@ -145,18 +147,11 @@ class AudioItemViewController: UIViewController {
                 preferredStyle: .actionSheet
             )
             let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-                self.audioManager.save(saveAttachment: false) { (item) in
-                    DispatchQueue.main.async {
-                        self.delegate?.audioItemViewController(self, didSaveItemToDrafts: item)
-                        self.delegate?.audioItemViewControllerShouldPop(self)
-                    }
-                }
+                self.delegate?.audioItemViewController(self, shouldSaveItemToDrafts: self.audioManager.item)
             }
             
             let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
-                self.audioManager.discard {
-                    self.delegate?.audioItemViewControllerShouldPop(self)
-                }
+                self.delegate?.audioItemViewController(self, shouldDiscardItem: self.audioManager.item)
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -259,10 +254,43 @@ extension AudioItemViewController {
     }
     
     func configureSubviews() {
-        configureTranscribeButton()
+        configureDraftButton()
+        configureSendButton()
+//        configureTranscribeButton()
         configureNavButtons()
         configureMainSoundWave()
         configureTitle()
+    }
+    
+    private func configureSendButton() {
+        let button = GradientButton.createFromNib()
+        sendBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(
+            title: "SEND",
+            iconImage: UIImage(named: "send-chat-icon")
+        ) {
+            self.didTapShare()
+        }
+        
+        self.sendBtn = button
+    }
+    
+    private func configureDraftButton() {
+        let button = GradientButton.createFromNib()
+        draftBtnContainer.addSubview(button)
+        button.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        button.configure(title: "SAVE", color: .clear) {
+            self.didTapDraft()
+        }
+        
+        self.draftBtn = button
     }
     
     private func configureTranscribeButton() {
@@ -291,15 +319,16 @@ extension AudioItemViewController {
     
     private func configureNavButtons() {
         if audioManager.duration <= 0.0 {
-            btnSend.isEnabled = false
-            btnSend.alpha = 0.6
+            sendBtn.isUserInteractionEnabled = false
+            sendBtn.alpha = 0.6
         }
         
-        btnSend.layer.cornerRadius = 5.0
-        btnDrafts.layer.cornerRadius = 5.0
+        sendBtn.clipsToBounds = true
+        sendBtn.layer.cornerRadius = 5.0
+        draftBtn.layer.cornerRadius = 5.0
         
-        btnDrafts.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
-        btnDrafts.layer.borderWidth = 1.0
+        draftBtn.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
+        draftBtn.layer.borderWidth = 1.0
     }
     
     private func configureMainSoundWave() {
@@ -379,6 +408,10 @@ extension AudioItemViewController: AudioRecorderObserver {
             $0.disable()
         }
         
+        [sendBtn, draftBtn].forEach {
+            $0?.disable()
+        }
+        
         transcribeButton?.disable()
     }
     
@@ -404,7 +437,11 @@ extension AudioItemViewController: AudioRecorderObserver {
             $0.enable()
         }
         
-        configureTranscribeButton()
+        [sendBtn, draftBtn].forEach {
+            $0?.enable()
+        }
+        
+//        configureTranscribeButton()
     }
 }
 
@@ -426,7 +463,7 @@ extension AudioItemViewController: AudioPlayerObserver {
         
         btnCrop.enable()
         btnCut.enable()
-        configureTranscribeButton()
+//        configureTranscribeButton()
         
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
@@ -437,7 +474,7 @@ extension AudioItemViewController: AudioPlayerObserver {
         }
         
         btnCrop.enable()
-        configureTranscribeButton()
+//        configureTranscribeButton()
         btnPlayback.setImage(UIImage(named: "play-button"), for: .normal)
     }
     

@@ -11,9 +11,12 @@ import UIKit
 
 protocol AudioItemCoordinatorDelegate: AnyObject {
     func audioItemCoordinatorDidFinish(_ coordinator: AudioItemCoordinator)
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, didSaveItem item: AudioItem)
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldSendItem item: AudioItem, saveFirst: Bool)
+    func audioItemCoordinator(_ coordinator: AudioItemCoordinator, shouldDiscardItem item: AudioItem)
 }
 
-class AudioItemCoordinator: ViewCoordinator {
+class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
     let storyboard = UIStoryboard(name: "Audio", bundle: nil)
     let navigationController: UINavigationController
     
@@ -24,12 +27,51 @@ class AudioItemCoordinator: ViewCoordinator {
     }
     
     override func start() {
-        navigationController.setNavigationBarHidden(true, animated: false)
-        navigateToAudioItemList()
+        // no op
     }
     
     override func finish() {
         delegate?.audioItemCoordinatorDidFinish(self)
+    }
+    
+    func navigateToAudioItem(item: AudioItem, playbackOnly: Bool) {
+        if playbackOnly {
+            navigateToAudioPlayback(item: item)
+        } else {
+            navigateToAudioEditing(item: item)
+        }
+    }
+    
+    private func navigateToAudioPlayback(item: AudioItem) {
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        guard let viewController = storyboard.instantiateViewController(identifier: "AudioPlaybackViewController") as? AudioPlaybackViewController else {
+            return
+        }
+        
+        let audioManager = AudioManager(item: item)
+        viewController.audioManager = audioManager
+        viewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.present(navigationController, animated: true, completion: nil)
+    }
+    
+    private func navigateToAudioEditing(item: AudioItem) {
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemViewController") as? AudioItemViewController else {
+            return
+        }
+        
+        let audioManager = AudioManager(item: item)
+        viewController.audioManager = audioManager
+        viewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.present(navigationController, animated: true, completion: nil)
     }
     
     private func navigateToTranscription(manager: AudioManager, on pushingViewController: UIViewController) {
@@ -67,14 +109,6 @@ class AudioItemCoordinator: ViewCoordinator {
     }
 }
 
-extension AudioItemCoordinator {
-    var listViewController: AudioItemListViewController? {
-        navigationController.viewControllers.first {
-            $0 is AudioItemListViewController
-        } as? AudioItemListViewController
-    }
-}
-
 extension AudioItemCoordinator: CutViewControllerDelegate {
     func cutViewController(_ viewController: CutViewController, didFinishCutFrom from: TimeInterval, to: TimeInterval) {
         guard let navigationController = viewController.presentingViewController as? UINavigationController else {
@@ -87,8 +121,16 @@ extension AudioItemCoordinator: CutViewControllerDelegate {
                 $0 is AudioItemViewController
             } as? AudioItemViewController
             
-            audioItemViewController?.audioManager.markAsDirty()
-            audioItemViewController?.audioManager.adjustTranscript(forCutRange: from, to: to)
+            guard
+                let itemViewController = audioItemViewController,
+                let manager = itemViewController.audioManager
+            else {
+                return
+            }
+            
+            manager.regeneratePlayer(withItem: manager.currentItem)
+            manager.markAsDirty()
+            manager.adjustTranscript(forCutRange: from, to: to)
             audioItemViewController?.reset()
         }
     }
@@ -110,7 +152,15 @@ extension AudioItemCoordinator: CropViewControllerDelegate {
                 $0 is AudioItemViewController
             } as? AudioItemViewController
             
-            audioItemViewController?.audioManager.markAsDirty()
+            guard
+                let itemViewController = audioItemViewController,
+                let manager = itemViewController.audioManager
+            else {
+                return
+            }
+            
+            manager.regeneratePlayer(withItem: manager.currentItem)
+            manager.markAsDirty()
             audioItemViewController?.reset()
         }
     }
@@ -130,21 +180,29 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
             date: Date(),
             tags: []
         )
-        navigateToAudioItem(item: item)
+        navigateToAudioItem(item: item, playbackOnly: false)
+    }
+        
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldSaveItemToDrafts item: AudioItem) {
+        viewController.dismiss(animated: true) {
+            self.delegate?.audioItemCoordinator(self, didSaveItem: item)
+        }
     }
     
-    private func navigateToAudioItem(item: AudioItem) {
-        guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemViewController") as? AudioItemViewController else {
-            return
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldSendItem item: AudioItem,
+        saveFirst: Bool
+    ) {
+        viewController.dismiss(animated: true) {
+            self.delegate?.audioItemCoordinator(self, shouldSendItem: item, saveFirst: saveFirst)
         }
-        
-        let audioManager = AudioManager(item: item)
-        viewController.audioManager = audioManager
-        viewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func audioItemViewController(_ viewController: AudioItemViewController, shouldDiscardItem item: AudioItem) {
+        viewController.dismiss(animated: true) {
+            self.delegate?.audioItemCoordinator(self, shouldDiscardItem: item)
+        }
     }
     
     func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
@@ -155,86 +213,25 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         navigateToCropView(audioItem: audioItem, on: viewController)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didSaveItemToDrafts item: AudioItem) {
-        listViewController?.reloadItem(item)
-    }
-    
-    func audioItemViewController(_ viewController: AudioItemViewController, shouldSendItem item: AudioItem) {
-        listViewController?.reloadItem(item)
-        navigateToPublish(item: item, on: viewController)
+    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribeWithManager manager: AudioManager) {
+        navigateToTranscription(manager: manager, on: viewController)
     }
     
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController) {
         viewController.dismiss(animated: true, completion: nil)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribeWithManager manager: AudioManager) {
-        navigateToTranscription(manager: manager, on: viewController)
-    }
-    
-    func audioItemViewControllerIsTopViewController(_ viewController: AudioItemViewController) -> Bool {
-        viewController.navigationController?.viewControllers.last == viewController
+    func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController) {
+        delegate?.audioItemCoordinatorDidFinish(self)
     }
 }
 
-extension AudioItemCoordinator: AudioItemListViewControllerDelegate {    
-    func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController) {
-        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController)
-        add(settingsCoordinator)
-        settingsCoordinator.start()
+extension AudioItemCoordinator: AudioPlaybackViewControllerDelegate {
+    func audioPlaybackViewControllerDidTapExit(_ viewController: AudioPlaybackViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
     
-    func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController) {
-        navigateToNewItem()
-    }
-    
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem) {
-        navigateToAudioItem(item: item)
-    }
-    
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem) {
-        navigateToPublish(item: item, on: viewController)
-    }
-    
-    private func navigateToAudioItemList() {
-        guard let viewController = storyboard.instantiateViewController(identifier: "AudioItemListViewController") as? AudioItemListViewController else {
-            return
-        }
-
-        viewController.delegate = self
-        navigationController.pushViewController(viewController, animated: true)
-    }
-}
-
-extension AudioItemCoordinator: PublishViewControllerDelegate {
-    private func navigateToPublish(item: AudioItem, on pushingViewController: UIViewController) {
-        guard let viewController = storyboard.instantiateViewController(identifier: "PublishViewController") as? PublishViewController else {
-            return
-        }
-        
-        let audioManager = AudioManager(item: item)
-        viewController.audioManager = audioManager
-        viewController.delegate = self
-        pushingViewController.navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    func publishViewController(_ viewController: PublishViewController, shouldSendItem item: AudioItem) {
-        
-    }
-    
-    func publishViewController(_ viewController: PublishViewController, didSaveItemToDrafts item: AudioItem) {
-        listViewController?.reloadItem(item)
-    }
-    
-    func publishViewControllerShouldNavigateHome(_ viewController: PublishViewController) {
-        if viewController.navigationController == self.navigationController {
-            self.navigationController.popViewController(animated: true)
-        } else {
-            viewController.navigationController?.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func publishViewControllerShouldNavigateBack(_ viewController: PublishViewController) {
-        viewController.navigationController?.popViewController(animated: true)
+    func audioPlaybackViewControllerDidFinish(_ viewController: AudioPlaybackViewController) {
+        delegate?.audioItemCoordinatorDidFinish(self)
     }
 }

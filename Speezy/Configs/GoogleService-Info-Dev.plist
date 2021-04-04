@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1089202737738-rpmeqm6f6u7c7ogphl9nq63svck0pqme.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1089202737738-rpmeqm6f6u7c7ogphl9nq63svck0pqme</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBj-b6pXVeVQPYLcCfdaJyL05cS1zfAfq4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1089202737738</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.suggestv.speezy-app</string>
+	<key>PROJECT_ID</key>
+	<string>speezy-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>speezy-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1089202737738:ios:a4d7e9cda7b984928dccb3</string>
+	<key>DATABASE_URL</key>
+	<string>https://speezy-dev-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>

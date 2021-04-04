@@ -15,7 +15,10 @@ class SpeezyButton: UIButton {
     private var image: UIImage?
     private var isLoading: Bool = false
     
-    func startLoading(color: UIColor = .white) {
+    func startLoading(
+        color: UIColor = .white,
+        style: UIActivityIndicatorView.Style = .large
+    ) {
         if isLoading {
             return
         }
@@ -27,7 +30,7 @@ class SpeezyButton: UIButton {
         
         setImage(nil, for: .normal)
         
-        let spinner = UIActivityIndicatorView(style: .large)
+        let spinner = UIActivityIndicatorView(style: style)
         spinner.color = color
         spinner.startAnimating()
         addSubview(spinner)
@@ -39,12 +42,18 @@ class SpeezyButton: UIButton {
         self.spinner = spinner
     }
     
-    func stopLoading() {
+    func stopLoading(image: UIImage? = nil) {
         isEnabled = true
         isLoading = false
         spinner?.stopAnimating()
         spinner?.removeFromSuperview()
         spinner = nil
-        setImage(image, for: .normal)
+        
+        if let image = image {
+            self.image = image
+            setImage(image, for: .normal)
+        } else {
+            setImage(self.image, for: .normal)
+        }        
     }
 }

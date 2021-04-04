@@ -33,7 +33,7 @@ class AudioItemCell: UITableViewCell {
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        containerView.backgroundColor = highlighted ? .systemGray5 : .white
+        containerView.backgroundColor = highlighted ? .systemGray5 : .systemBackground
     }
     
     func configure(with audioItem: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
@@ -42,14 +42,14 @@ class AudioItemCell: UITableViewCell {
         
         if audioItem.tags.count > 0 {
             tagContainerHeight.constant = 36.5
-            configureTags(item: audioItem)
+            configureTags(tags: audioItem.tags)
         } else {
             tagContainerHeight.constant = 0.0
             tagsView?.removeFromSuperview()
             tagsView = nil
         }
         
-        lblDate.text = audioItem.date.toStringWithRelativeTime(
+        lblDate.text = audioItem.lastUpdated.toStringWithRelativeTime(
             strings: [
                 RelativeTimeStringType.nowPast: "Just now"
             ]
@@ -57,24 +57,36 @@ class AudioItemCell: UITableViewCell {
         
         imgAttachment.layer.cornerRadius = 20.0
         
-        audioAttachmentManager.fetchAttachment(forItem: audioItem) { (image) in
+        if audioItem.attachmentUrl != nil {
+            fetchAttachment(
+                item: audioItem,
+                audioAttachmentManager: audioAttachmentManager
+            )
+        } else {
+            self.imgAttachmentWidth.constant = 0.0
+        }
+    }
+    
+    private func fetchAttachment(item: AudioItem, audioAttachmentManager: AudioAttachmentManager) {
+        audioAttachmentManager.fetchAttachment(forItem: item) { (result) in
             DispatchQueue.main.async {
-                if image == nil {
-                    self.imgAttachmentWidth.constant = 0.0
-                } else {
+                switch result {
+                case let .success(image):
                     self.imgAttachmentWidth.constant = 40.0
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        self.layoutIfNeeded()
+                    }
+                    
+                    self.imgAttachment.image = image
+                case let .failure(error):
+                    self.imgAttachmentWidth.constant = 0.0
                 }
-                
-                UIView.animate(withDuration: 0.3) {
-                    self.layoutIfNeeded()
-                }
-                
-                self.imgAttachment.image = image
             }
         }
     }
     
-    func configureTags(item: AudioItem) {
+    func configureTags(tags: [Tag]) {
         tagsView?.removeFromSuperview()
         tagsView = nil
         
@@ -86,7 +98,7 @@ class AudioItemCell: UITableViewCell {
         }
         
         tagsView.configure(
-            with: item.tags,
+            with: tags,
             foreColor: UIColor(named: "speezy-purple")!,
             backColor: .clear,
             scrollDirection: .horizontal,

@@ -13,6 +13,7 @@ struct ShareOption {
         case messenger
         case whatsapp
         case email
+        case speezy
     }
     
     let title: String

@@ -9,113 +9,103 @@
 import Foundation
 import UIKit
 import SCLAlertView
+import JGProgressHUD
 
 protocol AudioItemListViewControllerDelegate: AnyObject {
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectAudioItem item: AudioItem)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectAudioItem item: AudioItem,
+        playbackOnly: Bool
+    )
     func audioItemListViewControllerDidSelectCreateNewItem(_ viewController: AudioItemListViewController)
-    func audioItemListViewControllerDidSelectSettings(_ viewController: AudioItemListViewController)
-    func audioItemListViewController(_ viewController: AudioItemListViewController, didSelectSendOnItem item: AudioItem)
+    func audioItemListViewController(
+        _ viewController: AudioItemListViewController,
+        didSelectSendOnItem item: AudioItem
+    )
+    func audioItemListViewControllerDidSelectBack(_ viewController: AudioItemListViewController)
+    func audioItemListViewControllerDidFinishRecording(_ viewController: AudioItemListViewController)
 }
 
-class AudioItemListViewController: UIViewController {
+class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var btnRecord: UIButton!
-    @IBOutlet weak var gradient: UIImageView!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var shareAlert: SCLAlertView?
     var documentInteractionController: UIDocumentInteractionController?
     
     lazy var shareController = AudioShareController(parentViewController: self)
+    let viewModel = AudioItemListViewModel(store: Store.shared)
     
     weak var delegate: AudioItemListViewControllerDelegate?
-    var audioItems: [AudioItem] = []
     
-    private var audioAttachmentManager = AudioAttachmentManager()
+    private var scrollViewDragging = false
+    private var hud: JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 91.0, right: 0)
+        observeViewModelChanges()
+        configureTableView()
+        loadItems()
+        
+        let font = UIFont.boldSystemFont(ofSize: 16.0)
+        segmentControl.setTitleTextAttributes(
+            [NSAttributedString.Key.font: font],
+            for: .normal
+        )
+    }
+    
+    func saveItem(_ item: AudioItem) {
+        viewModel.saveItem(item)
+    }
+    
+    func discardItem(_ item: AudioItem) {
+        viewModel.discardItem(item)
+    }
+    
+    @IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
+        viewModel.switchTabs(toIndex: sender.selectedSegmentIndex)
+    }
+    
+    private func configureTableView() {
         tableView.estimatedRowHeight = 100.0
         tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        
-        loadItems()
+    }
+    
+    private func observeViewModelChanges() {
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case .itemsLoaded:
+                    self.toggleEmptyView()
+                    self.tableView.reloadData()
+                case let .loading(loading):
+                    if loading {
+                        let hud = JGProgressHUD()
+                        hud.textLabel.text = "Loading your recordings..."
+                        hud.show(in: self.view)
+                        self.hud = hud
+                    } else {
+                        self.hud?.dismiss()
+                    }
+                }
+            }
+        }
     }
     
     private func loadItems() {
-        audioItems = AudioStorage.fetchItems()
-        DispatchQueue.main.async {
-            self.toggleEmptyView()
-            self.tableView.reloadData()
-        }        
+        viewModel.loadItems()
     }
     
     private func toggleEmptyView() {
-        if audioItems.count == 0 {
+        if viewModel.shouldShowEmptyView && viewModel.loadingTimerHit {
             emptyView.isHidden = false
         } else {
             emptyView.isHidden = true
-        }
-    }
-    
-    @IBAction func settingsTapped(_ sender: Any) {
-        delegate?.audioItemListViewControllerDidSelectSettings(self)
-    }
-    
-    @IBAction func speezyTapped(_ sender: Any) {
-//        delegate?.audioItemListViewControllerDidSelectCreateNewItem(self)
-        
-        presentQuickRecordDialogue()
-    }
-    
-    private func presentQuickRecordDialogue() {
-        let storyboard = UIStoryboard(name: "Audio", bundle: nil)
-        let quickRecordViewController = storyboard.instantiateViewController(identifier: "quick-record") as! QuickRecordViewController
-        
-        let id = UUID().uuidString
-        let item = AudioItem(
-            id: id,
-            path: "\(id).\(AudioConstants.fileExtension)",
-            title: "",
-            date: Date(),
-            tags: []
-        )
-        
-        let audioManager = AudioManager(item: item)
-        quickRecordViewController.audioManager = audioManager
-        quickRecordViewController.delegate = self
-        
-        addChild(quickRecordViewController)
-        view.addSubview(quickRecordViewController.view)
-        
-        quickRecordViewController.view.layer.cornerRadius = 10.0
-        quickRecordViewController.view.clipsToBounds = true
-        quickRecordViewController.view.addShadow()
-        
-        quickRecordViewController.view.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalTo(view.snp.bottom)
-        }
-    }
-    
-    func reloadItem(_ item: AudioItem) {
-        if audioItems.contains(item) {
-            audioItems = audioItems.replacing(item)
-        } else {
-            audioItems.append(item)
-        }
-        
-        audioAttachmentManager.resetCache()
-        
-        DispatchQueue.main.async {
-            self.toggleEmptyView()
-            self.tableView.reloadData()
         }
     }
 }
@@ -126,72 +116,86 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        audioItems.count
+        viewModel.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let audioItem = audioItems[indexPath.row]
+        let audioItem = viewModel.item(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AudioItemCell
-        cell.configure(with: audioItem, audioAttachmentManager: audioAttachmentManager)
+        cell.configure(
+            with: audioItem,
+            audioAttachmentManager: viewModel.audioAttachmentManager
+        )
         cell.delegate = self
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // transcription-test-file-trimmed
-        // supertrimmed
-//        let url = Bundle.main.url(forResource: "supertrimmed", withExtension: "flac")
-//        let audioItem = AudioItem(id: "Test", path: "test", title: "Test", date: Date(), tags: [], url: url)
-//        delegate?.audioItemListViewControllerDidSelectTestSpeechItem(self, item: audioItem)
-        
-        let audioItem = audioItems[indexPath.row]
-        delegate?.audioItemListViewController(self, didSelectAudioItem: audioItem)
+        let audioItem = viewModel.item(at: indexPath)
+        let playbackOnly = viewModel.currentTab == .favourites
+        delegate?.audioItemListViewController(
+            self,
+            didSelectAudioItem: audioItem,
+            playbackOnly: playbackOnly
+        )
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let share = UIContextualAction(style: .normal, title: "Send") { (action, view, completionHandler) in
-            self.delegate?.audioItemListViewController(self, didSelectSendOnItem: self.audioItems[indexPath.row])
+            self.delegate?.audioItemListViewController(
+                self,
+                didSelectSendOnItem: self.viewModel.item(at: indexPath)
+            )
             completionHandler(true)
         }
         
         share.backgroundColor = UIColor(named: "speezy-purple")
         
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            let item = self.audioItems[indexPath.row]
-            self.deleteItem(item: item) {
-                self.audioItems.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                self.toggleEmptyView()
-            }
+            let item = self.viewModel.item(at: indexPath)
+            self.deleteItem(item: item)
             completionHandler(true)
         }
         
         return UISwipeActionsConfiguration(actions: [share, delete])
     }
     
-    private func deleteItem(item: AudioItem, completion: @escaping () -> Void) {
+    private func deleteItem(item: AudioItem) {
         let alert = UIAlertController(
             title: "Delete item",
             message: "Are you sure you want to delete this clip? You will not be able to undo this action.",
             preferredStyle: .alert
         )
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.audioAttachmentManager.storeAttachment(nil, forItem: item, completion: {})
-            FileManager.default.deleteExistingURL(item.withStagingPath().url)
-            FileManager.default.deleteExistingURL(item.url)
-            AudioStorage.deleteItem(item)
-            completion()
+        let deleteAction = UIAlertAction(
+            title: "Delete",
+            style: .destructive
+        ) { _ in
+            self.viewModel.deleteItem(item)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            
-        }
-        
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil
+        )
+
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension AudioItemListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {        
+        let scrollPosition = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.height
+        
+        if contentHeight - scrollPosition <= scrollViewHeight {
+            viewModel.loadMoreItems()
+        }
     }
 }
 
@@ -202,11 +206,11 @@ extension AudioItemListViewController: AudioItemCellDelegate {
             self.share(item: item)
         }
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            self.deleteItem(item: item, completion: {
-                self.audioItems = self.audioItems.removing(item)
-                self.tableView.reloadData()
-            })
+        let deleteAction = UIAlertAction(
+            title: "Delete",
+            style: .destructive
+        ) { (action) in
+            self.deleteItem(item: item)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -224,59 +228,37 @@ extension AudioItemListViewController: AudioItemCellDelegate {
 
 extension AudioItemListViewController: QuickRecordViewControllerDelegate {
     func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem) {
-        viewController.view.removeFromSuperview()
-        viewController.removeFromParent()
-        viewController.willMove(toParent: nil)
+        handleRecorderDismissed(viewController: viewController)
         
         let originalItem = item.withPath(path: "\(item.id).\(AudioConstants.fileExtension)")
         let audioManager = AudioManager(item: originalItem)
         
-        // The recording is done, save the file first.
-        // Then we're going to offer the user the chance to
-        // update the title and save it again.
-        audioManager.save(saveAttachment: false) { (item) in
-            self.showTitleAlert(audioManager: audioManager) {
-                audioManager.save(saveAttachment: false) { (item) in
-                    DispatchQueue.main.async {
-                        self.loadItems()
-                    }
+        let hud = JGProgressHUD()
+        hud.textLabel.text = "Saving your recording..."
+        hud.show(in: self.view)
+        audioManager.save(saveAttachment: false) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(item):
+                    self.loadItems()
+                    self.delegate?.audioItemListViewController(self, didSelectSendOnItem: item)
+                case .failure:
+                    break
                 }
+                
+                hud.dismiss()
             }
         }
     }
     
-    func quickRecordViewControllerDidClose(_ viewController: QuickRecordViewController) {
+    func quickRecordViewControllerDidCancel(_ viewController: QuickRecordViewController) {
+        handleRecorderDismissed(viewController: viewController)
+    }
+    
+    private func handleRecorderDismissed(viewController: QuickRecordViewController) {
         viewController.view.removeFromSuperview()
         viewController.removeFromParent()
         viewController.willMove(toParent: nil)
-    }
-    
-    private func showTitleAlert(audioManager: AudioManager, completion: (() -> Void)? = nil) {
-        let appearance = SCLAlertView.SCLAppearance(showCloseButton: false, fieldCornerRadius: 8.0, buttonCornerRadius: 8.0)
-        let alert = SCLAlertView(appearance: appearance)
-        let textField = alert.addTextField("Add a title?")
-        textField.layer.cornerRadius = 12.0
-        alert.addButton("Add") {
-            guard let text = textField.text else {
-                return
-            }
-            
-            audioManager.updateTitle(title: text)
-            completion?()
-        }
-        
-        alert.addButton("Not right now") {
-            audioManager.discard {
-                completion?()
-            }
-        }
-        
-        alert.showEdit(
-            "Title",
-            subTitle: "Add the title for your audio file here",
-            closeButtonTitle: "Cancel",
-            colorStyle: 0x3B08A0,
-            animationStyle: .topToBottom
-        )
+        delegate?.audioItemListViewControllerDidFinishRecording(self)
     }
 }

@@ -11,11 +11,13 @@ import UIKit
 extension UIButton {
     func disable() {
         isEnabled = false
+        isUserInteractionEnabled = false
         alpha = 0.5
     }
     
     func enable() {
         isEnabled = true
+        isUserInteractionEnabled = true
         alpha = 1.0
     }
 }
