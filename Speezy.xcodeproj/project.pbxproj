@@ -175,6 +175,7 @@
 		BE939D5925D0629D00042EB7 /* AudioPlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5825D0629D00042EB7 /* AudioPlaybackViewController.swift */; };
 		BE939D5F25D06B4A00042EB7 /* AudioItemListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */; };
 		BE939D6325D06BC500042EB7 /* AudioItemFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */; };
+		BE978CB0261CEE7800E71419 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -250,6 +251,8 @@
 		BEE47F3625BC5E5700AF47FA /* ContactParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3525BC5E5700AF47FA /* ContactParser.swift */; };
 		BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */; };
 		BEE47F3E25BC67D100AF47FA /* NewChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */; };
+		BEE4B8AD261B4ABE0043921A /* ContactBackgroundFetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4B8AC261B4ABE0043921A /* ContactBackgroundFetchController.swift */; };
+		BEE4B8B3261B4FBE0043921A /* ContactsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
 		BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* MessageCell.swift */; };
@@ -502,6 +505,7 @@
 		BE939D5825D0629D00042EB7 /* AudioPlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackViewController.swift; sourceTree = "<group>"; };
 		BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListener.swift; sourceTree = "<group>"; };
 		BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemFetcher.swift; sourceTree = "<group>"; };
+		BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 		BEE47F3525BC5E5700AF47FA /* ContactParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactParser.swift; sourceTree = "<group>"; };
 		BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewController.swift; sourceTree = "<group>"; };
 		BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewModel.swift; sourceTree = "<group>"; };
+		BEE4B8AC261B4ABE0043921A /* ContactBackgroundFetchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactBackgroundFetchController.swift; sourceTree = "<group>"; };
+		BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsFetcher.swift; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BEECD89525ACD61200AD7AC3 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -1322,6 +1328,8 @@
 				BEF4DB642593C9FA002B403A /* KeyboardScrollViewInsetManager.swift */,
 				BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */,
 				BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */,
+				BEE4B8AC261B4ABE0043921A /* ContactBackgroundFetchController.swift */,
+				BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1483,6 +1491,7 @@
 				BEE47F2F25BC5E1B00AF47FA /* DatabaseContactManager.swift */,
 				BEE47F3525BC5E5700AF47FA /* ContactParser.swift */,
 				BE0A45A425CEBF30005F4DA8 /* ContactsListener.swift */,
+				BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2143,6 +2152,7 @@
 				BEA32E2525D814B100A9F643 /* ProfileObserver.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
+				BEE4B8AD261B4ABE0043921A /* ContactBackgroundFetchController.swift in Sources */,
 				BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,
@@ -2239,6 +2249,7 @@
 				BE041EA325E2F77F005C3B9F /* KeyboardConstraintManager.swift in Sources */,
 				BEA32E1825D80EFD00A9F643 /* ProfileListener.swift in Sources */,
 				BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */,
+				BEE4B8B3261B4FBE0043921A /* ContactsFetcher.swift in Sources */,
 				BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */,
 				BEFDB542255FF8B000362428 /* CropNotification.swift in Sources */,
 				BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */,
@@ -2266,6 +2277,7 @@
 				BE2B098524C732DC00317EB7 /* TagsView.swift in Sources */,
 				BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */,
 				BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */,
+				BE978CB0261CEE7800E71419 /* DeepLinkHandler.swift in Sources */,
 				BE6080B0250E86A3003CB318 /* WordCell.swift in Sources */,
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,

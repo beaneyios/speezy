@@ -23,7 +23,7 @@ class ContactsListener {
     func listenForContactAdditions(userId: String) {
         let ref = Database.database().reference()
         let contactsChild = ref.child("users/\(userId)/contacts")
-        let query = contactsChild.queryOrderedByKey()
+        let query = contactsChild.queryOrderedByKey().queryLimited(toLast: 1)
         query.observe(.childAdded) { (snapshot) in
             
             // First thing, send found contact.

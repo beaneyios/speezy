@@ -168,6 +168,10 @@ extension NewChatViewModel: ContactListObserver {
         updateCellModels(contacts: contacts)
     }
     
+    func allContacts(contacts: [Contact]) {
+        updateCellModels(contacts: contacts)
+    }
+    
     func contactAdded(contact: Contact, in contacts: [Contact]) {}
     func contactUpdated(contact: Contact, in contacts: [Contact]) {}
     func contactRemoved(contact: Contact, contacts: [Contact]) {}

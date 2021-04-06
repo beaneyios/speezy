@@ -64,11 +64,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
             return
         }
         
-        DynamicLinks.dynamicLinks().handleUniversalLink(webPageUrl) { (dynamicLink, error) in
-            guard let contactId = webPageUrl.queryParameters?["contact_id"] else {
-                return
-            }
-            
+        handleDynamicLink(url: webPageUrl)
+    }
+    
+    func handleDynamicLink(fromCustomScheme scheme: URL) {
+        guard let dynamicLinkURL = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: scheme)?.url else {
+            return
+        }
+        
+        handleDynamicLink(url: dynamicLinkURL)
+    }
+    
+    func handleDynamicLink(url: URL) {
+        if let contactId = DeepLinkHandler.contactId(for: url) {
             self.appCoordinator.navigateToAddContact(contactId: contactId)
         }
     }

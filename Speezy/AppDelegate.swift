@@ -14,7 +14,6 @@ import FBSDKCoreKit
 import FirebaseFunctions
 import FirebaseDatabase
 import GoogleSignIn
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
@@ -31,8 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
 
         PushDeliveryHandler.shared.configurePush(app: application)
-        
         UIApplication.shared.applicationIconBadgeNumber = 0
+        ContactBackgroundFetchController.shared.registerBackgroundFetch()
+        
         return true
     }
     
@@ -54,14 +54,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.handleDynamicLink(fromCustomScheme: url)
+        
         ApplicationDelegate.shared.application(
             app,
             open: url,
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
             annotation: options[UIApplication.OpenURLOptionsKey.annotation]
         )
-        
+
         return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
+        print(userActivityType)
+        return true
     }
     
     // MARK: UISceneSession Lifecycle

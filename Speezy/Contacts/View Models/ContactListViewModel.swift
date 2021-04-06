@@ -86,4 +86,8 @@ extension ContactListViewModel: ContactListObserver {
     func contactRemoved(contact: Contact, contacts: [Contact]) {
         updateCellModels(contacts: contacts)
     }
+    
+    func allContacts(contacts: [Contact]) {
+        updateCellModels(contacts: contacts)
+    }
 }

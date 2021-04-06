@@ -10,6 +10,7 @@ import Foundation
 
 class ContactStore {
     private let contactListener = ContactsListener()
+    private let contactFetcher = ContactsFetcher()
     private(set) var contacts = [Contact]()
     
     private var observations = [ObjectIdentifier : ContactListObservation]()
@@ -37,16 +38,33 @@ class ContactStore {
             }
         }
         
-        contactListener.listenForContactAdditions(userId: userId)
-        contactListener.listenForContactDeletions(userId: userId)
+        contactFetcher.fetchContacts(userId: userId) { (result) in
+            self.serialQueue.async {
+                switch result {
+                case let .success(contacts):
+                    self.handleAllContacts(contacts: contacts)
+                    self.contactListener.listenForContactAdditions(userId: userId)
+                    self.contactListener.listenForContactDeletions(userId: userId)
+                case let .failure(error):
+                    break
+                }
+            }            
+        }
+    }
+    
+    private func handleAllContacts(contacts: [Contact]) {
+        self.contacts = contacts
+        sortContacts()
+        notifyObservers(change: .allContacts(contacts: contacts))
     }
     
     private func handleContactAdded(contact: Contact) {
         if contacts.contains(contact) {
-            return
+            self.contacts = contacts.replacing(contact)
+        } else {
+            contacts.append(contact)
         }
-        
-        contacts.append(contact)
+
         sortContacts()
         notifyObservers(change: .contactAdded(contact: contact, contacts: contacts))
     }
@@ -104,6 +122,7 @@ extension ContactStore {
         case contactUpdated(contact: Contact, contacts: [Contact])
         case initialContacts(contacts: [Contact])
         case contactRemoved(contact: Contact, contacts: [Contact])
+        case allContacts(contacts: [Contact])
     }
     
     func addContactListObserver(_ observer: ContactListObserver) {
@@ -139,6 +158,8 @@ extension ContactStore {
                 observer.initialContactsReceived(contacts: contacts)
             case let .contactRemoved(contact, contacts):
                 observer.contactRemoved(contact: contact, contacts: contacts)
+            case let .allContacts(contacts):
+                observer.allContacts(contacts: contacts)
             }
         }
     }

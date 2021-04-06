@@ -115,15 +115,14 @@ class HomeCoordinator: ViewCoordinator {
         let hud = JGProgressHUD()
         hud.textLabel.text = "Loading..."
         hud.show(in: self.tabBarController.view)
-        DynamicLinks.dynamicLinks().handleUniversalLink(webPageUrl) { (dynamicLink, error) in
-            guard let contactId = webPageUrl.queryParameters?["contact_id"] else {
-                hud.dismiss()
-                return
-            }
-            
+        
+        guard let contactId = DeepLinkHandler.contactId(for: webPageUrl) else {
             hud.dismiss()
-            self.navigateToAddContact(contactId: contactId)
+            return
         }
+        
+        hud.dismiss()
+        self.navigateToAddContact(contactId: contactId)
     }
     
     private func addAudioListCoordinator() {

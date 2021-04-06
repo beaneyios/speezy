@@ -13,4 +13,5 @@ protocol ContactListObserver: AnyObject {
     func contactUpdated(contact: Contact, in contacts: [Contact])
     func initialContactsReceived(contacts: [Contact])
     func contactRemoved(contact: Contact, contacts: [Contact])
+    func allContacts(contacts: [Contact])
 }
