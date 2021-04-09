@@ -40,7 +40,6 @@ class ContactCell: UICollectionViewCell, NibLoadable {
         
         configureSelectedTick(selected: item.selected)
         
-        
         profileImage.alpha = 0.0
         item.loadImage { (result) in
             DispatchQueue.main.async {

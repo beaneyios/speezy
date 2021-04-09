@@ -55,6 +55,13 @@ class NewChatViewModel {
         } else {
             selectedContacts.append(contact)
         }
+        
+        self.items = items.map {
+            var newItem = $0
+            newItem.selected = 
+        }
+        
+        updateCellModels(contacts: items.map { $0.contact })
     }
     
     func createChat() {
