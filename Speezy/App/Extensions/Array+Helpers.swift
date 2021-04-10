@@ -38,7 +38,7 @@ extension Array where Element: Identifiable {
         first {
             $0.id == id
         }
-    }
+    }    
     
     func isSameOrderAs(_ array: Self) -> Bool {
         for (index, element) in self.enumerated() {
