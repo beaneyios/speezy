@@ -8,6 +8,7 @@
 
 import UIKit
 import JGProgressHUD
+import SwipeCellKit
 
 protocol ContactListViewControllerDelegate: AnyObject {
     func contactListViewControllerDidSelectBack(_ viewController: ContactListViewController)
@@ -118,12 +119,59 @@ extension ContactListViewController: UICollectionViewDataSource, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ContactCell
         let cellModel = viewModel.items[indexPath.row]
         cell.configure(item: cellModel)
+        cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = viewModel.items[indexPath.row]
         delegate?.contactListViewController(self, didSelectContact: item.contact)
+    }
+}
+
+extension ContactListViewController: SwipeCollectionViewCellDelegate {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        editActionsOptionsForItemAt indexPath: IndexPath,
+        for orientation: SwipeActionsOrientation
+    ) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.transitionStyle = SwipeTransitionStyle.border
+        return options
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        editActionsForItemAt indexPath: IndexPath,
+        for orientation: SwipeActionsOrientation
+    ) -> [SwipeAction]? {
+        guard orientation == .right else {
+            return []
+        }
+        
+        let delete = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let alert = UIAlertController(
+                title: "Confirm deletion",
+                message: "Are you sure you want to delete this contact? You will also be removed from their contact list",
+                preferredStyle: .alert
+            )
+            
+            let delete = UIAlertAction(title: "Delete contact", style: .destructive) { _ in
+                self.viewModel.deleteContact(atIndex: indexPath.item)
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        delete.hidesWhenSelected = true
+        delete.highlightedBackgroundColor = .speezyDarkRed
+        
+        return [delete]
     }
 }
 

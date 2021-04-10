@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class ContactCell: UICollectionViewCell, NibLoadable {
+class ContactCell: SwipeCollectionViewCell, NibLoadable {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var tickIcon: UIImageView!

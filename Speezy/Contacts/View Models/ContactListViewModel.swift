@@ -18,6 +18,8 @@ class ContactListViewModel {
     
     private let store: Store
     private let debouncer = Debouncer(seconds: 0.5)
+    private let contactDeleter = ContactDeleter()
+    
     private var contacts = [Contact]()
     private(set) var items = [ContactCellModel]()
     var didChange: ((Change) -> Void)?
@@ -37,6 +39,11 @@ class ContactListViewModel {
         }
         
         store.contactStore.addContactListObserver(self)
+    }
+    
+    func deleteContact(atIndex index: Int) {
+        let contact = items[index].contact
+        contactDeleter.deleteContact(contact: contact)
     }
     
     private func updateCellModels(contacts: [Contact]) {

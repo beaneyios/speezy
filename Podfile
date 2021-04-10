@@ -25,6 +25,7 @@ target 'Speezy' do
   
   pod 'JGProgressHUD'
   pod 'lottie-ios'
+  pod 'SwipeCellKit'
   
   pod 'Alamofire', '~> 5.2'
   pod 'GhostTypewriter', '~> 2.1.0'

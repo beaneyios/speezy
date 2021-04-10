@@ -78,7 +78,7 @@ class ProfileEditViewController: UIViewController {
         }
         
         button.configure(
-            title: "Send to a friend",
+            title: "Invite a friend",
             titleColor: .speezyPurple,
             color: .clear,
             iconImage: UIImage(named: "share-button")
@@ -89,12 +89,19 @@ class ProfileEditViewController: UIViewController {
             else {
                 return
             }
+            
+            let linkParam = "https%3A%2F%2Fsospeezy.com%2Fadd-friend%3Fcontact_id%3D\(contactId)"
                 
             let items: [Any] = [
                 "Add me on Speezy",
-                URL(string: "https://\(dynamicLinkDomain)/add-friend?contact_id=\(contactId)")!
+                URL(
+                    string: "https://\(dynamicLinkDomain)?link=\(linkParam)&ibi=com.suggestv.speezy-app&isi=1557121831"
+                )!
             ]
-            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            let ac = UIActivityViewController(
+                activityItems: items,
+                applicationActivities: nil
+            )
             self.present(ac, animated: true)
         }
         

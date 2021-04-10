@@ -176,6 +176,7 @@
 		BE939D5F25D06B4A00042EB7 /* AudioItemListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */; };
 		BE939D6325D06BC500042EB7 /* AudioItemFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */; };
 		BE978CB0261CEE7800E71419 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */; };
+		BE978CF02622005B00E71419 /* ContactDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CEF2622005B00E71419 /* ContactDeleter.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -506,6 +507,7 @@
 		BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemListener.swift; sourceTree = "<group>"; };
 		BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemFetcher.swift; sourceTree = "<group>"; };
 		BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
+		BE978CEF2622005B00E71419 /* ContactDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDeleter.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -1492,6 +1494,7 @@
 				BEE47F3525BC5E5700AF47FA /* ContactParser.swift */,
 				BE0A45A425CEBF30005F4DA8 /* ContactsListener.swift */,
 				BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */,
+				BE978CEF2622005B00E71419 /* ContactDeleter.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2213,6 +2216,7 @@
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,
 				BEAACE9024BA1C270074E4B9 /* AudioFileCombiner.swift in Sources */,
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
+				BE978CF02622005B00E71419 /* ContactDeleter.swift in Sources */,
 				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
 				BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */,
