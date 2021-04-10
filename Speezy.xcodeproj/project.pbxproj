@@ -1138,6 +1138,17 @@
 			path = Updating;
 			sourceTree = "<group>";
 		};
+		BE978D09262229C400E71419 /* Message Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */,
+				BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */,
+				BE978CF9262224F300E71419 /* TextMessageCell.swift */,
+				BE978CFA262224F300E71419 /* TextMessageCell.xib */,
+			);
+			path = "Message Cells";
+			sourceTree = "<group>";
+		};
 		BEA32E0025D8042E00A9F643 /* Deleting */ = {
 			isa = PBXGroup;
 			children = (
@@ -1525,10 +1536,7 @@
 		BEECD89425ACD5F300AD7AC3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */,
-				BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */,
-				BE978CF9262224F300E71419 /* TextMessageCell.swift */,
-				BE978CFA262224F300E71419 /* TextMessageCell.xib */,
+				BE978D09262229C400E71419 /* Message Cells */,
 				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
 				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
 				BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */,
