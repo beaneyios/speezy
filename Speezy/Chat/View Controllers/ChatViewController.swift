@@ -359,7 +359,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         }
     }
     
-    private func cellsForIndexes(_ indexes: [Int]) -> [(Int, MessageCell)] {
+    private func cellsForIndexes(_ indexes: [Int]) -> [(Int, AudioMessageCell)] {
         let indexPaths = indexes.map {
             IndexPath(item: $0, section: 0)
         }
@@ -368,7 +368,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             if
                 let indexPath = self.collectionView.indexPath(for: $0),
                 indexPaths.contains(indexPath),
-                let messageCell = $0 as? MessageCell
+                let messageCell = $0 as? AudioMessageCell
             {
                 return (indexPath.row, messageCell)
             } else {
@@ -391,8 +391,18 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             y: -1
         )
         collectionView.register(
-            MessageCell.nib,
+            AudioMessageCell.nib,
             forCellWithReuseIdentifier: "cell"
+        )
+        
+        collectionView.register(
+            TestCell.nib,
+            forCellWithReuseIdentifier: "test"
+        )
+        
+        collectionView.register(
+            TextMessageCell.nib,
+            forCellWithReuseIdentifier: "textMessage"
         )
         
         collectionView.delegate = self
@@ -436,8 +446,44 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MessageCell
         let cellModel = viewModel.items[indexPath.row]
+        
+        let cell: UICollectionViewCell = {
+            if cellModel.hasAudio {
+                return self.configureAudioMessageCell(
+                    cellModel: cellModel,
+                    indexPath: indexPath,
+                    collectionView: collectionView
+                )
+            } else {
+                return self.configureTextMessageCell(
+                    cellModel: cellModel,
+                    indexPath: indexPath,
+                    collectionView: collectionView
+                )
+            }
+        }()
+        
+        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        return cell
+    }
+    
+    private func configureTextMessageCell(
+        cellModel: MessageCellModel,
+        indexPath: IndexPath,
+        collectionView: UICollectionView
+    ) -> TextMessageCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "textMessage", for: indexPath) as! TextMessageCell
+        cell.configure(item: cellModel)
+        return cell
+    }
+    
+    private func configureAudioMessageCell(
+        cellModel: MessageCellModel,
+        indexPath: IndexPath,
+        collectionView: UICollectionView
+    ) -> AudioMessageCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AudioMessageCell
         cell.configure(item: cellModel)
         cell.messageDidStartPlaying = { playingCell in
             if let message = playingCell.message {
@@ -463,7 +509,6 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
             self.presentMessageOptions(message: message)
         }
         
-        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
     }
     
@@ -573,16 +618,26 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         let preferredWidth = collectionView.frame.width
         let cellModel = viewModel.items[indexPath.row]
-        let cell = MessageCell.createFromNib()
+        let cell: UICollectionViewCell = {
+            if cellModel.hasAudio {
+                let cell = AudioMessageCell.createFromNib()
+                cell.frame.size.width = preferredWidth
+                cell.configure(item: cellModel)
+                return cell
+            } else {
+                let cell = TextMessageCell.createFromNib()
+                cell.frame.size.width = preferredWidth
+                cell.configure(item: cellModel)
+                return cell
+            }
+        }()
         
-        cell.frame.size.width = preferredWidth
-        cell.configure(item: cellModel)
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         
         let size = cell.systemLayoutSizeFitting(
             CGSize(
-                width: preferredWidth,
+                width: cell.frame.width,
                 height: UIView.layoutFittingCompressedSize.height
             )
         )

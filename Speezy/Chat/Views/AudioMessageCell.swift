@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageCell: UICollectionViewCell, NibLoadable {
+class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var slider: CustomSlider!
     
     @IBOutlet weak var messageLabel: UILabel!
@@ -26,14 +26,12 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var playButtonImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    @IBOutlet weak var sliderHeight: NSLayoutConstraint!
-    
+        
     @IBOutlet weak var unplayedNotification: UIView!
     @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
     
-    var messageDidStartPlaying: ((MessageCell) -> Void)?
-    var messageDidStopPlaying: ((MessageCell) -> Void)?
+    var messageDidStartPlaying: ((AudioMessageCell) -> Void)?
+    var messageDidStopPlaying: ((AudioMessageCell) -> Void)?
     var longPressTapped: ((Message) -> Void)?
     
     private(set) var audioManager: AudioManager?
@@ -126,20 +124,10 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     }
     
     private func configureAudioControls(item: MessageCellModel) {
-        if !item.hasAudio {
-            sliderHeight.constant = 0.0
-            durationLabel.isHidden = true
-            slider.isHidden = true
-            playButton.isHidden = true
-            playButtonImage.isHidden = true
-            return
-        } else {
-            sliderHeight.constant = 50.0
-            durationLabel.isHidden = false
-            slider.isHidden = false
-            playButton.isHidden = false
-            playButtonImage.isHidden = false
-        }
+        durationLabel.isHidden = false
+        slider.isHidden = false
+        playButton.isHidden = false
+        playButtonImage.isHidden = false
         
         durationLabel.text = item.durationText
         durationLabel.textColor = item.durationTint
@@ -237,7 +225,7 @@ class MessageCell: UICollectionViewCell, NibLoadable {
     }
 }
 
-extension MessageCell: AudioPlayerObserver {
+extension AudioMessageCell: AudioPlayerObserver {
     func playBackBegan(on item: AudioItem) {
         messageDidStartPlaying?(self)
         playButtonImage.image = UIImage(named: "plain-pause-button")

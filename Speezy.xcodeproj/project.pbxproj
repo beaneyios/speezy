@@ -177,6 +177,10 @@
 		BE939D6325D06BC500042EB7 /* AudioItemFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */; };
 		BE978CB0261CEE7800E71419 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */; };
 		BE978CF02622005B00E71419 /* ContactDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CEF2622005B00E71419 /* ContactDeleter.swift */; };
+		BE978CF52622202500E71419 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CF32622202500E71419 /* TestCell.swift */; };
+		BE978CF62622202500E71419 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978CF42622202500E71419 /* TestCell.xib */; };
+		BE978CFB262224F300E71419 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CF9262224F300E71419 /* TextMessageCell.swift */; };
+		BE978CFC262224F300E71419 /* TextMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978CFA262224F300E71419 /* TextMessageCell.xib */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -256,8 +260,8 @@
 		BEE4B8B3261B4FBE0043921A /* ContactsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
-		BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* MessageCell.swift */; };
-		BEECD89825ACD61200AD7AC3 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* MessageCell.xib */; };
+		BEECD89725ACD61200AD7AC3 /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */; };
+		BEECD89825ACD61200AD7AC3 /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */; };
 		BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */; };
 		BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */; };
 		BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */; };
@@ -508,6 +512,10 @@
 		BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItemFetcher.swift; sourceTree = "<group>"; };
 		BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		BE978CEF2622005B00E71419 /* ContactDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDeleter.swift; sourceTree = "<group>"; };
+		BE978CF32622202500E71419 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
+		BE978CF42622202500E71419 /* TestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
+		BE978CF9262224F300E71419 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
+		BE978CFA262224F300E71419 /* TextMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageCell.xib; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -587,8 +595,8 @@
 		BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsFetcher.swift; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
-		BEECD89525ACD61200AD7AC3 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
-		BEECD89625ACD61200AD7AC3 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
+		BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
+		BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
 		BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Constants.swift"; sourceTree = "<group>"; };
 		BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellModel.swift; sourceTree = "<group>"; };
 		BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -1517,8 +1525,10 @@
 		BEECD89425ACD5F300AD7AC3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BEECD89525ACD61200AD7AC3 /* MessageCell.swift */,
-				BEECD89625ACD61200AD7AC3 /* MessageCell.xib */,
+				BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */,
+				BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */,
+				BE978CF9262224F300E71419 /* TextMessageCell.swift */,
+				BE978CFA262224F300E71419 /* TextMessageCell.xib */,
 				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
 				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
 				BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */,
@@ -1531,6 +1541,8 @@
 				BE0A458725CD677A005F4DA8 /* ChatSelectionCell.xib */,
 				BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */,
 				BE0CDDA42610F05700AF2706 /* ChatTextView.xib */,
+				BE978CF32622202500E71419 /* TestCell.swift */,
+				BE978CF42622202500E71419 /* TestCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1916,6 +1928,7 @@
 				BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */,
 				BE2351AB252FA15500067BA2 /* transcription-test-file-trimmed.m4a in Resources */,
 				BEE47F1525BC55C500AF47FA /* ContactCell.xib in Resources */,
+				BE978CFC262224F300E71419 /* TextMessageCell.xib in Resources */,
 				BE2351AF252FA1A800067BA2 /* transcription-test-file-trimmed.flac in Resources */,
 				BE6080BE250EB455003CB318 /* transcription-test-file.flac in Resources */,
 				BE0E53CD24E8140E009BA1F9 /* CropOverlayView.xib in Resources */,
@@ -1925,7 +1938,7 @@
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
 				BE0CDDA52610F05700AF2706 /* ChatTextView.xib in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
-				BEECD89825ACD61200AD7AC3 /* MessageCell.xib in Resources */,
+				BEECD89825ACD61200AD7AC3 /* AudioMessageCell.xib in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
 				BE79270E247EE55F0079652C /* Audio.storyboard in Resources */,
@@ -1953,6 +1966,7 @@
 				BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */,
 				BEF3B23525DC4DD40002C09E /* Profile.storyboard in Resources */,
 				BE77767524D6D3100009BE63 /* SettingsFooterView.xib in Resources */,
+				BE978CF62622202500E71419 /* TestCell.xib in Resources */,
 				BEDC126E24F2D2B800B53D1A /* acknowledgements.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2085,6 +2099,7 @@
 				BEDC126B24F2977B00B53D1A /* UINavigationController+Pop.swift in Sources */,
 				BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */,
 				BEFDB522255FF63400362428 /* CropperObservationManaging.swift in Sources */,
+				BE978CFB262224F300E71419 /* TextMessageCell.swift in Sources */,
 				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */,
 				BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */,
@@ -2109,7 +2124,7 @@
 				BEFF49AF25C58AD100794A21 /* ChatValue.swift in Sources */,
 				BE0A458825CD677A005F4DA8 /* ChatSelectionCell.swift in Sources */,
 				BE0CDDBD261313C200AF2706 /* SignOutManager.swift in Sources */,
-				BEECD89725ACD61200AD7AC3 /* MessageCell.swift in Sources */,
+				BEECD89725ACD61200AD7AC3 /* AudioMessageCell.swift in Sources */,
 				BE3C5DDE25BD8B81005E34BB /* Debouncer.swift in Sources */,
 				BE6FD90C25B49BD800723732 /* URL+Helpers.swift in Sources */,
 				BE0A459D25CEBEB2005F4DA8 /* ContactListObserver.swift in Sources */,
@@ -2121,6 +2136,7 @@
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */,
+				BE978CF52622202500E71419 /* TestCell.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
 				BE792707247EE55F0079652C /* AppDelegate.swift in Sources */,
