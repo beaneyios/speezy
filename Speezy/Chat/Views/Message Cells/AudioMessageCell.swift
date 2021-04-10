@@ -71,7 +71,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         }()
         
         messageContainer.backgroundColor = item.backgroundColor
-        messageContainer.layer.cornerRadius = 30.0
+        messageContainer.layer.cornerRadius = 20.0
         
         configurePlayedStatus(item: item)
                 

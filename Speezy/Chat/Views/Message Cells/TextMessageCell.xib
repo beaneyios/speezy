@@ -33,7 +33,7 @@
                                 <rect key="frame" x="55" y="0.0" width="391" height="216"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15:43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXA-6e-Ol6">
-                                        <rect key="frame" x="321" y="51.5" width="35" height="15"/>
+                                        <rect key="frame" x="321" y="42.5" width="35" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="KTp-cI-cEt"/>
                                         </constraints>
@@ -42,14 +42,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send-receive-ticks" translatesAutoresizingMaskIntoConstraints="NO" id="fxD-7X-NFt">
-                                        <rect key="frame" x="360" y="51.5" width="15" height="15"/>
+                                        <rect key="frame" x="360" y="42.5" width="15" height="15"/>
+                                        <color key="tintColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="gDD-12-vKp"/>
                                             <constraint firstAttribute="width" constant="15" id="izQ-bd-fga"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gst-vl-hLS">
-                                        <rect key="frame" x="24" y="16" width="335" height="19.5"/>
+                                        <rect key="frame" x="16" y="12" width="359" height="19.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16.5" id="hhw-SZ-Hzt"/>
                                         </constraints>
@@ -58,40 +59,29 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpR-w4-QhF">
-                                        <rect key="frame" x="24" y="51.5" width="37.5" height="17"/>
+                                        <rect key="frame" x="16" y="41.5" width="33" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="aDl-L8-8vr"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="246-Fz-71h">
-                                        <rect key="frame" x="367" y="21" width="7" height="7"/>
-                                        <color key="backgroundColor" name="speezy-dark-red"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="7" id="Xbp-9S-U5Y"/>
-                                            <constraint firstAttribute="height" constant="7" id="bdG-XZ-zOc"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" name="chat-bubble-sender"/>
                                 <constraints>
+                                    <constraint firstItem="BXA-6e-Ol6" firstAttribute="centerY" secondItem="LpR-w4-QhF" secondAttribute="centerY" id="0vw-fI-fZI"/>
                                     <constraint firstItem="fxD-7X-NFt" firstAttribute="centerY" secondItem="BXA-6e-Ol6" secondAttribute="centerY" id="2aD-AI-fNw"/>
-                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LpR-w4-QhF" secondAttribute="bottom" constant="19" id="8fe-B4-7Ad"/>
-                                    <constraint firstItem="BXA-6e-Ol6" firstAttribute="top" secondItem="gst-vl-hLS" secondAttribute="bottom" constant="16" id="BB9-Mr-L61"/>
-                                    <constraint firstItem="gst-vl-hLS" firstAttribute="top" secondItem="NZb-qu-BOU" secondAttribute="top" constant="16" id="BgN-M6-woN"/>
-                                    <constraint firstItem="246-Fz-71h" firstAttribute="top" secondItem="NZb-qu-BOU" secondAttribute="top" constant="21" id="HcK-HT-aJm"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LpR-w4-QhF" secondAttribute="bottom" constant="12" id="8fe-B4-7Ad"/>
+                                    <constraint firstItem="gst-vl-hLS" firstAttribute="top" secondItem="NZb-qu-BOU" secondAttribute="top" constant="12" id="BgN-M6-woN"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BXA-6e-Ol6" secondAttribute="bottom" constant="16" id="SJZ-e6-QgF"/>
                                     <constraint firstItem="fxD-7X-NFt" firstAttribute="leading" secondItem="BXA-6e-Ol6" secondAttribute="trailing" constant="4" id="UvM-14-XpO"/>
-                                    <constraint firstItem="gst-vl-hLS" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="24" id="h8y-lB-SXO"/>
-                                    <constraint firstItem="LpR-w4-QhF" firstAttribute="top" secondItem="gst-vl-hLS" secondAttribute="bottom" constant="16" id="hXs-ZZ-29u"/>
+                                    <constraint firstItem="gst-vl-hLS" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="16" id="h8y-lB-SXO"/>
+                                    <constraint firstItem="LpR-w4-QhF" firstAttribute="top" secondItem="gst-vl-hLS" secondAttribute="bottom" constant="10" id="hXs-ZZ-29u"/>
                                     <constraint firstAttribute="trailing" secondItem="fxD-7X-NFt" secondAttribute="trailing" constant="16" id="iK1-PC-2r5"/>
-                                    <constraint firstItem="LpR-w4-QhF" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="24" id="iOW-f2-c16"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="246-Fz-71h" secondAttribute="trailing" constant="16" id="iii-pY-4Xe"/>
+                                    <constraint firstItem="LpR-w4-QhF" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="16" id="iOW-f2-c16"/>
                                     <constraint firstItem="BXA-6e-Ol6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LpR-w4-QhF" secondAttribute="trailing" constant="16" id="kiT-Uj-rpX"/>
-                                    <constraint firstAttribute="trailing" secondItem="gst-vl-hLS" secondAttribute="trailing" constant="32" id="vTZ-iQ-XUY"/>
-                                    <constraint firstItem="246-Fz-71h" firstAttribute="leading" secondItem="gst-vl-hLS" secondAttribute="trailing" constant="8" id="wFC-ag-LcZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="gst-vl-hLS" secondAttribute="trailing" constant="16" id="vTZ-iQ-XUY"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -124,8 +114,6 @@
                 <outlet property="sendStatusImageWidth" destination="izQ-bd-fga" id="BJl-20-ObE"/>
                 <outlet property="sendStatusPadding" destination="UvM-14-XpO" id="fOd-g1-bPQ"/>
                 <outlet property="timestampLabel" destination="BXA-6e-Ol6" id="AGS-vi-Wjd"/>
-                <outlet property="unplayedNotification" destination="246-Fz-71h" id="eQn-Tj-JG3"/>
-                <outlet property="unplayedNotificationPadding" destination="wFC-ag-LcZ" id="fBx-5k-v4B"/>
             </connections>
             <point key="canvasLocation" x="-471" y="96"/>
         </collectionViewCell>
@@ -135,9 +123,6 @@
         <image name="send-receive-ticks" width="120" height="72"/>
         <namedColor name="chat-bubble-sender">
             <color red="0.92156862745098034" green="0.94509803921568625" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="speezy-dark-red">
-            <color red="0.67843137254901964" green="0.0" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

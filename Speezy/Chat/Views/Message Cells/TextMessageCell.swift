@@ -18,8 +18,6 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var sendStatusImage: UIImageView!
     @IBOutlet weak var sendStatusImageWidth: NSLayoutConstraint!
     @IBOutlet weak var sendStatusPadding: NSLayoutConstraint!
-    @IBOutlet weak var unplayedNotification: UIView!
-    @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
     @IBOutlet weak var messageContainer: UIView!
     
     private(set) var message: Message?
@@ -58,7 +56,7 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         }()
         
         messageContainer.backgroundColor = item.backgroundColor
-        messageContainer.layer.cornerRadius = 30.0
+        messageContainer.layer.cornerRadius = 20.0
                         
         sendStatusImage.alpha = item.tickOpacity
         sendStatusImageWidth.constant = item.tickWidth
