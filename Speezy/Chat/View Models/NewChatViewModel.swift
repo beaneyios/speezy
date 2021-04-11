@@ -75,6 +75,8 @@ class NewChatViewModel {
             return
         }
         
+        
+        
         let currentChatter = Chatter(
             id: profile.userId,
             displayName: profile.name,
@@ -161,6 +163,20 @@ class NewChatViewModel {
 
 extension NewChatViewModel {
     func validationError() -> FormError? {
+        if selectedContacts.count > 1 && title == nil {
+            return FormError(
+                message: "Please choose a group title",
+                field: .chatTitle
+            )
+        }
+        
+        if selectedContacts.count > 10 {
+            return FormError(
+                message: "Chats can have a maximum of 10 people",
+                field: nil
+            )
+        }
+        
         if selectedContacts.isEmpty {
             return FormError(
                 message: "Please select at least one contact",
