@@ -100,7 +100,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qa-c6-0V4">
-                                        <rect key="frame" x="16" y="12" width="39.5" height="19.5"/>
+                                        <rect key="frame" x="16" y="12" width="261" height="19.5"/>
                                         <color key="tintColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
@@ -116,7 +116,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAJ-vg-AhN">
-                                        <rect key="frame" x="63.5" y="18.5" width="7" height="7"/>
+                                        <rect key="frame" x="285" y="18.5" width="7" height="7"/>
                                         <color key="backgroundColor" name="speezy-dark-red"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="7" id="ns0-06-vwH"/>
@@ -131,8 +131,8 @@
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" constant="16" id="51c-Q2-CrZ"/>
                                     <constraint firstItem="JsA-yO-RWG" firstAttribute="centerY" secondItem="ZRM-4u-xxO" secondAttribute="centerY" id="8Tw-ci-D5m"/>
                                     <constraint firstAttribute="trailing" secondItem="Vze-YV-QNV" secondAttribute="trailing" id="A7d-6m-rUT"/>
+                                    <constraint firstItem="FAJ-vg-AhN" firstAttribute="top" secondItem="BUq-vR-o3i" secondAttribute="top" constant="18.5" id="DEU-xS-Ddg"/>
                                     <constraint firstItem="ZRM-4u-xxO" firstAttribute="top" secondItem="Vze-YV-QNV" secondAttribute="bottom" constant="2" id="Eas-xJ-4fG"/>
-                                    <constraint firstItem="FAJ-vg-AhN" firstAttribute="top" secondItem="9qa-c6-0V4" secondAttribute="top" constant="6.25" id="HxU-CD-EZm"/>
                                     <constraint firstItem="Vze-YV-QNV" firstAttribute="leading" secondItem="BUq-vR-o3i" secondAttribute="leading" id="WWz-66-kbY"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZRM-4u-xxO" secondAttribute="bottom" constant="12" id="bjJ-TH-qyB"/>
                                     <constraint firstItem="9qa-c6-0V4" firstAttribute="top" secondItem="BUq-vR-o3i" secondAttribute="top" constant="12" id="drg-zt-mdX"/>
@@ -141,7 +141,7 @@
                                     <constraint firstItem="FAJ-vg-AhN" firstAttribute="leading" secondItem="9qa-c6-0V4" secondAttribute="trailing" constant="8" id="gdS-Yc-aYZ"/>
                                     <constraint firstAttribute="trailing" secondItem="kio-MT-Ihq" secondAttribute="trailing" constant="16" id="iLN-t0-bHh"/>
                                     <constraint firstItem="kio-MT-Ihq" firstAttribute="leading" secondItem="JsA-yO-RWG" secondAttribute="trailing" constant="4" id="qDm-jg-GGV"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FAJ-vg-AhN" secondAttribute="trailing" constant="16" id="s7m-5w-zyl"/>
+                                    <constraint firstAttribute="trailing" secondItem="FAJ-vg-AhN" secondAttribute="trailing" constant="16" id="s7m-5w-zyl"/>
                                 </constraints>
                             </view>
                         </subviews>

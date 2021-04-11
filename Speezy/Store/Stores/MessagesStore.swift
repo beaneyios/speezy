@@ -68,18 +68,11 @@ class MessagesStore {
                     
                     newMessages.forEach {
                         let message = $0
-                        if message.audioId != nil {
-                            self.listener(
-                                chat: chat,
-                                chatters: chatters
-                            ).listenForMessageChanges(message: $0) { (change) in
-                                self.handleMessageChanged(
-                                    chat: chat,
-                                    message: message,
-                                    value: change
-                                )
-                            }
-                        }
+                        self.listenForMessageChanges(
+                            message: message,
+                            chat: chat,
+                            chatters: chatters
+                        )
                     }
                     
                     self.loading = false
@@ -105,6 +98,7 @@ class MessagesStore {
                 switch result {
                 case let .success(newMessage):
                     self.handleMessageAdded(message: newMessage, chat: chat)
+                    self.listenForMessageChanges(message: newMessage, chat: chat, chatters: chatters)
                 case let .failure(error):
                     break
                 }
@@ -112,6 +106,21 @@ class MessagesStore {
         }
         
         messageListeners = messageListeners.replacing(listener)
+    }
+    
+    func listenForMessageChanges(message: Message, chat: Chat, chatters: [Chatter]) {
+        if message.audioId != nil {
+            self.listener(
+                chat: chat,
+                chatters: chatters
+            ).listenForMessageChanges(message: message) { (change) in
+                self.handleMessageChanged(
+                    chat: chat,
+                    message: message,
+                    value: change
+                )
+            }
+        }
     }
     
     func listenForDeletedMessages(chat: Chat, chatters: [Chatter]) {
