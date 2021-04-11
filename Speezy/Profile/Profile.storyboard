@@ -223,6 +223,7 @@
                         <outlet property="attachBtnWidth" destination="4sO-aR-dZ5" id="s31-V1-TPI"/>
                         <outlet property="copyButton" destination="RQ1-BM-ONk" id="VoL-FC-fi3"/>
                         <outlet property="copyButtonWidth" destination="Nb0-VW-R8r" id="1t3-Em-VXj"/>
+                        <outlet property="displayNameSeparator" destination="aax-cA-SyE" id="O6w-Ox-lQb"/>
                         <outlet property="lblErrorMessage" destination="g2f-m8-kKF" id="pfU-oT-COa"/>
                         <outlet property="nameTxtField" destination="7xv-f3-9lE" id="nWu-jm-6NR"/>
                         <outlet property="occupationTxtField" destination="mxr-ab-2iS" id="HtR-wD-EVs"/>

@@ -18,11 +18,20 @@ protocol FirebaseSignupViewModel: ProfileViewModel {
 extension FirebaseSignupViewModel {
     func profileValidationError() -> FormError? {
         
-        if let profile = profile, profile.userName.isEmpty {
-            return FormError(
-                message: "Please ensure you enter a username, you'll need it for adding contacts.",
-                field: Field.username
-            )
+        if let profile = profile {
+            if profile.userName.isEmpty {
+                return FormError(
+                    message: "Please ensure you enter a username, you'll need it for adding contacts.",
+                    field: Field.username
+                )
+            }
+            
+            if profile.name.isEmpty {
+                return FormError(
+                    message: "Please ensure you enter a display name, it will be used on your chats",
+                    field: .displayName
+                )
+            }
         }
         
         return nil

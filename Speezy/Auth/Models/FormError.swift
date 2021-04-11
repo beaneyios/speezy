@@ -14,6 +14,7 @@ enum Field: Hashable {
     case passwordVerifier
     case username
     case chatTitle
+    case displayName
 }
 
 struct FormError {

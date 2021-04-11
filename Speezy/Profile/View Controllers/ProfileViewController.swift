@@ -25,6 +25,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var usernameTxtField: UITextField!
     @IBOutlet weak var usernameSeparator: UIView!
     
+    @IBOutlet weak var displayNameSeparator: UIView!
+    
     @IBOutlet weak var nameTxtField: UITextField!
     @IBOutlet weak var occupationTxtField: UITextField!
     @IBOutlet weak var aboutYouPlaceholder: UILabel!
@@ -313,11 +315,12 @@ extension ProfileViewController: UITextFieldDelegate {
 extension ProfileViewController: FormErrorDisplaying {
     var fieldDict: [Field: UIView] {
         [
-            Field.username: usernameSeparator
+            Field.username: usernameSeparator,
+            Field.displayName: displayNameSeparator
         ]
     }
     
     var separators: [UIView] {
-        [usernameSeparator]
+        [usernameSeparator, displayNameSeparator]
     }
 }
