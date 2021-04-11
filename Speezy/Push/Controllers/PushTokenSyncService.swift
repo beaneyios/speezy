@@ -47,6 +47,23 @@ class PushTokenSyncService {
         updateDatabase(userId: userId, fcmToken: token)
     }
     
+    func syncRemotePushToken(_ token: String?) {
+        guard
+            let fcmToken = Messaging.messaging().fcmToken,
+            let userId = Auth.auth().currentUser?.uid
+        else {
+            return
+        }
+        
+        // We have a potential problem where someone might log in to
+        // the same Speezy account from multiple devices.
+        // Only one device is allowed per account right now, so
+        // this ensures that the device the user is using is up to date.
+        if fcmToken != token {
+            updateDatabase(userId: userId, fcmToken: fcmToken)
+        }
+    }
+    
     func unsyncPushToken() {
         guard let userId = Auth.auth().currentUser?.uid else {
             return

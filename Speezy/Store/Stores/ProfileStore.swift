@@ -11,6 +11,7 @@ import Foundation
 class ProfileStore {
     private let profileListener = ProfileListener()
     private let profileFetcher = ProfileFetcher()
+    private let tokenService = PushTokenSyncService()
     
     private(set) var profile: Profile?
     
@@ -37,11 +38,16 @@ class ProfileStore {
                     self.profile = profile
                     self.notifyObservers(change: .initialProfileReceived(profile))
                     self.listenForProfile(userId: userId)
+                    self.syncPushToken(token: profile.pushToken)
                 case let .failure(error):
                     break
                 }
             }
         }
+    }
+    
+    private func syncPushToken(token: String?) {
+        tokenService.syncRemotePushToken(token)
     }
     
     private func listenForProfile(userId: String) {
