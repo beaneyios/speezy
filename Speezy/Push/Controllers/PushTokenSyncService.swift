@@ -12,6 +12,7 @@ import FirebaseAuth
 
 class PushTokenSyncService {
     private let tokenStorageKey = "Speezy_FCM_Token"
+    private let tokenTimeStorageKey = "Token_Time_Key"
     
     // This will run every time the user authorises with Firebase (on launch).
     func syncPushToken(userId: String) {
@@ -47,6 +48,30 @@ class PushTokenSyncService {
         updateDatabase(userId: userId, fcmToken: token)
     }
     
+    func refreshPushTokenIfOutOfDate() {
+        guard
+            let fcmToken = Messaging.messaging().fcmToken,
+            let userId = Auth.auth().currentUser?.uid
+        else {
+            return
+        }
+        
+        let timeNow = Date().timeIntervalSince1970
+        let difference = 60.0 * 30.0
+        let storedDate = UserDefaults.standard.object(forKey: tokenTimeStorageKey) as? TimeInterval
+
+        if
+            let storedDate = storedDate,
+            (timeNow - storedDate) > difference
+        {
+            updateDatabase(userId: userId, fcmToken: fcmToken)
+        }
+        
+        if storedDate == nil {
+            updateDatabase(userId: userId, fcmToken: fcmToken)
+        }        
+    }
+    
     func syncRemotePushToken(_ token: String?) {
         guard
             let fcmToken = Messaging.messaging().fcmToken,
@@ -78,6 +103,9 @@ class PushTokenSyncService {
     }
     
     private func updateDatabase(userId: String, fcmToken: String) {
+        let time = Date().timeIntervalSince1970
+        UserDefaults.standard.setValue(time, forKey: tokenTimeStorageKey)
+        
         let pushDatabaseManager = DatabasePushTokenManager()
         pushDatabaseManager.syncPushToken(
             forUserId: userId,

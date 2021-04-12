@@ -39,6 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
+        PushTokenSyncService().refreshPushTokenIfOutOfDate()
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
