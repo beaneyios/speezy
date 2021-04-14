@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         
         PushDeliveryHandler.shared.configure(appCoordinator: appCoordinator)
         appCoordinator.awaitingChatId = PushDeliveryHandler.shared.chatId(from: connectionOptions)
+        appCoordinator.shouldDeepLinkToProfile = PushDeliveryHandler.shared.shouldDeepLinkToProfile(from: connectionOptions)
         appCoordinator.awaitingActivity = connectionOptions.userActivities.first
         appCoordinator.start()
         

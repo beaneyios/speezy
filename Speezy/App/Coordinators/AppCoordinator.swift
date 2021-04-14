@@ -15,6 +15,7 @@ class AppCoordinator: ViewCoordinator {
     let tabBarController: UITabBarController
     var awaitingChatId: String?
     var awaitingContactId: String?
+    var shouldDeepLinkToProfile: Bool = false
     var awaitingActivity: NSUserActivity?
     
     let signOutManager = SignOutManager.shared
@@ -64,6 +65,14 @@ class AppCoordinator: ViewCoordinator {
         }
         
         homeCoordinator.navigateToChatId(chatId, message: message)
+    }
+    
+    func navigateToProfile() {
+        guard let homeCoordinator = find(HomeCoordinator.self) else {
+            return
+        }
+        
+        homeCoordinator.navigateToProfile()
     }
     
     private func handleKillSwitchChange(status: Status?) {
@@ -121,7 +130,8 @@ class AppCoordinator: ViewCoordinator {
         homeCoordinator.start(
             awaitingChatId: awaitingChatId,
             awaitingContactId: awaitingContactId,
-            awaitingUserActivity: awaitingActivity
+            awaitingUserActivity: awaitingActivity,
+            shouldDeepLinkToProfile: shouldDeepLinkToProfile
         )
         tabBarController.tabBar.isHidden = false
         

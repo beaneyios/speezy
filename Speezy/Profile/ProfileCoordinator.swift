@@ -20,6 +20,12 @@ class ProfileCoordinator: ViewCoordinator, NavigationControlling {
     
     weak var delegate: ProfileCoordinatorDelegate?
     
+    var profileEditViewController: ProfileEditViewController? {
+        navigationController.viewControllers.compactMap {
+            $0 as? ProfileEditViewController
+        }.first
+    }
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }

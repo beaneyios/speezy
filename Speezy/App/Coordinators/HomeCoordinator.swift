@@ -36,7 +36,8 @@ class HomeCoordinator: ViewCoordinator {
     func start(
         awaitingChatId chatId: String?,
         awaitingContactId contactId: String?,
-        awaitingUserActivity userActivity: NSUserActivity?
+        awaitingUserActivity userActivity: NSUserActivity?,
+        shouldDeepLinkToProfile: Bool
     ) {
         tabBarController.setViewControllers([], animated: false)
         addChatCoordinator(awaitingChatId: chatId)
@@ -50,7 +51,8 @@ class HomeCoordinator: ViewCoordinator {
         handleAwaitingActivities(
             chatId: chatId,
             contactId: contactId,
-            userActivity: userActivity
+            userActivity: userActivity,
+            shouldDeepLinkToProfile: shouldDeepLinkToProfile
         )
     }
     
@@ -62,6 +64,16 @@ class HomeCoordinator: ViewCoordinator {
         }
         
         profileCoordinator.navigateToAddContact(contactId: contactId)
+    }
+    
+    func navigateToProfile() {
+        tabBarController.selectedIndex = TabBarTab.contacts.rawValue
+        
+        guard let profileCoordinator = find(ProfileCoordinator.self) else {
+            return
+        }
+        
+        profileCoordinator.profileEditViewController?.highlightAddButton()
     }
     
     func navigateToChatId(_ chatId: String, message: String) {
@@ -94,13 +106,16 @@ class HomeCoordinator: ViewCoordinator {
     private func handleAwaitingActivities(
         chatId: String?,
         contactId: String?,
-        userActivity: NSUserActivity?
+        userActivity: NSUserActivity?,
+        shouldDeepLinkToProfile: Bool
     ) {
         if chatId != nil {
             return
         }
         
-        if let contactId = contactId {
+        if shouldDeepLinkToProfile {
+            navigateToProfile()
+        } else if let contactId = contactId {
             navigateToAddContact(contactId: contactId)
         } else if let userActivity = userActivity {
             handleUserActivity(userActivity)

@@ -28,6 +28,8 @@ class ProfileEditViewController: UIViewController {
     weak var delegate: ProfileEditViewControllerDelegate?
     var viewModel: ProfileEditViewModel!
     
+    private var highlightButton = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +70,23 @@ class ProfileEditViewController: UIViewController {
         shareContainer.clipsToBounds = true
         shareContainer.layer.borderWidth = 1.0
         shareContainer.layer.borderColor = UIColor.speezyPurple.cgColor
+    }
+    
+    func highlightAddButton() {
+        guard let shareContainer = shareContainer else {
+            highlightButton = true
+            return
+        }
+        
+        highlightButton = false
+        
+        UIView.animate(withDuration: 0.3) {
+            shareContainer.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        } completion: { _ in
+            UIView.animate(withDuration: 1.0) {
+                shareContainer.transform = .identity
+            }
+        }
     }
     
     private func configureShareButton() {
@@ -147,6 +166,12 @@ class ProfileEditViewController: UIViewController {
             }
             
             self.animateButton(button: element, offset: $0.offset)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+            if self.highlightButton {
+                self.highlightAddButton()
+            }
         }
     }
     

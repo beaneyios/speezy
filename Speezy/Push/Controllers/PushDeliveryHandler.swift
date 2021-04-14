@@ -23,7 +23,14 @@ class PushDeliveryHandler: NSObject {
         self.appCoordinator = appCoordinator
     }
     
-    func handlePushFromWarmLaunch(userInfo: [AnyHashable: Any]) {
+    func handlePushFromWarmLaunch(request: UNNotificationRequest) {
+        if request.identifier == ContactBackgroundFetchController.notificationId {
+            appCoordinator?.navigateToProfile()
+            return
+        }
+        
+        let userInfo = request.content.userInfo
+        
         guard
             let chatId = chatId(from: userInfo),
             let message = message(from: userInfo)
@@ -43,6 +50,14 @@ class PushDeliveryHandler: NSObject {
         }
         
         return nil
+    }
+    
+    func shouldDeepLinkToProfile(from connectionOptions: UIScene.ConnectionOptions) -> Bool {
+        guard let notification = connectionOptions.notificationResponse?.notification else {
+            return false
+        }
+        
+        return notification.request.identifier == ContactBackgroundFetchController.notificationId
     }
     
     func configurePush(app: UIApplication) {
@@ -91,8 +106,7 @@ extension PushDeliveryHandler: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-        let userInfo = response.notification.request.content.userInfo
-        handlePushFromWarmLaunch(userInfo: userInfo)
+        handlePushFromWarmLaunch(request: response.notification.request)
     }
 }
 

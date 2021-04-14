@@ -14,9 +14,12 @@ import FirebaseAuth
 class ContactBackgroundFetchController {
     static var shared = ContactBackgroundFetchController()
     
+    static let notificationId = "ContactNotification"
+    
     private let taskKey = "com.suggestv.speezy.contacts"
     private let defaultKey = "contact_notification_check"
     private let refreshTime = 60.0 * 60.0 * 24.0
+    private let pushTime = 10.0
     
     func registerBackgroundFetch() {
         if contactLimitHit {
@@ -48,6 +51,22 @@ class ContactBackgroundFetchController {
         BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskKey)
     }
     
+    func scheduleLocalNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "You don't have many friends"
+        content.body = "Get the most from Speezy by sharing your account with a few more of your friends."
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: pushTime, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: Self.notificationId,
+            content: content,
+            trigger: trigger
+        )
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request) { _ in }
+    }
+    
     private func fetchContacts(task: BGAppRefreshTask) {
         guard let userId = Auth.auth().currentUser?.uid else {
             return
@@ -64,19 +83,7 @@ class ContactBackgroundFetchController {
             if value.allKeys.count > 7 {
                 self.setContactLimitHit()
             } else {
-                let content = UNMutableNotificationContent()
-                content.title = "You don't have many friends"
-                content.body = "Get the most from Speezy by sharing your account with a few more of your friends."
-                
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60.0, repeats: false)
-                let request = UNNotificationRequest(
-                    identifier: UUID().uuidString,
-                    content: content,
-                    trigger: trigger
-                )
-                
-                let notificationCenter = UNUserNotificationCenter.current()
-                notificationCenter.add(request) { _ in }
+                self.scheduleLocalNotification()
                 self.scheduleContactFetch()
             }
             

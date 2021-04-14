@@ -14,6 +14,7 @@ import FBSDKCoreKit
 import FirebaseFunctions
 import FirebaseDatabase
 import GoogleSignIn
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
@@ -32,8 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PushDeliveryHandler.shared.configurePush(app: application)
         UIApplication.shared.applicationIconBadgeNumber = 0
         
-//        ContactBackgroundFetchController.shared.registerBackgroundFetch()
-        
+        ContactBackgroundFetchController.shared.registerBackgroundFetch()
         return true
     }
     

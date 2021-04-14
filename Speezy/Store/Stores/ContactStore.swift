@@ -11,6 +11,7 @@ import Foundation
 class ContactStore {
     private let contactListener = ContactsListener()
     private let contactFetcher = ContactsFetcher()
+    private let contactBackgroundFetcher = ContactBackgroundFetchController.shared
     private(set) var contacts = [Contact]()
     
     private var observations = [ObjectIdentifier : ContactListObservation]()
@@ -45,6 +46,7 @@ class ContactStore {
                     self.handleAllContacts(contacts: contacts)
                     self.contactListener.listenForContactAdditions(userId: userId)
                     self.contactListener.listenForContactDeletions(userId: userId)
+                    self.contactBackgroundFetcher.scheduleContactFetch()
                 case let .failure(error):
                     break
                 }
@@ -60,9 +62,13 @@ class ContactStore {
     
     private func handleContactAdded(contact: Contact) {
         if contacts.contains(contact) {
-            self.contacts = contacts.replacing(contact)
+            contacts = contacts.replacing(contact)
         } else {
             contacts.append(contact)
+        }
+        
+        if contacts.count > 7 {
+            contactBackgroundFetcher.cancelAllRequests()
         }
 
         sortContacts()
