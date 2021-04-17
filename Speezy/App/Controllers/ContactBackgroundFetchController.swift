@@ -17,12 +17,43 @@ class ContactBackgroundFetchController {
     static let notificationId = "ContactNotification"
     
     private let taskKey = "com.suggestv.speezy.contacts"
-    private let defaultKey = "contact_notification_check"
-    private let refreshTime = 60.0 * 60.0 * 24.0
     private let pushTime = 10.0
     
+    private let stageKey = "contact_notification_key"
+    private var stage: Stage {
+        guard let defaultStage = UserDefaults.standard.object(forKey: stageKey) as? String else {
+            return .firstTry
+        }
+        
+        return Stage(rawValue: defaultStage) ?? .firstTry
+    }
+    
+    enum Stage: String {
+        case firstTry
+        case secondTry
+        case thirdTry
+        case complete
+        
+        var earliestRefreshTimeInterval: TimeInterval? {
+            let minute = 60.0
+            let hour = minute * 60.0
+            let day = hour * 24.0
+            
+            switch self {
+            case .firstTry:
+                return minute * 10.0
+            case .secondTry:
+                return minute * 20.0
+            case .thirdTry:
+                return minute * 30.0
+            case .complete:
+                return nil
+            }
+        }
+    }
+    
     func registerBackgroundFetch() {
-        if contactLimitHit {
+        if stage == .complete {
             return
         }
         
@@ -37,8 +68,12 @@ class ContactBackgroundFetchController {
     }
     
     func scheduleContactFetch() {
+        guard let earliestRefreshTimeInterval = stage.earliestRefreshTimeInterval else {
+            return
+        }
+        
         let task = BGAppRefreshTaskRequest(identifier: taskKey)
-        task.earliestBeginDate = Date().addingTimeInterval(refreshTime)
+        task.earliestBeginDate = Date().addingTimeInterval(earliestRefreshTimeInterval)
         
         do {
             try BGTaskScheduler.shared.submit(task)
@@ -81,8 +116,9 @@ class ContactBackgroundFetchController {
             }
             
             if value.allKeys.count > 7 {
-                self.setContactLimitHit()
+                self.setStage(stage: .complete)
             } else {
+                self.incrementStage()
                 self.scheduleLocalNotification()
                 self.scheduleContactFetch()
             }
@@ -91,11 +127,18 @@ class ContactBackgroundFetchController {
         }
     }
     
-    var contactLimitHit: Bool {
-        UserDefaults.standard.bool(forKey: defaultKey)
+    private func incrementStage() {
+        switch stage {
+        case .firstTry:
+            setStage(stage: .secondTry)
+        case .secondTry:
+            setStage(stage: .thirdTry)
+        case .thirdTry, .complete:
+            break
+        }
     }
     
-    private func setContactLimitHit() {
-        UserDefaults.standard.set(true, forKey: defaultKey)
+    private func setStage(stage: Stage) {
+        UserDefaults.standard.setValue(stage.rawValue, forKey: stageKey)
     }
 }
