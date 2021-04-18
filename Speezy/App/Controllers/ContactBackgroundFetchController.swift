@@ -78,7 +78,7 @@ class ContactBackgroundFetchController {
         do {
             try BGTaskScheduler.shared.submit(task)
         } catch {
-            assertionFailure("Unable to submit task: \(error.localizedDescription)")
+            NSLog("Background task failed to submit for reason: \(error)")
         }
     }
     
