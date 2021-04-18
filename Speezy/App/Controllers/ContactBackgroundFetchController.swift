@@ -41,11 +41,11 @@ class ContactBackgroundFetchController {
             
             switch self {
             case .firstTry:
-                return minute * 10.0
+                return day
             case .secondTry:
-                return minute * 20.0
+                return day * 3
             case .thirdTry:
-                return minute * 30.0
+                return day * 7
             case .complete:
                 return nil
             }
