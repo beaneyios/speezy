@@ -34,7 +34,7 @@ class ProfileFetcher {
         completion: @escaping (Result<(Profile, String), Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        ref.child("usernames/\(username)").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child("usernames/\(username.lowercased())").observeSingleEvent(of: .value) { (snapshot) in
             guard let userId = snapshot.value as? String else {
                 let error = NSError(domain: "database", code: 404, userInfo: nil)
                 completion(.failure(error))

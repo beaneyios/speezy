@@ -22,7 +22,7 @@ class DatabaseProfileManager {
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        ref.child("usernames/\(userName)").observeSingleEvent(of: .value) { (snapshot) in
+        ref.child("usernames/\(userName.lowercased())").observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.value != nil {
                 completion(.success(false))
                 return
@@ -99,7 +99,7 @@ class DatabaseProfileManager {
         
         let updatedData: [String: Any] = [
             "users/\(userId)/profile": dataDictionary,
-            "usernames/\(profile.userName)": userId
+            "usernames/\(profile.userName.lowercased())": userId
         ]
         
         ref.updateChildValues(updatedData) { (error, _) in
