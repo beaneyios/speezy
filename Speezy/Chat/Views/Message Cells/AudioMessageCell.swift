@@ -31,7 +31,9 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var replyIcon: UIImageView!
     @IBOutlet weak var unplayedNotification: UIView!
     @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
+    
     @IBOutlet weak var replyBox: UIView!
+    @IBOutlet weak var replyBoxHeight: NSLayoutConstraint!
     
     var messageDidStartPlaying: ((AudioMessageCell) -> Void)?
     var messageDidStopPlaying: ((AudioMessageCell) -> Void)?
@@ -73,9 +75,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
                 ]
             }
         }()
-        
-        replyBox.layer.cornerRadius = 15.0
-        
+                
         messageContainer.backgroundColor = item.backgroundColor
         messageContainer.layer.cornerRadius = 20.0
         
@@ -93,14 +93,13 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         
         configureAudioControls(item: item)
         configureImage(item: item)
+        configureReplyBox(item: item)
         
         setNeedsLayout()
         layoutIfNeeded()
         profileImage.layer.cornerRadius = profileImage.frame.height / 2.0
         
-        let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
-        container.addGestureRecognizer(panGestureRecogniser)
-        panGestureRecogniser.delegate = self
+        configureSwipeAction()
     }
     
     func configureImage(item: MessageCellModel) {
@@ -131,6 +130,40 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         
         messageContainer.layer.borderWidth = item.borderWidth
         messageContainer.layer.borderColor = item.borderColor.cgColor
+    }
+    
+    private func configureReplyBox(item: MessageCellModel) {
+        
+        replyBox.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        guard let messageReply = item.message.replyTo else {
+            replyBoxHeight.constant = 0.0
+            return
+        }
+        
+        replyBoxHeight.constant = 50.0
+        
+        let replyBox = ReplyMessageEmbedView.createFromNib()
+        self.replyBox.addSubview(replyBox)
+        replyBox.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        let viewModel = ReplyMessageEmbedViewModel(
+            message: messageReply,
+            sender: item.isSender,
+            chatterColor: item.color ?? .speezyPurple
+        )
+        
+        replyBox.configure(viewModel: viewModel)
+    }
+    
+    private func configureSwipeAction() {
+        let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
+        container.addGestureRecognizer(panGestureRecogniser)
+        panGestureRecogniser.delegate = self
     }
     
     private func configureAudioControls(item: MessageCellModel) {

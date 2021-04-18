@@ -36,7 +36,7 @@
                                         <rect key="frame" x="55" y="0.0" width="391" height="216"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15:43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXA-6e-Ol6">
-                                                <rect key="frame" x="321" y="42.5" width="35" height="15"/>
+                                                <rect key="frame" x="321" y="98" width="35" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="KTp-cI-cEt"/>
                                                 </constraints>
@@ -45,7 +45,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send-receive-ticks" translatesAutoresizingMaskIntoConstraints="NO" id="fxD-7X-NFt">
-                                                <rect key="frame" x="360" y="42.5" width="15" height="15"/>
+                                                <rect key="frame" x="360" y="98" width="15" height="15"/>
                                                 <color key="tintColor" red="1" green="0.0033983118409999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="gDD-12-vKp"/>
@@ -53,7 +53,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gst-vl-hLS">
-                                                <rect key="frame" x="16" y="12" width="359" height="19.5"/>
+                                                <rect key="frame" x="16" y="67.5" width="359" height="19.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16.5" id="hhw-SZ-Hzt"/>
                                                 </constraints>
@@ -62,7 +62,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpR-w4-QhF">
-                                                <rect key="frame" x="16" y="41.5" width="33" height="17"/>
+                                                <rect key="frame" x="16" y="97" width="33" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="aDl-L8-8vr"/>
                                                 </constraints>
@@ -70,21 +70,31 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dw1-M2-H9a">
+                                                <rect key="frame" x="6" y="6" width="379" height="55.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55.5" id="aDB-pQ-o1n"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="chat-bubble-sender"/>
                                         <constraints>
                                             <constraint firstItem="BXA-6e-Ol6" firstAttribute="centerY" secondItem="LpR-w4-QhF" secondAttribute="centerY" id="0vw-fI-fZI"/>
                                             <constraint firstItem="fxD-7X-NFt" firstAttribute="centerY" secondItem="BXA-6e-Ol6" secondAttribute="centerY" id="2aD-AI-fNw"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LpR-w4-QhF" secondAttribute="bottom" constant="12" id="8fe-B4-7Ad"/>
-                                            <constraint firstItem="gst-vl-hLS" firstAttribute="top" secondItem="NZb-qu-BOU" secondAttribute="top" constant="12" id="BgN-M6-woN"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BXA-6e-Ol6" secondAttribute="bottom" constant="16" id="SJZ-e6-QgF"/>
                                             <constraint firstItem="fxD-7X-NFt" firstAttribute="leading" secondItem="BXA-6e-Ol6" secondAttribute="trailing" constant="4" id="UvM-14-XpO"/>
+                                            <constraint firstItem="Dw1-M2-H9a" firstAttribute="top" secondItem="NZb-qu-BOU" secondAttribute="top" constant="6" id="Xtv-iU-cKt"/>
                                             <constraint firstItem="gst-vl-hLS" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="16" id="h8y-lB-SXO"/>
                                             <constraint firstItem="LpR-w4-QhF" firstAttribute="top" secondItem="gst-vl-hLS" secondAttribute="bottom" constant="10" id="hXs-ZZ-29u"/>
                                             <constraint firstAttribute="trailing" secondItem="fxD-7X-NFt" secondAttribute="trailing" constant="16" id="iK1-PC-2r5"/>
                                             <constraint firstItem="LpR-w4-QhF" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="16" id="iOW-f2-c16"/>
                                             <constraint firstItem="BXA-6e-Ol6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LpR-w4-QhF" secondAttribute="trailing" constant="16" id="kiT-Uj-rpX"/>
+                                            <constraint firstItem="Dw1-M2-H9a" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="6" id="sBM-KD-igZ"/>
                                             <constraint firstAttribute="trailing" secondItem="gst-vl-hLS" secondAttribute="trailing" constant="16" id="vTZ-iQ-XUY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dw1-M2-H9a" secondAttribute="trailing" constant="6" id="wT5-5M-P2W"/>
+                                            <constraint firstItem="gst-vl-hLS" firstAttribute="top" secondItem="Dw1-M2-H9a" secondAttribute="bottom" constant="6" id="x58-pO-ldN"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -134,6 +144,8 @@
                 <outlet property="messageContainer" destination="NZb-qu-BOU" id="HWS-3O-ff4"/>
                 <outlet property="messageLabel" destination="gst-vl-hLS" id="w7z-Ds-KO8"/>
                 <outlet property="profileImage" destination="Fl7-xC-OF1" id="QQv-yr-4S6"/>
+                <outlet property="replyBox" destination="Dw1-M2-H9a" id="yi3-vb-Ui7"/>
+                <outlet property="replyBoxHeight" destination="aDB-pQ-o1n" id="eBj-SD-5xH"/>
                 <outlet property="replyIcon" destination="4Ko-gB-eJr" id="x4q-qY-Jb9"/>
                 <outlet property="sendStatusImage" destination="fxD-7X-NFt" id="G7q-ig-Uic"/>
                 <outlet property="sendStatusImageWidth" destination="izQ-bd-fga" id="BJl-20-ObE"/>

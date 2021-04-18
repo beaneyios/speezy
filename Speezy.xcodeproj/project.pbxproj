@@ -184,6 +184,8 @@
 		BE978D11262C388F00E71419 /* MessageReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D10262C388E00E71419 /* MessageReply.swift */; };
 		BE978D17262C4CA500E71419 /* ReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D16262C4CA500E71419 /* ReplyView.swift */; };
 		BE978D1B262C4CB100E71419 /* ReplyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978D1A262C4CB100E71419 /* ReplyView.xib */; };
+		BE978D1F262C901700E71419 /* ReplyMessageEmbedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978D1E262C901700E71419 /* ReplyMessageEmbedView.xib */; };
+		BE978D23262C903500E71419 /* ReplyMessageEmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -522,6 +524,8 @@
 		BE978D10262C388E00E71419 /* MessageReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReply.swift; sourceTree = "<group>"; };
 		BE978D16262C4CA500E71419 /* ReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyView.swift; sourceTree = "<group>"; };
 		BE978D1A262C4CB100E71419 /* ReplyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyView.xib; sourceTree = "<group>"; };
+		BE978D1E262C901700E71419 /* ReplyMessageEmbedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyMessageEmbedView.xib; sourceTree = "<group>"; };
+		BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyMessageEmbedView.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -1152,6 +1156,8 @@
 				BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */,
 				BE978CF9262224F300E71419 /* TextMessageCell.swift */,
 				BE978CFA262224F300E71419 /* TextMessageCell.xib */,
+				BE978D1E262C901700E71419 /* ReplyMessageEmbedView.xib */,
+				BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */,
 			);
 			path = "Message Cells";
 			sourceTree = "<group>";
@@ -1979,6 +1985,7 @@
 				BE6080C4250FFE8E003CB318 /* Speezy-35fb1cf24683.json in Resources */,
 				BEFCDBE024D0282400A6232E /* CustomVideoPlaceholderView.xib in Resources */,
 				BE6080B4250E8713003CB318 /* Transcription.storyboard in Resources */,
+				BE978D1F262C901700E71419 /* ReplyMessageEmbedView.xib in Resources */,
 				BE6080BA250E90A0003CB318 /* transcription-test-file-trimmed.m4a in Resources */,
 				BE6080B1250E86A3003CB318 /* WordCell.xib in Resources */,
 				BEE47EFC25BC433200AF47FA /* ChatCell.xib in Resources */,
@@ -2295,6 +2302,7 @@
 				BE3FACAF2540BCF2006AD4D6 /* TranscriptionLoadingViewController.swift in Sources */,
 				BE0A45A125CEBEE0005F4DA8 /* ContactListObservation.swift in Sources */,
 				BEE47F3E25BC67D100AF47FA /* NewChatViewModel.swift in Sources */,
+				BE978D23262C903500E71419 /* ReplyMessageEmbedView.swift in Sources */,
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
 				BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */,
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ReplyMessageEmbedView" customModule="Speezy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="511" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LDD-yv-6tI">
+                    <rect key="frame" x="12" y="26.666666666666671" width="487" height="35"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Matt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-y9-Tqk">
+                            <rect key="frame" x="0.0" y="0.0" width="34" height="18"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <color key="textColor" name="speezy-purple"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message goes here and will likely cut off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35c-2s-QCI">
+                            <rect key="frame" x="0.0" y="17.999999999999996" width="487" height="17.000000000000004"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vq3-86-iwU">
+                            <rect key="frame" x="452.33333333333331" y="1.6666666666666652" width="30.666666666666686" height="14.333333333333336"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="35c-2s-QCI" firstAttribute="leading" secondItem="LDD-yv-6tI" secondAttribute="leading" id="2aS-T6-hgt"/>
+                        <constraint firstItem="35c-2s-QCI" firstAttribute="top" secondItem="4v9-y9-Tqk" secondAttribute="bottom" id="AYn-ba-SrU"/>
+                        <constraint firstItem="vq3-86-iwU" firstAttribute="centerY" secondItem="4v9-y9-Tqk" secondAttribute="centerY" id="D0B-Iq-Fos"/>
+                        <constraint firstItem="4v9-y9-Tqk" firstAttribute="top" secondItem="LDD-yv-6tI" secondAttribute="top" id="HoI-cX-L0u"/>
+                        <constraint firstAttribute="trailing" secondItem="vq3-86-iwU" secondAttribute="trailing" constant="4" id="Irw-Op-ckC"/>
+                        <constraint firstItem="vq3-86-iwU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4v9-y9-Tqk" secondAttribute="trailing" constant="4" id="K5T-DH-jW3"/>
+                        <constraint firstAttribute="bottom" secondItem="35c-2s-QCI" secondAttribute="bottom" id="SdD-eh-Xa0"/>
+                        <constraint firstAttribute="trailing" secondItem="35c-2s-QCI" secondAttribute="trailing" id="ZUS-Tx-SiL"/>
+                        <constraint firstItem="4v9-y9-Tqk" firstAttribute="leading" secondItem="LDD-yv-6tI" secondAttribute="leading" id="hTs-RI-zyK"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="LDD-yv-6tI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="47M-6t-TQc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LDD-yv-6tI" secondAttribute="trailing" constant="12" id="CmX-PS-kgl"/>
+                <constraint firstItem="LDD-yv-6tI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="XHJ-UY-tCg"/>
+                <constraint firstItem="LDD-yv-6tI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" id="nHU-Hi-Esb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LDD-yv-6tI" secondAttribute="bottom" id="o7d-k5-17e"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="chatterLabel" destination="4v9-y9-Tqk" id="lbo-yy-hRe"/>
+                <outlet property="durationLabel" destination="vq3-86-iwU" id="KWL-BG-Xm7"/>
+                <outlet property="messageLabel" destination="35c-2s-QCI" id="0Jm-vO-gRS"/>
+            </connections>
+            <point key="canvasLocation" x="-525.36231884057975" y="-43.206521739130437"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="speezy-purple">
+            <color red="0.23137254901960785" green="0.031372549019607843" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -22,6 +22,9 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var replyIcon: UIImageView!
     @IBOutlet weak var container: UIView!
     
+    @IBOutlet weak var replyBox: UIView!
+    @IBOutlet weak var replyBoxHeight: NSLayoutConstraint!
+    
     private(set) var message: Message?
     var longPressTapped: ((Message) -> Void)?
     var replyTriggered: ((Message) -> Void)?
@@ -77,6 +80,8 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
         container.addGestureRecognizer(panGestureRecogniser)
         panGestureRecogniser.delegate = self
+        
+        configureReplyBox(item: item)
     }
     
     func configureImage(item: MessageCellModel) {
@@ -136,6 +141,33 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         default:
             break
         }
+    }
+    
+    private func configureReplyBox(item: MessageCellModel) {
+        replyBox.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        guard let messageReply = item.message.replyTo else {
+            replyBoxHeight.constant = 0.0
+            return
+        }
+        
+        replyBoxHeight.constant = 50.0
+        
+        let replyBox = ReplyMessageEmbedView.createFromNib()
+        self.replyBox.addSubview(replyBox)
+        replyBox.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        let viewModel = ReplyMessageEmbedViewModel(
+            message: messageReply,
+            sender: item.isSender,
+            chatterColor: item.color ?? .speezyPurple
+        )
+        
+        replyBox.configure(viewModel: viewModel)
     }
 }
 
