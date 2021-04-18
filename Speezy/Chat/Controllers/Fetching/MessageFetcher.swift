@@ -45,11 +45,11 @@ class MessageFetcher {
                     return nil
                 }
                 
-                return ChatParser.parseMessage(
-                    chat: chat,
-                    chatters: chatters,
+                return Message.fromDict(
+                    dict: dict,
                     key: key,
-                    dict: dict
+                    chat: chat,
+                    chatters: chatters
                 )
             }.sorted {
                 $0.sent > $1.sent

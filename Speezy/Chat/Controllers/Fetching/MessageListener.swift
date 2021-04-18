@@ -45,11 +45,11 @@ class MessageListener: Identifiable {
                 return
             }
             
-            let message = ChatParser.parseMessage(
-                chat: self.chat,
-                chatters: self.chatters,
+            let message = Message.fromDict(
+                dict: result,
                 key: snapshot.key,
-                dict: result
+                chat: self.chat,
+                chatters: self.chatters
             )
             
             if let message = message {

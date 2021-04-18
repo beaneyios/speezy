@@ -11,6 +11,7 @@ import UIKit
 class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var slider: CustomSlider!
     
+    @IBOutlet weak var container: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var displayName: UILabel!
@@ -27,6 +28,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var playButtonImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
         
+    @IBOutlet weak var replyIcon: UIImageView!
     @IBOutlet weak var unplayedNotification: UIView!
     @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
     
@@ -91,6 +93,9 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         setNeedsLayout()
         layoutIfNeeded()
         profileImage.layer.cornerRadius = profileImage.frame.height / 2.0
+        
+        let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
+        container.addGestureRecognizer(panGestureRecogniser)
     }
     
     func configureImage(item: MessageCellModel) {
@@ -175,6 +180,42 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
             audioManager?.seek(to: slider.value)
         case UITouch.Phase.ended:
             audioManager?.play()
+        default:
+            break
+        }
+    }
+    
+    @objc func swipePan(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self)
+        
+        switch sender.state {
+        case .changed:
+            if translation.x > 0.0 {
+                return
+            }
+            
+            let dampenedTranslation = translation.x * 0.7
+            let newTranslation: CGFloat = {
+                if abs(dampenedTranslation) > (frame.width / 3.0) {
+                    return -(frame.width / 3.0)
+                } else {
+                    return dampenedTranslation
+                }
+            }()
+            
+            if dampenedTranslation < -60.0 && replyIcon.alpha == 0.0 {
+                UIView.animate(withDuration: 0.3) {
+                    self.replyIcon.alpha = 1.0
+                }
+            }
+            
+            container.transform = CGAffineTransform(translationX: newTranslation, y: 0)
+        case .ended:
+            
+            UIView.animate(withDuration: 0.4) {
+                self.replyIcon.alpha = 0.0
+                self.container.transform = .identity
+            }
         default:
             break
         }

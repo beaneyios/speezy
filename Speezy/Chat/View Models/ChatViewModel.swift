@@ -57,27 +57,11 @@ class ChatViewModel: NewItemGenerating {
     
     private var currentAudioFile: AudioItem?
     private var stagedText: String?
-    
-    var groupTitleText: String {
-        chat.computedTitle(currentUserId: currentUserId)
-    }
-
-    var currentUserId: String? {
-        Auth.auth().currentUser?.uid
-    }
-    
-    var shouldShowEmptyView: Bool {
-        items.isEmpty
-    }
+    private var currentReplyMessage: Message?
     
     init(chat: Chat, store: Store) {
         self.chat = chat
         self.store = store
-    }
-    
-    func setAudioItem(_ item: AudioItem) {
-        currentAudioFile = item.withoutStagingPath()
-        LocalAudioManager.createOriginalFromStaged(item: item)
     }
     
     func leaveChat() {
@@ -94,6 +78,11 @@ class ChatViewModel: NewItemGenerating {
         }
     }
     
+    func setAudioItem(_ item: AudioItem) {
+        currentAudioFile = item.withoutStagingPath()
+        LocalAudioManager.createOriginalFromStaged(item: item)
+    }
+    
     func cancelAudioItem() {
         guard let item = currentAudioFile else {
             return
@@ -103,6 +92,14 @@ class ChatViewModel: NewItemGenerating {
         currentAudioFile = nil
     }
     
+    func setReplyMessage(_ message: Message) {
+        self.currentReplyMessage = message
+    }
+    
+    func cancelReplyMessage() {
+        self.currentReplyMessage = nil
+    }
+    
     func setMessageText(_ text: String) {
         self.stagedText = text
     }
@@ -110,6 +107,21 @@ class ChatViewModel: NewItemGenerating {
     func stopObserving() {
         store.messagesStore.removeMessagesObserver(self)
         store.chatStore.removeChatListObserver(self)
+    }
+}
+
+// MARK: Computed
+extension ChatViewModel {
+    var groupTitleText: String {
+        chat.computedTitle(currentUserId: currentUserId)
+    }
+
+    var currentUserId: String? {
+        Auth.auth().currentUser?.uid
+    }
+    
+    var shouldShowEmptyView: Bool {
+        items.isEmpty
     }
 }
 
@@ -298,7 +310,8 @@ extension ChatViewModel {
             attachmentUrl: nil,
             duration: item?.calculatedDuration,
             readBy: [chatter],
-            playedBy: []
+            playedBy: [],
+            replyTo: currentReplyMessage?.toReply
         )
                 
         // First, insert the message.

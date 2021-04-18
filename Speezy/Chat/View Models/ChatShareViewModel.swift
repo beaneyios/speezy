@@ -93,7 +93,8 @@ class ChatShareViewModel {
             attachmentUrl: nil,
             duration: item.calculatedDuration,
             readBy: [],
-            playedBy: []
+            playedBy: [],
+            replyTo: nil
         )
         
         messageCreator.insertMessage(

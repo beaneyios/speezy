@@ -181,6 +181,7 @@
 		BE978CF62622202500E71419 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978CF42622202500E71419 /* TestCell.xib */; };
 		BE978CFB262224F300E71419 /* TextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978CF9262224F300E71419 /* TextMessageCell.swift */; };
 		BE978CFC262224F300E71419 /* TextMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978CFA262224F300E71419 /* TextMessageCell.xib */; };
+		BE978D11262C388F00E71419 /* MessageReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D10262C388E00E71419 /* MessageReply.swift */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -516,6 +517,7 @@
 		BE978CF42622202500E71419 /* TestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
 		BE978CF9262224F300E71419 /* TextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMessageCell.swift; sourceTree = "<group>"; };
 		BE978CFA262224F300E71419 /* TextMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextMessageCell.xib; sourceTree = "<group>"; };
+		BE978D10262C388E00E71419 /* MessageReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReply.swift; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -1006,9 +1008,10 @@
 		BE6FD94125B6105500723732 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BE6FD94225B6106200723732 /* Message.swift */,
 				BE6FD94825B6106900723732 /* Chat.swift */,
 				BE6FD94C25B6107200723732 /* Chatter.swift */,
+				BE6FD94225B6106200723732 /* Message.swift */,
+				BE978D10262C388E00E71419 /* MessageReply.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2158,6 +2161,7 @@
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
+				BE978D11262C388F00E71419 /* MessageReply.swift in Sources */,
 				BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */,
 				BEFF49D425C59D3F00794A21 /* TabItem.swift in Sources */,
 				BEFF49DA25C5A5BD00794A21 /* HomeCoordinator.swift in Sources */,
