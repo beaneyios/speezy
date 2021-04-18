@@ -24,6 +24,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var chatterNames: UILabel!
+    @IBOutlet weak var replyContainer: UIView!
+    @IBOutlet weak var replyContainerHeight: NSLayoutConstraint!
     
     var viewHeight: CGFloat {
         collectionView.frame.height
@@ -355,6 +357,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                     let item = self.viewModel.items[$0.0]
                     $0.1.configurePlayedStatus(item: item)
                 }
+            case let .replyMessageSet(message):
+                self.presentReply(message: message)
+            case .replyMessageCleared:
+                self.clearReply()
             }
         }
     }
@@ -375,6 +381,46 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
                 return nil
             }
         }
+    }
+    
+    private func presentReply(message: ReplyViewModel) {
+        replyContainer.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        let replyView = ReplyView.createFromNib()
+        replyView.frame.size.width = view.frame.width
+        replyView.frame.size.height = 0.0
+        replyView.configure(viewModel: message)
+        
+        replyView.setNeedsLayout()
+        replyView.layoutIfNeeded()
+        
+        let size = replyView.systemLayoutSizeFitting(
+            CGSize(
+                width: view.frame.width,
+                height: UIView.layoutFittingCompressedSize.height
+            )
+        )
+        
+        replyContainerHeight.constant = size.height
+        
+        replyContainer.addSubview(replyView)
+        replyView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        replyView.closeTapped = {
+            self.clearReply()
+        }
+    }
+    
+    private func clearReply() {
+        replyContainer.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        replyContainerHeight.constant = 0.0
     }
     
     private func toggleEmptyView() {
@@ -507,6 +553,10 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.longPressTapped = { message in
             self.presentMessageOptions(message: message)
+        }
+        
+        cell.replyTriggered = { message in
+            self.viewModel.setReplyMessage(message)
         }
         
         return cell

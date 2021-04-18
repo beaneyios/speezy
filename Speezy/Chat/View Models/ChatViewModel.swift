@@ -29,6 +29,8 @@ class ChatViewModel: NewItemGenerating {
         case finishedRecording
         case editingDiscarded(AudioItem)
         case messagePlayed(index: Int)
+        case replyMessageSet(message: ReplyViewModel)
+        case replyMessageCleared
     }
     
     typealias ChangeBlock = (Change) -> Void
@@ -94,10 +96,20 @@ class ChatViewModel: NewItemGenerating {
     
     func setReplyMessage(_ message: Message) {
         self.currentReplyMessage = message
+        
+        let cellModel = ReplyViewModel(
+            chatterText: message.chatter.displayName,
+            messageText: message.message,
+            durationText: message.duration?.formattedString ?? "0:00",
+            chatterColor: colors[message.chatter.id]
+        )
+        
+        didChange?(.replyMessageSet(message: cellModel))
     }
     
     func cancelReplyMessage() {
         self.currentReplyMessage = nil
+        didChange?(.replyMessageCleared)
     }
     
     func setMessageText(_ text: String) {

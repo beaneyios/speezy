@@ -65,6 +65,13 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQr-hG-T7V">
+                                <rect key="frame" x="0.0" y="736" width="414" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="ULi-oO-wfC"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9p-r0-YqM">
                                 <rect key="frame" x="0.0" y="736" width="414" height="160"/>
                                 <subviews>
@@ -180,19 +187,22 @@
                         <viewLayoutGuide key="safeArea" id="BhX-mg-MhH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="u9p-r0-YqM" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="4Id-rM-4rK"/>
                             <constraint firstItem="8Ip-WC-fNU" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="9IQ-b2-kNW"/>
                             <constraint firstItem="u9p-r0-YqM" firstAttribute="top" secondItem="8Ip-WC-fNU" secondAttribute="bottom" id="DmK-uY-eIt"/>
+                            <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="qQr-hG-T7V" secondAttribute="trailing" id="Emh-eM-69t"/>
                             <constraint firstItem="8Ip-WC-fNU" firstAttribute="top" secondItem="0Rq-LX-6tF" secondAttribute="bottom" id="Gnc-oh-ZES"/>
                             <constraint firstAttribute="trailing" secondItem="0Rq-LX-6tF" secondAttribute="trailing" id="Jge-Ll-vnD"/>
                             <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="uFe-N0-lZO" secondAttribute="trailing" id="Q3f-mW-5lN"/>
                             <constraint firstItem="BhX-mg-MhH" firstAttribute="trailing" secondItem="u9p-r0-YqM" secondAttribute="trailing" id="Qlq-YZ-gpl"/>
+                            <constraint firstItem="u9p-r0-YqM" firstAttribute="top" secondItem="qQr-hG-T7V" secondAttribute="bottom" id="V1i-R3-Dd6"/>
                             <constraint firstItem="0Rq-LX-6tF" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="Xns-H0-Vze"/>
+                            <constraint firstItem="qQr-hG-T7V" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="ZUe-HR-d3R"/>
                             <constraint firstItem="uFe-N0-lZO" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="aO0-YD-rKx"/>
                             <constraint firstItem="uFe-N0-lZO" firstAttribute="top" secondItem="0Rq-LX-6tF" secondAttribute="bottom" id="b3w-41-Xl5"/>
                             <constraint firstItem="0Rq-LX-6tF" firstAttribute="top" secondItem="BhX-mg-MhH" secondAttribute="top" id="dsa-Ss-WYz"/>
                             <constraint firstAttribute="bottom" secondItem="u9p-r0-YqM" secondAttribute="bottom" id="eCj-cW-NAd"/>
                             <constraint firstItem="u9p-r0-YqM" firstAttribute="leading" secondItem="BhX-mg-MhH" secondAttribute="leading" id="jGu-3g-eyU"/>
+                            <constraint firstItem="qQr-hG-T7V" firstAttribute="top" secondItem="uFe-N0-lZO" secondAttribute="bottom" id="vpd-GY-0c4"/>
                             <constraint firstAttribute="trailing" secondItem="8Ip-WC-fNU" secondAttribute="trailing" id="yOF-dj-dQ9"/>
                         </constraints>
                     </view>
@@ -205,6 +215,8 @@
                         <outlet property="recordBottomConstraint" destination="eCj-cW-NAd" id="Viu-Xd-b5M"/>
                         <outlet property="recordButtonContainer" destination="u9p-r0-YqM" id="CC1-Ug-vlU"/>
                         <outlet property="recordButtonContainerHeight" destination="YF2-Rn-Fth" id="Are-Lt-dBE"/>
+                        <outlet property="replyContainer" destination="qQr-hG-T7V" id="uUg-Er-jCO"/>
+                        <outlet property="replyContainerHeight" destination="ULi-oO-wfC" id="ekP-uz-v6X"/>
                         <outlet property="spinner" destination="sSd-0B-Kwx" id="0ZN-Me-AMD"/>
                     </connections>
                 </viewController>

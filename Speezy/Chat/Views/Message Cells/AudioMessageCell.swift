@@ -35,9 +35,12 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     var messageDidStartPlaying: ((AudioMessageCell) -> Void)?
     var messageDidStopPlaying: ((AudioMessageCell) -> Void)?
     var longPressTapped: ((Message) -> Void)?
+    var replyTriggered: ((Message) -> Void)?
     
     private(set) var audioManager: AudioManager?
     private(set) var message: Message?
+    
+    private var panRecogniser: UIPanGestureRecognizer?
         
     func configure(item: MessageCellModel) {
         self.message = item.message
@@ -96,6 +99,8 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         
         let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
         container.addGestureRecognizer(panGestureRecogniser)
+        panGestureRecogniser.delegate = self
+        self.panRecogniser = panGestureRecogniser
     }
     
     func configureImage(item: MessageCellModel) {
@@ -187,6 +192,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     
     @objc func swipePan(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self)
+        let dampenedTranslation = translation.x * 0.7
         
         switch sender.state {
         case .changed:
@@ -194,7 +200,6 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
                 return
             }
             
-            let dampenedTranslation = translation.x * 0.7
             let newTranslation: CGFloat = {
                 if abs(dampenedTranslation) > (frame.width / 3.0) {
                     return -(frame.width / 3.0)
@@ -211,6 +216,10 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
             
             container.transform = CGAffineTransform(translationX: newTranslation, y: 0)
         case .ended:
+            
+            if dampenedTranslation <= -60.0, let message = self.message {
+                replyTriggered?(message)
+            }
             
             UIView.animate(withDuration: 0.4) {
                 self.replyIcon.alpha = 0.0
@@ -301,4 +310,18 @@ extension AudioMessageCell: AudioPlayerObserver {
         
         slider.value = Float(percentageTime)
     }
+}
+
+extension AudioMessageCell: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+      }
+
+      override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let pan = gestureRecognizer as? UIPanGestureRecognizer else {
+            return true
+        }
+        
+        return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+      }
 }
