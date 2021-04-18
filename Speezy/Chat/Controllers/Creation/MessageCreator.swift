@@ -34,7 +34,7 @@ class MessageCreator {
             updatePaths["chats/\(chat.id)/read_by/\(message.chatter.id)"] = updatedTime
             
             let messageRefPath: String = {
-                let root = "users/\(message.chatter.id)/messages/"
+                let root = "user_messages/\(message.chatter.id)/"
                 return root + "\(chat.id),\(newKey)"
             }()
             

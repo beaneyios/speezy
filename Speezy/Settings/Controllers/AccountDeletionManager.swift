@@ -22,16 +22,13 @@ class AccountDeletionManager {
                 return
             }
             
-            var updatedData: [String: Any] = [
-                :
-            ]
+            var updatedData: [String: Any] = [:]
             
             let chats = result["chats"] as? [String: Any]
             let profile = result["profile"] as? [String: Any]
             let recordings = result["audio_clips"] as? [String: Any]
             let favourites = result["favourites"] as? [String: Any]
             let contacts = result["contacts"] as? [String: Any]
-            let messages = result["messages"] as? [String: Any]
             
             // Remove user from chats and chatter groups
             chats?.keys.forEach {
@@ -50,31 +47,13 @@ class AccountDeletionManager {
             contacts?.keys.forEach {
                 updatedData["users/\($0)/contacts/\(userId)"] = NSNull()
             }
-            
-            messages?.keys.forEach {
-                guard let asString = $0 as? String else {
-                    return
-                }
-                
-                let split = asString.components(separatedBy: ",")
-                
-                if split.count == 2 {
-                    updatedData["messages/\(split[0])/\(split[1])"] = NSNull()
-                }
-                
-                guard let audioId = messages?[asString] as? String else {
-                    return
-                }
-                
-                CloudAudioManager.deleteAudioClip(id: audioId)
-            }
-            
+                        
             if (profile?["profile_image"] as? String) != nil {
                 CloudImageManager.deleteImage(at: "profile_images/\(userId).jpg") { _ in }
             }
             
             if let username = profile?["username"] as? String {
-                updatedData["usernames/\(username)"] = NSNull()
+                updatedData["usernames/\(username.lowercased())"] = NSNull()
             }
             
             updatedData["users/\(userId)"] = NSNull()
@@ -83,13 +62,48 @@ class AccountDeletionManager {
                 if let error = error {
                     completion(.failure(error))
                 } else {
-                    Auth.auth().currentUser?.delete(completion: { (error) in
-                        if let error = error {
-                            completion(.failure(error))
-                        } else {
-                            completion(.success(true))
-                        }
-                    })
+                    self.deleteMessageInformation(userId: userId) {
+                        Auth.auth().currentUser?.delete(completion: { (error) in
+                            if let error = error {
+                                completion(.failure(error))
+                            } else {
+                                completion(.success(true))
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    static func deleteMessageInformation(
+        userId: String,
+        completion: @escaping () -> Void
+    ) {
+        let ref = Database.database().reference()
+        let userNode = ref.child("user_messages/\(userId)")
+        userNode.observe(.value) { (snapshot) in
+            guard let result = snapshot.value as? NSDictionary else {
+                return
+            }
+            
+            var updatedData: [String: Any] = [:]
+            let messages = result["messages"] as? [String: Any]
+            messages?.keys.forEach {
+                let split = $0.components(separatedBy: ",")
+                
+                if split.count == 2 {
+                    updatedData["messages/\(split[0])/\(split[1])"] = NSNull()
+                }
+                
+                guard let audioId = messages?[$0] as? String else {
+                    return
+                }
+                
+                CloudAudioManager.deleteAudioClip(id: audioId)
+                
+                ref.updateChildValues(updatedData) { (error, updatedRef) in
+                    completion()
                 }
             }
         }
