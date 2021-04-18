@@ -31,6 +31,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var replyIcon: UIImageView!
     @IBOutlet weak var unplayedNotification: UIView!
     @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
+    @IBOutlet weak var replyBox: UIView!
     
     var messageDidStartPlaying: ((AudioMessageCell) -> Void)?
     var messageDidStopPlaying: ((AudioMessageCell) -> Void)?
@@ -72,6 +73,8 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
                 ]
             }
         }()
+        
+        replyBox.layer.cornerRadius = 15.0
         
         messageContainer.backgroundColor = item.backgroundColor
         messageContainer.layer.cornerRadius = 20.0
