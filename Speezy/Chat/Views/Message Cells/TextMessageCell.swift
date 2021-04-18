@@ -19,9 +19,12 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var sendStatusImageWidth: NSLayoutConstraint!
     @IBOutlet weak var sendStatusPadding: NSLayoutConstraint!
     @IBOutlet weak var messageContainer: UIView!
+    @IBOutlet weak var replyIcon: UIImageView!
+    @IBOutlet weak var container: UIView!
     
     private(set) var message: Message?
     var longPressTapped: ((Message) -> Void)?
+    var replyTriggered: ((Message) -> Void)?
     
     func configure(item: MessageCellModel) {
         self.message = item.message
@@ -61,7 +64,6 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         sendStatusImage.alpha = item.tickOpacity
         sendStatusImageWidth.constant = item.tickWidth
         sendStatusPadding.constant = item.tickPadding
-        
                 
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longPressedCell))
         addGestureRecognizer(longTap)
@@ -71,6 +73,10 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         setNeedsLayout()
         layoutIfNeeded()
         profileImage.layer.cornerRadius = profileImage.frame.height / 2.0
+        
+        let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
+        container.addGestureRecognizer(panGestureRecogniser)
+        panGestureRecogniser.delegate = self
     }
     
     func configureImage(item: MessageCellModel) {
@@ -91,4 +97,58 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         
         longPressTapped?(message)
     }
+    
+    @objc func swipePan(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self)
+        let dampenedTranslation = translation.x * 0.7
+        
+        switch sender.state {
+        case .changed:
+            if translation.x > 0.0 {
+                return
+            }
+            
+            let newTranslation: CGFloat = {
+                if abs(dampenedTranslation) > (frame.width / 3.0) {
+                    return -(frame.width / 3.0)
+                } else {
+                    return dampenedTranslation
+                }
+            }()
+            
+            if dampenedTranslation < -60.0 && replyIcon.alpha == 0.0 {
+                UIView.animate(withDuration: 0.3) {
+                    self.replyIcon.alpha = 1.0
+                }
+            }
+            
+            container.transform = CGAffineTransform(translationX: newTranslation, y: 0)
+        case .ended:
+            
+            if dampenedTranslation <= -60.0, let message = self.message {
+                replyTriggered?(message)
+            }
+            
+            UIView.animate(withDuration: 0.4) {
+                self.replyIcon.alpha = 0.0
+                self.container.transform = .identity
+            }
+        default:
+            break
+        }
+    }
+}
+
+extension TextMessageCell: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+      }
+
+      override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let pan = gestureRecognizer as? UIPanGestureRecognizer else {
+            return true
+        }
+        
+        return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+      }
 }

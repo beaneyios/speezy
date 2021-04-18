@@ -100,7 +100,7 @@ class ChatViewModel: NewItemGenerating {
         let cellModel = ReplyViewModel(
             chatterText: message.chatter.displayName,
             messageText: message.message,
-            durationText: message.duration?.formattedString ?? "0:00",
+            durationText: message.duration?.formattedString ?? "",
             chatterColor: colors[message.chatter.id]
         )
         
@@ -350,6 +350,8 @@ extension ChatViewModel {
                 
                 self.stagedText = nil
                 self.currentAudioFile = nil
+                
+                self.cancelReplyMessage()
             case let .failure(error):
                 break
             }

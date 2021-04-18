@@ -521,6 +521,9 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
     ) -> TextMessageCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "textMessage", for: indexPath) as! TextMessageCell
         cell.configure(item: cellModel)
+        cell.replyTriggered = { message in
+            self.viewModel.setReplyMessage(message)
+        }
         return cell
     }
     

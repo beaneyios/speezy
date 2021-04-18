@@ -39,9 +39,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     
     private(set) var audioManager: AudioManager?
     private(set) var message: Message?
-    
-    private var panRecogniser: UIPanGestureRecognizer?
-        
+            
     func configure(item: MessageCellModel) {
         self.message = item.message
         self.audioManager = nil
@@ -100,7 +98,6 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(swipePan(sender:)))
         container.addGestureRecognizer(panGestureRecogniser)
         panGestureRecogniser.delegate = self
-        self.panRecogniser = panGestureRecogniser
     }
     
     func configureImage(item: MessageCellModel) {
