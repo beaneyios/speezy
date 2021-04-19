@@ -146,6 +146,7 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     }
     
     private func configureReplyBox(item: MessageCellModel) {
+        
         replyBox.subviews.forEach {
             $0.removeFromSuperview()
         }
@@ -158,6 +159,7 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         replyBoxHeight.constant = 50.0
         
         let replyBox = ReplyMessageEmbedView.createFromNib()
+        replyBox.translatesAutoresizingMaskIntoConstraints = false
         self.replyBox.addSubview(replyBox)
         replyBox.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()

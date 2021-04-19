@@ -55,11 +55,11 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="LDD-yv-6tI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="47M-6t-TQc"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LDD-yv-6tI" secondAttribute="trailing" constant="12" id="CmX-PS-kgl"/>
+                <constraint firstItem="LDD-yv-6tI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="47M-6t-TQc"/>
+                <constraint firstAttribute="trailing" secondItem="LDD-yv-6tI" secondAttribute="trailing" constant="12" id="CmX-PS-kgl"/>
                 <constraint firstItem="LDD-yv-6tI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="XHJ-UY-tCg"/>
-                <constraint firstItem="LDD-yv-6tI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" id="nHU-Hi-Esb"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LDD-yv-6tI" secondAttribute="bottom" id="o7d-k5-17e"/>
+                <constraint firstItem="LDD-yv-6tI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" id="nHU-Hi-Esb"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LDD-yv-6tI" secondAttribute="bottom" id="o7d-k5-17e"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

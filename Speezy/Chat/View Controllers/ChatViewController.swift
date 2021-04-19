@@ -245,7 +245,6 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         
         let replyView = ReplyPlaybackView.createFromNib()
         replyView.frame.size.width = view.frame.width
-        replyView.frame.size.height = 0.0
         replyView.configure(reply: reply)
         replyView.setNeedsLayout()
         replyView.layoutIfNeeded()
@@ -262,6 +261,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         } completion: { _ in
+            replyView.translatesAutoresizingMaskIntoConstraints = false
             self.recordButtonContainer.addSubview(replyView)
             
             replyView.snp.makeConstraints { (maker) in

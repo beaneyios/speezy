@@ -54,9 +54,6 @@
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gst-vl-hLS">
                                                 <rect key="frame" x="16" y="67.5" width="359" height="19.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16.5" id="hhw-SZ-Hzt"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -83,7 +80,6 @@
                                             <constraint firstItem="BXA-6e-Ol6" firstAttribute="centerY" secondItem="LpR-w4-QhF" secondAttribute="centerY" id="0vw-fI-fZI"/>
                                             <constraint firstItem="fxD-7X-NFt" firstAttribute="centerY" secondItem="BXA-6e-Ol6" secondAttribute="centerY" id="2aD-AI-fNw"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LpR-w4-QhF" secondAttribute="bottom" constant="12" id="8fe-B4-7Ad"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BXA-6e-Ol6" secondAttribute="bottom" constant="16" id="SJZ-e6-QgF"/>
                                             <constraint firstItem="fxD-7X-NFt" firstAttribute="leading" secondItem="BXA-6e-Ol6" secondAttribute="trailing" constant="4" id="UvM-14-XpO"/>
                                             <constraint firstItem="Dw1-M2-H9a" firstAttribute="top" secondItem="NZb-qu-BOU" secondAttribute="top" constant="6" id="Xtv-iU-cKt"/>
                                             <constraint firstItem="gst-vl-hLS" firstAttribute="leading" secondItem="NZb-qu-BOU" secondAttribute="leading" constant="16" id="h8y-lB-SXO"/>
