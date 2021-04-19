@@ -24,23 +24,23 @@ class ReplyPlaybackView: UIView, NibLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        slider.thumbColour = .white
-//        slider.minimumTrackTintColor = .white
-//        slider.maximumTrackTintColor = UIColor.white.withAlphaComponent(0.3)
-//        slider.borderColor = .white
-//        slider.thumbRadius = 12
-//        slider.depressedThumbRadius = 15
-//        slider.configure()
-//        playSpinner.isHidden = true
+        slider.thumbColour = .white
+        slider.minimumTrackTintColor = .white
+        slider.maximumTrackTintColor = UIColor.white.withAlphaComponent(0.3)
+        slider.borderColor = .white
+        slider.thumbRadius = 12
+        slider.depressedThumbRadius = 15
+        slider.configure()
+        playSpinner.isHidden = true
     }
     
     func configure(reply: MessageReply) {
         messageReply = reply
         messageLabel.text = reply.message
         
-//        if let duration = reply.duration {
-//            durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: duration)
-//        }
+        if let duration = reply.duration {
+            durationLabel.text = TimeFormatter.formatTimeMinutesAndSeconds(time: duration)
+        }
     }
     
     func showLoader() {

@@ -20,6 +20,7 @@ target 'Speezy' do
   pod 'Firebase/DynamicLinks', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
   pod 'Firebase/Functions', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
   pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :branch => 'master'
+  pod 'Firebase/Analytics', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
   
   pod 'FirebaseUI/Storage'
   

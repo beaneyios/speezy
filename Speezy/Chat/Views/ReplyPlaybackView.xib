@@ -76,7 +76,7 @@
                                 <action selector="playButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="40R-Os-Q4W"/>
                             </connections>
                         </button>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZR7-AN-jH1">
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZR7-AN-jH1">
                             <rect key="frame" x="24" y="91" width="20" height="20"/>
                             <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </activityIndicatorView>
@@ -96,7 +96,7 @@
                         <constraint firstAttribute="trailing" secondItem="Tag-aF-qzT" secondAttribute="trailing" constant="17" id="QmO-N0-3uh"/>
                         <constraint firstItem="2DA-oK-CPc" firstAttribute="top" secondItem="UFP-qP-f0N" secondAttribute="top" constant="16" id="Rth-Bb-Tfe"/>
                         <constraint firstItem="mnK-Ug-D6g" firstAttribute="centerY" secondItem="ZR7-AN-jH1" secondAttribute="centerY" id="Xsq-0s-QM7"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fnP-zD-oen" secondAttribute="bottom" constant="24" id="aDz-B2-8R3"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fnP-zD-oen" secondAttribute="bottom" constant="32" id="aDz-B2-8R3"/>
                         <constraint firstAttribute="trailing" secondItem="qST-uU-z12" secondAttribute="trailing" constant="24" id="btG-tJ-8oY"/>
                         <constraint firstItem="fnP-zD-oen" firstAttribute="leading" secondItem="UFP-qP-f0N" secondAttribute="leading" constant="24" id="eaN-1g-E3m"/>
                         <constraint firstItem="Rg4-9z-0Uj" firstAttribute="top" secondItem="2DA-oK-CPc" secondAttribute="bottom" constant="16" id="hb1-nm-MpK"/>
