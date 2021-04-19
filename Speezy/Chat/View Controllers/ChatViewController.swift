@@ -157,7 +157,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             .layerMinXMinYCorner, .layerMaxXMinYCorner
         ]
     }
-    
+            
     private func animateToTextView() {
         recordButtonContainerHeight.constant = 100.0
         
@@ -236,6 +236,43 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             self.view.layoutIfNeeded()
         } completion: { _ in
             self.addPlaybackView(item: item)
+        }
+    }
+    
+    private func animateToReplyView(_ reply: MessageReply) {
+        activeControl?.removeFromSuperview()
+        activeControl = nil
+        
+        let replyView = ReplyPlaybackView.createFromNib()
+        replyView.frame.size.width = view.frame.width
+        replyView.frame.size.height = 0.0
+        replyView.configure(reply: reply)
+        replyView.setNeedsLayout()
+        replyView.layoutIfNeeded()
+        
+        let size = replyView.systemLayoutSizeFitting(
+            CGSize(
+                width: view.frame.width,
+                height: UIView.layoutFittingCompressedSize.height
+            )
+        )
+        
+        recordButtonContainerHeight.constant = size.height
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            self.recordButtonContainer.addSubview(replyView)
+            
+            replyView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            
+            replyView.cancelAction = {
+                self.animateToRecordButtonView()
+            }
+            
+            self.activeControl = replyView
         }
     }
     
@@ -524,6 +561,12 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.replyTriggered = { message in
             self.viewModel.setReplyMessage(message)
         }
+        
+        cell.replyTapped = { replyMessage in
+            if replyMessage.audioId != nil {
+                self.animateToReplyView(replyMessage)
+            }
+        }
         return cell
     }
     
@@ -560,6 +603,12 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.replyTriggered = { message in
             self.viewModel.setReplyMessage(message)
+        }
+        
+        cell.replyTapped = { replyMessage in
+            if replyMessage.audioId != nil {
+                self.animateToReplyView(replyMessage)
+            }
         }
         
         return cell

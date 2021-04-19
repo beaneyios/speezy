@@ -39,6 +39,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     var messageDidStopPlaying: ((AudioMessageCell) -> Void)?
     var longPressTapped: ((Message) -> Void)?
     var replyTriggered: ((Message) -> Void)?
+    var replyTapped: ((MessageReply) -> Void)?
     
     private(set) var audioManager: AudioManager?
     private(set) var message: Message?
@@ -158,6 +159,9 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         )
         
         replyBox.configure(viewModel: viewModel)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedReply))
+        replyBox.addGestureRecognizer(tapGesture)
     }
     
     private func configureSwipeAction() {
@@ -193,6 +197,14 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         playButtonImage.tintColor = item.playButtonTint
         playButtonImage.image = UIImage(named: "plain-play-button")
         playButton.isUserInteractionEnabled = true
+    }
+    
+    @objc private func tappedReply() {
+        guard let replyMessage = message?.replyTo else {
+            return
+        }
+        
+        replyTapped?(replyMessage)
     }
     
     @objc private func longPressedCell() {

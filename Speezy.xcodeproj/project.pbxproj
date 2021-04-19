@@ -186,6 +186,8 @@
 		BE978D1B262C4CB100E71419 /* ReplyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978D1A262C4CB100E71419 /* ReplyView.xib */; };
 		BE978D1F262C901700E71419 /* ReplyMessageEmbedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978D1E262C901700E71419 /* ReplyMessageEmbedView.xib */; };
 		BE978D23262C903500E71419 /* ReplyMessageEmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */; };
+		BE978D29262CB1C000E71419 /* ReplyPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D28262CB1C000E71419 /* ReplyPlaybackView.swift */; };
+		BE978D2D262CB1CB00E71419 /* ReplyPlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978D2C262CB1CB00E71419 /* ReplyPlaybackView.xib */; };
 		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
@@ -526,6 +528,8 @@
 		BE978D1A262C4CB100E71419 /* ReplyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyView.xib; sourceTree = "<group>"; };
 		BE978D1E262C901700E71419 /* ReplyMessageEmbedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyMessageEmbedView.xib; sourceTree = "<group>"; };
 		BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyMessageEmbedView.swift; sourceTree = "<group>"; };
+		BE978D28262CB1C000E71419 /* ReplyPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPlaybackView.swift; sourceTree = "<group>"; };
+		BE978D2C262CB1CB00E71419 /* ReplyPlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyPlaybackView.xib; sourceTree = "<group>"; };
 		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
@@ -1550,22 +1554,24 @@
 			isa = PBXGroup;
 			children = (
 				BE978D09262229C400E71419 /* Message Cells */,
-				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
-				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
-				BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */,
-				BE6FD96225B75D2400723732 /* ChatRecordView.swift */,
-				BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */,
-				BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */,
 				BEE47EF925BC433200AF47FA /* ChatCell.swift */,
 				BEE47EFA25BC433200AF47FA /* ChatCell.xib */,
+				BE6FD96A25B7636800723732 /* ChatPlaybackView.swift */,
+				BE6FD96625B75D7100723732 /* ChatPlaybackView.xib */,
+				BE6FD96225B75D2400723732 /* ChatRecordView.swift */,
+				BE6FD95E25B75CFF00723732 /* ChatRecordView.xib */,
 				BE0A458625CD677A005F4DA8 /* ChatSelectionCell.swift */,
 				BE0A458725CD677A005F4DA8 /* ChatSelectionCell.xib */,
 				BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */,
 				BE0CDDA42610F05700AF2706 /* ChatTextView.xib */,
-				BE978CF32622202500E71419 /* TestCell.swift */,
-				BE978CF42622202500E71419 /* TestCell.xib */,
+				BEA9D14125B0DEC2000888A7 /* CustomSlider.swift */,
+				BE978D28262CB1C000E71419 /* ReplyPlaybackView.swift */,
+				BE978D2C262CB1CB00E71419 /* ReplyPlaybackView.xib */,
 				BE978D16262C4CA500E71419 /* ReplyView.swift */,
 				BE978D1A262C4CB100E71419 /* ReplyView.xib */,
+				BE978CF32622202500E71419 /* TestCell.swift */,
+				BE978CF42622202500E71419 /* TestCell.xib */,
+				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1974,6 +1980,7 @@
 				BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
+				BE978D2D262CB1CB00E71419 /* ReplyPlaybackView.xib in Resources */,
 				BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */,
 				BEE47F0325BC558500AF47FA /* Contacts.storyboard in Resources */,
 				BE6FD96725B75D7100723732 /* ChatPlaybackView.xib in Resources */,
@@ -2354,6 +2361,7 @@
 				BE77766C24D6CB8A0009BE63 /* SettingsViewController.swift in Sources */,
 				BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */,
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
+				BE978D29262CB1C000E71419 /* ReplyPlaybackView.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,

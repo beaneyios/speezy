@@ -26,8 +26,10 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var replyBoxHeight: NSLayoutConstraint!
     
     private(set) var message: Message?
+    
     var longPressTapped: ((Message) -> Void)?
     var replyTriggered: ((Message) -> Void)?
+    var replyTapped: ((MessageReply) -> Void)?
     
     func configure(item: MessageCellModel) {
         self.message = item.message
@@ -168,6 +170,17 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         )
         
         replyBox.configure(viewModel: viewModel)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedReply))
+        replyBox.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func tappedReply() {
+        guard let replyMessage = message?.replyTo else {
+            return
+        }
+        
+        replyTapped?(replyMessage)
     }
 }
 
