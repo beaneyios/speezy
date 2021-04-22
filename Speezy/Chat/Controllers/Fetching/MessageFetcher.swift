@@ -53,6 +53,8 @@ class MessageFetcher {
                 )
             }.sorted {
                 $0.sent > $1.sent
+            }.filter {
+                $0.id != mostRecentMessage?.id
             }
             
             completion(.success(messages))
