@@ -61,6 +61,11 @@ class FavouriteRecordingsStore {
                 switch change {
                 case let .recordingAdded(recording):
                     self.handleRecordingAdded(recording: recording)
+                    
+                    self.favouritesListener.listenForChanges(
+                        userId: userId,
+                        recordingId: recording.id
+                    )
                 case let .recordingUpdated(change):
                     self.handleRecordingUpdated(change: change)
                 case let .recordingRemoved(id):
