@@ -20,6 +20,8 @@ class ShareViewController: UIViewController {
     @IBOutlet weak var shareContainer: UIView!
     @IBOutlet weak var backgroundView: UIView!
     
+    @IBOutlet weak var shareViewBackground: UIView!
+    
     weak var delegate: ShareViewControllerDelegate?
     
     var item: AudioItem!
@@ -39,9 +41,17 @@ class ShareViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        shareContainer.clipsToBounds = true
-        shareContainer.layer.cornerRadius = 10.0
-        shareContainer.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        shareContainer.tag = 10000001
+        shareContainer.addShadow(
+            offset: CGSize(width: 0, height: -5)
+        )
+        
+        shareViewBackground.clipsToBounds = true
+        shareViewBackground.layer.cornerRadius = 10.0
+        shareViewBackground.layer.maskedCorners = [
+            .layerMaxXMinYCorner,
+            .layerMinXMinYCorner
+        ]
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissShare))
         backgroundView.addGestureRecognizer(tapGesture)

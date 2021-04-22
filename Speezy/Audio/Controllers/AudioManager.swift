@@ -77,21 +77,23 @@ class AudioManager: NSObject {
         saveAttachment: Bool,
         completion: @escaping (Result<AudioItem, Error>) -> Void
     ) {
-        if saveAttachment {
-            commitImageAttachment { result in
-                switch result {
-                case let .success(item):
-                    self.item = item
-                    self.saveItem(completion: completion)
-                case let .failure(error):
-                    //completion(.failure(error))
-                    // TODO: Handle nil error here.
-                    assertionFailure("Errored with error \(error?.localizedDescription)")
-                    break
+        DispatchQueue.global().async {
+            if saveAttachment {
+                self.commitImageAttachment { result in
+                    switch result {
+                    case let .success(item):
+                        self.item = item
+                        self.saveItem(completion: completion)
+                    case let .failure(error):
+                        //completion(.failure(error))
+                        // TODO: Handle nil error here.
+                        assertionFailure("Errored with error \(error?.localizedDescription)")
+                        break
+                    }
                 }
+            } else {
+                self.saveItem(completion: completion)
             }
-        } else {
-            saveItem(completion: completion)
         }
     }
     

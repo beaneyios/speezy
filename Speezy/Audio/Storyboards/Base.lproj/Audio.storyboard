@@ -972,9 +972,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IyW-vC-u7g">
                                 <rect key="frame" x="0.0" y="646" width="414" height="250"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpw-RA-Ska">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Ir-ch-V5x">
                                         <rect key="frame" x="16" y="54" width="382" height="85"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="Sfr-4o-TcT"/>
                                         </constraints>
@@ -990,13 +994,13 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-0t-PgU">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="9ZD-VC-MOe"/>
                                             <constraint firstAttribute="trailing" secondItem="gXq-0t-PgU" secondAttribute="trailing" id="LqE-cv-QVv"/>
@@ -1006,14 +1010,18 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="k2D-mh-Bgy" firstAttribute="top" secondItem="IyW-vC-u7g" secondAttribute="top" id="1up-hd-W9S"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hpw-RA-Ska" secondAttribute="trailing" id="3B7-S7-quw"/>
                                     <constraint firstItem="k2D-mh-Bgy" firstAttribute="leading" secondItem="IyW-vC-u7g" secondAttribute="leading" id="9J8-Ua-Vu9"/>
                                     <constraint firstItem="9Ir-ch-V5x" firstAttribute="leading" secondItem="IyW-vC-u7g" secondAttribute="leading" constant="16" id="Keo-pG-gEq"/>
+                                    <constraint firstItem="Hpw-RA-Ska" firstAttribute="leading" secondItem="IyW-vC-u7g" secondAttribute="leading" id="PFt-fe-mbz"/>
                                     <constraint firstAttribute="trailing" secondItem="k2D-mh-Bgy" secondAttribute="trailing" id="WO6-Y8-1Ih"/>
+                                    <constraint firstItem="Hpw-RA-Ska" firstAttribute="top" secondItem="IyW-vC-u7g" secondAttribute="top" id="fJY-ZH-0xQ"/>
                                     <constraint firstAttribute="height" constant="250" id="jBh-0L-YVe"/>
                                     <constraint firstAttribute="trailing" secondItem="9Ir-ch-V5x" secondAttribute="trailing" constant="16" id="ubQ-pe-c5u"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hpw-RA-Ska" secondAttribute="bottom" id="vJn-Ni-TKJ"/>
                                     <constraint firstItem="9Ir-ch-V5x" firstAttribute="top" secondItem="k2D-mh-Bgy" secondAttribute="bottom" constant="4" id="xyc-aD-P8V"/>
                                 </constraints>
                             </view>
@@ -1036,6 +1044,7 @@
                         <outlet property="headerView" destination="k2D-mh-Bgy" id="eVA-0d-6Ws"/>
                         <outlet property="shareContainer" destination="IyW-vC-u7g" id="yZp-fh-WrW"/>
                         <outlet property="shareHeight" destination="jBh-0L-YVe" id="8vS-oj-LpC"/>
+                        <outlet property="shareViewBackground" destination="Hpw-RA-Ska" id="Bzc-zX-Ry6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jtb-aq-AaW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
