@@ -144,6 +144,26 @@ class ProfileViewController: UIViewController {
         occupationTxtField.delegate = self
         
         configureAboutYouPlaceholder()
+        
+        let bar = UIToolbar()
+        let done = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(doneTapped)
+        )
+        
+        bar.items = [done]
+        bar.sizeToFit()
+        
+        nameTxtField.inputAccessoryView = bar
+        usernameTxtField.inputAccessoryView = bar
+        occupationTxtField.inputAccessoryView = bar
+        aboutYouTxtField.inputAccessoryView = bar
+    }
+    
+    @objc func doneTapped() {
+        view.endEditing(true)
     }
     
     private func configureTextView() {
