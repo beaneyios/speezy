@@ -9,14 +9,15 @@
 import Foundation
 
 struct Chat: Identifiable, Hashable {
-    let id: String
-    let title: String
-    let lastUpdated: TimeInterval
-    let lastMessage: String
-    let chatImageUrl: URL?
-    let readBy: [String: TimeInterval]
-    let displayNames: [String: String]?
-    let profileImages: [String: String]?
+    var id: String
+    var title: String
+    var lastUpdated: TimeInterval
+    var lastMessage: String
+    var chatImageUrl: URL?
+    var readBy: [String: TimeInterval]
+    var displayNames: [String: String]?
+    var profileImages: [String: String]?
+    var userIds: [String]?
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -71,74 +72,39 @@ extension Chat {
 
 extension Chat {
     func withReadBy(readBy: [String: TimeInterval]) -> Chat {
+        var newChat = self
         var newReadBy = self.readBy
         
         readBy.keys.forEach {
             newReadBy[$0] = readBy[$0]
         }
-
-        return Chat(
-            id: id,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl,
-            readBy: newReadBy,
-            displayNames: displayNames,
-            profileImages: profileImages
-        )
+        
+        newChat.readBy = newReadBy
+        return newChat
     }
     
     func withChatImageUrl(_ url: URL) -> Chat {
-        Chat(
-            id: id,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: url,
-            readBy: readBy,
-            displayNames: displayNames,
-            profileImages: profileImages
-        )
+        var newChat = self
+        newChat.chatImageUrl = url
+        return newChat
     }
     
     func withLastMessage(_ lastMessage: String) -> Chat {
-        Chat(
-            id: id,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl,
-            readBy: readBy,
-            displayNames: displayNames,
-            profileImages: profileImages
-        )
+        var newChat = self
+        newChat.lastMessage = lastMessage
+        return newChat
     }
     
     func withLastUpdated(_ lastUpdated: TimeInterval) -> Chat {
-        Chat(
-            id: id,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl,
-            readBy: readBy,
-            displayNames: displayNames,
-            profileImages: profileImages
-        )
+        var newChat = self
+        newChat.lastUpdated = lastUpdated
+        return newChat
     }
     
     func withTitle(_ title: String) -> Chat {
-        Chat(
-            id: id,
-            title: title,
-            lastUpdated: lastUpdated,
-            lastMessage: lastMessage,
-            chatImageUrl: chatImageUrl,
-            readBy: readBy,
-            displayNames: displayNames,
-            profileImages: profileImages
-        )
+        var newChat = self
+        newChat.title = title
+        return newChat
     }
 }
 

@@ -44,7 +44,7 @@ class ContactListViewController: UIViewController {
     func alertContactAdded(contact: Contact) {
         let hud = JGProgressHUD(style: .dark)
         hud.indicatorView = JGProgressHUDSuccessIndicatorView()
-        hud.textLabel.text = "Added \(contact.displayName)"
+        hud.textLabel.text = "Added \(contact.displayName), tap your contact to start chatting"
         hud.show(in: self.view)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {

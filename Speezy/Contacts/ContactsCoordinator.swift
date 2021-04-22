@@ -80,7 +80,10 @@ extension ContactsCoordinator: ContactListViewControllerDelegate {
         delegate?.contactsCoordinatorDidFinish(self)
     }
     
-    func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact) {
+    func contactListViewController(
+        _ viewController: ContactListViewController,
+        didSelectContact contact: Contact
+    ) {
         
     }
     
