@@ -83,37 +83,43 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIH-hn-H5Y">
-                                        <rect key="frame" x="373" y="20" width="25" height="24"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <connections>
-                                            <action selector="newContactTapped:" destination="cOF-HD-6O1" eventType="touchUpInside" id="mJg-ae-9j8"/>
-                                        </connections>
-                                    </button>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZkK-Ig-RAc">
-                                        <rect key="frame" x="337" y="22" width="20" height="20"/>
-                                        <color key="color" name="speezy-purple"/>
-                                    </activityIndicatorView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="DGF-Az-HeK">
+                                        <rect key="frame" x="341" y="20" width="57" height="24"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZkK-Ig-RAc">
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="24"/>
+                                                <color key="color" name="speezy-purple"/>
+                                            </activityIndicatorView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIH-hn-H5Y">
+                                                <rect key="frame" x="32" y="0.0" width="25" height="24"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <connections>
+                                                    <action selector="newContactTapped:" destination="cOF-HD-6O1" eventType="touchUpInside" id="mJg-ae-9j8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="S3N-Na-1Pz"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="mNn-dB-iZs" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" constant="16" id="14D-sL-7sJ"/>
                                     <constraint firstItem="FpP-qd-t7C" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" id="2Gt-yh-pV2"/>
-                                    <constraint firstAttribute="trailing" secondItem="RIH-hn-H5Y" secondAttribute="trailing" constant="16" id="5LL-Ir-oSl"/>
                                     <constraint firstItem="1Zp-Ub-zxa" firstAttribute="leading" secondItem="IpE-M8-ZsW" secondAttribute="leading" id="BRv-Ph-Q8r"/>
                                     <constraint firstAttribute="trailing" secondItem="1Zp-Ub-zxa" secondAttribute="trailing" id="EPy-Mz-Zna"/>
-                                    <constraint firstItem="ZkK-Ig-RAc" firstAttribute="centerY" secondItem="IpE-M8-ZsW" secondAttribute="centerY" id="IXk-UG-1P0"/>
                                     <constraint firstItem="26J-qW-kan" firstAttribute="centerX" secondItem="IpE-M8-ZsW" secondAttribute="centerX" id="KnJ-m7-i6W"/>
+                                    <constraint firstItem="DGF-Az-HeK" firstAttribute="centerY" secondItem="IpE-M8-ZsW" secondAttribute="centerY" id="L27-eq-fv3"/>
                                     <constraint firstAttribute="height" constant="64" id="NEO-oE-L61"/>
+                                    <constraint firstAttribute="trailing" secondItem="DGF-Az-HeK" secondAttribute="trailing" constant="16" id="W2K-dM-dna"/>
                                     <constraint firstItem="mNn-dB-iZs" firstAttribute="centerY" secondItem="26J-qW-kan" secondAttribute="centerY" id="XKZ-lo-BoV"/>
                                     <constraint firstItem="FpP-qd-t7C" firstAttribute="trailing" secondItem="mNn-dB-iZs" secondAttribute="trailing" constant="16" id="Yuc-Ft-boX"/>
-                                    <constraint firstItem="RIH-hn-H5Y" firstAttribute="centerY" secondItem="26J-qW-kan" secondAttribute="centerY" id="gbI-Do-QTB"/>
                                     <constraint firstItem="26J-qW-kan" firstAttribute="top" secondItem="IpE-M8-ZsW" secondAttribute="top" constant="20" id="jfl-xT-Iye"/>
                                     <constraint firstItem="1Zp-Ub-zxa" firstAttribute="top" secondItem="26J-qW-kan" secondAttribute="bottom" constant="19" id="p0u-Fs-cwA"/>
                                     <constraint firstAttribute="bottom" secondItem="1Zp-Ub-zxa" secondAttribute="bottom" id="tM8-AJ-cTd"/>
                                     <constraint firstItem="FpP-qd-t7C" firstAttribute="top" secondItem="IpE-M8-ZsW" secondAttribute="top" id="y4d-gy-dBD"/>
                                     <constraint firstAttribute="bottom" secondItem="FpP-qd-t7C" secondAttribute="bottom" id="yge-qy-0q3"/>
-                                    <constraint firstItem="RIH-hn-H5Y" firstAttribute="leading" secondItem="ZkK-Ig-RAc" secondAttribute="trailing" constant="16" id="zmn-jK-wFS"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-g5-IJE">
@@ -147,12 +153,13 @@
                     <connections>
                         <outlet property="collectionView" destination="cF2-g5-IJE" id="NFf-K7-ih7"/>
                         <outlet property="emptyView" destination="zUb-4B-qhc" id="C1g-UO-nxS"/>
+                        <outlet property="plusButton" destination="RIH-hn-H5Y" id="62u-a5-1Lz"/>
                         <outlet property="spinner" destination="ZkK-Ig-RAc" id="ubC-8u-kOE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7u-u9-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="313.04347826086956" y="156.69642857142856"/>
+            <point key="canvasLocation" x="311.59420289855075" y="156.69642857142856"/>
         </scene>
         <!--New Contact View Controller-->
         <scene sceneID="s9I-ry-BQB">

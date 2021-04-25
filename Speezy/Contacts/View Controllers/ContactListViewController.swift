@@ -22,15 +22,21 @@ class ContactListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var plusButton: UIButton!
     
     weak var delegate: ContactListViewControllerDelegate?
     
+    var canCreateNewItems: Bool = true
     let viewModel = ContactListViewModel(store: Store.shared)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         listenForChanges()
+        
+        if !canCreateNewItems {
+            plusButton.isHidden = true
+        }
     }
     
     override func willMove(toParent parent: UIViewController?) {

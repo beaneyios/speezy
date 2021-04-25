@@ -152,6 +152,7 @@ extension ChatCoordinator: ChatViewControllerDelegate {
         
         viewController.hidesBottomBarWhenPushed = true
         viewController.delegate = self
+        viewController.canCreateNewItems = false
         navigationController.pushViewController(viewController, animated: true)
     }
 }
