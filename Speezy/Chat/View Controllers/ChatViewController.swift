@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ChatViewControllerDelegate: AnyObject {
+    func chatViewControllerDidSelectAddContact(_ viewController: ChatViewController)
     func chatViewControllerDidTapBack(_ viewController: ChatViewController)
     func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager)
 }
@@ -100,6 +101,13 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             preferredStyle: .actionSheet
         )
         
+        let addContact = UIAlertAction(
+            title: "Add a friend",
+            style: .default) {
+        (action) in
+            self.delegate?.chatViewControllerDidSelectAddContact(self)
+        }
+        
         let leaveChat = UIAlertAction(
             title: "Leave chat",
             style: .destructive
@@ -113,6 +121,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             handler: nil
         )
         
+        alert.addAction(addContact)
         alert.addAction(leaveChat)
         alert.addAction(cancel)
         
@@ -121,6 +130,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
     
     @IBAction func didTapBack(_ sender: Any) {
         delegate?.chatViewControllerDidTapBack(self)
+    }
+    
+    func addUserToGroup(contact: Contact) {
+        viewModel.addUserToGroup(contact: contact)
     }
     
     func sendEditedAudioItem(_ item: AudioItem) {

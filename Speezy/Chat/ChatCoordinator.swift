@@ -143,6 +143,36 @@ extension ChatCoordinator: ChatViewControllerDelegate {
     func chatViewControllerDidTapBack(_ viewController: ChatViewController) {
         navigationController.popViewController(animated: true)
     }
+    
+    func chatViewControllerDidSelectAddContact(_ viewController: ChatViewController) {
+        let storyboard = UIStoryboard(name: "Contacts", bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: "ContactListViewController"
+        ) as! ContactListViewController
+        
+        viewController.hidesBottomBarWhenPushed = true
+        viewController.delegate = self
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension ChatCoordinator: ContactListViewControllerDelegate {
+    func contactListViewControllerDidSelectBack(_ viewController: ContactListViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact) {
+        chatViewController?.addUserToGroup(contact: contact)
+        navigationController.popViewController(animated: true)
+    }
+    
+    func contactListViewControllerDidSelectNewContact(_ viewController: ContactListViewController) {
+        // no op
+    }
+    
+    func contactListViewControllerDidFinish(_ viewController: ContactListViewController) {
+        // no op
+    }
 }
 
 extension ChatCoordinator: AudioItemCoordinatorDelegate {

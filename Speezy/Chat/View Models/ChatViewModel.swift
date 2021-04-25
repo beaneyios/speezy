@@ -44,6 +44,7 @@ class ChatViewModel: NewItemGenerating {
     private lazy var messageDeleter = MessageDeleter()
     private lazy var chatDeleter = ChatDeleter()
     private lazy var chatterFetcher = ChattersFetcher()
+    private lazy var chatUpdater = ChatUpdater()
     private lazy var messageUpdater = MessageUpdater()
     
     var colors: [String: UIColor] = [String: UIColor]()
@@ -83,6 +84,18 @@ class ChatViewModel: NewItemGenerating {
     func setAudioItem(_ item: AudioItem) {
         currentAudioFile = item.withoutStagingPath()
         LocalAudioManager.createOriginalFromStaged(item: item)
+    }
+    
+    func addUserToGroup(contact: Contact) {
+        chatUpdater.addUserToChat(chat: chat, contact: contact) { (result) in
+            switch result {
+            case let .success(newChatters):
+                self.chatters.append(contentsOf: newChatters)
+                self.reloadChatters()
+            case .failure:
+                break
+            }
+        }
     }
     
     func cancelAudioItem() {
@@ -139,25 +152,28 @@ extension ChatViewModel {
 
 // MARK: Receiving
 extension ChatViewModel {
+    private func reloadChatters() {
+        let chatterNames = chatters.map {
+            if $0.id == self.currentUserId {
+                return "You"
+            } else {
+                return "\($0.displayName)"
+            }
+        }.joined(separator: ", ")
+        
+        chatters.forEach {
+            self.colors[$0.id] = SpeezyProfileViewGenerator.randomColor
+        }
+        
+        self.didChange?(.chattersLoaded(chatterNames: chatterNames))
+    }
+    
     func listenForData() {
         chatterFetcher.fetchChatters(chat: chat) { (result) in
             switch result {
             case let .success(chatters):
                 self.chatters = chatters
-                
-                let chatterNames = chatters.map {
-                    if $0.id == self.currentUserId {
-                        return "You"
-                    } else {
-                        return "\($0.displayName)"
-                    }
-                }.joined(separator: ", ")
-                
-                chatters.forEach {
-                    self.colors[$0.id] = SpeezyProfileViewGenerator.randomColor
-                }
-                
-                self.didChange?(.chattersLoaded(chatterNames: chatterNames))
+                self.reloadChatters()
                 self.store.messagesStore.addMessagesObserver(
                     self,
                     chat: self.chat
@@ -243,7 +259,7 @@ extension ChatViewModel {
             }
 
             let updatedDate = Date().timeIntervalSince1970
-            ChatUpdater().updateReadBy(
+            self.chatUpdater.updateReadBy(
                 chatId: self.chat.id,
                 userId: userId,
                 time: updatedDate
