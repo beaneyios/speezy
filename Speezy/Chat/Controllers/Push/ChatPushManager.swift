@@ -14,10 +14,9 @@ class ChatPushManager {
     func sendNotification(
         message: String,
         chat: Chat,
-        chatters: [Chatter],
         from chatter: Chatter
     ) {
-        let tokens = chatters.filter {
+        let tokens = chat.chatters.filter {
             $0 != chatter
         }.compactMap {
             $0.pushToken
@@ -29,7 +28,7 @@ class ChatPushManager {
 
         let infoDict: [String: Any] = [
             "tokens": tokens,
-            "title": "\(chat.youTitle(currentUserId: chatter.id))",
+            "title": "\(chatter.displayName)",
             "body": "\(message)",
             "chatId": chat.id
         ]
@@ -45,20 +44,11 @@ class ChatPushManager {
         from chatter: Chatter
     ) {
         chats.forEach {
-            let chat = $0
-            ChattersFetcher().fetchChatters(chat: chat) { (result) in
-                switch result {
-                case let .success(chatters):
-                    self.sendNotification(
-                        message: message,
-                        chat: chat,
-                        chatters: chatters,
-                        from: chatter
-                    )
-                case .failure:
-                    break
-                }
-            }
+            self.sendNotification(
+                message: message,
+                chat: $0,
+                from: chatter
+            )
         }
     }
 }

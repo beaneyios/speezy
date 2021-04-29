@@ -13,7 +13,6 @@
 		BE041E3025E19747005C3B9F /* ImportContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */; };
 		BE041E5C25E26F8B005C3B9F /* MessageDeleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */; };
 		BE041E6825E2C89E005C3B9F /* ChatterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6725E2C89E005C3B9F /* ChatterValue.swift */; };
-		BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */; };
 		BE041E9925E2EF23005C3B9F /* GoogleSignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041E9825E2EF23005C3B9F /* GoogleSignUpViewModel.swift */; };
 		BE041EA325E2F77F005C3B9F /* KeyboardConstraintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */; };
 		BE041EA925E2FDD6005C3B9F /* GoogleSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */; };
@@ -348,7 +347,6 @@
 		BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportContactViewModel.swift; sourceTree = "<group>"; };
 		BE041E5B25E26F8B005C3B9F /* MessageDeleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleter.swift; sourceTree = "<group>"; };
 		BE041E6725E2C89E005C3B9F /* ChatterValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterValue.swift; sourceTree = "<group>"; };
-		BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattersFetcher.swift; sourceTree = "<group>"; };
 		BE041E9825E2EF23005C3B9F /* GoogleSignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignUpViewModel.swift; sourceTree = "<group>"; };
 		BE041EA225E2F77F005C3B9F /* KeyboardConstraintManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardConstraintManager.swift; sourceTree = "<group>"; };
 		BE041EA825E2FDD6005C3B9F /* GoogleSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewModel.swift; sourceTree = "<group>"; };
@@ -906,7 +904,6 @@
 				BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */,
 				BE6FD91525B4D07600723732 /* MessageListener.swift */,
 				BEF7DE3A25C724DB00B690CB /* ChatImageFetcher.swift */,
-				BE041E6B25E2DAB1005C3B9F /* ChattersFetcher.swift */,
 				BE17B67B25F55FBF003FB42A /* ChatsFetcher.swift */,
 			);
 			path = Fetching;
@@ -2311,7 +2308,6 @@
 				BEE47F3E25BC67D100AF47FA /* NewChatViewModel.swift in Sources */,
 				BE978D23262C903500E71419 /* ReplyMessageEmbedView.swift in Sources */,
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
-				BE041E6C25E2DAB1005C3B9F /* ChattersFetcher.swift in Sources */,
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
 				BE83BA7B260791A2009C4CA3 /* AppleLoginViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
@@ -2485,7 +2481,7 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2588,7 +2584,7 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2751,7 +2747,7 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2776,7 +2772,7 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -76,21 +76,6 @@ class ChatCreator {
         chatters.forEach {
             readBy[$0.id] = lastUpdated
         }
-        
-        var displayNames: [String: String]?
-        var profileImages: [String: String]?
-        
-        if title == nil {
-            displayNames = [:]
-            profileImages = [:]
-            
-            chatters.forEach { chatter in
-                if let profileImageUrl = chatter.profileImageUrl {
-                    profileImages?[chatter.id] = profileImageUrl.absoluteString
-                }
-                displayNames?[chatter.id] = chatter.displayName
-            }
-        }
                 
         let newChat = Chat(
             id: chatId,
@@ -99,8 +84,7 @@ class ChatCreator {
             lastMessage: "New chat started",
             chatImageUrl: attachmentUrl,
             readBy: readBy,
-            displayNames: displayNames,
-            profileImages: profileImages
+            chatters: chatters
         )
         
         chatters.forEach { chatter in

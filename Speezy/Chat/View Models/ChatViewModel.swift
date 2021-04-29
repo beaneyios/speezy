@@ -43,7 +43,6 @@ class ChatViewModel: NewItemGenerating {
     private lazy var messageCreator = MessageCreator()
     private lazy var messageDeleter = MessageDeleter()
     private lazy var chatDeleter = ChatDeleter()
-    private lazy var chatterFetcher = ChattersFetcher()
     private lazy var chatUpdater = ChatUpdater()
     private lazy var messageUpdater = MessageUpdater()
     
@@ -56,7 +55,9 @@ class ChatViewModel: NewItemGenerating {
     private var activeAudioManager: AudioManager?
     
     private(set) var chat: Chat
-    private var chatters: [Chatter] = []
+    private var chatters: [Chatter] {
+        chat.chatters
+    }
     
     private var currentAudioFile: AudioItem?
     private var stagedText: String?
@@ -74,7 +75,6 @@ class ChatViewModel: NewItemGenerating {
         
         chatDeleter.deleteChat(
             chat: chat,
-            chatters: chatters,
             userId: userId
         ) { (result) in
             self.didChange?(.leftChat)
@@ -87,15 +87,7 @@ class ChatViewModel: NewItemGenerating {
     }
     
     func addUserToGroup(contact: Contact) {
-        chatUpdater.addUserToChat(chat: chat, contact: contact) { (result) in
-            switch result {
-            case let .success(newChatters):
-                self.chatters.append(contentsOf: newChatters)
-                self.reloadChatters()
-            case .failure:
-                break
-            }
-        }
+        chatUpdater.addUserToChat(chat: chat, contact: contact)
     }
     
     func cancelAudioItem() {
@@ -169,19 +161,11 @@ extension ChatViewModel {
     }
     
     func listenForData() {
-        chatterFetcher.fetchChatters(chat: chat) { (result) in
-            switch result {
-            case let .success(chatters):
-                self.chatters = chatters
-                self.reloadChatters()
-                self.store.messagesStore.addMessagesObserver(
-                    self,
-                    chat: self.chat
-                )
-            case .failure:
-                break
-            }
-        }
+        reloadChatters()
+        store.messagesStore.addMessagesObserver(
+            self,
+            chat: self.chat
+        )
         
         store.chatStore.addChatListObserver(self)
     }
@@ -360,7 +344,6 @@ extension ChatViewModel {
                 self.chatPushManager.sendNotification(
                     message: message.formattedMessage,
                     chat: self.chat,
-                    chatters: self.chatters,
                     from: chatter
                 )
                 

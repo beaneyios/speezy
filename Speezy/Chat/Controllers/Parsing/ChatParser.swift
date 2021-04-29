@@ -13,7 +13,8 @@ class ChatParser {
         guard
             let lastUpdated = dict["last_updated"] as? TimeInterval,
             let title = dict["title"] as? String,
-            let lastMessage = dict["last_message"] as? String
+            let lastMessage = dict["last_message"] as? String,
+            let chattersDict = dict["chatters"] as? NSDictionary
         else {
             return nil
         }
@@ -27,8 +28,7 @@ class ChatParser {
             lastMessage: lastMessage,
             chatImageUrl: URL(key: "chat_image_url", dict: dict),
             readBy: readBy ?? [:],
-            displayNames: dict["display_names"] as? [String: String],
-            profileImages: dict["profile_images"] as? [String: String]
+            chatters: parseChatters(dict: chattersDict)
         )
         
         return chat

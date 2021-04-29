@@ -22,8 +22,7 @@ class ChatUpdater {
     
     func addUserToChat(
         chat: Chat,
-        contact: Contact,
-        completion: @escaping (Result<[Chatter], Error>) -> Void
+        contact: Contact
     ) {
         let userIds = [contact.id]
         DatabasePushTokenManager().fetchTokens(for: userIds) { (result) in
@@ -32,11 +31,10 @@ class ChatUpdater {
                 self.addUserToChat(
                     chat: chat,
                     contact: contact,
-                    tokens: userTokens,
-                    completion: completion
+                    tokens: userTokens
                 )
             case let .failure(error):
-                completion(.failure(error))
+                break
             }
         }
     }
@@ -44,8 +42,7 @@ class ChatUpdater {
     private func addUserToChat(
         chat: Chat,
         contact: Contact,
-        tokens: [UserToken],
-        completion: @escaping (Result<[Chatter], Error>) -> Void
+        tokens: [UserToken]
     ) {
         let userToken = tokens.compactMap { (userToken) -> String? in
             userToken.userId == contact.userId ? userToken.token : nil
@@ -60,11 +57,8 @@ class ChatUpdater {
         
         var updatePaths: [AnyHashable: Any] = [:]
         let ref = Database.database().reference()
-        updatePaths["chatters/\(chat.id)/\(chatter.id)"] = chatter.toDict
+        updatePaths["chats/\(chat.id)/chatters/\(chatter.id)"] = chatter.toDict
         updatePaths["users/\(chatter.id)/chats/\(chat.id)"] = true
-        
-        ref.updateChildValues(updatePaths) { (error, newRef) in
-            completion(.success([chatter]))
-        }
+        ref.updateChildValues(updatePaths)
     }
 }

@@ -57,41 +57,26 @@ extension ChatCellModel {
             return
         }
         
-        if let profileImages = chat.profileImages {
-            let oppositeProfileId: String? = profileImages.keys.first {
-                $0 != self.currentUserId
-            }
-            
-            if let profileId = oppositeProfileId {
-                downloadTask?.cancel()
-                downloadTask = ProfileImageFetcher().fetchImage(id: profileId, completion: completion)
-                return
-            }
+        let chatters = chat.chatters
+        let oppositeChatter: Chatter? = chatters.first {
+            $0.id != self.currentUserId
         }
         
-        if let displayNames = chat.displayNames {
-            let oppositeProfileDisplayName: [String] = displayNames.compactMap { (keyValuePair) -> String? in
-                if keyValuePair.key != self.currentUserId {
-                    return keyValuePair.value
-                } else {
-                    return nil
-                }
-            }
-            
-            if let firstName = oppositeProfileDisplayName.first, let character = firstName.first {
-                completion(
-                    .success(
-                        SpeezyProfileViewGenerator.generateProfileImage(
-                            character: String(character), color: nil
-                        )
+        if let profileId = oppositeChatter?.id {
+            downloadTask?.cancel()
+            downloadTask = ProfileImageFetcher().fetchImage(id: profileId, completion: completion)
+            return
+        }
+        
+        if let character = oppositeChatter?.displayName.first {
+            completion(
+                .success(
+                    SpeezyProfileViewGenerator.generateProfileImage(
+                        character: String(character), color: nil
                     )
                 )
-                return
-            }
+            )
+            return
         }
-        
-        // TODO: Handle image error better here.
-        let error = NSError(domain: "", code: 404, userInfo: nil)
-        completion(.failure(error))
     }
 }

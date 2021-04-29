@@ -15,9 +15,7 @@ struct Chat: Identifiable, Hashable {
     var lastMessage: String
     var chatImageUrl: URL?
     var readBy: [String: TimeInterval]
-    var displayNames: [String: String]?
-    var profileImages: [String: String]?
-    var userIds: [String]?
+    var chatters: [Chatter]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -31,42 +29,54 @@ struct Chat: Identifiable, Hashable {
 extension Chat {
     func computedTitle(currentUserId: String?) -> String {
         if title == ChatCreator.dynamicTitleKey {
-            if let displayNames = displayNames, let currentUserId = currentUserId {
-                let matchedId = displayNames.keys.first {
-                    $0 != currentUserId
-                }
-                
-                if let matchedId = matchedId, let displayName = displayNames[matchedId] {
-                    return displayName
-                } else {
-                    return "No group title"
-                }
-            } else {
-                return "No group title"
-            }
+            return title(currentUserId: currentUserId)
         }
         
         return title
     }
     
-    func youTitle(currentUserId: String?) -> String {
-        if title == ChatCreator.dynamicTitleKey {
-            if let displayNames = displayNames, let currentUserId = currentUserId {
-                let matchedId = displayNames.keys.first {
-                    $0 == currentUserId
-                }
-                
-                if let matchedId = matchedId, let displayName = displayNames[matchedId] {
-                    return displayName
-                } else {
-                    return "No group title"
-                }
-            } else {
-                return "No group title"
-            }
+    func title(currentUserId: String?) -> String {
+        guard title == ChatCreator.dynamicTitleKey else {
+            return title
         }
         
-        return title
+        if let currentUserId = currentUserId {
+            if chatters.count > 2 {
+                return groupChatterString(
+                    chatters: chatters,
+                    currentUserId: currentUserId
+                )
+            } else {
+                return singleChatterString(
+                    chatters: chatters,
+                    currentUserId: currentUserId
+                )
+            }
+        } else {
+            return "No group title"
+        }
+    }
+    
+    private func groupChatterString(chatters: [Chatter], currentUserId: String) -> String {
+        let chatterString = chatters.filter {
+            $0.id != currentUserId
+        }.map {
+            $0.displayName
+        }.joined(separator: ", ")
+        
+        return "Group with \(chatterString)"
+    }
+    
+    private func singleChatterString(chatters: [Chatter], currentUserId: String) -> String {
+        let matchedChatter = chatters.first {
+            $0.id != currentUserId
+        }
+        
+        if let matchedChatter = matchedChatter {
+            return matchedChatter.displayName
+        } else {
+            return "No group title"
+        }
     }
 }
 
@@ -114,16 +124,9 @@ extension Chat {
             "last_message": lastMessage,
             "last_updated": lastUpdated,
             "title": title,
-            "read_by": readBy
-        ]
-        
-        if let profileImages = profileImages {
-            dict["profile_images"] = profileImages
-        }
-        
-        if let displayNames = displayNames {
-            dict["display_names"] = displayNames
-        }
+            "read_by": readBy,
+            "chatters": chatters.toDict
+        ]        
         
         if let chatImageUrl = chatImageUrl {
             dict["chat_image_url"] = chatImageUrl.absoluteString
