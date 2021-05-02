@@ -22,3 +22,16 @@ struct UserToken {
         self.token = value
     }
 }
+
+extension Array where Element == UserToken {
+    init(dict: [String: String]?) {
+        guard let dict = dict else {
+            self = []
+            return
+        }
+        
+        self = dict.map({ (keyValuePair) -> UserToken in
+            UserToken(key: keyValuePair.key, value: keyValuePair.value)
+        })
+    }
+}

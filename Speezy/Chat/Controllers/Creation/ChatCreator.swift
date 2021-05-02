@@ -25,7 +25,7 @@ class ChatCreator {
         contacts: [Contact],
         completion: @escaping (Result<Chat, Error>) -> Void
     ) {
-        let userIds = contacts.map { $0.userId }
+        let userIds = contacts.map { $0.userId } + [currentChatter.id]
         DatabasePushTokenManager().fetchTokens(for: userIds) { (result) in
             switch result {
             case let .success(userTokens):
@@ -57,10 +57,6 @@ class ChatCreator {
         let ref = Database.database().reference()
         
         let chatters = contacts.map { contact -> Chatter in
-            let userToken = tokens.compactMap { (userToken) -> String? in
-                userToken.userId == contact.userId ? userToken.token : nil
-            }.first
-            
             let chatter = Chatter(
                 id: contact.userId,
                 displayName: contact.displayName,

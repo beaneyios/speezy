@@ -21,9 +21,7 @@ class ChatParser {
         
         let readBy = dict["read_by"] as? [String: TimeInterval]
         let pushTokensDict = dict["push_tokens"] as? [String: String]
-        let pushTokens = pushTokensDict?.map({ (keyValuePair) -> UserToken in
-            UserToken(key: keyValuePair.key, value: keyValuePair.value)
-        })
+        let pushTokens = [UserToken](dict: pushTokensDict)
         
         let chat = Chat(
             id: key,
@@ -32,7 +30,7 @@ class ChatParser {
             lastMessage: lastMessage,
             chatImageUrl: URL(key: "chat_image_url", dict: dict),
             readBy: readBy ?? [:],
-            pushTokens: pushTokens ?? [],
+            pushTokens: pushTokens,
             chatters: parseChatters(dict: chattersDict)
         )
         

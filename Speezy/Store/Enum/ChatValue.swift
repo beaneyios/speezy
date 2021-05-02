@@ -18,6 +18,7 @@ enum ChatValue {
     case lastUpdated(TimeInterval)
     case title(String)
     case readBy([String: TimeInterval])
+    case pushTokens([String: String])
     
     init?(key: String, value: Any) {
         switch (key, value) {
@@ -29,6 +30,8 @@ enum ChatValue {
             self = .title(value)
         case ("read_by", let value as [String: TimeInterval]):
             self = .readBy(value)
+        case ("push_tokens", let value as [String: String]):
+            self = .pushTokens(value)
         default:
             return nil
         }
@@ -44,6 +47,8 @@ enum ChatValue {
             return "title"
         case .readBy:
             return "read_by"
+        case .pushTokens:
+            return "push_tokens"
         }
     }
     
@@ -57,6 +62,8 @@ enum ChatValue {
             return title
         case let .readBy(readBy):
             return readBy
+        case let .pushTokens(tokens):
+            return tokens
         }
     }
 }

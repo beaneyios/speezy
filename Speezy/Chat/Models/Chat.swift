@@ -82,15 +82,17 @@ extension Chat {
 }
 
 extension Chat {
+    func withPushTokens(tokens: [String: String]) -> Chat {
+        var newChat = self
+        
+        let tokens = [UserToken](dict: tokens)
+        newChat.pushTokens = tokens
+        return newChat
+    }
+    
     func withReadBy(readBy: [String: TimeInterval]) -> Chat {
         var newChat = self
-        var newReadBy = self.readBy
-        
-        readBy.keys.forEach {
-            newReadBy[$0] = readBy[$0]
-        }
-        
-        newChat.readBy = newReadBy
+        newChat.readBy = readBy
         return newChat
     }
     
