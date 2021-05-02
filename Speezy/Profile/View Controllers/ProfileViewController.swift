@@ -38,6 +38,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var usernameIcon: UILabel!
     
     var viewModel: ProfileViewModel!
+    var canEditProfile = true
+    
     var canEditUsername = true
     var listenForKeyboard = true
     
@@ -53,7 +55,19 @@ class ProfileViewController: UIViewController {
         configureProfileImage()
         configureAboutYouPlaceholder()
         
-        if !canEditUsername {
+        if !canEditProfile {
+            copyButtonWidth.constant = 25.0
+            usernameIcon.textColor = .lightGray
+            
+            [usernameTxtField, nameTxtField, occupationTxtField].forEach {
+                $0?.textColor = .lightGray
+                $0?.isUserInteractionEnabled = false
+            }
+            
+            aboutYouTxtField.textColor = .lightGray
+            aboutYouTxtField.isUserInteractionEnabled = false
+            
+        } else if !canEditUsername {
             copyButtonWidth.constant = 25.0
             usernameIcon.textColor = .lightGray
             usernameTxtField.textColor = .lightGray

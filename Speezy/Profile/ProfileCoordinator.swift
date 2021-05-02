@@ -12,6 +12,14 @@ import FirebaseAuth
 
 protocol ProfileCoordinatorDelegate: AnyObject {
     func profileCoordinatorDidFinish(_ coordinator: ProfileCoordinator)
+    func profileCoordinator(
+        _ coordinator: ProfileCoordinator,
+        didLoadExistingChat chat: Chat
+    )
+    func profileCoordinator(
+        _ coordinator: ProfileCoordinator,
+        didStartNewChatWithContact contact: Contact
+    )
 }
 
 class ProfileCoordinator: ViewCoordinator, NavigationControlling {
@@ -76,5 +84,36 @@ extension ProfileCoordinator: ProfileEditViewControllerDelegate {
 extension ProfileCoordinator: ContactsCoordinatorDelegate {
     func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator) {
         remove(coordinator)
+    }
+    
+    func contactsCoordinator(
+        _ coordinator: ContactsCoordinator,
+        didLoadExistingChat chat: Chat
+    ) {
+        guard let profileEditViewController = profileEditViewController else {
+            return
+        }
+        
+        navigationController.popToViewController(
+            profileEditViewController,
+            animated: false
+        )
+        
+        delegate?.profileCoordinator(self, didLoadExistingChat: chat)
+    }
+    
+    func contactsCoordinator(
+        _ coordinator: ContactsCoordinator,
+        didStartNewChatWithContact contact: Contact
+    ) {
+        guard let profileEditViewController = profileEditViewController else {
+            return
+        }
+        
+        navigationController.popToViewController(
+            profileEditViewController,
+            animated: false
+        )
+        delegate?.profileCoordinator(self, didStartNewChatWithContact: contact)
     }
 }

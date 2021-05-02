@@ -32,8 +32,12 @@ class NewChatViewModel {
         items.isEmpty
     }
     
-    init(store: Store) {
+    init(store: Store, contact: Contact?) {
         self.store = store
+        
+        if let contact = contact {
+            self.selectedContacts.append(contact)
+        }
     }
     
     func listenForData() {

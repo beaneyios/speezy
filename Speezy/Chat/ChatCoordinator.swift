@@ -59,7 +59,20 @@ class ChatCoordinator: ViewCoordinator, NavigationControlling {
         navigationController.present(viewController, animated: true, completion: nil)
     }
     
-    private func navigateToChatView(chat: Chat) {
+    func navigateToNewChat(contact: Contact?) {
+        let viewController = storyboard.instantiateViewController(
+            identifier: "NewChatViewController"
+        ) as! NewChatViewController
+        
+        viewController.viewModel = NewChatViewModel(
+            store: Store.shared,
+            contact: contact
+        )
+        viewController.delegate = self
+        navigationController.present(viewController, animated: true, completion: nil)
+    }
+    
+    func navigateToChatView(chat: Chat) {
         let viewController = storyboard.instantiateViewController(
             identifier: "ChatViewController"
         ) as! ChatViewController
@@ -82,15 +95,6 @@ class ChatCoordinator: ViewCoordinator, NavigationControlling {
         }
         
         navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    private func navigateToNewChat() {
-        let viewController = storyboard.instantiateViewController(
-            identifier: "NewChatViewController"
-        ) as! NewChatViewController
-        
-        viewController.delegate = self
-        navigationController.present(viewController, animated: true, completion: nil)
     }
 }
 
@@ -124,7 +128,7 @@ extension ChatCoordinator: ChatListViewControllerDelegate {
     }
     
     func chatListViewControllerDidSelectCreateNewChat(_ viewController: ChatListViewController) {
-        navigateToNewChat()
+        navigateToNewChat(contact: nil)
     }
     
     func chatListViewController(_ viewController: ChatListViewController, didSelectChat chat: Chat) {

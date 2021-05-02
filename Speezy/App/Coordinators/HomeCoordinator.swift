@@ -260,6 +260,30 @@ extension HomeCoordinator: ProfileCoordinatorDelegate {
     func profileCoordinatorDidFinish(_ coordinator: ProfileCoordinator) {
         remove(coordinator)
     }
+    
+    func profileCoordinator(
+        _ coordinator: ProfileCoordinator,
+        didLoadExistingChat chat: Chat
+    ) {
+        guard let chatCoordinator = find(ChatCoordinator.self) else {
+            return
+        }
+        
+        tabBarController.selectedIndex = TabBarTab.chat.rawValue
+        chatCoordinator.navigateToChatView(chat: chat)
+    }
+    
+    func profileCoordinator(
+        _ coordinator: ProfileCoordinator,
+        didStartNewChatWithContact contact: Contact
+    ) {
+        guard let chatCoordinator = find(ChatCoordinator.self) else {
+            return
+        }
+        
+        tabBarController.selectedIndex = TabBarTab.chat.rawValue
+        chatCoordinator.navigateToNewChat(contact: contact)
+    }
 }
 
 extension HomeCoordinator: SettingsCoordinatorDelegate {

@@ -12,6 +12,14 @@ import FirebaseAuth
 
 protocol ContactsCoordinatorDelegate: AnyObject {
     func contactsCoordinatorDidFinish(_ coordinator: ContactsCoordinator)
+    func contactsCoordinator(
+        _ coordinator: ContactsCoordinator,
+        didLoadExistingChat chat: Chat
+    )
+    func contactsCoordinator(
+        _ coordinator: ContactsCoordinator,
+        didStartNewChatWithContact contact: Contact
+    )
 }
 
 class ContactsCoordinator: ViewCoordinator, NavigationControlling {
@@ -55,7 +63,7 @@ class ContactsCoordinator: ViewCoordinator, NavigationControlling {
     }
     
     private func navigateToImportContact(contactId: String) {
-        let viewController  = storyboard.instantiateViewController(
+        let viewController = storyboard.instantiateViewController(
             identifier: "ImportContactViewController"
         ) as! ImportContactViewController
         
@@ -64,6 +72,39 @@ class ContactsCoordinator: ViewCoordinator, NavigationControlling {
         
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.present(viewController, animated: true, completion: nil)
+    }
+    
+    private func navigateToContact(contact: Contact) {
+        let viewController = storyboard.instantiateViewController(
+            identifier: "ContactViewController"
+        ) as! ContactViewController
+        
+        viewController.delegate = self
+        viewController.viewModel = ContactViewModel(
+            store: Store.shared,
+            contact: contact
+        )
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension ContactsCoordinator: ContactViewControllerDelegate {
+    func contactViewControllerDidTapBack(_ viewController: ContactViewController) {
+        navigationController.popViewController(animated: true)
+    }
+    
+    func contactViewController(
+        _ viewController: ContactViewController,
+        didLoadExistingChat chat: Chat
+    ) {
+        delegate?.contactsCoordinator(self, didLoadExistingChat: chat)
+    }
+    
+    func contactViewController(
+        _ viewController: ContactViewController,
+        didStartNewChatWithContact contact: Contact
+    ) {
+        delegate?.contactsCoordinator(self, didStartNewChatWithContact: contact)
     }
 }
 
@@ -84,7 +125,7 @@ extension ContactsCoordinator: ContactListViewControllerDelegate {
         _ viewController: ContactListViewController,
         didSelectContact contact: Contact
     ) {
-        
+        navigateToContact(contact: contact)
     }
     
     func contactListViewControllerDidSelectBack(_ viewController: ContactListViewController) {

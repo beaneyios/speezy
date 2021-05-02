@@ -76,6 +76,8 @@
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
 		BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8131263F212F00471874 /* UIColor+ToHex.swift */; };
 		BE2E8136263F22E000471874 /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8135263F22E000471874 /* UIColor+Random.swift */; };
+		BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8139263F303D00471874 /* ContactViewController.swift */; };
+		BE2E813E263F32A400471874 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E813D263F32A400471874 /* ContactViewModel.swift */; };
 		BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */; };
 		BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */; };
 		BE3C5DD825BD8AFD005E34BB /* NewContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */; };
@@ -415,6 +417,8 @@
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
 		BE2E8131263F212F00471874 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
 		BE2E8135263F22E000471874 /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
+		BE2E8139263F303D00471874 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		BE2E813D263F32A400471874 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
 		BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFetchResult.swift; sourceTree = "<group>"; };
 		BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
 		BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewModel.swift; sourceTree = "<group>"; };
@@ -1472,6 +1476,7 @@
 				BEE47F0A25BC55A900AF47FA /* ContactListViewController.swift */,
 				BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */,
 				BE041E0525E18558005C3B9F /* ImportContactViewController.swift */,
+				BE2E8139263F303D00471874 /* ContactViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1482,6 +1487,7 @@
 				BEE47F0E25BC55B000AF47FA /* ContactListViewModel.swift */,
 				BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */,
 				BE041E2F25E19747005C3B9F /* ImportContactViewModel.swift */,
+				BE2E813D263F32A400471874 /* ContactViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -2198,6 +2204,7 @@
 				BE939D6325D06BC500042EB7 /* AudioItemFetcher.swift in Sources */,
 				BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */,
 				BE50346524BE02B900A414D1 /* AudioItem.swift in Sources */,
+				BE2E813E263F32A400471874 /* ContactViewModel.swift in Sources */,
 				BE6FD94925B6106900723732 /* Chat.swift in Sources */,
 				BEA9D1C625B45CA9000888A7 /* AudioUpdater.swift in Sources */,
 				BEDC126224F1964400B53D1A /* ShareOptionCell.swift in Sources */,
@@ -2374,6 +2381,7 @@
 				BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
+				BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */,
 				BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
 				BEE47F0B25BC55A900AF47FA /* ContactListViewController.swift in Sources */,
