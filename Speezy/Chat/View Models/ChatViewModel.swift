@@ -153,10 +153,6 @@ extension ChatViewModel {
             }
         }.joined(separator: ", ")
         
-        chatters.forEach {
-            self.colors[$0.id] = SpeezyProfileViewGenerator.randomColor
-        }
-        
         self.didChange?(.chattersLoaded(chatterNames: chatterNames))
     }
     

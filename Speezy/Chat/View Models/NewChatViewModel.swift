@@ -81,7 +81,7 @@ class NewChatViewModel {
             id: profile.userId,
             displayName: profile.name,
             profileImageUrl: profile.profileImageUrl,
-            pushToken: profile.pushToken
+            color: UIColor.random
         )
         
         if let attachment = self.attachedImage {

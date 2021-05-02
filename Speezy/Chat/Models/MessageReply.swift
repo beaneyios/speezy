@@ -6,7 +6,7 @@
 //  Copyright © 2021 Speezy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct MessageReply: Equatable, Identifiable {
     var id: String
@@ -32,7 +32,7 @@ struct MessageReply: Equatable, Identifiable {
             id: "No ID",
             displayName: "Not found",
             profileImageUrl: nil,
-            pushToken: nil
+            color: UIColor.random
         )
         
         return MessageReply(

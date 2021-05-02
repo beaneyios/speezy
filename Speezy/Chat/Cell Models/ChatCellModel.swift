@@ -62,7 +62,7 @@ extension ChatCellModel {
             $0.id != self.currentUserId
         }
         
-        if let profileId = oppositeChatter?.id {
+        if let profileId = oppositeChatter?.id, oppositeChatter?.profileImageUrl != nil {
             downloadTask?.cancel()
             downloadTask = ProfileImageFetcher().fetchImage(id: profileId, completion: completion)
             return
@@ -72,7 +72,8 @@ extension ChatCellModel {
             completion(
                 .success(
                     SpeezyProfileViewGenerator.generateProfileImage(
-                        character: String(character), color: nil
+                        character: String(character),
+                        color: oppositeChatter?.color
                     )
                 )
             )

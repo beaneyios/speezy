@@ -10,22 +10,6 @@ import Foundation
 import UIKit
 
 class SpeezyProfileViewGenerator {
-    static var profileBackgroundColors: [UIColor] {
-        [
-            .systemRed,
-            .systemBlue,
-            .systemGray,
-            .systemGreen,
-            .systemYellow,
-            .speezyPurple
-        ]
-    }
-    
-    static var randomColor: UIColor {
-        let randomNumber = Int.random(in: 0...5)
-        return profileBackgroundColors[randomNumber]
-    }
-    
     static func generateProfileImage(
         character: String,
         color: UIColor?
@@ -44,7 +28,7 @@ class SpeezyProfileViewGenerator {
         if let color = color {
             view.backgroundColor = color
         } else {
-            view.backgroundColor = randomColor
+            view.backgroundColor = UIColor.random
         }
         
         return view.asImage()

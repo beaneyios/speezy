@@ -74,6 +74,8 @@
 		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
+		BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8131263F212F00471874 /* UIColor+ToHex.swift */; };
+		BE2E8136263F22E000471874 /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8135263F22E000471874 /* UIColor+Random.swift */; };
 		BE3C5DD025BD86D4005E34BB /* StorageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */; };
 		BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */; };
 		BE3C5DD825BD8AFD005E34BB /* NewContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */; };
@@ -411,6 +413,8 @@
 		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
+		BE2E8131263F212F00471874 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
+		BE2E8135263F22E000471874 /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		BE3C5DCF25BD86D4005E34BB /* StorageFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFetchResult.swift; sourceTree = "<group>"; };
 		BE3C5DD325BD8AEC005E34BB /* NewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
 		BE3C5DD725BD8AFD005E34BB /* NewContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewModel.swift; sourceTree = "<group>"; };
@@ -1634,6 +1638,8 @@
 				BEDC126A24F2977B00B53D1A /* UINavigationController+Pop.swift */,
 				BEECD89B25ACD69100AD7AC3 /* UIColor+Constants.swift */,
 				BE0A459025CD7129005F4DA8 /* UINavigationController+Completion.swift */,
+				BE2E8131263F212F00471874 /* UIColor+ToHex.swift */,
+				BE2E8135263F22E000471874 /* UIColor+Random.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2175,6 +2181,7 @@
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */,
+				BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */,
 				BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
@@ -2358,6 +2365,7 @@
 				BEE47F3A25BC67B600AF47FA /* NewChatViewController.swift in Sources */,
 				BE8BA7E5259FB8FE0071B57A /* GradientButton.swift in Sources */,
 				BE978D29262CB1C000E71419 /* ReplyPlaybackView.swift in Sources */,
+				BE2E8136263F22E000471874 /* UIColor+Random.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,

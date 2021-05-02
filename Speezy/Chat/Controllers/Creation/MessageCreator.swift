@@ -15,12 +15,20 @@ class MessageCreator {
         message: Message,
         completion: @escaping (Result<Message, Error>) -> Void
     ) {
-        let messageDict = message.toDict
         let ref = Database.database().reference()
         var updatePaths: [AnyHashable: Any] = [:]
         
         chats.forEach {
             let chat = $0
+            var message = message
+            message.chatter.color = {
+                chat.chatters.first {
+                    $0.id == message.chatter.id
+                }?.color ?? UIColor.random
+            }()
+            
+            let messageDict = message.toDict
+
             let chatChild = ref.child("messages/\(chat.id)")
             guard let newKey = chatChild.childByAutoId().key else {
                 return

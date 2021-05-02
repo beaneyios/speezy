@@ -52,12 +52,13 @@ class ChatUpdater {
             id: contact.userId,
             displayName: contact.displayName,
             profileImageUrl: contact.profilePhotoUrl,
-            pushToken: userToken
+            color: .random
         )
         
         var updatePaths: [AnyHashable: Any] = [:]
         let ref = Database.database().reference()
         updatePaths["chats/\(chat.id)/chatters/\(chatter.id)"] = chatter.toDict
+        updatePaths["chats/\(chat.id)/push_tokens/\(contact.id)"] = userToken
         updatePaths["users/\(chatter.id)/chats/\(chat.id)"] = true
         ref.updateChildValues(updatePaths)
     }

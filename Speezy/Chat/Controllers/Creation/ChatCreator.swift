@@ -65,7 +65,7 @@ class ChatCreator {
                 id: contact.userId,
                 displayName: contact.displayName,
                 profileImageUrl: contact.profilePhotoUrl,
-                pushToken: userToken
+                color: UIColor.random
             )
     
             return chatter
@@ -84,6 +84,7 @@ class ChatCreator {
             lastMessage: "New chat started",
             chatImageUrl: attachmentUrl,
             readBy: readBy,
+            pushTokens: tokens,
             chatters: chatters
         )
         

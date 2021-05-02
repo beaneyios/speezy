@@ -11,4 +11,14 @@ import Foundation
 struct UserToken {
     let userId: String
     let token: String
+    
+    init(userId: String, token: String) {
+        self.userId = userId
+        self.token = token
+    }
+    
+    init(key: String, value: String) {
+        self.userId = key
+        self.token = value
+    }
 }

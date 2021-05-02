@@ -16,10 +16,10 @@ class ChatPushManager {
         chat: Chat,
         from chatter: Chatter
     ) {
-        let tokens = chat.chatters.filter {
-            $0 != chatter
+        let tokens = chat.pushTokens.filter {
+            $0.userId != chatter.id
         }.compactMap {
-            $0.pushToken
+            $0
         }
         
         let functions = Functions.functions()

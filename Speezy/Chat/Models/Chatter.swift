@@ -12,7 +12,7 @@ struct Chatter: Equatable, Identifiable {
     var id: String
     var displayName: String
     var profileImageUrl: URL?
-    var pushToken: String?
+    var color: UIColor?
 }
 
 extension Chatter {
@@ -24,8 +24,8 @@ extension Chatter {
             dict["profile_image_url"] = profileImageUrl.absoluteString
         }
         
-        if let pushToken = pushToken {
-            dict["push_token"] = pushToken
+        if let color = color {
+            dict["color"] = color.asHex
         }
         
         return dict

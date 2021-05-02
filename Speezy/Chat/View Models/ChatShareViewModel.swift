@@ -80,7 +80,7 @@ class ChatShareViewModel {
             id: userId,
             displayName: profile.name,
             profileImageUrl: profile.profileImageUrl,
-            pushToken: profile.pushToken
+            color: UIColor.random
         )
         
         let message = Message(

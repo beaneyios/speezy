@@ -6,7 +6,7 @@
 //  Copyright © 2021 Speezy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ChatParser {
     static func parseChat(key: String, dict: NSDictionary) -> Chat? {
@@ -20,6 +20,10 @@ class ChatParser {
         }
         
         let readBy = dict["read_by"] as? [String: TimeInterval]
+        let pushTokensDict = dict["push_tokens"] as? [String: String]
+        let pushTokens = pushTokensDict?.map({ (keyValuePair) -> UserToken in
+            UserToken(key: keyValuePair.key, value: keyValuePair.value)
+        })
         
         let chat = Chat(
             id: key,
@@ -28,6 +32,7 @@ class ChatParser {
             lastMessage: lastMessage,
             chatImageUrl: URL(key: "chat_image_url", dict: dict),
             readBy: readBy ?? [:],
+            pushTokens: pushTokens ?? [],
             chatters: parseChatters(dict: chattersDict)
         )
         
@@ -52,11 +57,19 @@ class ChatParser {
             return nil
         }
         
+        let color: UIColor = {
+            guard let colorString = dict["color"] as? String else {
+                return UIColor.random
+            }
+            
+            return UIColor(hex: colorString) ?? UIColor.random
+        }()
+        
         return Chatter(
             id: key,
             displayName: displayName,
             profileImageUrl: URL(key: "profile_image_url", dict: dict),
-            pushToken: dict["push_token"] as? String
+            color: color
         )
     }
 }

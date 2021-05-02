@@ -6,7 +6,7 @@
 //  Copyright © 2021 Speezy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Message: Equatable, Identifiable {
     var id: String
@@ -91,7 +91,7 @@ extension Message {
             id: "No ID",
             displayName: "Not found",
             profileImageUrl: nil,
-            pushToken: nil
+            color: UIColor.random
         )
         
         let readBy = chatters.readChatters(
