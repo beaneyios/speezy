@@ -25,6 +25,7 @@ class NewChatViewModel {
     
     var didChange: ((Change) -> Void)?
     let contactListManager = DatabaseContactManager()
+    let chatCreator = ChatCreator()
     
     private var profile: Profile?
     
@@ -73,13 +74,11 @@ class NewChatViewModel {
     func createChat() {
         guard
             let profile = profile,
-            let newChatId = ChatCreator().newChatId()
+            let newChatId = chatCreator.newChatId()
         else {
             assertionFailure("No chat id")
             return
         }
-        
-        
         
         let currentChatter = Chatter(
             id: profile.userId,
@@ -148,7 +147,7 @@ class NewChatViewModel {
         chatter: Chatter,
         contacts: [Contact]
     ) {        
-        ChatCreator().createChat(
+        chatCreator.createChat(
             chatId: chatId,
             title: title,
             attachmentUrl: attachmentUrl,

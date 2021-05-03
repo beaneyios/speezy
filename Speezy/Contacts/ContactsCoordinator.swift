@@ -109,9 +109,9 @@ extension ContactsCoordinator: ContactViewControllerDelegate {
 }
 
 extension ContactsCoordinator: ImportContactViewControllerDelegate {
-    func importContactViewController(_ viewController: ImportContactViewController, didImportContact contact: Contact) {
+    func importContactViewController(_ viewController: ImportContactViewController, didImportContact contact: Contact) {        
         viewController.dismiss(animated: true) {
-            self.contactListViewController?.alertContactAdded(contact: contact)
+            self.navigateToContact(contact: contact)
         }
     }
 }

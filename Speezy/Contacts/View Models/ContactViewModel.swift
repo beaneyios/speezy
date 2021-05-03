@@ -21,8 +21,11 @@ class ContactViewModel: ProfileViewModel {
     var profile: Profile?
     var profileImageAttachment: UIImage?
     
+    private var currentProfile: Profile?
+    
     private let profileFetcher = ProfileFetcher()
     private let contactDeleter = ContactDeleter()
+    private let chatCreator = ChatCreator()
     
     private let store: Store
     private let contact: Contact
@@ -33,6 +36,9 @@ class ContactViewModel: ProfileViewModel {
     }
     
     func loadData() {
+        store.contactStore.addContactListObserver(self)
+        store.profileStore.addProfileObserver(self)
+        
         didChange?(.loading(true))
         profileFetcher.fetchProfile(userId: contact.id) { (result) in
             switch result {
@@ -45,8 +51,6 @@ class ContactViewModel: ProfileViewModel {
             
             self.didChange?(.loading(false))
         }
-        
-        store.contactStore.addContactListObserver(self)
     }
     
     func deleteContact() {
@@ -64,14 +68,46 @@ class ContactViewModel: ProfileViewModel {
         if let existingChat = existingChat {
             didChange?(.loadExistingChat(existingChat))
         } else {
-            didChange?(.startNewChat(contact))
+            createChat()
+        }
+    }
+    
+    func createChat() {
+        didChange?(.loading(true))
+        guard
+            let currentProfile = currentProfile,
+            let newChatId = chatCreator.newChatId()
+        else {
+            assertionFailure("No chat id")
+            return
+        }
+        
+        let currentChatter = Chatter(
+            id: currentProfile.userId,
+            displayName: currentProfile.name,
+            profileImageUrl: currentProfile.profileImageUrl,
+            color: UIColor.random
+        )
+        
+        chatCreator.createChat(
+            chatId: newChatId,
+            title: nil,
+            attachmentUrl: nil,
+            currentChatter: currentChatter,
+            contacts: [contact]
+        ) { (result) in
+            switch result {
+            case let .success(chat):
+                self.didChange?(.loadExistingChat(chat))
+            case let .failure(error):
+                break
+            }
         }
     }
 }
 
 extension ContactViewModel: ContactListObserver {
     func contactRemoved(contact: Contact, contacts: [Contact]) {
-        
         if contact.id == self.contact.id {
             didChange?(.contactDeleted)
             didChange?(.loading(false))
@@ -82,4 +118,14 @@ extension ContactViewModel: ContactListObserver {
     func contactUpdated(contact: Contact, in contacts: [Contact]) {}
     func initialContactsReceived(contacts: [Contact]) {}
     func allContacts(contacts: [Contact]) {}
+}
+
+extension ContactViewModel: ProfileObserver {
+    func initialProfileReceived(profile: Profile) {
+        self.currentProfile = profile
+    }
+    
+    func profileUpdated(profile: Profile) {
+        self.currentProfile = profile
+    }
 }
