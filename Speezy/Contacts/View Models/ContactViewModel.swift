@@ -10,16 +10,19 @@ import UIKit
 
 class ContactViewModel: ProfileViewModel {
     enum Change {
+        case loading(Bool)
         case profileLoaded
         case loadExistingChat(Chat)
         case startNewChat(Contact)
+        case contactDeleted
     }
     
     var didChange: ((Change) -> Void)?
     var profile: Profile?
     var profileImageAttachment: UIImage?
     
-    let profileFetcher = ProfileFetcher()
+    private let profileFetcher = ProfileFetcher()
+    private let contactDeleter = ContactDeleter()
     
     private let store: Store
     private let contact: Contact
@@ -30,6 +33,7 @@ class ContactViewModel: ProfileViewModel {
     }
     
     func loadData() {
+        didChange?(.loading(true))
         profileFetcher.fetchProfile(userId: contact.id) { (result) in
             switch result {
             case let .success(profile):
@@ -38,7 +42,16 @@ class ContactViewModel: ProfileViewModel {
             case let .failure(error):
                 break
             }
+            
+            self.didChange?(.loading(false))
         }
+        
+        store.contactStore.addContactListObserver(self)
+    }
+    
+    func deleteContact() {
+        didChange?(.loading(true))
+        contactDeleter.deleteContact(contact: contact)
     }
     
     func loadChatWithContact() {
@@ -54,18 +67,19 @@ class ContactViewModel: ProfileViewModel {
             didChange?(.startNewChat(contact))
         }
     }
-    
-    func updateProfile() {
-        guard let profile = profile else {
-            return
-        }
+}
+
+extension ContactViewModel: ContactListObserver {
+    func contactRemoved(contact: Contact, contacts: [Contact]) {
         
-        DatabaseProfileManager().updateUserProfile(
-            userId: profile.userId,
-            profile: profile,
-            profileImage: profileImageAttachment
-        ) { (result) in
-            
+        if contact.id == self.contact.id {
+            didChange?(.contactDeleted)
+            didChange?(.loading(false))
         }
     }
+    
+    func contactAdded(contact: Contact, in contacts: [Contact]) {}
+    func contactUpdated(contact: Contact, in contacts: [Contact]) {}
+    func initialContactsReceived(contacts: [Contact]) {}
+    func allContacts(contacts: [Contact]) {}
 }

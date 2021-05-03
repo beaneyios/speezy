@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 protocol ContactViewControllerDelegate: AnyObject {
     func contactViewControllerDidTapBack(_ viewController: ContactViewController)
@@ -35,7 +36,7 @@ class ContactViewController: UIViewController {
     weak var delegate: ContactViewControllerDelegate?
     var viewModel: ContactViewModel!
     
-    private var highlightButton = false
+    private var hud: JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,18 @@ class ContactViewController: UIViewController {
                         self,
                         didStartNewChatWithContact: contact
                     )
+                case .contactDeleted:
+                    self.delegate?.contactViewControllerDidTapBack(self)
+                case let .loading(isLoading):
+                    if isLoading {
+                        let hud = JGProgressHUD()
+                        hud.textLabel.text = "Loading..."
+                        hud.show(in: self.view)
+                        self.hud = hud
+                    } else {
+                        self.hud?.dismiss()
+                        self.hud = nil
+                    }
                 }
             }
         }
@@ -90,23 +103,6 @@ class ContactViewController: UIViewController {
         startChatContainer.layer.borderColor = UIColor.speezyPurple.cgColor
     }
     
-    func highlightAddButton() {
-        guard let shareContainer = deleteContainer else {
-            highlightButton = true
-            return
-        }
-        
-        highlightButton = false
-        
-        UIView.animate(withDuration: 0.3) {
-            shareContainer.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        } completion: { _ in
-            UIView.animate(withDuration: 1.0) {
-                shareContainer.transform = .identity
-            }
-        }
-    }
-    
     @IBAction func goBack(_ sender: Any) {
         delegate?.contactViewControllerDidTapBack(self)
     }
@@ -119,10 +115,29 @@ class ContactViewController: UIViewController {
         }
         
         button.configure(title: "Delete contact") {
-            
+            self.deleteContact()
         }
         
         self.deleteButton = button
+    }
+    
+    private func deleteContact() {
+        let alert = UIAlertController(
+            title: "Confirm deletion",
+            message: "Are you sure you want to delete this contact? You will also be removed from their contact list",
+            preferredStyle: .alert
+        )
+        
+        let delete = UIAlertAction(title: "Delete contact", style: .destructive) { _ in
+            self.viewModel.deleteContact()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func configureStartChatButton() {
@@ -149,12 +164,6 @@ class ContactViewController: UIViewController {
             }
             
             self.animateButton(button: element, offset: $0.offset)
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
-            if self.highlightButton {
-                self.highlightAddButton()
-            }
         }
     }
     
