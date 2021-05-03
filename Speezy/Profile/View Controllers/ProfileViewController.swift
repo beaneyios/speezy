@@ -56,6 +56,7 @@ class ProfileViewController: UIViewController {
         configureAboutYouPlaceholder()
         
         if !canEditProfile {
+            
             copyButtonWidth.constant = 25.0
             usernameIcon.textColor = .lightGray
             
@@ -120,6 +121,10 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func attachProfileImage(_ sender: Any) {
+        guard canEditProfile else {
+            return
+        }
+        
         showAttachmentAlert()
     }
     
