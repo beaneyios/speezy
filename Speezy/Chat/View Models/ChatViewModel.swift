@@ -117,7 +117,7 @@ class ChatViewModel: NewItemGenerating {
         didChange?(.replyMessageCleared)
     }
     
-    func setMessageText(_ text: String) {
+    func setMessageText(_ text: String?) {
         self.stagedText = text
     }
     

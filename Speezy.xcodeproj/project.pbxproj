@@ -74,6 +74,13 @@
 		BE2B098624C732DC00317EB7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098324C732DC00317EB7 /* TagCell.swift */; };
 		BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B098724C7336F00317EB7 /* NibLoadable.swift */; };
 		BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B098924C73BD100317EB7 /* TagsView.xib */; };
+		BE2B40F226496DDB00121B2D /* UpgradeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B40F126496DDB00121B2D /* UpgradeListener.swift */; };
+		BE2B40F82649AC7600121B2D /* String+VersionComparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B40F72649AC7600121B2D /* String+VersionComparison.swift */; };
+		BE2B412D264C57E800121B2D /* ChatOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B412C264C57E800121B2D /* ChatOptionsViewController.swift */; };
+		BE2B4131264C58B500121B2D /* ChatOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B4130264C58B500121B2D /* ChatOptionsViewModel.swift */; };
+		BE2B4136264C595E00121B2D /* ChatterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B4134264C595E00121B2D /* ChatterCell.swift */; };
+		BE2B4137264C595E00121B2D /* ChatterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B4135264C595E00121B2D /* ChatterCell.xib */; };
+		BE2B413B264C5A2300121B2D /* ChatterCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B413A264C5A2300121B2D /* ChatterCellModel.swift */; };
 		BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8131263F212F00471874 /* UIColor+ToHex.swift */; };
 		BE2E8136263F22E000471874 /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8135263F22E000471874 /* UIColor+Random.swift */; };
 		BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8139263F303D00471874 /* ContactViewController.swift */; };
@@ -415,6 +422,13 @@
 		BE2B098324C732DC00317EB7 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		BE2B098724C7336F00317EB7 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		BE2B098924C73BD100317EB7 /* TagsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagsView.xib; sourceTree = "<group>"; };
+		BE2B40F126496DDB00121B2D /* UpgradeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeListener.swift; sourceTree = "<group>"; };
+		BE2B40F72649AC7600121B2D /* String+VersionComparison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+VersionComparison.swift"; sourceTree = "<group>"; };
+		BE2B412C264C57E800121B2D /* ChatOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOptionsViewController.swift; sourceTree = "<group>"; };
+		BE2B4130264C58B500121B2D /* ChatOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOptionsViewModel.swift; sourceTree = "<group>"; };
+		BE2B4134264C595E00121B2D /* ChatterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterCell.swift; sourceTree = "<group>"; };
+		BE2B4135264C595E00121B2D /* ChatterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatterCell.xib; sourceTree = "<group>"; };
+		BE2B413A264C5A2300121B2D /* ChatterCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterCellModel.swift; sourceTree = "<group>"; };
 		BE2E8131263F212F00471874 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
 		BE2E8135263F22E000471874 /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		BE2E8139263F303D00471874 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
@@ -1193,6 +1207,7 @@
 				BE6FD97625BC398200723732 /* ChatListViewModel.swift */,
 				BEE47F3D25BC67D100AF47FA /* NewChatViewModel.swift */,
 				BE0A458C25CD684F005F4DA8 /* ChatShareViewModel.swift */,
+				BE2B4130264C58B500121B2D /* ChatOptionsViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1373,6 +1388,7 @@
 				BE8A94C925FE939C00F0C95E /* KillSwitchListener.swift */,
 				BEE4B8AC261B4ABE0043921A /* ContactBackgroundFetchController.swift */,
 				BE978CAF261CEE7800E71419 /* DeepLinkHandler.swift */,
+				BE2B40F126496DDB00121B2D /* UpgradeListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1579,6 +1595,8 @@
 				BE978CF32622202500E71419 /* TestCell.swift */,
 				BE978CF42622202500E71419 /* TestCell.xib */,
 				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
+				BE2B4134264C595E00121B2D /* ChatterCell.swift */,
+				BE2B4135264C595E00121B2D /* ChatterCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1589,6 +1607,7 @@
 				BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */,
 				BEE47EEF25BC415D00AF47FA /* ChatCellModel.swift */,
 				BE0A459425CD725D005F4DA8 /* ChatSelectionCellModel.swift */,
+				BE2B413A264C5A2300121B2D /* ChatterCellModel.swift */,
 			);
 			path = "Cell Models";
 			sourceTree = "<group>";
@@ -1600,6 +1619,7 @@
 				BE6FD97225BC397300723732 /* ChatListViewController.swift */,
 				BEE47F3925BC67B600AF47FA /* NewChatViewController.swift */,
 				BE0A458225CD673B005F4DA8 /* ChatShareViewController.swift */,
+				BE2B412C264C57E800121B2D /* ChatOptionsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1631,6 +1651,7 @@
 				BE6FD93725B4D42D00723732 /* URL+ConvenienceInit.swift */,
 				BE6FD95025B61C2900723732 /* TimeInterval+ToString.swift */,
 				BEE47EF325BC42A000AF47FA /* Date+RelativeTime.swift */,
+				BE2B40F72649AC7600121B2D /* String+VersionComparison.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1961,6 +1982,7 @@
 				BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE8A955C25FEAD1C00F0C95E /* maintenance.json in Resources */,
+				BE2B4137264C595E00121B2D /* ChatterCell.xib in Resources */,
 				BE3C5DEF25BDA375005E34BB /* Home.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
 				BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */,
@@ -2144,6 +2166,7 @@
 				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */,
 				BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */,
+				BE2B40F226496DDB00121B2D /* UpgradeListener.swift in Sources */,
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
@@ -2176,6 +2199,7 @@
 				BE0CDDB32611099400AF2706 /* SpeezyProfileViewGenerator.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
+				BE2B412D264C57E800121B2D /* ChatOptionsViewController.swift in Sources */,
 				BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */,
 				BE978CF52622202500E71419 /* TestCell.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
@@ -2191,6 +2215,7 @@
 				BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
+				BE2B4136264C595E00121B2D /* ChatterCell.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
 				BE978D11262C388F00E71419 /* MessageReply.swift in Sources */,
 				BE8A94C425FE7A9900F0C95E /* EmailValidator.swift in Sources */,
@@ -2250,6 +2275,7 @@
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
+				BE2B4131264C58B500121B2D /* ChatOptionsViewModel.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
@@ -2279,6 +2305,7 @@
 				BE2351A7252F9F7E00067BA2 /* ExperimentalDisfluencyDetection.swift in Sources */,
 				BE978CF02622005B00E71419 /* ContactDeleter.swift in Sources */,
 				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
+				BE2B40F82649AC7600121B2D /* String+VersionComparison.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
 				BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */,
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
@@ -2335,6 +2362,7 @@
 				BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */,
 				BE07DAD22594B22C00D37FC7 /* FacebookSignupViewModel.swift in Sources */,
 				BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */,
+				BE2B413B264C5A2300121B2D /* ChatterCellModel.swift in Sources */,
 				BE6FD98025BC3C6600723732 /* ChatParser.swift in Sources */,
 				BE77767324D6CCD90009BE63 /* SettingsItem.swift in Sources */,
 				BEA9D1E725B4699E000888A7 /* StorageDeleteResult.swift in Sources */,
@@ -2497,7 +2525,7 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2505,7 +2533,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2600,14 +2628,14 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2763,7 +2791,7 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
@@ -2771,7 +2799,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2788,14 +2816,14 @@
 				CODE_SIGN_ENTITLEMENTS = Speezy/Speezy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = D4CTC8FS24;
 				INFOPLIST_FILE = Speezy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.suggestv.speezy-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

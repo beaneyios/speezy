@@ -159,6 +159,14 @@ extension ChatCoordinator: ChatViewControllerDelegate {
         viewController.canCreateNewItems = false
         navigationController.pushViewController(viewController, animated: true)
     }
+    
+    func chatViewControllerDidSelectOptions(_ viewController: ChatViewController) {
+        let viewController = storyboard.instantiateViewController(identifier: "ChatOptionsViewController") as! ChatOptionsViewController
+        viewController.viewModel = ChatOptionsViewModel(
+            chatters: viewController.viewModel.chatters
+        )
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
 
 extension ChatCoordinator: ContactListViewControllerDelegate {

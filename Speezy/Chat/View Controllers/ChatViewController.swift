@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ChatViewControllerDelegate: AnyObject {
+    func chatViewControllerDidSelectOptions(_ viewController: ChatViewController)
     func chatViewControllerDidSelectAddContact(_ viewController: ChatViewController)
     func chatViewControllerDidTapBack(_ viewController: ChatViewController)
     func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager)
@@ -95,6 +96,8 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
     }
     
     @IBAction func didTapOptions(_ sender: Any) {
+        delegate?.chatViewControllerDidSelectOptions(self)
+        return;
         let alert = UIAlertController(
             title: "Chat options",
             message: nil,
@@ -170,7 +173,153 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             .layerMinXMinYCorner, .layerMaxXMinYCorner
         ]
     }
-            
+    
+    private func listenForChanges() {
+        viewModel.didChange = { change in
+            self.applyChange(change: change)
+        }
+        
+        viewModel.delegate = self
+        viewModel.listenForData()
+    }
+    
+    private func applyChange(change: ChatViewModel.Change) {
+        DispatchQueue.main.async {
+            switch change {
+            case .loaded:
+                self.toggleEmptyView()
+                self.collectionView.reloadData()
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.collectionView.alpha = 1.0
+                }
+            case let .chattersLoaded(chatterNames):
+                self.chatterNames.text = chatterNames
+            case let .itemRemoved(index: index):
+                self.toggleEmptyView()
+                self.collectionView.deleteItems(
+                    at: [
+                        IndexPath(
+                            item: index,
+                            section: 0
+                        )
+                    ]
+                )
+            case let .itemInserted(index):
+                self.toggleEmptyView()
+                self.collectionView.insertItems(
+                    at: [
+                        IndexPath(
+                            item: index,
+                            section: 0
+                        )
+                    ]
+                )
+            case let .readStatusReloaded(indexes):
+                let cells = self.cellsForIndexes(indexes)
+                cells.forEach {
+                    let item = self.viewModel.items[$0.0]
+                    $0.1.configureTicks(item: item)
+                }
+            case let .loading(isLoading):
+                if isLoading {
+                    self.spinner.startAnimating()
+                    self.spinner.isHidden = false
+                } else {
+                    self.spinner.stopAnimating()
+                    self.spinner.isHidden = true
+                }
+            case .finishedRecording:
+                if let playbackView = self.activeControl as? ChatPlaybackView {
+                    playbackView.animateOut {
+                        self.animateToRecordButtonView()
+                    }
+                } else {
+                    self.animateToRecordButtonView()
+                }
+            case let .editingDiscarded(itemToReturnTo):
+                guard let playbackView = self.activeControl as? ChatPlaybackView else {
+                    return
+                }
+                
+                playbackView.configure(audioItem: itemToReturnTo)
+            case .leftChat:
+                self.delegate?.chatViewControllerDidTapBack(self)
+            case let .messagePlayed(index):
+                let cells = self.cellsForIndexes([index])
+                cells.forEach {
+                    let item = self.viewModel.items[$0.0]
+                    $0.1.configurePlayedStatus(item: item)
+                }
+            case let .replyMessageSet(message):
+                self.presentReply(message: message)
+            case .replyMessageCleared:
+                self.clearReply()
+            }
+        }
+    }
+    
+    private func cellsForIndexes(_ indexes: [Int]) -> [(Int, AudioMessageCell)] {
+        let indexPaths = indexes.map {
+            IndexPath(item: $0, section: 0)
+        }
+        
+        return collectionView.visibleCells.compactMap {
+            if
+                let indexPath = self.collectionView.indexPath(for: $0),
+                indexPaths.contains(indexPath),
+                let messageCell = $0 as? AudioMessageCell
+            {
+                return (indexPath.row, messageCell)
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    private func clearReply() {
+        replyContainer.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        replyContainerHeight.constant = 0.0
+    }
+    
+    private func toggleEmptyView() {
+        if viewModel.shouldShowEmptyView {
+            emptyView.isHidden = false
+        } else {
+            emptyView.isHidden = true
+        }
+    }
+    
+    private func configureCollectionView() {
+        collectionView.transform = CGAffineTransform(
+            scaleX: 1,
+            y: -1
+        )
+        collectionView.register(
+            AudioMessageCell.nib,
+            forCellWithReuseIdentifier: "cell"
+        )
+        
+        collectionView.register(
+            TestCell.nib,
+            forCellWithReuseIdentifier: "test"
+        )
+        
+        collectionView.register(
+            TextMessageCell.nib,
+            forCellWithReuseIdentifier: "textMessage"
+        )
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+}
+
+// MARK: Custom controls
+extension ChatViewController {
     private func animateToTextView() {
         recordButtonContainerHeight.constant = 100.0
         
@@ -202,6 +351,7 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
         }
         
         textView.cancelAction = {
+            self.viewModel.setMessageText(nil)
             self.animateToRecordButtonView()
         }
         
@@ -321,116 +471,13 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             
             playbackView.animateOut {
                 self.animateToRecordButtonView()
-            }            
+            }
         }
         
         playbackView.configure(audioItem: item)
         playbackView.animateIn()
         
         activeControl = playbackView
-    }
-    
-    private func listenForChanges() {
-        viewModel.didChange = { change in
-            self.applyChange(change: change)
-        }
-        
-        viewModel.delegate = self
-        viewModel.listenForData()
-    }
-    
-    private func applyChange(change: ChatViewModel.Change) {
-        DispatchQueue.main.async {
-            switch change {
-            case .loaded:
-                self.toggleEmptyView()
-                self.collectionView.reloadData()
-                
-                UIView.animate(withDuration: 0.3) {
-                    self.collectionView.alpha = 1.0
-                }
-            case let .chattersLoaded(chatterNames):
-                self.chatterNames.text = chatterNames
-            case let .itemRemoved(index: index):
-                self.toggleEmptyView()
-                self.collectionView.deleteItems(
-                    at: [
-                        IndexPath(
-                            item: index,
-                            section: 0
-                        )
-                    ]
-                )
-            case let .itemInserted(index):
-                self.toggleEmptyView()
-                self.collectionView.insertItems(
-                    at: [
-                        IndexPath(
-                            item: index,
-                            section: 0
-                        )
-                    ]
-                )
-            case let .readStatusReloaded(indexes):
-                let cells = self.cellsForIndexes(indexes)
-                cells.forEach {
-                    let item = self.viewModel.items[$0.0]
-                    $0.1.configureTicks(item: item)
-                }
-            case let .loading(isLoading):
-                if isLoading {
-                    self.spinner.startAnimating()
-                    self.spinner.isHidden = false
-                } else {
-                    self.spinner.stopAnimating()
-                    self.spinner.isHidden = true
-                }
-            case .finishedRecording:
-                if let playbackView = self.activeControl as? ChatPlaybackView {
-                    playbackView.animateOut {
-                        self.animateToRecordButtonView()
-                    }
-                } else {
-                    self.animateToRecordButtonView()
-                }
-            case let .editingDiscarded(itemToReturnTo):
-                guard let playbackView = self.activeControl as? ChatPlaybackView else {
-                    return
-                }
-                
-                playbackView.configure(audioItem: itemToReturnTo)
-            case .leftChat:
-                self.delegate?.chatViewControllerDidTapBack(self)
-            case let .messagePlayed(index):
-                let cells = self.cellsForIndexes([index])
-                cells.forEach {
-                    let item = self.viewModel.items[$0.0]
-                    $0.1.configurePlayedStatus(item: item)
-                }
-            case let .replyMessageSet(message):
-                self.presentReply(message: message)
-            case .replyMessageCleared:
-                self.clearReply()
-            }
-        }
-    }
-    
-    private func cellsForIndexes(_ indexes: [Int]) -> [(Int, AudioMessageCell)] {
-        let indexPaths = indexes.map {
-            IndexPath(item: $0, section: 0)
-        }
-        
-        return collectionView.visibleCells.compactMap {
-            if
-                let indexPath = self.collectionView.indexPath(for: $0),
-                indexPaths.contains(indexPath),
-                let messageCell = $0 as? AudioMessageCell
-            {
-                return (indexPath.row, messageCell)
-            } else {
-                return nil
-            }
-        }
     }
     
     private func presentReply(message: ReplyViewModel) {
@@ -464,48 +511,9 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
             self.clearReply()
         }
     }
-    
-    private func clearReply() {
-        replyContainer.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        replyContainerHeight.constant = 0.0
-    }
-    
-    private func toggleEmptyView() {
-        if viewModel.shouldShowEmptyView {
-            emptyView.isHidden = false
-        } else {
-            emptyView.isHidden = true
-        }
-    }
-    
-    private func configureCollectionView() {
-        collectionView.transform = CGAffineTransform(
-            scaleX: 1,
-            y: -1
-        )
-        collectionView.register(
-            AudioMessageCell.nib,
-            forCellWithReuseIdentifier: "cell"
-        )
-        
-        collectionView.register(
-            TestCell.nib,
-            forCellWithReuseIdentifier: "test"
-        )
-        
-        collectionView.register(
-            TextMessageCell.nib,
-            forCellWithReuseIdentifier: "textMessage"
-        )
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
 }
 
+// MARK: Quick record delegate
 extension ChatViewController {
     func quickRecordViewController(_ viewController: QuickRecordViewController, didFinishRecordingItem item: AudioItem) {
         viewController.view.removeFromSuperview()

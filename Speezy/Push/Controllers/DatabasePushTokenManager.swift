@@ -67,8 +67,8 @@ class DatabasePushTokenManager {
             
             let chatKeys = value.allKeys
             chatKeys.forEach {
-                let chatterRef = ref.child("chatters/\($0)/\(userId)/push_token")
-                chatterRef.setValue(token) { (error, ref) in
+                let pushTokenRef = ref.child("chats/\($0)/push_tokens/\(userId)")
+                pushTokenRef.setValue(token) { (error, ref) in
                     if let error = error {
                         completion?(.failure(error))
                         return
@@ -86,6 +86,7 @@ class DatabasePushTokenManager {
     ) {
         let ref = Database.database().reference()
         let chatListRef = ref.child("users/\(userId)/chats")
+        var updatePaths: [AnyHashable: Any] = [:]
         chatListRef.observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? NSDictionary else {
                 return
@@ -93,15 +94,17 @@ class DatabasePushTokenManager {
             
             let chatKeys = value.allKeys
             chatKeys.forEach {
-                let chatterRef = ref.child("chatters/\($0)/\(userId)/push_token")
-                chatterRef.removeValue { (error, ref) in
-                    if let error = error {
-                        completion?(error)
-                        return
-                    }
-                    
-                    completion?(nil)
+                let tokenPath = "chats/\($0)/push_tokens/\(userId)"
+                updatePaths[tokenPath] = NSNull()
+            }
+            
+            ref.updateChildValues(updatePaths) { (error, _) in
+                if let error = error {
+                    completion?(error)
+                    return
                 }
+                
+                completion?(nil)
             }
         }
     }

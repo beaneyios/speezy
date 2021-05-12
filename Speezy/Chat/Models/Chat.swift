@@ -17,6 +17,7 @@ struct Chat: Identifiable, Hashable {
     var readBy: [String: TimeInterval]
     var pushTokens: [UserToken]
     var chatters: [Chatter]
+    var ownerId: String?
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -136,6 +137,10 @@ extension Chat {
             "chatters": chatters.toDict,
             "push_tokens": pushTokensDict
         ]
+        
+        if let ownerId = ownerId {
+            dict["owner_id"] = ownerId
+        }
         
         if let chatImageUrl = chatImageUrl {
             dict["chat_image_url"] = chatImageUrl.absoluteString

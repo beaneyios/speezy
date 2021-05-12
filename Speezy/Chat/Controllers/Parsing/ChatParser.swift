@@ -22,6 +22,7 @@ class ChatParser {
         let readBy = dict["read_by"] as? [String: TimeInterval]
         let pushTokensDict = dict["push_tokens"] as? [String: String]
         let pushTokens = [UserToken](dict: pushTokensDict)
+        let ownerId = dict["owner_id"] as? String
         
         let chat = Chat(
             id: key,
@@ -31,7 +32,8 @@ class ChatParser {
             chatImageUrl: URL(key: "chat_image_url", dict: dict),
             readBy: readBy ?? [:],
             pushTokens: pushTokens,
-            chatters: parseChatters(dict: chattersDict)
+            chatters: parseChatters(dict: chattersDict),
+            ownerId: ownerId
         )
         
         return chat

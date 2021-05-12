@@ -33,6 +33,10 @@ class AccountDeletionManager {
             // Remove user from chats and chatter groups
             chats?.keys.forEach {
                 updatedData["chats/\($0)/read_by/\(userId)"] = NSNull()
+                updatedData["chats/\($0)/push_tokens/\(userId)"] = NSNull()
+                updatedData["chats/\($0)/chatters/\(userId)"] = NSNull()
+                
+                // Legacy.
                 updatedData["chatters/\($0)/\(userId)"] = NSNull()
             }
             

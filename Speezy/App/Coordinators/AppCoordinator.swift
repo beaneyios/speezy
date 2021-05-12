@@ -22,6 +22,7 @@ class AppCoordinator: ViewCoordinator {
     let store = Store.shared
     let tokenService = PushTokenSyncService()
     let killSwitchListener = KillSwitchListener()
+    let upgradeListener = UpgradeListener()
     
     var killSwitchViewController: KillSwitchViewController? {
         tabBarController.presentedViewController as? KillSwitchViewController
@@ -44,6 +45,12 @@ class AppCoordinator: ViewCoordinator {
         killSwitchListener.listenForKill { status in
             DispatchQueue.main.async {
                 self.handleKillSwitchChange(status: status)
+            }
+        }
+        
+        upgradeListener.listenForUpgrade { (status) in
+            DispatchQueue.main.async {
+                self.handleUpgradeChange(status: status)
             }
         }
     }
@@ -89,6 +96,54 @@ class AppCoordinator: ViewCoordinator {
                 completion: nil
             )
         }
+    }
+    
+    private func handleUpgradeChange(status: UpgradeListener.Status) {
+        switch status {
+        case .requiresUpgrade:
+            showUpgradeAlert(
+                title: "App update required",
+                message: "This version of the app is no longer supported, tap below to update.",
+                allowCancel: false
+            )
+        case .upgradeAdvised:
+            showUpgradeAlert(
+                title: "New update available",
+                message: "There is a new version of Speezy available, tap below to update.",
+                allowCancel: true
+            )
+        case .noAction:
+            break
+        }
+    }
+    
+    private func showUpgradeAlert(
+        title: String,
+        message: String,
+        allowCancel: Bool
+    ) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let upgradeAction = UIAlertAction(title: "Upgrade", style: .default) { (action) in
+            let storeUrl = URL(string: "https://apps.apple.com/gb/app/speezy/id1557121831")!
+            UIApplication.shared.open(storeUrl, options: [:], completionHandler: nil)
+            
+            if allowCancel == false {
+                self.showUpgradeAlert(
+                    title: title,
+                    message: message,
+                    allowCancel: allowCancel
+                )
+            }
+        }
+        
+        alert.addAction(upgradeAction)
+        
+        if allowCancel {
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+        }
+        
+        tabBarController.present(alert, animated: true, completion: nil)
     }
     
     private func navigateToKillSwitch(status: Status) {

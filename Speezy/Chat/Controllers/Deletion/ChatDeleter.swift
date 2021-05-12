@@ -27,7 +27,8 @@ class ChatDeleter {
             updatedData["chats/\(chat.id)"] = NSNull()
         } else {
             // Just remove this user.
-            updatedData["chatters/\(chat.id)/\(userId)"] = NSNull()
+            updatedData["chats/\(chat.id)/chatters/\(userId)"] = NSNull()
+            updatedData["chats/\(chat.id)/push_tokens/\(userId)"] = NSNull()
         }
         
         ref.updateChildValues(updatedData) { (error, updatedRef) in

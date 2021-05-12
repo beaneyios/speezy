@@ -1,22 +1,22 @@
 PODS:
   - AFDateHelper (4.3.0)
-  - Alamofire (5.4.1)
+  - Alamofire (5.4.3)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - DeviceKit (4.2.1)
-  - FBSDKCoreKit (9.1.0):
-    - FBSDKCoreKit/Basics (= 9.1.0)
-    - FBSDKCoreKit/Core (= 9.1.0)
-  - FBSDKCoreKit/Basics (9.1.0)
-  - FBSDKCoreKit/Core (9.1.0):
+  - FBSDKCoreKit (9.3.0):
+    - FBSDKCoreKit/Basics (= 9.3.0)
+    - FBSDKCoreKit/Core (= 9.3.0)
+  - FBSDKCoreKit/Basics (9.3.0)
+  - FBSDKCoreKit/Core (9.3.0):
     - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (9.1.0):
-    - FBSDKLoginKit/Login (= 9.1.0)
-  - FBSDKLoginKit/Login (9.1.0):
-    - FBSDKCoreKit (~> 9.1.0)
+  - FBSDKLoginKit (9.3.0):
+    - FBSDKLoginKit/Login (= 9.3.0)
+  - FBSDKLoginKit/Login (9.3.0):
+    - FBSDKCoreKit (~> 9.3.0)
   - Firebase/Analytics (7.0.0):
     - Firebase/Core
   - Firebase/Auth (7.0.0):
@@ -79,16 +79,20 @@ PODS:
     - leveldb-library (~> 1.22)
   - FirebaseDynamicLinks (7.0.0):
     - FirebaseCore (~> 7.0)
-  - FirebaseFirestore (7.9.0)
+  - FirebaseFirestore (7.11.0):
+    - FirebaseFirestore/AutodetectLeveldb (= 7.11.0)
+  - FirebaseFirestore/AutodetectLeveldb (7.11.0):
+    - FirebaseFirestore/Base
+  - FirebaseFirestore/Base (7.11.0)
   - FirebaseFunctions (7.0.0):
     - FirebaseCore (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
-  - FirebaseInstallations (7.8.0):
+  - FirebaseInstallations (7.11.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.8.0):
+  - FirebaseInstanceID (7.11.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
@@ -119,36 +123,32 @@ PODS:
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleUtilities/AppDelegateSwizzler (7.3.1):
+  - GoogleUtilities/AppDelegateSwizzler (7.4.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.3.1):
+  - GoogleUtilities/Environment (7.4.0):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (7.3.1):
+  - GoogleUtilities/Logger (7.4.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.3.1):
+  - GoogleUtilities/MethodSwizzler (7.4.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (7.3.1):
+  - GoogleUtilities/Network (7.4.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.3.1)"
-  - GoogleUtilities/Reachability (7.3.1):
+  - "GoogleUtilities/NSData+zlib (7.4.0)"
+  - GoogleUtilities/Reachability (7.4.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.3.1):
+  - GoogleUtilities/UserDefaults (7.4.0):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.1.0):
+  - GTMAppAuth (1.2.2):
     - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher (~> 1.4)
-  - GTMSessionFetcher (1.5.0):
-    - GTMSessionFetcher/Full (= 1.5.0)
+    - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.5.0)
-  - GTMSessionFetcher/Full (1.5.0):
-    - GTMSessionFetcher/Core (= 1.5.0)
   - JGProgressHUD (2.2)
   - leveldb-library (1.22.1)
-  - lottie-ios (3.2.1)
+  - lottie-ios (3.2.2)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -156,9 +156,9 @@ PODS:
   - nanopb/encode (2.30906.0)
   - PromisesObjC (1.2.12)
   - SCLAlertView (0.8)
-  - SDWebImage (5.10.4):
-    - SDWebImage/Core (= 5.10.4)
-  - SDWebImage/Core (5.10.4)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - SnapKit (5.0.1)
   - SwiftVideoGenerator (1.4.0)
   - SwipeCellKit (2.7.1)
@@ -239,16 +239,16 @@ CHECKOUT OPTIONS:
     :commit: 88a3f2e667062c6ae86d3de7653ba1f1b083b9b1
     :git: https://github.com/invertase/firebase-ios-sdk.git
   FirebaseFirestore:
-    :commit: 195df7f6274117feaa7e970ca5299b6eb1e5e95f
+    :commit: 6c1f9ec1848b4ae3317121829af98c822c177680
     :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
 
 SPEC CHECKSUMS:
   AFDateHelper: b769c07d3d4784ee9a74633285304261bb27dc52
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
-  FBSDKCoreKit: a00fe2efd780c195a5e09201bf51c56106245b40
-  FBSDKLoginKit: d98498c598ec09de657385a9349a1f21119b7f86
+  FBSDKCoreKit: 0d1ae58388a458b8222f72025804cdc84eb5d0c3
+  FBSDKLoginKit: aea68df6121c5e165ccae2fabfdc83c4644ee40f
   Firebase: 50be68416f50eb4eb2ecb0e78acab9a051ef95df
   FirebaseAnalytics: c1166b7990bae464c6436132510bb718c6680f80
   FirebaseAuth: 228dd0faa5b5263eaa8c63518b16faef438289a3
@@ -257,10 +257,10 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: bd430b7323e8b49492a93e563e81899d0615f917
   FirebaseDatabase: 2481b48ebfd233ef591095d79d76720ea85cde74
   FirebaseDynamicLinks: 71ed03780db3986e1bd386d6a1be44d09d4cd0ec
-  FirebaseFirestore: 93eb1bb94f1e5864130dfc8efaa7d549f0f1f00d
+  FirebaseFirestore: 782bf8a23c53bddf8fbbf6059c90fabe08768107
   FirebaseFunctions: 571aee227a021debe3e1092aa079f751623e233a
-  FirebaseInstallations: 7f7ed0e7e27fb51f57291e1876e2ddb1524126c1
-  FirebaseInstanceID: aaecc93b4528bbcafea12c477e26827719ca1183
+  FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
+  FirebaseInstanceID: ad5135045a498d7775903efd39762d2cdfa1be27
   FirebaseMessaging: ecf9e04716b7ff1f1d92debab4d6f0e6bdb490aa
   FirebaseStorage: ea52bc7a1cb540406ed1e1acfc2bf3946621ed34
   FirebaseUI: 59db3d833773f985550897d54ceb811ba37fb9a5
@@ -268,16 +268,16 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 7790ef975d1d463c8614cd949a847e612edf087a
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
-  GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
-  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
+  GoogleUtilities: 284cddc7fffc14ae1907efb6f78ab95c1fccaedc
+  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
-  lottie-ios: 106e92eaf11fbed0a76590b4cdb9b5ec26123ff7
+  lottie-ios: a033bb989eea77d9f99cc4e2bbdd3788229761ad
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
-  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftVideoGenerator: 804637c18f68a4f205d806e305ebceb4adcf3d25
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea

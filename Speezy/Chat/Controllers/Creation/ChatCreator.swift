@@ -81,14 +81,14 @@ class ChatCreator {
             chatImageUrl: attachmentUrl,
             readBy: readBy,
             pushTokens: tokens,
-            chatters: chatters
+            chatters: chatters,
+            ownerId: currentChatter.id
         )
         
         chatters.forEach { chatter in
             updatePaths["users/\(chatter.id)/chats/\(chatId)"] = true
         }
         
-        updatePaths["chatters/\(newChat.id)"] = chatters.toDict
         updatePaths["users/\(currentChatter.id)/chats/\(chatId)"] = true
         updatePaths["chats/\(chatId)"] = newChat.toDict
         
