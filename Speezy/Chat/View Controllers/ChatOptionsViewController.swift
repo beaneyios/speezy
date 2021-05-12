@@ -30,7 +30,7 @@ class ChatOptionsViewController: UIViewController {
     }
 }
 
-extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.chatters.count
     }
@@ -40,7 +40,12 @@ extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionVie
         let chatter = viewModel.chatters[indexPath.row]
         let cellModel = ChatterCellModel(chatter: chatter)
         cell.configure(viewModel: cellModel)
+        cell.delegate = self
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.width, height: 50.0)
     }
 }
 

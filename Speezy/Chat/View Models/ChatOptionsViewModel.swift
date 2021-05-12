@@ -12,6 +12,6 @@ class ChatOptionsViewModel {
     var chatters: [Chatter]
     
     init(chatters: [Chatter]) {
-        self.chatters = []
+        self.chatters = chatters
     }
 }

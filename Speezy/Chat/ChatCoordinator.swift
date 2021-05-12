@@ -161,11 +161,11 @@ extension ChatCoordinator: ChatViewControllerDelegate {
     }
     
     func chatViewControllerDidSelectOptions(_ viewController: ChatViewController) {
-        let viewController = storyboard.instantiateViewController(identifier: "ChatOptionsViewController") as! ChatOptionsViewController
-        viewController.viewModel = ChatOptionsViewModel(
-            chatters: viewController.viewModel.chatters
+        let optionsVC = storyboard.instantiateViewController(identifier: "ChatOptionsViewController") as! ChatOptionsViewController
+        optionsVC.viewModel = ChatOptionsViewModel(
+            chatters: viewController.viewModel.chat.chatters
         )
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(optionsVC, animated: true)
     }
 }
 

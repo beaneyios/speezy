@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class ChatterCell: UICollectionViewCell, NibLoadable {
+class ChatterCell: SwipeCollectionViewCell, NibLoadable {
     @IBOutlet weak var chatterName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     

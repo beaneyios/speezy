@@ -807,9 +807,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xq-w4-oYK">
                                 <rect key="frame" x="0.0" y="44" width="414" height="64"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn-close" translatesAutoresizingMaskIntoConstraints="NO" id="XYs-2A-WLV">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-button" translatesAutoresizingMaskIntoConstraints="NO" id="XYs-2A-WLV">
                                         <rect key="frame" x="16" y="16.5" width="20" height="31"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <color key="tintColor" name="speezy-purple"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="d4e-EJ-UJ4"/>
                                             <constraint firstAttribute="width" constant="20" id="dNw-e0-lxo"/>
