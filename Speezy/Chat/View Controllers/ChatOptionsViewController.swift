@@ -9,14 +9,31 @@
 import UIKit
 import SwipeCellKit
 
+protocol ChatOptionsViewControllerDelegate: AnyObject {
+    func chatOptionsViewControllerDidDeleteChat(_ viewController: ChatOptionsViewController)
+    func chatOptionsViewControllerDidPop(_ viewController: ChatOptionsViewController)
+}
+
 class ChatOptionsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     var viewModel: ChatOptionsViewModel!
+    weak var delegate: ChatOptionsViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case .updated:
+                    self.collectionView.reloadData()
+                case .chatDeleted:
+                    self.delegate?.chatOptionsViewControllerDidDeleteChat(self)
+                }
+            }
+        }
     }
     
     private func configureCollectionView() {
@@ -38,9 +55,15 @@ extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ChatterCell
         let chatter = viewModel.chatters[indexPath.row]
-        let cellModel = ChatterCellModel(chatter: chatter)
+        let cellModel = ChatterCellModel(
+            chatter: chatter,
+            isAdmin: viewModel.userIsAdmin(chatter: chatter)
+        )
         cell.configure(viewModel: cellModel)
-        cell.delegate = self
+        
+        if viewModel.canRemoveUsers {
+            cell.delegate = self
+        }
         return cell
     }
     
@@ -75,9 +98,10 @@ extension ChatOptionsViewController: SwipeCollectionViewCellDelegate {
                 message: "Are you sure you want to remove this contact? They will be removed from the chat.",
                 preferredStyle: .alert
             )
-            
+                        
             let delete = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                
+                let chatter = self.viewModel.chatters[indexPath.row]
+                self.viewModel.removeUser(chatter: chatter)
             }
             
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

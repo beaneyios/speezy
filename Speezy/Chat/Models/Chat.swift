@@ -83,6 +83,12 @@ extension Chat {
 }
 
 extension Chat {
+    func withChatters(chatters: [Chatter]) -> Chat {
+        var newChat = self
+        newChat.chatters = chatters
+        return newChat
+    }
+    
     func withPushTokens(tokens: [String: String]) -> Chat {
         var newChat = self
         

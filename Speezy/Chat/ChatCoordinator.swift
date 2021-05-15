@@ -163,9 +163,24 @@ extension ChatCoordinator: ChatViewControllerDelegate {
     func chatViewControllerDidSelectOptions(_ viewController: ChatViewController) {
         let optionsVC = storyboard.instantiateViewController(identifier: "ChatOptionsViewController") as! ChatOptionsViewController
         optionsVC.viewModel = ChatOptionsViewModel(
-            chatters: viewController.viewModel.chat.chatters
+            chat: viewController.viewModel.chat
         )
+        optionsVC.delegate = self
         navigationController.pushViewController(optionsVC, animated: true)
+    }
+}
+
+extension ChatCoordinator: ChatOptionsViewControllerDelegate {
+    func chatOptionsViewControllerDidDeleteChat(_ viewController: ChatOptionsViewController) {
+        guard let chatListViewController = self.chatListViewController else {
+            return
+        }
+        
+        navigationController.popToViewController(chatListViewController, animated: true)
+    }
+    
+    func chatOptionsViewControllerDidPop(_ viewController: ChatOptionsViewController) {
+        navigationController.popViewController(animated: true)
     }
 }
 

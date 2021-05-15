@@ -12,6 +12,7 @@ import SwipeCellKit
 class ChatterCell: SwipeCollectionViewCell, NibLoadable {
     @IBOutlet weak var chatterName: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var adminLabel: UILabel!
     
     var viewModel: ChatterCellModel?
     
@@ -24,6 +25,8 @@ class ChatterCell: SwipeCollectionViewCell, NibLoadable {
     func configure(viewModel: ChatterCellModel) {
         self.viewModel = viewModel
         imageView.alpha = 0.0
+        chatterName.text = viewModel.titleText
+        adminLabel.isHidden = !viewModel.isAdmin
         viewModel.loadImage { (result) in
             DispatchQueue.main.async {
                 switch result {

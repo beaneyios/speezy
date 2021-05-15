@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="312" height="91"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Alex Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndu-78-aC9">
-                                <rect key="frame" x="70" y="34" width="218" height="23"/>
+                                <rect key="frame" x="70" y="34" width="92.5" height="23"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <nil key="textColor"/>
@@ -42,16 +42,24 @@
                                     <constraint firstAttribute="width" constant="30" id="y2X-0d-jtc"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Admin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpk-bP-grn">
+                                <rect key="frame" x="240" y="35" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kfx-UW-CXX" firstAttribute="leading" secondItem="YS4-T3-V3h" secondAttribute="leading" constant="24" id="9DA-yP-4FP"/>
-                            <constraint firstAttribute="trailing" secondItem="Ndu-78-aC9" secondAttribute="trailing" constant="24" id="DVT-FK-Yjj"/>
+                            <constraint firstItem="vpk-bP-grn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ndu-78-aC9" secondAttribute="trailing" constant="16" id="DrK-DP-eiO"/>
                             <constraint firstItem="Ndu-78-aC9" firstAttribute="leading" secondItem="Kfx-UW-CXX" secondAttribute="trailing" constant="16" id="Qop-XU-tFK"/>
+                            <constraint firstAttribute="trailing" secondItem="vpk-bP-grn" secondAttribute="trailing" constant="24" id="WmA-bX-aWg"/>
                             <constraint firstAttribute="bottom" secondItem="Q6M-Vl-tJM" secondAttribute="bottom" id="fu2-SQ-aDa"/>
                             <constraint firstAttribute="trailing" secondItem="Q6M-Vl-tJM" secondAttribute="trailing" id="jiu-gn-L20"/>
                             <constraint firstItem="Q6M-Vl-tJM" firstAttribute="leading" secondItem="YS4-T3-V3h" secondAttribute="leading" constant="24" id="juU-CM-NUN"/>
                             <constraint firstItem="Ndu-78-aC9" firstAttribute="centerY" secondItem="YS4-T3-V3h" secondAttribute="centerY" id="lnL-Zb-Zhr"/>
+                            <constraint firstItem="vpk-bP-grn" firstAttribute="centerY" secondItem="YS4-T3-V3h" secondAttribute="centerY" id="mE9-ER-PYg"/>
                             <constraint firstItem="Kfx-UW-CXX" firstAttribute="centerY" secondItem="YS4-T3-V3h" secondAttribute="centerY" id="tDw-Zd-VDa"/>
                         </constraints>
                     </view>
@@ -66,6 +74,7 @@
             </constraints>
             <size key="customSize" width="312" height="91"/>
             <connections>
+                <outlet property="adminLabel" destination="vpk-bP-grn" id="UIX-qq-ZKn"/>
                 <outlet property="chatterName" destination="Ndu-78-aC9" id="ouc-RS-qy7"/>
                 <outlet property="imageView" destination="Kfx-UW-CXX" id="acf-5H-o3o"/>
             </connections>
@@ -78,6 +87,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -13,9 +13,11 @@ class ChatterCellModel {
     private var downloadTask: StorageDownloadTask?
     
     let chatter: Chatter
+    let isAdmin: Bool
     
-    init(chatter: Chatter) {
+    init(chatter: Chatter, isAdmin: Bool) {
         self.chatter = chatter
+        self.isAdmin = isAdmin
     }
 }
 

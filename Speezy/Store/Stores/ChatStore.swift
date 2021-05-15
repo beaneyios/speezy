@@ -86,6 +86,8 @@ class ChatStore {
                 return chatToUpdate?.withReadBy(readBy: readBy)
             case let .pushTokens(tokens):
                 return chatToUpdate?.withPushTokens(tokens: tokens)
+            case let .chatters(chatters):
+                return chatToUpdate?.withChatters(chatters: chatters)
             }
         }()
         

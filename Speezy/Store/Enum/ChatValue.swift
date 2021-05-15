@@ -19,6 +19,7 @@ enum ChatValue {
     case title(String)
     case readBy([String: TimeInterval])
     case pushTokens([String: String])
+    case chatters([Chatter])
     
     init?(key: String, value: Any) {
         switch (key, value) {
@@ -32,6 +33,9 @@ enum ChatValue {
             self = .readBy(value)
         case ("push_tokens", let value as [String: String]):
             self = .pushTokens(value)
+        case ("chatters", let value as [String: Any]):
+            let chatters = ChatParser.parseChatters(dict: value as NSDictionary)
+            self = .chatters(chatters)
         default:
             return nil
         }
@@ -49,6 +53,8 @@ enum ChatValue {
             return "read_by"
         case .pushTokens:
             return "push_tokens"
+        case .chatters:
+            return "chatters"
         }
     }
     
@@ -64,6 +70,8 @@ enum ChatValue {
             return readBy
         case let .pushTokens(tokens):
             return tokens
+        case let .chatters(chatters):
+            return chatters
         }
     }
 }

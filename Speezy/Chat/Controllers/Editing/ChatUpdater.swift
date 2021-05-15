@@ -39,6 +39,24 @@ class ChatUpdater {
         }
     }
     
+    func removeUserFromChat(
+        chatter: Chatter,
+        chat: Chat
+    ) {
+        var updatePaths: [AnyHashable: Any] = [:]
+        let ref = Database.database().reference()
+        
+        if chat.chatters.count == 1 {
+            updatePaths["chats/\(chat.id)"] = NSNull()
+        } else {
+            updatePaths["chats/\(chat.id)/chatters/\(chatter.id)"] = NSNull()
+            updatePaths["chats/\(chat.id)/push_tokens/\(chatter.id)"] = NSNull()
+        }
+        
+        updatePaths["users/\(chatter.id)/chats/\(chat.id)"] = NSNull()
+        ref.updateChildValues(updatePaths)
+    }
+    
     private func addUserToChat(
         chat: Chat,
         contact: Contact,
