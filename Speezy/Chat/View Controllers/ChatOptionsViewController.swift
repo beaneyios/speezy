@@ -12,6 +12,7 @@ import SwipeCellKit
 protocol ChatOptionsViewControllerDelegate: AnyObject {
     func chatOptionsViewControllerDidDeleteChat(_ viewController: ChatOptionsViewController)
     func chatOptionsViewControllerDidPop(_ viewController: ChatOptionsViewController)
+    func chatOptionsViewControllerDidSelectAddChatter(_ viewController: ChatOptionsViewController)
 }
 
 class ChatOptionsViewController: UIViewController {
@@ -36,6 +37,14 @@ class ChatOptionsViewController: UIViewController {
         }
     }
     
+    @IBAction func didTapBack(_ sender: Any) {
+        delegate?.chatOptionsViewControllerDidPop(self)
+    }
+    
+    func addUserToGroup(contact: Contact) {
+        viewModel.addUserToGroup(contact: contact)
+    }
+    
     private func configureCollectionView() {
         collectionView.register(
             ChatterCell.nib,
@@ -45,6 +54,11 @@ class ChatOptionsViewController: UIViewController {
         collectionView.register(
             SpeezyButtonCell.nib,
             forCellWithReuseIdentifier: "leaveButtonCell"
+        )
+        
+        collectionView.register(
+            AddChatterCell.nib,
+            forCellWithReuseIdentifier: "addChatterCell"
         )
         
         collectionView.delegate = self
@@ -62,6 +76,8 @@ extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionVie
         let item = viewModel.items[indexPath.row]
         
         switch item {
+        case .addChatterButton:
+            return addChatterCell(indexPath: indexPath)
         case let .chatter(chatter):
             return chatterCell(
                 indexPath: indexPath,
@@ -77,11 +93,49 @@ extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionVie
         let item = viewModel.items[indexPath.row]
         
         switch item {
-        case .chatter:
+        case .chatter, .addChatterButton:
             return CGSize(width: collectionView.frame.width, height: 50.0)
         case .leaveButton:
             return CGSize(width: collectionView.frame.width, height: 70.0)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = viewModel.items[indexPath.row]
+        
+        switch item {
+        case .addChatterButton:
+            delegate?.chatOptionsViewControllerDidSelectAddChatter(self)
+        case .chatter, .leaveButton:
+            break
+        }
+    }
+    
+    private func addChatterCell(indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "addChatterCell",
+            for: indexPath
+        ) as! AddChatterCell
+        
+        return cell
+    }
+    
+    private func chatterCell(indexPath: IndexPath, chatter: Chatter) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "chatterCell",
+            for: indexPath
+        ) as! ChatterCell
+        
+        let cellModel = ChatterCellModel(
+            chatter: chatter,
+            isAdmin: viewModel.userIsAdmin(chatter: chatter)
+        )
+        cell.configure(viewModel: cellModel)
+        
+        if viewModel.canRemoveUsers(indexPath: indexPath) {
+            cell.delegate = self
+        }
+        return cell
     }
     
     private func leaveButton(indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,24 +162,6 @@ extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionVie
             self.present(alert, animated: true, completion: nil)
         }
         
-        return cell
-    }
-    
-    private func chatterCell(indexPath: IndexPath, chatter: Chatter) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "chatterCell",
-            for: indexPath
-        ) as! ChatterCell
-        
-        let cellModel = ChatterCellModel(
-            chatter: chatter,
-            isAdmin: viewModel.userIsAdmin(chatter: chatter)
-        )
-        cell.configure(viewModel: cellModel)
-        
-        if viewModel.canRemoveUsers(indexPath: indexPath) {
-            cell.delegate = self
-        }
         return cell
     }
 }

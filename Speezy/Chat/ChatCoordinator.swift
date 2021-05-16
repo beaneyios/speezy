@@ -110,6 +110,12 @@ extension ChatCoordinator {
             $0 as? ChatViewController
         }.first
     }
+    
+    var chatOptionsViewController: ChatOptionsViewController? {
+        navigationController.viewControllers.compactMap {
+            $0 as? ChatOptionsViewController
+        }.first
+    }
 }
 
 extension ChatCoordinator: ChatShareViewControllerDelegate {
@@ -148,18 +154,6 @@ extension ChatCoordinator: ChatViewControllerDelegate {
         navigationController.popViewController(animated: true)
     }
     
-    func chatViewControllerDidSelectAddContact(_ viewController: ChatViewController) {
-        let storyboard = UIStoryboard(name: "Contacts", bundle: nil)
-        let viewController = storyboard.instantiateViewController(
-            identifier: "ContactListViewController"
-        ) as! ContactListViewController
-        
-        viewController.hidesBottomBarWhenPushed = true
-        viewController.delegate = self
-        viewController.canCreateNewItems = false
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
     func chatViewControllerDidSelectOptions(_ viewController: ChatViewController) {
         let optionsVC = storyboard.instantiateViewController(identifier: "ChatOptionsViewController") as! ChatOptionsViewController
         optionsVC.viewModel = ChatOptionsViewModel(
@@ -182,6 +176,18 @@ extension ChatCoordinator: ChatOptionsViewControllerDelegate {
     func chatOptionsViewControllerDidPop(_ viewController: ChatOptionsViewController) {
         navigationController.popViewController(animated: true)
     }
+    
+    func chatOptionsViewControllerDidSelectAddChatter(_ viewController: ChatOptionsViewController) {
+        let storyboard = UIStoryboard(name: "Contacts", bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: "ContactListViewController"
+        ) as! ContactListViewController
+        
+        viewController.hidesBottomBarWhenPushed = true
+        viewController.delegate = self
+        viewController.canCreateNewItems = false
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
 
 extension ChatCoordinator: ContactListViewControllerDelegate {
@@ -190,7 +196,7 @@ extension ChatCoordinator: ContactListViewControllerDelegate {
     }
     
     func contactListViewController(_ viewController: ContactListViewController, didSelectContact contact: Contact) {
-        chatViewController?.addUserToGroup(contact: contact)
+        chatOptionsViewController?.addUserToGroup(contact: contact)
         navigationController.popViewController(animated: true)
     }
     

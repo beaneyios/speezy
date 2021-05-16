@@ -86,10 +86,6 @@ class ChatViewModel: NewItemGenerating {
         LocalAudioManager.createOriginalFromStaged(item: item)
     }
     
-    func addUserToGroup(contact: Contact) {
-        chatUpdater.addUserToChat(chat: chat, contact: contact)
-    }
-    
     func cancelAudioItem() {
         guard let item = currentAudioFile else {
             return
@@ -474,6 +470,7 @@ extension ChatViewModel: ChatListObserver {
         
         updateQueue.async {
             self.reloadReadStatus(chat: chat, userId: userId)
+            self.reloadChatters()
         }
     }
     
@@ -521,7 +518,7 @@ extension ChatViewModel: ChatListObserver {
             self.items.index($0)
         }
         
-        self.didChange?(.readStatusReloaded(index: indexes))
+        didChange?(.readStatusReloaded(index: indexes))
     }
     
     func chatsPaged(chats: [Chat]) {}

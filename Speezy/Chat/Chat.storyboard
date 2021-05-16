@@ -818,6 +818,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUZ-jb-YLU">
                                         <rect key="frame" x="0.0" y="0.0" width="52" height="64"/>
                                         <connections>
+                                            <action selector="didTapBack:" destination="uqQ-WX-2Pg" eventType="touchUpInside" id="EbI-ec-tBy"/>
                                             <action selector="goBack:" destination="OE9-KN-pzB" eventType="touchUpInside" id="fQp-m2-KxD"/>
                                         </connections>
                                     </button>

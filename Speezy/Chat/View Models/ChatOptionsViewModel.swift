@@ -16,6 +16,7 @@ class ChatOptionsViewModel {
     }
     
     enum Item {
+        case addChatterButton
         case chatter(Chatter)
         case leaveButton
     }
@@ -25,11 +26,21 @@ class ChatOptionsViewModel {
     let chatUpdater = ChatUpdater()
     
     var items: [Item] {
+        var items: [Item] = []
+        
+        
+        if let currentChatter = currentChatter, userIsAdmin(chatter: currentChatter) {
+            items.append(.addChatterButton)
+        }
+        
         let chatterItems = chatters.map {
             return Item.chatter($0)
         }
         
-        return chatterItems + [.leaveButton]
+        items.append(contentsOf: chatterItems)
+        items.append(.leaveButton)
+        
+        return items
     }
     
     var chatters: [Chatter] {
@@ -45,6 +56,10 @@ class ChatOptionsViewModel {
     init(chat: Chat, store: Store = Store.shared) {
         self.chat = chat
         store.chatStore.addChatListObserver(self)
+    }
+    
+    func addUserToGroup(contact: Contact) {
+        chatUpdater.addUserToChat(chat: chat, contact: contact)
     }
     
     func removeUser(at indexPath: IndexPath) {

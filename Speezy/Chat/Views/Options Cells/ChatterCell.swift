@@ -16,9 +16,14 @@ class ChatterCell: SwipeCollectionViewCell, NibLoadable {
     
     var viewModel: ChatterCellModel?
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        viewModel?.downloadTask?.cancel()
+    }
+    
     override func layoutSubviews() {
-        super.layoutSubviews()
-        
+        super.layoutSubviews()        
         imageView.layer.cornerRadius = imageView.frame.width / 2.0
     }
 
@@ -35,9 +40,8 @@ class ChatterCell: SwipeCollectionViewCell, NibLoadable {
                     UIView.animate(withDuration: 1.0) {
                         self.imageView.alpha = 1.0
                     }
-                case let .failure(error):
-                    self.imageView.alpha = 1.0
-                    self.imageView.image = UIImage(named: "account-btn")
+                case .failure:
+                    break
                 }
             }
         }

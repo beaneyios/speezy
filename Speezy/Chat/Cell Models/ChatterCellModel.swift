@@ -10,7 +10,7 @@ import Foundation
 import FirebaseStorage
 
 class ChatterCellModel {
-    private var downloadTask: StorageDownloadTask?
+    private(set) var downloadTask: StorageDownloadTask?
     
     let chatter: Chatter
     let isAdmin: Bool
@@ -27,16 +27,22 @@ extension ChatterCellModel {
     }
     
     func loadImage(completion: @escaping (StorageFetchResult<UIImage>) -> Void) {
+        downloadTask?.cancel()
         if chatter.profileImageUrl == nil {
             completion(.success(letterImage()))
             return
         }
         
-        downloadTask?.cancel()
         downloadTask = CloudImageManager.fetchImage(
-            at: "profile_images/\(chatter.id).jpg",
-            completion: completion
-        )
+            at: "profile_images/\(chatter.id).jpg"
+        ) { (result) in
+            switch result {
+            case let .success(image):
+                completion(.success(image))
+            case .failure:
+                break
+            }
+        }
     }
     
     private func letterImage() -> UIImage {

@@ -10,7 +10,6 @@ import UIKit
 
 protocol ChatViewControllerDelegate: AnyObject {
     func chatViewControllerDidSelectOptions(_ viewController: ChatViewController)
-    func chatViewControllerDidSelectAddContact(_ viewController: ChatViewController)
     func chatViewControllerDidTapBack(_ viewController: ChatViewController)
     func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager)
 }
@@ -97,46 +96,10 @@ class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModel
     
     @IBAction func didTapOptions(_ sender: Any) {
         delegate?.chatViewControllerDidSelectOptions(self)
-        return;
-        let alert = UIAlertController(
-            title: "Chat options",
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        
-        let addContact = UIAlertAction(
-            title: "Add a friend",
-            style: .default) {
-        (action) in
-            self.delegate?.chatViewControllerDidSelectAddContact(self)
-        }
-        
-        let leaveChat = UIAlertAction(
-            title: "Leave chat",
-            style: .destructive
-        ) { _ in
-            self.viewModel.leaveChat()
-        }
-        
-        let cancel = UIAlertAction(
-            title: "Cancel",
-            style: .cancel,
-            handler: nil
-        )
-        
-        alert.addAction(addContact)
-        alert.addAction(leaveChat)
-        alert.addAction(cancel)
-        
-        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func didTapBack(_ sender: Any) {
         delegate?.chatViewControllerDidTapBack(self)
-    }
-    
-    func addUserToGroup(contact: Contact) {
-        viewModel.addUserToGroup(contact: contact)
     }
     
     func sendEditedAudioItem(_ item: AudioItem) {
