@@ -39,7 +39,12 @@ class ChatOptionsViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.register(
             ChatterCell.nib,
-            forCellWithReuseIdentifier: "cell"
+            forCellWithReuseIdentifier: "chatterCell"
+        )
+        
+        collectionView.register(
+            SpeezyButtonCell.nib,
+            forCellWithReuseIdentifier: "leaveButtonCell"
         )
         
         collectionView.delegate = self
@@ -49,26 +54,79 @@ class ChatOptionsViewController: UIViewController {
 
 extension ChatOptionsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.chatters.count
+        viewModel.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ChatterCell
-        let chatter = viewModel.chatters[indexPath.row]
+        
+        let item = viewModel.items[indexPath.row]
+        
+        switch item {
+        case let .chatter(chatter):
+            return chatterCell(
+                indexPath: indexPath,
+                chatter: chatter
+            )
+        case .leaveButton:
+            return leaveButton(indexPath: indexPath)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let item = viewModel.items[indexPath.row]
+        
+        switch item {
+        case .chatter:
+            return CGSize(width: collectionView.frame.width, height: 50.0)
+        case .leaveButton:
+            return CGSize(width: collectionView.frame.width, height: 70.0)
+        }
+    }
+    
+    private func leaveButton(indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "leaveButtonCell",
+            for: indexPath
+        ) as! SpeezyButtonCell
+        
+        cell.configure(text: "Leave chat") {
+            let alert = UIAlertController(
+                title: "Are you sure?",
+                message: "Are you sure you want to leave this chat?",
+                preferredStyle: .alert
+            )
+                        
+            let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
+                self.viewModel.leaveChat()
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(leave)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        return cell
+    }
+    
+    private func chatterCell(indexPath: IndexPath, chatter: Chatter) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "chatterCell",
+            for: indexPath
+        ) as! ChatterCell
+        
         let cellModel = ChatterCellModel(
             chatter: chatter,
             isAdmin: viewModel.userIsAdmin(chatter: chatter)
         )
         cell.configure(viewModel: cellModel)
         
-        if viewModel.canRemoveUsers {
+        if viewModel.canRemoveUsers(indexPath: indexPath) {
             cell.delegate = self
         }
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 50.0)
     }
 }
 
@@ -100,8 +158,7 @@ extension ChatOptionsViewController: SwipeCollectionViewCellDelegate {
             )
                         
             let delete = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                let chatter = self.viewModel.chatters[indexPath.row]
-                self.viewModel.removeUser(chatter: chatter)
+                self.viewModel.removeUser(at: indexPath)
             }
             
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

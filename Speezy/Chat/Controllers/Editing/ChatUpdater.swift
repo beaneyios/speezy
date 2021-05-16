@@ -53,6 +53,16 @@ class ChatUpdater {
             updatePaths["chats/\(chat.id)/push_tokens/\(chatter.id)"] = NSNull()
         }
         
+        if chatter.id == chat.ownerId {
+            let nextChatter = chat.chatters.first {
+                $0.id != chatter.id
+            }
+            
+            if let nextChatterId = nextChatter?.id {
+                updatePaths["chats/\(chat.id)/owner_id"] = nextChatterId
+            }
+        }
+        
         updatePaths["users/\(chatter.id)/chats/\(chat.id)"] = NSNull()
         ref.updateChildValues(updatePaths)
     }

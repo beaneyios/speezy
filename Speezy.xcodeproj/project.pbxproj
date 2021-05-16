@@ -81,6 +81,8 @@
 		BE2B4136264C595E00121B2D /* ChatterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B4134264C595E00121B2D /* ChatterCell.swift */; };
 		BE2B4137264C595E00121B2D /* ChatterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B4135264C595E00121B2D /* ChatterCell.xib */; };
 		BE2B413B264C5A2300121B2D /* ChatterCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B413A264C5A2300121B2D /* ChatterCellModel.swift */; };
+		BE2B414026505BB500121B2D /* SpeezyButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2B413E26505BB500121B2D /* SpeezyButtonCell.swift */; };
+		BE2B414126505BB500121B2D /* SpeezyButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2B413F26505BB500121B2D /* SpeezyButtonCell.xib */; };
 		BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8131263F212F00471874 /* UIColor+ToHex.swift */; };
 		BE2E8136263F22E000471874 /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8135263F22E000471874 /* UIColor+Random.swift */; };
 		BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E8139263F303D00471874 /* ContactViewController.swift */; };
@@ -429,6 +431,8 @@
 		BE2B4134264C595E00121B2D /* ChatterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterCell.swift; sourceTree = "<group>"; };
 		BE2B4135264C595E00121B2D /* ChatterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatterCell.xib; sourceTree = "<group>"; };
 		BE2B413A264C5A2300121B2D /* ChatterCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterCellModel.swift; sourceTree = "<group>"; };
+		BE2B413E26505BB500121B2D /* SpeezyButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyButtonCell.swift; sourceTree = "<group>"; };
+		BE2B413F26505BB500121B2D /* SpeezyButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeezyButtonCell.xib; sourceTree = "<group>"; };
 		BE2E8131263F212F00471874 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
 		BE2E8135263F22E000471874 /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		BE2E8139263F303D00471874 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
@@ -1597,6 +1601,8 @@
 				BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */,
 				BE2B4134264C595E00121B2D /* ChatterCell.swift */,
 				BE2B4135264C595E00121B2D /* ChatterCell.xib */,
+				BE2B413E26505BB500121B2D /* SpeezyButtonCell.swift */,
+				BE2B413F26505BB500121B2D /* SpeezyButtonCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1999,6 +2005,7 @@
 				BEA5AE8625178E9B0009ECCC /* test-transcribe.flac in Resources */,
 				BE0CDDA52610F05700AF2706 /* ChatTextView.xib in Resources */,
 				BE792710247EE5610079652C /* Assets.xcassets in Resources */,
+				BE2B414126505BB500121B2D /* SpeezyButtonCell.xib in Resources */,
 				BEECD89825ACD61200AD7AC3 /* AudioMessageCell.xib in Resources */,
 				BE2B097A24C7239300317EB7 /* AudioItemCell.xib in Resources */,
 				BE2B098A24C73BD100317EB7 /* TagsView.xib in Resources */,
@@ -2278,6 +2285,7 @@
 				BE2B4131264C58B500121B2D /* ChatOptionsViewModel.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
+				BE2B414026505BB500121B2D /* SpeezyButtonCell.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
 				BE978D17262C4CA500E71419 /* ReplyView.swift in Sources */,
 				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
