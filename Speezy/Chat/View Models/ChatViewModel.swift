@@ -13,7 +13,7 @@ protocol ChatViewModelDelegate: AnyObject {
     var viewHeight: CGFloat { get }
 }
 
-class ChatViewModel: NewItemGenerating {
+class ChatViewModel: NewItemGenerating {    
     weak var delegate: ChatViewModelDelegate?
     
     var updateReadDebouncer = Debouncer(seconds: 1.0)
@@ -62,6 +62,9 @@ class ChatViewModel: NewItemGenerating {
     private var currentAudioFile: AudioItem?
     private var stagedText: String?
     private var currentReplyMessage: Message?
+    
+    private(set) var noMoreMessages: Bool = false
+    private(set) var loadingMoreMessages: Bool = false
     
     init(chat: Chat, store: Store) {
         self.chat = chat
@@ -163,7 +166,20 @@ extension ChatViewModel {
     }
     
     func loadMoreMessages() {
-        store.messagesStore.fetchNextPage(chat: chat, chatters: chatters, queryCount: 5)
+        if noMoreMessages || loadingMoreMessages {
+            return
+        }
+        
+        loadingMoreMessages = true
+        didChange?(.loading(true))
+        
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.store.messagesStore.fetchNextPage(
+                chat: self.chat,
+                chatters: self.chatters,
+                queryCount: 5
+            )
+        }
     }
     
     private func messageIsFavourite(message: Message) -> Bool {
@@ -350,6 +366,7 @@ extension ChatViewModel {
     }
 }
 
+// MARK: - Messages observer.
 extension ChatViewModel: MessagesObserver {
     func messageAdded(chatId: String, message: Message) {
         guard chatId == chat.id else {
@@ -420,8 +437,15 @@ extension ChatViewModel: MessagesObserver {
         guard chatId == chat.id else {
             return
         }
+       
+        if newMessages.count == 0 {
+            noMoreMessages = true
+            return
+        }
         
         processMessages(messages: allMessages)
+        loadingMoreMessages = false
+        didChange?(.loading(false))
     }
     
     func initialMessages(chatId: String, messages: [Message]) {
