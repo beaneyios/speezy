@@ -20,6 +20,36 @@ protocol AudioPlayerDelegate: AnyObject {
     )
 }
 
+enum PlaybackSpeed {
+    case one
+    case onePointThree
+    case onePointFive
+    
+    var next: PlaybackSpeed {
+        switch self {
+        case .one: return .onePointThree
+        case .onePointThree: return .onePointFive
+        case .onePointFive: return .one
+        }
+    }
+    
+    var rate: Float {
+        switch self {
+        case .one: return 1.0
+        case .onePointThree: return 1.3
+        case .onePointFive: return 1.5
+        }
+    }
+    
+    var label: String {
+        switch self {
+        case .one: return "1x"
+        case .onePointThree: return "1.3x"
+        case .onePointFive: return "1.5x"
+        }
+    }
+}
+
 class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     var currentPlaybackTime: TimeInterval {
         player?.currentTime ?? 0.0
@@ -29,6 +59,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     private var player: AVAudioPlayer?
     private var playbackTimer: Timer?
+    private(set) var playbackSpeed: PlaybackSpeed?
     
     init(item: AudioItem) {
         print("initting player")
@@ -46,9 +77,16 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         UIApplication.shared.isIdleTimerDisabled = true
         
         AVAudioSession.sharedInstance().prepareForPlayback()
+        player.enableRate = true
         player.play()
+        
         startPlaybackTimer()
         delegate?.audioPlayerDidBeginPlayback(self)
+    }
+    
+    func adjustPlaybackSpeed(speed: PlaybackSpeed) {
+        playbackSpeed = speed
+        player?.rate = speed.rate
     }
     
     func pause() {

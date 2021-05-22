@@ -35,6 +35,9 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var replyBox: UIView!
     @IBOutlet weak var replyBoxHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var playbackSpeedContainer: UIView!
+    @IBOutlet weak var playbackSpeedLabel: UILabel!
+    
     var messageDidStartPlaying: ((AudioMessageCell) -> Void)?
     var messageDidStopPlaying: ((AudioMessageCell) -> Void)?
     var longPressTapped: ((Message) -> Void)?
@@ -197,6 +200,12 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         playButtonImage.tintColor = item.playButtonTint
         playButtonImage.image = UIImage(named: "plain-play-button")
         playButton.isUserInteractionEnabled = true
+        
+        playbackSpeedContainer.backgroundColor = .clear
+        playbackSpeedContainer.layer.cornerRadius = 8.0
+        playbackSpeedContainer.layer.borderWidth = 1.0
+        playbackSpeedContainer.layer.borderColor = item.playButtonTint.cgColor
+        playbackSpeedLabel.textColor = item.playButtonTint
     }
     
     @objc private func tappedReply() {
@@ -273,6 +282,11 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         default:
             break
         }
+    }
+    
+    @IBAction func didTapPlaybackSpeed(_ sender: Any) {
+        let newPlaybackSpeed = audioManager?.adjustPlaybackSpeed() ?? PlaybackSpeed.one
+        self.playbackSpeedLabel.text = newPlaybackSpeed.label
     }
     
     @IBAction func didTapPlay(_ sender: Any) {

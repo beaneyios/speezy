@@ -272,8 +272,22 @@ extension AudioManager: AudioPlayerDelegate {
         item.calculatedDuration
     }
     
+    var playbackSpeed: PlaybackSpeed? {
+        audioPlayer?.playbackSpeed
+    }
+    
     private var currentPlaybackTime: TimeInterval {
         audioPlayer?.currentPlaybackTime ?? 0.0
+    }
+    
+    func adjustPlaybackSpeed() -> PlaybackSpeed {
+        guard let audioPlayer = audioPlayer else {
+            return .one
+        }
+        
+        let playbackSpeed = audioPlayer.playbackSpeed ?? .one        
+        audioPlayer.adjustPlaybackSpeed(speed: playbackSpeed.next)
+        return playbackSpeed.next
     }
     
     func addPlaybackObserver(_ observer: AudioPlayerObserver) {
