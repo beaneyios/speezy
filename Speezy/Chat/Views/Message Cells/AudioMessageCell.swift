@@ -197,6 +197,8 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
             for: .valueChanged
         )
         
+        slider.value = 0.0
+        
         playButtonImage.tintColor = item.playButtonTint
         playButtonImage.image = UIImage(named: "plain-play-button")
         playButton.isUserInteractionEnabled = true
@@ -206,6 +208,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         playbackSpeedContainer.layer.borderWidth = 1.0
         playbackSpeedContainer.layer.borderColor = item.playButtonTint.cgColor
         playbackSpeedLabel.textColor = item.playButtonTint
+        playbackSpeedLabel.text = PlaybackSpeed.one.label
     }
     
     @objc private func tappedReply() {
