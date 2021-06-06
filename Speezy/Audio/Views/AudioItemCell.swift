@@ -13,7 +13,7 @@ protocol AudioItemCellDelegate: AnyObject {
     func audioItemCell(_ cell: AudioItemCell, didTapMoreOptionsWithItem item: AudioItem)
 }
 
-class AudioItemCell: UITableViewCell {
+class AudioItemCell: UITableViewCell, NibLoadable {
 
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDate: UILabel!
@@ -64,6 +64,10 @@ class AudioItemCell: UITableViewCell {
             )
         } else {
             self.imgAttachmentWidth.constant = 0.0
+        }
+        
+        if delegate == nil {
+            self.btnMoreOptions.isHidden = true
         }
     }
     

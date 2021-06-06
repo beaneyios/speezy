@@ -13,7 +13,6 @@ protocol CropViewControllerDelegate: AnyObject {
     func cropViewControllerDidTapClose(_ viewController: CropViewController)
 }
 
-
 class CropViewController: UIViewController {
     enum State {
         case none

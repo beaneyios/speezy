@@ -30,7 +30,6 @@ protocol AudioItemViewControllerDelegate: AnyObject {
     func audioItemViewControllerShouldPop(_ viewController: AudioItemViewController)
     func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController)
     
-    
     func audioItemViewController(
         _ viewController: AudioItemViewController,
         didSelectTranscribeWithManager manager: AudioManager
@@ -45,6 +44,11 @@ protocol AudioItemViewControllerDelegate: AnyObject {
         _ viewController: AudioItemViewController,
         didPresentCropOnItem audioItem: AudioItem
     )
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentInsertTrackOnItem audioItem: AudioItem
+    )
 }
 
 class AudioItemViewController: UIViewController {
@@ -52,7 +56,6 @@ class AudioItemViewController: UIViewController {
     @IBOutlet var recordHidables: [UIButton]!
     @IBOutlet var playbackHidables: [UIButton]!
         
-    @IBOutlet weak var btnTranscribeContainer: UIView!
     private var transcribeButton: TranscriptionButton?
     
     @IBOutlet weak var btnPlayback: UIButton!
@@ -199,6 +202,13 @@ class AudioItemViewController: UIViewController {
         }
     }
     
+    @IBAction func toggleInsertTrack(_ sender: Any) {
+        delegate?.audioItemViewController(
+            self,
+            didPresentInsertTrackOnItem: audioManager.item
+        )
+    }
+    
     func presentTranscription() {
         delegate?.audioItemViewController(self, didSelectTranscribeWithManager: audioManager)
     }
@@ -294,27 +304,27 @@ extension AudioItemViewController {
     }
     
     private func configureTranscribeButton() {
-        transcribeButton?.removeFromSuperview()
-        
-        let transcribeButton = TranscriptionButton.createFromNib()
-        btnTranscribeContainer.addSubview(transcribeButton)
-        transcribeButton.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
-        if audioManager.transcriptExists {
-            transcribeButton.switchToSuccessful()
-        } else if audioManager.transcriptionJobExists {
-            transcribeButton.switchToLoading()
-        } else {
-            transcribeButton.switchToNormal()
-        }
-        
-        self.transcribeButton = transcribeButton
-        
-        transcribeButton.action = {
-            self.presentTranscription()
-        }
+//        transcribeButton?.removeFromSuperview()
+//
+//        let transcribeButton = TranscriptionButton.createFromNib()
+//        btnTranscribeContainer.addSubview(transcribeButton)
+//        transcribeButton.snp.makeConstraints { (maker) in
+//            maker.edges.equalToSuperview()
+//        }
+//
+//        if audioManager.transcriptExists {
+//            transcribeButton.switchToSuccessful()
+//        } else if audioManager.transcriptionJobExists {
+//            transcribeButton.switchToLoading()
+//        } else {
+//            transcribeButton.switchToNormal()
+//        }
+//
+//        self.transcribeButton = transcribeButton
+//
+//        transcribeButton.action = {
+//            self.presentTranscription()
+//        }
     }
     
     private func configureNavButtons() {

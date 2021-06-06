@@ -43,7 +43,7 @@ class AudioShareController: NSObject {
 
 extension AudioShareController: ShareViewControllerDelegate {
     private func presentCustomShareDialogue() {
-        let storyboard = UIStoryboard(name: "Audio", bundle: nil)
+        let storyboard = UIStoryboard(name: "Publish", bundle: nil)
         let shareViewController = storyboard.instantiateViewController(identifier: "ShareViewController") as! ShareViewController
         parentViewController?.addChild(shareViewController)
         parentViewController?.view.addSubview(shareViewController.view)

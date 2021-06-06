@@ -70,7 +70,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
     
     private func configureTableView() {
         tableView.estimatedRowHeight = 100.0
-        tableView.register(UINib(nibName: "AudioItemCell", bundle: nil), forCellReuseIdentifier: "cell")
+        tableView.register(AudioItemCell.nib, forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
@@ -86,7 +86,7 @@ class AudioItemListViewController: UIViewController, QuickRecordPresenting {
                 case let .loading(loading):
                     if loading {
                         let hud = JGProgressHUD()
-                        hud.textLabel.text = "Loading your recordings..."
+                        hud.textLabel.text = "Loading..."
                         hud.show(in: self.view)
                         self.hud = hud
                     } else {
@@ -122,11 +122,13 @@ extension AudioItemListViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let audioItem = viewModel.item(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AudioItemCell
+        cell.delegate = self
+        
         cell.configure(
             with: audioItem,
             audioAttachmentManager: viewModel.audioAttachmentManager
         )
-        cell.delegate = self
+        
         cell.selectionStyle = .none
         return cell
     }

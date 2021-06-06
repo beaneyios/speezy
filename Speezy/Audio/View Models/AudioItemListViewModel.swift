@@ -105,6 +105,7 @@ class AudioItemListViewModel: NewItemGenerating {
     }
     
     func saveItem(_ item: AudioItem) {
+        didChange?(.loading(true))
         let audioManager = AudioManager(item: item)
         audioManager.save(saveAttachment: false) { (result) in
             switch result {
@@ -117,6 +118,7 @@ class AudioItemListViewModel: NewItemGenerating {
                 
                 self.audioAttachmentManager.resetCache()
                 self.didChange?(.itemsLoaded)
+                self.didChange?(.loading(false))
             case let .failure(error):
                 break
             }
@@ -207,6 +209,10 @@ extension AudioItemListViewModel: MyRecordingsListObserver {
     
     func recordingRemoved(recording: AudioItem, recordings: [AudioItem]) {
         updateCellModels(items: recordings, tab: .myRecordings)
+    }
+    
+    func initialRecordingsReceived(recordings: [AudioItem]) {
+        // no op for now.
     }
 }
 

@@ -22,6 +22,10 @@ class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
     
     weak var delegate: AudioItemCoordinatorDelegate?
     
+    private var modalNavigationController: UINavigationController? {
+        navigationController.presentedViewController as? UINavigationController
+    }
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -85,19 +89,61 @@ class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
     }
     
     private func navigateToCutView(audioItem: AudioItem, on pushingViewController: UIViewController) {
-        let storyboard = UIStoryboard(name: "Cut", bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(identifier: "cut") as? CutViewController else {
-            return
-        }
-        
+                
+        let storyboard = UIStoryboard(name: "Edit", bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: "cut"
+        ) as! CutViewController
+
         let manager = AudioManager(item: audioItem)
         viewController.manager = manager
         viewController.delegate = self
         pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
     }
     
+    private func navigateToInsertView(
+        audioItem: AudioItem,
+        preRecordedItem: AudioItem,
+        on pushingViewController: UIViewController
+    ) {
+        let storyboard = UIStoryboard(name: "Edit", bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: "FileInserterViewController"
+        ) as! FileInserterViewController
+        
+        let manager = AudioManager(item: audioItem)
+        viewController.manager = manager
+        viewController.fileToInsert = preRecordedItem
+        viewController.delegate = self
+        pushingViewController.present(
+            viewController,
+            animated: true,
+            completion: nil
+        )
+    }
+    
+    private func navigateToPreRecordedList(
+        originalAudioItem item: AudioItem,
+        on pushingViewController: UIViewController
+    ) {
+        let storyboard = UIStoryboard(name: "Edit", bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: "PreRecordListViewController"
+        ) as! PreRecordListViewController
+        
+        let viewModel = PreRecordListViewModel(originalAudioItem: item)
+        
+        viewController.viewModel = viewModel
+        viewController.delegate = self
+        pushingViewController.navigationController?.present(
+            viewController,
+            animated: true,
+            completion: nil
+        )
+    }
+    
     private func navigateToCropView(audioItem: AudioItem, on pushingViewController: UIViewController) {
-        let storyboard = UIStoryboard(name: "Cut", bundle: nil)
+        let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         guard let viewController = storyboard.instantiateViewController(identifier: "crop") as? CropViewController else {
             return
         }
@@ -106,6 +152,37 @@ class AudioItemCoordinator: ViewCoordinator, NavigationControlling {
         viewController.manager = manager
         viewController.delegate = self
         pushingViewController.navigationController?.present(viewController, animated: true, completion: nil)
+    }
+}
+
+extension AudioItemCoordinator: FileInserterViewControllerDelegate {
+    func fileInserterViewController(
+        _ viewController: FileInserterViewController,
+        didFinishInsertionOnItem item: AudioItem
+    ) {
+        viewController.presentingViewController?.presentingViewController?.dismiss(
+            animated: true)
+        {
+            let viewControllers = self.modalNavigationController?.viewControllers
+            let audioItemViewController = viewControllers?.compactMap {
+                $0 as? AudioItemViewController
+            }.first
+            
+            guard
+                let itemViewController = audioItemViewController,
+                let manager = itemViewController.audioManager
+            else {
+                return
+            }
+            
+            manager.regeneratePlayer(withItem: manager.currentItem)
+            manager.markAsDirty()
+            itemViewController.reset()
+        }
+    }
+    
+    func fileInserterViewControllerDidTapClose(_ viewController: FileInserterViewController) {
+        
     }
 }
 
@@ -199,21 +276,43 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
         }
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, shouldDiscardItem item: AudioItem) {
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        shouldDiscardItem item: AudioItem
+    ) {
         viewController.dismiss(animated: true) {
             self.delegate?.audioItemCoordinator(self, shouldDiscardItem: item)
         }
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCutOnItem audioItem: AudioItem) {
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentCutOnItem audioItem: AudioItem
+    ) {
         navigateToCutView(audioItem: audioItem, on: viewController)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didPresentCropOnItem audioItem: AudioItem) {
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentCropOnItem audioItem: AudioItem
+    ) {
         navigateToCropView(audioItem: audioItem, on: viewController)
     }
     
-    func audioItemViewController(_ viewController: AudioItemViewController, didSelectTranscribeWithManager manager: AudioManager) {
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didPresentInsertTrackOnItem audioItem: AudioItem
+    ) {
+        navigateToPreRecordedList(
+            originalAudioItem: audioItem,
+            on: viewController
+        )
+    }
+    
+    func audioItemViewController(
+        _ viewController: AudioItemViewController,
+        didSelectTranscribeWithManager manager: AudioManager
+    ) {
         navigateToTranscription(manager: manager, on: viewController)
     }
     
@@ -223,6 +322,20 @@ extension AudioItemCoordinator: AudioItemViewControllerDelegate {
     
     func audioItemViewControllerDidFinish(_ viewController: AudioItemViewController) {
         delegate?.audioItemCoordinatorDidFinish(self)
+    }
+}
+
+extension AudioItemCoordinator: PreRecordListViewControllerDelegate {
+    func preRecordListViewController(
+        _ viewController: PreRecordListViewController,
+        didSelectItem item: AudioItem,
+        onOriginalItem originalItem: AudioItem
+    ) {
+        navigateToInsertView(
+            audioItem: originalItem,
+            preRecordedItem: item,
+            on: viewController
+        )
     }
 }
 

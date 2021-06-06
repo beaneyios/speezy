@@ -27,12 +27,14 @@ class AudioManager: NSObject {
     private(set) var stateManager: AudioStateManager
     private var audioPlayer: AudioPlayer?
     private var audioRecorder: AudioRecorder?
+    private var audioInserter: FileInserter?
     private var audioCropper: AudioCropper?
     private var audioCutter: AudioCutter?
     private var transcriptionJobManager: TranscriptionJobManager?
     private var transcriptManager: TranscriptManager
     private let audioAttachmentManager = AudioAttachmentManager()
     private let audioSavingManager = RecordingSaver()
+    
         
     init(item: AudioItem) {
         self.originalItem = item
@@ -369,6 +371,30 @@ extension AudioManager: AudioPlayerDelegate {
     func regeneratePlayer(withItem item: AudioItem) {
         audioPlayer = AudioPlayer(item: item)
         audioPlayer?.delegate = self
+    }
+}
+
+// MARK: Insertion
+extension AudioManager: FileInserterDelegate {
+    func insert(_ audioItem: AudioItem, at time: TimeInterval) {
+        self.audioInserter = FileInserter(
+            item: self.item,
+            preRecordedItem: audioItem
+        )
+        
+        self.audioInserter?.delegate = self
+        self.audioInserter?.insert(at: time)
+    }
+    
+    func fileInserter(
+        _ inserter: FileInserter,
+        didMergeItemsIntoItem item: AudioItem
+    ) {
+        stateManager.performInsertingAction(action: .insertFinished(item))
+    }
+    
+    func addInserterObserver(_ observer: AudioInserterObserver) {
+        stateManager.addInserterObserver(observer)
     }
 }
 

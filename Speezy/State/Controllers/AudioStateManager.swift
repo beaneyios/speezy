@@ -13,7 +13,8 @@ typealias AudioStateManagerObservationManaging =    PlayerObservationManaging &
                                                     TranscriptionJobObservationManaging &
                                                     TranscriptObservationManaging &
                                                     CropperObservationManaging &
-                                                    CutterObservationManaging
+                                                    CutterObservationManaging &
+                                                    InserterObservationManaging
 
 class AudioStateManager: AudioStateManagerObservationManaging {
     
@@ -25,6 +26,7 @@ class AudioStateManager: AudioStateManagerObservationManaging {
     var transcriptionJobObservations = [ObjectIdentifier : TranscriptionJobObservation]()
     var transcriptObservations = [ObjectIdentifier : TranscriptObservation]()
     var cutterObservations = [ObjectIdentifier : AudioCutterObservation]()
+    var inserterObservations = [ObjectIdentifier : AudioInserterObservation]()
     
     func performPlaybackAction(action: PlaybackAction) {
         playerObservatons.forEach {
@@ -117,6 +119,20 @@ class AudioStateManager: AudioStateManagerObservationManaging {
         }
     }
     
+    func performInsertingAction(action: InsertAction) {
+        inserterObservations.forEach {
+            guard let observer = $0.value.observer else {
+                inserterObservations.removeValue(forKey: $0.key)
+                return
+            }
+            
+            switch action {
+            case let .insertFinished(item):
+                observer.insertingFinished(onItem: item)
+            }
+        }
+    }
+    
     func performCuttingAction(action: CutNotification) {
         cutterObservations.forEach {
             guard let observer = $0.value.observer else {
@@ -126,7 +142,6 @@ class AudioStateManager: AudioStateManagerObservationManaging {
             
             switch action {
             case .showCut(let item):
-//                state = .cutting
                 observer.cuttingStarted(onItem: item)
             case .showCutAdjusted(let item):
                 observer.cutRangeAdjusted(onItem: item)

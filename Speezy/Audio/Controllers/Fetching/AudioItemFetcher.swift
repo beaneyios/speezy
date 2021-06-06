@@ -13,6 +13,7 @@ class AudioItemsFetcher {
     enum Kind: String {
         case recordings
         case favourites
+        case preRecorded
     }
     
     enum Change {

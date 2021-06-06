@@ -14,9 +14,21 @@ class CloudAudioManager {
         id: String,
         completion: @escaping (Result<AudioItem, Error>) -> Void
     ) {        
+        downloadAudioClip(
+            atPath: "audio_clips/\(id).m4a",
+            id: id,
+            completion: completion
+        )
+    }
+    
+    static func downloadAudioClip(
+        atPath path: String,
+        id: String,
+        completion: @escaping (Result<AudioItem, Error>) -> Void
+    ) {
         let storage = FirebaseStorage.Storage.storage()
         let storageRef = storage.reference()
-        let profileImagesRef = storageRef.child("audio_clips/\(id).m4a")
+        let profileImagesRef = storageRef.child(path)
         
         let item = AudioItem(
             id: id,

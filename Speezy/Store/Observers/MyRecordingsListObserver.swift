@@ -9,6 +9,7 @@
 import Foundation
 
 protocol MyRecordingsListObserver: AnyObject {
+    func initialRecordingsReceived(recordings: [AudioItem])
     func recordingAdded(recording: AudioItem, recordings: [AudioItem])
     func recordingUpdated(recording: AudioItem, recordings: [AudioItem])
     func pagedRecordingsReceived(newRecordings: [AudioItem], recordings: [AudioItem])

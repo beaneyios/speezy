@@ -440,6 +440,8 @@ extension ChatViewModel: MessagesObserver {
        
         if newMessages.count == 0 {
             noMoreMessages = true
+            didChange?(.loaded)
+            didChange?(.loading(false))
             return
         }
         

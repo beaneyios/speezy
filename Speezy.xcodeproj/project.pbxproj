@@ -38,6 +38,9 @@
 		BE0A45C525CEDA3B005F4DA8 /* MyRecordingsListObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */; };
 		BE0A45C925CEDA5A005F4DA8 /* MyRecordingsListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */; };
 		BE0A45D125CEDD69005F4DA8 /* RecordingValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */; };
+		BE0B908A266CC2A0002151EB /* PreRecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B9089266CC2A0002151EB /* PreRecordListViewController.swift */; };
+		BE0B908E266CC3CF002151EB /* PreRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B908D266CC3CF002151EB /* PreRecordListViewModel.swift */; };
+		BE0B9092266D402E002151EB /* PreRecordedAudioItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0B9091266D402E002151EB /* PreRecordedAudioItemsFetcher.swift */; };
 		BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CA32A24FF8B7000F354BD /* WaveView.swift */; };
 		BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */; };
 		BE0CDDA12610F04B00AF2706 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */; };
@@ -153,6 +156,11 @@
 		BE6FD97325BC397400723732 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97225BC397300723732 /* ChatListViewController.swift */; };
 		BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97625BC398200723732 /* ChatListViewModel.swift */; };
 		BE6FD98025BC3C6600723732 /* ChatParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6FD97F25BC3C6600723732 /* ChatParser.swift */; };
+		BE7043FC2666B4CD00ED9BD8 /* Publish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE7043FB2666B4CD00ED9BD8 /* Publish.storyboard */; };
+		BE7044002666B7A700ED9BD8 /* FileInserterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7043FF2666B7A700ED9BD8 /* FileInserterViewController.swift */; };
+		BE70445F2667B66F00ED9BD8 /* FileInserter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE70445E2667B66F00ED9BD8 /* FileInserter.swift */; };
+		BE704463266805BF00ED9BD8 /* InsertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE704462266805BF00ED9BD8 /* InsertAction.swift */; };
+		BE7044672668063B00ED9BD8 /* InserterObservationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7044662668063B00ED9BD8 /* InserterObservationManaging.swift */; };
 		BE77766024D6C9C50009BE63 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */; };
 		BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */; };
 		BE77766A24D6CB810009BE63 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE77766924D6CB810009BE63 /* Settings.storyboard */; };
@@ -202,7 +210,7 @@
 		BE978D23262C903500E71419 /* ReplyMessageEmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */; };
 		BE978D29262CB1C000E71419 /* ReplyPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE978D28262CB1C000E71419 /* ReplyPlaybackView.swift */; };
 		BE978D2D262CB1CB00E71419 /* ReplyPlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE978D2C262CB1CB00E71419 /* ReplyPlaybackView.xib */; };
-		BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Cut.storyboard */; };
+		BE9AD3FE2566CE280034F921 /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9AD3FD2566CE280034F921 /* Edit.storyboard */; };
 		BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD4152566DE640034F921 /* CutViewController.swift */; };
 		BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41925692F240034F921 /* AudioCutter.swift */; };
 		BE9AD41E256AF6240034F921 /* AudioCropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9AD41D256AF6240034F921 /* AudioCropping.swift */; };
@@ -388,6 +396,9 @@
 		BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObservation.swift; sourceTree = "<group>"; };
 		BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecordingsListObserver.swift; sourceTree = "<group>"; };
 		BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueChange.swift; sourceTree = "<group>"; };
+		BE0B9089266CC2A0002151EB /* PreRecordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreRecordListViewController.swift; sourceTree = "<group>"; };
+		BE0B908D266CC3CF002151EB /* PreRecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreRecordListViewModel.swift; sourceTree = "<group>"; };
+		BE0B9091266D402E002151EB /* PreRecordedAudioItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreRecordedAudioItemsFetcher.swift; sourceTree = "<group>"; };
 		BE0CA32A24FF8B7000F354BD /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		BE0CDD9C26109CC500AF2706 /* ProfileImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageFetcher.swift; sourceTree = "<group>"; };
 		BE0CDDA02610F04B00AF2706 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
@@ -505,6 +516,11 @@
 		BE6FD97225BC397300723732 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		BE6FD97625BC398200723732 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
 		BE6FD97F25BC3C6600723732 /* ChatParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatParser.swift; sourceTree = "<group>"; };
+		BE7043FB2666B4CD00ED9BD8 /* Publish.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Publish.storyboard; sourceTree = "<group>"; };
+		BE7043FF2666B7A700ED9BD8 /* FileInserterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileInserterViewController.swift; sourceTree = "<group>"; };
+		BE70445E2667B66F00ED9BD8 /* FileInserter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileInserter.swift; sourceTree = "<group>"; };
+		BE704462266805BF00ED9BD8 /* InsertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertAction.swift; sourceTree = "<group>"; };
+		BE7044662668063B00ED9BD8 /* InserterObservationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InserterObservationManaging.swift; sourceTree = "<group>"; };
 		BE77765F24D6C9C50009BE63 /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		BE77766724D6CB7A0009BE63 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		BE77766924D6CB810009BE63 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -558,7 +574,7 @@
 		BE978D22262C903500E71419 /* ReplyMessageEmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyMessageEmbedView.swift; sourceTree = "<group>"; };
 		BE978D28262CB1C000E71419 /* ReplyPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyPlaybackView.swift; sourceTree = "<group>"; };
 		BE978D2C262CB1CB00E71419 /* ReplyPlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplyPlaybackView.xib; sourceTree = "<group>"; };
-		BE9AD3FD2566CE280034F921 /* Cut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cut.storyboard; sourceTree = "<group>"; };
+		BE9AD3FD2566CE280034F921 /* Edit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		BE9AD4152566DE640034F921 /* CutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutViewController.swift; sourceTree = "<group>"; };
 		BE9AD41925692F240034F921 /* AudioCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCutter.swift; sourceTree = "<group>"; };
 		BE9AD41D256AF6240034F921 /* AudioCropping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCropping.swift; sourceTree = "<group>"; };
@@ -742,6 +758,7 @@
 			children = (
 				BE939D6225D06BC500042EB7 /* AudioItemFetcher.swift */,
 				BE939D5E25D06B4A00042EB7 /* AudioItemListener.swift */,
+				BE0B9091266D402E002151EB /* PreRecordedAudioItemsFetcher.swift */,
 			);
 			path = Fetching;
 			sourceTree = "<group>";
@@ -753,6 +770,7 @@
 				BEBFD4BB24C5A6FB00200D87 /* AudioCropper.swift */,
 				BE9AD41925692F240034F921 /* AudioCutter.swift */,
 				BEBFD4B724C59EE900200D87 /* AudioRecorder.swift */,
+				BE70445E2667B66F00ED9BD8 /* FileInserter.swift */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -1068,6 +1086,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		BE7044052666B7AD00ED9BD8 /* Editing */ = {
+			isa = PBXGroup;
+			children = (
+				BE684721257184C400981686 /* CropViewController.swift */,
+				BE9AD4152566DE640034F921 /* CutViewController.swift */,
+				BE7043FF2666B7A700ED9BD8 /* FileInserterViewController.swift */,
+				BE0B9089266CC2A0002151EB /* PreRecordListViewController.swift */,
+			);
+			path = Editing;
+			sourceTree = "<group>";
+		};
 		BE77766224D6CB440009BE63 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1283,11 +1312,10 @@
 		BEAACE8424BA04D70074E4B9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE7044052666B7AD00ED9BD8 /* Editing */,
 				BEBFD4D224C5DD8300200D87 /* AudioItemListViewController.swift */,
 				BE79270A247EE55F0079652C /* AudioItemViewController.swift */,
 				BE939D5825D0629D00042EB7 /* AudioPlaybackViewController.swift */,
-				BE684721257184C400981686 /* CropViewController.swift */,
-				BE9AD4152566DE640034F921 /* CutViewController.swift */,
 				BE088CE124EDC33C000FEE55 /* PublishViewController.swift */,
 				BE6847252572656300981686 /* QuickRecordViewController.swift */,
 				BEDC125E24F1960200B53D1A /* ShareViewController.swift */,
@@ -1365,7 +1393,8 @@
 			isa = PBXGroup;
 			children = (
 				BE79270C247EE55F0079652C /* Audio.storyboard */,
-				BE9AD3FD2566CE280034F921 /* Cut.storyboard */,
+				BE9AD3FD2566CE280034F921 /* Edit.storyboard */,
+				BE7043FB2666B4CD00ED9BD8 /* Publish.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1426,6 +1455,7 @@
 			isa = PBXGroup;
 			children = (
 				BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */,
+				BE0B908D266CC3CF002151EB /* PreRecordListViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1812,6 +1842,7 @@
 				BEFDB51B255FF5E200362428 /* RecorderObservationManaging.swift */,
 				BEFDB527255FF6B000362428 /* TranscriptionJobObservationManaging.swift */,
 				BEFDB52B255FF6FE00362428 /* TranscriptObservationManaging.swift */,
+				BE7044662668063B00ED9BD8 /* InserterObservationManaging.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1834,6 +1865,7 @@
 				BEFDB549255FF8C300362428 /* TranscriptionJobNotification.swift */,
 				BEFDB54D255FF8D100362428 /* TranscriptNotification.swift */,
 				BE9AD427256AF9980034F921 /* CutNotification.swift */,
+				BE704462266805BF00ED9BD8 /* InsertAction.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -2000,6 +2032,7 @@
 			files = (
 				BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */,
 				BE6080B6250E8E57003CB318 /* transcription-test-file.m4a in Resources */,
+				BE7043FC2666B4CD00ED9BD8 /* Publish.storyboard in Resources */,
 				BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE8A955C25FEAD1C00F0C95E /* maintenance.json in Resources */,
@@ -2030,7 +2063,7 @@
 				BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */,
 				BEA5AE8425178E490009ECCC /* test-transcribe.m4a in Resources */,
 				BE0A458925CD677A005F4DA8 /* ChatSelectionCell.xib in Resources */,
-				BE9AD3FE2566CE280034F921 /* Cut.storyboard in Resources */,
+				BE9AD3FE2566CE280034F921 /* Edit.storyboard in Resources */,
 				BE77767024D6CBEC0009BE63 /* SettingsCell.xib in Resources */,
 				BEDC126324F1964400B53D1A /* ShareOptionCell.xib in Resources */,
 				BE978D2D262CB1CB00E71419 /* ReplyPlaybackView.xib in Resources */,
@@ -2243,6 +2276,7 @@
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BE2B412D264C57E800121B2D /* ChatOptionsViewController.swift in Sources */,
 				BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */,
+				BE0B908A266CC2A0002151EB /* PreRecordListViewController.swift in Sources */,
 				BE978CF52622202500E71419 /* TestCell.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,
 				BEDC126924F2657C00B53D1A /* ShareConfig.swift in Sources */,
@@ -2253,6 +2287,7 @@
 				BE792709247EE55F0079652C /* SceneDelegate.swift in Sources */,
 				BEBFD4CF24C5DC2600200D87 /* Identifiable.swift in Sources */,
 				BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */,
+				BE704463266805BF00ED9BD8 /* InsertAction.swift in Sources */,
 				BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */,
 				BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
@@ -2282,6 +2317,7 @@
 				BE77766F24D6CBEC0009BE63 /* SettingsCell.swift in Sources */,
 				BEA32E2525D814B100A9F643 /* ProfileObserver.swift in Sources */,
 				BEBFD4B824C59EE900200D87 /* AudioRecorder.swift in Sources */,
+				BE7044002666B7A700ED9BD8 /* FileInserterViewController.swift in Sources */,
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
 				BEE4B8AD261B4ABE0043921A /* ContactBackgroundFetchController.swift in Sources */,
 				BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */,
@@ -2297,6 +2333,7 @@
 				BEFDB50F255FF3D800362428 /* AudioObservations.swift in Sources */,
 				BEFDB54E255FF8D100362428 /* TranscriptNotification.swift in Sources */,
 				BEDC126524F1B41500B53D1A /* TableCellCollectionView.swift in Sources */,
+				BE0B908E266CC3CF002151EB /* PreRecordListViewModel.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */,
 				BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */,
@@ -2318,6 +2355,7 @@
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
+				BE70445F2667B66F00ED9BD8 /* FileInserter.swift in Sources */,
 				BE2B4131264C58B500121B2D /* ChatOptionsViewModel.swift in Sources */,
 				BEFDB546255FF8BA00362428 /* RecordNotification.swift in Sources */,
 				BE6FD95125B61C2900723732 /* TimeInterval+ToString.swift in Sources */,
@@ -2366,6 +2404,7 @@
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
 				BE0A455B25CC1080005F4DA8 /* AudioItemListCoordinator.swift in Sources */,
 				BE8A952A25FEA1CF00F0C95E /* KillSwitchViewController.swift in Sources */,
+				BE7044672668063B00ED9BD8 /* InserterObservationManaging.swift in Sources */,
 				BEF4DB652593C9FA002B403A /* KeyboardScrollViewInsetManager.swift in Sources */,
 				BE4CCD9025A9F6CD007C21A6 /* EmailLoginViewModel.swift in Sources */,
 				BE6FD91025B49DDA00723732 /* LocalAudioManager.swift in Sources */,
@@ -2446,6 +2485,7 @@
 				BE978D29262CB1C000E71419 /* ReplyPlaybackView.swift in Sources */,
 				BE2E8136263F22E000471874 /* UIColor+Random.swift in Sources */,
 				BEFDB54A255FF8C300362428 /* TranscriptionJobNotification.swift in Sources */,
+				BE0B9092266D402E002151EB /* PreRecordedAudioItemsFetcher.swift in Sources */,
 				BE2351A3252F9DD100067BA2 /* TranscriptionJob.swift in Sources */,
 				BE2A0CC825C0A53B000B8A4C /* PushTokenSyncService.swift in Sources */,
 				BE041E9925E2EF23005C3B9F /* GoogleSignUpViewModel.swift in Sources */,

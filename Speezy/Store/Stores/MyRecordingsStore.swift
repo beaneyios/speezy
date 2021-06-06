@@ -164,6 +164,9 @@ extension MyRecordingsStore {
         serialQueue.async {
             let id = ObjectIdentifier(observer)
             self.observations[id] = MyRecordingsListObservation(observer: observer)
+            
+            // We might be mid-load, let's give the new subscriber what we have so far.
+            observer.initialRecordingsReceived(recordings: self.myRecordings)
         }
     }
     

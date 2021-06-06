@@ -170,6 +170,9 @@ extension PlaybackWaveView {
         waveContainer.addSubview(wave)
         self.wave = wave
         
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+        
         wave.snp.makeConstraints { (maker) in
             maker.leading.equalToSuperview().offset(padding)
             maker.top.equalToSuperview()
@@ -296,8 +299,6 @@ extension PlaybackWaveView: AudioPlayerObserver {
         startOffset: TimeInterval
     ) {
         if seekActive == false {
-            print("Start offset \(startOffset)")
-            print("Time \(time)")
             let time = time + startOffset
             advanceScrollViewWithTime(time: time, playback: true)
         }

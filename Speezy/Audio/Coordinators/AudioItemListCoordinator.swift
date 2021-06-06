@@ -122,6 +122,7 @@ extension AudioItemListCoordinator: AudioItemListViewControllerDelegate {
 
 extension AudioItemListCoordinator: PublishViewControllerDelegate {
     private func navigateToPublish(item: AudioItem) {
+        let storyboard = UIStoryboard(name: "Publish", bundle: nil)
         guard let viewController = storyboard.instantiateViewController(identifier: "PublishViewController") as? PublishViewController else {
             return
         }

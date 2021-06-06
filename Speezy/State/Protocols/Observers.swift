@@ -57,3 +57,7 @@ protocol TranscriptionJobObserver: AnyObject {
 protocol TranscriptObserver: AnyObject {
     func finishedEditingTranscript(transcript: Transcript)
 }
+
+protocol AudioInserterObserver: AnyObject {
+    func insertingFinished(onItem item: AudioItem)
+}
