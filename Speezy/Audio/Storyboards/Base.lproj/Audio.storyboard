@@ -282,6 +282,8 @@
                         <outletCollection property="recordHidables" destination="lqf-bC-Bmq" collectionClass="NSMutableArray" id="hjv-t1-BuC"/>
                         <outletCollection property="playbackHidables" destination="YjA-7i-Qk8" collectionClass="NSMutableArray" id="Kcd-K5-6YH"/>
                         <outletCollection property="recordHidables" destination="YjA-7i-Qk8" collectionClass="NSMutableArray" id="SWF-IG-L2X"/>
+                        <outletCollection property="recordHidables" destination="Gv5-s3-7EE" collectionClass="NSMutableArray" id="tYu-co-GTs"/>
+                        <outletCollection property="playbackHidables" destination="Gv5-s3-7EE" collectionClass="NSMutableArray" id="KXp-Kw-Gje"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

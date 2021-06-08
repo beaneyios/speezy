@@ -14,6 +14,8 @@ protocol PreRecordListViewControllerDelegate: AnyObject {
         didSelectItem item: AudioItem,
         onOriginalItem preRecordedItem: AudioItem
     )
+    
+    func preRecordListViewControllerDidTapClose(_ viewController: PreRecordListViewController)
 }
 
 class PreRecordListViewController: UIViewController {
@@ -50,7 +52,7 @@ class PreRecordListViewController: UIViewController {
     }
     
     @IBAction func didTapClose(_ sender: Any) {
-        
+        delegate?.preRecordListViewControllerDidTapClose(self)
     }
 }
 

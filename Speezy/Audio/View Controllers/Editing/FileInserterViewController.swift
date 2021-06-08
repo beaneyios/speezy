@@ -114,6 +114,7 @@ extension FileInserterViewController: AudioPlayerObserver {
         startOffset: TimeInterval
     ) {
         lblTime.text = TimeFormatter.formatTime(time: time + startOffset)
+        self.percentage = time / manager.item.calculatedDuration
     }
 }
 

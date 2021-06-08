@@ -182,7 +182,7 @@ extension AudioItemCoordinator: FileInserterViewControllerDelegate {
     }
     
     func fileInserterViewControllerDidTapClose(_ viewController: FileInserterViewController) {
-        
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -336,6 +336,10 @@ extension AudioItemCoordinator: PreRecordListViewControllerDelegate {
             preRecordedItem: item,
             on: viewController
         )
+    }
+    
+    func preRecordListViewControllerDidTapClose(_ viewController: PreRecordListViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

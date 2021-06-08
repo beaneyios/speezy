@@ -462,6 +462,9 @@
                                             <constraint firstAttribute="width" secondItem="72n-Jw-EiC" secondAttribute="height" multiplier="1:1" id="Toa-NM-Xe1"/>
                                         </constraints>
                                         <state key="normal" image="play-button"/>
+                                        <connections>
+                                            <action selector="togglePlayback:" destination="8gE-S7-OnJ" eventType="touchUpInside" id="QQd-Hy-gz8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -493,6 +496,7 @@
                                         <state key="normal" image="btn-close"/>
                                         <connections>
                                             <action selector="closeTapped:" destination="wx0-B1-l3Y" eventType="touchUpInside" id="6pI-n9-j3X"/>
+                                            <action selector="closeTapped:" destination="8gE-S7-OnJ" eventType="touchUpInside" id="eh8-Z9-EWp"/>
                                         </connections>
                                     </button>
                                     <view alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrM-sh-SF9">
