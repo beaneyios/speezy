@@ -121,6 +121,8 @@
 		BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */; };
 		BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */; };
 		BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */; };
+		BE5D23982699A0CF00E902BA /* Social.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE5D23972699A0CF00E902BA /* Social.storyboard */; };
+		BE5D239A2699AD3F00E902BA /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */; };
 		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
 		BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */; };
 		BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */; };
@@ -481,6 +483,8 @@
 		BE5BDB8C25C354CC00F937C3 /* ChatCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCreator.swift; sourceTree = "<group>"; };
 		BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCreator.swift; sourceTree = "<group>"; };
+		BE5D23972699A0CF00E902BA /* Social.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Social.storyboard; sourceTree = "<group>"; };
+		BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
 		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionViewController.swift; sourceTree = "<group>"; };
@@ -995,6 +999,22 @@
 			path = Push;
 			sourceTree = "<group>";
 		};
+		BE5D23952699A03300E902BA /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				BE5D23962699A03B00E902BA /* View Controllers */,
+				BE5D23972699A0CF00E902BA /* Social.storyboard */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		BE5D23962699A03B00E902BA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		BE6080A0250E84A9003CB318 /* Transcription */ = {
 			isa = PBXGroup;
 			children = (
@@ -1190,6 +1210,7 @@
 				BEF3B23325DC4DC30002C09E /* Profile */,
 				BE3C5DDB25BD8B70005E34BB /* Search */,
 				BE77766224D6CB440009BE63 /* Settings */,
+				BE5D23952699A03300E902BA /* Social */,
 				BEBFD49C24C58C8400200D87 /* SoundWave */,
 				BEFF49B425C58C9E00794A21 /* Store */,
 				BEFDB4F5255FF35F00362428 /* State */,
@@ -1319,6 +1340,7 @@
 				BE088CE124EDC33C000FEE55 /* PublishViewController.swift */,
 				BE6847252572656300981686 /* QuickRecordViewController.swift */,
 				BEDC125E24F1960200B53D1A /* ShareViewController.swift */,
+				BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2033,6 +2055,7 @@
 				BE50344D24BB21FD00A414D1 /* PlaybackWaveView.xib in Resources */,
 				BE6080B6250E8E57003CB318 /* transcription-test-file.m4a in Resources */,
 				BE7043FC2666B4CD00ED9BD8 /* Publish.storyboard in Resources */,
+				BE5D23982699A0CF00E902BA /* Social.storyboard in Resources */,
 				BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE8A955C25FEAD1C00F0C95E /* maintenance.json in Resources */,
@@ -2365,6 +2388,7 @@
 				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
+				BE5D239A2699AD3F00E902BA /* PlaybackViewController.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE0A458325CD673B005F4DA8 /* ChatShareViewController.swift in Sources */,
 				BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */,
