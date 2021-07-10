@@ -123,6 +123,7 @@
 		BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */; };
 		BE5D23982699A0CF00E902BA /* Social.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE5D23972699A0CF00E902BA /* Social.storyboard */; };
 		BE5D239A2699AD3F00E902BA /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */; };
+		BE5D239C2699BFFB00E902BA /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */; };
 		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
 		BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */; };
 		BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */; };
@@ -485,6 +486,7 @@
 		BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCreator.swift; sourceTree = "<group>"; };
 		BE5D23972699A0CF00E902BA /* Social.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Social.storyboard; sourceTree = "<group>"; };
 		BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionViewController.swift; sourceTree = "<group>"; };
@@ -1011,6 +1013,8 @@
 		BE5D23962699A03B00E902BA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */,
+				BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1340,7 +1344,6 @@
 				BE088CE124EDC33C000FEE55 /* PublishViewController.swift */,
 				BE6847252572656300981686 /* QuickRecordViewController.swift */,
 				BEDC125E24F1960200B53D1A /* ShareViewController.swift */,
-				BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -2343,6 +2346,7 @@
 				BE7044002666B7A700ED9BD8 /* FileInserterViewController.swift in Sources */,
 				BEFF49EA25C5AD6800794A21 /* QuickRecordDummyViewController.swift in Sources */,
 				BEE4B8AD261B4ABE0043921A /* ContactBackgroundFetchController.swift in Sources */,
+				BE5D239C2699BFFB00E902BA /* CommentsViewController.swift in Sources */,
 				BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */,
 				BEBFD4C624C5BAB100200D87 /* AudioItemCoordinator.swift in Sources */,
 				BEF3B7132545DC8A009308A4 /* TranscriptionJobManager.swift in Sources */,

@@ -24,7 +24,13 @@ class TagsView: UIView, NibLoadable {
     private var foreColor: UIColor!
     private var backColor: UIColor!
     
-    func configure(with tags: [Tag], foreColor: UIColor, backColor: UIColor, scrollDirection: UICollectionView.ScrollDirection, showAddTag: Bool) {
+    func configure(
+        with tags: [Tag],
+        foreColor: UIColor,
+        backColor: UIColor,
+        scrollDirection: UICollectionView.ScrollDirection,
+        showAddTag: Bool
+    ) {
         self.foreColor = foreColor
         self.backColor = backColor
         self.tags = tags
@@ -37,6 +43,7 @@ class TagsView: UIView, NibLoadable {
         }
         
         addSubview(collectionView)
+        
         collectionView.register(TagCell.nib, forCellWithReuseIdentifier: "cell")
         
         switch scrollDirection {

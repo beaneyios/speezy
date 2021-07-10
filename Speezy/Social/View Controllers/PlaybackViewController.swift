@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaybackViewController: UIViewController {
+final class PlaybackViewController: UIViewController {
     
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var playbackSlider: UISlider!
@@ -22,6 +22,35 @@ class PlaybackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCommentsContainer()
+        configureTags(
+            tags: [
+                Tag(id: "Id", title: "Life"),
+                Tag(id: "Id", title: "Memories"),
+                Tag(id: "Id", title: "Celebrity")
+            ]
+        )
+    }
+    
+    private func configureTags(tags: [Tag]) {
+        let tagsView = TagsView.createFromNib()
+        tagsContainer.addSubview(tagsView)
+        
+        tagsView.snp.makeConstraints { (maker) in
+            maker.top.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            maker.leading.equalToSuperview().offset(16.0)
+            maker.trailing.equalToSuperview().offset(-16.0)
+        }
+        
+        tagsView.backgroundColor = .red
+        
+        tagsView.configure(
+            with: tags,
+            foreColor: UIColor(named: "speezy-purple")!,
+            backColor: .clear,
+            scrollDirection: .horizontal,
+            showAddTag: false
+        )
     }
     
     private func configureCommentsContainer() {
