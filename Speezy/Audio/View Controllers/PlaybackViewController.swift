@@ -21,5 +21,31 @@ class PlaybackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCommentsContainer()
+    }
+    
+    private func configureCommentsContainer() {
+        let storyboard = UIStoryboard(name: "Social", bundle: nil)
+        
+        let viewController = storyboard.instantiateViewController(identifier: "CommentsViewController")
+        viewController.willMove(toParent: self)
+        commentsContainer.addSubview(viewController.view)
+        viewController.view.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview()
+        }
+        addChild(viewController)
+        commentsContainer.addShadow(
+            opacity: 0.1,
+            radius: 10.0,
+            offset: CGSize(width: 0.0, height: -10.0)
+        )
+        [commentsContainer, viewController.view].forEach {
+            $0?.layer.cornerRadius = 25.0
+            $0?.layer.maskedCorners = [
+                .layerMinXMinYCorner,
+                .layerMaxXMinYCorner
+            ]
+        }
+        
     }
 }

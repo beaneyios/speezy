@@ -21,6 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
+        let storyboard = UIStoryboard(name: "Social", bundle: nil)
+        let viewController = storyboard.instantiateViewController(identifier: "PlaybackViewController")
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
+        return;
+        
         let tabBarController = UITabBarController()
         let appCoordinator = AppCoordinator(tabBarController: tabBarController)
         
