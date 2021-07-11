@@ -26,6 +26,12 @@ final class PlaybackViewController: UIViewController {
     @IBOutlet weak var commentsContainer: UIView!
     
     var drawState: DrawState = .closed
+    var viewModel: PlaybackViewModel!
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureProfilePicture()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +43,32 @@ final class PlaybackViewController: UIViewController {
                 Tag(id: "Id", title: "Celebrity")
             ]
         )
+        configureTitle()
+        
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case let .imageLoaded(image):
+                    self.imgProfile.image = image
+                }
+            }
+        }
+        
+        viewModel.manager.addPlaybackObserver(self)
+        viewModel.loadData()
+    }
+    
+    @IBAction func togglePlayback(_ sender: Any) {
+        viewModel.manager.togglePlayback()
+    }
+    
+    private func configureProfilePicture() {
+        imgProfile.layer.cornerRadius = imgProfile.frame.width / 2.0
+        imgProfile.clipsToBounds = true
+    }
+
+    private func configureTitle() {
+        
     }
     
     private func configureTags(tags: [Tag]) {
@@ -165,5 +197,46 @@ extension PlaybackViewController {
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+extension PlaybackViewController: AudioPlayerObserver {
+    func playBackBegan(on item: AudioItem) {
+        playbackButton.setImage(UIImage(named: "plain-pause-button"), for: .normal)
+    }
+    
+    func playbackPaused(on item: AudioItem) {
+        playbackButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+    }
+    
+    func playbackStopped(on item: AudioItem) {
+        playbackButton.setImage(
+            UIImage(named: "plain-play-button"),
+            for: .normal
+        )
+        lblPassedTime.text = TimeFormatter.formatTimeMinutesAndSeconds(
+            time: viewModel.manager.duration
+        )
+        playbackSlider.value = 0.0
+    }
+    
+    func playbackProgressed(
+        withTime time: TimeInterval,
+        seekActive: Bool,
+        onItem item: AudioItem,
+        startOffset: TimeInterval
+    ) {
+        let percentageTime = time / item.calculatedDuration
+        let remainingTime = item.calculatedDuration - time
+        lblPassedTime.text = TimeFormatter.formatTimeMinutesAndSeconds(time: time)
+        lblRemainingTime.text = TimeFormatter.formatTimeMinutesAndSeconds(
+            time: remainingTime
+        )
+        
+        if seekActive {
+            return
+        }
+        
+        playbackSlider.value = Float(percentageTime)
     }
 }

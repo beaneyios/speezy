@@ -21,8 +21,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
+        let item = AudioItem(
+            id: "2528783B-2186-40FA-B9D0-59BFE0F62399",
+            path: "",
+            title: "Burg",
+            date: Date(timeIntervalSince1970: 1623012558.381709),
+            tags: []
+        )
+        let poster = Poster(
+            id: "V5kbxPDCRKVlliVP0AY94tdKBJG2",
+            displayName: "Matt Beaney",
+            profileImageUrl: URL(string: "https://firebasestorage.googleapis.com/v0/b/speezy-prod.appspot.com/o/profile_images%2FV5kbxPDCRKVlliVP0AY94tdKBJG2.jpg?alt=media&token=a0ca523b-ca84-4d00-af7c-415cd5b4e35b")
+        )
+        let post = Post(poster: poster, item: item)
+        let viewModel = PlaybackViewModel(post: post)
+        
         let storyboard = UIStoryboard(name: "Social", bundle: nil)
-        let viewController = storyboard.instantiateViewController(identifier: "PlaybackViewController")
+        let viewController = storyboard.instantiateViewController(
+            identifier: "PlaybackViewController"
+        ) as! PlaybackViewController
+        
+        viewController.viewModel = viewModel
+        
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         return;

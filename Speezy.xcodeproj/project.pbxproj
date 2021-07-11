@@ -298,6 +298,9 @@
 		BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */; };
 		BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */; };
 		BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */; };
+		BEED6A68269B0549002461C0 /* PlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */; };
+		BEED6A6B269B0603002461C0 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A6A269B0603002461C0 /* Poster.swift */; };
+		BEED6A6D269B0628002461C0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A6C269B0628002461C0 /* Post.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
@@ -665,6 +668,9 @@
 		BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellModel.swift; sourceTree = "<group>"; };
 		BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavePreview.swift; sourceTree = "<group>"; };
+		BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewModel.swift; sourceTree = "<group>"; };
+		BEED6A6A269B0603002461C0 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
+		BEED6A6C269B0628002461C0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
@@ -1004,6 +1010,8 @@
 		BE5D23952699A03300E902BA /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				BEED6A69269B05FB002461C0 /* Models */,
+				BEED6A66269B053B002461C0 /* View Models */,
 				BE5D23962699A03B00E902BA /* View Controllers */,
 				BE5D23972699A0CF00E902BA /* Social.storyboard */,
 			);
@@ -1699,6 +1707,23 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		BEED6A66269B053B002461C0 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		BEED6A69269B05FB002461C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEED6A6A269B0603002461C0 /* Poster.swift */,
+				BEED6A6C269B0628002461C0 /* Post.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BEF0ECB024BF948D00B9D554 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -2267,11 +2292,14 @@
 				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */,
 				BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */,
+				BEED6A68269B0549002461C0 /* PlaybackViewModel.swift in Sources */,
 				BE2B40F226496DDB00121B2D /* UpgradeListener.swift in Sources */,
+				BEED6A6D269B0628002461C0 /* Post.swift in Sources */,
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
 				BEF3B730254867B5009308A4 /* TranscriptionButton.swift in Sources */,
 				BEA9D14225B0DEC2000888A7 /* CustomSlider.swift in Sources */,
 				BE6FD96B25B7636800723732 /* ChatPlaybackView.swift in Sources */,
+				BEED6A6B269B0603002461C0 /* Poster.swift in Sources */,
 				BE0A459525CD725E005F4DA8 /* ChatSelectionCellModel.swift in Sources */,
 				BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
