@@ -247,7 +247,7 @@ extension PlaybackViewController: AudioPlayerObserver {
     
     func playbackStopped(on item: AudioItem) {
         playbackButton.setImage(
-            UIImage(named: "plain-play-button"),
+            UIImage(named: "play-button"),
             for: .normal
         )
         lblPassedTime.text = TimeFormatter.formatTimeMinutesAndSeconds(
