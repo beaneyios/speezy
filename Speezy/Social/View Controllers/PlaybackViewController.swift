@@ -96,6 +96,12 @@ extension PlaybackViewController {
         playbackSlider.thumbRadius = 12
         playbackSlider.depressedThumbRadius = 15
         playbackSlider.configure()
+        
+        playbackSlider.addTarget(
+            self,
+            action: #selector(onSliderValChanged(slider:forEvent:)),
+            for: .valueChanged
+        )
     }
     
     private func configureProfilePicture() {
@@ -274,5 +280,25 @@ extension PlaybackViewController: AudioPlayerObserver {
         }
         
         playbackSlider.value = Float(percentageTime)
+    }
+    
+    @objc private func onSliderValChanged(
+        slider: UISlider,
+        forEvent event: UIEvent
+    ) {
+        guard let touchEvent = event.allTouches?.first else {
+            return
+        }
+        
+        switch touchEvent.phase {
+        case UITouch.Phase.began:
+            viewModel.manager.pause()
+        case UITouch.Phase.moved:
+            viewModel.manager.seek(to: slider.value)
+        case UITouch.Phase.ended:
+            break
+        default:
+            break
+        }
     }
 }
