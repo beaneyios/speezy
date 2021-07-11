@@ -29,6 +29,9 @@
                                             <constraint firstAttribute="height" constant="31" id="tRr-h3-aPm"/>
                                         </constraints>
                                     </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bvQ-Qw-P6w">
+                                        <rect key="frame" x="378" y="22" width="20" height="20"/>
+                                    </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfF-Mp-fyP">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
                                     </button>
@@ -42,10 +45,12 @@
                                 <constraints>
                                     <constraint firstItem="JfF-Mp-fyP" firstAttribute="top" secondItem="3Qh-LS-Lpm" secondAttribute="top" id="36B-R8-lSD"/>
                                     <constraint firstItem="Gyg-Km-oHO" firstAttribute="centerY" secondItem="3Qh-LS-Lpm" secondAttribute="centerY" id="9Ea-fe-ogr"/>
+                                    <constraint firstItem="bvQ-Qw-P6w" firstAttribute="centerY" secondItem="3Qh-LS-Lpm" secondAttribute="centerY" id="DrV-mJ-Nk3"/>
                                     <constraint firstItem="Gyg-Km-oHO" firstAttribute="centerX" secondItem="3Qh-LS-Lpm" secondAttribute="centerX" id="IG0-I8-Hnz"/>
                                     <constraint firstAttribute="bottom" secondItem="JfF-Mp-fyP" secondAttribute="bottom" id="KFQ-wl-uGf"/>
                                     <constraint firstAttribute="height" constant="64" id="LbO-we-3wa"/>
                                     <constraint firstItem="uFt-sg-sN8" firstAttribute="centerY" secondItem="3Qh-LS-Lpm" secondAttribute="centerY" id="VQ2-Ss-KGk"/>
+                                    <constraint firstAttribute="trailing" secondItem="bvQ-Qw-P6w" secondAttribute="trailing" constant="16" id="dEV-JJ-KbG"/>
                                     <constraint firstItem="JfF-Mp-fyP" firstAttribute="leading" secondItem="3Qh-LS-Lpm" secondAttribute="leading" id="nqM-5e-6hu"/>
                                     <constraint firstItem="uFt-sg-sN8" firstAttribute="leading" secondItem="3Qh-LS-Lpm" secondAttribute="leading" constant="16" id="vJ3-VZ-MvG"/>
                                 </constraints>
@@ -222,8 +227,10 @@
                         <outlet property="imgProfile" destination="bVI-Nm-yka" id="Pvo-Y5-DX7"/>
                         <outlet property="lblPassedTime" destination="grZ-y1-Ycd" id="99o-yf-Fw3"/>
                         <outlet property="lblRemainingTime" destination="j5g-lK-EBp" id="OfR-eV-vol"/>
+                        <outlet property="lblTitle" destination="Gyg-Km-oHO" id="fr0-Le-stm"/>
                         <outlet property="playbackButton" destination="5nm-IG-qAt" id="Sah-6u-flJ"/>
                         <outlet property="playbackSlider" destination="Z8h-Gh-EHA" id="5we-Jx-78c"/>
+                        <outlet property="spinner" destination="bvQ-Qw-P6w" id="ae5-I1-vVe"/>
                         <outlet property="tagsContainer" destination="6kk-Xo-2fF" id="8cR-fa-axJ"/>
                     </connections>
                 </viewController>

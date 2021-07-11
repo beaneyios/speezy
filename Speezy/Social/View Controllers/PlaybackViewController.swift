@@ -14,6 +14,8 @@ final class PlaybackViewController: UIViewController {
         case closed
     }
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var playbackSlider: UISlider!
     @IBOutlet weak var lblRemainingTime: UILabel!
@@ -50,6 +52,10 @@ final class PlaybackViewController: UIViewController {
                 switch change {
                 case let .imageLoaded(image):
                     self.imgProfile.image = image
+                case .audioLoading:
+                    self.showLoadingAudio()
+                case .audioLoaded:
+                    self.dismissLoadingAudio()
                 }
             }
         }
@@ -68,7 +74,7 @@ final class PlaybackViewController: UIViewController {
     }
 
     private func configureTitle() {
-        
+        lblTitle.text = viewModel.viewTitle
     }
     
     private func configureTags(tags: [Tag]) {
@@ -133,6 +139,20 @@ final class PlaybackViewController: UIViewController {
             action: #selector(commentsHandleTapped(sender:))
         )
         commentsHandleContainer.addGestureRecognizer(tap)
+    }
+    
+    private func showLoadingAudio() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+        playbackButton.alpha = 0.6
+        playbackButton.isUserInteractionEnabled = false
+    }
+    
+    private func dismissLoadingAudio() {
+        spinner.isHidden = true
+        spinner.stopAnimating()
+        playbackButton.alpha = 1.0
+        playbackButton.isUserInteractionEnabled = true
     }
 }
 

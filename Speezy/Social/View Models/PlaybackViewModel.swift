@@ -11,6 +11,8 @@ import UIKit
 class PlaybackViewModel {
     enum Change {
         case imageLoaded(UIImage)
+        case audioLoading
+        case audioLoaded
     }
     
     var didChange: ((Change) -> Void)?
@@ -32,13 +34,16 @@ class PlaybackViewModel {
         } else {
             fetchProfileImage()
         }
+        
+        fetchAudio()
     }
     
     private func fetchAudio() {
+        didChange?(.audioLoading)
         CloudAudioManager.downloadAudioClip(id: post.item.id) { result in
             switch result {
             case let .success(item):
-                break
+                self.didChange?(.audioLoaded)
             case let .failure(error):
                 break
             }
@@ -51,7 +56,7 @@ class PlaybackViewModel {
             case let .success(image):
                 self.didChange?(.imageLoaded(image))
             case let .failure(error):
-                break
+                print(error?.localizedDescription)
             }
         }
     }
@@ -62,7 +67,7 @@ class PlaybackViewModel {
             case let .success(image):
                 self.didChange?(.imageLoaded(image))
             case let .failure(error):
-                break
+                print(error?.localizedDescription)
             }
         }
     }
@@ -70,5 +75,7 @@ class PlaybackViewModel {
 }
 
 extension PlaybackViewModel {
-    
+    var viewTitle: String {
+        post.item.title
+    }
 }
