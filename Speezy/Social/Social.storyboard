@@ -82,20 +82,20 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wjt-CS-29C">
-                                <rect key="frame" x="0.0" y="376.66666666666669" width="414" height="46"/>
+                                <rect key="frame" x="0.0" y="376.66666666666669" width="414" height="50"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Z8h-Gh-EHA">
+                                    <slider opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Z8h-Gh-EHA" customClass="CustomSlider" customModule="Speezy" customModuleProvider="target">
                                         <rect key="frame" x="14" y="0.0" width="386" height="31"/>
                                         <color key="minimumTrackTintColor" name="speezy-purple"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="-9:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5g-lK-EBp">
-                                        <rect key="frame" x="364.66666666666669" y="30" width="33.333333333333314" height="16"/>
+                                        <rect key="frame" x="364.66666666666669" y="34" width="33.333333333333314" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-y1-Ycd">
-                                        <rect key="frame" x="16" y="30" width="27.666666666666671" height="16"/>
+                                        <rect key="frame" x="16" y="34" width="27.666666666666671" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -105,23 +105,23 @@
                                 <constraints>
                                     <constraint firstItem="Z8h-Gh-EHA" firstAttribute="top" secondItem="wjt-CS-29C" secondAttribute="top" id="3LX-GR-Y28"/>
                                     <constraint firstAttribute="bottom" secondItem="j5g-lK-EBp" secondAttribute="bottom" id="6No-16-K1f"/>
-                                    <constraint firstItem="grZ-y1-Ycd" firstAttribute="top" secondItem="Z8h-Gh-EHA" secondAttribute="bottom" id="Oao-pm-wYB"/>
+                                    <constraint firstItem="grZ-y1-Ycd" firstAttribute="top" secondItem="Z8h-Gh-EHA" secondAttribute="bottom" constant="4" id="Oao-pm-wYB"/>
                                     <constraint firstAttribute="trailing" secondItem="Z8h-Gh-EHA" secondAttribute="trailing" constant="16" id="OgM-Nx-vZN"/>
-                                    <constraint firstItem="j5g-lK-EBp" firstAttribute="top" secondItem="Z8h-Gh-EHA" secondAttribute="bottom" id="T2G-Ld-pCB"/>
+                                    <constraint firstItem="j5g-lK-EBp" firstAttribute="top" secondItem="Z8h-Gh-EHA" secondAttribute="bottom" constant="4" id="T2G-Ld-pCB"/>
                                     <constraint firstAttribute="trailing" secondItem="j5g-lK-EBp" secondAttribute="trailing" constant="16" id="aAc-go-6gX"/>
                                     <constraint firstItem="Z8h-Gh-EHA" firstAttribute="leading" secondItem="wjt-CS-29C" secondAttribute="leading" constant="16" id="nlm-Pk-Dbk"/>
                                     <constraint firstItem="grZ-y1-Ycd" firstAttribute="leading" secondItem="wjt-CS-29C" secondAttribute="leading" constant="16" id="zXf-Jf-2XW"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kk-Xo-2fF">
-                                <rect key="frame" x="0.0" y="556.66666666666663" width="414" height="47"/>
+                                <rect key="frame" x="0.0" y="560.66666666666663" width="414" height="47"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="xdQ-6W-sGp"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Y4-Sd-FRI">
-                                <rect key="frame" x="0.0" y="454.66666666666669" width="414" height="70.000000000000057"/>
+                                <rect key="frame" x="0.0" y="458.66666666666669" width="414" height="70.000000000000057"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nm-IG-qAt">
                                         <rect key="frame" x="172" y="0.0" width="70" height="70"/>

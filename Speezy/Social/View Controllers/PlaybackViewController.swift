@@ -17,7 +17,7 @@ final class PlaybackViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
-    @IBOutlet weak var playbackSlider: UISlider!
+    @IBOutlet weak var playbackSlider: CustomSlider!
     @IBOutlet weak var lblRemainingTime: UILabel!
     @IBOutlet weak var lblPassedTime: UILabel!
     @IBOutlet weak var playbackButton: UIButton!
@@ -46,6 +46,7 @@ final class PlaybackViewController: UIViewController {
             ]
         )
         configureTitle()
+        configureSlider()
         
         viewModel.didChange = { change in
             DispatchQueue.main.async {
@@ -66,6 +67,35 @@ final class PlaybackViewController: UIViewController {
     
     @IBAction func togglePlayback(_ sender: Any) {
         viewModel.manager.togglePlayback()
+    }
+    
+    private func showLoadingAudio() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+        playbackButton.alpha = 0.6
+        playbackButton.isUserInteractionEnabled = false
+    }
+    
+    private func dismissLoadingAudio() {
+        spinner.isHidden = true
+        spinner.stopAnimating()
+        playbackButton.alpha = 1.0
+        playbackButton.isUserInteractionEnabled = true
+    }
+}
+
+// MARK:- Configuration
+extension PlaybackViewController {
+    private func configureSlider() {
+        playbackSlider.value = 0.0
+        
+        playbackSlider.thumbColour = .speezyPurple
+        playbackSlider.minimumTrackTintColor = .speezyPurple
+        playbackSlider.maximumTrackTintColor = UIColor.chatBubbleOther
+        playbackSlider.borderColor = .white
+        playbackSlider.thumbRadius = 12
+        playbackSlider.depressedThumbRadius = 15
+        playbackSlider.configure()
     }
     
     private func configureProfilePicture() {
@@ -140,20 +170,6 @@ final class PlaybackViewController: UIViewController {
         )
         commentsHandleContainer.addGestureRecognizer(tap)
     }
-    
-    private func showLoadingAudio() {
-        spinner.isHidden = false
-        spinner.startAnimating()
-        playbackButton.alpha = 0.6
-        playbackButton.isUserInteractionEnabled = false
-    }
-    
-    private func dismissLoadingAudio() {
-        spinner.isHidden = true
-        spinner.stopAnimating()
-        playbackButton.alpha = 1.0
-        playbackButton.isUserInteractionEnabled = true
-    }
 }
 
 extension PlaybackViewController {
@@ -222,11 +238,11 @@ extension PlaybackViewController {
 
 extension PlaybackViewController: AudioPlayerObserver {
     func playBackBegan(on item: AudioItem) {
-        playbackButton.setImage(UIImage(named: "plain-pause-button"), for: .normal)
+        playbackButton.setImage(UIImage(named: "pause-button"), for: .normal)
     }
     
     func playbackPaused(on item: AudioItem) {
-        playbackButton.setImage(UIImage(named: "plain-play-button"), for: .normal)
+        playbackButton.setImage(UIImage(named: "play-button"), for: .normal)
     }
     
     func playbackStopped(on item: AudioItem) {

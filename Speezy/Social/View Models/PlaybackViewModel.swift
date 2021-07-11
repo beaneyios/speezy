@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaybackViewModel {
+final class PlaybackViewModel {
     enum Change {
         case imageLoaded(UIImage)
         case audioLoading
@@ -71,7 +71,6 @@ class PlaybackViewModel {
             }
         }
     }
-    
 }
 
 extension PlaybackViewModel {
