@@ -301,6 +301,12 @@
 		BEED6A68269B0549002461C0 /* PlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */; };
 		BEED6A6B269B0603002461C0 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A6A269B0603002461C0 /* Poster.swift */; };
 		BEED6A6D269B0628002461C0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A6C269B0628002461C0 /* Post.swift */; };
+		BEED8DBF26AAE38200C35D26 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DBE26AAE38200C35D26 /* Comment.swift */; };
+		BEED8DC126AAE38900C35D26 /* Commenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DC026AAE38900C35D26 /* Commenter.swift */; };
+		BEED8DC526AAE3DC00C35D26 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DC326AAE3DC00C35D26 /* CommentCell.swift */; };
+		BEED8DC626AAE3DC00C35D26 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */; };
+		BEED8DC826AAF2FC00C35D26 /* CommentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */; };
+		BEED8DCB26AAF6C500C35D26 /* CommentCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
@@ -671,6 +677,12 @@
 		BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewModel.swift; sourceTree = "<group>"; };
 		BEED6A6A269B0603002461C0 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		BEED6A6C269B0628002461C0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		BEED8DBE26AAE38200C35D26 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		BEED8DC026AAE38900C35D26 /* Commenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commenter.swift; sourceTree = "<group>"; };
+		BEED8DC326AAE3DC00C35D26 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
+		BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellModel.swift; sourceTree = "<group>"; };
+		BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCreator.swift; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
@@ -1010,10 +1022,12 @@
 		BE5D23952699A03300E902BA /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				BEED8DC926AAF5E400C35D26 /* Controllers */,
 				BEED6A69269B05FB002461C0 /* Models */,
-				BEED6A66269B053B002461C0 /* View Models */,
-				BE5D23962699A03B00E902BA /* View Controllers */,
 				BE5D23972699A0CF00E902BA /* Social.storyboard */,
+				BE5D23962699A03B00E902BA /* View Controllers */,
+				BEED6A66269B053B002461C0 /* View Models */,
+				BEED8DC226AAE3CC00C35D26 /* Views */,
 			);
 			path = Social;
 			sourceTree = "<group>";
@@ -1711,6 +1725,7 @@
 			isa = PBXGroup;
 			children = (
 				BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */,
+				BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1720,8 +1735,27 @@
 			children = (
 				BEED6A6A269B0603002461C0 /* Poster.swift */,
 				BEED6A6C269B0628002461C0 /* Post.swift */,
+				BEED8DBE26AAE38200C35D26 /* Comment.swift */,
+				BEED8DC026AAE38900C35D26 /* Commenter.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BEED8DC226AAE3CC00C35D26 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BEED8DC326AAE3DC00C35D26 /* CommentCell.swift */,
+				BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BEED8DC926AAF5E400C35D26 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		BEF0ECB024BF948D00B9D554 /* App */ = {
@@ -2087,6 +2121,7 @@
 				BE17B67325F55021003FB42A /* GoogleService-Info.plist in Resources */,
 				BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */,
 				BE8A955C25FEAD1C00F0C95E /* maintenance.json in Resources */,
+				BEED8DC626AAE3DC00C35D26 /* CommentCell.xib in Resources */,
 				BE2B4137264C595E00121B2D /* ChatterCell.xib in Resources */,
 				BE3C5DEF25BDA375005E34BB /* Home.storyboard in Resources */,
 				BE05275324CAC32400B0D22B /* VideoPlaceholderView.xib in Resources */,
@@ -2304,6 +2339,7 @@
 				BE0CDD9D26109CC500AF2706 /* ProfileImageFetcher.swift in Sources */,
 				BE50345324BB9C7600A414D1 /* CropView.swift in Sources */,
 				BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */,
+				BEED8DC826AAF2FC00C35D26 /* CommentCellModel.swift in Sources */,
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
 				BEF7DE3B25C724DB00B690CB /* ChatImageFetcher.swift in Sources */,
 				BEFF49B725C58CB400794A21 /* Store.swift in Sources */,
@@ -2391,6 +2427,7 @@
 				BE0B908E266CC3CF002151EB /* PreRecordListViewModel.swift in Sources */,
 				BE0E53D224E9BE01009BA1F9 /* AVAudioSession+Helpers.swift in Sources */,
 				BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */,
+				BEED8DC126AAE38900C35D26 /* Commenter.swift in Sources */,
 				BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */,
 				BEC6431D25A4F5DA0090F189 /* AudioItemListViewModel.swift in Sources */,
 				BE6FD95925B7512900723732 /* QuickRecordPresenting.swift in Sources */,
@@ -2408,6 +2445,7 @@
 				BEE47EF025BC415D00AF47FA /* ChatCellModel.swift in Sources */,
 				BEDC1222259D1A1100BB0064 /* DatabaseProfileManager.swift in Sources */,
 				BE3FACB52540BEA7006AD4D6 /* TranscriptCollectionViewController.swift in Sources */,
+				BEED8DCB26AAF6C500C35D26 /* CommentCreator.swift in Sources */,
 				BEDC125F24F1960200B53D1A /* ShareViewController.swift in Sources */,
 				BE2B098824C7336F00317EB7 /* NibLoadable.swift in Sources */,
 				BE70445F2667B66F00ED9BD8 /* FileInserter.swift in Sources */,
@@ -2420,6 +2458,7 @@
 				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
+				BEED8DBF26AAE38200C35D26 /* Comment.swift in Sources */,
 				BE5D239A2699AD3F00E902BA /* PlaybackViewController.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE0A458325CD673B005F4DA8 /* ChatShareViewController.swift in Sources */,
@@ -2445,6 +2484,7 @@
 				BEC6432525A4FAD40090F189 /* AuthLoadingViewController.swift in Sources */,
 				BE2B40F82649AC7600121B2D /* String+VersionComparison.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
+				BEED8DC526AAE3DC00C35D26 /* CommentCell.swift in Sources */,
 				BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */,
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,

@@ -9,6 +9,7 @@
 import Foundation
 
 struct Post {
+    var id: String
     var poster: Poster
     var item: AudioItem
 }
