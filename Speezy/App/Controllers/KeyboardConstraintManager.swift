@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol KeyboardConstraintManagerDelegate: AnyObject {
+    func keyboardConstraintManagerDidStartEditing(_ manager: KeyboardConstraintManager)
+}
+
 class KeyboardConstraintManager {
     let view: UIView
     let constraint: NSLayoutConstraint
     let defaultConstant: CGFloat
+    
+    weak var delegate: KeyboardConstraintManagerDelegate?
         
     init(view: UIView, constraint: NSLayoutConstraint, defaultConstant: CGFloat) {
         self.view = view
@@ -56,6 +62,7 @@ class KeyboardConstraintManager {
         if notification.name == UIResponder.keyboardWillHideNotification {
             constraint.constant = defaultConstant
         } else {
+            delegate?.keyboardConstraintManagerDidStartEditing(self)
             constraint.constant = keyboardViewEndFrame.height - view.safeAreaInsets.bottom + defaultConstant
         }
     }

@@ -26,9 +26,15 @@ final class PlaybackViewController: UIViewController {
     @IBOutlet weak var commentsHandleContainer: UIView!
     @IBOutlet weak var commentsHandlePosition: NSLayoutConstraint!
     @IBOutlet weak var commentsContainer: UIView!
+    @IBOutlet weak var commentsBottomConstraint: NSLayoutConstraint!
     
     var drawState: DrawState = .closed
     var viewModel: PlaybackViewModel!
+    lazy var keyboardManager = KeyboardConstraintManager(
+        view: view,
+        constraint: commentsBottomConstraint,
+        defaultConstant: 0.0
+    )
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -63,6 +69,8 @@ final class PlaybackViewController: UIViewController {
         
         viewModel.manager.addPlaybackObserver(self)
         viewModel.loadData()
+        keyboardManager.delegate = self
+        keyboardManager.startListening()
     }
     
     @IBAction func togglePlayback(_ sender: Any) {
@@ -300,5 +308,11 @@ extension PlaybackViewController: AudioPlayerObserver {
         default:
             break
         }
+    }
+}
+
+extension PlaybackViewController: KeyboardConstraintManagerDelegate {
+    func keyboardConstraintManagerDidStartEditing(_ manager: KeyboardConstraintManager) {
+        openComments()
     }
 }

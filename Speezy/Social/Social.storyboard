@@ -221,6 +221,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commentsBottomConstraint" destination="4TX-n6-3Mg" id="odt-89-16c"/>
                         <outlet property="commentsContainer" destination="mOG-8x-pNF" id="bGv-0l-WTe"/>
                         <outlet property="commentsHandleContainer" destination="X9n-DR-fnZ" id="u4o-6n-Ymk"/>
                         <outlet property="commentsHandlePosition" destination="uDE-RK-qAr" id="3vv-uk-tEG"/>
