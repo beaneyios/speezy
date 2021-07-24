@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentCell: UITableViewCell {
+class CommentCell: UITableViewCell, NibLoadable {
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var lblUsername: UILabel!

@@ -241,6 +241,7 @@
 		BEB7781E25F3E26900CFC29E /* MessagesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7781D25F3E26900CFC29E /* MessagesStore.swift */; };
 		BEB7782225F3E3CC00CFC29E /* MessagesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */; };
 		BEB7782625F3E44D00CFC29E /* MessagesObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */; };
+		BEB90CE126AC607D003DEB71 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */; };
 		BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */; };
 		BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */; };
 		BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */; };
@@ -307,6 +308,8 @@
 		BEED8DC626AAE3DC00C35D26 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */; };
 		BEED8DC826AAF2FC00C35D26 /* CommentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */; };
 		BEED8DCB26AAF6C500C35D26 /* CommentCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */; };
+		BEED8DCD26AC5B8500C35D26 /* CommentFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCC26AC5B8500C35D26 /* CommentFetcher.swift */; };
+		BEED8DCF26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCE26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
 		BEF28A0925A3A5A10045ABFF /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */; };
@@ -617,6 +620,7 @@
 		BEB7781D25F3E26900CFC29E /* MessagesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesStore.swift; sourceTree = "<group>"; };
 		BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObserver.swift; sourceTree = "<group>"; };
 		BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObservation.swift; sourceTree = "<group>"; };
+		BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizationView.swift; sourceTree = "<group>"; };
 		BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioVisualizationView.xib; sourceTree = "<group>"; };
 		BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNibView.swift; sourceTree = "<group>"; };
@@ -683,6 +687,8 @@
 		BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellModel.swift; sourceTree = "<group>"; };
 		BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCreator.swift; sourceTree = "<group>"; };
+		BEED8DCC26AC5B8500C35D26 /* CommentFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentFetcher.swift; sourceTree = "<group>"; };
+		BEED8DCE26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ConvenienceInit.swift"; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		BEF28A0825A3A5A10045ABFF /* UIImage+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
@@ -1726,6 +1732,7 @@
 			children = (
 				BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */,
 				BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */,
+				BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1754,6 +1761,7 @@
 			isa = PBXGroup;
 			children = (
 				BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */,
+				BEED8DCC26AC5B8500C35D26 /* CommentFetcher.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1801,6 +1809,7 @@
 				BE0A459025CD7129005F4DA8 /* UINavigationController+Completion.swift */,
 				BE2E8131263F212F00471874 /* UIColor+ToHex.swift */,
 				BE2E8135263F22E000471874 /* UIColor+Random.swift */,
+				BEED8DCE26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2343,8 +2352,10 @@
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
 				BEF7DE3B25C724DB00B690CB /* ChatImageFetcher.swift in Sources */,
 				BEFF49B725C58CB400794A21 /* Store.swift in Sources */,
+				BEED8DCD26AC5B8500C35D26 /* CommentFetcher.swift in Sources */,
 				BE1314ED261891D400E5B258 /* MessageValue.swift in Sources */,
 				BE939D5925D0629D00042EB7 /* AudioPlaybackViewController.swift in Sources */,
+				BEB90CE126AC607D003DEB71 /* CommentsViewModel.swift in Sources */,
 				BE0E53CF24E814F7009BA1F9 /* CropOverlayView.swift in Sources */,
 				BEB7781E25F3E26900CFC29E /* MessagesStore.swift in Sources */,
 				BE79270B247EE55F0079652C /* AudioItemViewController.swift in Sources */,
@@ -2366,6 +2377,7 @@
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
 				BE2B412D264C57E800121B2D /* ChatOptionsViewController.swift in Sources */,
 				BEF3B24325DC5A810002C09E /* ProfileEditViewModel.swift in Sources */,
+				BEED8DCF26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift in Sources */,
 				BE0B908A266CC2A0002151EB /* PreRecordListViewController.swift in Sources */,
 				BE978CF52622202500E71419 /* TestCell.swift in Sources */,
 				BE0A459125CD7129005F4DA8 /* UINavigationController+Completion.swift in Sources */,

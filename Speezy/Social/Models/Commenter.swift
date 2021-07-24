@@ -20,8 +20,24 @@ extension Commenter {
         [
             "id": id,
             "display_name": displayName,
-            "profile_image_url": profileImageUrl,
-            "color": color
+            "profile_image_url": profileImageUrl?.absoluteString,
+            "color": color?.asHex
         ]
+    }
+    
+    static func fromDict(dict: NSDictionary) -> Commenter? {
+        guard
+            let id = dict["id"] as? String,
+            let displayName = dict["display_name"] as? String
+        else {
+            return nil
+        }
+                
+        return Commenter(
+            id: id,
+            displayName: displayName,
+            profileImageUrl: URL(key: "profile_image_url", dict: dict),
+            color: UIColor.fromDict(key: "color", dict: dict)
+        )
     }
 }

@@ -149,9 +149,12 @@ extension PlaybackViewController {
     private func configureCommentsViewController() {
         let storyboard = UIStoryboard(name: "Social", bundle: nil)
         
+        let commentsViewModel = CommentsViewModel(post: self.viewModel.post)
         let viewController = storyboard.instantiateViewController(
             identifier: "CommentsViewController"
-        )
+        ) as! CommentsViewController
+        viewController.viewModel = commentsViewModel
+        
         viewController.willMove(toParent: self)
         commentsContainer.addSubview(viewController.view)
         viewController.view.snp.makeConstraints { maker in

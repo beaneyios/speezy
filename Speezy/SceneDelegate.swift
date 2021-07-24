@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDele
             displayName: "Matt Beaney",
             profileImageUrl: URL(string: "https://firebasestorage.googleapis.com/v0/b/speezy-prod.appspot.com/o/profile_images%2FV5kbxPDCRKVlliVP0AY94tdKBJG2.jpg?alt=media&token=a0ca523b-ca84-4d00-af7c-415cd5b4e35b")
         )
-        let post = Post(poster: poster, item: item)
+        let post = Post(id: "1", poster: poster, item: item)
         let viewModel = PlaybackViewModel(post: post)
         
         let storyboard = UIStoryboard(name: "Social", bundle: nil)

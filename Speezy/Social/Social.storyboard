@@ -277,17 +277,6 @@
                                             <constraint firstAttribute="height" constant="1" id="sBu-yh-VoU"/>
                                         </constraints>
                                     </view>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="V2V-Mq-5X1">
-                                        <rect key="frame" x="0.0" y="53.666666666666686" width="414" height="700.33333333333326"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ALV-M4-rUZ">
-                                            <size key="itemSize" width="128" height="128"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        </collectionViewFlowLayout>
-                                        <cells/>
-                                    </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ar3-Ee-RVk">
                                         <rect key="frame" x="0.0" y="754" width="414" height="64"/>
                                         <subviews>
@@ -300,6 +289,9 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFb-4G-B1C">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <connections>
+                                                            <action selector="submitCommit:" destination="OcX-6v-Dz0" eventType="touchUpInside" id="IUV-0n-Qgh"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -333,23 +325,27 @@
                                             <constraint firstItem="rqm-bZ-m9g" firstAttribute="leading" secondItem="ar3-Ee-RVk" secondAttribute="leading" constant="32" id="yRx-xm-ggd"/>
                                         </constraints>
                                     </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sed-UD-nhR">
+                                        <rect key="frame" x="0.0" y="53.666666666666686" width="414" height="700.33333333333326"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="V2V-Mq-5X1" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" id="642-eq-luz"/>
                                     <constraint firstItem="99i-Ad-AtN" firstAttribute="leading" secondItem="ecW-LB-LG5" secondAttribute="trailing" constant="8" id="AS9-tf-ump"/>
-                                    <constraint firstItem="ar3-Ee-RVk" firstAttribute="top" secondItem="V2V-Mq-5X1" secondAttribute="bottom" id="EsO-vi-LIr"/>
                                     <constraint firstItem="ar3-Ee-RVk" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" id="GEs-xB-0a6"/>
                                     <constraint firstItem="Lqe-oR-eha" firstAttribute="top" secondItem="jgv-q1-Tqc" secondAttribute="bottom" constant="16" id="M03-hA-Th2"/>
+                                    <constraint firstItem="sed-UD-nhR" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" id="OBL-Fj-gO5"/>
                                     <constraint firstAttribute="trailing" secondItem="99i-Ad-AtN" secondAttribute="trailing" constant="32" id="Pnz-YO-Aws"/>
-                                    <constraint firstAttribute="trailing" secondItem="V2V-Mq-5X1" secondAttribute="trailing" id="Vck-r7-deO"/>
+                                    <constraint firstAttribute="trailing" secondItem="sed-UD-nhR" secondAttribute="trailing" id="Scq-pQ-Hho"/>
                                     <constraint firstItem="jgv-q1-Tqc" firstAttribute="top" secondItem="DFp-3k-4Mx" secondAttribute="top" constant="16" id="W4Q-kf-3s2"/>
                                     <constraint firstItem="ecW-LB-LG5" firstAttribute="centerY" secondItem="jgv-q1-Tqc" secondAttribute="centerY" id="XpX-dU-MDT"/>
                                     <constraint firstAttribute="bottom" secondItem="ar3-Ee-RVk" secondAttribute="bottom" id="cw1-U2-6k1"/>
                                     <constraint firstItem="99i-Ad-AtN" firstAttribute="centerY" secondItem="jgv-q1-Tqc" secondAttribute="centerY" id="e5K-Pv-G56"/>
                                     <constraint firstItem="Lqe-oR-eha" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" id="jtS-dn-hb0"/>
+                                    <constraint firstItem="ar3-Ee-RVk" firstAttribute="top" secondItem="sed-UD-nhR" secondAttribute="bottom" id="luY-kv-Cw5"/>
                                     <constraint firstAttribute="trailing" secondItem="Lqe-oR-eha" secondAttribute="trailing" id="m7V-EL-sih"/>
-                                    <constraint firstItem="V2V-Mq-5X1" firstAttribute="top" secondItem="Lqe-oR-eha" secondAttribute="bottom" id="mxr-hz-j0R"/>
+                                    <constraint firstItem="sed-UD-nhR" firstAttribute="top" secondItem="Lqe-oR-eha" secondAttribute="bottom" id="rPo-x5-OrX"/>
                                     <constraint firstAttribute="trailing" secondItem="ar3-Ee-RVk" secondAttribute="trailing" id="tKP-gZ-ljl"/>
                                     <constraint firstItem="jgv-q1-Tqc" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" constant="32" id="y48-I3-LWw"/>
                                 </constraints>
@@ -365,7 +361,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commentsTextField" destination="rqm-bZ-m9g" id="bGY-aC-5A3"/>
                         <outlet property="sendCommentContainer" destination="uzX-fd-lYy" id="2Ww-lA-302"/>
+                        <outlet property="tableView" destination="sed-UD-nhR" id="y3T-Yg-kdF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jp-NW-E7R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

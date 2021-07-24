@@ -23,4 +23,25 @@ extension Comment {
             "date": date.timeIntervalSince1970
         ]
     }
+    
+    static func fromDict(
+        dict: NSDictionary,
+        key: String
+    ) -> Comment? {
+        guard
+            let comment = dict["comment"] as? String,
+            let commenterDict = dict["commenter"] as? NSDictionary,
+            let commenter = Commenter.fromDict(dict: commenterDict),
+            let dateSeconds = dict["date"] as? TimeInterval
+        else {
+            return nil
+        }
+        
+        return Comment(
+            id: key,
+            commenter: commenter,
+            comment: comment,
+            date: Date(timeIntervalSince1970: dateSeconds)
+        )
+    }
 }
