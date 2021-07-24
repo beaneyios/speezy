@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Poster {
+struct Poster: Equatable, Hashable {
     var id: String
     var displayName: String
     var profileImageUrl: URL?

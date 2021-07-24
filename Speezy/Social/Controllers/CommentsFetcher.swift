@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseDatabase
 
-class CommentFetcher {
+class CommentsFetcher {
     func fetchComments(
         post: Post,
         queryCount: UInt,

@@ -242,6 +242,10 @@
 		BEB7782225F3E3CC00CFC29E /* MessagesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */; };
 		BEB7782625F3E44D00CFC29E /* MessagesObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */; };
 		BEB90CE126AC607D003DEB71 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */; };
+		BEB90CE326AC6386003DEB71 /* CommentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE226AC6386003DEB71 /* CommentStore.swift */; };
+		BEB90CE526AC63CF003DEB71 /* CommentsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */; };
+		BEB90CE726AC65A7003DEB71 /* CommentsObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE626AC65A7003DEB71 /* CommentsObservation.swift */; };
+		BEB90CE926AC65B0003DEB71 /* CommentsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE826AC65B0003DEB71 /* CommentsObserver.swift */; };
 		BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */; };
 		BEBFD4AD24C58D3800200D87 /* AudioVisualizationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */; };
 		BEBFD4AE24C58D3800200D87 /* BaseNibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */; };
@@ -308,7 +312,7 @@
 		BEED8DC626AAE3DC00C35D26 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */; };
 		BEED8DC826AAF2FC00C35D26 /* CommentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */; };
 		BEED8DCB26AAF6C500C35D26 /* CommentCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */; };
-		BEED8DCD26AC5B8500C35D26 /* CommentFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCC26AC5B8500C35D26 /* CommentFetcher.swift */; };
+		BEED8DCD26AC5B8500C35D26 /* CommentsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCC26AC5B8500C35D26 /* CommentsFetcher.swift */; };
 		BEED8DCF26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DCE26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift */; };
 		BEEEB87C25AA06D600E07CD0 /* FacebookLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */; };
 		BEF0ECB424BF94A400B9D554 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */; };
@@ -621,6 +625,10 @@
 		BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObserver.swift; sourceTree = "<group>"; };
 		BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObservation.swift; sourceTree = "<group>"; };
 		BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
+		BEB90CE226AC6386003DEB71 /* CommentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentStore.swift; sourceTree = "<group>"; };
+		BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsListener.swift; sourceTree = "<group>"; };
+		BEB90CE626AC65A7003DEB71 /* CommentsObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsObservation.swift; sourceTree = "<group>"; };
+		BEB90CE826AC65B0003DEB71 /* CommentsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsObserver.swift; sourceTree = "<group>"; };
 		BEBFD4A924C58D3800200D87 /* AudioVisualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizationView.swift; sourceTree = "<group>"; };
 		BEBFD4AA24C58D3800200D87 /* AudioVisualizationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioVisualizationView.xib; sourceTree = "<group>"; };
 		BEBFD4AB24C58D3800200D87 /* BaseNibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNibView.swift; sourceTree = "<group>"; };
@@ -687,7 +695,7 @@
 		BEED8DC426AAE3DC00C35D26 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellModel.swift; sourceTree = "<group>"; };
 		BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCreator.swift; sourceTree = "<group>"; };
-		BEED8DCC26AC5B8500C35D26 /* CommentFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentFetcher.swift; sourceTree = "<group>"; };
+		BEED8DCC26AC5B8500C35D26 /* CommentsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsFetcher.swift; sourceTree = "<group>"; };
 		BEED8DCE26AC5D3D00C35D26 /* UIColor+ConvenienceInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ConvenienceInit.swift"; sourceTree = "<group>"; };
 		BEEEB87B25AA06D600E07CD0 /* FacebookLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginViewModel.swift; sourceTree = "<group>"; };
 		BEF0ECB324BF94A400B9D554 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
@@ -1761,7 +1769,8 @@
 			isa = PBXGroup;
 			children = (
 				BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */,
-				BEED8DCC26AC5B8500C35D26 /* CommentFetcher.swift */,
+				BEED8DCC26AC5B8500C35D26 /* CommentsFetcher.swift */,
+				BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1991,6 +2000,7 @@
 			isa = PBXGroup;
 			children = (
 				BEFF49BD25C590A200794A21 /* ChatStore.swift */,
+				BEB90CE226AC6386003DEB71 /* CommentStore.swift */,
 				BE0A459825CEBE5E005F4DA8 /* ContactStore.swift */,
 				BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */,
 				BEB7781D25F3E26900CFC29E /* MessagesStore.swift */,
@@ -2004,6 +2014,7 @@
 			isa = PBXGroup;
 			children = (
 				BEFF49CB25C590EF00794A21 /* ChatListObserver.swift */,
+				BEB90CE826AC65B0003DEB71 /* CommentsObserver.swift */,
 				BE0A459C25CEBEB2005F4DA8 /* ContactListObserver.swift */,
 				BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */,
 				BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */,
@@ -2017,6 +2028,7 @@
 			isa = PBXGroup;
 			children = (
 				BEFF49C525C590DF00794A21 /* ChatListObservation.swift */,
+				BEB90CE626AC65A7003DEB71 /* CommentsObservation.swift */,
 				BE0A45A025CEBEE0005F4DA8 /* ContactListObservation.swift */,
 				BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */,
 				BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */,
@@ -2352,7 +2364,7 @@
 				BEA9D1DB25B46945000888A7 /* CloudAudioManager.swift in Sources */,
 				BEF7DE3B25C724DB00B690CB /* ChatImageFetcher.swift in Sources */,
 				BEFF49B725C58CB400794A21 /* Store.swift in Sources */,
-				BEED8DCD26AC5B8500C35D26 /* CommentFetcher.swift in Sources */,
+				BEED8DCD26AC5B8500C35D26 /* CommentsFetcher.swift in Sources */,
 				BE1314ED261891D400E5B258 /* MessageValue.swift in Sources */,
 				BE939D5925D0629D00042EB7 /* AudioPlaybackViewController.swift in Sources */,
 				BEB90CE126AC607D003DEB71 /* CommentsViewModel.swift in Sources */,
@@ -2393,6 +2405,7 @@
 				BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */,
 				BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
+				BEB90CE326AC6386003DEB71 /* CommentStore.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BE2B4136264C595E00121B2D /* ChatterCell.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,
@@ -2507,6 +2520,7 @@
 				BEE47F3025BC5E1B00AF47FA /* DatabaseContactManager.swift in Sources */,
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
+				BEB90CE726AC65A7003DEB71 /* CommentsObservation.swift in Sources */,
 				BE939D5F25D06B4A00042EB7 /* AudioItemListener.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
@@ -2568,6 +2582,7 @@
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
 				BE17B67C25F55FBF003FB42A /* ChatsFetcher.swift in Sources */,
 				BEF28A1125A3A84F0045ABFF /* Data+Size.swift in Sources */,
+				BEB90CE926AC65B0003DEB71 /* CommentsObserver.swift in Sources */,
 				BE0CA32B24FF8B7000F354BD /* WaveView.swift in Sources */,
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BE268B37256086BF009C5D3D /* RecordingSaver.swift in Sources */,
@@ -2599,6 +2614,7 @@
 				BE041E9925E2EF23005C3B9F /* GoogleSignUpViewModel.swift in Sources */,
 				BE0A458D25CD684F005F4DA8 /* ChatShareViewModel.swift in Sources */,
 				BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */,
+				BEB90CE526AC63CF003DEB71 /* CommentsListener.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */,

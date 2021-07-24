@@ -9,12 +9,12 @@
 import Foundation
 import AVKit
 
-struct Tag: Codable, Equatable, Identifiable {
+struct Tag: Codable, Equatable, Identifiable, Hashable {
     let id: String
     let title: String
 }
 
-struct AudioItem: Codable, Equatable, Identifiable {
+struct AudioItem: Codable, Equatable, Identifiable, Hashable {
     let id: String
     let title: String
     let path: String

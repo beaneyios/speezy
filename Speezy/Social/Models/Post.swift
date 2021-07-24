@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Post {
+struct Post: Hashable {
     var id: String
     var poster: Poster
     var item: AudioItem
