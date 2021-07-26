@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Commenter {
+struct Commenter: Equatable {
     let id: String
     let displayName: String
     let profileImageUrl: URL?

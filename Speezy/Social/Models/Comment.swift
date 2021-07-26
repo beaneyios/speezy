@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Comment: Identifiable {
+struct Comment: Identifiable, Equatable {
     let id: String
     let commenter: Commenter
     let comment: String

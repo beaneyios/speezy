@@ -242,7 +242,7 @@
 		BEB7782225F3E3CC00CFC29E /* MessagesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */; };
 		BEB7782625F3E44D00CFC29E /* MessagesObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */; };
 		BEB90CE126AC607D003DEB71 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */; };
-		BEB90CE326AC6386003DEB71 /* CommentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE226AC6386003DEB71 /* CommentStore.swift */; };
+		BEB90CE326AC6386003DEB71 /* CommentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE226AC6386003DEB71 /* CommentsStore.swift */; };
 		BEB90CE526AC63CF003DEB71 /* CommentsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */; };
 		BEB90CE726AC65A7003DEB71 /* CommentsObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE626AC65A7003DEB71 /* CommentsObservation.swift */; };
 		BEB90CE926AC65B0003DEB71 /* CommentsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB90CE826AC65B0003DEB71 /* CommentsObserver.swift */; };
@@ -625,7 +625,7 @@
 		BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObserver.swift; sourceTree = "<group>"; };
 		BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesObservation.swift; sourceTree = "<group>"; };
 		BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
-		BEB90CE226AC6386003DEB71 /* CommentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentStore.swift; sourceTree = "<group>"; };
+		BEB90CE226AC6386003DEB71 /* CommentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsStore.swift; sourceTree = "<group>"; };
 		BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsListener.swift; sourceTree = "<group>"; };
 		BEB90CE626AC65A7003DEB71 /* CommentsObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsObservation.swift; sourceTree = "<group>"; };
 		BEB90CE826AC65B0003DEB71 /* CommentsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsObserver.swift; sourceTree = "<group>"; };
@@ -2000,7 +2000,7 @@
 			isa = PBXGroup;
 			children = (
 				BEFF49BD25C590A200794A21 /* ChatStore.swift */,
-				BEB90CE226AC6386003DEB71 /* CommentStore.swift */,
+				BEB90CE226AC6386003DEB71 /* CommentsStore.swift */,
 				BE0A459825CEBE5E005F4DA8 /* ContactStore.swift */,
 				BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */,
 				BEB7781D25F3E26900CFC29E /* MessagesStore.swift */,
@@ -2405,7 +2405,7 @@
 				BE2E8132263F212F00471874 /* UIColor+ToHex.swift in Sources */,
 				BE5BDB7025C344F000F937C3 /* ChatPushManager.swift in Sources */,
 				BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */,
-				BEB90CE326AC6386003DEB71 /* CommentStore.swift in Sources */,
+				BEB90CE326AC6386003DEB71 /* CommentsStore.swift in Sources */,
 				BE6080BC250EB2C1003CB318 /* IBMSpeechTranscriber.swift in Sources */,
 				BE2B4136264C595E00121B2D /* ChatterCell.swift in Sources */,
 				BEFDB533255FF80E00362428 /* AudioStateManager.swift in Sources */,

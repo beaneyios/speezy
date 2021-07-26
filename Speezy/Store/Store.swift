@@ -17,6 +17,7 @@ class Store {
     let favouritesStore = FavouriteRecordingsStore()
     let profileStore = ProfileStore()
     let messagesStore = MessagesStore()
+    let commentsStore = CommentsStore()
     
     func userDidLogOut() {
         chatStore.clear()

@@ -23,6 +23,20 @@ class CommentsViewController: UIViewController {
         
         commentsTextField.delegate = self
         configureTableView()
+        observeViewModel()
+    }
+    
+    private func observeViewModel() {
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case .updated:
+                    self.tableView.reloadData()
+                case .loading(_):
+                    break
+                }
+            }
+        }
     }
     
     private func configureTableView() {
@@ -41,7 +55,17 @@ extension CommentsViewController: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        viewModel.updateTypedComment(string)
+        guard let textFieldText = textField.text else {
+            return true
+        }
+        
+        let nsText = textFieldText as NSString
+        let newString = nsText.replacingCharacters(
+            in: range,
+            with: string
+        )
+        
+        viewModel.updateTypedComment(newString)        
         return true
     }
 }

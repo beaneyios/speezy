@@ -15,6 +15,11 @@ class CommentCell: UITableViewCell, NibLoadable {
     @IBOutlet weak var lblComment: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImage.layer.cornerRadius = profileImage.frame.width / 2.0
+    }
+    
     func configure(cellModel: CommentCellModel) {
         cellModel.loadImage { (result) in
             DispatchQueue.main.async {

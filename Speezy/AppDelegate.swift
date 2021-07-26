@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         FirebaseApp.configure(options: fileopts)
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
         _ = Database.database().reference()
     }
 

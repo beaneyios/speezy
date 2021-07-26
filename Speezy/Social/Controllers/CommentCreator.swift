@@ -18,7 +18,7 @@ class CommentCreator {
     ) {
         let ref = Database.database().reference()
         
-        let child = ref.childByAutoId()
+        let child = ref.child("comments/\(post.id)").childByAutoId()
         
         guard let key = child.key else {
             return
