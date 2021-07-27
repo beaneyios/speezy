@@ -136,6 +136,10 @@
 		BE6080BE250EB455003CB318 /* transcription-test-file.flac in Resources */ = {isa = PBXBuildFile; fileRef = BE6080BD250EB455003CB318 /* transcription-test-file.flac */; };
 		BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080BF250FFCAA003CB318 /* GoogleSpeechTranscriber.swift */; };
 		BE6080C4250FFE8E003CB318 /* Speezy-35fb1cf24683.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6080C3250FFE8E003CB318 /* Speezy-35fb1cf24683.json */; };
+		BE63DA5A26B08AA600501CD5 /* PostCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5926B08AA600501CD5 /* PostCreator.swift */; };
+		BE63DA5C26B08B9E00501CD5 /* PostsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5B26B08B9E00501CD5 /* PostsObserver.swift */; };
+		BE63DA5E26B08BD200501CD5 /* PostsObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5D26B08BD200501CD5 /* PostsObservation.swift */; };
+		BE63DA6026B08C0300501CD5 /* PostsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5F26B08C0300501CD5 /* PostsStore.swift */; };
 		BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */; };
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
 		BE684722257184C400981686 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE684721257184C400981686 /* CropViewController.swift */; };
@@ -184,7 +188,6 @@
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
 		BE7E237526AF202700463F80 /* PostFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7E237426AF202700463F80 /* PostFetcher.swift */; };
-		BE7E237726AF202E00463F80 /* PostListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7E237626AF202E00463F80 /* PostListener.swift */; };
 		BE83BA7B260791A2009C4CA3 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */; };
 		BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */; };
 		BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */; };
@@ -517,6 +520,10 @@
 		BE6080BD250EB455003CB318 /* transcription-test-file.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "transcription-test-file.flac"; sourceTree = "<group>"; };
 		BE6080BF250FFCAA003CB318 /* GoogleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6080C3250FFE8E003CB318 /* Speezy-35fb1cf24683.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speezy-35fb1cf24683.json"; sourceTree = "<group>"; };
+		BE63DA5926B08AA600501CD5 /* PostCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreator.swift; sourceTree = "<group>"; };
+		BE63DA5B26B08B9E00501CD5 /* PostsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsObserver.swift; sourceTree = "<group>"; };
+		BE63DA5D26B08BD200501CD5 /* PostsObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsObservation.swift; sourceTree = "<group>"; };
+		BE63DA5F26B08C0300501CD5 /* PostsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsStore.swift; sourceTree = "<group>"; };
 		BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AsImage.swift"; sourceTree = "<group>"; };
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
 		BE684721257184C400981686 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
@@ -569,7 +576,6 @@
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE7E237426AF202700463F80 /* PostFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFetcher.swift; sourceTree = "<group>"; };
-		BE7E237626AF202E00463F80 /* PostListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListener.swift; sourceTree = "<group>"; };
 		BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
 		BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -1775,8 +1781,8 @@
 				BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */,
 				BEED8DCC26AC5B8500C35D26 /* CommentsFetcher.swift */,
 				BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */,
+				BE63DA5926B08AA600501CD5 /* PostCreator.swift */,
 				BE7E237426AF202700463F80 /* PostFetcher.swift */,
-				BE7E237626AF202E00463F80 /* PostListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2011,6 +2017,7 @@
 				BE939D3525D021E700042EB7 /* FavouriteRecordingsStore.swift */,
 				BEB7781D25F3E26900CFC29E /* MessagesStore.swift */,
 				BE0A45BE25CED9DA005F4DA8 /* MyRecordingsStore.swift */,
+				BE63DA5F26B08C0300501CD5 /* PostsStore.swift */,
 				BEA32E1325D80EC400A9F643 /* ProfileStore.swift */,
 			);
 			path = Stores;
@@ -2025,6 +2032,7 @@
 				BE939D3B25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift */,
 				BEB7782125F3E3CC00CFC29E /* MessagesObserver.swift */,
 				BE0A45C825CEDA5A005F4DA8 /* MyRecordingsListObserver.swift */,
+				BE63DA5B26B08B9E00501CD5 /* PostsObserver.swift */,
 				BEA32E2425D814B100A9F643 /* ProfileObserver.swift */,
 			);
 			path = Observers;
@@ -2039,6 +2047,7 @@
 				BE939D4125D0226E00042EB7 /* FavouriteRecordingsListObservation.swift */,
 				BEB7782525F3E44D00CFC29E /* MessagesObservation.swift */,
 				BE0A45C425CEDA3B005F4DA8 /* MyRecordingsListObservation.swift */,
+				BE63DA5D26B08BD200501CD5 /* PostsObservation.swift */,
 				BEA32E2825D814D400A9F643 /* ProfileObservation.swift */,
 			);
 			path = Observations;
@@ -2391,6 +2400,7 @@
 				BE50344924BA4D2C00A414D1 /* AudioContext.swift in Sources */,
 				BEF7DE0F25C6BF4D00B690CB /* NavigationControlling.swift in Sources */,
 				BE1314E9261885CB00E5B258 /* MessageUpdater.swift in Sources */,
+				BE63DA5E26B08BD200501CD5 /* PostsObservation.swift in Sources */,
 				BE0CDDB32611099400AF2706 /* SpeezyProfileViewGenerator.swift in Sources */,
 				BEA9D1EB25B46CD1000888A7 /* DatabaseDeleteResult.swift in Sources */,
 				BE6FD8E825B4779E00723732 /* DatabaseAudioItemParser.swift in Sources */,
@@ -2487,6 +2497,7 @@
 				BE2B414026505BB500121B2D /* SpeezyButtonCell.swift in Sources */,
 				BEFDB52C255FF6FE00362428 /* TranscriptObservationManaging.swift in Sources */,
 				BE978D17262C4CA500E71419 /* ReplyView.swift in Sources */,
+				BE63DA5C26B08B9E00501CD5 /* PostsObserver.swift in Sources */,
 				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
@@ -2528,7 +2539,6 @@
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
 				BEB90CE726AC65A7003DEB71 /* CommentsObservation.swift in Sources */,
-				BE7E237726AF202E00463F80 /* PostListener.swift in Sources */,
 				BE939D5F25D06B4A00042EB7 /* AudioItemListener.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
@@ -2586,6 +2596,7 @@
 				BE978CB0261CEE7800E71419 /* DeepLinkHandler.swift in Sources */,
 				BE6080B0250E86A3003CB318 /* WordCell.swift in Sources */,
 				BE684722257184C400981686 /* CropViewController.swift in Sources */,
+				BE63DA5A26B08AA600501CD5 /* PostCreator.swift in Sources */,
 				BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */,
 				BEFCDBE524D047DE00A6232E /* SpeezyButton.swift in Sources */,
 				BE17B67C25F55FBF003FB42A /* ChatsFetcher.swift in Sources */,
@@ -2626,6 +2637,7 @@
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */,
+				BE63DA6026B08C0300501CD5 /* PostsStore.swift in Sources */,
 				BEF425C325AB542800DC8E3D /* AuthErrorFactory.swift in Sources */,
 				BE77767924D6DA6E0009BE63 /* WebViewViewController.swift in Sources */,
 				BEE47F0B25BC55A900AF47FA /* ContactListViewController.swift in Sources */,

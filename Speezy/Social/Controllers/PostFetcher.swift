@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseDatabase
 
-class PostFetcher {
+class PostsFetcher {
     func fetchPosts(
         queryCount: UInt,
         mostRecentPost: Post? = nil,
