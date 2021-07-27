@@ -183,6 +183,8 @@
 		BE792710247EE5610079652C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE79270F247EE5610079652C /* Assets.xcassets */; };
 		BE792713247EE5610079652C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE792711247EE5610079652C /* LaunchScreen.storyboard */; };
 		BE79271E247EE5610079652C /* SpeezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE79271D247EE5610079652C /* SpeezyTests.swift */; };
+		BE7E237526AF202700463F80 /* PostFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7E237426AF202700463F80 /* PostFetcher.swift */; };
+		BE7E237726AF202E00463F80 /* PostListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7E237626AF202E00463F80 /* PostListener.swift */; };
 		BE83BA7B260791A2009C4CA3 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */; };
 		BE8A94BC25FE78D700F0C95E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */; };
 		BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */; };
@@ -566,6 +568,8 @@
 		BE792719247EE5610079652C /* SpeezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE79271D247EE5610079652C /* SpeezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeezyTests.swift; sourceTree = "<group>"; };
 		BE79271F247EE5610079652C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE7E237426AF202700463F80 /* PostFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFetcher.swift; sourceTree = "<group>"; };
+		BE7E237626AF202E00463F80 /* PostListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListener.swift; sourceTree = "<group>"; };
 		BE83BA7A260791A2009C4CA3 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
 		BE8A94BB25FE78D700F0C95E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		BE8A94BF25FE79AF00F0C95E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -1771,6 +1775,8 @@
 				BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */,
 				BEED8DCC26AC5B8500C35D26 /* CommentsFetcher.swift */,
 				BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */,
+				BE7E237426AF202700463F80 /* PostFetcher.swift */,
+				BE7E237626AF202E00463F80 /* PostListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2349,6 +2355,7 @@
 				BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */,
 				BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */,
 				BEED6A68269B0549002461C0 /* PlaybackViewModel.swift in Sources */,
+				BE7E237526AF202700463F80 /* PostFetcher.swift in Sources */,
 				BE2B40F226496DDB00121B2D /* UpgradeListener.swift in Sources */,
 				BEED6A6D269B0628002461C0 /* Post.swift in Sources */,
 				BEDC11EC259CA64C00BB0064 /* Profile.swift in Sources */,
@@ -2521,6 +2528,7 @@
 				BE77766824D6CB7A0009BE63 /* SettingsCoordinator.swift in Sources */,
 				BEA9D1E325B46995000888A7 /* StorageUploadResult.swift in Sources */,
 				BEB90CE726AC65A7003DEB71 /* CommentsObservation.swift in Sources */,
+				BE7E237726AF202E00463F80 /* PostListener.swift in Sources */,
 				BE939D5F25D06B4A00042EB7 /* AudioItemListener.swift in Sources */,
 				BE8ECE8D25288BA3007A07E3 /* SpeezySpeechTranscriber.swift in Sources */,
 				BEECD89C25ACD69100AD7AC3 /* UIColor+Constants.swift in Sources */,
