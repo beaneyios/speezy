@@ -13,6 +13,7 @@ import MessageUI
 
 protocol AudioShareControllerDelegate: AnyObject {
     func shareController(_ shareController: AudioShareController, didShareItemToSpeezy item: AudioItem)
+    func shareController(_ shareController: AudioShareController, didShareItemToSpeezySocial item: AudioItem)
 }
 
 class AudioShareController: NSObject {
@@ -67,7 +68,7 @@ extension AudioShareController: ShareViewControllerDelegate {
     func shareViewController(_ shareViewController: ShareViewController, didSelectOption option: ShareOption) {
         shareViewController.dismissShare()
         
-        if config.shouldGenerateVideo && option.platform != .speezy {
+        if config.shouldGenerateVideo && !option.platform.internalPlatform {
             generateVideoAndPresentShareOption(item: audioItem, option: option, config: config)
         } else {
             generateAudioAndPresentShareOption(item: audioItem, option: option)
@@ -178,6 +179,8 @@ extension AudioShareController {
             sendEmail(url: url)
         case .speezy:
             delegate?.shareController(self, didShareItemToSpeezy: audioItem)
+        case .speezyPublic:
+            delegate?.shareController(self, didShareItemToSpeezySocial: audioItem)
         default:
             presentNativeShareSheet(url: url)
         }

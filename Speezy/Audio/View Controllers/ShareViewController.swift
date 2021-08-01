@@ -30,6 +30,7 @@ class ShareViewController: UIViewController {
     
     let options: [ShareOption] = [
         ShareOption(title: "Speezy", image: UIImage(named: "speezy-share-icon"), platform: .speezy),
+        ShareOption(title: "Speezy Social", image: UIImage(named: "speezy-group-share-icon"), platform: .speezyPublic),
         ShareOption(title: "WhatsApp", image: UIImage(named: "whatsapp-share-icon"), platform: .whatsapp),
         ShareOption(title: "Messenger", image: UIImage(named: "messenger-share-icon"), platform: .messenger),
         ShareOption(title: "Email", image: UIImage(named: "email-share-icon"), platform: .email)

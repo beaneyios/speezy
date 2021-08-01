@@ -36,6 +36,12 @@ class PostCreator {
             date: Date()
         )
         
-        child.updateChildValues(post.toDict)
+        child.updateChildValues(post.toDict) { error, ref in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(post))
+            }
+        }
     }
 }

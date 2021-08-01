@@ -42,6 +42,7 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
     
     var audioManager: AudioManager!
     var waveView: PlaybackWaveView!
+    var viewModel: PublishViewModel = PublishViewModel()
     
     private var tagsView: TagsView?
     private var shareView: ShareViewController!
@@ -63,10 +64,34 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
                 self.view.isUserInteractionEnabled = true
             }
         }
+        
+        observeViewModelChanges()
     }
     
     @IBAction func didTapPlay(_ sender: Any) {
         audioManager.togglePlayback()
+    }
+    
+    func observeViewModelChanges() {
+        viewModel.didChange = { change in
+            DispatchQueue.main.async {
+                switch change {
+                case .postCreated:
+                    let alert = UIAlertController(
+                        title: "Post created",
+                        message: "You can check out your post in the social feed",
+                        preferredStyle: .alert
+                    )
+                    
+                    let ok = UIAlertAction(title: "OK", style: .default) { _ in
+                        self.delegate?.publishViewControllerShouldNavigateHome(self)
+                    }
+                    
+                    alert.addAction(ok)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func didTapShare() {
@@ -147,6 +172,10 @@ class PublishViewController: UIViewController, PreviewWavePresenting {
 extension PublishViewController: AudioShareControllerDelegate {
     func shareController(_ shareController: AudioShareController, didShareItemToSpeezy item: AudioItem) {
         delegate?.publishViewController(self, didShareItemToSpeezy: item)
+    }
+    
+    func shareController(_ shareController: AudioShareController, didShareItemToSpeezySocial item: AudioItem) {
+        viewModel.createPost(item: item)
     }
 }
 

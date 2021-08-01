@@ -14,6 +14,11 @@ struct ShareOption {
         case whatsapp
         case email
         case speezy
+        case speezyPublic
+        
+        var internalPlatform: Bool {
+            self == .speezy || self == .speezyPublic
+        }
     }
     
     let title: String

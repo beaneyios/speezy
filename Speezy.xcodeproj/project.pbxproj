@@ -303,6 +303,7 @@
 		BEE4B8AD261B4ABE0043921A /* ContactBackgroundFetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4B8AC261B4ABE0043921A /* ContactBackgroundFetchController.swift */; };
 		BEE4B8B3261B4FBE0043921A /* ContactsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
+		BEEB560926B6F5B5003049C6 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB560826B6F5B5003049C6 /* PublishViewModel.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
 		BEECD89725ACD61200AD7AC3 /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */; };
 		BEECD89825ACD61200AD7AC3 /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */; };
@@ -693,6 +694,7 @@
 		BEE4B8AC261B4ABE0043921A /* ContactBackgroundFetchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactBackgroundFetchController.swift; sourceTree = "<group>"; };
 		BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsFetcher.swift; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
+		BEEB560826B6F5B5003049C6 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
@@ -1532,6 +1534,7 @@
 			children = (
 				BEC6431C25A4F5DA0090F189 /* AudioItemListViewModel.swift */,
 				BE0B908D266CC3CF002151EB /* PreRecordListViewModel.swift */,
+				BEEB560826B6F5B5003049C6 /* PublishViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -2568,6 +2571,7 @@
 				BEBFD4C024C5B9C700200D87 /* AppCoordinator.swift in Sources */,
 				BEBFD4D324C5DD8300200D87 /* AudioItemListViewController.swift in Sources */,
 				BE041EA325E2F77F005C3B9F /* KeyboardConstraintManager.swift in Sources */,
+				BEEB560926B6F5B5003049C6 /* PublishViewModel.swift in Sources */,
 				BEA32E1825D80EFD00A9F643 /* ProfileListener.swift in Sources */,
 				BE6080C0250FFCAA003CB318 /* GoogleSpeechTranscriber.swift in Sources */,
 				BEE4B8B3261B4FBE0043921A /* ContactsFetcher.swift in Sources */,
