@@ -43,7 +43,7 @@ class HomeCoordinator: ViewCoordinator {
         addChatCoordinator(awaitingChatId: chatId)
         addAudioListCoordinator()
         addQuickRecord()
-        addProfileCoordinator()
+        addSocialCoordinator()
         addSettingsCoordinator()
         
         tabBarController.delegate = self
@@ -148,6 +148,15 @@ class HomeCoordinator: ViewCoordinator {
         add(coordinator)
         coordinator.start()
         addTab(withIconName: "home-tab-item", containing: navigationController)
+    }
+    
+    private func addSocialCoordinator() {
+        let navigationController = UINavigationController()
+        navigationController.setNavigationBarHidden(true, animated: false)
+        let coordinator = SocialCoordinator(navigationController: navigationController)
+        add(coordinator)
+        coordinator.start()
+        addTab(withIconName: "contact-tab-item", containing: navigationController)
     }
     
     private class DummyRecordViewController: UIViewController {}

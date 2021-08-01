@@ -42,6 +42,7 @@ class SocialFeedViewController: UIViewController {
         )
         
         pageViewController.dataSource = self
+        pageViewController.view.backgroundColor = .white
         
         self.addChild(pageViewController)
         

@@ -46,7 +46,7 @@ class SocialFeedViewModel {
     func post(before post: Post) -> Post? {
         guard
             let index = posts.firstIndex(of: post),
-            (index - 1) > 0
+            (index - 1) >= 0
         else {
             return nil
         }
@@ -62,11 +62,11 @@ extension SocialFeedViewModel: PostsObserver {
     }
     
     func pagedPosts(newPosts: [Post], allPosts: [Post]) {
-        var oldPosts = self.posts
+        let oldPosts = self.posts
         self.posts = allPosts
         
         if oldPosts.count == 0 {
-            didChange?(.updated)
+            didChange?(.initialLoad)
         }
     }
 }

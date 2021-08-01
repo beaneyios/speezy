@@ -304,6 +304,7 @@
 		BEE4B8B3261B4FBE0043921A /* ContactsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */; };
 		BEE792BA2597B1BA008C4E14 /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE792B92597B1BA008C4E14 /* String+Crypto.swift */; };
 		BEEB560926B6F5B5003049C6 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB560826B6F5B5003049C6 /* PublishViewModel.swift */; };
+		BEEB560B26B6FBAC003049C6 /* SocialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEB560A26B6FBAC003049C6 /* SocialCoordinator.swift */; };
 		BEECD89125ACCF4E00AD7AC3 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */; };
 		BEECD89725ACD61200AD7AC3 /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */; };
 		BEECD89825ACD61200AD7AC3 /* AudioMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */; };
@@ -695,6 +696,7 @@
 		BEE4B8B2261B4FBE0043921A /* ContactsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsFetcher.swift; sourceTree = "<group>"; };
 		BEE792B92597B1BA008C4E14 /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BEEB560826B6F5B5003049C6 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
+		BEEB560A26B6FBAC003049C6 /* SocialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialCoordinator.swift; sourceTree = "<group>"; };
 		BEECD89025ACCF4E00AD7AC3 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		BEECD89525ACD61200AD7AC3 /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		BEECD89625ACD61200AD7AC3 /* AudioMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageCell.xib; sourceTree = "<group>"; };
@@ -1052,6 +1054,7 @@
 		BE5D23952699A03300E902BA /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				BEEB560C26B6FBB0003049C6 /* Coordinators */,
 				BEED8DC926AAF5E400C35D26 /* Controllers */,
 				BEED6A69269B05FB002461C0 /* Models */,
 				BE5D23972699A0CF00E902BA /* Social.storyboard */,
@@ -1686,6 +1689,14 @@
 				BE978CEF2622005B00E71419 /* ContactDeleter.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BEEB560C26B6FBB0003049C6 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				BEEB560A26B6FBAC003049C6 /* SocialCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		BEECD88F25ACCF4100AD7AC3 /* Chat */ = {
@@ -2527,6 +2538,7 @@
 				BE5429742593AF3B007EEAD1 /* UITextField+SpeezyGreyPlaceholder.swift in Sources */,
 				BE088CE224EDC33C000FEE55 /* PublishViewController.swift in Sources */,
 				BEDC126724F2655D00B53D1A /* AudioShareController.swift in Sources */,
+				BEEB560B26B6FBAC003049C6 /* SocialCoordinator.swift in Sources */,
 				BE6847262572656300981686 /* QuickRecordViewController.swift in Sources */,
 				BE2351DD253C9B4900067BA2 /* PreviewWavePresenting.swift in Sources */,
 				BEBFD4CB24C5DB8700200D87 /* Storage.swift in Sources */,

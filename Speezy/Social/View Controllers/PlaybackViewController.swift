@@ -191,7 +191,7 @@ extension PlaybackViewController {
 
 extension PlaybackViewController {
     private var drawClosedPosition: CGFloat { 118.0 }
-    private var drawOpenPosition: CGFloat { view.frame.height - 150.0 }
+    private var drawOpenPosition: CGFloat { view.frame.height - 250.0 }
     private var openThreshhold: CGFloat { -125.0 }
     
     private var bottomBounceThreshold: CGFloat { 110.0 }
