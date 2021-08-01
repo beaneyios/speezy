@@ -36,6 +36,6 @@ class PostCreator {
             date: Date()
         )
         
-        child.updateChildValues(poster.toDict)
+        child.updateChildValues(post.toDict)
     }
 }

@@ -20,15 +20,15 @@ class PostsStore {
         self.observations = [:]
     }
     
-    func fetchNextPage(userId: String) {
+    func fetchNextPage() {
         postsFetcher.fetchPosts(
-            queryCount: 2,
+            queryCount: 5,
             mostRecentPost: posts.last)
         { result in
             self.serialQueue.async {
                 switch result {
                 case let .success(newPosts):
-                    self.handleNewPage(userId: userId, posts: newPosts)
+                    self.handleNewPage(posts: newPosts)
                 case .failure:
                     break
                 }
@@ -36,7 +36,7 @@ class PostsStore {
         }
     }
     
-    private func handleNewPage(userId: String, posts: [Post]) {
+    private func handleNewPage(posts: [Post]) {
         self.posts.insert(contentsOf: posts, at: 0)
         notifyObservers(
             change: .pagedPosts(newPosts: posts, allPosts: self.posts)
@@ -49,7 +49,7 @@ extension PostsStore {
         case pagedPosts(newPosts: [Post], allPosts: [Post])
     }
     
-    func addRecordingItemListObserver(_ observer: PostsObserver) {
+    func addPostsObserver(_ observer: PostsObserver) {
         serialQueue.async {
             let id = ObjectIdentifier(observer)
             self.observations[id] = PostsObservation(observer: observer)
@@ -75,7 +75,7 @@ extension PostsStore {
             
             switch change {
             case let .pagedPosts(newPosts, allPosts):
-                observer.pagedComments(newPosts: newPosts, allPosts: allPosts)
+                observer.pagedPosts(newPosts: newPosts, allPosts: allPosts)
             }
         }
     }

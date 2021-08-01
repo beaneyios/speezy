@@ -140,6 +140,8 @@
 		BE63DA5C26B08B9E00501CD5 /* PostsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5B26B08B9E00501CD5 /* PostsObserver.swift */; };
 		BE63DA5E26B08BD200501CD5 /* PostsObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5D26B08BD200501CD5 /* PostsObservation.swift */; };
 		BE63DA6026B08C0300501CD5 /* PostsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA5F26B08C0300501CD5 /* PostsStore.swift */; };
+		BE63DA6226B08E3200501CD5 /* SocialFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA6126B08E3200501CD5 /* SocialFeedViewController.swift */; };
+		BE63DA6426B08F8600501CD5 /* SocialFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE63DA6326B08F8600501CD5 /* SocialFeedViewModel.swift */; };
 		BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */; };
 		BE6565D624CC44E300D77BFE /* UIButton+Disable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */; };
 		BE684722257184C400981686 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE684721257184C400981686 /* CropViewController.swift */; };
@@ -524,6 +526,8 @@
 		BE63DA5B26B08B9E00501CD5 /* PostsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsObserver.swift; sourceTree = "<group>"; };
 		BE63DA5D26B08BD200501CD5 /* PostsObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsObservation.swift; sourceTree = "<group>"; };
 		BE63DA5F26B08C0300501CD5 /* PostsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsStore.swift; sourceTree = "<group>"; };
+		BE63DA6126B08E3200501CD5 /* SocialFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialFeedViewController.swift; sourceTree = "<group>"; };
+		BE63DA6326B08F8600501CD5 /* SocialFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialFeedViewModel.swift; sourceTree = "<group>"; };
 		BE6565D324CC44CF00D77BFE /* UIView+AsImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AsImage.swift"; sourceTree = "<group>"; };
 		BE6565D524CC44E300D77BFE /* UIButton+Disable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Disable.swift"; sourceTree = "<group>"; };
 		BE684721257184C400981686 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
@@ -1061,6 +1065,7 @@
 			children = (
 				BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */,
 				BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */,
+				BE63DA6126B08E3200501CD5 /* SocialFeedViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1751,6 +1756,7 @@
 				BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */,
 				BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */,
 				BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */,
+				BE63DA6326B08F8600501CD5 /* SocialFeedViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -2573,6 +2579,7 @@
 				BE978D23262C903500E71419 /* ReplyMessageEmbedView.swift in Sources */,
 				BE6565D424CC44CF00D77BFE /* UIView+AsImage.swift in Sources */,
 				BEF4DB702593D6D7002B403A /* EmailSignupViewModel.swift in Sources */,
+				BE63DA6426B08F8600501CD5 /* SocialFeedViewModel.swift in Sources */,
 				BE83BA7B260791A2009C4CA3 /* AppleLoginViewModel.swift in Sources */,
 				BEBFD4C824C5BD1E00200D87 /* FileManager+Helpers.swift in Sources */,
 				BEBFD4CD24C5DC0300200D87 /* Array+Helpers.swift in Sources */,
@@ -2635,6 +2642,7 @@
 				BE5BDB8125C3544600F937C3 /* ChatUpdater.swift in Sources */,
 				BEB90CE526AC63CF003DEB71 /* CommentsListener.swift in Sources */,
 				BE6FD97725BC398200723732 /* ChatListViewModel.swift in Sources */,
+				BE63DA6226B08E3200501CD5 /* SocialFeedViewController.swift in Sources */,
 				BE222CC5258A2D1A007144FD /* AudioConstants.swift in Sources */,
 				BE2E813A263F303D00471874 /* ContactViewController.swift in Sources */,
 				BE63DA6026B08C0300501CD5 /* PostsStore.swift in Sources */,

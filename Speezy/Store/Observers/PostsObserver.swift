@@ -10,5 +10,5 @@ import Foundation
 
 protocol PostsObserver: AnyObject {
     func initialPostsReceived(posts: [Post])
-    func pagedComments(newPosts: [Post], allPosts: [Post])
+    func pagedPosts(newPosts: [Post], allPosts: [Post])
 }
