@@ -66,6 +66,9 @@ class CommentsViewController: UIViewController {
         
         self.likeButton.setImage(image, for: .normal)
         self.lblLikes.text = "\(viewModel.post.numberOfLikes)"
+        
+        self.lblLikes.textColor = viewModel.post.numberOfLikes > 0 ? .speezyPurple : .lightGray
+        self.likeButton.tintColor = viewModel.post.numberOfLikes > 0 ? .speezyPurple : .lightGray
     }
     
     private func configureTableView() {
