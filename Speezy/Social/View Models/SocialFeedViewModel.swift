@@ -69,4 +69,14 @@ extension SocialFeedViewModel: PostsObserver {
             didChange?(.initialLoad)
         }
     }
+    
+    func postChanged(newPost: Post) {
+        self.posts = self.posts.map {
+            if $0.id == newPost.id {
+                return newPost
+            } else {
+                return $0
+            }
+        }
+    }
 }

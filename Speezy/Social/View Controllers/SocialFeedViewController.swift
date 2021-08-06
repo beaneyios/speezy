@@ -62,7 +62,7 @@ class SocialFeedViewController: UIViewController {
         }
         
         pageViewController?.setViewControllers(
-            [playbackViewController(post: firstPost)],
+            [postViewController(post: firstPost)],
             direction: .forward,
             animated: false,
             completion: nil
@@ -73,32 +73,32 @@ class SocialFeedViewController: UIViewController {
 extension SocialFeedViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard
-            let postViewController = viewController as? PlaybackViewController,
+            let postViewController = viewController as? PostViewController,
             let nextPost = viewModel.post(after: postViewController.viewModel.post)
         else {
             return nil
         }
         
-        return self.playbackViewController(post: nextPost)
+        return self.postViewController(post: nextPost)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard
-            let postViewController = viewController as? PlaybackViewController,
+            let postViewController = viewController as? PostViewController,
             let previousPost = viewModel.post(before: postViewController.viewModel.post)
         else {
             return nil
         }
         
-        return self.playbackViewController(post: previousPost)
+        return self.postViewController(post: previousPost)
     }
     
-    private func playbackViewController(post: Post) -> PlaybackViewController {
-        let newViewModel = PlaybackViewModel(post: post)
+    private func postViewController(post: Post) -> PostViewController {
+        let newViewModel = PostViewModel(post: post)
         let storyboard = UIStoryboard(name: "Social", bundle: nil)
         let newViewController = storyboard.instantiateViewController(
-            identifier: "PlaybackViewController"
-        ) as! PlaybackViewController
+            identifier: "PostViewController"
+        ) as! PostViewController
         
         newViewController.viewModel = newViewModel
         return newViewController

@@ -13,6 +13,8 @@ struct Post: Hashable {
     var poster: Poster
     var item: AudioItem
     var date: Date
+    var numberOfLikes: Int
+    var numberOfComments: Int
 }
 
 extension Post {
@@ -20,7 +22,9 @@ extension Post {
         [
             "poster": poster.toDict,
             "item": item.toDict,
-            "date": date.timeIntervalSince1970
+            "date": date.timeIntervalSince1970,
+            "number_of_likes": numberOfLikes,
+            "number_of_comments": numberOfComments
         ]
     }
     
@@ -39,11 +43,16 @@ extension Post {
             return nil
         }
         
+        let likes = dict["number_of_likes"] as? Int
+        let comments = dict["number_of_comments"] as? Int
+        
         return Post(
             id: key,
             poster: poster,
             item: item,
-            date: Date(timeIntervalSince1970: dateInt)
+            date: Date(timeIntervalSince1970: dateInt),
+            numberOfLikes: likes ?? 0,
+            numberOfComments: comments ?? 0
         )
     }
 }

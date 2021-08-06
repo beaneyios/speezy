@@ -16,6 +16,8 @@ class CommentCreator {
         user: Profile,
         completion: @escaping (Result<Comment, Error>) -> Void
     ) {
+        var updatePaths: [AnyHashable: Any] = [:]
+
         let ref = Database.database().reference()
         
         let child = ref.child("comments/\(post.id)").childByAutoId()
@@ -36,6 +38,8 @@ class CommentCreator {
             date: Date()
         )
         
-        child.updateChildValues(comment.toDict)
+        updatePaths["comments/\(post.id)/\(key)"] = comment.toDict
+        updatePaths["posts/\(post.id)/number_of_comments"] = ServerValue.increment(1)
+        ref.updateChildValues(updatePaths)
     }
 }

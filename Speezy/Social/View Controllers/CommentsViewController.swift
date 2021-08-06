@@ -12,6 +12,9 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var sendCommentContainer: UIView!
     @IBOutlet weak var commentsTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var lblLikes: UILabel!
+    @IBOutlet weak var lblComments: UILabel!
     
     var viewModel: CommentsViewModel!
     
@@ -23,7 +26,13 @@ class CommentsViewController: UIViewController {
         
         commentsTextField.delegate = self
         configureTableView()
+        configureLikes()
+        configureComments()
         observeViewModel()
+    }
+    
+    @IBAction func like(_ sender: Any) {
+        viewModel.like()
     }
     
     private func observeViewModel() {
@@ -34,9 +43,29 @@ class CommentsViewController: UIViewController {
                     self.tableView.reloadData()
                 case .loading(_):
                     break
+                case .postUpdated:
+                    self.configureLikes()
+                    self.configureComments()
                 }
             }
         }
+    }
+    
+    private func configureComments() {
+        self.lblComments.text = "\(viewModel.post.numberOfComments) Comments"
+    }
+    
+    private func configureLikes() {
+        let image: UIImage = {
+            if self.viewModel.liked {
+                return UIImage(named: "liked-button")!
+            } else {
+                return UIImage(named: "like-button")!
+            }
+        }()
+        
+        self.likeButton.setImage(image, for: .normal)
+        self.lblLikes.text = "\(viewModel.post.numberOfLikes)"
     }
     
     private func configureTableView() {

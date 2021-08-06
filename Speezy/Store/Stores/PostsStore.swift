@@ -10,6 +10,7 @@ import Foundation
 
 class PostsStore {
     private let postsFetcher = PostsFetcher()
+    private var postsListeners = [PostsListener]()
     
     private(set) var posts = [Post]()
     private var observations = [ObjectIdentifier : PostsObservation]()
@@ -29,11 +30,49 @@ class PostsStore {
                 switch result {
                 case let .success(newPosts):
                     self.handleNewPage(posts: newPosts)
+                    
+                    newPosts.forEach {
+                        let post = $0
+                        self.listenForPostChanges(post: post)
+                    }
                 case .failure:
                     break
                 }
             }
         }
+    }
+    
+    func listenForPostChanges(post: Post) {
+        self.listener(post: post).listenForChanges { change in
+            self.handlePostChanged(post: post, value: change)
+        }
+    }
+    
+    private func handlePostChanged(post: Post, value: PostValueChange) {
+        var newPost = post
+        
+        switch value.postValue {
+        case let .numberOfLikes(number):
+            newPost.numberOfLikes = number
+        case let .numberOfComments(number):
+            newPost.numberOfComments = number
+        }
+        
+        self.posts = self.posts.map {
+            if $0.id == newPost.id {
+                return newPost
+            } else {
+                return $0
+            }
+        }
+        
+        notifyObservers(
+            change: .postChanged(post: newPost)
+        )
+    }
+    
+    private func listener(post: Post) -> PostsListener {
+        postsListeners.first { $0.post.id == post.id } ?? PostsListener(post: post)
     }
     
     private func handleNewPage(posts: [Post]) {
@@ -47,6 +86,7 @@ class PostsStore {
 extension PostsStore {
     enum Change {
         case pagedPosts(newPosts: [Post], allPosts: [Post])
+        case postChanged(post: Post)
     }
     
     func addPostsObserver(_ observer: PostsObserver) {
@@ -76,6 +116,8 @@ extension PostsStore {
             switch change {
             case let .pagedPosts(newPosts, allPosts):
                 observer.pagedPosts(newPosts: newPosts, allPosts: allPosts)
+            case let .postChanged(post):
+                observer.postChanged(newPost: post)
             }
         }
     }

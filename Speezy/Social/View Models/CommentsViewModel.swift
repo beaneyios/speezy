@@ -12,12 +12,14 @@ class CommentsViewModel {
     enum Change {
         case updated
         case loading(Bool)
+        case postUpdated
     }
     
     private var typedComment = ""
     private let commentCreator = CommentCreator()
+    private let postLiker = PostLiker()
     
-    let post: Post
+    private(set) var post: Post
     let store: Store
     var profile: Profile?
     
@@ -25,12 +27,17 @@ class CommentsViewModel {
     
     private(set) var comments: [Comment] = []
     
+    var liked: Bool {
+        LocalLikeManager.shared.postLiked(post: post)
+    }
+    
     init(post: Post, store: Store = Store.shared) {
         self.post = post
         self.store = store
         
         store.profileStore.addProfileObserver(self)
         store.commentsStore.addCommentsObserver(self, post: post)
+        store.postsStore.addPostsObserver(self)
     }
     
     func submitComment() {
@@ -60,6 +67,16 @@ class CommentsViewModel {
         self.typedComment = comment
     }
     
+    func like() {
+        if LocalLikeManager.shared.postLiked(post: post) {
+            postLiker.unlike(post: post)
+            LocalLikeManager.shared.unlikePost(post: post)
+        } else {
+            postLiker.like(post: post)
+            LocalLikeManager.shared.likePost(post: post)
+        }
+    }
+    
     private func fetchComments() {
         let queryCount: UInt = 7
         self.didChange?(.loading(true))
@@ -77,11 +94,28 @@ extension CommentsViewModel: ProfileObserver {
     }
 }
 
+extension CommentsViewModel: PostsObserver {
+    func initialPostsReceived(posts: [Post]) {}
+    func pagedPosts(newPosts: [Post], allPosts: [Post]) {}
+    func postChanged(newPost: Post) {
+        if newPost.id != post.id {
+            return
+        }
+        
+        self.post = newPost
+        didChange?(.postUpdated)
+    }
+}
+
 extension CommentsViewModel: CommentsObserver {
     func commentAdded(
         post: Post,
         comment: Comment
     ) {
+        guard post.id == self.post.id else {
+            return
+        }
+        
         self.comments.insert(comment, at: 0)
         didChange?(.updated)
     }
@@ -90,6 +124,10 @@ extension CommentsViewModel: CommentsObserver {
         post: Post,
         comments: [Comment]
     ) {
+        guard post.id == self.post.id else {
+            return
+        }
+        
         if comments.isEmpty {
             fetchComments()
         } else {
@@ -102,6 +140,10 @@ extension CommentsViewModel: CommentsObserver {
         post: Post,
         comment: Comment
     ) {
+        guard post.id == self.post.id else {
+            return
+        }
+        
         self.comments = comments.removing(comment.id)
         didChange?(.updated)
     }
@@ -111,6 +153,10 @@ extension CommentsViewModel: CommentsObserver {
         newComments: [Comment],
         allComments: [Comment]
     ) {
+        guard post.id == self.post.id else {
+            return
+        }
+        
         self.comments = allComments
         didChange?(.updated)
     }

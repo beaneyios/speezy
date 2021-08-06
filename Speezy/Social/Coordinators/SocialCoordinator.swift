@@ -29,9 +29,9 @@ class SocialCoordinator: ViewCoordinator, NavigationControlling {
 }
 
 extension SocialCoordinator {
-    var listViewController: PlaybackViewController? {
+    var listViewController: PostViewController? {
         navigationController.viewControllers.first {
-            $0 is PlaybackViewController
-        } as? PlaybackViewController
+            $0 is PostViewController
+        } as? PostViewController
     }
 }

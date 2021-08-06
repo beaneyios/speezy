@@ -1,5 +1,5 @@
 //
-//  PlaybackViewModel.swift
+//  PostViewModel.swift
 //  Speezy
 //
 //  Created by Matt Beaney on 11/07/2021.
@@ -8,24 +8,26 @@
 
 import UIKit
 
-final class PlaybackViewModel {
+final class PostViewModel {
     enum Change {
         case imageLoaded(UIImage)
         case audioLoading
         case audioLoaded
+        case postUpdated(Post)
     }
     
     var didChange: ((Change) -> Void)?
     
-    let post: Post
+    private(set) var post: Post
     
     let attachmentManager: AudioAttachmentManager = AudioAttachmentManager()
     let profileImageFetcher: ProfileImageFetcher = ProfileImageFetcher()
     let manager: AudioManager
     
-    init(post: Post) {
+    init(post: Post, store: Store = Store.shared) {
         self.post = post
         self.manager = AudioManager(item: post.item)
+        store.postsStore.addPostsObserver(self)
     }
     
     func loadData() {        
@@ -73,8 +75,22 @@ final class PlaybackViewModel {
     }
 }
 
-extension PlaybackViewModel {
+extension PostViewModel {
     var viewTitle: String {
         post.item.title
+    }
+}
+
+extension PostViewModel: PostsObserver {
+    func initialPostsReceived(posts: [Post]) {}
+    func pagedPosts(newPosts: [Post], allPosts: [Post]) {}
+    
+    func postChanged(newPost: Post) {
+        if newPost.id != self.post.id {
+            return
+        }
+        
+        self.post = newPost
+        self.didChange?(.postUpdated(newPost))
     }
 }

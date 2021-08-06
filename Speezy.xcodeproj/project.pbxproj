@@ -122,8 +122,12 @@
 		BE5BDBA725C3587800F937C3 /* MessageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */; };
 		BE5BDBAB25C358AD00F937C3 /* MessageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */; };
 		BE5D23982699A0CF00E902BA /* Social.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE5D23972699A0CF00E902BA /* Social.storyboard */; };
-		BE5D239A2699AD3F00E902BA /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */; };
+		BE5D239A2699AD3F00E902BA /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D23992699AD3F00E902BA /* PostViewController.swift */; };
 		BE5D239C2699BFFB00E902BA /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */; };
+		BE5E70E226BB103400020FF4 /* PostLiker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E126BB103400020FF4 /* PostLiker.swift */; };
+		BE5E70E426BB135300020FF4 /* LocalLikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E326BB135300020FF4 /* LocalLikeManager.swift */; };
+		BE5E70E626BD89E500020FF4 /* PostListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E526BD89E500020FF4 /* PostListener.swift */; };
+		BE5E70E826BD8A6200020FF4 /* PostValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E726BD8A6200020FF4 /* PostValue.swift */; };
 		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
 		BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */; };
 		BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */; };
@@ -312,7 +316,7 @@
 		BEECD8A125ACD7F500AD7AC3 /* MessageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */; };
 		BEECD8AA25ACDE3000AD7AC3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */; };
 		BEECD8B025ACDE8400AD7AC3 /* WavePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */; };
-		BEED6A68269B0549002461C0 /* PlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */; };
+		BEED6A68269B0549002461C0 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A67269B0549002461C0 /* PostViewModel.swift */; };
 		BEED6A6B269B0603002461C0 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A6A269B0603002461C0 /* Poster.swift */; };
 		BEED6A6D269B0628002461C0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED6A6C269B0628002461C0 /* Post.swift */; };
 		BEED8DBF26AAE38200C35D26 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEED8DBE26AAE38200C35D26 /* Comment.swift */; };
@@ -510,8 +514,12 @@
 		BE5BDBA625C3587800F937C3 /* MessageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFetcher.swift; sourceTree = "<group>"; };
 		BE5BDBAA25C358AD00F937C3 /* MessageCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCreator.swift; sourceTree = "<group>"; };
 		BE5D23972699A0CF00E902BA /* Social.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Social.storyboard; sourceTree = "<group>"; };
-		BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		BE5D23992699AD3F00E902BA /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		BE5E70E126BB103400020FF4 /* PostLiker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLiker.swift; sourceTree = "<group>"; };
+		BE5E70E326BB135300020FF4 /* LocalLikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLikeManager.swift; sourceTree = "<group>"; };
+		BE5E70E526BD89E500020FF4 /* PostListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListener.swift; sourceTree = "<group>"; };
+		BE5E70E726BD8A6200020FF4 /* PostValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostValue.swift; sourceTree = "<group>"; };
 		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionViewController.swift; sourceTree = "<group>"; };
@@ -704,7 +712,7 @@
 		BEECD8A025ACD7F500AD7AC3 /* MessageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellModel.swift; sourceTree = "<group>"; };
 		BEECD8A925ACDE3000AD7AC3 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BEECD8AF25ACDE8400AD7AC3 /* WavePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavePreview.swift; sourceTree = "<group>"; };
-		BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewModel.swift; sourceTree = "<group>"; };
+		BEED6A67269B0549002461C0 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		BEED6A6A269B0603002461C0 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		BEED6A6C269B0628002461C0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		BEED8DBE26AAE38200C35D26 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -1054,10 +1062,10 @@
 		BE5D23952699A03300E902BA /* Social */ = {
 			isa = PBXGroup;
 			children = (
-				BEEB560C26B6FBB0003049C6 /* Coordinators */,
-				BEED8DC926AAF5E400C35D26 /* Controllers */,
-				BEED6A69269B05FB002461C0 /* Models */,
 				BE5D23972699A0CF00E902BA /* Social.storyboard */,
+				BEED8DC926AAF5E400C35D26 /* Controllers */,
+				BEEB560C26B6FBB0003049C6 /* Coordinators */,
+				BEED6A69269B05FB002461C0 /* Models */,
 				BE5D23962699A03B00E902BA /* View Controllers */,
 				BEED6A66269B053B002461C0 /* View Models */,
 				BEED8DC226AAE3CC00C35D26 /* Views */,
@@ -1068,7 +1076,7 @@
 		BE5D23962699A03B00E902BA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BE5D23992699AD3F00E902BA /* PlaybackViewController.swift */,
+				BE5D23992699AD3F00E902BA /* PostViewController.swift */,
 				BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */,
 				BE63DA6126B08E3200501CD5 /* SocialFeedViewController.swift */,
 			);
@@ -1767,7 +1775,7 @@
 		BEED6A66269B053B002461C0 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				BEED6A67269B0549002461C0 /* PlaybackViewModel.swift */,
+				BEED6A67269B0549002461C0 /* PostViewModel.swift */,
 				BEED8DC726AAF2FC00C35D26 /* CommentCellModel.swift */,
 				BEB90CE026AC607D003DEB71 /* CommentsViewModel.swift */,
 				BE63DA6326B08F8600501CD5 /* SocialFeedViewModel.swift */,
@@ -1801,8 +1809,11 @@
 				BEED8DCA26AAF6C500C35D26 /* CommentCreator.swift */,
 				BEED8DCC26AC5B8500C35D26 /* CommentsFetcher.swift */,
 				BEB90CE426AC63CF003DEB71 /* CommentsListener.swift */,
+				BE5E70E326BB135300020FF4 /* LocalLikeManager.swift */,
 				BE63DA5926B08AA600501CD5 /* PostCreator.swift */,
 				BE7E237426AF202700463F80 /* PostFetcher.swift */,
+				BE5E70E126BB103400020FF4 /* PostLiker.swift */,
+				BE5E70E526BD89E500020FF4 /* PostListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2007,11 +2018,12 @@
 		BEFF49AD25C58AC800794A21 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
+				BE041E6725E2C89E005C3B9F /* ChatterValue.swift */,
 				BEFF49AE25C58AD100794A21 /* ChatValue.swift */,
 				BE0A45AA25CEBF8F005F4DA8 /* ContactValue.swift */,
-				BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */,
-				BE041E6725E2C89E005C3B9F /* ChatterValue.swift */,
 				BE1314EC261891D400E5B258 /* MessageValue.swift */,
+				BE5E70E726BD8A6200020FF4 /* PostValue.swift */,
+				BE0A45D025CEDD69005F4DA8 /* RecordingValueChange.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -2383,7 +2395,7 @@
 				BEF425BF25AB512200DC8E3D /* AuthResult.swift in Sources */,
 				BE6FD93825B4D42D00723732 /* URL+ConvenienceInit.swift in Sources */,
 				BE8A94C025FE79AF00F0C95E /* ForgotPasswordViewModel.swift in Sources */,
-				BEED6A68269B0549002461C0 /* PlaybackViewModel.swift in Sources */,
+				BEED6A68269B0549002461C0 /* PostViewModel.swift in Sources */,
 				BE7E237526AF202700463F80 /* PostFetcher.swift in Sources */,
 				BE2B40F226496DDB00121B2D /* UpgradeListener.swift in Sources */,
 				BEED6A6D269B0628002461C0 /* Post.swift in Sources */,
@@ -2519,10 +2531,11 @@
 				BE978D17262C4CA500E71419 /* ReplyView.swift in Sources */,
 				BE63DA5C26B08B9E00501CD5 /* PostsObserver.swift in Sources */,
 				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
+				BE5E70E626BD89E500020FF4 /* PostListener.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
 				BEED8DBF26AAE38200C35D26 /* Comment.swift in Sources */,
-				BE5D239A2699AD3F00E902BA /* PlaybackViewController.swift in Sources */,
+				BE5D239A2699AD3F00E902BA /* PostViewController.swift in Sources */,
 				BEC6432925A4FAEF0090F189 /* AuthLoadingViewModel.swift in Sources */,
 				BE0A458325CD673B005F4DA8 /* ChatShareViewController.swift in Sources */,
 				BE5BDB8D25C354CC00F937C3 /* ChatCreator.swift in Sources */,
@@ -2532,6 +2545,7 @@
 				BE50346224BDFCA900A414D1 /* AudioManager.swift in Sources */,
 				BE041E6825E2C89E005C3B9F /* ChatterValue.swift in Sources */,
 				BE50346824BE02CE00A414D1 /* Observers.swift in Sources */,
+				BE5E70E826BD8A6200020FF4 /* PostValue.swift in Sources */,
 				BE0A45C525CEDA3B005F4DA8 /* MyRecordingsListObservation.swift in Sources */,
 				BE54295B2593714B007EEAD1 /* EmailSignupViewController.swift in Sources */,
 				BE0A45A525CEBF30005F4DA8 /* ContactsListener.swift in Sources */,
@@ -2549,6 +2563,7 @@
 				BE2B40F82649AC7600121B2D /* String+VersionComparison.swift in Sources */,
 				BE68472C2573B68C00981686 /* AudioItemChangeManager.swift in Sources */,
 				BEED8DC526AAE3DC00C35D26 /* CommentCell.swift in Sources */,
+				BE5E70E226BB103400020FF4 /* PostLiker.swift in Sources */,
 				BE3C5DD425BD8AEC005E34BB /* NewContactViewController.swift in Sources */,
 				BEF425BB25AB2F4900DC8E3D /* FormErrorDisplaying.swift in Sources */,
 				BE9AD4162566DE640034F921 /* CutViewController.swift in Sources */,
@@ -2629,6 +2644,7 @@
 				BE2B097924C7239300317EB7 /* AudioItemCell.swift in Sources */,
 				BE268B37256086BF009C5D3D /* RecordingSaver.swift in Sources */,
 				BEFCDBE224D028E100A6232E /* CustomVideoPlaceholderView.swift in Sources */,
+				BE5E70E426BB135300020FF4 /* LocalLikeManager.swift in Sources */,
 				BEFDB51C255FF5E200362428 /* RecorderObservationManaging.swift in Sources */,
 				BEBFD4BC24C5A6FB00200D87 /* AudioCropper.swift in Sources */,
 				BEBFD4AC24C58D3800200D87 /* AudioVisualizationView.swift in Sources */,

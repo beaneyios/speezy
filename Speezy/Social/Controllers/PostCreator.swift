@@ -16,7 +16,6 @@ class PostCreator {
         completion: @escaping (Result<Post, Error>) -> Void
     ) {
         let ref = Database.database().reference()
-        
         let child = ref.child("posts").childByAutoId()
         
         guard let key = child.key else {
@@ -33,7 +32,9 @@ class PostCreator {
             id: key,
             poster: poster,
             item: item,
-            date: Date()
+            date: Date(),
+            numberOfLikes: 0,
+            numberOfComments: 0
         )
         
         child.updateChildValues(post.toDict) { error, ref in

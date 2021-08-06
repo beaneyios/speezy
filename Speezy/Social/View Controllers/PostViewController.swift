@@ -1,5 +1,5 @@
 //
-//  PlaybackViewController.swift
+//  PostViewController.swift
 //  Speezy
 //
 //  Created by Matt Beaney on 10/07/2021.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class PlaybackViewController: UIViewController {
+final class PostViewController: UIViewController {
     enum DrawState {
         case open
         case closed
@@ -27,9 +27,9 @@ final class PlaybackViewController: UIViewController {
     @IBOutlet weak var commentsHandlePosition: NSLayoutConstraint!
     @IBOutlet weak var commentsContainer: UIView!
     @IBOutlet weak var commentsBottomConstraint: NSLayoutConstraint!
-    
+        
     var drawState: DrawState = .closed
-    var viewModel: PlaybackViewModel!
+    var viewModel: PostViewModel!
     lazy var keyboardManager = KeyboardConstraintManager(
         view: view,
         constraint: commentsBottomConstraint,
@@ -43,7 +43,7 @@ final class PlaybackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCommentsContainer()
+        configureComments()
         configureTags(
             tags: [
                 Tag(id: "Id", title: "Life"),
@@ -63,6 +63,8 @@ final class PlaybackViewController: UIViewController {
                     self.showLoadingAudio()
                 case .audioLoaded:
                     self.dismissLoadingAudio()
+                case let .postUpdated(post):
+                    break
                 }
             }
         }
@@ -93,7 +95,7 @@ final class PlaybackViewController: UIViewController {
 }
 
 // MARK:- Configuration
-extension PlaybackViewController {
+extension PostViewController {
     private func configureSlider() {
         playbackSlider.value = 0.0
         
@@ -141,7 +143,7 @@ extension PlaybackViewController {
         )
     }
     
-    private func configureCommentsContainer() {
+    private func configureComments() {
         configureCommentsViewController()
         configureCommentsContainerGestures()
     }
@@ -189,7 +191,7 @@ extension PlaybackViewController {
     }
 }
 
-extension PlaybackViewController {
+extension PostViewController {
     private var drawClosedPosition: CGFloat { 118.0 }
     private var drawOpenPosition: CGFloat { view.frame.height - 250.0 }
     private var openThreshhold: CGFloat { -125.0 }
@@ -253,7 +255,7 @@ extension PlaybackViewController {
     }
 }
 
-extension PlaybackViewController: AudioPlayerObserver {
+extension PostViewController: AudioPlayerObserver {
     func playBackBegan(on item: AudioItem) {
         playbackButton.setImage(UIImage(named: "pause-button"), for: .normal)
     }
@@ -314,7 +316,7 @@ extension PlaybackViewController: AudioPlayerObserver {
     }
 }
 
-extension PlaybackViewController: KeyboardConstraintManagerDelegate {
+extension PostViewController: KeyboardConstraintManagerDelegate {
     func keyboardConstraintManagerDidStartEditing(_ manager: KeyboardConstraintManager) {
         openComments()
     }

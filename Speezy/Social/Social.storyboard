@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Playback View Controller-->
+        <!--Post View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="PlaybackViewController" id="Y6W-OH-hqX" customClass="PlaybackViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostViewController" id="Y6W-OH-hqX" customClass="PostViewController" customModule="Speezy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,8 +250,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFp-3k-4Mx">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="122 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgv-q1-Tqc">
-                                        <rect key="frame" x="32" y="16" width="113" height="20.666666666666671"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="0 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgv-q1-Tqc">
+                                        <rect key="frame" x="32.000000000000007" y="16" width="96.666666666666686" height="20.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -262,7 +262,10 @@
                                             <constraint firstAttribute="height" constant="15" id="49G-4a-jbI"/>
                                             <constraint firstAttribute="width" constant="15" id="6ZE-Fg-Bfc"/>
                                         </constraints>
-                                        <state key="normal" image="heart-icon"/>
+                                        <state key="normal" image="like-button"/>
+                                        <connections>
+                                            <action selector="like:" destination="OcX-6v-Dz0" eventType="touchUpInside" id="3ly-ve-Huy"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="2316" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99i-Ad-AtN">
                                         <rect key="frame" x="344.66666666666669" y="16" width="37.333333333333314" height="21"/>
@@ -362,6 +365,9 @@
                     </view>
                     <connections>
                         <outlet property="commentsTextField" destination="rqm-bZ-m9g" id="bGY-aC-5A3"/>
+                        <outlet property="lblComments" destination="jgv-q1-Tqc" id="pi4-ou-rLL"/>
+                        <outlet property="lblLikes" destination="99i-Ad-AtN" id="to7-lJ-vsf"/>
+                        <outlet property="likeButton" destination="ecW-LB-LG5" id="RCe-zx-MDN"/>
                         <outlet property="sendCommentContainer" destination="uzX-fd-lYy" id="2Ww-lA-302"/>
                         <outlet property="tableView" destination="sed-UD-nhR" id="y3T-Yg-kdF"/>
                     </connections>
@@ -373,7 +379,7 @@
     </scenes>
     <resources>
         <image name="back-button" width="250" height="500"/>
-        <image name="heart-icon" width="512" height="512"/>
+        <image name="like-button" width="100" height="108"/>
         <image name="play-button" width="120" height="120"/>
         <image name="profile-background" width="1482" height="1482"/>
         <image name="send-chat-icon" width="500" height="500"/>
