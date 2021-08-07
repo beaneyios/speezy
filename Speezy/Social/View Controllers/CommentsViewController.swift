@@ -79,7 +79,7 @@ class CommentsViewController: UIViewController {
     
     @IBAction func submitCommit(_ sender: Any) {
         viewModel.submitComment()
-        commentsTextField.text = ""
+        commentsTextField.text = nil
     }
 }
 
