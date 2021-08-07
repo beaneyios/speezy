@@ -246,7 +246,10 @@ extension HomeCoordinator: AudioItemListCoordinatorDelegate {
             return
         }
         
-        chatCoordinator.shareItemToChat(audioItem: item)
+        chatCoordinator.shareItemToChat(
+            audioItem: item,
+            message: nil
+        )
     }
     
     func audioItemCoordinatorDidFinishRecording(_ coordinator: AudioItemListCoordinator) {

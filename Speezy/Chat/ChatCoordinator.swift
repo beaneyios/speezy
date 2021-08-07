@@ -47,14 +47,18 @@ class ChatCoordinator: ViewCoordinator, NavigationControlling {
         chatViewController.showNotificationLabel()
     }
     
-    func shareItemToChat(audioItem: AudioItem) {
+    func shareItemToChat(audioItem: AudioItem?, message: Message?) {
         let viewController = storyboard.instantiateViewController(
             identifier: "ChatShareViewController"
         ) as! ChatShareViewController
         
         viewController.delegate = self
         
-        let viewModel = ChatShareViewModel(store: Store.shared, audioItem: audioItem)
+        let viewModel = ChatShareViewModel(
+            store: Store.shared,
+            audioItem: audioItem,
+            message: message
+        )
         viewController.viewModel = viewModel
         navigationController.present(viewController, animated: true, completion: nil)
     }
@@ -143,6 +147,13 @@ extension ChatCoordinator: ChatListViewControllerDelegate {
 }
 
 extension ChatCoordinator: ChatViewControllerDelegate {
+    func chatViewController(
+        _ viewController: ChatViewController,
+        didForwardMessage message: Message
+    ) {
+        shareItemToChat(audioItem: nil, message: message)
+    }
+    
     func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager) {
         let coordinator = AudioItemCoordinator(navigationController: navigationController)
         add(coordinator)

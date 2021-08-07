@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -29,6 +29,15 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FtG-p3-G0j"/>
                                     <constraint firstAttribute="width" constant="30" id="eBY-Vc-bGZ"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forward" translatesAutoresizingMaskIntoConstraints="NO" id="4wl-d8-jNs">
+                                <rect key="frame" x="16" y="169.5" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="speezy-purple"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="iQi-C6-Mho"/>
+                                    <constraint firstAttribute="height" constant="30" id="vS5-W7-YJf"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6q6-hi-Bda">
@@ -211,6 +220,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="aX4-3z-eJD" firstAttribute="centerY" secondItem="GaY-cC-9hu" secondAttribute="centerY" id="RsY-jw-z4N"/>
+                            <constraint firstItem="4wl-d8-jNs" firstAttribute="leading" secondItem="GaY-cC-9hu" secondAttribute="leading" constant="16" id="TZq-f3-U8a"/>
+                            <constraint firstItem="4wl-d8-jNs" firstAttribute="centerY" secondItem="GaY-cC-9hu" secondAttribute="centerY" id="chL-MT-ZaI"/>
                             <constraint firstItem="6q6-hi-Bda" firstAttribute="leading" secondItem="GaY-cC-9hu" secondAttribute="leading" id="j2g-Cd-LvM"/>
                             <constraint firstItem="6q6-hi-Bda" firstAttribute="top" secondItem="GaY-cC-9hu" secondAttribute="top" id="lzG-Yl-1c1"/>
                             <constraint firstAttribute="bottom" secondItem="6q6-hi-Bda" secondAttribute="bottom" id="mfw-wr-JWx"/>
@@ -232,6 +243,7 @@
                 <outlet property="container" destination="6q6-hi-Bda" id="bV1-D6-X5d"/>
                 <outlet property="displayName" destination="ZRM-4u-xxO" id="Axe-Yk-36v"/>
                 <outlet property="durationLabel" destination="KKY-EB-1ns" id="2YU-Kv-0HP"/>
+                <outlet property="forwardIcon" destination="4wl-d8-jNs" id="ovv-ga-vVw"/>
                 <outlet property="messageContainer" destination="BUq-vR-o3i" id="V7g-Du-1Wb"/>
                 <outlet property="messageLabel" destination="9qa-c6-0V4" id="w8D-jr-B8g"/>
                 <outlet property="playButton" destination="mcz-Dh-5Bb" id="Vbb-cw-Bip"/>
@@ -256,6 +268,7 @@
     </objects>
     <resources>
         <image name="account-btn" width="342" height="342"/>
+        <image name="forward" width="200" height="200"/>
         <image name="plain-play-button" width="75" height="106"/>
         <image name="reply-icon" width="200" height="200"/>
         <image name="send-receive-ticks" width="120" height="72"/>

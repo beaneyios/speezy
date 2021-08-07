@@ -28,6 +28,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var playButtonImage: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
         
+    @IBOutlet weak var forwardIcon: UIImageView!
     @IBOutlet weak var replyIcon: UIImageView!
     @IBOutlet weak var unplayedNotification: UIView!
     @IBOutlet weak var unplayedNotificationPadding: NSLayoutConstraint!
@@ -43,6 +44,7 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     var longPressTapped: ((Message) -> Void)?
     var replyTriggered: ((Message) -> Void)?
     var replyTapped: ((MessageReply) -> Void)?
+    var forwardTriggered: ((Message) -> Void)?
     
     private(set) var audioManager: AudioManager?
     private(set) var message: Message?
@@ -253,9 +255,6 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         
         switch sender.state {
         case .changed:
-            if translation.x > 0.0 {
-                return
-            }
             
             let newTranslation: CGFloat = {
                 if abs(dampenedTranslation) > (frame.width / 3.0) {
@@ -264,6 +263,12 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
                     return dampenedTranslation
                 }
             }()
+            
+            if dampenedTranslation > 60.0 && forwardIcon.alpha == 0.0 {
+                UIView.animate(withDuration: 0.3) {
+                    self.forwardIcon.alpha = 1.0
+                }
+            }
             
             if dampenedTranslation < -60.0 && replyIcon.alpha == 0.0 {
                 UIView.animate(withDuration: 0.3) {
@@ -274,12 +279,21 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
             container.transform = CGAffineTransform(translationX: newTranslation, y: 0)
         case .ended:
             
+            if dampenedTranslation >= 60.0, let message = self.message {
+                forwardTriggered?(message)
+                UIView.animate(withDuration: 0.4) {
+                    self.forwardIcon.alpha = 0.0
+                }
+            }
+            
             if dampenedTranslation <= -60.0, let message = self.message {
                 replyTriggered?(message)
+                UIView.animate(withDuration: 0.4) {
+                    self.replyIcon.alpha = 0.0
+                }
             }
             
             UIView.animate(withDuration: 0.4) {
-                self.replyIcon.alpha = 0.0
                 self.container.transform = .identity
             }
         default:

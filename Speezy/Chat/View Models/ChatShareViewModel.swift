@@ -24,7 +24,8 @@ class ChatShareViewModel {
     var didChange: ((Change) -> Void)?
     
     private let store: Store
-    private let audioItem: AudioItem
+    private let audioItem: AudioItem?
+    private let message: Message?
     
     private let messageCreator = MessageCreator()
     private let chatUpdater = ChatUpdater()
@@ -40,9 +41,14 @@ class ChatShareViewModel {
         Auth.auth().currentUser?.uid
     }
     
-    init(store: Store, audioItem: AudioItem) {
+    init(
+        store: Store,
+        audioItem: AudioItem?,
+        message: Message?
+    ) {
         self.store = store
         self.audioItem = audioItem
+        self.message = message
     }
     
     func loadData() {
@@ -68,14 +74,26 @@ class ChatShareViewModel {
             return
         }
         
-        insertMessage(
-            userId: userId,
-            item: self.audioItem,
-            profile: profile
-        )
+        if let audioItem = audioItem {
+            insertMessage(
+                userId: userId,
+                item: audioItem,
+                profile: profile
+            )
+        } else if let message = message {
+            insertMessage(
+                message: message,
+                userId: userId,
+                profile: profile
+            )
+        }
     }
     
-    private func insertMessage(userId: String, item: AudioItem, profile: Profile) {
+    private func insertMessage(
+        userId: String,
+        item: AudioItem,
+        profile: Profile
+    ) {
         let chatter = Chatter(
             id: userId,
             displayName: profile.name,
@@ -97,6 +115,29 @@ class ChatShareViewModel {
             replyTo: nil
         )
         
+        insertMessage(message: message, chatter: chatter)
+    }
+    
+    private func insertMessage(
+        message: Message,
+        userId: String,
+        profile: Profile
+    ) {
+        let chatter = Chatter(
+            id: userId,
+            displayName: profile.name,
+            profileImageUrl: profile.profileImageUrl,
+            color: UIColor.random
+        )
+        
+        var newMessage = message
+        newMessage.chatter = chatter
+        newMessage.sent = Date()
+        newMessage.id = UUID().uuidString
+        insertMessage(message: newMessage, chatter: chatter)
+    }
+    
+    private func insertMessage(message: Message, chatter: Chatter) {
         messageCreator.insertMessage(
             chats: selectedChats,
             message: message

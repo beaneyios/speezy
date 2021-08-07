@@ -317,11 +317,21 @@
                                         <rect key="frame" x="0.0" y="53.5" width="375" height="549.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNp-h2-bvQ">
+                                        <rect key="frame" x="266.5" y="0.0" width="108.5" height="52.5"/>
+                                        <connections>
+                                            <action selector="like:" destination="OcX-6v-Dz0" eventType="touchUpInside" id="73X-Eb-HdB"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="cNp-h2-bvQ" firstAttribute="top" secondItem="DFp-3k-4Mx" secondAttribute="top" id="19U-bY-SQa"/>
+                                    <constraint firstAttribute="trailing" secondItem="cNp-h2-bvQ" secondAttribute="trailing" id="7Uc-RZ-KgC"/>
                                     <constraint firstItem="99i-Ad-AtN" firstAttribute="leading" secondItem="ecW-LB-LG5" secondAttribute="trailing" constant="8" id="AS9-tf-ump"/>
                                     <constraint firstItem="ar3-Ee-RVk" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" id="GEs-xB-0a6"/>
+                                    <constraint firstItem="cNp-h2-bvQ" firstAttribute="leading" secondItem="ecW-LB-LG5" secondAttribute="leading" constant="-16" id="H0J-k2-l5U"/>
+                                    <constraint firstItem="Lqe-oR-eha" firstAttribute="top" secondItem="cNp-h2-bvQ" secondAttribute="bottom" id="LX0-EI-dg9"/>
                                     <constraint firstItem="Lqe-oR-eha" firstAttribute="top" secondItem="jgv-q1-Tqc" secondAttribute="bottom" constant="16" id="M03-hA-Th2"/>
                                     <constraint firstItem="sed-UD-nhR" firstAttribute="leading" secondItem="DFp-3k-4Mx" secondAttribute="leading" id="OBL-Fj-gO5"/>
                                     <constraint firstAttribute="trailing" secondItem="99i-Ad-AtN" secondAttribute="trailing" constant="32" id="Pnz-YO-Aws"/>

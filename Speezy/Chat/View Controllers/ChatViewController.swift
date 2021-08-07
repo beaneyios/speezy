@@ -12,6 +12,10 @@ protocol ChatViewControllerDelegate: AnyObject {
     func chatViewControllerDidSelectOptions(_ viewController: ChatViewController)
     func chatViewControllerDidTapBack(_ viewController: ChatViewController)
     func chatViewController(_ viewController: ChatViewController, didSelectEditWithAudioManager manager: AudioManager)
+    func chatViewController(
+        _ viewController: ChatViewController,
+        didForwardMessage message: Message
+    )
 }
 
 class ChatViewController: UIViewController, QuickRecordPresenting, ChatViewModelDelegate {
@@ -551,6 +555,7 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
                 self.animateToReplyView(replyMessage)
             }
         }
+    
         return cell
     }
     
@@ -587,6 +592,10 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.replyTriggered = { message in
             self.viewModel.setReplyMessage(message)
+        }
+        
+        cell.forwardTriggered = { message in
+            self.delegate?.chatViewController(self, didForwardMessage: message)
         }
         
         cell.replyTapped = { replyMessage in
