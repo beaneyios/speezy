@@ -253,12 +253,16 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
         let translation = sender.translation(in: self)
         let dampenedTranslation = translation.x * 0.7
         
+        print(dampenedTranslation)
+        
         switch sender.state {
         case .changed:
             
             let newTranslation: CGFloat = {
-                if abs(dampenedTranslation) > (frame.width / 3.0) {
+                if dampenedTranslation < ((frame.width / 3.0) * -1) {
                     return -(frame.width / 3.0)
+                } else if dampenedTranslation > (frame.width / 3.0) {
+                    return frame.width / 3.0
                 } else {
                     return dampenedTranslation
                 }
