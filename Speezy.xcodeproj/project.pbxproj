@@ -126,8 +126,9 @@
 		BE5D239C2699BFFB00E902BA /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */; };
 		BE5E70E226BB103400020FF4 /* PostLiker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E126BB103400020FF4 /* PostLiker.swift */; };
 		BE5E70E426BB135300020FF4 /* LocalLikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E326BB135300020FF4 /* LocalLikeManager.swift */; };
-		BE5E70E626BD89E500020FF4 /* PostListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E526BD89E500020FF4 /* PostListener.swift */; };
+		BE5E70E626BD89E500020FF4 /* PostsChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E526BD89E500020FF4 /* PostsChangeListener.swift */; };
 		BE5E70E826BD8A6200020FF4 /* PostValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E726BD8A6200020FF4 /* PostValue.swift */; };
+		BE5E70EA26BDB69800020FF4 /* PostsAdditionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5E70E926BDB69800020FF4 /* PostsAdditionListener.swift */; };
 		BE6080A7250E84FB003CB318 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A6250E84FB003CB318 /* Transcript.swift */; };
 		BE6080A9250E852A003CB318 /* AppleSpeechTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */; };
 		BE6080AC250E8627003CB318 /* TranscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */; };
@@ -518,8 +519,9 @@
 		BE5D239B2699BFFB00E902BA /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		BE5E70E126BB103400020FF4 /* PostLiker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLiker.swift; sourceTree = "<group>"; };
 		BE5E70E326BB135300020FF4 /* LocalLikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalLikeManager.swift; sourceTree = "<group>"; };
-		BE5E70E526BD89E500020FF4 /* PostListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListener.swift; sourceTree = "<group>"; };
+		BE5E70E526BD89E500020FF4 /* PostsChangeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsChangeListener.swift; sourceTree = "<group>"; };
 		BE5E70E726BD8A6200020FF4 /* PostValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostValue.swift; sourceTree = "<group>"; };
+		BE5E70E926BDB69800020FF4 /* PostsAdditionListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsAdditionListener.swift; sourceTree = "<group>"; };
 		BE6080A6250E84FB003CB318 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		BE6080A8250E852A003CB318 /* AppleSpeechTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriber.swift; sourceTree = "<group>"; };
 		BE6080AB250E8627003CB318 /* TranscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionViewController.swift; sourceTree = "<group>"; };
@@ -1813,7 +1815,8 @@
 				BE63DA5926B08AA600501CD5 /* PostCreator.swift */,
 				BE7E237426AF202700463F80 /* PostFetcher.swift */,
 				BE5E70E126BB103400020FF4 /* PostLiker.swift */,
-				BE5E70E526BD89E500020FF4 /* PostListener.swift */,
+				BE5E70E926BDB69800020FF4 /* PostsAdditionListener.swift */,
+				BE5E70E526BD89E500020FF4 /* PostsChangeListener.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2465,6 +2468,7 @@
 				BE9AD41A25692F240034F921 /* AudioCutter.swift in Sources */,
 				BEFDB518255FF44A00362428 /* PlayerObservationManaging.swift in Sources */,
 				BEF3B724254819A8009308A4 /* TranscriptStorage.swift in Sources */,
+				BE5E70EA26BDB69800020FF4 /* PostsAdditionListener.swift in Sources */,
 				BE05275124CAC30900B0D22B /* VideoPlaceholderView.swift in Sources */,
 				BEA32E2925D814D400A9F643 /* ProfileObservation.swift in Sources */,
 				BE939D6325D06BC500042EB7 /* AudioItemFetcher.swift in Sources */,
@@ -2531,7 +2535,7 @@
 				BE978D17262C4CA500E71419 /* ReplyView.swift in Sources */,
 				BE63DA5C26B08B9E00501CD5 /* PostsObserver.swift in Sources */,
 				BEC1AF042603CC75008A33E8 /* AccountDeletionManager.swift in Sources */,
-				BE5E70E626BD89E500020FF4 /* PostListener.swift in Sources */,
+				BE5E70E626BD89E500020FF4 /* PostsChangeListener.swift in Sources */,
 				BE939D3C25D0222D00042EB7 /* FavouriteRecordingsListObserver.swift in Sources */,
 				BE0A459925CEBE5E005F4DA8 /* ContactStore.swift in Sources */,
 				BEED8DBF26AAE38200C35D26 /* Comment.swift in Sources */,

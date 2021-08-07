@@ -18,10 +18,10 @@ protocol HomeCoordinatorDelegate: AnyObject {
 
 class HomeCoordinator: ViewCoordinator {
     enum TabBarTab: Int {
+        case home
         case chat
-        case audio
         case speezy
-        case contacts
+        case audio
         case settings
     }
     
@@ -57,23 +57,23 @@ class HomeCoordinator: ViewCoordinator {
     }
     
     func navigateToAddContact(contactId: String) {
-        tabBarController.selectedIndex = TabBarTab.contacts.rawValue
-        
-        guard let profileCoordinator = find(ProfileCoordinator.self) else {
-            return
-        }
-        
-        profileCoordinator.navigateToAddContact(contactId: contactId)
+//        tabBarController.selectedIndex = TabBarTab.contacts.rawValue
+//
+//        guard let profileCoordinator = find(ProfileCoordinator.self) else {
+//            return
+//        }
+//
+//        profileCoordinator.navigateToAddContact(contactId: contactId)
     }
     
     func navigateToProfile() {
-        tabBarController.selectedIndex = TabBarTab.contacts.rawValue
-        
-        guard let profileCoordinator = find(ProfileCoordinator.self) else {
-            return
-        }
-        
-        profileCoordinator.profileEditViewController?.highlightAddButton()
+//        tabBarController.selectedIndex = TabBarTab.contacts.rawValue
+//        
+//        guard let profileCoordinator = find(ProfileCoordinator.self) else {
+//            return
+//        }
+//        
+//        profileCoordinator.profileEditViewController?.highlightAddButton()
     }
     
     func navigateToChatId(_ chatId: String, message: String) {
@@ -224,7 +224,6 @@ extension HomeCoordinator: UITabBarControllerDelegate {
             else {
                 return false
             }
-            
             
             listViewController.presentQuickRecordDialogue(
                 item: listViewController.viewModel.newItem,

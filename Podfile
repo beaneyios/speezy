@@ -11,6 +11,7 @@ target 'Speezy' do
   pod 'AFDateHelper', '~> 4.3.0'
   pod 'SCLAlertView', '~> 0.8'
   pod 'DeviceKit', '~> 4.2.1'
+  pod "TTGSnackbar"
   
   pod 'Firebase/Crashlytics', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'
   pod 'Firebase/Auth', :git => 'https://github.com/invertase/firebase-ios-sdk.git', :branch => 'master'

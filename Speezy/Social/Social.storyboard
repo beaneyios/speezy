@@ -21,20 +21,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Qh-LS-Lpm">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-button" translatesAutoresizingMaskIntoConstraints="NO" id="uFt-sg-sN8">
-                                        <rect key="frame" x="16" y="16.5" width="15" height="31"/>
-                                        <color key="tintColor" name="speezy-purple"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="c6P-dg-aDJ"/>
-                                            <constraint firstAttribute="height" constant="31" id="tRr-h3-aPm"/>
-                                        </constraints>
-                                    </imageView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bvQ-Qw-P6w">
                                         <rect key="frame" x="339" y="22" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfF-Mp-fyP">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gyg-Km-oHO">
                                         <rect key="frame" x="167" y="20" width="41" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -43,16 +32,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="JfF-Mp-fyP" firstAttribute="top" secondItem="3Qh-LS-Lpm" secondAttribute="top" id="36B-R8-lSD"/>
                                     <constraint firstItem="Gyg-Km-oHO" firstAttribute="centerY" secondItem="3Qh-LS-Lpm" secondAttribute="centerY" id="9Ea-fe-ogr"/>
                                     <constraint firstItem="bvQ-Qw-P6w" firstAttribute="centerY" secondItem="3Qh-LS-Lpm" secondAttribute="centerY" id="DrV-mJ-Nk3"/>
                                     <constraint firstItem="Gyg-Km-oHO" firstAttribute="centerX" secondItem="3Qh-LS-Lpm" secondAttribute="centerX" id="IG0-I8-Hnz"/>
-                                    <constraint firstAttribute="bottom" secondItem="JfF-Mp-fyP" secondAttribute="bottom" id="KFQ-wl-uGf"/>
                                     <constraint firstAttribute="height" constant="64" id="LbO-we-3wa"/>
-                                    <constraint firstItem="uFt-sg-sN8" firstAttribute="centerY" secondItem="3Qh-LS-Lpm" secondAttribute="centerY" id="VQ2-Ss-KGk"/>
                                     <constraint firstAttribute="trailing" secondItem="bvQ-Qw-P6w" secondAttribute="trailing" constant="16" id="dEV-JJ-KbG"/>
-                                    <constraint firstItem="JfF-Mp-fyP" firstAttribute="leading" secondItem="3Qh-LS-Lpm" secondAttribute="leading" id="nqM-5e-6hu"/>
-                                    <constraint firstItem="uFt-sg-sN8" firstAttribute="leading" secondItem="3Qh-LS-Lpm" secondAttribute="leading" constant="16" id="vJ3-VZ-MvG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8p-YW-gH6">
@@ -379,7 +363,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back-button" width="250" height="500"/>
         <image name="like-button" width="100" height="108"/>
         <image name="play-button" width="120" height="120"/>
         <image name="profile-background" width="1482" height="1482"/>

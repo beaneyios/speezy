@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TTGSnackbar
 
 class CommentsViewController: UIViewController {
     @IBOutlet weak var sendCommentContainer: UIView!
@@ -78,6 +79,7 @@ class CommentsViewController: UIViewController {
     
     @IBAction func submitCommit(_ sender: Any) {
         viewModel.submitComment()
+        commentsTextField.text = ""
     }
 }
 

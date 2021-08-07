@@ -7,11 +7,30 @@
 //
 
 import UIKit
+import TTGSnackbar
 
 class SocialFeedViewController: UIViewController {
     private var pageViewController: UIPageViewController?
     
     var viewModel = SocialFeedViewModel()
+    
+    var showRefresh = false
+    var isVisible = false
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        isVisible = true
+        
+        if showRefresh {
+            showRefreshNotification()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isVisible = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +38,27 @@ class SocialFeedViewController: UIViewController {
         configurePageViewController()
         observeViewModelChanges()
         viewModel.loadData()
+    }
+    
+    private func showRefreshNotification() {
+        let snackbar = TTGSnackbar(
+            message: "More posts available",
+            duration: .forever,
+            actionText: "Refresh",
+            actionBlock: { (snackbar) in
+                DispatchQueue.main.async {
+                    snackbar.dismiss()
+                    self.refreshViewControllers()
+                }
+            }
+        )
+
+        snackbar.backgroundColor = .speezyPurple
+        snackbar.tintColor = .white
+        snackbar.contentInset = UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 6.0)
+        snackbar.animationType = .slideFromTopToBottom
+        snackbar.show()
+        showRefresh = false
     }
     
     private func observeViewModelChanges() {
@@ -29,6 +69,12 @@ class SocialFeedViewController: UIViewController {
                     self.refreshViewControllers()
                 case .updated:
                     break
+                case .newPosts:
+                    if self.isVisible {
+                        self.showRefreshNotification()
+                    } else {
+                        self.showRefresh = true
+                    }
                 }
             }            
         }

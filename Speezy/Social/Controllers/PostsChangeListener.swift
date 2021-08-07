@@ -9,9 +9,13 @@
 import Foundation
 import FirebaseDatabase
 
-class PostsListener {
-    let post: Post
+class PostsChangeListener: Identifiable {
+    var post: Post
     var queries: [String: DatabaseQuery] = [:]
+    
+    var id: String {
+        post.id
+    }
     
     init(post: Post) {
         self.post = post
@@ -45,8 +49,8 @@ class PostsListener {
 }
 
 // MARK: Post changes listening
-extension PostsListener {
-    func listenForChanges(completion: @escaping (PostValueChange) -> Void) {
+extension PostsChangeListener {
+    func listenForChanges(completion: @escaping (Post, PostValueChange) -> Void) {
         let postIdQueryKey = "\(post.id)_changes"
         removeQueryListener(forId: postIdQueryKey)
         
@@ -65,7 +69,8 @@ extension PostsListener {
                 postId: self.post.id,
                 postValue: postValue
             )
-            completion(change)
+            
+            completion(self.post, change)
         }
         
         queries[postIdQueryKey] = query

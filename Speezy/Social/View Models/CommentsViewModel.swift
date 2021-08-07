@@ -97,6 +97,8 @@ extension CommentsViewModel: ProfileObserver {
 extension CommentsViewModel: PostsObserver {
     func initialPostsReceived(posts: [Post]) {}
     func pagedPosts(newPosts: [Post], allPosts: [Post]) {}
+    func postAdded(newPost: Post) {}
+    
     func postChanged(newPost: Post) {
         if newPost.id != post.id {
             return

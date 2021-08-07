@@ -105,7 +105,7 @@ class MessagesStore {
             }
         }
         
-        messageListeners = messageListeners.replacing(listener)
+        messageListeners = messageListeners.inserting(listener)
     }
     
     func listenForMessageChanges(message: Message, chat: Chat, chatters: [Chatter]) {

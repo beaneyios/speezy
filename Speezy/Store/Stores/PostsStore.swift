@@ -10,7 +10,8 @@ import Foundation
 
 class PostsStore {
     private let postsFetcher = PostsFetcher()
-    private var postsListeners = [PostsListener]()
+    private var postsListeners = [PostsChangeListener]()
+    private let postAdditionListener = PostsAdditionListener()
     
     private(set) var posts = [Post]()
     private var observations = [ObjectIdentifier : PostsObservation]()
@@ -30,6 +31,7 @@ class PostsStore {
                 switch result {
                 case let .success(newPosts):
                     self.handleNewPage(posts: newPosts)
+                    self.listenForNewPosts(mostRecentPost: newPosts.first)
                     
                     newPosts.forEach {
                         let post = $0
@@ -43,9 +45,34 @@ class PostsStore {
     }
     
     func listenForPostChanges(post: Post) {
-        self.listener(post: post).listenForChanges { change in
-            self.handlePostChanged(post: post, value: change)
+        let listener = self.listener(post: post)
+        listener.listenForChanges { newPost, change in
+            self.handlePostChanged(post: newPost, value: change)
         }
+        postsListeners = postsListeners.inserting(listener)
+    }
+    
+    func listenForNewPosts(mostRecentPost: Post?) {
+        postAdditionListener.listenForPostAdditions(mostRecentPost: mostRecentPost) { result in
+            switch result {
+            case let .success(newPost):
+                self.handlePostAdded(post: newPost)
+                self.listenForPostChanges(post: newPost)
+            case let .failure(error):
+                break
+            }
+        }
+    }
+    
+    private func handlePostAdded(post: Post) {
+        guard !posts.contains(post) else {
+            return
+        }
+
+        self.posts.insert(post, at: 0)
+        notifyObservers(
+            change: .postAdded(post: post)
+        )
     }
     
     private func handlePostChanged(post: Post, value: PostValueChange) {
@@ -69,10 +96,14 @@ class PostsStore {
         notifyObservers(
             change: .postChanged(post: newPost)
         )
+        
+        if let index = postsListeners.index(newPost.id) {
+            postsListeners[index].post = newPost
+        }
     }
     
-    private func listener(post: Post) -> PostsListener {
-        postsListeners.first { $0.post.id == post.id } ?? PostsListener(post: post)
+    private func listener(post: Post) -> PostsChangeListener {
+        postsListeners.first { $0.post.id == post.id } ?? PostsChangeListener(post: post)
     }
     
     private func handleNewPage(posts: [Post]) {
@@ -87,6 +118,7 @@ extension PostsStore {
     enum Change {
         case pagedPosts(newPosts: [Post], allPosts: [Post])
         case postChanged(post: Post)
+        case postAdded(post: Post)
     }
     
     func addPostsObserver(_ observer: PostsObserver) {
@@ -118,6 +150,8 @@ extension PostsStore {
                 observer.pagedPosts(newPosts: newPosts, allPosts: allPosts)
             case let .postChanged(post):
                 observer.postChanged(newPost: post)
+            case let .postAdded(post):
+                observer.postAdded(newPost: post)
             }
         }
     }

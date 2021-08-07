@@ -12,6 +12,7 @@ class SocialFeedViewModel {
     enum Change {
         case initialLoad
         case updated
+        case newPosts
     }
     
     var didChange: ((Change) -> Void)?
@@ -77,6 +78,21 @@ extension SocialFeedViewModel: PostsObserver {
             } else {
                 return $0
             }
+        }
+    }
+    
+    func postAdded(newPost: Post) {
+        if posts.contains(elementWithId: newPost.id) {
+            self.posts = posts.map {
+                if $0.id == newPost.id {
+                    return newPost
+                } else {
+                    return $0
+                }
+            }
+        } else {
+            self.posts.insert(newPost, at: 0)
+            didChange?(.newPosts)
         }
     }
 }

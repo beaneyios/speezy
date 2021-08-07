@@ -12,4 +12,5 @@ protocol PostsObserver: AnyObject {
     func initialPostsReceived(posts: [Post])
     func pagedPosts(newPosts: [Post], allPosts: [Post])
     func postChanged(newPost: Post)
+    func postAdded(newPost: Post)
 }
