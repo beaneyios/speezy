@@ -112,6 +112,7 @@ class ChatShareViewModel {
             duration: item.calculatedDuration,
             readBy: [],
             playedBy: [],
+            forwarded: true,
             replyTo: nil
         )
         
@@ -134,6 +135,7 @@ class ChatShareViewModel {
         newMessage.chatter = chatter
         newMessage.sent = Date()
         newMessage.id = UUID().uuidString
+        newMessage.forwarded = true
         insertMessage(message: newMessage, chatter: chatter)
     }
     

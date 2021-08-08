@@ -331,6 +331,7 @@ extension ChatViewModel {
             duration: item?.calculatedDuration,
             readBy: [chatter],
             playedBy: [],
+            forwarded: false,
             replyTo: currentReplyMessage?.toReply
         )
                 

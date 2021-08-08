@@ -20,6 +20,7 @@ struct Message: Equatable, Identifiable {
     var duration: TimeInterval?
     var readBy: [Chatter]
     var playedBy: [String]
+    var forwarded: Bool
     
     var replyTo: MessageReply?
     
@@ -71,6 +72,7 @@ extension Message {
         
         messageDict["user_id"] = chatter.id
         messageDict["played_by"] = playedBy.joined(separator: ",")
+        messageDict["forwarded"] = forwarded
         return messageDict
     }
     
@@ -119,6 +121,8 @@ extension Message {
             )
         }()
         
+        let forwarded = dict["forwarded"] as? Bool
+        
         return Message(
             id: key,
             chatter: chatter,
@@ -130,6 +134,7 @@ extension Message {
             duration: dict["duration"] as? TimeInterval,
             readBy: readBy,
             playedBy: playedBy,
+            forwarded: forwarded ?? false,
             replyTo: replyMessage
         )
     }

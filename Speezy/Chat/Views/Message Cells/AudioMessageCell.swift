@@ -139,9 +139,26 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     }
     
     private func configureReplyBox(item: MessageCellModel) {
-        
         replyBox.subviews.forEach {
             $0.removeFromSuperview()
+        }
+        
+        if item.message.forwarded {
+            replyBoxHeight.constant = 30.0
+            let label = UILabel()
+            label.text = "Forwarded"
+            label.font = UIFont.italicSystemFont(ofSize: 14.0)
+            label.textColor = item.messageTint
+            self.replyBox.addSubview(label)
+            label.alpha = 0.8
+            label.snp.makeConstraints { maker in
+                maker.top.equalToSuperview().offset(8.0)
+                maker.bottom.equalToSuperview().offset(-8.0)
+                maker.leading.equalToSuperview().offset(10.0)
+                maker.trailing.equalToSuperview().offset(-10.0)
+            }
+            
+            return
         }
         
         guard let messageReply = item.message.replyTo else {
@@ -252,8 +269,6 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
     @objc func swipePan(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self)
         let dampenedTranslation = translation.x * 0.7
-        
-        print(dampenedTranslation)
         
         switch sender.state {
         case .changed:
