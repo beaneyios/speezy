@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,6 +22,24 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Lu-e2-ToD">
                         <rect key="frame" x="0.0" y="0.0" width="470" height="216"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply-icon" translatesAutoresizingMaskIntoConstraints="NO" id="4Ko-gB-eJr">
+                                <rect key="frame" x="424" y="93" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="speezy-purple"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="J3C-XT-7Ck"/>
+                                    <constraint firstAttribute="width" constant="30" id="Kn4-yC-flW"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forward" translatesAutoresizingMaskIntoConstraints="NO" id="bnM-oa-dob">
+                                <rect key="frame" x="16" y="93" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="speezy-purple"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mhs-n1-oK1"/>
+                                    <constraint firstAttribute="width" constant="30" id="yyH-Vi-vdU"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m3K-75-5AF">
                                 <rect key="frame" x="0.0" y="0.0" width="470" height="216"/>
                                 <subviews>
@@ -104,15 +122,6 @@
                                     <constraint firstItem="Fl7-xC-OF1" firstAttribute="leading" secondItem="m3K-75-5AF" secondAttribute="leading" constant="12" id="hLu-Cv-uo0"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply-icon" translatesAutoresizingMaskIntoConstraints="NO" id="4Ko-gB-eJr">
-                                <rect key="frame" x="424" y="93" width="30" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" name="speezy-purple"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="J3C-XT-7Ck"/>
-                                    <constraint firstAttribute="width" constant="30" id="Kn4-yC-flW"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -120,6 +129,8 @@
                             <constraint firstItem="m3K-75-5AF" firstAttribute="leading" secondItem="1Lu-e2-ToD" secondAttribute="leading" id="cnX-dE-HAb"/>
                             <constraint firstAttribute="bottom" secondItem="m3K-75-5AF" secondAttribute="bottom" id="j8Y-gp-07h"/>
                             <constraint firstAttribute="trailing" secondItem="4Ko-gB-eJr" secondAttribute="trailing" constant="16" id="k4X-Te-kZO"/>
+                            <constraint firstItem="bnM-oa-dob" firstAttribute="centerY" secondItem="1Lu-e2-ToD" secondAttribute="centerY" id="kTe-MH-crn"/>
+                            <constraint firstItem="bnM-oa-dob" firstAttribute="leading" secondItem="1Lu-e2-ToD" secondAttribute="leading" constant="16" id="mZr-M7-UTH"/>
                             <constraint firstAttribute="trailing" secondItem="m3K-75-5AF" secondAttribute="trailing" id="qgf-Qb-vsA"/>
                             <constraint firstItem="4Ko-gB-eJr" firstAttribute="centerY" secondItem="1Lu-e2-ToD" secondAttribute="centerY" id="y98-DR-dhL"/>
                         </constraints>
@@ -137,6 +148,7 @@
             <connections>
                 <outlet property="container" destination="m3K-75-5AF" id="EZw-Va-c4T"/>
                 <outlet property="displayName" destination="LpR-w4-QhF" id="d4Q-ya-Nwi"/>
+                <outlet property="forwardIcon" destination="bnM-oa-dob" id="DU8-lD-44X"/>
                 <outlet property="messageContainer" destination="NZb-qu-BOU" id="HWS-3O-ff4"/>
                 <outlet property="messageLabel" destination="gst-vl-hLS" id="w7z-Ds-KO8"/>
                 <outlet property="profileImage" destination="Fl7-xC-OF1" id="QQv-yr-4S6"/>
@@ -153,6 +165,7 @@
     </objects>
     <resources>
         <image name="account-btn" width="342" height="342"/>
+        <image name="forward" width="200" height="200"/>
         <image name="reply-icon" width="200" height="200"/>
         <image name="send-receive-ticks" width="120" height="72"/>
         <namedColor name="chat-bubble-sender">

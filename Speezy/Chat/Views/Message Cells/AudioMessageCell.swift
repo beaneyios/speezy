@@ -300,20 +300,16 @@ class AudioMessageCell: UICollectionViewCell, NibLoadable {
             
             if dampenedTranslation >= 60.0, let message = self.message {
                 forwardTriggered?(message)
-                UIView.animate(withDuration: 0.4) {
-                    self.forwardIcon.alpha = 0.0
-                }
             }
             
             if dampenedTranslation <= -60.0, let message = self.message {
                 replyTriggered?(message)
-                UIView.animate(withDuration: 0.4) {
-                    self.replyIcon.alpha = 0.0
-                }
             }
             
             UIView.animate(withDuration: 0.4) {
                 self.container.transform = .identity
+                self.replyIcon.alpha = 0.0
+                self.forwardIcon.alpha = 0.0
             }
         default:
             break

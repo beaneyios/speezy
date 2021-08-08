@@ -20,6 +20,8 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var sendStatusPadding: NSLayoutConstraint!
     @IBOutlet weak var messageContainer: UIView!
     @IBOutlet weak var replyIcon: UIImageView!
+    @IBOutlet weak var forwardIcon: UIImageView!
+    
     @IBOutlet weak var container: UIView!
     
     @IBOutlet weak var replyBox: UIView!
@@ -30,6 +32,7 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     var longPressTapped: ((Message) -> Void)?
     var replyTriggered: ((Message) -> Void)?
     var replyTapped: ((MessageReply) -> Void)?
+    var forwardTriggered: ((Message) -> Void)?
     
     func configure(item: MessageCellModel) {
         self.message = item.message
@@ -111,17 +114,21 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
         
         switch sender.state {
         case .changed:
-            if translation.x > 0.0 {
-                return
-            }
-            
             let newTranslation: CGFloat = {
-                if abs(dampenedTranslation) > (frame.width / 3.0) {
+                if dampenedTranslation < ((frame.width / 3.0) * -1) {
                     return -(frame.width / 3.0)
+                } else if dampenedTranslation > (frame.width / 3.0) {
+                    return frame.width / 3.0
                 } else {
                     return dampenedTranslation
                 }
             }()
+            
+            if dampenedTranslation > 60.0 && forwardIcon.alpha == 0.0 {
+                UIView.animate(withDuration: 0.3) {
+                    self.forwardIcon.alpha = 1.0
+                }
+            }
             
             if dampenedTranslation < -60.0 && replyIcon.alpha == 0.0 {
                 UIView.animate(withDuration: 0.3) {
@@ -132,13 +139,18 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
             container.transform = CGAffineTransform(translationX: newTranslation, y: 0)
         case .ended:
             
+            if dampenedTranslation >= 60.0, let message = self.message {
+                forwardTriggered?(message)
+            }
+            
             if dampenedTranslation <= -60.0, let message = self.message {
                 replyTriggered?(message)
             }
             
             UIView.animate(withDuration: 0.4) {
-                self.replyIcon.alpha = 0.0
                 self.container.transform = .identity
+                self.replyIcon.alpha = 0.0
+                self.forwardIcon.alpha = 0.0
             }
         default:
             break
@@ -146,9 +158,26 @@ class TextMessageCell: UICollectionViewCell, NibLoadable {
     }
     
     private func configureReplyBox(item: MessageCellModel) {
-        
         replyBox.subviews.forEach {
             $0.removeFromSuperview()
+        }
+        
+        if item.message.forwarded {
+            replyBoxHeight.constant = 30.0
+            let label = UILabel()
+            label.text = "Forwarded"
+            label.font = UIFont.italicSystemFont(ofSize: 14.0)
+            label.textColor = item.messageTint
+            self.replyBox.addSubview(label)
+            label.alpha = 0.8
+            label.snp.makeConstraints { maker in
+                maker.top.equalToSuperview().offset(8.0)
+                maker.bottom.equalToSuperview().offset(-8.0)
+                maker.leading.equalToSuperview().offset(10.0)
+                maker.trailing.equalToSuperview().offset(-10.0)
+            }
+            
+            return
         }
         
         guard let messageReply = item.message.replyTo else {

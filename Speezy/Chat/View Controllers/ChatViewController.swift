@@ -555,6 +555,10 @@ extension ChatViewController: UICollectionViewDataSource, UICollectionViewDelega
                 self.animateToReplyView(replyMessage)
             }
         }
+        
+        cell.forwardTriggered = { message in
+            self.delegate?.chatViewController(self, didForwardMessage: message)
+        }
     
         return cell
     }
